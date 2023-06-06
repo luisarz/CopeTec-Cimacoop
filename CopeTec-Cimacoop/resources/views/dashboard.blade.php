@@ -2,6 +2,8 @@
 @section("title")
 Dashboard
 @endsection
+
+
 @section('content')
 XDDD
 @endsection

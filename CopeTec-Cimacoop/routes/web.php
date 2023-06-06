@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +39,14 @@ Route::post('/user/add',[UserController::class, 'post'])->middleware('auth');
 Route::delete('/user/delete',[UserController::class, 'delete'])->middleware('auth');
 Route::get('/user/{id}',[UserController::class, 'edit'])->middleware('auth');
 Route::put('/user/put',[UserController::class, 'put'])->middleware('auth');
+
+
+/*
+Rol Route
+ */
+Route::get('/rol',[RolController::class, 'index'])->middleware('auth');
+Route::get('/rol/add',[RolController::class, 'add'])->middleware('auth');
+Route::post('/rol/add',[RolController::class, 'post'])->middleware('auth');
+Route::delete('/rol/delete',[RolController::class, 'delete'])->middleware('auth');
+Route::get('/rol/{id}',[RolController::class, 'edit'])->middleware('auth');
+Route::put('/rol/put',[RolController::class, 'put'])->middleware('auth');
