@@ -36,3 +36,5 @@ Route::get('/user',[UserController::class, 'index'])->middleware('auth');
 Route::get('/user/add',[UserController::class, 'add'])->middleware('auth');
 Route::post('/user/add',[UserController::class, 'post'])->middleware('auth');
 Route::delete('/user/delete',[UserController::class, 'delete'])->middleware('auth');
+Route::get('/user/{id}',[UserController::class, 'edit'])->middleware('auth');
+Route::put('/user/put',[UserController::class, 'put'])->middleware('auth');

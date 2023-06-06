@@ -19,6 +19,12 @@ class UserController extends Controller
         return view("user.add");   
     }
 
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view("user.edit",compact("user"));   
+    }
+
 
     public function post(Request $request)
     {
@@ -35,6 +41,18 @@ class UserController extends Controller
     {
         User::destroy($request->id);
         return redirect("/user");
+    }
+
+    public function put(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if(!empty($request->password)){
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+        return redirect("/user");  
     }
 
 }

@@ -20,7 +20,7 @@ Administracion de Usuarios
             <tr>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td><a href="javascript:void(0);" onclick="alertDelete({{$user->id}})" class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp; Eliminar</a>  <a href="#" class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a></td>
+                <td><a href="javascript:void(0);" onclick="alertDelete({{$user->id}})" class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp; Eliminar</a>  <a href="/user/{{$user->id}}" class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a></td>
             </tr>
             @endforeach
         </tbody>
