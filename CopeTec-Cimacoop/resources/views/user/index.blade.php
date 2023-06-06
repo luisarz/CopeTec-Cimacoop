@@ -20,10 +20,43 @@ Administracion de Usuarios
             <tr>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td><a href="#" class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp; Eliminar</a>  <a href="#" class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a></td>
+                <td><a href="javascript:void(0);" onclick="alertDelete({{$user->id}})" class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp; Eliminar</a>  <a href="#" class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a></td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
+<form method="post" id="deleteForm" action="/user/delete">
+    {!! csrf_field() !!}
+    {{ method_field('DELETE') }}
+    <input type="hidden" name="id" id="userid">
+</form>
+@endsection
+
+@section("scripts")
+<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
+<script src="assets/plugins/global/plugins.bundle.js"></script>
+<script>
+    function alertDelete(id)
+    {
+        Swal.fire({
+            text: "Deseas Eliminar este registro",
+            icon: "warning",
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: "Si",
+            cancelButtonText: 'No',
+            customClass: {
+                confirmButton: "btn btn-warning",
+                cancelButton: "btn btn-secondary"
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $("#userid").val(id)
+                $("#deleteForm").submit();
+            } else if (result.isDenied) {
+            }
+        });
+    }
+</script>
 @endsection
