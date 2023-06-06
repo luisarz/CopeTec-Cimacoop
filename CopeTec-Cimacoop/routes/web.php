@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\TipoCuentaController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\ReferenciasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,3 +74,23 @@ Route::post('/empleados/add', [EmpleadoController::class, 'post'])->middleware('
 Route::delete('/empleados/delete', [EmpleadoController::class, 'delete'])->middleware('auth');
 Route::get('/empleados/{id}', [EmpleadoController::class, 'edit'])->middleware('auth');
 Route::put('/empleados/put', [EmpleadoController::class, 'put'])->middleware('auth');
+
+/*
+Clientes Route
+ */
+Route::get('/clientes', [ClientesController::class, 'index'])->middleware('auth');
+Route::get('/clientes/add', [ClientesController::class, 'add'])->middleware('auth');
+Route::post('/clientes/add', [ClientesController::class, 'post'])->middleware('auth');
+Route::delete('/clientes/delete', [ClientesController::class, 'delete'])->middleware('auth');
+Route::get('/clientes/{id}', [ClientesController::class, 'edit'])->middleware('auth');
+Route::put('/clientes/put', [ClientesController::class, 'put'])->middleware('auth');
+
+/*
+Referencias Route
+ */
+Route::get('/referencias', [ReferenciasController::class, 'index'])->middleware('auth');
+Route::get('/referencias/add', [ReferenciasController::class, 'add'])->middleware('auth');
+Route::post('/referencias/add', [ReferenciasController::class, 'post'])->middleware('auth');
+Route::delete('/referencias/delete', [ReferenciasController::class, 'delete'])->middleware('auth');
+Route::get('/referencias/{id}', [ReferenciasController::class, 'edit'])->middleware('auth');
+Route::put('/referencias/put', [ReferenciasController::class, 'put'])->middleware('auth');

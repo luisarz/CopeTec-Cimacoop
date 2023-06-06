@@ -134,7 +134,7 @@ License: For each use you must have a valid license purchased only from above li
 									</div>
 									<!--end:Menu item-->
 									<!--begin:Menu item-->
-									<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<div data-kt-menu-trigger="click" class="menu-item menu-accordion show">
 										<!--begin:Menu link-->
 										<span class="menu-link">
 											<span class="menu-icon">
@@ -144,7 +144,7 @@ License: For each use you must have a valid license purchased only from above li
 													<span class="path3"></span>
 												</i>
 											</span>
-											<span class="menu-title">Configuracion</span>
+											<span class="menu-title ">Configuracion</span>
 											<span class="menu-arrow"></span>
 										</span>
 										<!--end:Menu link-->
@@ -192,6 +192,27 @@ License: For each use you must have a valid license purchased only from above li
 														<span class="bullet bullet-dot"></span>
 													</span>
 													<span class="menu-title">Empleados</span>
+												</a>
+												<!--end:Menu link-->
+											</div>
+											<!--end:Menu item-->
+												<div class="menu-item">
+												<!--begin:Menu link-->
+												<a class="menu-link" href="/clientes">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+													<span class="menu-title">Clientes</span>
+												</a>
+												<!--end:Menu link-->
+											</div>
+											<div class="menu-item">
+												<!--begin:Menu link-->
+												<a class="menu-link" href="/referencias">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+													<span class="menu-title">Referencias</span>
 												</a>
 												<!--end:Menu link-->
 											</div>

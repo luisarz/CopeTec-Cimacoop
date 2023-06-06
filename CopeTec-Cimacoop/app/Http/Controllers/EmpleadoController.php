@@ -52,7 +52,6 @@ class EmpleadoController extends Controller
 
     public function put(Request $request)
     {
-        echo $request->id;
         $empleado = Empleados::findOrFail($request->id);
         $empleado->nombre_empleado = $request->nombre_empleado;
         $empleado->genero_empleado = $request->genero_empleado;
