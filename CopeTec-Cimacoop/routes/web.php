@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\TipoCuentaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +51,13 @@ Route::post('/rol/add',[RolController::class, 'post'])->middleware('auth');
 Route::delete('/rol/delete',[RolController::class, 'delete'])->middleware('auth');
 Route::get('/rol/{id}',[RolController::class, 'edit'])->middleware('auth');
 Route::put('/rol/put',[RolController::class, 'put'])->middleware('auth');
+
+/*
+TiposCuentas Route
+ */
+Route::get('/tipoCuenta', [TipoCuentaController::class, 'index'])->middleware('auth');
+Route::get('/tipoCuenta/add', [TipoCuentaController::class, 'add'])->middleware('auth');
+Route::post('/tipoCuenta/add', [TipoCuentaController::class, 'post'])->middleware('auth');
+Route::delete('/tipoCuenta/delete', [TipoCuentaController::class, 'delete'])->middleware('auth');
+Route::get('/tipoCuenta/{id}', [TipoCuentaController::class, 'edit'])->middleware('auth');
+Route::put('/tipoCuenta/put', [TipoCuentaController::class, 'put'])->middleware('auth');
