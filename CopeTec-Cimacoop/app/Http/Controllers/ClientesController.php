@@ -34,6 +34,7 @@ class ClientesController extends Controller
         $cliente->dui_cliente = $request->dui_cliente;
         $cliente->dui_extendido = $request->dui_extendido;
         $cliente->fecha_expedicion = $request->fecha_expedicion;
+        $cliente->telefono = $request->telefono;
         $cliente->nacionalidad = $request->nacionalidad;
         $cliente->estado_civil = $request->estado_civil;
         $cliente->direccion_personal = $request->direccion_personal;
@@ -61,6 +62,7 @@ class ClientesController extends Controller
         $cliente->dui_cliente = $request->dui_cliente;
         $cliente->dui_extendido = $request->dui_extendido;
         $cliente->fecha_expedicion = $request->fecha_expedicion;
+        $cliente->telefono = $request->telefono;
         $cliente->nacionalidad = $request->nacionalidad;
         $cliente->estado_civil = $request->estado_civil;
         $cliente->direccion_personal = $request->direccion_personal;

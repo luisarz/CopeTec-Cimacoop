@@ -9,6 +9,7 @@ use App\Http\Controllers\TipoCuentaController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ReferenciasController;
+use App\Http\Controllers\AsociadosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,3 +95,14 @@ Route::post('/referencias/add', [ReferenciasController::class, 'post'])->middlew
 Route::delete('/referencias/delete', [ReferenciasController::class, 'delete'])->middleware('auth');
 Route::get('/referencias/{id}', [ReferenciasController::class, 'edit'])->middleware('auth');
 Route::put('/referencias/put', [ReferenciasController::class, 'put'])->middleware('auth');
+
+
+/*
+Asociados Route
+ */
+Route::get('/asociados', [AsociadosController::class, 'index'])->middleware('auth');
+Route::get('/asociados/add', [AsociadosController::class, 'add'])->middleware('auth');
+Route::post('/asociados/add', [AsociadosController::class, 'post'])->middleware('auth');
+Route::delete('/asociados/delete', [AsociadosController::class, 'delete'])->middleware('auth');
+Route::get('/asociados/{id}', [AsociadosController::class, 'edit'])->middleware('auth');
+Route::put('/asociados/put', [AsociadosController::class, 'put'])->middleware('auth');

@@ -1,9 +1,7 @@
 @extends('base.base')
-
-@section("title")
-Administracion de Refrencias
+@section('formName')
+Administracion de Referencias
 @endsection
-
 @section('content')
 
 <a href="/referencias/add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Agregar Referencias</a>

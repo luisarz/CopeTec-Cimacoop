@@ -54,6 +54,13 @@ Agregar Cliente
             <span class="input-group-text" id="basic-addon1">
                 <i class="ki-duotone ki-profile-circle fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             </span>
+            <input required type="text" class="form-control" name="telefono" placeholder="telefono" aria-label="telefono" aria-describedby="basic-addon1"/>
+        </div>
+        <!--begin::Input group-->
+        <div class="input-group mb-5">
+            <span class="input-group-text" id="basic-addon1">
+                <i class="ki-duotone ki-profile-circle fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+            </span>
             <input required type="text" class="form-control" name="nacionalidad" placeholder="nacionalidad" aria-label="nacionalidad" aria-describedby="basic-addon1"/>
         </div>
 

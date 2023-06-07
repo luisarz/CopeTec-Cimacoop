@@ -50,6 +50,13 @@ Editar Cliente
             </span>
             <input required  value="{{$cliente->fecha_expedicion}}" type="date" class="form-control" name="fecha_expedicion" placeholder="fecha_expedicion" aria-label="fecha_expedicion" aria-describedby="basic-addon1"/>
         </div>
+            <!--begin::Input group-->
+        <div class="input-group mb-5">
+            <span class="input-group-text" id="basic-addon1">
+                <i class="ki-duotone ki-profile-circle fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+            </span>
+            <input required  value="{{$cliente->telefono}}" type="text" class="form-control" name="telefono" placeholder="telefono" aria-label="fecha_expedicion" aria-describedby="basic-addon1"/>
+        </div>
          <!--begin::Input group-->
         <div class="input-group mb-5">
             <span class="input-group-text" id="basic-addon1">

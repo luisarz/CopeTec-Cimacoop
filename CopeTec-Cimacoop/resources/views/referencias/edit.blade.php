@@ -2,6 +2,10 @@
 @section("title")
 Editar Cliente
 @endsection
+@section('formName')
+<i class="flaticon2-user"></i>
+Administracion de Referencias
+@endsection
 @section('content')
     <form action="/referencias/put" method="post" autocomplete="nope">
         {!! csrf_field() !!}
