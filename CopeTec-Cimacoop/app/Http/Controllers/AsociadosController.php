@@ -12,6 +12,7 @@ class AsociadosController extends Controller
     {
         $asociados = Asociados::join('clientes', 'asociados.id_cliente', '=', 'clientes.id_cliente')
         ->get();
+
         return view("asociados.index", compact("asociados"));
     }
 
@@ -46,7 +47,7 @@ class AsociadosController extends Controller
         $asociado->couta_ingreso = $request->couta_ingreso;
         $asociado->monto_aportacion = $request->monto_aportacion;
         $asociado->fecha_ingreso=$request->fecha_ingreso;
-        $asociado->estado = 1;
+        $asociado->estado_solicitud = 1;
         $asociado->save();
         return redirect("/asociados");
     }
@@ -70,7 +71,7 @@ class AsociadosController extends Controller
         $asociado->couta_ingreso = $request->couta_ingreso;
         $asociado->monto_aportacion = $request->monto_aportacion;
         $asociado->fecha_ingreso = $request->fecha_ingreso;
-        $asociado->estado = 1;
+        $asociado->estado_solicitud = $request->estado_solicitud;
         $asociado->save();
         return redirect("/asociados");
     }

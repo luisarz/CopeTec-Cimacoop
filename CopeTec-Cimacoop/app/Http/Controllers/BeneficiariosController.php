@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Asociados;
+use App\Models\Beneficiarios;
+use Illuminate\Http\Request;
+
+class BeneficiariosController extends Controller
+{
+    public function index($id_asociado=null)
+    {
+        $beneficiarios = Beneficiarios::where('id_asociado', '=', $id_asociado)->get();
+        $asociado = Asociados::join('clientes', 'asociados.id_cliente', '=', 'clientes.id_cliente')
+        ->where('asociados.id_asociado', '=', $id_asociado)
+        ->first();
+        $totalAsignado = Beneficiarios::where('id_asociado', '=', $id_asociado)->sum('porcentaje');
+
+        if ($beneficiarios->isEmpty()) {
+            $beneficiarios = null;
+        }
+        return view("beneficiarios.index", compact("beneficiarios", "id_asociado","asociado","totalAsignado"));
+
+    }
+
+    public function add($id_asociado)
+    {
+
+    $totalAsignado=Beneficiarios::where('id_asociado', '=', $id_asociado)->sum('porcentaje');
+        return view("beneficiarios.add", compact("id_asociado","totalAsignado"));
+    }
+
+    public function edit($id)
+    {
+        $beneficiario = Beneficiarios::findOrFail($id);
+        return view("beneficiarios.edit", compact("beneficiario"));
+    }
+
+
+    public function post(Request $request)
+    {
+        $benenficiario = new Beneficiarios();
+        $benenficiario->id_asociado = $request->id_asociado;
+        $id_asociado = $request->id_asociado;
+        $benenficiario->nombre = $request->nombre;
+        $benenficiario->parentesco = $request->parentesco;
+        $benenficiario->porcentaje = $request->porcentaje;
+        $benenficiario->direccion = $request->direccion;
+        $benenficiario->save();
+        return redirect("/beneficiarios/$id_asociado");
+    }
+
+    public function delete(Request $request)
+    {
+        $beneficiario = Beneficiarios::findOrFail($request->id);
+
+        $id_asociado=$beneficiario->id_asociado;
+        Beneficiarios::destroy($request->id);
+        return redirect("/beneficiarios/$id_asociado");
+    }
+
+    public function put(Request $request)
+    {
+        $beneficiario = Beneficiarios::findOrFail($request->id);
+        $beneficiario->id_beneficiario = $request->id;
+        $beneficiario->id_asociado = $request->id_asociado;
+        $beneficiario->nombre = $request->nombre;
+        $beneficiario->parentesco = $request->parentesco;
+        $beneficiario->porcentaje = $request->porcentaje;
+        $beneficiario->direccion = $request->direccion;
+        $beneficiario->save();
+        return redirect("/beneficiarios/$beneficiario->id_asociado");
+    }
+}

@@ -46,18 +46,18 @@
             <div class="form-group row mb-5">
                 <div class="col-lg-4">
                     <label>Sueldo Quincenal:</label>
-                    <input type="number"  value="{{ $asociado->sueldo_quincenal }}" required class="form-control" placeholder="Sueldo quincena"
-                        name="sueldo_quincenal" />
+                    <input type="number" value="{{ $asociado->sueldo_quincenal }}" required class="form-control"
+                        placeholder="Sueldo quincena" name="sueldo_quincenal" />
                 </div>
                 <div class="col-lg-4">
                     <label>Sueldo mensual:</label>
-                    <input type="number" value="{{ $asociado->sueldo_mensual }}" required class="form-control" placeholder="Sueldo mensual"
-                        name="sueldo_mensual" />
+                    <input type="number" value="{{ $asociado->sueldo_mensual }}" required class="form-control"
+                        placeholder="Sueldo mensual" name="sueldo_mensual" />
                 </div>
                 <div class="col-lg-4">
                     <label>Otros ingresosl:</label>
-                    <input type="number" value="{{ $asociado->otros_ingresos }}" required class="form-control" placeholder="otros_ingresos mensual"
-                        name="otros_ingresos" />
+                    <input type="number" value="{{ $asociado->otros_ingresos }}" required class="form-control"
+                        placeholder="otros_ingresos mensual" name="otros_ingresos" />
                 </div>
 
             </div>
@@ -66,23 +66,25 @@
             <div class="form-group row mb-5">
                 <div class="col-lg-4">
                     <label>Dependientes economicamente de cliente:</label>
-                    <input type="number" value="{{ $asociado->dependientes_economicamente }}" step="1" required class="form-control"
-                        placeholder="Personas que dependen econmicamente" name="dependientes_economicamente" />
+                    <input type="number" value="{{ $asociado->dependientes_economicamente }}" step="1" required
+                        class="form-control" placeholder="Personas que dependen econmicamente"
+                        name="dependientes_economicamente" />
                 </div>
                 <div class="col-lg-4">
                     <label>Cuota de ingreso:</label>
-                    <input type="number" value="{{ $asociado->couta_ingreso }}" required class="form-control" placeholder="Cuota Ingreso" name="couta_ingreso" />
+                    <input type="number" value="{{ $asociado->couta_ingreso }}" required class="form-control"
+                        placeholder="Cuota Ingreso" name="couta_ingreso" />
                 </div>
                 <div class="col-lg-4">
                     <label>Monto aportacion:</label>
-                    <input type="number" value="{{ $asociado->monto_aportacion }}" required class="form-control" placeholder="Monto aportacion"
-                        name="monto_aportacion" />
+                    <input type="number" value="{{ $asociado->monto_aportacion }}" required class="form-control"
+                        placeholder="Monto aportacion" name="monto_aportacion" />
                 </div>
             </div>
 
             <!--begin::row group-->
             <div class="form-group row mb-5">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <label>Referencia Asociado:</label>
 
                     <select required name="referencia_asociado_uno" class="form-control select2">
@@ -103,14 +105,14 @@
                         @endforeach
                     </select>
 
-                  
+
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <label>Referencia Asociado :</label>
                     <select required name="referencia_asociado_dos" class="form-control select2">
                         <option value="">Seleccione</option>
 
-                       @foreach ($clientes as $cliente)
+                        @foreach ($clientes as $cliente)
                             @if ($asociado->referencia_asociado_dos == $cliente->id_cliente)
                                 {
                                 <option selected value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
@@ -124,6 +126,17 @@
                             </option>
                         @endforeach
                     </select>
+                </div>
+                <div class="col-lg-4">
+                    <label>Estado Solicitud:</label>
+                    <select required name="estado_solicitud" class="form-control select2">
+                        <option value="1" {{ $asociado->estado_solicitud == '1' ? 'selected' : '' }}>Presentar
+                        </option>
+                        <option value="2" {{ $asociado->estado_solicitud == '2' ? 'selected' : '' }}>Aceptado</option>
+                        <option value="3" {{ $asociado->estado_solicitud == '3' ? 'selected' : '' }}>Rechazado
+                        </option>
+                    </select>
+
                 </div>
             </div>
 

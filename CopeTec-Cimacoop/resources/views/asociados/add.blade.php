@@ -68,7 +68,7 @@
             </div>
 
             <!--begin::row group-->
-            <div class="form-group row mb-5">
+            <div class="form-group row mb-4">
                 <div class="col-lg-6">
                     <label>Referencia Asociado:</label>
 
@@ -92,6 +92,7 @@
                         @endforeach
                     </select>
                 </div>
+              
             </div>
 
         </div>

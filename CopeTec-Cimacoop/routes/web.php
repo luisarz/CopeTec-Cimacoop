@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolController;
@@ -10,20 +11,20 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ReferenciasController;
 use App\Http\Controllers\AsociadosController;
+use App\Http\Controllers\BeneficiariosController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+
 
 Route::get('/login',[LoginController::class, 'index'])->name("login");
 Route::post('/login',[LoginController::class, 'login']);
@@ -106,3 +107,13 @@ Route::post('/asociados/add', [AsociadosController::class, 'post'])->middleware(
 Route::delete('/asociados/delete', [AsociadosController::class, 'delete'])->middleware('auth');
 Route::get('/asociados/{id}', [AsociadosController::class, 'edit'])->middleware('auth');
 Route::put('/asociados/put', [AsociadosController::class, 'put'])->middleware('auth');
+
+/*
+Beneficiarios Route
+ */
+Route::get('/beneficiarios/{id_asociado?}', [BeneficiariosController::class, 'index'])->middleware('auth');
+Route::get('/beneficiarios/add/{id}', [BeneficiariosController::class, 'add'])->middleware('auth');
+Route::post('/beneficiarios/add', [BeneficiariosController::class, 'post'])->middleware('auth');
+Route::delete('/beneficiarios/delete', [BeneficiariosController::class, 'delete'])->middleware('auth');
+Route::get('/beneficiarios/edit/{id_registro}', [BeneficiariosController::class, 'edit'])->middleware('auth');
+Route::put('/beneficiarios/put', [BeneficiariosController::class, 'put'])->middleware('auth');
