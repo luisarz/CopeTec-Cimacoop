@@ -12,32 +12,37 @@ class UserController extends Controller
     public function index()
     {
         $users = Empleados::join('users', 'users.id_empleado_usuario', '=', 'empleados.id_empleado')->get();
-        return view("user.index",compact("users"));   
+        return view("user.index", compact("users"));
     }
 
     public function add()
     {
         $empleados = Empleados::All();
-        return view("user.add",compact("empleados"));   
+        return view("user.add", compact("empleados"));
     }
 
     public function edit($id)
     {
         $user = User::findOrFail($id);
         $empleados = Empleados::All();
-        return view("user.edit",compact("user","empleados"));   
+        return view("user.edit", compact("user", "empleados"));
     }
 
 
     public function post(Request $request)
     {
-        $user = new User();
-        $user->id_empleado_usuario = $request->id_empleado_usuario;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
+        $user = User::where('email', $request->email)->first();
+        if ($user && $user->count() > 0) {
+            return redirect("/user/add")->withInput()->withErrors(['email' => 'El email ya esta registrado']);
+        } else {
+            $user = new User();
+            $user->id_empleado_usuario = $request->id_empleado_usuario;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return redirect("/user");
+        }
 
-        $user->save();
-        return redirect("/user");
     }
 
     public function delete(Request $request)
@@ -51,11 +56,11 @@ class UserController extends Controller
         $user = User::findOrFail($request->id);
         $user->id_empleado_usuario = $request->id_empleado_usuario;
         $user->email = $request->email;
-        if(!empty($request->password)){
+        if (!empty($request->password)) {
             $user->password = Hash::make($request->password);
         }
         $user->save();
-        return redirect("/user");  
+        return redirect("/user");
     }
 
 }

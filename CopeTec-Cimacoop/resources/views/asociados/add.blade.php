@@ -23,9 +23,10 @@
                         @endforeach
                     </select>
                 </div>
-                  <div class="col-lg-4">
+                <div class="col-lg-4">
                     <label>Fecha Registro:</label>
-                    <input type="date"  class="form-control" name="fecha_ingreso" placeholder="fecha_ingreso" aria-label="fecha_ingreso" aria-describedby="basic-addon1"/>
+                    <input type="date" class="form-control" name="fecha_ingreso" placeholder="fecha_ingreso"
+                        aria-label="fecha_ingreso" aria-describedby="basic-addon1" />
                 </div>
 
             </div>
@@ -72,27 +73,29 @@
                 <div class="col-lg-6">
                     <label>Referencia Asociado:</label>
 
-                    <select required name="referencia_asociado_uno" class="form-control select2">
+                    <select  name="referencia_asociado_uno" class="form-control select2">
                         <option value="">Seleccione</option>
 
                         @foreach ($asociados as $asociado)
-                            <option value="{{ $asociado->id_cliente }}">{{ $asociado->nombre }} - {{ $asociado->dui_cliente }}
+                            <option value="{{ $asociado->id_cliente }}">{{ $asociado->nombre }} -
+                                {{ $asociado->dui_cliente }}
                             </option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-lg-6">
                     <label>Referencia Asociado :</label>
-                    <select required name="referencia_asociado_dos" class="form-control select2">
+                    <select  name="referencia_asociado_dos" class="form-control select2">
                         <option value="">Seleccione</option>
 
                         @foreach ($asociados as $asociado)
-                            <option value="{{ $asociado->id_cliente }}">{{ $asociado->nombre }} - {{ $asociado->dui_cliente }}
+                            <option value="{{ $asociado->id_cliente }}">{{ $asociado->nombre }} -
+                                {{ $asociado->dui_cliente }}
                             </option>
                         @endforeach
                     </select>
                 </div>
-              
+
             </div>
 
         </div>

@@ -11,12 +11,18 @@
             <div class="form-group row mb-5">
                 <div class="col-lg-12">
                     <label>Empleado:</label>
-                    <select required name="id_empleado" class="form-control select2">
+                    <select required name="id_empleado_usuario" class="form-control select2">
                         <option value="">Seleccione</option>
                         @foreach ($empleados as $empleado)
-                            <option value="{{ $empleado->id_empleado }}">{{ $empleado->nombre_empleado }} -
-                                {{ $empleado->dui }}
-                            </option>
+                            @if ($empleado->id_empleado == old('id_empleado_usuario'))
+                                <option selected value="{{ $empleado->id_empleado }}">{{ $empleado->nombre_empleado }} -
+                                    {{ $empleado->dui }}
+                                </option>
+                            @else
+                                <option value="{{ $empleado->id_empleado }}">{{ $empleado->nombre_empleado }} -
+                                    {{ $empleado->dui }}
+                                </option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -25,8 +31,8 @@
             <div class="form-group row mb-5">
                 <div class="col-lg-4">
                     <label>Email:</label>
-                    <input required type="text" class="form-control" name="email" placeholder="Nombre"
-                        aria-label="Nombre" aria-describedby="basic-addon1" />
+                    <input required value="{{ old('email') }}" type="text" class="form-control" name="email"
+                        placeholder="Nombre" aria-label="Nombre" aria-describedby="basic-addon1" />
                 </div>
                 <div class="col-lg-4">
                     <label>Password:</label>
@@ -39,10 +45,16 @@
                         aria-label="password" aria-describedby="basic-addon1" />
                 </div>
             </div>
+            @if ($errors->has('email'))
+                <div class="alert alert-danger">
+                    {{ $errors->first('email') }}
+                </div>
+            @endif
+
         </div>
 
 
-   
+
         <div class="card-footer d-flex justify-content-end py-6">
             <button type="submit" class="btn btn-bg-primary btn-text-white">Agregar</button>
         </div>

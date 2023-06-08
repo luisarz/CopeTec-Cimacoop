@@ -145,7 +145,7 @@
     </div>
 
     <div class="table-responsive">
-        <table id="table_asociados" class="table  table-hover table-striped gy-4 gs-2">
+        <table id="table_asociados" class="table table-hover table-row-dashed fs-6 gy-5 my-0 dataTable  gy-4 gs-7">
             <thead class="thead-dark">
                 <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                     <th class="min-w-90px">Acciones</th>
@@ -186,7 +186,7 @@
             </tbody>
         </table>
     </div>
-    <form method="post" id="deleteForm" action="/beneficiarios/delete">
+    <form method="post" id="deleteForm" action="/intereses/delete">
         {!! csrf_field() !!}
         {{ method_field('DELETE') }}
         <input type="hidden" name="id" id="id">

@@ -12,6 +12,8 @@ use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ReferenciasController;
 use App\Http\Controllers\AsociadosController;
 use App\Http\Controllers\BeneficiariosController;
+use App\Http\Controllers\InteresesTipoCuentaController;
+use App\Http\Controllers\CuentasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,3 +119,27 @@ Route::post('/beneficiarios/add', [BeneficiariosController::class, 'post'])->mid
 Route::delete('/beneficiarios/delete', [BeneficiariosController::class, 'delete'])->middleware('auth');
 Route::get('/beneficiarios/edit/{id_registro}', [BeneficiariosController::class, 'edit'])->middleware('auth');
 Route::put('/beneficiarios/put', [BeneficiariosController::class, 'put'])->middleware('auth');
+
+/*
+Interes tipos cuenta Route
+ */
+Route::get('/intereses/{id_asociado?}', [InteresesTipoCuentaController::class, 'index'])->middleware('auth');
+Route::get('/intereses/add/{id}', [InteresesTipoCuentaController::class, 'add'])->middleware('auth');
+Route::post('/intereses/add', [InteresesTipoCuentaController::class, 'post'])->middleware('auth');
+Route::delete('/intereses/delete', [InteresesTipoCuentaController::class, 'delete'])->middleware('auth');
+Route::get('/intereses/edit/{id_registro}', [InteresesTipoCuentaController::class, 'edit'])->middleware('auth');
+Route::put('/intereses/put', [InteresesTipoCuentaController::class, 'put'])->middleware('auth');
+//Ruta para cargar los datos al cambiar el tipo de cuenta
+Route::get('intereses/getIntereses/{id}', [InteresesTipoCuentaController::class, 'getIntereses'])->middleware('auth');
+
+
+
+/*
+Cuentas Route
+ */
+Route::get('/cuentas', [CuentasController::class, 'index'])->middleware('auth');
+Route::get('/cuentas/add', [CuentasController::class, 'add'])->middleware('auth');
+Route::post('/cuentas/add', [CuentasController::class, 'post'])->middleware('auth');
+Route::delete('/cuentas/delete', [CuentasController::class, 'delete'])->middleware('auth');
+Route::get('/cuentas/{id}', [CuentasController::class, 'edit'])->middleware('auth');
+Route::put('/cuentas/put', [CuentasController::class, 'put'])->middleware('auth');

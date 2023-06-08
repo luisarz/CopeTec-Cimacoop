@@ -9,7 +9,7 @@ class ClientesController extends Controller
 {
     public function index()
     {
-        $clientes = Clientes::All();
+        $clientes = Clientes::paginate(10);;
         return view("clientes.index", compact("clientes"));
     }
 
@@ -27,24 +27,30 @@ class ClientesController extends Controller
 
     public function post(Request $request)
     {
-        $cliente = new Clientes();
-        $cliente->nombre = $request->nombre;
-        $cliente->genero = $request->genero;
-        $cliente->fecha_nacimiento = $request->fecha_nacimiento;
-        $cliente->dui_cliente = $request->dui_cliente;
-        $cliente->dui_extendido = $request->dui_extendido;
-        $cliente->fecha_expedicion = $request->fecha_expedicion;
-        $cliente->telefono = $request->telefono;
-        $cliente->nacionalidad = $request->nacionalidad;
-        $cliente->estado_civil = $request->estado_civil;
-        $cliente->direccion_personal = $request->direccion_personal;
-        $cliente->direccion_negocio = $request->direccion_negocio;
-        $cliente->nombre_negocio = $request->nombre_negocio;
-        $cliente->tipo_vivienda = $request->tipo_vivienda;
-        $cliente->observaciones = $request->observaciones;
-        $cliente->estado = 1;
-        $cliente->save();
-        return redirect("/clientes");
+        $cliente=Clientes::where("dui_cliente",$request->dui_cliente)->first();
+        if($cliente && $cliente->count()>0){
+            return redirect("/clientes/add")->withInput()->withErrors(["dui_cliente"=>"Ya existe un cliente con este DUI!!"]);
+        }else{
+            $cliente = new Clientes();
+            $cliente->nombre = $request->nombre;
+            $cliente->genero = $request->genero;
+            $cliente->fecha_nacimiento = $request->fecha_nacimiento;
+            $cliente->dui_cliente = $request->dui_cliente;
+            $cliente->dui_extendido = $request->dui_extendido;
+            $cliente->fecha_expedicion = $request->fecha_expedicion;
+            $cliente->telefono = $request->telefono;
+            $cliente->nacionalidad = $request->nacionalidad;
+            $cliente->estado_civil = $request->estado_civil;
+            $cliente->direccion_personal = $request->direccion_personal;
+            $cliente->direccion_negocio = $request->direccion_negocio;
+            $cliente->nombre_negocio = $request->nombre_negocio;
+            $cliente->tipo_vivienda = $request->tipo_vivienda;
+            $cliente->observaciones = $request->observaciones;
+            $cliente->estado = 1;
+            $cliente->save();
+            return redirect("/clientes");
+        }
+      
     }
 
     public function delete(Request $request)
@@ -56,22 +62,30 @@ class ClientesController extends Controller
     public function put(Request $request)
     {
         $cliente = Clientes::findOrFail($request->id);
-        $cliente->nombre = $request->nombre;
-        $cliente->genero = $request->genero;
-        $cliente->fecha_nacimiento = $request->fecha_nacimiento;
-        $cliente->dui_cliente = $request->dui_cliente;
-        $cliente->dui_extendido = $request->dui_extendido;
-        $cliente->fecha_expedicion = $request->fecha_expedicion;
-        $cliente->telefono = $request->telefono;
-        $cliente->nacionalidad = $request->nacionalidad;
-        $cliente->estado_civil = $request->estado_civil;
-        $cliente->direccion_personal = $request->direccion_personal;
-        $cliente->direccion_negocio = $request->direccion_negocio;
-        $cliente->nombre_negocio = $request->nombre_negocio;
-        $cliente->tipo_vivienda = $request->tipo_vivienda;
-        $cliente->observaciones = $request->observaciones;
-        $cliente->estado = 1;
-        $cliente->save();
-        return redirect("/clientes");
+        if($cliente->dui_cliente!=$request->dui_cliente){
+            $cliente=Clientes::where("dui_cliente",$request->dui_cliente)->first();
+            if($cliente && $cliente->count()>0){
+                return redirect("/clientes/".$request->id)->withInput()->withErrors(["dui_cliente"=>"Cambió el DUI y el ingresado ya existe en otro cliente!!"]);
+            }
+        }else{
+            $cliente->nombre = $request->nombre;
+            $cliente->genero = $request->genero;
+            $cliente->fecha_nacimiento = $request->fecha_nacimiento;
+            $cliente->dui_cliente = $request->dui_cliente;
+            $cliente->dui_extendido = $request->dui_extendido;
+            $cliente->fecha_expedicion = $request->fecha_expedicion;
+            $cliente->telefono = $request->telefono;
+            $cliente->nacionalidad = $request->nacionalidad;
+            $cliente->estado_civil = $request->estado_civil;
+            $cliente->direccion_personal = $request->direccion_personal;
+            $cliente->direccion_negocio = $request->direccion_negocio;
+            $cliente->nombre_negocio = $request->nombre_negocio;
+            $cliente->tipo_vivienda = $request->tipo_vivienda;
+            $cliente->observaciones = $request->observaciones;
+            $cliente->estado = 1;
+            $cliente->save();
+            return redirect("/clientes");
+        }
+
     }
 }

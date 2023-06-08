@@ -11,8 +11,8 @@ class AsociadosController extends Controller
     public function index()
     {
         $asociados = Asociados::join('clientes', 'asociados.id_cliente', '=', 'clientes.id_cliente')
-        ->get();
-
+        ->paginate(10);
+   
         return view("asociados.index", compact("asociados"));
     }
 

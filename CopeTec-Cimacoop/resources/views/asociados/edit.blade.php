@@ -87,7 +87,7 @@
                 <div class="col-lg-4">
                     <label>Referencia Asociado:</label>
 
-                    <select required name="referencia_asociado_uno" class="form-control select2">
+                    <select  name="referencia_asociado_uno" class="form-control select2">
                         <option value="">Seleccione</option>
 
                         @foreach ($clientes as $cliente)
@@ -109,7 +109,7 @@
                 </div>
                 <div class="col-lg-4">
                     <label>Referencia Asociado :</label>
-                    <select required name="referencia_asociado_dos" class="form-control select2">
+                    <select  name="referencia_asociado_dos" class="form-control select2">
                         <option value="">Seleccione</option>
 
                         @foreach ($clientes as $cliente)
@@ -129,7 +129,7 @@
                 </div>
                 <div class="col-lg-4">
                     <label>Estado Solicitud:</label>
-                    <select required name="estado_solicitud" class="form-control select2">
+                    <select  name="estado_solicitud" class="form-control select2">
                         <option value="1" {{ $asociado->estado_solicitud == '1' ? 'selected' : '' }}>Presentar
                         </option>
                         <option value="2" {{ $asociado->estado_solicitud == '2' ? 'selected' : '' }}>Aceptado</option>

@@ -9,7 +9,7 @@ class TipoCuentaController extends Controller
 {
     public function index()
     {
-        $tipoCuentas = TipoCuenta::All();
+        $tipoCuentas = TipoCuenta::paginate(10);
         return view("tipoCuenta.index", compact("tipoCuentas"));
     }
 
