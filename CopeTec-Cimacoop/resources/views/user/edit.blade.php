@@ -34,7 +34,7 @@ Editar Usuario
             <div class="form-group row mb-5">
                 <div class="col-lg-4">
                     <label>Email:</label>
-                    <input required type="text" value="{{$user->password}}" class="form-control" name="email" placeholder="Nombre"
+                    <input required type="text" value="{{$user->email}}" class="form-control" name="email" placeholder="Nombre"
                         aria-label="Nombre" aria-describedby="basic-addon1" />
                 </div>
                 <div class="col-lg-4">
