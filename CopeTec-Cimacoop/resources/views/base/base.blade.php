@@ -16,7 +16,7 @@ License: For each use you must have a valid license purchased only from above li
 
 <head>
     <base href="../" />
-    <title>Metronic - The World's #1 Selling Bootstrap Admin Template by Keenthemes</title>
+    <title>CoopeTec-Administracion de cooperativas CompuTec Consultores</title>
     <meta charset="utf-8" />
     <meta name="description"
         content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
@@ -30,17 +30,19 @@ License: For each use you must have a valid license purchased only from above li
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href=" {{ asset('assets/media/logos/favicon.ico')}}" />
+    <link rel="shortcut icon" href=" {{ asset('assets/media/logos/favicon.ico') }}" />
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
     <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
+        type="text/css" />
+    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
+        type="text/css" />
     <!--end::Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href=" {{ asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 
 </head>
@@ -95,7 +97,7 @@ License: For each use you must have a valid license purchased only from above li
                     <!--begin::Mobile logo-->
                     <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
                         <a href="/dashboard" class="d-lg-none">
-                            <img alt="Logo" src=" {{ asset('assets/media/logos/cimacoop.png')}} " class="h-30px" />
+                            <img alt="Logo" src=" {{ asset('assets/media/logos/cimacoop.png') }} " class="h-30px" />
                         </a>
                     </div>
                     <!--end::Mobile logo-->
@@ -128,8 +130,10 @@ License: For each use you must have a valid license purchased only from above li
                                     data-kt-menu-placement="bottom-start"
                                     class="menu-item here menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
                                     <!--begin:Menu link-->
-                                    <span class="menu-link"><span class="menu-title">Dashboards</span><span
-                                            class="menu-arrow d-lg-none"></span></span>
+                                    <a href="/dashboard"> 
+                                            <span class="menu-title">Dashboards</span>
+                                            <span
+                                                class="menu-arrow d-lg-none"></span></a>
                                     <!--end:Menu link-->
 
                                 </div>
@@ -312,8 +316,7 @@ License: For each use you must have a valid license purchased only from above li
                                         <div class="menu-content d-flex align-items-center px-3">
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-50px me-5">
-                                                <img alt="Logo"
-                                                    src="/assets/media/avatars/300-1.jpg">
+                                                <img alt="Logo" src="/assets/media/avatars/300-1.jpg">
                                             </div>
                                             <i class="flaticon-globe"></i>
                                             <!--end::Avatar-->
@@ -322,18 +325,18 @@ License: For each use you must have a valid license purchased only from above li
                                             <div class="d-flex flex-column">
                                                 <div class="fw-bold d-flex align-items-center fs-5">
                                                     @php
-                                                    echo session('name');
+                                                        echo session('name');
                                                     @endphp
-                                                  <span
+                                                    <span
                                                         class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
                                                 </div>
 
                                                 <a href="#"
                                                     class="fw-semibold text-muted text-hover-primary fs-7">
-                                                   @php
-                                                    echo session('email');
+                                                    @php
+                                                        echo session('email');
                                                     @endphp
-                                                 </a>
+                                                </a>
                                             </div>
                                             <!--end::Username-->
                                         </div>
@@ -379,8 +382,7 @@ License: For each use you must have a valid license purchased only from above li
 
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-5">
-                                        <a href="/logout"
-                                            class="menu-link px-5">
+                                        <a href="/logout" class="menu-link px-5">
                                             Cerrar sesión
                                         </a>
                                     </div>
@@ -424,7 +426,7 @@ License: For each use you must have a valid license purchased only from above li
                                 class="h-50px app-sidebar-logo-default theme-light-show" />
                             <img alt="Logo" src="{{ asset('assets/media/logos/cimacoop.png') }}"
                                 class="h-50px app-sidebar-logo-default theme-dark-show" />
-                            <img alt="Logo" src=" {{ asset('assets/media/logos/cimacoop.png')}}"
+                            <img alt="Logo" src=" {{ asset('assets/media/logos/cimacoop.png') }}"
                                 class="h-50px app-sidebar-logo-minimize" />
                         </a>
                         <!--end::Logo image-->
@@ -476,6 +478,7 @@ License: For each use you must have a valid license purchased only from above li
                                         <span class="menu-arrow"></span>
                                     </span>
                                     <!--end:Menu link-->
+
                                     <!--begin:Menu sub-->
                                     <div class="menu-sub menu-sub-accordion">
                                         <!--begin:Menu item-->
@@ -490,14 +493,29 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end:Menu link-->
                                         </div>
                                         <!--end:Menu item-->
-                                     
-                                      
-                                    
                                     </div>
                                     <!--end:Menu sub-->
+                                    
+                                    <!--begin:Menu sub-->
+                                    <div class="menu-sub menu-sub-accordion">
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item">
+                                            <!--begin:Menu link-->
+                                            <a class="menu-link" href="/movimientos">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Movimientos</span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                    </div>
+                                    <!--end:Menu sub-->
+
                                 </div>
                                 <!--end:Menu item-->
-                                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion show">
+                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion show">
                                     <!--begin:Menu link-->
                                     <span class="menu-link">
                                         <span class="menu-icon">
@@ -634,7 +652,7 @@ License: For each use you must have a valid license purchased only from above li
                             <!--begin::Copyright-->
                             <div class="text-dark order-2 order-md-1">
                                 <span class="text-muted fw-semibold me-1">2023&copy;</span>
-                                <a href="https://keenthemes.com" target="_blank"
+                                <a href="https://www.facebook.com/Consultores.computec/" target="_blank"
                                     class="text-gray-800 text-hover-primary">Computec Consultores</a>
                             </div>
                             <!--end::Copyright-->
@@ -655,11 +673,11 @@ License: For each use you must have a valid license purchased only from above li
         var hostUrl = "assets/";
     </script>
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-    <script src=" {{ asset('assets/plugins/global/plugins.bundle.js')}}"></script>
-    <script src="{{ asset('assets/js/scripts.bundle.js')}}"></script>
+    <script src=" {{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Vendors Javascript(used for this page only)-->
-    <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
+    <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
@@ -671,7 +689,7 @@ License: For each use you must have a valid license purchased only from above li
     <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
-    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <!--end::Vendors Javascript-->
     @yield('scripts')
     <!--end::Javascript-->

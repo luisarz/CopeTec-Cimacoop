@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Asociados;
 use App\Models\Beneficiarios;
+use App\Models\Cuentas;
 use Illuminate\Http\Request;
 
 class BeneficiariosController extends Controller
@@ -15,11 +16,18 @@ class BeneficiariosController extends Controller
         ->where('asociados.id_asociado', '=', $id_asociado)
         ->first();
         $totalAsignado = Beneficiarios::where('id_asociado', '=', $id_asociado)->sum('porcentaje');
+        $saldoDisponible=Cuentas::where('id_asociado', '=', $id_asociado)
+        ->where('id_tipo_cuenta', '!=', '9')
+        ->sum('saldo_cuenta');
+
+        $saldoAportaciones = Cuentas::where('id_asociado', '=', $id_asociado)
+            ->where('id_tipo_cuenta', '=', '9')
+            ->sum('saldo_cuenta');
 
         if ($beneficiarios->isEmpty()) {
             $beneficiarios = null;
         }
-        return view("beneficiarios.index", compact("beneficiarios", "id_asociado","asociado","totalAsignado"));
+        return view("beneficiarios.index", compact("beneficiarios", "id_asociado","asociado","totalAsignado","saldoDisponible","saldoAportaciones"));
 
     }
 

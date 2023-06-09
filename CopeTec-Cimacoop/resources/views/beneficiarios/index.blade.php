@@ -34,7 +34,7 @@
                             <div class="d-flex align-items-center mb-2">
                                 <a href="#"
                                     class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ $asociado->nombre }}</a>
-                                <a href="#"><i class="ki-duotone ki-verify fs-1 text-primary"><span
+                                <a href="#"><i class="ki-duotone ki-verify fs-2 text-primary"><span
                                             class="path1"></span><span class="path2"></span></i></a>
                             </div>
                             <!--end::Name-->
@@ -75,7 +75,7 @@
                             <!--end::Number-->
 
                             <!--begin::Label-->
-                            <div class="fw-semibold fs-6 text-gray-400">Beneficio Asignado</div>
+                            <div class="fw-semibold fs-6 text-gray-400">% Distribuido</div>
                             <!--end::Label-->
                         </div>
                         <!--begin::Stat-->
@@ -86,7 +86,8 @@
                                         class="path2"></span></i>
                                 <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    $4,500</div>
+                                 ${{ number_format($saldoDisponible, 2, '.', ',') }}
+                                </div>
                             </div>
                             <!--end::Number-->
 
@@ -120,7 +121,8 @@
                                         class="path1"></span><span class="path2"></span></i>
                                 <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    $4,500</div>
+                                    ${{ number_format($saldoAportaciones, 2, '.', ',') }}</div>
+
                             </div>
                             <!--end::Number-->
 

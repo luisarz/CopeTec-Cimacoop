@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-lg-4">
                     <label>Fecha Registro:</label>
-                    <input type="date" class="form-control" name="fecha_ingreso" placeholder="fecha_ingreso"
+                    <input type="date" max="{{date('Y-m-d')}}" class="form-control" name="fecha_ingreso" placeholder="fecha_ingreso"
                         aria-label="fecha_ingreso" aria-describedby="basic-addon1" />
                 </div>
 

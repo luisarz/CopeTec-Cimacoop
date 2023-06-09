@@ -67,6 +67,7 @@ class ClientesController extends Controller
             if($cliente && $cliente->count()>0){
                 return redirect("/clientes/".$request->id)->withInput()->withErrors(["dui_cliente"=>"Cambió el DUI y el ingresado ya existe en otro cliente!!"]);
             }
+            //Aqui debe guardar si no se ha cambiado el dui
         }else{
             $cliente->nombre = $request->nombre;
             $cliente->genero = $request->genero;

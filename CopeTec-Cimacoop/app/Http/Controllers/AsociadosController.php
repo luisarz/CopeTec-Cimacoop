@@ -28,7 +28,6 @@ class AsociadosController extends Controller
         $asociado = Asociados::findOrFail($id);
         $clientes = Clientes::All();
         $asociados = Asociados::join('clientes', 'asociados.id_cliente', '=', 'clientes.id_cliente')->get();
-        // dd($asociado);
         return view("asociados.edit", compact("asociado", "asociados","clientes"));
     }
 

@@ -15,6 +15,7 @@ class CuentasController extends Controller
         ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
         ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
         ->distinct()
+        ->orderby('clientes.nombre', 'asc')
         ->paginate(10);
 
         return view("cuentas.index", compact("cuentas"));

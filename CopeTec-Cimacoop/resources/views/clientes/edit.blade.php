@@ -32,7 +32,7 @@ Editar Cliente
                 </div>
                 <div class="col-lg-4">
                     <label>Fecha Nacimiento:</label>
-                    <input type="date" required value="{{$cliente->fecha_nacimiento}}" class="form-control" name="fecha_nacimiento" placeholder="fecha_nacimiento"
+                    <input type="date" max="{{date('Y-m-d')}}" required value="{{$cliente->fecha_nacimiento}}" class="form-control" name="fecha_nacimiento" placeholder="fecha_nacimiento"
                         aria-label="fecha_nacimiento" aria-describedby="basic-addon1" />
                 </div>
             </div>
@@ -51,7 +51,7 @@ Editar Cliente
                 </div>
                 <div class="col-lg-4">
                     <label>Fecha Expedicion dui:</label>
-                    <input type="date" required value="{{$cliente->fecha_expedicion}}" class="form-control" name="fecha_expedicion" placeholder="fecha_expedicion"
+                    <input type="date" max="{{date('Y-m-d')}}" required value="{{$cliente->fecha_expedicion}}" class="form-control" name="fecha_expedicion" placeholder="fecha_expedicion"
                         aria-label="fecha_expedicion" aria-describedby="basic-addon1" />
                 </div>
             </div>

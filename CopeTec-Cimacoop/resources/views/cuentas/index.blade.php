@@ -8,9 +8,9 @@
     <a href="/cuentas/add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Aperturar Cuenta</a>
 
     <div class="table-responsive">
-        <table class=" table table-hover table-row-dashed fs-6 gy-5 my-0 dataTable  gy-4 gs-7">
+        <table class=" table table-hover table-row-dashed fs-3  my-0 dataTable  gy-2 gs-5">
             <thead class="thead-dark">
-                <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
                     <th class="min-w-50px">Acciones</th>
                     <th class="min-w-50px"># Cuenta</th>
                     <th class="min-w-150px">Asociado</th>
@@ -23,14 +23,12 @@
                 @foreach ($cuentas as $cuenta)
                     <tr>
                         <td>
-                            <a href="/clientes/{{ $cuenta->id_cliente }}" class="btn btn-primary "><i
+                            <a href="/clientes/{{ $cuenta->id_cliente }}" class="btn btn-primary btn-sm "><i
                                     class="fa-solid fa-pencil text-white "></i> &nbsp; Administrar</a>
                         </td>
                         <td>{{ $cuenta->numero_cuenta }}</td>
-                        <td>{{ $cuenta->nombre }} {&nbsp; {{ $cuenta->dui_cliente }}}</td>
+                        <td>{{ $cuenta->nombre }} ->{{ $cuenta->dui_cliente }}</td>
                         <td>
-                            <div class="d-flex align-items-center mb-2">
-                                {{-- <span class="fs-5 fw-semibold text-success me-1 mt-n1">$</span> --}}
                                 @php
                                     $saldo_cuenta = number_format($cuenta->saldo_cuenta, 2, '.', ',');
                                     $length = strlen($saldo_cuenta);
@@ -39,7 +37,6 @@
                                 @endphp
                                 <span class="fs-5 fw-bold text-gray-800 me-1 lh-3">$
                                     {{  $maskedValue }}</span>
-                            </div>
                         </td>
                         <td>{{ $cuenta->descripcion_cuenta }}</td>
                     </tr>
@@ -57,7 +54,9 @@
 @endsection
 
 @section('scripts')
-    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href=" {{ asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
+
     <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script>
         function alertDelete(id) {
