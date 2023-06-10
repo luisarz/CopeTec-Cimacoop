@@ -14,7 +14,7 @@
             <div class="form-group row mb-5">
                 <div class="col-lg-8">
                     <label>Cliente:</label>
-                    <select required name="id_cliente" class="form-control select2">
+                    <select  required name="id_cliente" data-control="select2" class="form-select">
                         <option value="">Seleccione</option>
 
                         @foreach ($clientes as $cliente)
@@ -73,7 +73,7 @@
                 <div class="col-lg-6">
                     <label>Referencia Asociado:</label>
 
-                    <select  name="referencia_asociado_uno" class="form-control select2">
+                    <select  name="referencia_asociado_uno" data-control="select2" class="form-select">
                         <option value="">Seleccione</option>
 
                         @foreach ($asociados as $asociado)
@@ -85,7 +85,7 @@
                 </div>
                 <div class="col-lg-6">
                     <label>Referencia Asociado :</label>
-                    <select  name="referencia_asociado_dos" class="form-control select2">
+                    <select  name="referencia_asociado_dos" data-control="select2" class="form-select">
                         <option value="">Seleccione</option>
 
                         @foreach ($asociados as $asociado)

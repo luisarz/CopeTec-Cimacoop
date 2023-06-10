@@ -13,18 +13,18 @@ Administracion de Usuarios
         <thead>
             <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                 <th class="min-w-100px">Acciones</th>
-                <th class="min-w-200px">usuario</th>
                 <th class="min-w-200px">Empleado</th>
-                <th class="min-w-400px">Email</th>
+                <th class="min-w-200px">usuario</th>
+                <th class="min-w-400px">Rol</th>
             </tr>
         </thead>
         <tbody>
             @foreach($users as $user)
             <tr>
                 <td><a href="javascript:void(0);" onclick="alertDelete({{$user->id}})" class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp; Eliminar</a>  <a href="/user/{{$user->id}}" class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a></td>
-                <td>{{$user->nombre_empleado }} {{$user->apellido_empleado}} { {{$user->dui}}}</td>
+                <td>{{$user->nombre_empleado }} {{$user->apellido_empleado}} </td>
                 <td>{{$user->email}}</td>
-                <td>{{$user->email}}</td>
+                <td>{{$user->name}}</td>
 
             </tr>
             @endforeach

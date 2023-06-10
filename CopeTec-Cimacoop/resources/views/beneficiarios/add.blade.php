@@ -31,8 +31,6 @@
                     <label>Parentesco:</label>
                     <input type="text" required class="form-control" placeholder="Parentesco" name="parentesco" />
                 </div>
-
-
             </div>
 
             <!--begin::row group-->

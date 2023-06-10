@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BobedaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -14,6 +15,8 @@ use App\Http\Controllers\AsociadosController;
 use App\Http\Controllers\BeneficiariosController;
 use App\Http\Controllers\InteresesTipoCuentaController;
 use App\Http\Controllers\CuentasController;
+use App\Http\Controllers\CajasController;
+use App\Http\Controllers\MovimientosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -143,3 +146,35 @@ Route::post('/cuentas/add', [CuentasController::class, 'post'])->middleware('aut
 Route::delete('/cuentas/delete', [CuentasController::class, 'delete'])->middleware('auth');
 Route::get('/cuentas/{id}', [CuentasController::class, 'edit'])->middleware('auth');
 Route::put('/cuentas/put', [CuentasController::class, 'put'])->middleware('auth');
+
+/*
+Cajas Route
+ */
+Route::get('/cajas', [CajasController::class, 'index'])->middleware('auth');
+Route::get('/cajas/add', [CajasController::class, 'add'])->middleware('auth');
+Route::post('/cajas/add', [CajasController::class, 'post'])->middleware('auth');
+Route::delete('/cajas/delete', [CajasController::class, 'delete'])->middleware('auth');
+Route::get('/cajas/{id}', [CajasController::class, 'edit'])->middleware('auth');
+Route::put('/cajas/put', [CajasController::class, 'put'])->middleware('auth');
+
+
+/*
+Movimientos Route
+ */
+Route::get('/movimientos', [MovimientosController::class, 'index'])->middleware('auth');
+Route::get('/movimientos/add', [MovimientosController::class, 'add'])->middleware('auth');
+Route::post('/movimientos/add', [MovimientosController::class, 'post'])->middleware('auth');
+Route::delete('/movimientos/delete', [MovimientosController::class, 'delete'])->middleware('auth');
+Route::get('/movimientos/{id}', [MovimientosController::class, 'edit'])->middleware('auth');
+Route::put('/movimientos/put', [MovimientosController::class, 'put'])->middleware('auth');
+
+
+/*
+Movimientos Route
+ */
+Route::get('/bobeda', [BobedaController::class, 'index'])->middleware('auth');
+Route::get('/bobeda/add', [BobedaController::class, 'add'])->middleware('auth');
+Route::post('/bobeda/add', [BobedaController::class, 'post'])->middleware('auth');
+Route::delete('/bobeda/delete', [BobedaController::class, 'delete'])->middleware('auth');
+Route::get('/bobeda/{id}', [BobedaController::class, 'edit'])->middleware('auth');
+Route::put('/bobeda/put', [BobedaController::class, 'put'])->middleware('auth');

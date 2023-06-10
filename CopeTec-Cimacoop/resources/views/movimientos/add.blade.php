@@ -12,7 +12,7 @@
             <!--begin::row group-->
             <div class="form-group row mb-5">
                 <div class="form-floating col-lg-8">
-                    <select name="id_asociado" required data-control="select2" class="form-select">
+                    <select name="id_asociado" required class="form-control">
                         <option value="">Seleccione un asociado</option>
                         @foreach ($asociados as $asociado)
                         <option value="{{ $asociado->id_asociado }}">{{ $asociado->nombre }} ->
@@ -38,7 +38,7 @@
                     <label for="floatingPassword">Numero cuenta:</label>
                 </div>
                 <div class="form-floating col-lg-4">
-                    <select name="id_tipo_cuenta" id="id_tipo_cuenta" required data-control="select2" class="form-select">
+                    <select name="id_tipo_cuenta" id="id_tipo_cuenta" required class="form-control">
                         <option value="">Seleccione El Interes </option>
                         @foreach ($tiposcuentas as $tipoCuenta)
                         <option value="{{ $tipoCuenta->id_tipo_cuenta }}">{{ $tipoCuenta->descripcion_cuenta }}
@@ -48,7 +48,7 @@
                     <label>Tipo de Cuenta:</label>
                 </div>
                 <div class="form-floating col-lg-4">
-                    <select name="id_intereses_tipo_cuenta" id="id_interes_tipo_cuenta" required data-control="select2" class="form-select">
+                    <select name="id_intereses_tipo_cuenta" id="id_interes_tipo_cuenta" required class="form-control">
                     </select>
                     <label>Interes aplicar:</label>
                 </div>
