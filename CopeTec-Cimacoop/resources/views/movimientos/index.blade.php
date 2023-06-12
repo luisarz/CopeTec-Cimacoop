@@ -8,20 +8,29 @@
     <div class="card mb-5 mb-xl-10">
         <div class="card-body pt-9 pb-0">
             <!--begin::Details-->
-            
+
             <div class="d-flex flex-wrap flex-sm-nowrap">
-                
-                <!--begin: Pic-->
-                <div class="me-7 mb-4">
+
+                <!--begin: buttons actions-->
+                <div class="me-5 mb-4">
                     <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
-                        <button class="btn btn-primary">Nuevo Movimiento</button>
+                        <button class="btn btn-danger">
+                            <span><i class="fa fa-upload fa-2x"></i></span>
+                            Realizar <br>Retiro</button>
+                        <div
+                            class="position-absolute translate-middle bottom-0 start-10 mb-6 bg-danger rounded-circle border border-4 border-body h-20px w-20px">
+                        </div>
+                        <button class="btn btn-success">
+                            <span><i class="fa fa-download fa-2x"></i></span>
+
+                            Realizar<br> Deposito</button>
+
                         <div
                             class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
                         </div>
                     </div>
-
                 </div>
-                <!--end::Pic-->
+                <!--end::buttons actions-->
 
                 <!--begin::Info-->
                 <div class="flex-grow-1">
@@ -93,8 +102,8 @@
                         <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                             <!--begin::Number-->
                             <div class="d-flex align-items-center">
-                                <i class="ki-duotone ki-minus-square fs-1x text-danger me-2"><span class="path1"></span><span
-                                        class="path2"></span></i>
+                                <i class="ki-duotone ki-minus-square fs-1x text-danger me-2"><span
+                                        class="path1"></span><span class="path2"></span></i>
                                 <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
                                     $4,500</div>
@@ -167,7 +176,8 @@
                             @if ($cuenta->tipo_operacion == '1')
                                 <span class="badge badge-light-success fs-5">${{ $cuenta->monto }}</span>
                             @else
-                                <span class="badge badge-light-danger fs-5"> $ {{number_format( $cuenta->monto,2,'.',',')}}</span>
+                                <span class="badge badge-light-danger fs-5"> $
+                                    {{ number_format($cuenta->monto, 2, '.', ',') }}</span>
                             @endif
                         </td>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bobeda;
+use App\Models\BobedaMovimientos;
 use App\Models\Cajas;
 use App\Models\Cuentas;
 use App\Models\Movimientos;
@@ -13,19 +14,11 @@ class BobedaController extends Controller
 {
     public function index()
     {
-        $bobeda=Bobeda::first();
-        $movimientos = array();
-        // $movimientos = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
-        //     ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
-        //     ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
-        //     ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
-        //     ->where('movimientos.fecha_operacion', today())
-        //     ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
-        //     ->orderby('movimientos.fecha_operacion', 'asc')
-        //     ->paginate(10);
-        // dd($movimientos);
-
-        return view("bobeda.index", compact("bobeda",'movimientos'));
+        $movimientoBobeda = BobedaMovimientos::join('cajas','cajas.id_caja','bobeda_movimientos.id_caja')
+        ->where('bobeda_movimientos.created_at','>',today())
+        ->paginate(10);
+        $bobeda = Bobeda::first();
+        return view("bobeda.index", compact("movimientoBobeda",'bobeda'));
     }
 
     public function add()
@@ -35,7 +28,38 @@ class BobedaController extends Controller
         return view("bobeda.add", compact("asociados", "tiposcuentas"));
     }
 
-    public function edit($id)
+    public function transferir($id)
+    {
+        $bobeda = Bobeda::findOrFail($id);
+        $cajas=Cajas::all();
+        return view("bobeda.transferir", compact("bobeda","cajas"));
+    }
+
+    public function realizarTraslado(Request $request)
+    {
+
+        $bobeda =  Bobeda::first();
+        if($bobeda->saldo_bobeda>=$request->monto){
+            $bobedaMovimiento = new BobedaMovimientos();
+            $bobedaMovimiento->id_bobeda = $request->id_bobeda;
+            $bobedaMovimiento->id_caja = $request->id_caja;
+            $bobedaMovimiento->tipo_operacion = $request->tipo_operacion;
+            $bobedaMovimiento->estado = 1;
+            $bobedaMovimiento->monto = $request->monto;
+            $bobedaMovimiento->observacion = $request->observacion;
+            $bobedaMovimiento->save();
+            $movimientoBobeda = BobedaMovimientos::paginate(10);
+            $bobeda->saldo_bobeda = $bobeda->saldo_bobeda - $request->monto;
+            $bobeda->save();
+            return view("bobeda.index", compact("movimientoBobeda", "bobeda"));
+        }
+        return redirect("/bobeda/transferir/$request->id_bobeda")->withInput()->withErrors(['Monto' => 'El monto que intentas enviar sobrepasa el limite']);
+
+
+
+
+    }
+    public function recibir($id)
     {
         $cliente = Cuentas::findOrFail($id);
         return view("bobeda.edit", compact("cliente"));

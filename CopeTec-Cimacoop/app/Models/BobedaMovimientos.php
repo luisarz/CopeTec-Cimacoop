@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BobedaMovimientos extends Model
 {
+    protected $table = "bobeda_movimientos";
+    protected $primaryKey = "id_bobeda_movimiento";
     use HasFactory;
 }

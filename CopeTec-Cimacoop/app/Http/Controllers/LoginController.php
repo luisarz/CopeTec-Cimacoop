@@ -25,13 +25,16 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $username=$request->email;
-        $password=$request->password;
+        $username = $request->email;
+        $password = $request->password;
 
-        $user=User::where("email",$username)->first();
-        $id_empleado_usuario=$user->id_empleado_usuario;
-        if(!empty($user->id)){
-            if(!Hash::check($password,$user->password)) return Redirect("login");
+        $user = User::where("email", $username)->first();
+        if (!empty($user->id)) {
+            $id_empleado_usuario = $user->id_empleado_usuario;
+            if (!Hash::check($password, $user->password))
+                return Redirect("/login");
+                
+
 
             $empleados = Empleados::findOrFail($id_empleado_usuario);
             $session = session();
@@ -42,6 +45,8 @@ class LoginController extends Controller
             Auth::login($user, true);
             return Redirect("/dashboard");
         }
-        return Redirect("login");
+        return Redirect("/login");
+     
+
     }
 }

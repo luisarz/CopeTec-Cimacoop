@@ -173,8 +173,7 @@ Route::put('/movimientos/put', [MovimientosController::class, 'put'])->middlewar
 Movimientos Route
  */
 Route::get('/bobeda', [BobedaController::class, 'index'])->middleware('auth');
-Route::get('/bobeda/add', [BobedaController::class, 'add'])->middleware('auth');
-Route::post('/bobeda/add', [BobedaController::class, 'post'])->middleware('auth');
-Route::delete('/bobeda/delete', [BobedaController::class, 'delete'])->middleware('auth');
-Route::get('/bobeda/{id}', [BobedaController::class, 'edit'])->middleware('auth');
+Route::get('/bobeda/transferir/{id}', [BobedaController::class, 'transferir'])->middleware('auth');
+Route::post('/bobeda/realizarTraslado', [BobedaController::class, 'realizarTraslado'])->middleware('auth');
+Route::get('/bobeda/recibir/{id}', [BobedaController::class, 'recibir'])->middleware('auth');
 Route::put('/bobeda/put', [BobedaController::class, 'put'])->middleware('auth');

@@ -1,8 +1,10 @@
 @extends('base.base')
 
-@section("title")
+@section("formName")
 Administracion de Clientes
+
 @endsection
+
 
 @section('content')
 
