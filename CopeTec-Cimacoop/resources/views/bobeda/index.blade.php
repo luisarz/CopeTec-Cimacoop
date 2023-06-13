@@ -25,11 +25,11 @@
                 <div class="me-7 mb-4">
                     <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative ">
                         <a href="/bobeda/transferir/{{ $bobeda->id_bobeda }}" class="btn btn-danger border-dashed">Enviar
-                            <br>a caja</a>
+                            <br>a Caja</a>
                         <div
                             class="position-absolute translate-middle bottom-0 start-10 mb-6 bg-danger rounded-circle border border-4 border-body h-20px w-20px">
                         </div>
-                        <a href="/bobeda/recibir/{{ $bobeda->id_bobeda }}" class="btn btn-success">Recibir <br>a caja</a>
+                        <a href="/bobeda/recibir/{{ $bobeda->id_bobeda }}" class="btn btn-success">Recibir <br>de Caja</a>
 
                         <div
                             class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
@@ -69,7 +69,7 @@
                                         class="path2"></span></i>
                                 <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    {{-- ${{ number_format($saldoDisponible, 2, '.', ',') }} --}}
+                                    ${{ number_format($recibidoDeCaja, 2, '.', ',') }}
                                 </div>
                             </div>
                             <!--end::Number-->
@@ -87,7 +87,9 @@
                                         class="path2"></span></i>
                                 <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    $4,500</div>
+                                                                      ${{ number_format($trasladoACaja, 2, '.', ',') }}
+
+                                </div>
                             </div>
                             <!--end::Number-->
 
@@ -155,7 +157,7 @@
                     <th class="min-w-50px">Acciones</th>
                     <th class="min-w-50px">Operacion</th>
                     <th class="min-w-50px">Monto</th>
-                    <th class="min-w-100px">Caja</th>
+                    <th class="min-w-100px">Origen/Destino</th>
                     <th class="min-w-100px">Fecha</th>
                     <th class="min-w-50px">Estado</th>
                 </tr>
@@ -164,20 +166,36 @@
                 @foreach ($movimientoBobeda as $movimiento)
                     <tr>
                         <td>
-                            <a href="/bobeda/cancelar/{{ $movimiento->id_bobeda_movimiento }}"
-                                class="badge badge-danger "><i class="fa-solid fa-pencil text-white "></i> &nbsp; Anular</a>
+                            @if ($movimiento->estado == '1')
+                                <a href="/bobeda/cancelar/{{ $movimiento->id_bobeda_movimiento }}"
+                                    class="badge badge-warning "><i class="ki-duotone ki-minus-square  text-white fs-1x">
+                                        <i class="path1"></i>
+                                        <i class="path2"></i>
+                                    </i> &nbsp;
+                                    Cancelar</a>
+                            @elseif($movimiento->estado == '2')
+                                <a href="/bobeda/anular/{{ $movimiento->id_bobeda_movimiento }}"
+                                    class="badge badge-danger "><i
+                                        class="ki-duotone ki-cross-square  text-white   fs-1x">
+                                        <i class="path1"></i>
+                                        <i class="path2"></i>
+                                    </i> &nbsp;
+                                    Anular</a>
+                            @endif
+
+
                         </td>
                         <td> {{ $movimiento->tipo_operacion == '1' ? 'Traslado' : 'Recepcion' }}</span> </td>
                         <td>
                             @if ($movimiento->tipo_operacion == '1')
-                                <span class="badge badge-light-success fs-5">${{ $movimiento->monto }}</span>
+                                <span class="badge badge-light-danger fs-5">${{ $movimiento->monto }}</span>
                             @else
-                                <span class="badge badge-light-danger fs-5"> $
+                                <span class="badge badge-light-success fs-5"> $
                                     {{ number_format($movimiento->monto, 2, '.', ',') }}</span>
                             @endif
                         </td>
-                        <td >{{ $movimiento->numero_caja }}</td>
-                        <td>{{ $movimiento->created_at }}</td>
+                        <td style="text-align: center">{{ $movimiento->numero_caja }}</td>
+                        <td>{{ $movimiento->fecha_operacion }}</td>
 
                         <td>
                             @if ($movimiento->estado == '1')
@@ -193,11 +211,6 @@
 
                         </td>
 
-
-                        <td>
-
-                        </td>
-                        <td></td>
                     </tr>
                 @endforeach
             </tbody>

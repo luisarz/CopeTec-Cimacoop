@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AperturaCajaController;
 use App\Http\Controllers\BobedaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -175,5 +176,18 @@ Movimientos Route
 Route::get('/bobeda', [BobedaController::class, 'index'])->middleware('auth');
 Route::get('/bobeda/transferir/{id}', [BobedaController::class, 'transferir'])->middleware('auth');
 Route::post('/bobeda/realizarTraslado', [BobedaController::class, 'realizarTraslado'])->middleware('auth');
+Route::post('/bobeda/recibirTraslado', [BobedaController::class, 'recibirTraslado'])->middleware('auth');
 Route::get('/bobeda/recibir/{id}', [BobedaController::class, 'recibir'])->middleware('auth');
 Route::put('/bobeda/put', [BobedaController::class, 'put'])->middleware('auth');
+
+
+
+/*
+Apertura Caja Route
+ */
+Route::get('/apertura', [AperturaCajaController::class, 'index'])->middleware('auth');
+Route::get('/apertura/aperturarcaja', [AperturaCajaController::class, 'aperturar'])->middleware('auth');
+Route::post('/apertura/aperturarcaja', [AperturaCajaController::class, 'aperturarcaja'])->middleware('auth');
+Route::post('/apertura/recibirTraslado', [AperturaCajaController::class, 'recibirTraslado'])->middleware('auth');
+Route::get('/apertura/recibir/{id}', [AperturaCajaController::class, 'recibir'])->middleware('auth');
+Route::put('/apertura/put', [AperturaCajaController::class, 'put'])->middleware('auth');

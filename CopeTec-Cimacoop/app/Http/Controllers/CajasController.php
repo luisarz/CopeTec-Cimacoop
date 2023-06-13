@@ -14,8 +14,8 @@ class CajasController extends Controller
         $cajas = Cajas::join('users', 'cajas.id_usuario_asignado', '=', 'users.id_empleado_usuario')
             ->join('empleados', 'users.id_empleado_usuario', 'empleados.id_empleado')
             ->select('cajas.*', 'users.id_empleado_usuario', 'empleados.nombre_empleado', 'empleados.dui')
-            ->get();
-        // dd($cajas);
+            ->distinct()
+            ->paginate(10);
         return view("cajas.index", compact("cajas"));
     }
 
@@ -41,16 +41,16 @@ class CajasController extends Controller
     public function post(Request $request)
     {
 
-        $cuenta = Cajas::where("numero_caja", $request->numero_caja)->first();
+        $caja = Cajas::where("numero_caja", $request->numero_caja)->first();
         $cajeros = Cajas::where("id_usuario_asignado", $request->id_usuario_asignado)->first();
-        if (($cuenta && $cuenta->count() > 0) || ($cajeros && $cajeros->count() > 0)) {
+        if (($caja && $caja->count() > 0) || ($cajeros && $cajeros->count() > 0)) {
             return redirect("/cajas/add")->withInput()->withErrors(["numero_caja" => "La caja ya existe o el cajero ya tiene una caja asignada"]);
         } else {
-            $cuenta = new Cajas();
-            $cuenta->numero_caja = $request->numero_caja;
-            $cuenta->id_usuario_asignado = $request->id_usuario_asignado;
-            $cuenta->estado_caja = 0;
-            $cuenta->save();
+            $caja = new Cajas();
+            $caja->numero_caja = $request->numero_caja;
+            $caja->id_usuario_asignado = $request->id_usuario_asignado;
+            $caja->estado_caja = 0;
+            $caja->save();
             return redirect("/cajas");
         }
     }
