@@ -86,6 +86,10 @@ class LoginController extends Controller
                     }
                 }
             }
+
+            $user->temp_password = "";
+            $user->is_recovery = 0;
+            $user->save();
                 
 
 
