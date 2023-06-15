@@ -9,7 +9,7 @@ class ClientesController extends Controller
 {
     public function index()
     {
-        $clientes = Clientes::paginate(10);;
+        $clientes = Clientes::whereNotIn('estado',[0,7])->paginate(10);// 1-Para los anulados 2-Para la Bobeda
         return view("clientes.index", compact("clientes"));
     }
 

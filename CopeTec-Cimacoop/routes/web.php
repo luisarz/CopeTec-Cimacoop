@@ -172,6 +172,10 @@ Route::get('/movimientos/retirar/{id}', [MovimientosController::class, 'retirar'
 Route::post('/movimientos/realizarretiro', [MovimientosController::class, 'realizarretiro'])->middleware('auth');
 Route::put('/movimientos/put', [MovimientosController::class, 'put'])->middleware('auth');
 Route::post('/movimientos/anularmovimiento', [MovimientosController::class, 'anularmovimiento'])->middleware('auth');
+Route::get('/movimientos/traslado/{id}', [MovimientosController::class, 'traslado'])->middleware('auth');
+Route::post('/movimientos/recibirtraslado', [MovimientosController::class, 'recibirtraslado'])->middleware('auth');
+Route::get('/movimientos/getTrasladoPendiente/{id}', [MovimientosController::class, 'getTrasladoPendiente'])->middleware('auth');
+
 
 
 

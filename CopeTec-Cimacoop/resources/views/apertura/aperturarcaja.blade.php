@@ -13,24 +13,28 @@
             <!--begin::row group-->
             <div class="form-group row mb-4">
                 <div class="form-floating col-lg-4">
-                    <select name="id_caja" id='id_caja' required class="form-control">
+                    <select name="id_caja" id='id_caja'  class="form-control">
                         <option value="">Seleccione la Caja</option>
-                        
+
                         @foreach ($cajas as $caja)
-                            <option value="{{ $caja->id_caja }}">{{ $caja->numero_caja }}</option>
+                        @if ($caja->id_caja == old('id_caja') )
+                        <option value="{{ $caja->id_caja }}" selected>{{ $caja->numero_caja }}</option>
+                        @else
+                        <option value="{{ $caja->id_caja }}">{{ $caja->numero_caja }}</option>
+                        @endif
+                            {{-- <option value="{{ $caja->id_caja }}">{{ $caja->numero_caja }}</option> --}}
                         @endforeach
                     </select>
                     <label for="floatingPassword">Caja a Aperturar</label>
                 </div>
                 <div class="form-floating col-lg-4">
-                    <input type="number" required readonly id="monto_apertura" class="form-control"
-                        name="monto_apertura" placeholder="monto_apertura" aria-label="monto_apertura"
-                        aria-describedby="basic-addon1"  />
-                        
+                    <input type="number" required readonly id="monto_apertura" class="form-control" name="monto_apertura"
+                        placeholder="monto_apertura" aria-label="monto_apertura" aria-describedby="basic-addon1" />
+
                     <label>Monto Apertura:</label>
                 </div>
-                 <div class="form-floating col-lg-4">
-                        <button type="submit" class="btn btn-bg-danger btn-text-white">Aperturar Caja</button>
+                <div class="form-floating col-lg-4">
+                    <button type="submit" class="btn btn-bg-danger btn-text-white">Aperturar Caja</button>
 
                 </div>
             </div>
@@ -40,11 +44,16 @@
 
 
 
-        @if ($errors->has('dui_cliente'))
+        @if ($errors->any())
             <div class="alert alert-danger">
-                {{ $errors->first('dui_cliente') }}
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
+
         </div>
 
 
@@ -73,9 +82,12 @@
                         id: id
                     },
                     success: function(data) {
-                       let montoTransfiere=data.monto;
+                        let montoTransfiere = data.monto;
+                        let id_bobeda_movimiento = data.id_bobeda_movimiento;
+
                         $('#monto_apertura').val(montoTransfiere);
-                       
+                        $("#id_bobeda_movimiento").val(data.id_bobeda_movimiento);
+
                     },
                     error: function(xhr, status, error) {
                         console.log(error);
