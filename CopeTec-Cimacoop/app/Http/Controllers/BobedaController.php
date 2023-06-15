@@ -17,6 +17,7 @@ class BobedaController extends Controller
         $today = Carbon::today();
         $movimientoBobeda = BobedaMovimientos::join('cajas', 'cajas.id_caja', 'bobeda_movimientos.id_caja')
             ->where('bobeda_movimientos.fecha_operacion', '>=', $today)
+            ->orderBy('bobeda_movimientos.id_bobeda_movimiento', 'desc')
             ->paginate(10);
 
         $trasladoACaja = BobedaMovimientos::where('tipo_operacion', '1')
@@ -131,5 +132,15 @@ class BobedaController extends Controller
             return redirect("/movimientos");
         }
 
+    }
+    public function anularTraslado(Request $request)
+    {
+        $movimientoBobeda = BobedaMovimientos::findOrFail($request->id);
+        $movimientoBobeda->estado = 3; //Anulada
+        $movimientoBobeda->save();
+        $bobeda = Bobeda::first();
+        $bobeda->saldo_bobeda = $bobeda->saldo_bobeda + $movimientoBobeda->monto;
+        $bobeda->save();
+        return redirect("/bobeda");
     }
 }

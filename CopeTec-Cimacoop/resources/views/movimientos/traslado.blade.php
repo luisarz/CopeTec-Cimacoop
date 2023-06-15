@@ -1,10 +1,10 @@
 @extends('base.base')
 @section('formName')
-    <span id="lblSaldo" class="text-success fs-2">Seleccione Cuenta</span>
+    <span id="lblSaldo" class="text-success fs-2">Seleccione Operación</span>
 
 @endsection
 @section('content')
-    <form action="/movimientos/recibirtraslado" method="POST" autocomplete="nope">
+    <form action="/movimientos/recibirTraslado" method="POST" autocomplete="nope">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_caja" name="id_caja" value="{{ $aperturaCaja }}">
@@ -97,7 +97,7 @@
     <script>
         $(document).ready(function() {
             let tienePendiente = '{{ $tienePendientes }}';
-            if (!tienePendiente == 0) {
+            if (tienePendiente <=0) {
                 Swal.fire({
                     title: "Traslados Pendientes",
                     html: `No Tiene <strong>traslados</strong> pendientes de recibir Solicite a Bobeda uno antes de intentar recibir.

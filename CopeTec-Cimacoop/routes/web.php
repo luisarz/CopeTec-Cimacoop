@@ -173,7 +173,7 @@ Route::post('/movimientos/realizarretiro', [MovimientosController::class, 'reali
 Route::put('/movimientos/put', [MovimientosController::class, 'put'])->middleware('auth');
 Route::post('/movimientos/anularmovimiento', [MovimientosController::class, 'anularmovimiento'])->middleware('auth');
 Route::get('/movimientos/traslado/{id}', [MovimientosController::class, 'traslado'])->middleware('auth');
-Route::post('/movimientos/recibirtraslado', [MovimientosController::class, 'recibirtraslado'])->middleware('auth');
+Route::post('/movimientos/recibirTraslado', [MovimientosController::class, 'recibirTraslado'])->middleware('auth');
 Route::get('/movimientos/getTrasladoPendiente/{id}', [MovimientosController::class, 'getTrasladoPendiente'])->middleware('auth');
 
 
@@ -187,6 +187,8 @@ Route::get('/bobeda/transferir/{id}', [BobedaController::class, 'transferir'])->
 Route::post('/bobeda/realizarTraslado', [BobedaController::class, 'realizarTraslado'])->middleware('auth');
 Route::post('/bobeda/recibirTraslado', [BobedaController::class, 'recibirTraslado'])->middleware('auth');
 Route::get('/bobeda/recibir/{id}', [BobedaController::class, 'recibir'])->middleware('auth');
+Route::post('/bobeda/anularTraslado', [BobedaController::class, 'anularTraslado'])->middleware('auth');
+
 Route::put('/bobeda/put', [BobedaController::class, 'put'])->middleware('auth');
 
 
