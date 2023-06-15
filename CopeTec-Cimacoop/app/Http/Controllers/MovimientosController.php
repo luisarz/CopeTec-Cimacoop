@@ -80,12 +80,11 @@ class MovimientosController extends Controller
     public function traslado($id)
     {
         $aperturaCaja=$id;
-        $tienePendientes = 1;
+        $tienePendientes = 0;
         $trasladoPendiente = BobedaMovimientos::where('id_caja', '=', $id)
             ->whereNotIn('bobeda_movimientos.estado', [2, 3, 4])->get();
         $tienePendientes = $trasladoPendiente->count();
 
-       
 
         return view("movimientos.traslado", compact("trasladoPendiente", "aperturaCaja","tienePendientes"));
     }
@@ -98,12 +97,11 @@ class MovimientosController extends Controller
         return response()->json($trasladoPendiente);
     }
 
-    public function recibirtraslado(Request $request){
+    public function recibirTraslado(Request $request){
 
-dd($request->all());
         $cajaReibe = Cajas::findOrFail($request->id_caja);
         $movimiento = new Movimientos();
-        $movimiento->id_cuenta = $request->id_cuenta;
+        $movimiento->id_cuenta =0;
         $movimiento->tipo_operacion = 3;
         $movimiento->monto = $request->monto;
         $movimiento->fecha_operacion = now();
