@@ -34,6 +34,10 @@ Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/login',[LoginController::class, 'index'])->name("login");
 Route::post('/login',[LoginController::class, 'login']);
+Route::get('/reset-password',[LoginController::class, 'recoveryPassword']);
+Route::post('/send-password',[LoginController::class, 'sendEmailRecoveryPassword']);
+Route::get('/set-new-password',[LoginController::class, 'setNewPassword'])->middleware('auth');
+Route::post('/set-new-password',[LoginController::class, 'setPassword'])->middleware('auth');
 
 
 /*
