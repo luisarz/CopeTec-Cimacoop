@@ -32,11 +32,11 @@
                         <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
                             <a href="movimientos/retirar/{{ $cajaAperturada->id_caja }}" class="btn btn-danger">
                                 <span><i class="fa fa-upload fa-2x"></i></span>
-                                Realizar <br>Retiro</a>
+                                Nuevo <br>Retiro</a>
                             <a href="movimientos/depositar/{{ $cajaAperturada->id_caja }}" class="btn btn-success">
                                 <span><i class="fa fa-download fa-2x"></i></span>
 
-                                Realizar<br> Deposito</a>
+                                Nuevo<br> Deposito</a>
 
                         </div>
                     </div>
@@ -153,6 +153,20 @@
 
                     </div>
                     <!--end::Info-->
+                    <!--begin: buttons actions-->
+                    <div class="flex-grow-1 me-1 mb-4">
+                        <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
+                            <a href="movimientos/traslado/{{ $cajaAperturada->id_caja }}" class="btn btn-info">
+                                <i class="ki-duotone ki-cloud-download     text-white  fs-2x  ">
+                                    <i class="path1"></i>
+                                    <i class="path2"></i>
+                                </i></span>
+                                Recibir <br>Traslado</a>
+
+
+                        </div>
+                    </div>
+                    <!--end::buttons actions-->
                 </div>
 
             </div>
@@ -181,7 +195,7 @@
                                                     class="fa-solid fa-trash text-danger"></i> &nbsp; Anulado</a>
                                         @else
                                             <a href="javascript:void(0);"
-                                                onclick="alertAnular({{ $cuenta->id_movimiento }})"
+                                                onclick="alertAnular({{ $cuenta->id_movimiento }},'{{ $cuenta->tipo_operacion }}','{{ number_format($cuenta->monto, 2, '.', ',') }}')"
                                                 class="btn btn-danger"><i class="fa-solid fa-trash text-white"></i>
                                                 </i> &nbsp;
                                                 Anular</a>
@@ -190,8 +204,9 @@
 
 
                                     </td>
-                                    <td style="text-align:center">{{ $cuenta->numero_cuenta }}</td>
-                                    <td>{{ $cuenta->descripcion_cuenta }}</td>
+                                    <td style="text-align:center">
+                                        {{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->numero_cuenta }}</td>
+                                    <td>{{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->descripcion_cuenta }}</td>
                                     <td>
                                         @switch($cuenta->tipo_operacion)
                                             @case('1')
@@ -203,7 +218,7 @@
                                             @break
 
                                             @case('3')
-                                                <span class="badge badge-light-danger fs-6">traslado Caja</span>
+                                                <span class="badge badge-light-danger fs-6">traslado a Caja</span>
                                             @break
                                         @endswitch
 
@@ -252,22 +267,46 @@
 
     <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script>
-        function alertAnular(id) {
+      
+
+        function alertAnular(id, tipo_operacion, monto) {
+            switch (tipo_operacion) {
+                case '1':
+                    tipo_operacion = '<br/><span class="badge badge-info mb-3 mt-3 fs-5">El Deposito # ' + id +
+                        '</span> <br/>Por un monto de <br><span class="badge mt-3 mb-3 badge-info fs-5">$' + monto +
+                        '</span>';
+                    break;
+                case '2':
+                    tipo_operacion = 'Retiro';
+                    tipo_operacion = '<br/><span class="badge badge-danger mb-3 mt-3 fs-5">El Retiro # ' + id +
+                        '</span> <br/>Por un monto de <br/><span class="badge badge-danger fs-5">$' + monto + '</span>';
+
+                    break;
+                case '3':
+                    tipo_operacion = '<br/><span class="badfge badge-danger fs-5">El Traslado # ' + id +
+                        '</span> <br/>Por un monto de <br/><span class="badge badge-danger fs-5">$' + monto + '</span>';
+
+                    break;
+                default:
+                    break;
+            }
             Swal.fire({
+                html: `Estas apunto de anular  <strong>` + tipo_operacion + `</strong>`,
                 text: "Deseas Anular este registro" + id,
                 icon: "question",
                 buttonsStyling: false,
                 showCancelButton: true,
-                confirmButtonText: "Si",
-                cancelButtonText: 'No',
+                confirmButtonText: "Si, Anular Operacion",
+                cancelButtonText: 'No, Cancelar',
                 customClass: {
                     confirmButton: "btn btn-danger btn-block",
-                    cancelButton: "btn btn-secondary"
+                    cancelButton: "btn btn-secondary btn-block"
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
                     $("#id").val(id)
                     $("#deleteForm").submit();
+
                 } else if (result.isDenied) {}
             });
         }

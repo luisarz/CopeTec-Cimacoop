@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BobedaMovimientos;
 use App\Models\Cajas;
 use App\Models\Cuentas;
 use App\Models\Movimientos;
@@ -17,15 +18,22 @@ class MovimientosController extends Controller
         $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
             ->where("estado_caja", '=', '1')
             ->where('id_usuario_asignado', '=', $id_empleado_usuario)
-            ->select('cajas.id_caja', 'cajas.numero_caja', 'cajas.id_usuario_asignado', 'apertura_caja.monto_apertura', 'apertura_caja.fecha_apertura')
+            ->select('cajas.id_caja', 'cajas.saldo', 'cajas.numero_caja', 'cajas.id_usuario_asignado', 'apertura_caja.monto_apertura', 'apertura_caja.fecha_apertura')
             ->first();
+            
+            if (is_null($cajaAperturada)) {
+                return redirect("/apertura")->withErrors('No tienes caja aperturada, te redirigimos aqui, para que puedas aperturala y poder realizar movimientos.');
+
+        }
+            $idCajaAperturada=$cajaAperturada->id_caja;
+            $saldo = $cajaAperturada->saldo;
 
         $movimientos = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
             ->whereDate('movimientos.fecha_operacion', today())
-            ->where('movimientos.id_caja', '=', $cajaAperturada->id_caja)
+            ->where('movimientos.id_caja', '=', $idCajaAperturada)
             ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
             ->orderby('movimientos.fecha_operacion', 'asc')
             ->paginate(10);
@@ -40,7 +48,8 @@ class MovimientosController extends Controller
         $totalDepositos = $totalMovimientos->totalDepositos;
         $totalRetiros = $totalMovimientos->totalRetiros;
         $totalAnuladas = $totalMovimientos->totalAnuladas;
-        $saldo = ($cajaAperturada->monto_apertura + $totalDepositos) - ($totalRetiros + $totalAnuladas);
+        // $saldo = ($cajaAperturada->monto_apertura + $totalDepositos) - ($totalRetiros + $totalAnuladas);
+
         return view("movimientos.index", compact("movimientos", "cajaAperturada", "totalRetiros", "totalDepositos", "totalAnuladas", "saldo"));
     }
 
@@ -51,6 +60,7 @@ class MovimientosController extends Controller
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
             ->select('cuentas.id_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
+            ->whereNotIn('clientes.estado', [0,7])
             ->get();
         return view("movimientos.depositar", compact("cuentas", "aperturaCaja"));
     }
@@ -61,14 +71,61 @@ class MovimientosController extends Controller
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
             ->select('cuentas.id_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'cuentas.saldo_cuenta', 'clientes.dui_cliente')
+            ->whereNotIn('clientes.estado', [0, 7])
             ->get();
+
         return view("movimientos.retirar", compact("cuentas", "aperturaCaja"));
     }
 
+    public function traslado($id)
+    {
+        $aperturaCaja=$id;
+        $tienePendientes = 1;
+        $trasladoPendiente = BobedaMovimientos::where('id_caja', '=', $id)
+            ->whereNotIn('bobeda_movimientos.estado', [2, 3, 4])->get();
+        $tienePendientes = $trasladoPendiente->count();
+
+       
+
+        return view("movimientos.traslado", compact("trasladoPendiente", "aperturaCaja","tienePendientes"));
+    }
+    public function getTrasladoPendiente($id)
+    {
+        $trasladoPendiente = BobedaMovimientos::findOrFail($id);
+        if (is_null($trasladoPendiente)) {
+            $trasladoPendiente = null;
+        }
+        return response()->json($trasladoPendiente);
+    }
+
+    public function recibirtraslado(Request $request){
+
+dd($request->all());
+        $cajaReibe = Cajas::findOrFail($request->id_caja);
+        $movimiento = new Movimientos();
+        $movimiento->id_cuenta = $request->id_cuenta;
+        $movimiento->tipo_operacion = 3;
+        $movimiento->monto = $request->monto;
+        $movimiento->fecha_operacion = now();
+        $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
+        $movimiento->id_caja = $request->id_caja;
+        $movimiento->estado = 1;
+        $movimiento->save();
+        $cajaReibe->saldo = $cajaReibe->saldo + $request->monto;
+        $cajaReibe->save();
+        //actualizamos el estado del traslado
+        $traslado = BobedaMovimientos::findOrFail($request->id_bobeda_movimiento);
+        $traslado->estado = 2;
+        $traslado->save();
+        return redirect("/movimientos");
+
+
+    }
 
 
     public function realizardeposito(Request $request)
     {
+        $caja= Cajas::findOrFail($request->id_caja);
         $id_cuenta_destino = $request->id_cuenta;
         $cuentaDestinoDatos = Cuentas::findOrFail($id_cuenta_destino);
         $movimiento = new Movimientos();
@@ -82,12 +139,16 @@ class MovimientosController extends Controller
         $movimiento->save();
         $cuentaDestinoDatos->saldo_cuenta = $cuentaDestinoDatos->saldo_cuenta + $request->monto;
         $cuentaDestinoDatos->save();
+        $caja->saldo = $caja->saldo + $request->monto;
+        $caja->save();
         return redirect("/movimientos");
 
     }
 
     public function realizarretiro(Request $request)
     {
+        $caja = Cajas::findOrFail($request->id_caja);
+
         $id_cuenta_origen = $request->id_cuenta;
         $cuentaOrigenDatos = Cuentas::findOrFail($id_cuenta_origen);
         $movimiento = new Movimientos();
@@ -101,6 +162,8 @@ class MovimientosController extends Controller
         $movimiento->save();
         $cuentaOrigenDatos->saldo_cuenta = $cuentaOrigenDatos->saldo_cuenta - $request->monto;
         $cuentaOrigenDatos->save();
+        $caja->saldo = $caja->saldo - $request->monto;
+        $caja->save();
         return redirect("/movimientos");
 
     }
@@ -140,11 +203,18 @@ class MovimientosController extends Controller
         $movimiento->estado = 0;
         $movimiento->save();
         $id_cuenta = $movimiento->id_cuenta;
+        $id_caja = $movimiento->id_caja;
+        $caja = Cajas::findOrFail($movimiento->id_caja);
+
         $cuenta = Cuentas::findOrFail($id_cuenta);
         if ($movimiento->tipo_operacion == 1) {
             $cuenta->saldo_cuenta = $cuenta->saldo_cuenta - $movimiento->monto; //Deposito
+            $caja->saldo = $caja->saldo - $movimiento->monto;
+            $caja->save();
         } else {
             $cuenta->saldo_cuenta = $cuenta->saldo_cuenta + $movimiento->monto; //Retiro
+            $caja->saldo = $caja->saldo + $movimiento->monto;
+            $caja->save();
         }
         $cuenta->save();
 

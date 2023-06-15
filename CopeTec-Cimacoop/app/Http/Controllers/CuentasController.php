@@ -14,6 +14,7 @@ class CuentasController extends Controller
         $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
         ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
         ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+        ->whereNotIn('clientes.estado', [0,7])
         ->distinct()
         ->orderby('clientes.nombre', 'asc')
         ->paginate(10);

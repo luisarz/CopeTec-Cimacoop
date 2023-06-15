@@ -10,6 +10,7 @@ use App\Models\Cuentas;
 use App\Models\TipoCuenta;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AperturaCajaController extends Controller
 {
@@ -34,6 +35,7 @@ class AperturaCajaController extends Controller
     }
     public function gettraslado($id)
     {
+        dd($id);
         $trasladoPendiente = BobedaMovimientos::where('id_caja', '=', $id)
             ->whereNotIn('bobeda_movimientos.estado', [2, 3, 4])->first();
         if (is_null($trasladoPendiente)) {
@@ -44,21 +46,53 @@ class AperturaCajaController extends Controller
 
     public function aperturarcaja(Request $request)
     {
-        $today = Carbon::today();
-        $apertuarCaja = new AperturaCaja();
-        $apertuarCaja->id_caja = $request->id_caja;
-        $apertuarCaja->monto_apertura = $request->monto_apertura;
-        $apertuarCaja->fecha_apertura = $today;
-        $apertuarCaja->estado = 1;
-        $apertuarCaja->id_usuario = auth()->user()->id;
-        $apertuarCaja->save();
-        /** actualzar el estado de la caja*/
-        $cajaAperturada = Cajas::findOrFail($request->id_caja);
-        $cajaAperturada->estado_caja = 1;
-        $cajaAperturada->save();
-     
+        $validator = Validator::make($request->all(), [
+            'id_caja' => ['required'],
+            'monto_apertura' => ['required', 'numeric', 'min:0.01', 'max:9999999999.99'],
+        ], [
+                'id_caja.required' => 'Seleccione una caja.',
+                'monto_apertura.required' => 'No tienes traslado pendiente de la Bobeda, solicita un traslado para poder aperturar la Caja.',
+                'monto_apertura.numeric' => 'El campo Monto de Apertura debe ser numérico.',
+                'monto_apertura.min' => 'El campo Monto de Apertura debe ser mayor o igual a 0.01.',
+                'monto_apertura.max' => 'El campo Monto de Apertura debe ser menor o igual a 9999999999.99.',
+            ]);
 
-        return redirect("/apertura");
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $trasladoBobeda = BobedaMovimientos::findOrFail($request->id_bobeda_movimiento);
+            if ($trasladoBobeda->monto != $request->monto_apertura) {
+                return redirect()->back()->withErrors(["monto_apertura" => "El monto de apertura no coincide con el monto enviado desde la Bobeda."])->withInput();
+            } else {
+                $apertuarCaja = new AperturaCaja();
+                $apertuarCaja->id_caja = $request->id_caja;
+                $apertuarCaja->monto_apertura = $request->monto_apertura;
+                $apertuarCaja->fecha_apertura = now();
+                $apertuarCaja->estado = 1;
+                $apertuarCaja->id_usuario = auth()->user()->id;
+                $apertuarCaja->save();
+                /** actualzar el estado de la caja*/
+                $cajaAperturada = Cajas::findOrFail($request->id_caja);
+                $cajaAperturada->estado_caja = 1;
+                $cajaAperturada->save();
+                //Pasamos a recibido el traslado
+                $trasladoBobeda->estado = 2;
+                $trasladoBobeda->save();
+                //actualizamos el saldo de la caja
+                $caja=Cajas::findOrFail($request->id_caja);
+                $caja->saldo=$request->monto_apertura;
+                $caja->save();
+
+                return redirect("/apertura");
+            }
+
+
+
+        }
+
+
+
+
     }
 
     public function put(Request $request)

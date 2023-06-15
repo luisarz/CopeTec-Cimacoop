@@ -8,6 +8,16 @@
     <div>
         <a href="apertura/aperturarcaja" type="button" class="btn btn-primary">
             <i class="fa fa-opencart"></i> &nbsp; Apertuar Caja</a>
+            
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </div>
     <div class="table-responsive">
         <table class=" table table-hover table-row-dashed fs-3  my-0 dataTable  gy-2 gs-5">
