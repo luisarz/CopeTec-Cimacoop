@@ -94,4 +94,14 @@ class CuentasController extends Controller
         }
 
     }
+
+    public function getCuenta($id)
+    {
+        $cuenta = Cuentas::findOrFail($id);
+        $saldo_cuenta = number_format($cuenta->saldo_cuenta, 2, '.', '');
+        if (is_null($cuenta)) {
+             $saldo_cuenta= 0;
+        }
+        return response()->json($saldo_cuenta);
+    }
 }

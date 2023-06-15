@@ -39,6 +39,7 @@ class LoginController extends Controller
             $empleados = Empleados::findOrFail($id_empleado_usuario);
             $session = session();
             $session->put('id', $user->id);
+            $session->put('id_empleado_usuario', $user->id_empleado_usuario);
             $session->put('email', $user->email);
             $session->put('name', $empleados->nombre_empleado);
 

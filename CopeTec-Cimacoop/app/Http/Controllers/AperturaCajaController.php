@@ -16,92 +16,48 @@ class AperturaCajaController extends Controller
     public function index()
     {
         $today = Carbon::today();
-        $cajasApertuaradas = AperturaCaja::join('cajas','cajas.id_caja','=','apertura_caja.id_caja')
-        ->join('users','users.id','=','apertura_caja.id_usuario')
-        ->join('empleados','empleados.id_empleado','=','users.id_empleado_usuario')
-        ->where('apertura_caja.fecha_apertura', '>=', $today)
-        ->where('apertura_caja.estado','=','1')->paginate(10);
+        $cajasApertuaradas = AperturaCaja::join('cajas', 'cajas.id_caja', '=', 'apertura_caja.id_caja')
+            ->join('users', 'users.id', '=', 'apertura_caja.id_usuario')
+            ->join('empleados', 'empleados.id_empleado', '=', 'users.id_empleado_usuario')
+            ->where('apertura_caja.fecha_apertura', '>=', $today)
+            ->where('apertura_caja.estado', '=', '1')->paginate(10);
         return view("apertura.index", compact("cajasApertuaradas"));
     }
 
     public function aperturar()
     {
-        $cajas = Cajas::where("estado_caja", 0)->get();
+        $id_empleado_usuario = session()->get('id_empleado_usuario');
+        $cajas = Cajas::where("estado_caja", '=', '0')
+            ->where('id_usuario_asignado', '=', $id_empleado_usuario)
+            ->get();
         return view("apertura.aperturarcaja", compact("cajas"));
+    }
+    public function gettraslado($id)
+    {
+        $trasladoPendiente = BobedaMovimientos::where('id_caja', '=', $id)
+            ->whereNotIn('bobeda_movimientos.estado', [2, 3, 4])->first();
+        if (is_null($trasladoPendiente)) {
+            $trasladoPendiente = null;
+        }
+        return response()->json($trasladoPendiente);
     }
 
     public function aperturarcaja(Request $request)
     {
         $today = Carbon::today();
-        $apertuarCaja= new AperturaCaja();
+        $apertuarCaja = new AperturaCaja();
         $apertuarCaja->id_caja = $request->id_caja;
         $apertuarCaja->monto_apertura = $request->monto_apertura;
         $apertuarCaja->fecha_apertura = $today;
         $apertuarCaja->estado = 1;
-        $apertuarCaja->id_usuario= auth()->user()->id;
+        $apertuarCaja->id_usuario = auth()->user()->id;
         $apertuarCaja->save();
-        //actualzar el estado de la caja
+        /** actualzar el estado de la caja*/
         $cajaAperturada = Cajas::findOrFail($request->id_caja);
         $cajaAperturada->estado_caja = 1;
         $cajaAperturada->save();
-        $cajasApertuaradas = AperturaCaja::where('fecha_apertura', '>=', $today)
-            ->where('estado', '=', '0')->paginate(10);
-        return view("apertura.index", compact("cajasApertuaradas"));
-    }
-    public function recibir($id)
-    {
-        $bobeda = Bobeda::findOrFail($id);
-        $cajas = Cajas::all();
-        return view("apertura.recibir", compact("bobeda", "cajas"));
-    }
+     
 
-    public function realizarTraslado(Request $request)
-    {
-
-        $bobeda = Bobeda::first();
-        if ($bobeda->saldo_bobeda >= $request->monto) {
-            $bobedaMovimiento = new BobedaMovimientos();
-            $bobedaMovimiento->id_bobeda = $request->id_bobeda;
-            $bobedaMovimiento->id_caja = $request->id_caja;
-            $bobedaMovimiento->tipo_operacion = $request->tipo_operacion;
-            $bobedaMovimiento->estado = 1;
-            $bobedaMovimiento->monto = $request->monto;
-            $bobedaMovimiento->fecha_operacion = Carbon::now();
-            $bobedaMovimiento->observacion = $request->observacion;
-            $bobedaMovimiento->save();
-            $movimientoBobeda = BobedaMovimientos::paginate(10);
-            $bobeda->saldo_bobeda = $bobeda->saldo_bobeda - $request->monto;
-            $bobeda->save();
-            return view("apertura.index", compact("movimientoBobeda", "bobeda"));
-        }
-        return redirect("/apertura/transferir/$request->id_bobeda")->withInput()->withErrors(['Monto' => 'El monto que intentas enviar sobrepasa el limite']);
-
-    }
-    public function recibirTraslado(Request $request)
-    {
-
-        $bobeda = Bobeda::first();
-        $bobedaMovimiento = new BobedaMovimientos();
-        $bobedaMovimiento->id_bobeda = $request->id_bobeda;
-        $bobedaMovimiento->id_caja = $request->id_caja;
-        $bobedaMovimiento->tipo_operacion = $request->tipo_operacion;
-        $bobedaMovimiento->estado = 1;
-        $bobedaMovimiento->monto = $request->monto;
-        $bobedaMovimiento->fecha_operacion = Carbon::now();
-        $bobedaMovimiento->observacion = $request->observacion;
-        $bobedaMovimiento->save();
-        $movimientoBobeda = BobedaMovimientos::paginate(10);
-        $bobeda->saldo_bobeda = $bobeda->saldo_bobeda + $request->monto;
-        $bobeda->save();
-        return view("apertura.index", compact("movimientoBobeda", "bobeda"));
-
-    }
-
-
-
-    public function delete(Request $request)
-    {
-        Cuentas::destroy($request->id);
         return redirect("/apertura");
     }
 

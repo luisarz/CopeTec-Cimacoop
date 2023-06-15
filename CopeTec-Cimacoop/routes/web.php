@@ -147,6 +147,9 @@ Route::post('/cuentas/add', [CuentasController::class, 'post'])->middleware('aut
 Route::delete('/cuentas/delete', [CuentasController::class, 'delete'])->middleware('auth');
 Route::get('/cuentas/{id}', [CuentasController::class, 'edit'])->middleware('auth');
 Route::put('/cuentas/put', [CuentasController::class, 'put'])->middleware('auth');
+//Consultar el saldo de la cuenta
+Route::get('cuentas/getcuenta/{id}', [CuentasController::class, 'getCuenta'])->middleware('auth');
+
 
 /*
 Cajas Route
@@ -163,10 +166,10 @@ Route::put('/cajas/put', [CajasController::class, 'put'])->middleware('auth');
 Movimientos Route
  */
 Route::get('/movimientos', [MovimientosController::class, 'index'])->middleware('auth');
-Route::get('/movimientos/add', [MovimientosController::class, 'add'])->middleware('auth');
-Route::post('/movimientos/add', [MovimientosController::class, 'post'])->middleware('auth');
-Route::delete('/movimientos/delete', [MovimientosController::class, 'delete'])->middleware('auth');
-Route::get('/movimientos/{id}', [MovimientosController::class, 'edit'])->middleware('auth');
+Route::get('/movimientos/depositar/{id}', [MovimientosController::class, 'depositar'])->middleware('auth');
+Route::post('/movimientos/realizardeposito', [MovimientosController::class, 'realizardeposito'])->middleware('auth');
+Route::get('/movimientos/retirar/{id}', [MovimientosController::class, 'retirar'])->middleware('auth');
+Route::post('/movimientos/realizarretiro', [MovimientosController::class, 'realizarretiro'])->middleware('auth');
 Route::put('/movimientos/put', [MovimientosController::class, 'put'])->middleware('auth');
 
 
@@ -191,3 +194,4 @@ Route::post('/apertura/aperturarcaja', [AperturaCajaController::class, 'apertura
 Route::post('/apertura/recibirTraslado', [AperturaCajaController::class, 'recibirTraslado'])->middleware('auth');
 Route::get('/apertura/recibir/{id}', [AperturaCajaController::class, 'recibir'])->middleware('auth');
 Route::put('/apertura/put', [AperturaCajaController::class, 'put'])->middleware('auth');
+Route::get('apertura/gettraslado/{id}', [AperturaCajaController::class, 'gettraslado'])->middleware('auth');

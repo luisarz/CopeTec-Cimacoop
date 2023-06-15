@@ -31,12 +31,6 @@ class BobedaController extends Controller
         return view("bobeda.index", compact("movimientoBobeda", 'bobeda', 'trasladoACaja', 'recibidoDeCaja'));
     }
 
-    public function add()
-    {
-        $asociados = Cajas::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')->get();
-        $tiposcuentas = TipoCuenta::all();
-        return view("bobeda.add", compact("asociados", "tiposcuentas"));
-    }
 
     public function transferir($id)
     {
@@ -65,10 +59,11 @@ class BobedaController extends Controller
             $bobedaMovimiento->fecha_operacion = Carbon::now();
             $bobedaMovimiento->observacion = $request->observacion;
             $bobedaMovimiento->save();
-            $movimientoBobeda = BobedaMovimientos::paginate(10);
             $bobeda->saldo_bobeda = $bobeda->saldo_bobeda - $request->monto;
             $bobeda->save();
-            return view("bobeda.index", compact("movimientoBobeda", "bobeda"));
+
+            return redirect("/bobeda");
+
         }
         return redirect("/bobeda/transferir/$request->id_bobeda")->withInput()->withErrors(['Monto' => 'El monto que intentas enviar sobrepasa el limite']);
 
@@ -89,7 +84,14 @@ class BobedaController extends Controller
         $movimientoBobeda = BobedaMovimientos::paginate(10);
         $bobeda->saldo_bobeda = $bobeda->saldo_bobeda + $request->monto;
         $bobeda->save();
-        return view("bobeda.index", compact("movimientoBobeda", "bobeda"));
+        $trasladoACaja = BobedaMovimientos::where('tipo_operacion', '1')
+            ->where('fecha_operacion', '>=', today())
+            ->sum('monto');
+        $recibidoDeCaja = BobedaMovimientos::where('tipo_operacion', '2')
+            ->where('fecha_operacion', '>=', today())
+            ->sum('monto');
+        dd($recibidoDeCaja);
+        return view("bobeda.index", compact("movimientoBobeda", 'bobeda', 'trasladoACaja', 'recibidoDeCaja'));
 
     }
 

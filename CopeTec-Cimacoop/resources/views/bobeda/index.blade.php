@@ -94,7 +94,7 @@
                             <!--end::Number-->
 
                             <!--begin::Label-->
-                            <div class="fw-semibold fs-6 text-gray-400"> Retiros</div>
+                            <div class="fw-semibold fs-6 text-gray-400"> Traslados -> Cajas</div>
                             <!--end::Label-->
                         </div>
                         <!--end::Stat-->

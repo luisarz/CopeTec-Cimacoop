@@ -12,61 +12,99 @@ class MovimientosController extends Controller
 
     public function index()
     {
+        $id_empleado_usuario = session()->get('id_empleado_usuario');
+
+        $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
+            ->where("estado_caja", '=', '1')
+            ->where('id_usuario_asignado', '=', $id_empleado_usuario)
+            ->select('cajas.id_caja', 'cajas.numero_caja', 'cajas.id_usuario_asignado', 'apertura_caja.monto_apertura', 'apertura_caja.fecha_apertura')
+            ->first();
+
         $movimientos = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
             ->where('movimientos.fecha_operacion', today())
-            ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta','clientes.dui_cliente')
+            ->where('movimientos.id_caja', '=', $cajaAperturada->id_caja)
+            ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
             ->orderby('movimientos.fecha_operacion', 'asc')
             ->paginate(10);
-        // dd($movimientos);
-
-        return view("movimientos.index", compact("movimientos"));
-    }
-
-    public function add()
-    {
-        $asociados = Cajas::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')->get();
-        $tiposcuentas = TipoCuenta::all();
-        return view("movimientos.add", compact("asociados", "tiposcuentas"));
-    }
-
-    public function edit($id)
-    {
-        $cliente = Cuentas::findOrFail($id);
-        return view("movimientos.edit", compact("cliente"));
-    }
 
 
-    public function post(Request $request)
-    {
-        $cuenta = Cuentas::where("id_asociado", $request->id_asociado)
-            ->where('id_tipo_cuenta', $request->id_tipo_cuenta)
-            ->where('numero_cuenta', $request->numero_cuenta)
+
+        $totalMovimientos = Movimientos::selectRaw('SUM(CASE WHEN tipo_operacion = 1 THEN monto ELSE 0 END) AS totalDepositos, SUM(CASE WHEN tipo_operacion = 2 THEN monto ELSE 0 END) AS totalRetiros')
+            ->where('fecha_operacion', today())
+            ->where('id_caja', '=', $cajaAperturada->id_caja)
             ->first();
-        if ($cuenta && $cuenta->count() > 0) {
-            return redirect("/movimientos/add")->withInput()->withErrors(["dui_cliente" => "Ya existe un cliente con este DUI!!"]);
-        } else {
-            $cuenta = new Cuentas();
-            $cuenta->id_asociado = $request->id_asociado;
-            $cuenta->id_tipo_cuenta = $request->id_tipo_cuenta;
-            $cuenta->numero_cuenta = $request->numero_cuenta;
-            $cuenta->monto_apertura = $request->monto_apertura;
-            $cuenta->fecha_apertura = $request->fecha_apertura;
-            $cuenta->saldo_cuenta = $request->monto_apertura;
-            $cuenta->id_interes = $request->id_interes;
-            $cuenta->estado = 1;
-            $cuenta->save();
-            return redirect("/movimientos");
-        }
+
+        $totalDepositos = $totalMovimientos->totalDepositos;
+        $totalRetiros = $totalMovimientos->totalRetiros;
+
+
+
+
+        return view("movimientos.index", compact("movimientos", "cajaAperturada", "totalRetiros", "totalDepositos"));
+    }
+
+    public function depositar($id)
+    {
+        $aperturaCaja = $id;
+        $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->select('cuentas.id_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta','cuentas.numero_cuenta', 'clientes.dui_cliente')
+            ->get();
+        return view("movimientos.depositar", compact("cuentas", "aperturaCaja"));
+    }
+    public function retirar($id)
+    {
+        $aperturaCaja = $id;
+        $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->select('cuentas.id_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta','cuentas.saldo_cuenta', 'clientes.dui_cliente')
+            ->get();
+        return view("movimientos.retirar", compact("cuentas", "aperturaCaja"));
+    }
+
+
+
+    public function realizardeposito(Request $request)
+    {
+        $id_cuenta_destino = $request->id_cuenta;
+        $cuentaDestinoDatos = Cuentas::findOrFail($id_cuenta_destino);
+        $movimiento = new Movimientos();
+        $movimiento->id_cuenta = $request->id_cuenta;
+        $movimiento->tipo_operacion = 1;
+        $movimiento->monto = $request->monto;
+        $movimiento->fecha_operacion = today();
+        $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
+        $movimiento->id_caja = $request->id_caja;
+        $movimiento->estado = 1;
+        $movimiento->save();
+        $cuentaDestinoDatos->saldo_cuenta = $cuentaDestinoDatos->saldo_cuenta + $request->monto;
+        $cuentaDestinoDatos->save();
+        return redirect("/movimientos");
 
     }
 
-    public function delete(Request $request)
+    public function realizarretiro(Request $request)
     {
-        Cuentas::destroy($request->id);
+        $id_cuenta_origen = $request->id_cuenta;
+        $cuentaOrigenDatos = Cuentas::findOrFail($id_cuenta_origen);
+        $movimiento = new Movimientos();
+        $movimiento->id_cuenta = $request->id_cuenta;
+        $movimiento->tipo_operacion = 2;
+        $movimiento->monto = $request->monto;
+        $movimiento->fecha_operacion = today();
+        $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
+        $movimiento->id_caja = $request->id_caja;
+        $movimiento->estado = 1;
+        $movimiento->save();
+        $cuentaOrigenDatos->saldo_cuenta = $cuentaOrigenDatos->saldo_cuenta - $request->monto;
+        $cuentaOrigenDatos->save();
         return redirect("/movimientos");
+
     }
 
     public function put(Request $request)

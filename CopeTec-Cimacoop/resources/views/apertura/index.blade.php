@@ -14,7 +14,7 @@
             <thead class="thead-dark">
                 <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
                     <th class="min-w-50px">Acciones</th>
-                    <th class="min-w-50px ki-text-align-center"># Cuenta</th>
+                    <th class="min-w-50px ki-text-align-center">Caja</th>
                     <th class="min-w-50px">Monto Apertura</th>
                     <th class="min-w-100px">Fecha Apertura</th>
                     <th class="min-w-100px">Aperturó</th>

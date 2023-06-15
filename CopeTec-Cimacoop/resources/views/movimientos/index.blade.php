@@ -3,7 +3,15 @@
 @section('title')
     Administracion de Clientes
 @endsection
-
+@section('formName')
+    <i class="ki-duotone ki-shield-tick text-danger fs-2x"><span class="path1"></span><span class="path2"></span><span
+            class="path3"></span></i>
+    <div class="d-flex align-items-center mb-2">
+        <div class="text-primary text-hover-primary fs-2 fw-bold me-1">
+            {{ $cajaAperturada->numero_caja }}
+        </div>
+    </div>
+@endsection
 @section('content')
     <div class="card mb-5 mb-xl-10">
         <div class="card-body pt-9 pb-0">
@@ -14,16 +22,16 @@
                 <!--begin: buttons actions-->
                 <div class="me-5 mb-4">
                     <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
-                        <button class="btn btn-danger">
+                        <a href="movimientos/retirar/{{ $cajaAperturada->id_caja }}" class="btn btn-danger">
                             <span><i class="fa fa-upload fa-2x"></i></span>
-                            Realizar <br>Retiro</button>
+                            Realizar <br>Retiro</a>
                         <div
                             class="position-absolute translate-middle bottom-0 start-10 mb-6 bg-danger rounded-circle border border-4 border-body h-20px w-20px">
                         </div>
-                        <button class="btn btn-success">
+                        <a href="movimientos/depositar/{{ $cajaAperturada->id_caja }}" class="btn btn-success">
                             <span><i class="fa fa-download fa-2x"></i></span>
 
-                            Realizar<br> Deposito</button>
+                            Realizar<br> Deposito</a>
 
                         <div
                             class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
@@ -37,24 +45,19 @@
 
                     <!--begin::Title-->
                     <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
-                        <!--begin::Name-->
-                        <div class="d-flex align-items-center mb-2">
-                            <div class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">
-                                Caja #1
-                            </div>
-                            <div><i class="ki-duotone ki-verify fs-2 text-primary"><span class="path1"></span><span
-                                        class="path2"></span></i></div>
-                        </div>
-                        <!--end::Name-->
                         <!--begin::Stat-->
                         <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                             <!--begin::Number-->
                             <div class="d-flex align-items-center">
-                                <i class="ki-duotone ki-flag fs-2x text-success me-2"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                                <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
+                                <i class="ki-duotone ki-category fs-2x text-success me-2">
+                                    <i class="path1"></i>
+                                    <i class="path2"></i>
+                                    <i class="path3"></i>
+                                    <i class="path4"></i>
+                                </i>
+                                <div class="fs-3 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    {{-- {{ $totalAsignado}}% --}}
+                                    ${{ number_format($cajaAperturada->monto_apertura, 2, '.', ',') }}
                                 </div>
                             </div>
                             <!--end::Number-->
@@ -69,9 +72,9 @@
                             <div class="d-flex align-items-center">
                                 <i class="ki-duotone ki-arrow-up fs-2x text-success me-2"><span class="path1"></span><span
                                         class="path2"></span></i>
-                                <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
+                                <div class="fs-3 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    {{-- ${{ number_format($saldoDisponible, 2, '.', ',') }} --}}
+                                    ${{ number_format($totalDepositos, 2, '.', ',') }}
                                 </div>
                             </div>
                             <!--end::Number-->
@@ -87,9 +90,11 @@
                             <div class="d-flex align-items-center">
                                 <i class="ki-duotone ki-arrow-down fs-2x text-danger me-2"><span class="path1"></span><span
                                         class="path2"></span></i>
-                                <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
+                                <div class="fs-3 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    $4,500</div>
+                                    ${{ number_format($totalRetiros, 2, '.', ',') }}
+
+                                </div>
                             </div>
                             <!--end::Number-->
 
@@ -104,7 +109,7 @@
                             <div class="d-flex align-items-center">
                                 <i class="ki-duotone ki-minus-square fs-1x text-danger me-2"><span
                                         class="path1"></span><span class="path2"></span></i>
-                                <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
+                                <div class="fs-3 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
                                     $4,500</div>
                             </div>
@@ -121,7 +126,7 @@
                             <div class="d-flex align-items-center">
                                 <i class="ki-duotone ki-arrows-circle fs-2x text-success me-2"><span
                                         class="path1"></span><span class="path2"></span></i>
-                                <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
+                                <div class="fs-3 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
                                     {{-- ${{ number_format($saldoAportaciones, 2, '.', ',') }} --}}
                                 </div>
@@ -141,10 +146,23 @@
 
                 </div>
                 <!--end::Info-->
+                 <!--begin: buttons actions-->
+                <div class="me-5 mb-4">
+                    <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
+                        <a href="movimientos/deposito/{{ $cajaAperturada->id_caja }}" class="btn btn-primary">
+                            <span><i class="fa fa-download fa-2x"></i></span>
+                            Realizar<br> Deposito</a>
+
+                        <div
+                            class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
+                        </div>
+                    </div>
+                </div>
+                <!--end::buttons actions-->
+
             </div>
             <!--end::Details-->
 
-            {{-- <a href="/beneficiarios/add/{{$asociado->id_asociado}}" class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i> Agregar Beneficiario</a> --}}
 
 
         </div>
