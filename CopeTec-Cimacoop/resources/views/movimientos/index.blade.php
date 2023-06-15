@@ -8,216 +8,240 @@
             class="path3"></span></i>
     <div class="d-flex align-items-center mb-2">
         <div class="text-primary text-hover-primary fs-2 fw-bold me-1">
-            {{ $cajaAperturada->numero_caja }}
+            Movimientos
+
         </div>
     </div>
 @endsection
 @section('content')
-    <div class="card mb-5 mb-xl-10">
-        <div class="card-body pt-9 pb-0">
-            <!--begin::Details-->
+    <div class="card shadow-lg  mt-5">
 
-            <div class="d-flex flex-wrap flex-sm-nowrap">
+        <div class="card shadow-lg">
+            <div class="card-header ribbon ribbon-end ribbon-clip">
 
-                <!--begin: buttons actions-->
-                <div class="me-5 mb-4">
-                    <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
-                        <a href="movimientos/retirar/{{ $cajaAperturada->id_caja }}" class="btn btn-danger">
-                            <span><i class="fa fa-upload fa-2x"></i></span>
-                            Realizar <br>Retiro</a>
-                        <div
-                            class="position-absolute translate-middle bottom-0 start-10 mb-6 bg-danger rounded-circle border border-4 border-body h-20px w-20px">
-                        </div>
-                        <a href="movimientos/depositar/{{ $cajaAperturada->id_caja }}" class="btn btn-success">
-                            <span><i class="fa fa-download fa-2x"></i></span>
+                <div class="ribbon-label fs-3">
+                    <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
+                            class="path2"></span><span class="path3"></span></i>
+                    {{ $cajaAperturada->numero_caja }}
 
-                            Realizar<br> Deposito</a>
+                    <span class="ribbon-inner bg-danger"></span>
+                </div>
+                <div class="d-flex flex-wrap flex-sm-nowrap mt-5">
+                    <!--begin: buttons actions-->
+                    <div class="flex-grow-1 me-1 mb-4">
+                        <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
+                            <a href="movimientos/retirar/{{ $cajaAperturada->id_caja }}" class="btn btn-danger">
+                                <span><i class="fa fa-upload fa-2x"></i></span>
+                                Realizar <br>Retiro</a>
+                            <a href="movimientos/depositar/{{ $cajaAperturada->id_caja }}" class="btn btn-success">
+                                <span><i class="fa fa-download fa-2x"></i></span>
 
-                        <div
-                            class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
+                                Realizar<br> Deposito</a>
+
                         </div>
                     </div>
-                </div>
-                <!--end::buttons actions-->
+                    <!--end::buttons actions-->
+                    <!--begin::Info-->
+                    <div class="flex-grow-1">
 
-                <!--begin::Info-->
-                <div class="flex-grow-1">
-
-                    <!--begin::Title-->
-                    <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
-                        <!--begin::Stat-->
-                        <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                            <!--begin::Number-->
-                            <div class="d-flex align-items-center">
-                                <i class="ki-duotone ki-category fs-2x text-success me-2">
-                                    <i class="path1"></i>
-                                    <i class="path2"></i>
-                                    <i class="path3"></i>
-                                    <i class="path4"></i>
-                                </i>
-                                <div class="fs-3 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
-                                    data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    ${{ number_format($cajaAperturada->monto_apertura, 2, '.', ',') }}
+                        <!--begin::Title-->
+                        <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+                            <!--begin::Stat-->
+                            <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                <!--begin::Number-->
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
+                                        data-kt-countup-prefix="$" data-kt-initialized="1">
+                                        ${{ number_format($cajaAperturada->monto_apertura, 2, '.', ',') }}
+                                    </div>
                                 </div>
-                            </div>
-                            <!--end::Number-->
+                                <!--end::Number-->
 
-                            <!--begin::Label-->
-                            <div class="fw-semibold fs-6 text-gray-400">$ Apertura</div>
-                            <!--end::Label-->
-                        </div>
-                        <!--begin::Stat-->
-                        <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                            <!--begin::Number-->
-                            <div class="d-flex align-items-center">
-                                <i class="ki-duotone ki-arrow-up fs-2x text-success me-2"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                                <div class="fs-3 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
-                                    data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    ${{ number_format($totalDepositos, 2, '.', ',') }}
+                                <!--begin::Label-->
+                                <div class="fw-semibold fs-6 text-gray-400">
+                                    <i class="ki-duotone ki-category  text-success me-2">
+                                        <i class="path1"></i>
+                                        <i class="path2"></i>
+                                        <i class="path3"></i>
+                                        <i class="path4"></i>
+                                    </i>Apertura
                                 </div>
+                                <!--end::Label-->
                             </div>
-                            <!--end::Number-->
+                            <!--begin::Stat-->
+                            <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                <!--begin::Number-->
+                                <div class="d-flex align-items-center">
 
-                            <!--begin::Label-->
-                            <div class="fw-semibold fs-6 text-gray-400">Depositos</div>
-                            <!--end::Label-->
-                        </div>
-                        <!--end::Stat-->
-                        <!--begin::Stat-->
-                        <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                            <!--begin::Number-->
-                            <div class="d-flex align-items-center">
-                                <i class="ki-duotone ki-arrow-down fs-2x text-danger me-2"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                                <div class="fs-3 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
-                                    data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    ${{ number_format($totalRetiros, 2, '.', ',') }}
+                                    <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
+                                        data-kt-countup-prefix="$" data-kt-initialized="1">
+                                        ${{ number_format($totalDepositos, 2, '.', ',') }}
+                                    </div>
+                                </div>
+                                <!--end::Number-->
+
+                                <!--begin::Label-->
+                                <div class="fw-semibold fs-6 text-gray-400"><i
+                                        class="ki-duotone ki-arrow-up  text-success me-2"><span class="path1"></span><span
+                                            class="path2"></span></i>Deposito</div>
+                                <!--end::Label-->
+                            </div>
+                            <!--end::Stat-->
+                            <!--begin::Stat-->
+                            <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                <!--begin::Number-->
+                                <div class="d-flex align-items-center">
+
+                                    <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
+                                        data-kt-countup-prefix="$" data-kt-initialized="1">
+                                        ${{ number_format($totalRetiros, 2, '.', ',') }}
+
+                                    </div>
+                                </div>
+                                <!--end::Number-->
+
+                                <!--begin::Label-->
+                                <div class="fw-semibold fs-6 text-gray-400"> <i
+                                        class="ki-duotone ki-arrow-down  text-danger me-2"><span class="path1"></span><span
+                                            class="path2"></span></i>Retiro</div>
+                                <!--end::Label-->
+                            </div>
+                            <!--end::Stat-->
+                            <!--begin::Stat-->
+                            <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                <!--begin::Number-->
+                                <div class="d-flex align-items-center">
+
+                                    <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
+                                        data-kt-countup-prefix="$" data-kt-initialized="1">
+                                        ${{ number_format($totalAnuladas, 2, '.', ',') }}
+                                    </div>
+                                </div>
+                                <!--end::Number-->
+
+                                <!--begin::Label-->
+                                <div class="fw-semibold fs-6 text-gray-400"> <i
+                                        class="ki-duotone ki-minus-square fs-1x text-danger me-2"><span
+                                            class="path1"></span><span class="path2"></span></i>Anulado</div>
+                                <!--end::Label-->
+                            </div>
+                            <!--end::Stat-->
+                            <!--begin::Stat-->
+                            <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                <!--begin::Number-->
+                                <div class="d-flex align-items-center">
+
+                                    <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
+                                        data-kt-countup-prefix="$" data-kt-initialized="1">
+                                        ${{ number_format($saldo, 2, '.', ',') }}
+                                    </div>
 
                                 </div>
+                                <!--end::Number-->
+
+                                <!--begin::Label-->
+                                <div class="fw-semibold fs-6 text-gray-400"><i
+                                        class="ki-duotone ki-arrows-circle text-success me-2"><span
+                                            class="path1"></span><span class="path2"></span></i>Saldos</div>
+                                <!--end::Label-->
                             </div>
-                            <!--end::Number-->
+                            <!--end::Stat-->
 
-                            <!--begin::Label-->
-                            <div class="fw-semibold fs-6 text-gray-400"> Retiros</div>
-                            <!--end::Label-->
                         </div>
-                        <!--end::Stat-->
-                        <!--begin::Stat-->
-                        <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                            <!--begin::Number-->
-                            <div class="d-flex align-items-center">
-                                <i class="ki-duotone ki-minus-square fs-1x text-danger me-2"><span
-                                        class="path1"></span><span class="path2"></span></i>
-                                <div class="fs-3 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
-                                    data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    $4,500</div>
-                            </div>
-                            <!--end::Number-->
+                        <!--end::Title-->
 
-                            <!--begin::Label-->
-                            <div class="fw-semibold fs-6 text-gray-400"> Anulaciones</div>
-                            <!--end::Label-->
-                        </div>
-                        <!--end::Stat-->
-                        <!--begin::Stat-->
-                        <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                            <!--begin::Number-->
-                            <div class="d-flex align-items-center">
-                                <i class="ki-duotone ki-arrows-circle fs-2x text-success me-2"><span
-                                        class="path1"></span><span class="path2"></span></i>
-                                <div class="fs-3 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
-                                    data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    {{-- ${{ number_format($saldoAportaciones, 2, '.', ',') }} --}}
-                                </div>
-
-                            </div>
-                            <!--end::Number-->
-
-                            <!--begin::Label-->
-                            <div class="fw-semibold fs-6 text-gray-400">Saldos</div>
-                            <!--end::Label-->
-                        </div>
-                        <!--end::Stat-->
 
                     </div>
-                    <!--end::Title-->
-
-
+                    <!--end::Info-->
                 </div>
-                <!--end::Info-->
-                 <!--begin: buttons actions-->
-                <div class="me-5 mb-4">
-                    <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
-                        <a href="movimientos/deposito/{{ $cajaAperturada->id_caja }}" class="btn btn-primary">
-                            <span><i class="fa fa-download fa-2x"></i></span>
-                            Realizar<br> Deposito</a>
-
-                        <div
-                            class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
-                        </div>
-                    </div>
-                </div>
-                <!--end::buttons actions-->
 
             </div>
-            <!--end::Details-->
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class=" table table-hover table-row-dashed fs-6     gy-2 gs-5">
+                        <thead class="thead-dark">
+                            <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
+                                <th class="min-w-50px">Acciones</th>
+                                <th class="min-w-50px"># Cuenta</th>
+                                <th class="min-w-50px">Tipo</th>
+                                <th class="min-w-100px">Tipo</th>
+                                <th class="min-w-100px ">Monto</th>
+                                <th class="min-w-50px">Cliente</th>
+                                <th class="min-w-50px">Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($movimientos as $cuenta)
+                                <tr @if ($cuenta->estado == 0) class="btn-outline-dashed" @endif>
+                                    <td>
+                                        @if ($cuenta->estado == 0)
+                                            <a class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"
+                                                style="pointer-events: none; text-decoration: line-through "><i
+                                                    class="fa-solid fa-trash text-danger"></i> &nbsp; Anulado</a>
+                                        @else
+                                            <a href="javascript:void(0);"
+                                                onclick="alertAnular({{ $cuenta->id_movimiento }})"
+                                                class="btn btn-danger"><i class="fa-solid fa-trash text-white"></i>
+                                                </i> &nbsp;
+                                                Anular</a>
+                                        @endif
 
 
 
+                                    </td>
+                                    <td style="text-align:center">{{ $cuenta->numero_cuenta }}</td>
+                                    <td>{{ $cuenta->descripcion_cuenta }}</td>
+                                    <td>
+                                        @switch($cuenta->tipo_operacion)
+                                            @case('1')
+                                                <span class="badge badge-light-success fs-6">Deposito</span>
+                                            @break
+
+                                            @case('2')
+                                                <span class="badge badge-light-danger fs-6">Retiro</span>
+                                            @break
+
+                                            @case('3')
+                                                <span class="badge badge-light-danger fs-6">traslado Caja</span>
+                                            @break
+                                        @endswitch
+
+
+                                    </td>
+                                    <td style="text-align:right">
+
+
+                                        @switch($cuenta->tipo_operacion)
+                                            @case('1')
+                                                <span
+                                                    class="badge badge-light-success fs-6">${{ number_format($cuenta->monto, 2, '.', ',') }}</span>
+                                            @break
+
+                                            @default
+                                                <span
+                                                    class="badge badge-light-danger fs-6">${{ number_format($cuenta->monto, 2, '.', ',') }}</span>
+                                        @endswitch
+
+
+                                    </td>
+                                    <td>{{ $cuenta->nombre }}</td>
+                                    <td>{{ $cuenta->fecha_operacion }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                {{ $movimientos->links('vendor.pagination.bootstrap-5') }}
+            </div>
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table class=" table table-hover table-row-dashed fs-3  my-0 dataTable  gy-2 gs-5">
-            <thead class="thead-dark">
-                <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                    <th class="min-w-50px">Acciones</th>
-                    <th class="min-w-50px"># Cuenta</th>
-                    <th class="min-w-50px">Tipo</th>
-                    <th class="min-w-100px">Tipo</th>
-                    <th class="min-w-100px">Monto</th>
-                    <th class="min-w-50px">Cliente</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($movimientos as $cuenta)
-                    <tr>
-                        <td>
-                            <a href="/clientes/{{ $cuenta->id_cliente }}" class="badge badge-danger "><i
-                                    class="fa-solid fa-pencil text-white "></i> &nbsp; Anular</a>
-                        </td>
-                        <td style="text-align:right">{{ $cuenta->numero_cuenta }}</td>
-                        <td>{{ $cuenta->descripcion_cuenta }}</td>
-                        <td> {{ $cuenta->tipo_operacion == '1' ? 'Deposito' : 'Retiro' }}</span> </td>
-                        <td style="text-align:right">
-                            @if ($cuenta->tipo_operacion == '1')
-                                <span class="badge badge-light-success fs-5">${{ $cuenta->monto }}</span>
-                            @else
-                                <span class="badge badge-light-danger fs-5"> $
-                                    {{ number_format($cuenta->monto, 2, '.', ',') }}</span>
-                            @endif
-                        </td>
-
-                        </td>
-
-                        <td>{{ $cuenta->nombre }}</td>
-
-
-                        <td>
-
-                        </td>
-                        <td></td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-    {{ $movimientos->links('vendor.pagination.bootstrap-5') }}
-
-    <form method="post" id="deleteForm" action="/clientes/delete">
+    <form method="post" id="deleteForm" action="/movimientos/anularmovimiento">
         {!! csrf_field() !!}
-        {{ method_field('DELETE') }}
+        {{ method_field('POST') }}
         <input type="hidden" name="id" id="id">
     </form>
 @endsection
@@ -228,16 +252,16 @@
 
     <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script>
-        function alertDelete(id) {
+        function alertAnular(id) {
             Swal.fire({
-                text: "Deseas Eliminar este registro",
+                text: "Deseas Anular este registro" + id,
                 icon: "question",
                 buttonsStyling: false,
                 showCancelButton: true,
                 confirmButtonText: "Si",
                 cancelButtonText: 'No',
                 customClass: {
-                    confirmButton: "btn btn-warning",
+                    confirmButton: "btn btn-danger btn-block",
                     cancelButton: "btn btn-secondary"
                 }
             }).then((result) => {

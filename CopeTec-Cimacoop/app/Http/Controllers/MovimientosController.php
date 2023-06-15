@@ -24,7 +24,7 @@ class MovimientosController extends Controller
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
-            ->where('movimientos.fecha_operacion', today())
+            ->whereDate('movimientos.fecha_operacion', today())
             ->where('movimientos.id_caja', '=', $cajaAperturada->id_caja)
             ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
             ->orderby('movimientos.fecha_operacion', 'asc')
@@ -32,18 +32,16 @@ class MovimientosController extends Controller
 
 
 
-        $totalMovimientos = Movimientos::selectRaw('SUM(CASE WHEN tipo_operacion = 1 THEN monto ELSE 0 END) AS totalDepositos, SUM(CASE WHEN tipo_operacion = 2 THEN monto ELSE 0 END) AS totalRetiros')
-            ->where('fecha_operacion', today())
+        $totalMovimientos = Movimientos::selectRaw('SUM(CASE WHEN tipo_operacion = 1 AND estado = 1 THEN monto ELSE 0 END) AS totalDepositos, SUM(CASE WHEN tipo_operacion = 2 AND estado = 1 THEN monto ELSE 0 END) AS totalRetiros, SUM(CASE WHEN estado = 0 THEN monto ELSE 0 END) AS totalAnuladas')
+            ->whereDate('fecha_operacion', today())
             ->where('id_caja', '=', $cajaAperturada->id_caja)
             ->first();
 
         $totalDepositos = $totalMovimientos->totalDepositos;
         $totalRetiros = $totalMovimientos->totalRetiros;
-
-
-
-
-        return view("movimientos.index", compact("movimientos", "cajaAperturada", "totalRetiros", "totalDepositos"));
+        $totalAnuladas = $totalMovimientos->totalAnuladas;
+        $saldo = ($cajaAperturada->monto_apertura + $totalDepositos) - ($totalRetiros + $totalAnuladas);
+        return view("movimientos.index", compact("movimientos", "cajaAperturada", "totalRetiros", "totalDepositos", "totalAnuladas", "saldo"));
     }
 
     public function depositar($id)
@@ -52,7 +50,7 @@ class MovimientosController extends Controller
         $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
-            ->select('cuentas.id_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta','cuentas.numero_cuenta', 'clientes.dui_cliente')
+            ->select('cuentas.id_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
             ->get();
         return view("movimientos.depositar", compact("cuentas", "aperturaCaja"));
     }
@@ -62,7 +60,7 @@ class MovimientosController extends Controller
         $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
-            ->select('cuentas.id_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta','cuentas.saldo_cuenta', 'clientes.dui_cliente')
+            ->select('cuentas.id_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'cuentas.saldo_cuenta', 'clientes.dui_cliente')
             ->get();
         return view("movimientos.retirar", compact("cuentas", "aperturaCaja"));
     }
@@ -77,7 +75,7 @@ class MovimientosController extends Controller
         $movimiento->id_cuenta = $request->id_cuenta;
         $movimiento->tipo_operacion = 1;
         $movimiento->monto = $request->monto;
-        $movimiento->fecha_operacion = today();
+        $movimiento->fecha_operacion = now();
         $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
         $movimiento->id_caja = $request->id_caja;
         $movimiento->estado = 1;
@@ -96,7 +94,7 @@ class MovimientosController extends Controller
         $movimiento->id_cuenta = $request->id_cuenta;
         $movimiento->tipo_operacion = 2;
         $movimiento->monto = $request->monto;
-        $movimiento->fecha_operacion = today();
+        $movimiento->fecha_operacion = now();
         $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
         $movimiento->id_caja = $request->id_caja;
         $movimiento->estado = 1;
@@ -135,5 +133,21 @@ class MovimientosController extends Controller
             return redirect("/movimientos");
         }
 
+    }
+    public function anularmovimiento(Request $request)
+    {
+        $movimiento = Movimientos::findOrFail($request->id);
+        $movimiento->estado = 0;
+        $movimiento->save();
+        $id_cuenta = $movimiento->id_cuenta;
+        $cuenta = Cuentas::findOrFail($id_cuenta);
+        if ($movimiento->tipo_operacion == 1) {
+            $cuenta->saldo_cuenta = $cuenta->saldo_cuenta - $movimiento->monto; //Deposito
+        } else {
+            $cuenta->saldo_cuenta = $cuenta->saldo_cuenta + $movimiento->monto; //Retiro
+        }
+        $cuenta->save();
+
+        return redirect("/movimientos");
     }
 }

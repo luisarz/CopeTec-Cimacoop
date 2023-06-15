@@ -171,6 +171,8 @@ Route::post('/movimientos/realizardeposito', [MovimientosController::class, 'rea
 Route::get('/movimientos/retirar/{id}', [MovimientosController::class, 'retirar'])->middleware('auth');
 Route::post('/movimientos/realizarretiro', [MovimientosController::class, 'realizarretiro'])->middleware('auth');
 Route::put('/movimientos/put', [MovimientosController::class, 'put'])->middleware('auth');
+Route::post('/movimientos/anularmovimiento', [MovimientosController::class, 'anularmovimiento'])->middleware('auth');
+
 
 
 /*
