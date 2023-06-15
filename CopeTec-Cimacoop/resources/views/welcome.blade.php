@@ -874,6 +874,12 @@
                                     class="form-control bg-transparent" />
                                 <!--end::Password-->
                             </div>
+                            <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
+                                <div></div>
+                                <!--begin::Link-->
+                                <a href="/reset-password" class="link-primary">Recuperar Contraseña ?</a>
+                                <!--end::Link-->
+                            </div>
                             <!--end::Input group=-->
                             <!--begin::Wrapper-->
                             <!--end::Wrapper-->
@@ -905,8 +911,7 @@
                 style="background-image: url(assets/media/misc/auth-bg.png)">
                 <!--begin::Content-->
                 <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">
-                    <img alt="Logo" src="assets/media/logos/cimacoop.png" class="h-200px" />
-
+                    <img alt="Logo" src="assets/media/logos/cimacoop-white.png" class="h-200px" />
                 </div>
                 <!--end::Content-->
             </div>
