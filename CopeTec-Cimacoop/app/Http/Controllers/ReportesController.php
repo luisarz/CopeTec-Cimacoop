@@ -41,7 +41,7 @@ class ReportesController extends Controller
 
 
         $pdf = \App::make('snappy.pdf');
-        $pdf->setOption('user-style-sheet', public_path('assets/plugins/custom/datatables/datatables.bundle.css'));
+        $pdf->setOption('user-style-sheet', base_path().'/public/assets/plugins/custom/datatables/datatables.bundle.css');
 
         $pdf = PDF::loadView('reportes.movimientosBobeda', [
             'movimientoBobeda' => $movimientoBobeda,

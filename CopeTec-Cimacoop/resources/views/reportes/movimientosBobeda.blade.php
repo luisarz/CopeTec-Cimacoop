@@ -7,18 +7,12 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="" />
-
-
 </head>
 
 <body>
     <div class="card-body ">
         <div class="table-responsive  table-loading">
-            <table class="table table-hover table-rounded fs-4 table-striped border gy-2
-                     gs-2">
+            <table border=1 cellspacing=0 style="width:100%" >
                 <thead class="thead-dark">
                     <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
                         <th class="min-w-50px">Acciones</th>
