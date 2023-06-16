@@ -157,7 +157,7 @@
                     <div class="flex-grow-1 me-1 mb-4">
                         <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
                             <a href="movimientos/traslado/{{ $cajaAperturada->id_caja }}" class="btn btn-info">
-                                <i class="ki-duotone ki-cloud-download     text-white  fs-2x  ">
+                                <i class="fa fa-cloud-download  text-white  fs-1x  ">
                                     <i class="path1"></i>
                                     <i class="path2"></i>
                                 </i></span>
@@ -190,15 +190,22 @@
                                 <tr @if ($cuenta->estado == 0) class="btn-outline-dashed" @endif>
                                     <td>
                                         @if ($cuenta->estado == 0)
-                                            <a class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"
+                                            <a class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"
                                                 style="pointer-events: none; text-decoration: line-through "><i
                                                     class="fa-solid fa-trash text-danger"></i> &nbsp; Anulado</a>
                                         @else
-                                            <a href="javascript:void(0);"
-                                                onclick="alertAnular({{ $cuenta->id_movimiento }},'{{ $cuenta->tipo_operacion }}','{{ number_format($cuenta->monto, 2, '.', ',') }}')"
-                                                class="btn btn-danger"><i class="fa-solid fa-trash text-white"></i>
-                                                </i> &nbsp;
-                                                Anular</a>
+                                            @if ($cuenta->tipo_operacion == 3)
+                                                <a
+                                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange"><i
+                                                        class="fa-solid fa-check text-success"></i> &nbsp; Recibido</a>
+                                            @else
+                                                <a href="javascript:void(0);"
+                                                    onclick="alertAnular({{ $cuenta->id_movimiento }},'{{ $cuenta->tipo_operacion }}','{{ number_format($cuenta->monto, 2, '.', ',') }}')"
+                                                    class="btn btn-danger btn-sm"><i
+                                                        class="fa-solid fa-trash text-white"></i>
+                                                    </i> &nbsp;
+                                                    Anular</a>
+                                            @endif
                                         @endif
 
 
@@ -267,8 +274,6 @@
 
     <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script>
-      
-
         function alertAnular(id, tipo_operacion, monto) {
             switch (tipo_operacion) {
                 case '1':

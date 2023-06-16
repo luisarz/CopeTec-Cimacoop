@@ -29,14 +29,14 @@
                         <td>{{ $cuenta->numero_cuenta }}</td>
                         <td>{{ $cuenta->nombre }} ->{{ $cuenta->dui_cliente }}</td>
                         <td>
-                                @php
-                                    $saldo_cuenta = number_format($cuenta->saldo_cuenta, 2, '.', ',');
-                                    $length = strlen($saldo_cuenta);
-                                    $halfLength = (int) ($length / 3);
-                                    $maskedValue = substr($saldo_cuenta, 0, $halfLength) . str_repeat('*', $length - $halfLength);
-                                @endphp
-                                <span class="fs-5 fw-bold text-gray-800 me-1 lh-3">$
-                                    {{  $maskedValue }}</span>
+                            @php
+                                $saldo_cuenta = number_format($cuenta->saldo_cuenta, 2, '.', ',');
+                                $length = strlen($saldo_cuenta);
+                                $halfLength = (int) ($length / 3);
+                                $maskedValue = substr($saldo_cuenta, 0, $halfLength) . str_repeat('*', $length - $halfLength);
+                            @endphp
+                            <span class="fs-5 fw-bold text-gray-800 me-1 lh-3">$
+                                {{ $maskedValue }}</span>
                         </td>
                         <td>{{ $cuenta->descripcion_cuenta }}</td>
                     </tr>
@@ -44,7 +44,7 @@
             </tbody>
         </table>
     </div>
-    {{ $cuentas->links('vendor.pagination.bootstrap-5') }} 
+    {{ $cuentas->links('vendor.pagination.bootstrap-5') }}
 
     <form method="post" id="deleteForm" action="/clientes/delete">
         {!! csrf_field() !!}
@@ -54,8 +54,8 @@
 @endsection
 
 @section('scripts')
-    <link href=" {{ asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 
     <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script>

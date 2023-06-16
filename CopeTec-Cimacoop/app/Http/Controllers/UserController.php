@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function add()
     {
-        $empleados = Empleados::All();
+        $empleados = Empleados::whereDoesntHave('usuario')->get();
         $roles=Roles::All();
         return view("user.add", compact("empleados",'roles'));
     }

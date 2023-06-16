@@ -160,7 +160,7 @@
 
             <div class="card-body ">
                 <div class="table-responsive  table-loading">
-                    <table class="table table-hover table-rounded fs-4 table-striped border gy-1
+                    <table class="table table-hover table-rounded fs-4 table-striped border gy-2
                      gs-2">
                         <thead class="thead-dark">
                             <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
@@ -181,7 +181,7 @@
                                                 {{-- Enviada --}}
                                                 <a href="javascript:void(0);"
                                                     onclick="alertAnular('{{ $movimiento->id_bobeda_movimiento }}','{{ number_format($movimiento->monto, 2, '.', ',') }}','{{ $movimiento->numero_caja }}')"
-                                                    class="btn btn-danger"><i
+                                                    class="btn btn-danger btn-sm"><i
                                                         class="fa-solid fa-trash text-white"></i>
                                                     </i> &nbsp;
                                                     Anular</a>
@@ -190,14 +190,14 @@
                                             @case(2)
                                                 {{-- Recibida en caja --}}
                                                 <span
-                                                    class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange"><i
+                                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange"><i
                                                         class="fa-solid fa-check text-success"></i> &nbsp; Finalizado</span>
                                             @break
 
                                             @case(3)
                                                 {{-- Anulada --}}
                                                 <span
-                                                    class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"><i
+                                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"><i
                                                         class="fa-solid fa-check text-danger"></i> &nbsp; Cancelada</span>
                                             @break
                                         @endswitch

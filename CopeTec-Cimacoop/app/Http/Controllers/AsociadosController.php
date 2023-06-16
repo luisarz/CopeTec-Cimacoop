@@ -19,7 +19,8 @@ class AsociadosController extends Controller
 
     public function add()
     {
-        $clientes = Clientes::All();
+        $clientes = Clientes::whereDoesntHave('asociado')->get();
+
         $asociados = Asociados::join('clientes', 'asociados.id_cliente', '=', 'clientes.id_cliente')->get();
         return view("asociados.add", compact("clientes", "asociados"));
     }

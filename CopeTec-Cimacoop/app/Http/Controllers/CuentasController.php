@@ -24,7 +24,8 @@ class CuentasController extends Controller
 
     public function add()
     {
-        $asociados = Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')->get();
+        $asociados = Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+        ->whereNotIn('clientes.estado',[0,7])->get();//El cliente no este desactivado ni sea la bobeda
         $tiposcuentas = TipoCuenta::all();
         return view("cuentas.add", compact("asociados", "tiposcuentas"));
     }

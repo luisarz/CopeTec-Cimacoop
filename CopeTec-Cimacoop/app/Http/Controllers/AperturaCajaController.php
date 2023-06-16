@@ -7,6 +7,7 @@ use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
 use App\Models\Cajas;
 use App\Models\Cuentas;
+use App\Models\Movimientos;
 use App\Models\TipoCuenta;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -35,7 +36,6 @@ class AperturaCajaController extends Controller
     }
     public function gettraslado($id)
     {
-        dd($id);
         $trasladoPendiente = BobedaMovimientos::where('id_caja', '=', $id)
             ->whereNotIn('bobeda_movimientos.estado', [2, 3, 4])->first();
         if (is_null($trasladoPendiente)) {
@@ -82,6 +82,19 @@ class AperturaCajaController extends Controller
                 $caja=Cajas::findOrFail($request->id_caja);
                 $caja->saldo=$request->monto_apertura;
                 $caja->save();
+                //insertar el movimiento
+                $cajaReibe = Cajas::findOrFail($request->id_caja);
+                $movimiento = new Movimientos();
+                $movimiento->id_cuenta = 0;
+                $movimiento->tipo_operacion = 3;
+                $movimiento->monto = $request->monto_apertura;;
+                $movimiento->fecha_operacion = now();
+                $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
+                $movimiento->id_caja = $request->id_caja;
+                $movimiento->estado = 1;
+                $movimiento->save();
+                // $cajaReibe->saldo = $cajaReibe->saldo + $request->monto;
+                $cajaReibe->save();
 
                 return redirect("/apertura");
             }

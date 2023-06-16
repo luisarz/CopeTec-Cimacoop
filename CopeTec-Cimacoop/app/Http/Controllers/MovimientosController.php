@@ -20,7 +20,6 @@ class MovimientosController extends Controller
             ->where('id_usuario_asignado', '=', $id_empleado_usuario)
             ->select('cajas.id_caja', 'cajas.saldo', 'cajas.numero_caja', 'cajas.id_usuario_asignado', 'apertura_caja.monto_apertura', 'apertura_caja.fecha_apertura')
             ->first();
-            
             if (is_null($cajaAperturada)) {
                 return redirect("/apertura")->withErrors('No tienes caja aperturada, te redirigimos aqui, para que puedas aperturala y poder realizar movimientos.');
 
@@ -35,7 +34,7 @@ class MovimientosController extends Controller
             ->whereDate('movimientos.fecha_operacion', today())
             ->where('movimientos.id_caja', '=', $idCajaAperturada)
             ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
-            ->orderby('movimientos.fecha_operacion', 'asc')
+            ->orderby('movimientos.id_movimiento', 'desc')
             ->paginate(10);
 
 
