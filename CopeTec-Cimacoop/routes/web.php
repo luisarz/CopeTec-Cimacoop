@@ -192,6 +192,8 @@ Route::post('/bobeda/realizarTraslado', [BobedaController::class, 'realizarTrasl
 Route::post('/bobeda/recibirTraslado', [BobedaController::class, 'recibirTraslado'])->middleware('auth');
 Route::get('/bobeda/recibir/{id}', [BobedaController::class, 'recibir'])->middleware('auth');
 Route::post('/bobeda/anularTraslado', [BobedaController::class, 'anularTraslado'])->middleware('auth');
+Route::get('/bobeda/aperturar/{id}', [BobedaController::class, 'aperturarBobeda'])->middleware('auth');
+
 
 Route::put('/bobeda/put', [BobedaController::class, 'put'])->middleware('auth');
 

@@ -28,12 +28,21 @@ class BobedaController extends Controller
             ->sum('monto');
 
         $bobeda = Bobeda::first();
+        if ($bobeda->estado_bobeda == 0) {
+            
+        }
 
         return view("bobeda.index", compact("movimientoBobeda", 'bobeda', 'trasladoACaja', 'recibidoDeCaja'));
     }
 
 
     public function transferir($id)
+    {
+        $bobeda = Bobeda::findOrFail($id);
+        $cajas = Cajas::all();
+        return view("bobeda.transferir", compact("bobeda", "cajas"));
+    }
+    public function aperturarBobeda($id)
     {
         $bobeda = Bobeda::findOrFail($id);
         $cajas = Cajas::all();
