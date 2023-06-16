@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\RecoveryPasswordEmail;
 use Session;
 use Illuminate\Support\Str;
+use \PDF;
 use Auth;
 
 class LoginController extends Controller

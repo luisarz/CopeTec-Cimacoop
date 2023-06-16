@@ -18,7 +18,7 @@ use App\Http\Controllers\InteresesTipoCuentaController;
 use App\Http\Controllers\CuentasController;
 use App\Http\Controllers\CajasController;
 use App\Http\Controllers\MovimientosController;
-
+use App\Http\Controllers\ReportesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -209,3 +209,8 @@ Route::post('/apertura/recibirTraslado', [AperturaCajaController::class, 'recibi
 Route::get('/apertura/recibir/{id}', [AperturaCajaController::class, 'recibir'])->middleware('auth');
 Route::put('/apertura/put', [AperturaCajaController::class, 'put'])->middleware('auth');
 Route::get('apertura/gettraslado/{id}', [AperturaCajaController::class, 'gettraslado'])->middleware('auth');
+
+/*
+Reporest Route
+*/
+Route::get('/reportes/test',[ReportesController::class,'index'])->middleware('auth');
