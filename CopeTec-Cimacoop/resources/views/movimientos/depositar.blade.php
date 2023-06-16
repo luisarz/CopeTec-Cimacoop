@@ -25,7 +25,7 @@
                             </a>
 
                         </div>
-                       <div class="ribbon-label fs-3">
+                        <div class="ribbon-label fs-3">
                             Nuevo Deposito
                             <span class="ribbon-inner bg-success"></span>
                         </div>
@@ -60,16 +60,13 @@
                             <div class="card-footer d-flex justify-content-center py-6">
                                 <button type="submit" class="btn btn-bg-success btn-text-white">
                                     <i class="ki-duotone ki-dollar    text-white fs-2x                   ">
- <i class="path1"></i>
- <i class="path2"></i>
- <i class="path3"></i>
-</i>
+                                        <i class="path1"></i>
+                                        <i class="path2"></i>
+                                        <i class="path3"></i>
+                                    </i>
                                     Realizar Deposito</button>
                             </div>
                         </div>
-
-
-
 
                         @if ($errors->has('dui_cliente'))
                             <div class="alert alert-danger">
@@ -80,10 +77,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
 
 
     </form>

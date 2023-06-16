@@ -22,6 +22,16 @@
                     </i>
                     Cerrar Bobeda</a>
             </div>
+            <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative ">
+                <a href="/reportes/movimientosBobeda/{{ $bobeda->id_bobeda }}"
+
+                    class="btn    btn-outline btn-sm btn-primary btn-outline-dashed btn-outline-info  btn-active-light-dange fs-3 {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}" target='_black'>
+                    <i class="ki-duotone ki-printer fs-2x text-white">
+                        <i class="path1"></i>
+                        <i class="path2"></i>
+                    </i>
+                    Movimientos</a>
+            </div>
         </div>
         <!--end::buttons actions-->
 
@@ -50,18 +60,18 @@
                 <div class="d-flex flex-wrap flex-sm-nowrap mt-5">
                     <!--begin: buttons actions-->
                     <div class="me-7 mb-4">
-                      
+
                         <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative ">
 
-                                <a href="/bobeda/aperturar/{{ $bobeda->id_bobeda }}"
-                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-success  fs-5 {{ $bobeda->estado_bobeda == 1 ? ' d-none ' : '' }}">
-                                    <i class="ki-duotone ki-abstract-26 fs-2x text-">
-                                        <i class="path1"></i>
-                                        <i class="path2"></i>
-                                    </i>
-                                    Aperturar <br/>Bobeda
-                                </a>
-                               
+                            <a href="/bobeda/aperturar/{{ $bobeda->id_bobeda }}"
+                                class="btn btn-sm btn-outline btn-outline-dashed btn-outline-success  fs-5 {{ $bobeda->estado_bobeda == 1 ? ' d-none ' : '' }}">
+                                <i class="ki-duotone ki-abstract-26 fs-2x text-">
+                                    <i class="path1"></i>
+                                    <i class="path2"></i>
+                                </i>
+                                Aperturar <br />Bobeda
+                            </a>
+
 
                             <a href="/bobeda/transferir/{{ $bobeda->id_bobeda }}"
                                 class="btn btn-danger border-dashed {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">Enviar
@@ -95,7 +105,7 @@
                                         data-kt-countup-prefix="$" data-kt-initialized="1">
 
                                         @if ($bobeda->estado_bobeda == 1)
-                                            ${{ number_format($trasladoACaja, 2, '.', ',') }}
+                                            ${{ number_format($aperturaCaja, 2, '.', ',') }}
                                         @else
                                             <span class="badge badge-light-danger fs-5">Cerrada</span>
                                         @endif
@@ -128,7 +138,7 @@
 
                                 <!--begin::Label-->
                                 <div class="fw-semibold fs-6 text-gray-400">
-                                    <span class="badge badge-info">Traslado <-Caja< /span>
+                                    <span class="badge badge-info">Traslado <-Caja </span>
 
                                 </div>
                                 <!--end::Label-->
@@ -264,8 +274,27 @@
 
 
                                     </td>
-                                    <td> {{ $movimiento->tipo_operacion == '1' ? 'Traslado' : 'Recepcion' }}</span> </td>
                                     <td>
+                                        @switch($movimiento->tipo_operacion)
+                                            @case(1)
+                                                <span class=" badge badge-light-danger">Traslado</span>
+                                            @break
+
+                                            @case(2)
+                                                <span class=" badge badge-light-success">Recepcion</span>
+
+                                                
+                                            @break
+
+                                            @case(3)
+                                                <span class=" badge badge-light-info">Apertura  bobeda</span>
+
+                                                
+                                            @break
+                                        @endswitch
+
+                                    <td>
+
                                         @if ($movimiento->tipo_operacion == '1')
                                             <span
                                                 class="badge badge-light-info fs-5">${{ number_format($movimiento->monto, 2, '.', ',') }}</span>
@@ -274,7 +303,14 @@
                                                 {{ number_format($movimiento->monto, 2, '.', ',') }}</span>
                                         @endif
                                     </td>
-                                    <td style="text-align: center">{{ $movimiento->numero_caja }}</td>
+                                    <td style="text-align: center">
+                                            @if( $movimiento->tipo_operacion =='3')
+                                                   <span class="badge badge-light-info fs-5"> 
+                                                Bobeda</span>
+                                            @else
+                                                {{$movimiento->numero_caja}}
+                                            @endif
+                                    </td>
                                     <td>{{ $movimiento->fecha_operacion }}</td>
 
                                     <td>

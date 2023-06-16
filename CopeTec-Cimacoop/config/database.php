@@ -62,11 +62,11 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
             'dump' => [
-                'dump_binary_path' => 'C:\Program Files\MySQL\MySQL Server 8.0\bin', // only the path, so without `mysqldump` or `pg_dump`
+                'dump_binary_path' => 'D:\xampp\mysql\bin', // only the path, so without `mysqldump` or `pg_dump`
                 'use_single_transaction',
                 'timeout' => 60 * 20, // 10 minute timeout
                 'exclude_tables' => ["table1"],
-                'add_extra_option' => '--column_statistics=0', // for example '--column_statistics=0'
+                'add_extra_option' => '--skip-comments', // for example '--column_statistics=0'
              ]
         ],
 

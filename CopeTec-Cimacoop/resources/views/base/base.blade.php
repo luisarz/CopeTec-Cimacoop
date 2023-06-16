@@ -130,10 +130,9 @@ License: For each use you must have a valid license purchased only from above li
                                     data-kt-menu-placement="bottom-start"
                                     class="menu-item here menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
                                     <!--begin:Menu link-->
-                                    <a href="/dashboard"> 
-                                            <span class="menu-title">Dashboards</span>
-                                            <span
-                                                class="menu-arrow d-lg-none"></span></a>
+                                    <a href="/dashboard">
+                                        <span class="menu-title">Dashboards</span>
+                                        <span class="menu-arrow d-lg-none"></span></a>
                                     <!--end:Menu link-->
 
                                 </div>
@@ -145,11 +144,8 @@ License: For each use you must have a valid license purchased only from above li
                                     data-kt-menu-placement="bottom-start"
                                     class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2 hover- ">
                                     <!--begin:Menu link-->
-                                    <span class="menu-link"><span class="menu-title">
-                                            @yield('formName')
-                                        </span><span class="menu-arrow d-lg-none"></span>
-                                    </span>
-                                    <!--end:Menu link-->
+                                    @yield('formName')
+
 
                                 </div>
                                 <!--end:Menu item-->
@@ -172,8 +168,8 @@ License: For each use you must have a valid license purchased only from above li
                             <div class="app-navbar-item ms-1 ms-md-3">
                                 <!--begin::Menu wrapper-->
                                 <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                                    data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                    data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                                    data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
+                                    data-kt-menu-placement="bottom-end">
                                     <i class="ki-duotone ki-element-11 fs-2 fs-lg-1"><span class="path1"></span><span
                                             class="path2"></span><span class="path3"></span><span
                                             class="path4"></span></i>
@@ -495,7 +491,7 @@ License: For each use you must have a valid license purchased only from above li
                                         <!--end:Menu item-->
                                     </div>
                                     <!--end:Menu sub-->
-                                     <!--begin:Menu sub-->
+                                    <!--begin:Menu sub-->
                                     <div class="menu-sub menu-sub-accordion">
                                         <!--begin:Menu item-->
                                         <div class="menu-item">
@@ -527,7 +523,7 @@ License: For each use you must have a valid license purchased only from above li
                                         <!--end:Menu item-->
                                     </div>
                                     <!--end:Menu sub-->
-                                    
+
                                     <!--begin:Menu sub-->
                                     <div class="menu-sub menu-sub-accordion">
                                         <!--begin:Menu item-->
@@ -648,7 +644,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end:Menu link-->
                                         </div>
                                         <!--end:Menu item-->
-                                         <!--begin:Menu item-->
+                                        <!--begin:Menu item-->
                                         <div class="menu-item">
                                             <!--begin:Menu link-->
                                             <a class="menu-link" href="/bobeda">

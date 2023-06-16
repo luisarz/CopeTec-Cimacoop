@@ -15,6 +15,8 @@ class BobedaController extends Controller
     public function index()
     {
         $today = Carbon::today();
+        $bobeda = Bobeda::first();
+
         $movimientoBobeda = BobedaMovimientos::join('cajas', 'cajas.id_caja', 'bobeda_movimientos.id_caja')
             ->where('bobeda_movimientos.fecha_operacion', '>=', $today)
             ->orderBy('bobeda_movimientos.id_bobeda_movimiento', 'desc')
@@ -27,12 +29,12 @@ class BobedaController extends Controller
             ->where('fecha_operacion', '>=', today())
             ->sum('monto');
 
-        $bobeda = Bobeda::first();
-        if ($bobeda->estado_bobeda == 0) {
-            
-        }
+        $aperturaCaja = BobedaMovimientos::where('tipo_operacion', 3)
+            ->where('fecha_operacion', '>=', today())
+            ->sum('monto');
 
-        return view("bobeda.index", compact("movimientoBobeda", 'bobeda', 'trasladoACaja', 'recibidoDeCaja'));
+
+        return view("bobeda.index", compact("movimientoBobeda", 'bobeda', 'trasladoACaja', 'recibidoDeCaja', "aperturaCaja"));
     }
 
 
@@ -45,8 +47,25 @@ class BobedaController extends Controller
     public function aperturarBobeda($id)
     {
         $bobeda = Bobeda::findOrFail($id);
-        $cajas = Cajas::all();
-        return view("bobeda.transferir", compact("bobeda", "cajas"));
+        return view("bobeda.aperturar", compact("bobeda"));
+    }
+    public function realizarAperturaBobeda(Request $requet)
+    {
+        $movimientoBobeda = new BobedaMovimientos();
+        $movimientoBobeda->id_bobeda = $requet->id_bobeda;
+        $movimientoBobeda->id_caja = 0;
+        $movimientoBobeda->tipo_operacion = 3; //Apertura de Caja
+        $movimientoBobeda->estado = 2;
+        $movimientoBobeda->fecha_operacion = Carbon::now();
+        $movimientoBobeda->monto = $requet->monto;
+        $movimientoBobeda->observacion = $requet->observacion;
+        $movimientoBobeda->save();
+
+        $bobeda = Bobeda::findOrFail($requet->id_bobeda);
+        $bobeda->saldo_bobeda = $requet->monto;
+        $bobeda->estado_bobeda = 1;
+        $bobeda->save();
+        return redirect("/bobeda");
     }
     public function recibir($id)
     {
@@ -100,8 +119,7 @@ class BobedaController extends Controller
         $recibidoDeCaja = BobedaMovimientos::where('tipo_operacion', '2')
             ->where('fecha_operacion', '>=', today())
             ->sum('monto');
-        dd($recibidoDeCaja);
-        return view("bobeda.index", compact("movimientoBobeda", 'bobeda', 'trasladoACaja', 'recibidoDeCaja'));
+        return redirect('/bobeda');
 
     }
 

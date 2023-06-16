@@ -1,60 +1,122 @@
 @extends('base.base')
-@section("title")
-Editar Cliente
+@section('title')
+    Agregar Cliente
 @endsection
 @section('content')
-    <form action="/bobeda/realizarTraslado" method="post" autocomplete="nope">
+    <form action="/bobeda/realizarAperturaBobeda" method="POST" autocomplete="nope">
         {!! csrf_field() !!}
-        {{ method_field('POST') }}
-        <input type="hidden" name="id_bobeda" value="{{$bobeda->id_bobeda}}">
-        {{-- 1=enviar a caja --}}
-        <input type="hidden" name="tipo_operacion" value="1">
-
         <div class="input-group mb-5"></div>
-        <div class="card-body">
+        <input type="hidden" id="id_bobeda" name="id_bobeda" value="{{ $bobeda->id_bobeda }}">
 
-            <!--begin::row group-->
-            <div class="form-group row mb-5">
-                <div class="form-floating col-lg-3">
-                    <select name="id_caja" required class="form-select" data-control="w">
-                        @foreach ($cajas as $caja)
-                        <option value="{{$caja->id_caja}}">{{$caja->numero_caja}}</option>
-                        @endforeach
-                        
-                    </select>
-                    <label>Caja Destino:</label>
-                </div>
-                <div class=" form-floating col-lg-3">
-                    <input type="number" required  class="form-control input-group-lg" name="monto" placeholder="monto" aria-label="monto"
-                    aria-describedby="basic-addon1" />
-                    <label>Monto transferir:</label>
-                </div>
-                 <div class="form-floating col-lg-4">
-                    <input type="text" required    class="form-control" name="observacion" placeholder="observacion" aria-label="observacion"
-                    aria-describedby="basic-addon1" />
-                    <label>Observacion:</label>
-                </div>
-                <div class="form-floating col-1">
+        <div class="d-flex flex-wrap justify-content-center ">
 
-                    <button type="submit" class="btn btn-bg-danger btn-text-white">Trasladar</button>
+            <div class="card card-md shadow-lg">
+                <div class="card-header ribbon ribbon-end ribbon-clip">
+                    <div class="card-toolbar">
+                        <a href="/bobeda">
+
+                            <button type="button" class="btn btn-sm btn-light">
+                                <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
+                                    <i class="path1"></i>
+                                    <i class="path2"></i>
+                                </i>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="ribbon-label fs-3">
+                        Aperturar - <span class="badge badge-info fs-5">{{ $bobeda->nombre }}</span>
+                        <span class="ribbon-inner bg-success"></span>
+                    </div>
                 </div>
-                
-               
+
+                <div class="card-body">
+
+                    <!--begin::row group-->
+                    <div class="form-group row mb-1">
+                        <div class="form-floating col-lg-8">
+                            <input type="text" required value="${{ number_format($bobeda->saldo_bobeda, '1', '.', ',') }}"
+                                readonly class="form-control text-success fs-1" name="monto"
+                                placeholder="Monto a depositar" aria-label="monto" aria-describedby="basic-addon1" />
+                            <label>Saldo Anterior:</label>
+                        </div>
+
+                        <div class="form-floating col-lg-4">
+                            <input type="number" required value="{{ $bobeda->saldo_bobeda }}"
+                                class="form-control text-danger" name="monto" placeholder="Monto a depositar"
+                                aria-label="monto" aria-describedby="basic-addon1" />
+                            <label class="text-danger">Monto Apertura:</label>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-1">
+                        <div class="form-floating col-lg-12">
+                            <input type="text" required class="form-control text-info fs-5" name="observacion"
+                                placeholder="Monto a depositar" aria-label="observacion" aria-describedby="basic-addon1" />
+                            <label>Observaciones:</label>
+                        </div>
+
+
+                    </div>
+
+
+                    @if ($errors->has('dui_cliente'))
+                        <div class="alert alert-danger">
+                            {{ $errors->first('dui_cliente') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex flex-wrap justify-content-center pb-lg-0">
+                        <button type="submit" id="kt_password_reset_submit" class="btn btn-primary me-4">
+                            <!--begin::Indicator label-->
+                            <span class="indicator-label">Aperturar bobeda</span>
+                            <!--end::Indicator label-->
+                            <!--begin::Indicator progress-->
+                            <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            <!--end::Indicator progress-->
+                        </button>
+                    </div>
+                </div>
             </div>
-           
-            
-              @if ($errors->has('dui_cliente'))
-                <div class="alert alert-danger">
-                    {{ $errors->first('dui_cliente') }}
-                </div>
-            @endif
         </div>
-    
-        
-     
-{{-- 
-        <div class="card-footer d-flex justify-content-end py-6">
-            <button type="submit" class="btn btn-bg-primary btn-text-white">Trasladar</button>
-        </div> --}}
+
+
+
+
+
+
     </form>
 @endsection
+@section('scripts')
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <script src=" {{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#id_tipo_cuenta').on('change', function() {
+                let id_tipo_cuenta = $(this).val();
+                let url = '/intereses/getIntereses/' + id_tipo_cuenta;
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    data: {
+                        opcion_seleccionada: id_tipo_cuenta
+                    },
+                    success: function(response) {
+                        $('#id_interes_tipo_cuenta').empty();
+                        $.each(response, function(index, interes) {
+                            $('#id_interes_tipo_cuenta').append($('<option>', {
+                                value: interes.id_intereses_tipo_cuenta,
+                                text: interes.interes
+                            }));
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
