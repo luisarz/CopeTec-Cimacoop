@@ -32,9 +32,13 @@ class BobedaController extends Controller
         $aperturaCaja = BobedaMovimientos::where('tipo_operacion', 3)
             ->where('fecha_operacion', '>=', today())
             ->sum('monto');
+        $cancelados = BobedaMovimientos::whereIn('tipo_operacion', [1, 2])
+            ->where('estado', '=', '3')
+            ->where('fecha_operacion', '>=', today())
+            ->sum('monto');
 
 
-        return view("bobeda.index", compact("movimientoBobeda", 'bobeda', 'trasladoACaja', 'recibidoDeCaja', "aperturaCaja"));
+        return view("bobeda.index", compact("movimientoBobeda", 'bobeda', 'trasladoACaja', 'recibidoDeCaja', "aperturaCaja",'cancelados'));
     }
 
 

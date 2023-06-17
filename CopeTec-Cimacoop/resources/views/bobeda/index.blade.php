@@ -176,8 +176,7 @@
                                     <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                         data-kt-countup-prefix="$" data-kt-initialized="1">
                                         @if ($bobeda->estado_bobeda == 1)
-                                            0.00
-                                            {{-- ${{ number_format($trasladoACaja, 2, '.', ',') }} --}}
+                                            ${{ number_format($cancelados, 2, '.', ',') }}
                                         @else
                                             <span class="badge badge-light-danger fs-5">Cerrada</span>
                                         @endif
