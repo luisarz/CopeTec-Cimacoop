@@ -95,7 +95,8 @@ class BobedaController extends Controller
             $bobedaMovimiento->save();
             $bobeda->saldo_bobeda = $bobeda->saldo_bobeda - $request->monto;
             $bobeda->save();
-            return redirect("/bobeda");
+
+            return redirect("/reportes/movimientosBobeda/$request->id_bobeda");
         }
         return redirect("/bobeda/transferir/$request->id_bobeda")->withInput()->withErrors(['Monto' => 'El monto que intentas enviar sobrepasa el limite']);
 

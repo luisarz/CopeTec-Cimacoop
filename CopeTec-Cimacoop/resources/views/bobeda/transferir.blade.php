@@ -3,7 +3,7 @@
 Editar Cliente
 @endsection
 @section('content')
-    <form action="/bobeda/realizarTraslado" method="post" autocomplete="nope">
+    <form action="/bobeda/realizarTraslado" method="post" target='_blank' autocomplete="nope">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <input type="hidden" name="id_bobeda" value="{{$bobeda->id_bobeda}}">
