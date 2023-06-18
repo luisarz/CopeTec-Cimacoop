@@ -65,6 +65,33 @@ class ReportesController extends Controller
             'cancelados' => $cancelados,
         ]);
 
-        return $pdf->setOrientation('portrait')->inline();
+     
+        $data = [
+            'titulo' => 'Mi PDF',
+            'contenido' => 'Contenido del PDF',
+        ];
+
+        $pdf = PDF::loadView('reportes.movimientosBobeda', [
+            'movimientoBobeda' => $movimientoBobeda,
+            'trasladoACaja' => $trasladoACaja,
+            'recibidoDeCaja' => $recibidoDeCaja,
+            'aperturaCaja' => $aperturaCaja,
+            'estilos' => $estilos,
+            'bobeda' => $bobeda,
+            'cancelados' => $cancelados,
+        ]);
+
+        $pdfPath = public_path('pdf/mi_archivo.pdf');
+        $pdf->save($pdfPath);
+
+        $response = Response::make(file_get_contents($pdfPath), 200);
+        $response->header('Content-Type', 'application/pdf');
+        $response->header('Content-Disposition', 'inline; filename="mi_ahjkrchivo.pdf"');
+
+        unlink($pdfPath);
+
+        return $response;
+
+        return redirect()->route('/bobeda');
     }
 }
