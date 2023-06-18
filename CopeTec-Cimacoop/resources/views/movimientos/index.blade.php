@@ -47,7 +47,7 @@
                         <!--begin::Title-->
                         <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
                             <!--begin::Stat-->
-                            <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                            <div class="border border-gray-500 border-dashed rounded min-w-105px py-3 px-4 me-6 mb-3">
                                 <!--begin::Number-->
                                 <div class="d-flex align-items-center">
                                     <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
@@ -55,9 +55,6 @@
                                         ${{ number_format($cajaAperturada->monto_apertura, 2, '.', ',') }}
                                     </div>
                                 </div>
-                                <!--end::Number-->
-
-                                <!--begin::Label-->
                                 <div class="fw-semibold fs-6 text-gray-400">
                                     <i class="ki-duotone ki-category  text-success me-2">
                                         <i class="path1"></i>
@@ -69,8 +66,7 @@
                                 <!--end::Label-->
                             </div>
                             <!--begin::Stat-->
-                            <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                <!--begin::Number-->
+                            <div class="border border-gray-500 border-dashed rounded min-w-105px py-3 px-4 me-6 mb-3">
                                 <div class="d-flex align-items-center">
 
                                     <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
@@ -78,18 +74,13 @@
                                         ${{ number_format($totalDepositos, 2, '.', ',') }}
                                     </div>
                                 </div>
-                                <!--end::Number-->
-
-                                <!--begin::Label-->
                                 <div class="fw-semibold fs-6 text-gray-400"><i
                                         class="ki-duotone ki-arrow-up  text-success me-2"><span class="path1"></span><span
                                             class="path2"></span></i>Deposito</div>
-                                <!--end::Label-->
                             </div>
                             <!--end::Stat-->
                             <!--begin::Stat-->
-                            <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                <!--begin::Number-->
+                            <div class="border border-gray-500 border-dashed rounded min-w-105px py-3 px-4 me-6 mb-3">
                                 <div class="d-flex align-items-center">
 
                                     <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
@@ -98,37 +89,27 @@
 
                                     </div>
                                 </div>
-                                <!--end::Number-->
-
-                                <!--begin::Label-->
                                 <div class="fw-semibold fs-6 text-gray-400"> <i
                                         class="ki-duotone ki-arrow-down  text-danger me-2"><span class="path1"></span><span
-                                            class="path2"></span></i>Retiro</div>
-                                <!--end::Label-->
+                                            class="path2"></span></i>Retiro
+                                </div>
                             </div>
                             <!--end::Stat-->
                             <!--begin::Stat-->
-                            <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                <!--begin::Number-->
+                            <div class="border border-gray-500 border-dashed rounded min-w-105px py-3 px-4 me-6 mb-3">
                                 <div class="d-flex align-items-center">
-
                                     <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                         data-kt-countup-prefix="$" data-kt-initialized="1">
                                         ${{ number_format($totalAnuladas, 2, '.', ',') }}
                                     </div>
                                 </div>
-                                <!--end::Number-->
-
-                                <!--begin::Label-->
                                 <div class="fw-semibold fs-6 text-gray-400"> <i
                                         class="ki-duotone ki-minus-square fs-1x text-danger me-2"><span
                                             class="path1"></span><span class="path2"></span></i>Anulado</div>
-                                <!--end::Label-->
                             </div>
                             <!--end::Stat-->
                             <!--begin::Stat-->
-                            <div class="border border-gray-500 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                <!--begin::Number-->
+                            <div class="border border-gray-500 border-dashed rounded min-w-105px py-3 px-4 me-6 mb-3">
                                 <div class="d-flex align-items-center">
 
                                     <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
@@ -137,13 +118,10 @@
                                     </div>
 
                                 </div>
-                                <!--end::Number-->
 
-                                <!--begin::Label-->
                                 <div class="fw-semibold fs-6 text-gray-400"><i
                                         class="ki-duotone ki-arrows-circle text-success me-2"><span
                                             class="path1"></span><span class="path2"></span></i>Saldos</div>
-                                <!--end::Label-->
                             </div>
                             <!--end::Stat-->
 
@@ -154,18 +132,73 @@
                     </div>
                     <!--end::Info-->
                     <!--begin: buttons actions-->
-                    <div class="flex-grow-1 me-1 mb-4">
-                        <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
-                            <a href="movimientos/traslado/{{ $cajaAperturada->id_caja }}" class="btn btn-info">
-                                <i class="fa fa-cloud-download  text-white  fs-1x  ">
-                                    <i class="path1"></i>
-                                    <i class="path2"></i>
-                                </i></span>
-                                Recibir <br>Traslado</a>
+                    <div class="flex-grow-1 me-0 mb-4">
+
+                        <div class="d-flex align-items-center gap-2 gap-lg-3">
+                            <!--begin::Filter menu-->
+                            <div class="m-0">
+                                <!--begin::Menu toggle-->
+                                <a href="#"
+                                    class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info h-60px w-180px mb-3 fw-bold"
+                                    data-kt-menu-trigger="hover" data-kt-menu-placement="bottom-end">
+                                    <i class="fa fa-angle-double-down fs-6 text-info me-1 fa-2x"><span class="path1"></span><span
+                                            class="path2"></span></i>
+                                    Operar Bobeda
+                                </a>
+                                <!--end::Menu toggle-->
+
+
+
+                                <!--begin::Menu 1-->
+                                <div class="menu menu-sub menu-sub-dropdown w-200px w-md-250px" data-kt-menu="true"
+                                    id="kt_menu_648dc8aa0d0c5" style="">
+                                    <!--begin::Header-->
+                                    <div class="px-7 py-2">
+                                        <div class="fs-5 text-dark fw-bold">Opciones de Bobeda</div>
+                                    </div>
+                                    <!--end::Header-->
+
+                                    <!--begin::Menu separator-->
+                                    <div class="separator border-gray-200"></div>
+                                    <!--end::Menu separator-->
+
+                                    <!--begin::Form-->
+                                    <div class="px-7 py-5">
+
+                                        <a href="movimientos/traslado/{{ $cajaAperturada->id_caja }}"
+                                            class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger w-200px mb-3">
+                                            <i class="fa fa-cloud-download  text-danger  fs-1x"></i>
+                                            Recibir Transferencia
+                                        </a>
+
+                                        <div class="separator border-gray-200"></div>
+
+                                        <a href="movimientos/traslado/{{ $cajaAperturada->id_caja }}"
+                                            class="btn btn-outline btn-outline-dotted btn-outline-success btn-active-light-success w-200px mb-3">
+                                            <i class="fa fa-cloud-upload  text-success  fs-1x"></i>
+                                           Hacer Transferencia
+                                        </a>
+                                        <div class="separator border-gray-200"></div>
+                                        <a href="movimientos/traslado/{{ $cajaAperturada->id_caja }}"
+                                            class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info w-200px mb-2">
+                                            <i class="fa fa-reply-all   text-info  fs-1x"></i>
+                                            Solicitar Transferencia
+                                        </a>
+
+                                    </div>
+                                    <!--end::Form-->
+                                </div>
+                                <!--end::Menu 1-->
+                            </div>
+                            <!--end::Filter menu-->
+
 
 
                         </div>
+
                     </div>
+
+
                     <!--end::buttons actions-->
                 </div>
 

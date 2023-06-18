@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AperturaCaja;
 use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
 use App\Models\Cajas;
@@ -25,7 +26,7 @@ class BobedaController extends Controller
         $trasladoACaja = BobedaMovimientos::where('tipo_operacion', '1')
             ->where('fecha_operacion', '>=', today())
             ->sum('monto');
-        $recibidoDeCaja = BobedaMovimientos::where('tipo_operacion', '2')
+        $recibidoDeCaja = BobedaMovimientos::whereIn('tipo_operacion', [2, 6])
             ->where('fecha_operacion', '>=', today())
             ->sum('monto');
 
@@ -94,46 +95,35 @@ class BobedaController extends Controller
             $bobedaMovimiento->save();
             $bobeda->saldo_bobeda = $bobeda->saldo_bobeda - $request->monto;
             $bobeda->save();
-
             return redirect("/bobeda");
-
         }
         return redirect("/bobeda/transferir/$request->id_bobeda")->withInput()->withErrors(['Monto' => 'El monto que intentas enviar sobrepasa el limite']);
 
     }
-    public function recibirTraslado(Request $request)
+    public function recibirCorte(Request $request)
     {
-
-        $bobeda = Bobeda::first();
-        $bobedaMovimiento = new BobedaMovimientos();
-        $bobedaMovimiento->id_bobeda = $request->id_bobeda;
-        $bobedaMovimiento->id_caja = $request->id_caja;
-        $bobedaMovimiento->tipo_operacion = $request->tipo_operacion;
-        $bobedaMovimiento->estado = 1;
-        $bobedaMovimiento->monto = $request->monto;
-        $bobedaMovimiento->fecha_operacion = Carbon::now();
-        $bobedaMovimiento->observacion = $request->observacion;
+        $bobeda= Bobeda::first();//Obtengo dato de la bobeda
+        $bobedaMovimiento =  BobedaMovimientos::findOrFail($request->id_corte_movimiento); //Buesco el movimiento
+        $bobedaMovimiento->estado = 2;
         $bobedaMovimiento->save();
-        $movimientoBobeda = BobedaMovimientos::paginate(10);
-        $bobeda->saldo_bobeda = $bobeda->saldo_bobeda + $request->monto;
+        $bobeda->saldo_bobeda = $bobeda->saldo_bobeda + $bobedaMovimiento->monto;
         $bobeda->save();
-        $trasladoACaja = BobedaMovimientos::where('tipo_operacion', '1')
-            ->where('fecha_operacion', '>=', today())
-            ->sum('monto');
-        $recibidoDeCaja = BobedaMovimientos::where('tipo_operacion', '2')
-            ->where('fecha_operacion', '>=', today())
-            ->sum('monto');
-        return redirect('/bobeda');
+        //actualziar el corte papra que se cierre
+        $corteZ = AperturaCaja::where('id_caja','=',$bobedaMovimiento->id_caja)
+        ->where('estado','=',3)
+        ->first();
 
+        $corteZ->estado = 0;
+        $corteZ->hora_aceptado = Carbon::now()->format('H:i:s');
+        $corteZ->save();
+        // actualizar la caja para que se cierre
+   
+        
+           return redirect('/bobeda');
     }
 
 
 
-    public function delete(Request $request)
-    {
-        Cuentas::destroy($request->id);
-        return redirect("/movimientos");
-    }
 
     public function put(Request $request)
     {

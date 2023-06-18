@@ -8,7 +8,7 @@
     <div>
         <a href="apertura/aperturarcaja" type="button" class="btn btn-primary">
             <i class="fa fa-opencart"></i> &nbsp; Apertuar Caja</a>
-            
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -23,12 +23,13 @@
         <table class=" table table-hover table-row-dashed fs-3  my-0 dataTable  gy-2 gs-5">
             <thead class="thead-dark">
                 <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                    <th class="min-w-50px">Acciones</th>
-                    <th class="min-w-50px ki-text-align-center">Caja</th>
+                    <th >Acciones</th>
+                    <th class="min-w-50px ">Caja</th>
                     <th class="min-w-50px">Monto Apertura</th>
                     <th class="min-w-100px">Fecha Apertura</th>
-                    <th class="min-w-100px">Aperturó</th>
-                    <th class="min-w-100px">Fecha Cierre</th>
+                    <th class="min-w-120px">Aperturó</th>
+                    <th class="min-w-50px">H. Cierre</th>
+                    <th class="min-w-50px">H. Aceptado</th>
                     <th class="min-w-100px">Monto Cierre</th>
                 </tr>
             </thead>
@@ -36,23 +37,37 @@
                 @foreach ($cajasApertuaradas as $apertura)
                     <tr>
                         <td>
-                            <a href="/apertura/cortex/{{ $apertura->id_apertura_caja }}" class="badge badge-success "><i
-                                    class="ki-duotone ki-basket-ok   text-white fs-2x                     ">
-                                    <i class="path1"></i>
-                                    <i class="path2"></i>
-                                    <i class="path3"></i>
-                                    <i class="path4"></i>
-                                </i> Corte X</a>
-                            <a href="/apertura/cortez/{{ $apertura->id_apertura_caja }}" class="badge badge-danger "><i
-                                    class="ki-duotone ki-cheque     text-white fs-2x                   ">
-                                    <i class="path1"></i>
-                                    <i class="path2"></i>
-                                    <i class="path3"></i>
-                                    <i class="path4"></i>
-                                    <i class="path5"></i>
-                                    <i class="path6"></i>
-                                    <i class="path7"></i>
-                                </i> &nbsp; Corte Z</a>
+                            @switch($apertura->estado)
+                                @case(0)
+                                    <a class="w-100 btn btn-sm btn-outline btn-outline-dashed btn-outline-success ">
+                                        <span class="badge badge-success fs-5 ">Recibido -> Bobeda</span>
+                                    </a>
+                                @break
+
+                                @case(1)
+                                    <a href="/apertura/cortez/{{ $apertura->id_apertura_caja }}"
+                                        class="btn-sm btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
+                                        <i class="fa fa-check   fs-5  ">
+                                        </i>
+                                        Corte
+                                        <span class="badge badge-success fs-5"> X</span>
+                                    </a>
+                                    <a href="/apertura/cortez/{{ $apertura->id_apertura_caja }}"
+                                        class="btn-sm btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
+                                        <i class="fa fa-check-double   text-danger  ">
+                                        </i>
+                                        Corte
+                                        <span class="badge badge-danger fs-5"> Z</span>
+                                    </a>
+                                @break
+
+                                @case(3)
+                                    <a class="w-100 btn-sm btn btn-outline btn-outline-dashed btn-outline-info ">
+                                        <span class="badge badge-info fs-5 ">Enviado - bobeda</span>
+                                    </a>
+                                @break
+                            @endswitch
+
                         </td>
                         <td>{{ $apertura->numero_caja }}</td>
                         <td style="text-align:center">
@@ -64,7 +79,14 @@
                             @if ($apertura->hora_cierre == null)
                                 <span class="badge badge-light-danger fs-5">-</span>
                             @else
-                                {{ $apertura->hora_cierre }}
+                                <span class="badge badge-info fs-5">{{ $apertura->hora_cierre }}</span>
+                            @endif
+                        </td>
+                        <td style="text-align: center">
+                            @if ($apertura->hora_aceptado == null)
+                                <span class="badge badge-light-danger fs-5">-</span>
+                            @else
+                                <span class="badge badge-success fs-5">{{ $apertura->hora_aceptado }}</span>
                             @endif
                         </td>
                         <td style="text-align: center">
