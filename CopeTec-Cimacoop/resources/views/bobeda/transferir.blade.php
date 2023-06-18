@@ -3,7 +3,7 @@
 Editar Cliente
 @endsection
 @section('content')
-    <form action="/bobeda/realizarTraslado" id="bodega" onsubmit="redirectForm()" method="post" target='_blank' autocomplete="nope">
+    <form action="/bobeda/realizarTraslado" id="bodega" method="post" target='_blank' autocomplete="nope">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <input type="hidden" name="id_bobeda" value="{{$bobeda->id_bobeda}}">
@@ -60,8 +60,12 @@ Editar Cliente
 @endsection
 @section("scripts")
 <script>
-    function redirectForm(){
-        window.location.href = "/bobeda"
-    }
+    $(document).ready(function(){
+        var form=$("#bodega");
+        form.submit(function(){
+            window.location.href="/bobeda"
+        });
+
+    });
 </script>
-@endsction
+@endsection
