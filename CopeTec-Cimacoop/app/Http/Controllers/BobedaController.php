@@ -7,6 +7,7 @@ use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
 use App\Models\Cajas;
 use App\Models\Cuentas;
+use App\Models\Movimientos;
 use App\Models\TipoCuenta;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -46,7 +47,7 @@ class BobedaController extends Controller
     public function transferir($id)
     {
         $bobeda = Bobeda::findOrFail($id);
-        $cajas = Cajas::all();
+        $cajas = Cajas::where('id_caja', '!=', 0)->get();
         return view("bobeda.transferir", compact("bobeda", "cajas"));
     }
     public function aperturarBobeda($id)
@@ -72,11 +73,10 @@ class BobedaController extends Controller
         $bobeda->save();
         return redirect("/bobeda");
     }
-    public function recibir($id)
+    public function recibirDeCajaABobeda()
     {
-        $bobeda = Bobeda::findOrFail($id);
-        $cajas = Cajas::all();
-        return view("bobeda.recibir", compact("bobeda", "cajas"));
+        $cajas = Cajas::where('id_caja', '!=', 0)->get();
+        return view("bobeda.recibir", compact("cajas"));
     }
 
     public function realizarTraslado(Request $request)
@@ -96,7 +96,9 @@ class BobedaController extends Controller
             $bobeda->saldo_bobeda = $bobeda->saldo_bobeda - $request->monto;
             $bobeda->save();
 
-            return redirect("/reportes/movimientosBobeda/$request->id_bobeda");
+            // return redirect("/reportes/movimientosBobeda/$request->id_bobeda");
+        return redirect("/reportes/comprobanteMovimiento/$bobedaMovimiento->id_bobeda_movimiento");
+
         }
         return redirect("/bobeda/transferir/$request->id_bobeda")->withInput()->withErrors(['Monto' => 'El monto que intentas enviar sobrepasa el limite']);
 
@@ -164,5 +166,35 @@ class BobedaController extends Controller
         $bobeda->saldo_bobeda = $bobeda->saldo_bobeda + $movimientoBobeda->monto;
         $bobeda->save();
         return redirect("/bobeda");
+    }
+    public function getTrasladoPendienteCajaABobeda($id){
+        $movimientos = Movimientos::where('id_caja','=',$id)
+        ->where('tipo_operacion','=',4)
+        ->where('id_cuenta','=',0)
+        ->where('estado','=',3)
+        ->first();
+        if(is_null($movimientos)){
+           return response()->json(0);
+        }
+
+        return response()->json($movimientos);
+    }
+
+    public function recibirTransferenciaDeCaja(Request $request){
+        $bobeMovimiento = new BobedaMovimientos();
+        $bobeMovimiento->id_bobeda = $request->id_bobeda;
+        $bobeMovimiento->id_caja = $request->id_caja;
+        $bobeMovimiento->tipo_operacion = 2;
+        $bobeMovimiento->estado = 1;
+        $bobeMovimiento->monto = $request->monto;
+        $bobeMovimiento->fecha_operacion = Carbon::now();
+        $bobeMovimiento->observacion = $request->observacion;
+        $bobeMovimiento->save();
+        //actulizamos el movimiento de caja
+        $movimiento = Movimientos::findOrFail($request->id_movimiento);
+        $movimiento->estado = 2;
+        $movimiento->save();
+
+
     }
 }

@@ -17,7 +17,7 @@
                         <div class="card-toolbar">
                             <a href="/movimientos" cla>
 
-                                <button type="button" class="btn btn-sm btn-light">
+                                <button type="button" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
                                     <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
                                         <i class="path1"></i>
                                         <i class="path2"></i>

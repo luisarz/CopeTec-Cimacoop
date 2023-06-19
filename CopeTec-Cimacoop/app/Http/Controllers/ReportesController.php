@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
+use App\Models\Movimientos;
 use Carbon\Carbon;
+use Luecano\NumeroALetras\NumeroALetras;
 use \PDF;
+use App\Helpers\ConversionHelper;
+
 
 class ReportesController extends Controller
 {
+
+
     public function index()
     {
         $pdf = \App::make('snappy.pdf');
@@ -17,7 +23,7 @@ class ReportesController extends Controller
         //return view("Reportes.informeclientediario",compact('reporte'));
         return $pdf->setOrientation('landscape')->inline();
     }
-    public function movimientosBobeda($id)
+    public function RepMovimientosBobeda($id)
     {
 
         $today = Carbon::today();
@@ -65,7 +71,32 @@ class ReportesController extends Controller
             'cancelados' => $cancelados,
         ]);
 
-        return $pdf->setOrientation('landscape')->inline();
+        return $pdf->setOrientation('portrait')->inline();
 
+    }
+    public function ComprobanteMovimiento($id)
+    {
+        $idMovimiento = $id;
+        $estilos = file_get_contents(public_path('assets/css/css.css'));
+
+        $movimiento = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
+            ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->join('cajas', 'cajas.id_caja', '=', 'movimientos.id_caja')
+            ->join('empleados', 'empleados.id_empleado', '=', 'cajas.id_usuario_asignado')
+            ->where('movimientos.id_movimiento', '=', $idMovimiento)
+            ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente', 'clientes.direccion_personal', 'empleados.nombre_empleado')
+            ->first();
+
+        $formatter = new NumeroALetras();
+        $numeroEnLetras = $formatter->toInvoice($movimiento->monto, 2, 'DoLARES');
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.caja.comprobante', [
+            'movimiento' => $movimiento,
+            'estilos' => $estilos,
+            'numeroEnLetras' => $numeroEnLetras
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
     }
 }

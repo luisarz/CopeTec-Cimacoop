@@ -14,18 +14,17 @@ class MovimientosController extends Controller
     public function index()
     {
         $id_empleado_usuario = session()->get('id_empleado_usuario');
-
         $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
             ->where("estado_caja", '=', '1')
             ->where('id_usuario_asignado', '=', $id_empleado_usuario)
             ->select('cajas.id_caja', 'cajas.saldo', 'cajas.numero_caja', 'cajas.id_usuario_asignado', 'apertura_caja.monto_apertura', 'apertura_caja.fecha_apertura')
             ->first();
-            if (is_null($cajaAperturada)) {
-                return redirect("/apertura")->withErrors('No tienes caja aperturada, te redirigimos aqui, para que puedas aperturala y poder realizar movimientos.');
+        if (is_null($cajaAperturada)) {
+            return redirect("/apertura")->withErrors('No tienes caja aperturada, te redirigimos aqui, para que puedas aperturala y poder realizar movimientos.');
 
         }
-            $idCajaAperturada=$cajaAperturada->id_caja;
-            $saldo = $cajaAperturada->saldo;
+        $idCajaAperturada = $cajaAperturada->id_caja;
+        $saldo = $cajaAperturada->saldo;
 
         $movimientos = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
@@ -59,7 +58,7 @@ class MovimientosController extends Controller
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
             ->select('cuentas.id_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
-            ->whereNotIn('clientes.estado', [0,7])
+            ->whereNotIn('clientes.estado', [0, 7])
             ->get();
         return view("movimientos.depositar", compact("cuentas", "aperturaCaja"));
     }
@@ -78,35 +77,63 @@ class MovimientosController extends Controller
 
     public function traslado($id)
     {
-        $aperturaCaja=$id;
+        $aperturaCaja = $id;
         $tienePendientes = 0;
         $trasladoPendiente = BobedaMovimientos::where('id_caja', '=', $id)
             ->whereNotIn('bobeda_movimientos.estado', [2, 3, 4])->get();
         $tienePendientes = $trasladoPendiente->count();
+        return view("movimientos.traslado", compact("trasladoPendiente", "aperturaCaja", "tienePendientes"));
+    }
 
-
-        return view("movimientos.traslado", compact("trasladoPendiente", "aperturaCaja","tienePendientes"));
+    public function transferenciabobeda($id)
+    {
+        $cajas = Cajas::findOrFail($id);
+        return view("movimientos.transferenciabobeda", compact("cajas"));
     }
     public function getTrasladoPendiente($id)
     {
         $trasladoPendiente = BobedaMovimientos::findOrFail($id);
-        if (is_null($trasladoPendiente)) {
-            $trasladoPendiente = null;
-        }
         return response()->json($trasladoPendiente);
     }
+    public function realizarTransferenciaBobeda(Request $request){
+        $cajaEnvia = Cajas::findOrFail($request->id_caja);
+        //crear el movimiento de traslado en movimientos
+        $movimiento = new Movimientos();
+        $movimiento->id_cuenta = 0;
+        $movimiento->tipo_operacion = 4;
+        $movimiento->monto = $request->monto;
+        $movimiento->fecha_operacion = now();
+        $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
+        $movimiento->id_caja = $request->id_caja;
+        $movimiento->estado = 0;
+        $movimiento->save();
+        //actualizar el saldo de la caja que envia el traslado
+        $cajaEnvia->saldo = $cajaEnvia->saldo - $request->monto;
+        $cajaEnvia->save();
+        //crear el movimiento de traslado en bobeda_movimientos
+        // $traslado = new BobedaMovimientos();
+        // $traslado->id_caja = $request->id_caja;
+        // $traslado->id_caja_destino = $request->id_caja_destino;
+        // $traslado->monto = $request->monto;
+        // $traslado->estado = 1;
+        // $traslado->save();
+        return redirect("/reportes/comprobanteMovimiento/" . $movimiento->id_movimiento);
 
-    public function recibirTraslado(Request $request){
+
+    }
+
+    public function recibirTraslado(Request $request)
+    {
 
         $cajaReibe = Cajas::findOrFail($request->id_caja);
         $movimiento = new Movimientos();
-        $movimiento->id_cuenta =0;
+        $movimiento->id_cuenta = 0;
         $movimiento->tipo_operacion = 3;
         $movimiento->monto = $request->monto;
         $movimiento->fecha_operacion = now();
         $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
         $movimiento->id_caja = $request->id_caja;
-        $movimiento->estado = 1;
+        $movimiento->estado = 3;
         $movimiento->save();
         $cajaReibe->saldo = $cajaReibe->saldo + $request->monto;
         $cajaReibe->save();
@@ -119,10 +146,9 @@ class MovimientosController extends Controller
 
     }
 
-
     public function realizardeposito(Request $request)
     {
-        $caja= Cajas::findOrFail($request->id_caja);
+        $caja = Cajas::findOrFail($request->id_caja);
         $id_cuenta_destino = $request->id_cuenta;
         $cuentaDestinoDatos = Cuentas::findOrFail($id_cuenta_destino);
         $movimiento = new Movimientos();
@@ -138,7 +164,8 @@ class MovimientosController extends Controller
         $cuentaDestinoDatos->save();
         $caja->saldo = $caja->saldo + $request->monto;
         $caja->save();
-        return redirect("/movimientos");
+        return redirect("/reportes/comprobanteMovimiento/" . $movimiento->id_movimiento);
+
 
     }
 
@@ -161,7 +188,7 @@ class MovimientosController extends Controller
         $cuentaOrigenDatos->save();
         $caja->saldo = $caja->saldo - $request->monto;
         $caja->save();
-        return redirect("/movimientos");
+        return redirect("/reportes/comprobanteMovimiento/" . $movimiento->id_movimiento);
 
     }
 

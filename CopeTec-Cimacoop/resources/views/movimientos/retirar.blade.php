@@ -3,7 +3,7 @@
     <span id="lblSaldo" class="text-success fs-2">Seleccione Cuenta</span>
 @endsection
 @section('content')
-    <form action="/movimientos/realizarretiro" method="POST" autocomplete="nope">
+    <form action="/movimientos/realizarretiro" id="trasladoform" target="_blank" method="POST" autocomplete="nope">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_caja" name="id_caja" value="{{ $aperturaCaja }}">
@@ -16,7 +16,7 @@
                         <div class="card-toolbar">
                             <a href="/movimientos" cla>
 
-                                <button type="button" class="btn btn-sm btn-light">
+                                <button type="button" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
                                     <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
                                         <i class="path1"></i>
                                         <i class="path2"></i>
@@ -58,10 +58,9 @@
 
                         </div>
                         <!--begin::row group-->
-
                         <div class="form-group row mb-5">
                             <div class="form-floating col-lg-12">
-                                <input type="number" id="monto" required value="{{ old('monto') }}"
+                                <input type="number" id="monto" step="any" required value="{{ old('monto') }}"
                                     class="form-control text-danger" name="monto" placeholder="Monto a depositar"
                                     aria-label="monto" aria-describedby="basic-addon1" />
                                 <label>Monto Retirar:</label>
@@ -76,10 +75,6 @@
                                     Realizar Retiro</button>
                             </div>
                         </div>
-
-
-
-
                         @if ($errors->has('dui_cliente'))
                             <div class="alert alert-danger">
                                 {{ $errors->first('dui_cliente') }}
@@ -104,6 +99,13 @@
 
     <script>
         $(document).ready(function() {
+
+            $("#trasladoform").on("submit", function(event) {
+                this.submit();
+                setTimeout(function() {
+                    window.location.href = "/movimientos";
+                }, 1000);
+            });
 
             $('#id_cuenta').on('change', function() {
                 let id_cuenta = $(this).val();

@@ -80,7 +80,7 @@
                             <div
                                 class="position-absolute translate-middle bottom-0 start-10 mb-6 bg-danger rounded-circle border border-4 border-body h-20px w-20px {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
                             </div>
-                            <a href="/bobeda/recibir/{{ $bobeda->id_bobeda }}"
+                            <a href="/bobeda/recibir"
                                 class="btn btn-success {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">Recibir <br>de
                                 Caja</a>
 

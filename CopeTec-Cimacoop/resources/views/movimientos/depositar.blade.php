@@ -3,7 +3,7 @@
     Agregar Cliente
 @endsection
 @section('content')
-    <form action="/movimientos/realizardeposito" method="POST" autocomplete="nope">
+    <form action="/movimientos/realizardeposito" id="depositoform" target="_blank" method="POST" autocomplete="nope">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_caja" name="id_caja" value="{{ $aperturaCaja }}">
@@ -16,7 +16,7 @@
                         <div class="card-toolbar">
                             <a href="/movimientos" cla>
 
-                                <button type="button" class="btn btn-sm btn-light">
+                                <button type="button" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
                                     <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
                                         <i class="path1"></i>
                                         <i class="path2"></i>
@@ -88,6 +88,14 @@
 
     <script>
         $(document).ready(function() {
+
+            
+            $("#depositoform").on("submit", function(event) {
+                this.submit();
+                setTimeout(function() {
+                    window.location.href = "/movimientos";
+                }, 1000);
+            });
 
             $('#id_tipo_cuenta').on('change', function() {
                 let id_tipo_cuenta = $(this).val();
