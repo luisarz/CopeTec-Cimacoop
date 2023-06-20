@@ -1,15 +1,14 @@
 @extends('base.base')
 @section('formName')
-    <span id="lblSaldo" class="text-success fs-2">Seleccione Cuenta</span>
+    Saldo Disponible: <span id="lblSaldo" class=" badge badge-info text-white fs-6"></span>
 @endsection
 @section('content')
-    <form action="/movimientos/realizarretiro" id="trasladoform" target="_blank" method="POST" autocomplete="nope">
+    <form action="/movimientos/realizarretiro" id="trasladoform" target="_blank" method="POST" autocomplete="off">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_caja" name="id_caja" value="{{ $aperturaCaja }}">
 
         <div class="d-flex justify-content-center">
-            <div class="card shadow-lg mx-auto">
 
                 <div class="card shadow-lg">
                     <div class="card-header ribbon ribbon-end ribbon-clip">
@@ -82,7 +81,6 @@
                         @endif
                     </div>
                 </div>
-            </div>
         </div>
 
 
@@ -109,6 +107,11 @@
 
             $('#id_cuenta').on('change', function() {
                 let id_cuenta = $(this).val();
+                if(id_cuenta == ""){
+                     $('#saldo').val(0.0);
+                        $("#lblSaldo").text('Seleccione Cuenta');
+                    return;
+                }
                 let url = '/cuentas/getcuenta/' + id_cuenta;
                 $.ajax({
                     url: url,
@@ -117,13 +120,10 @@
                         // opcion_seleccionada: id_cuenta
                     },
                     success: function(response) {
-                        $('#saldo').val(response);
-                        $("#lblSaldo").text("Saldo Disponible: " + response.toLocaleString(
-                            undefined, {
-                                useGrouping: true
-                            }));
+                        $('#saldo').val(response.saldo_cuenta_sin_formato);
+                        $("#lblSaldo").text( '$'+response.saldo_cuenta_formateado);
                         $("#monto").attr({
-                            "max": response, // substitute your own
+                            "max": response.saldo_cuenta_sin_formato, // substitute your own
                             "min": 1 // values (or variables) here
                         });
                     },

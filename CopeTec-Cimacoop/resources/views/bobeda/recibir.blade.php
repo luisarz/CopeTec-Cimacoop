@@ -3,7 +3,7 @@
     Editar Cliente
 @endsection
 @section('content')
-    <form action="/bobeda/recibirTransferencia" id="trasladoform" target="_blank" method="POST" autocomplete="nope">
+    <form action="/bobeda/recibirTransferencia" id="recibirTrasladoForm" target="_blank" method="POST" autocomplete="nope">
         {!! csrf_field() !!}
         <input type="hidden" id="id_movimiento" name="id_movimiento">
         <div class="input-group mb-5"></div>
@@ -13,7 +13,7 @@
                 <div class="card shadow-lg">
                     <div class="card-header ribbon ribbon-end ribbon-clip">
                         <div class="card-toolbar">
-                            <a href="/movimientos" cla>
+                            <a href="/bobeda" cla>
 
                                 <button type="button"
                                     class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
@@ -87,6 +87,13 @@
 
     <script>
         $(document).ready(function() {
+
+            $("#recibirTrasladoForm").on("submit", function(event) {
+                this.submit();
+                setTimeout(function() {
+                    window.location.href = "/bobeda";
+                }, 1000);
+            });
 
             $('#id_caja').on('change', function() {
                 let id = $(this).val();

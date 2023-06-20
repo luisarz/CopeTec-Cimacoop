@@ -151,7 +151,7 @@ class AperturaCajaController extends Controller
         $bobedaMovimiento->monto = $caja->saldo;
         $bobedaMovimiento->fecha_operacion = Carbon::now();
         $bobedaMovimiento->observacion = 'Corte Z ->Caja ' . $caja->numero_caja;
-            $bobedaMovimiento->save();
+        $bobedaMovimiento->save();
 
         // $bobeda->saldo_bobeda = $bobeda->saldo_bobeda + $caja->saldo;
 

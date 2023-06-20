@@ -220,6 +220,8 @@ Route::get('apertura/cortez/{id}', [AperturaCajaController::class, 'cortez'])->m
 Reporest movimiento Bobeda
 */
 Route::get('/reportes/movimientosBobeda/{id}', [ReportesController::class, 'RepMovimientosBobeda'])->middleware(['auth','bitacora']);
+Route::get('/reportes/comprobante/{id}', [ReportesController::class, 'comprobantesBobeda'])->middleware(['auth', 'bitacora']);
+
 Route::get('/reportes/comprobanteMovimientoBobeda/{id}', [ReportesController::class, 'comprobanteBobeda'])->middleware(['auth','bitacora']);
 
 /*

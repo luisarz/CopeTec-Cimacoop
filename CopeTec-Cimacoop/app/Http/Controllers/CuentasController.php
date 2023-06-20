@@ -12,12 +12,12 @@ class CuentasController extends Controller
     public function index()
     {
         $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
-        ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
-        ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
-        ->whereNotIn('clientes.estado', [0,7])
-        ->distinct()
-        ->orderby('clientes.nombre', 'asc')
-        ->paginate(10);
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->whereNotIn('clientes.estado', [0, 7])
+            ->distinct()
+            ->orderby('clientes.nombre', 'asc')
+            ->paginate(10);
 
         return view("cuentas.index", compact("cuentas"));
     }
@@ -25,7 +25,7 @@ class CuentasController extends Controller
     public function add()
     {
         $asociados = Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
-        ->whereNotIn('clientes.estado',[0,7])->get();//El cliente no este desactivado ni sea la bobeda
+            ->whereNotIn('clientes.estado', [0, 7])->get(); //El cliente no este desactivado ni sea la bobeda
         $tiposcuentas = TipoCuenta::all();
         return view("cuentas.add", compact("asociados", "tiposcuentas"));
     }
@@ -40,9 +40,9 @@ class CuentasController extends Controller
     public function post(Request $request)
     {
         $cuenta = Cuentas::where("id_asociado", $request->id_asociado)
-        ->where('id_tipo_cuenta', $request->id_tipo_cuenta)
-        ->where('numero_cuenta', $request->numero_cuenta)
-        ->first();
+            ->where('id_tipo_cuenta', $request->id_tipo_cuenta)
+            ->where('numero_cuenta', $request->numero_cuenta)
+            ->first();
         if ($cuenta && $cuenta->count() > 0) {
             return redirect("/cuentas/add")->withInput()->withErrors(["dui_cliente" => "Ya existe un cliente con este DUI!!"]);
         } else {
@@ -99,11 +99,16 @@ class CuentasController extends Controller
 
     public function getCuenta($id)
     {
-        $cuenta = Cuentas::findOrFail($id);
-        $saldo_cuenta = number_format($cuenta->saldo_cuenta, 2, '.', '');
-        if (is_null($cuenta)) {
-             $saldo_cuenta= 0;
+        $cuenta = Cuentas::find($id);
+        $saldo_cuenta_formateado = null;
+        if ($cuenta) {
+            $saldo_cuenta_formateado = number_format($cuenta->saldo_cuenta, 2, '.', ',');
         }
-        return response()->json($saldo_cuenta);
+        return response()->json([
+            'saldo_cuenta_formateado' => $saldo_cuenta_formateado != null ? $saldo_cuenta_formateado : 0,
+            'saldo_cuenta_sin_formato' => $cuenta ? $cuenta->saldo_cuenta : 0,
+        ]);
     }
+
+
 }

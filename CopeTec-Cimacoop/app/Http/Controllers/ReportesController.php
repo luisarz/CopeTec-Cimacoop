@@ -99,4 +99,28 @@ class ReportesController extends Controller
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
+    public function comprobanteBobeda($id)
+    {
+        $idMovimiento = $id;
+        $estilos = file_get_contents(public_path('assets/css/css.css'));
+
+        $movimientoBobeda = BobedaMovimientos::join('cajas', 'cajas.id_caja', 'bobeda_movimientos.id_caja')
+            ->join('empleados', 'empleados.id_empleado', '=', 'cajas.id_usuario_asignado')
+            ->where('bobeda_movimientos.id_bobeda_movimiento', '=', $idMovimiento)
+            ->orderBy('bobeda_movimientos.id_bobeda_movimiento', 'desc')
+            ->select('bobeda_movimientos.*', 'cajas.*', 'empleados.nombre_empleado')
+            ->first();
+
+            // dd($movimientoBobeda);
+
+        $formatter = new NumeroALetras();
+        $numeroEnLetras = $formatter->toInvoice($movimientoBobeda->monto, 2, 'DoLARES');
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.bobeda.comprobante', [
+            'movimiento' => $movimientoBobeda,
+            'estilos' => $estilos,
+            'numeroEnLetras' => $numeroEnLetras
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
 }

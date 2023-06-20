@@ -227,60 +227,67 @@
                 </div>
             </div>
 
-            <div class="card-body ">
-                <div class="table-responsive  table-loading">
-                    <table class="table table-hover table-rounded fs-4 table-striped border gy-2
-                     gs-2">
+             
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class=" table table-hover table-row-dashed fs-6     gy-2 gs-5">
                         <thead class="thead-dark">
-                            <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                                <th class="min-w-50px">Acciones</th>
-                                <th class="min-w-50px">Operacion</th>
-                                <th class="min-w-50px">Monto</th>
+                            <tr class="fw-semibold fs-3 text-gray-800 border-bottom-3 border-gray-200">
+                                <th class="min-w-100px ">Acciones</th>
+                                <th class="min-w-100px ">Operacion</th>
+                                <th class="min-w-100px">Monto</th>
                                 <th class="min-w-100px">Caja</th>
-                                <th class="min-w-100px">Fecha</th>
-                                <th class="min-w-50px">Estado</th>
+                                <th class="min-w-100px" >Fecha</th>
+                                <th class="min-w-100px">Estado</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($movimientoBobeda as $movimiento)
                                 <tr>
                                     <td>
-                                        @switch($movimiento->estado)
-                                            @case(1)
-                                                @if ($movimiento->tipo_operacion == '6')
-                                                    <a href="javascript:void(0);"
-                                                        onclick="alertRecibir('{{ $movimiento->id_bobeda_movimiento }}','{{ number_format($movimiento->monto, 2, '.', ',') }}','{{ $movimiento->numero_caja }}')"
-                                                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-info btn-active-light-info">
-                                                      <i
-                                                        class="fa-solid fa-thumbs-up text-inf"></i> &nbsp;
+                                            @switch($movimiento->estado)
+                                                @case(1)
+                                                    @if ($movimiento->tipo_operacion == '6')
+                                                        <a href="javascript:void(0);"
+                                                            onclick="alertRecibir('{{ $movimiento->id_bobeda_movimiento }}','{{ number_format($movimiento->monto, 2, '.', ',') }}','{{ $movimiento->numero_caja }}')"
+                                                            class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-info btn-active-light-info">
+                                                            <i class="fa-solid fa-thumbs-up text-inf"></i> &nbsp;
 
-                                                        <span class="badge badge-info">Recibir</span>
-                                                    </a>
-                                                @else
-                                                    {{-- Enviada --}}
-                                                    <a href="javascript:void(0);"
-                                                        onclick="alertAnular('{{ $movimiento->id_bobeda_movimiento }}','{{ number_format($movimiento->monto, 2, '.', ',') }}','{{ $movimiento->numero_caja }}')"
-                                                        class="btn btn-danger btn-sm"><i class="fa-solid fa-trash text-white"></i>
-                                                        </i> &nbsp;
-                                                        Anular</a>
-                                                @endif
-                                            @break
+                                                            <span class="badge badge-info">Recibir</span>
+                                                        </a>
+                                                    @else
+                                                        {{-- Enviada --}}
+                                                        <a href="javascript:void(0);"
+                                                            onclick="alertAnular('{{ $movimiento->id_bobeda_movimiento }}','{{ number_format($movimiento->monto, 2, '.', ',') }}','{{ $movimiento->numero_caja }}')"
+                                                            class="btn  w-50  btn-danger btn-sm"><i
+                                                                class="fa-solid fa-trash text-white"></i>
+                                                            </i> &nbsp;
+                                                            Anular </a>
 
-                                            @case(2)
-                                                {{-- Recibida en caja --}}
-                                                <span
-                                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange"><i
-                                                        class="fa-solid fa-check text-success"></i> &nbsp; Finalizado</span>
-                                            @break
+                                                            
+                                                    @endif
+                                                @break
 
-                                            @case(3)
-                                                {{-- Anulada --}}
-                                                <span
-                                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"><i
-                                                        class="fa-solid fa-check text-danger"></i> &nbsp; Cancelada</span>
-                                            @break
-                                        @endswitch
+                                                @case(2)
+                                                    {{-- Recibida en caja --}}
+                                                    <span
+                                                        class="btn btn-sm btn-outline w-50 btn-outline-dashed btn-outline-success btn-active-light-dange"><i
+                                                            class="fa-solid fa-check text-success"></i> &nbsp; Finalizado</span>
+                                                @break
 
+                                                @case(3)
+                                                    {{-- Anulada --}}
+                                                    <span
+                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"><i
+                                                            class="fa-solid fa-check text-danger"></i> &nbsp; Cancelada</span>
+                                                @break
+                                            @endswitch
+
+                                            <a href="/reportes/comprobanteMovimientoBobeda/{{ $movimiento->id_bobeda_movimiento }}"
+                                                target="_blank" class="btn btn-info w-40 btn-sm"><i
+                                                    class="fa fa-print text-white"></i>
+                                                </i> &nbsp;Imprimir
+                                            </a>
 
 
                                     </td>
@@ -302,7 +309,7 @@
                                                 <span class=" badge badge-info">Corte Z</span>
                                             @break
                                         @endswitch
-
+                                    </td>
                                     <td>
 
                                         @if ($movimiento->tipo_operacion == '1')
@@ -358,7 +365,7 @@
         {{ method_field('POST') }}
         <input type="hidden" name="id" id="id">
     </form>
-       <form method="post" id="recibirForm" action="/bobeda/recibirCorte">
+    <form method="post" id="recibirForm" action="/bobeda/recibirCorte">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <input type="hidden" name="id_corte_movimiento" id="id_corte_movimiento">
@@ -393,7 +400,8 @@
             });
 
         }
-           function alertRecibir(id, monto, caja) {
+
+        function alertRecibir(id, monto, caja) {
             Swal.fire({
                 html: `¿Deseas Recibir el Corte Z?<br/><br/>
                         <span class="badge badge-primary">Caja: ` + caja + `</span><br/>

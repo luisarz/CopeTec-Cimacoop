@@ -3,7 +3,7 @@
     Agregar Cliente
 @endsection
 @section('content')
-    <form action="/movimientos/realizardeposito" id="depositoform" target="_blank" method="POST" autocomplete="nope">
+    <form action="/movimientos/realizardeposito" id="depositoform" target="_blank" method="POST" autocomplete="off">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_caja" name="id_caja" value="{{ $aperturaCaja }}">

@@ -4,7 +4,7 @@
 
 @endsection
 @section('content')
-    <form action="/movimientos/realizarTransferenciaBobeda" id="transferenciForm" method="POST" target="_blank" autocomplete="nope">
+    <form action="/movimientos/realizarTransferenciaBobeda" id="transferenciForm" method="POST" target="_blank" autocomplete="off">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_caja" name="id_caja" value="{{ $cajas->id_caja }}">

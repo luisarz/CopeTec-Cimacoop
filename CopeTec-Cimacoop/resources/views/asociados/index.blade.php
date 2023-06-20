@@ -12,7 +12,7 @@
 
     <div class="table-responsive">
         <table id="table_asociados" class="table table-hover table-row-dashed fs-6 gy-5 my-0 dataTable  gy-4 gs-7">
-            <thead >
+            <thead>
                 <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                     <th class="min-w-150px">Acciones</th>
                     <th class="min-w-200px">Asociado</th>
@@ -26,18 +26,27 @@
 
                 @foreach ($asociados as $asociado)
                     <tr>
-                        <td><a href="javascript:void(0);" onclick="alertDelete({{ $asociado->id_asociado }})"
-                                class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp; Eliminar</a>
-                            <a href="/asociados/{{ $asociado->id_asociado }}" class="badge badge-primary"><i
-                                    class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a>
+                        <td>
+                            <a href="javascript:void(0);" onclick="alertDelete({{ $asociado->id_asociado }})"
+                                class="btn w-10 btn-danger btn-sm ">
+                                <i class="fa-solid fa-trash text-white"></i> 
+                            </a>
+                            <a href="/asociados/{{ $asociado->id_asociado }}" 
+                                class="btn w-10 btn-primary btn-sm">
+                                <i class="fa-solid fa-pencil text-white"></i> 
+                            </a>
 
                             @if ($asociado->estado_solicitud != '3')
-                                <a href="/beneficiarios/{{ $asociado->id_asociado }}" class="badge badge-success"><i
-                                        class="fa-solid fa-user-plus text-white"></i> &nbsp; Beneficiarios</a>
+                                <a href="/beneficiarios/{{ $asociado->id_asociado }}" 
+                                    class="btn w-10 btn-success btn-sm fs-8">
+                                    <i class="fa-solid fa-user-plus text-white"></i> 
+                                    &nbsp; Beneficiarios
+                                </a>
                             @else
-                                <a class="badge badge-success"
+                                <a class="btn btn-success w-10 btn-sm"
                                     style="pointer-events: none; text-decoration: line-through "><i
-                                        class="fa-solid fa-user-plus text-white"></i> &nbsp; Beneficiarios</a>
+                                        class="fa-solid fa-user-plus text-white"></i> &nbsp; Beneficiarios
+                                </a>
                             @endif
 
                         </td>
@@ -60,7 +69,7 @@
             </tbody>
         </table>
     </div>
-    {{ $asociados->links('vendor.pagination.bootstrap-5') }} 
+    {{ $asociados->links('vendor.pagination.bootstrap-5') }}
 
     <form method="post" id="deleteForm" action="/asociados/delete">
         {!! csrf_field() !!}
@@ -72,10 +81,9 @@
 @section('scripts')
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <script src="assets/plugins/global/plugins.bundle.js"></script>
-    <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
+    <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
     <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
     <script>
-
         function alertDelete(id) {
             Swal.fire({
                 text: "Deseas Eliminar este registro",
