@@ -7,6 +7,7 @@ use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
 use App\Models\Cajas;
 use App\Models\Cuentas;
+use App\Models\Empleados;
 use App\Models\Movimientos;
 use App\Models\TipoCuenta;
 use Carbon\Carbon;
@@ -48,12 +49,16 @@ class BobedaController extends Controller
     {
         $bobeda = Bobeda::findOrFail($id);
         $cajas = Cajas::where('id_caja', '!=', 0)->get();
-        return view("bobeda.transferir", compact("bobeda", "cajas"));
+        $id_empleado = session('id_empleado_usuario');
+        $empleados = Empleados::where('id_empleado', '=', $id_empleado)->get();
+        return view("bobeda.transferir", compact("bobeda", "cajas", 'empleados'));
     }
     public function aperturarBobeda($id)
     {
-        $bobeda = Bobeda::findOrFail($id);
-        return view("bobeda.aperturar", compact("bobeda"));
+        $bobeda = Bobeda::find($id);
+        $id_empleado = session('id_empleado_usuario');
+        $empleados= Empleados::where('id_empleado','=',$id_empleado)->get();
+        return view("bobeda.aperturar", compact("bobeda",'empleados'));
     }
     public function realizarAperturaBobeda(Request $requet)
     {
@@ -65,6 +70,7 @@ class BobedaController extends Controller
         $movimientoBobeda->fecha_operacion = Carbon::now();
         $movimientoBobeda->monto = $requet->monto;
         $movimientoBobeda->observacion = $requet->observacion;
+        $movimientoBobeda->id_empleado = $requet->id_empleado;
         $movimientoBobeda->save();
 
         $bobeda = Bobeda::findOrFail($requet->id_bobeda);
@@ -76,7 +82,9 @@ class BobedaController extends Controller
     public function recibirDeCajaABobeda()
     {
         $cajas = Cajas::where('id_caja', '!=', 0)->get();
-        return view("bobeda.recibir", compact("cajas"));
+        $id_empleado = session('id_empleado_usuario');
+        $empleados = Empleados::where('id_empleado', '=', $id_empleado)->get();
+        return view("bobeda.recibir", compact("cajas", 'empleados'));
     }
 
     public function realizarTraslado(Request $request)
@@ -92,6 +100,7 @@ class BobedaController extends Controller
             $bobedaMovimiento->monto = $request->monto;
             $bobedaMovimiento->fecha_operacion = Carbon::now();
             $bobedaMovimiento->observacion = $request->observacion;
+            $bobedaMovimiento->id_empleado = $request->id_empleado;
             $bobedaMovimiento->save();
             $bobeda->saldo_bobeda = $bobeda->saldo_bobeda - $request->monto;
             $bobeda->save();
@@ -189,6 +198,7 @@ class BobedaController extends Controller
         $bobeMovimiento->monto = $request->monto;
         $bobeMovimiento->fecha_operacion = Carbon::now();
         $bobeMovimiento->observacion = $request->observacion;
+        $bobeMovimiento->id_empleado = $request->id_empleado;
         $bobeMovimiento->save();
         //actulizamos el movimiento de caja
         $movimiento = Movimientos::findOrFail($request->id_movimiento);

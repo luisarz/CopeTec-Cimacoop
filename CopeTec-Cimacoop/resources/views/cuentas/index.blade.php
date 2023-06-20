@@ -6,6 +6,8 @@
 
 @section('content')
     <a href="/cuentas/add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Aperturar Cuenta</a>
+    <a href="/cuentas/addcuentacompartida" class="btn btn-info"><i class="fa-solid fa-plus"></i> Aperturar Cuenta Compartida</a>
+
 
     <div class="table-responsive">
         <table class=" table table-hover table-row-dashed fs-3  my-0 dataTable  gy-2 gs-5">

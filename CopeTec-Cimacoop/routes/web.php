@@ -147,6 +147,8 @@ Cuentas Route
  */
 Route::get('/cuentas', [CuentasController::class, 'index'])->middleware(['auth','bitacora']);
 Route::get('/cuentas/add', [CuentasController::class, 'add'])->middleware(['auth','bitacora']);
+Route::get('/cuentas/addcuentacompartida', [CuentasController::class, 'addcuentacompartida'])->middleware(['auth', 'bitacora']);
+
 Route::post('/cuentas/add', [CuentasController::class, 'post'])->middleware(['auth','bitacora']);
 Route::delete('/cuentas/delete', [CuentasController::class, 'delete'])->middleware(['auth','bitacora']);
 Route::get('/cuentas/{id}', [CuentasController::class, 'edit'])->middleware(['auth','bitacora']);

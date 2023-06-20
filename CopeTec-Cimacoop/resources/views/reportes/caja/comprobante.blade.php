@@ -35,7 +35,7 @@
         @if (in_array($tipoOperacion, [3,4, 6]))
             {{ strtoupper($movimiento->nombre) }}
         @else
-            {{ strtoupper($movimiento->nombre) }} <br> ({{ $movimiento->dui_cliente }})
+            Titular: {{ strtoupper($movimiento->nombre) }} <br> ({{ $movimiento->dui_cliente }})
         @endif
 
 
@@ -104,19 +104,14 @@
                 <td></td>
                 <td></td>
                 <td colspan="2" style="text-align: left">
+                    Operacion Realizada por: <br>
+                    {{ $movimiento->cliente_transaccion }} <br>
+                    {{ $movimiento->dui_transaccion }}
                 </td>
                 <td></td>
                 <td></td>
             </tr>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td colspan="2" style="text-align: left">
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
+    
             <tr>
                 <td></td>
                 <td></td>

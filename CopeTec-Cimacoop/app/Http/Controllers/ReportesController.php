@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
+use App\Models\Empleados;
 use App\Models\Movimientos;
 use Carbon\Carbon;
 use Luecano\NumeroALetras\NumeroALetras;
@@ -108,10 +109,11 @@ class ReportesController extends Controller
             ->join('empleados', 'empleados.id_empleado', '=', 'cajas.id_usuario_asignado')
             ->where('bobeda_movimientos.id_bobeda_movimiento', '=', $idMovimiento)
             ->orderBy('bobeda_movimientos.id_bobeda_movimiento', 'desc')
-            ->select('bobeda_movimientos.*', 'cajas.*', 'empleados.nombre_empleado')
+            ->select('bobeda_movimientos.*', 'cajas.*', 'empleados.nombre_empleado as nombre_empleado')
             ->first();
 
-            // dd($movimientoBobeda);
+        $empleados = Empleados::where('id_empleado', '=', $movimientoBobeda->id_empleado)->first();
+
 
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimientoBobeda->monto, 2, 'DoLARES');
@@ -119,7 +121,8 @@ class ReportesController extends Controller
         $pdf = PDF::loadView('reportes.bobeda.comprobante', [
             'movimiento' => $movimientoBobeda,
             'estilos' => $estilos,
-            'numeroEnLetras' => $numeroEnLetras
+            'numeroEnLetras' => $numeroEnLetras,
+            'bobeda_empleado'=>$empleados->nombre_empleado
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }

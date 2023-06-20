@@ -17,24 +17,29 @@
 
 
 
-
-
-    <div class="text-align-rigth " style="margin-right:100px; margin-top:100px; ">
-        Cajaro : <span class="text-bold"> {{ strtoupper($movimiento->nombre_empleado) }} </span>
+{{-- Datos del Bobeda --}}
+   <div class="text-align-rigth " style="margin-right:80px; margin-top:100px; ">
+        Empleado Bobeda  : <span class="text-bold"> {{ strtoupper($bobeda_empleado) }} </span>
         <br>
         Fecha: {{ \Carbon\Carbon::parse($movimiento->fecha_operacion)->format('d/m/Y') }}
         <br>
         Hora: {{ \Carbon\Carbon::parse($movimiento->fecha_operacion)->format('h:i:s A') }}
 
     </div>
-    <div style="margin-top: -10px; margin-left:30px; " class=" text-bold ">
+
+    {{-- Datos de Bobeda --}}
+    <div class="text-align-left " style="margin-left:30px; margin-top:-70px; ">
+        Cajaro : <span class="text-bold"> {{ $movimiento->numero_caja!=0? strtoupper($movimiento->nombre_empleado):'--' }} </span>
+    </div>
+
+    <div style="margin-top: -10px; margin-left:30px; margin-top:10px; " class=" text-bold ">
         @php
             $tipoOperacion = $movimiento->tipo_operacion;
         @endphp
 
         @switch($movimiento->tipo_operacion)
             @case(1)
-                Traslado
+                Traslado  
             @break
 
             @case(2)

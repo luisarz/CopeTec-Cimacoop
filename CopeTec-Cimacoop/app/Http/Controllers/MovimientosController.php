@@ -158,6 +158,8 @@ class MovimientosController extends Controller
         $movimiento->fecha_operacion = now();
         $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
         $movimiento->id_caja = $request->id_caja;
+        $movimiento->dui_transaccion=$request->dui_transaccion;
+        $movimiento->cliente_transaccion=$request->cliente_transaccion;
         $movimiento->estado = 1;
         $movimiento->save();
         $cuentaDestinoDatos->saldo_cuenta = $cuentaDestinoDatos->saldo_cuenta + $request->monto;
@@ -183,6 +185,8 @@ class MovimientosController extends Controller
         $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
         $movimiento->id_caja = $request->id_caja;
         $movimiento->estado = 1;
+        $movimiento->dui_transaccion=$request->dui_transaccion;
+        $movimiento->cliente_transaccion=$request->cliente_transaccion;
         $movimiento->save();
         $cuentaOrigenDatos->saldo_cuenta = $cuentaOrigenDatos->saldo_cuenta - $request->monto;
         $cuentaOrigenDatos->save();

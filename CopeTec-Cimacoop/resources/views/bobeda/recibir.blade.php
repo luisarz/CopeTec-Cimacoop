@@ -63,6 +63,19 @@
                             </div>
 
                         </div>
+                         <div class="form-group row mb-5">
+                        <div class="form-floating col-lg-12">
+                            <select class="form-select" required name="id_empleado" id="id_empleado">
+
+                                @foreach ($empleados as $empleado)
+                                    <option value="{{ $empleado->id_empleado }}">{{ $empleado->nombre_empleado }}
+                                        {{ $empleado->dui }}</option>
+                                @endforeach
+                            </select>
+
+                            <label>Empleado Recibe:</label>
+                        </div>
+                    </div>
 
                     </div>
                     <div class="card-footer d-flex justify-content-center py-6">

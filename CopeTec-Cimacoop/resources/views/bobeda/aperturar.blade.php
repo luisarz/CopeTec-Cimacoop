@@ -3,7 +3,7 @@
     Agregar Cliente
 @endsection
 @section('content')
-    <form action="/bobeda/realizarAperturaBobeda" method="POST" autocomplete="nope">
+    <form action="/bobeda/realizarAperturaBobeda" method="POST" autocomplete="off">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_bobeda" name="id_bobeda" value="{{ $bobeda->id_bobeda }}">
@@ -32,11 +32,12 @@
                 <div class="card-body">
 
                     <!--begin::row group-->
-                    <div class="form-group row mb-1">
+                    <div class="form-group row mb-5">
                         <div class="form-floating col-lg-8">
-                            <input type="text" required value="${{ number_format($bobeda->saldo_bobeda, '1', '.', ',') }}"
-                                readonly class="form-control text-success fs-1" name="monto"
-                                placeholder="Monto a depositar" aria-label="monto" aria-describedby="basic-addon1" />
+                            <input type="text" required
+                                value="${{ number_format($bobeda->saldo_bobeda, '1', '.', ',') }}" readonly
+                                class="form-control text-success fs-1" name="monto" placeholder="Monto a depositar"
+                                aria-label="monto" aria-describedby="basic-addon1" />
                             <label>Saldo Anterior:</label>
                         </div>
 
@@ -47,14 +48,25 @@
                             <label class="text-danger">Monto Apertura:</label>
                         </div>
                     </div>
-                    <div class="form-group row mb-1">
+                    <div class="form-group row mb-5">
+                        <div class="form-floating col-lg-12">
+                            <select class="form-select" required name="id_empleado" id="id_empleado">
+
+                                @foreach ($empleados as $empleado)
+                                    <option value="{{ $empleado->id_empleado }}">{{ $empleado->nombre_empleado }}
+                                        {{ $empleado->dui }}</option>
+                                @endforeach
+                            </select>
+
+                            <label>Empleado Apertura:</label>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-5">
                         <div class="form-floating col-lg-12">
                             <input type="text" required class="form-control text-info fs-5" name="observacion"
                                 placeholder="Monto a depositar" aria-label="observacion" aria-describedby="basic-addon1" />
                             <label>Observaciones:</label>
                         </div>
-
-
                     </div>
 
 
@@ -79,10 +91,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
 
 
     </form>
