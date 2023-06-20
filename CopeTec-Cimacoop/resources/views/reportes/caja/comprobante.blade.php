@@ -2,6 +2,8 @@
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+
     <title>CoopeTec-Administracion de cooperativas CompuTec Consultores</title>
     {{-- <meta charset="utf-8" /> --}}
     <meta name="description" content="" />

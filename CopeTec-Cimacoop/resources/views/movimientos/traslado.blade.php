@@ -4,7 +4,7 @@
 
 @endsection
 @section('content')
-    <form action="/movimientos/recibirTraslado" method="POST" autocomplete="nope">
+    <form action="/movimientos/recibirTraslado" target="_blank" method="POST" id="trasladoForm" autocomplete="off">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_caja" name="id_caja" value="{{ $aperturaCaja }}">
@@ -17,7 +17,8 @@
                         <div class="card-toolbar">
                             <a href="/movimientos" cla>
 
-                                <button type="button" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
+                                <button type="button"
+                                    class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
                                     <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
                                         <i class="path1"></i>
                                         <i class="path2"></i>
@@ -56,6 +57,14 @@
                                 <label for="floatingPassword">Monto a recibir</label>
                             </div>
 
+                        </div>
+                        <div class="form-group row mb-1">
+                            <div class="form-floating col-lg 12">
+                                <input type="text" class="form-control" required readonly value="{{ $cajero }}"
+                                    name="cliente_transaccion" id="cliente_transaccion" placeholder="cliente_transaccion"
+                                    aria-label="cliente_transaccion" aria-describedby="basic-addon1" />
+                                <label for="floatingPassword">Cajero Recibe</label>
+                            </div>
                         </div>
 
 
@@ -96,8 +105,18 @@
 
     <script>
         $(document).ready(function() {
+
+            $("#trasladoForm").on("submit", function(event) {
+                this.submit();
+                setTimeout(function() {
+                    window.location.href = "/movimientos";
+                }, 1000);
+            });
+
+
+
             let tienePendiente = '{{ $tienePendientes }}';
-            if (tienePendiente <=0) {
+            if (tienePendiente <= 0) {
                 Swal.fire({
                     title: "Traslados Pendientes",
                     html: `No Tiene <strong>traslados</strong> pendientes de recibir Solicite a Bobeda uno antes de intentar recibir.

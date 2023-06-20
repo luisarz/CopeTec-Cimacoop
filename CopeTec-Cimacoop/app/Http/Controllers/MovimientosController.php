@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BobedaMovimientos;
 use App\Models\Cajas;
 use App\Models\Cuentas;
+use App\Models\Empleados;
 use App\Models\Movimientos;
 use Illuminate\Http\Request;
 
@@ -82,7 +83,11 @@ class MovimientosController extends Controller
         $trasladoPendiente = BobedaMovimientos::where('id_caja', '=', $id)
             ->whereNotIn('bobeda_movimientos.estado', [2, 3, 4])->get();
         $tienePendientes = $trasladoPendiente->count();
-        return view("movimientos.traslado", compact("trasladoPendiente", "aperturaCaja", "tienePendientes"));
+        $id_empleado= session()->get('id_empleado_usuario');
+        $empleados = Empleados::where('id_empleado', '=', $id_empleado)->first();
+        $cajero=$empleados->nombre_empleado;
+        
+        return view("movimientos.traslado", compact("trasladoPendiente", "aperturaCaja", "tienePendientes","cajero"));
     }
 
     public function transferenciabobeda($id)
@@ -133,6 +138,8 @@ class MovimientosController extends Controller
         $movimiento->fecha_operacion = now();
         $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
         $movimiento->id_caja = $request->id_caja;
+        $movimiento->observacion = "Recibe traslado de Bobeda";
+        $movimiento->cliente_transaccion = $request->cliente_transaccion;
         $movimiento->estado = 3;
         $movimiento->save();
         $cajaReibe->saldo = $cajaReibe->saldo + $request->monto;
@@ -141,7 +148,8 @@ class MovimientosController extends Controller
         $traslado = BobedaMovimientos::findOrFail($request->id_bobeda_movimiento);
         $traslado->estado = 2;
         $traslado->save();
-        return redirect("/movimientos");
+        return redirect("/reportes/comprobanteMovimiento/" . $movimiento->id_movimiento);
+
 
 
     }

@@ -19,6 +19,7 @@ class CuentasController extends Controller
             ->orderby('clientes.nombre', 'asc')
             ->paginate(10);
 
+
         return view("cuentas.index", compact("cuentas"));
     }
 
@@ -34,7 +35,8 @@ class CuentasController extends Controller
         $asociados = Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->whereNotIn('clientes.estado', [0, 7])->get(); //El cliente no este desactivado ni sea la bobeda
         $tiposcuentas = TipoCuenta::all();
-        return view("cuentas.add", compact("asociados", "tiposcuentas"));
+        
+        return view("cuentas.addcuentacompartida", compact("asociados", "tiposcuentas"));
     }
 
     public function edit($id)
@@ -49,9 +51,10 @@ class CuentasController extends Controller
         $cuenta = Cuentas::where("id_asociado", $request->id_asociado)
             ->where('id_tipo_cuenta', $request->id_tipo_cuenta)
             ->where('numero_cuenta', $request->numero_cuenta)
+            ->where('estado', 1)
             ->first();
         if ($cuenta && $cuenta->count() > 0) {
-            return redirect("/cuentas/add")->withInput()->withErrors(["dui_cliente" => "Ya existe un cliente con este DUI!!"]);
+            return redirect("/cuentas/add")->withInput()->withErrors(["dui_cliente" => "Ya existe un Asociado  con este DUI!!"]);
         } else {
             $cuenta = new Cuentas();
             $cuenta->id_asociado = $request->id_asociado;
@@ -60,6 +63,7 @@ class CuentasController extends Controller
             $cuenta->monto_apertura = $request->monto_apertura;
             $cuenta->fecha_apertura = $request->fecha_apertura;
             $cuenta->saldo_cuenta = $request->monto_apertura;
+            $cuenta->id_asociado_comparte = $request->id_asociado_comparte ?? null;
             $cuenta->id_interes = $request->id_interes;
             $cuenta->estado = 1;
             $cuenta->save();

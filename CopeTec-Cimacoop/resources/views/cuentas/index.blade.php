@@ -18,6 +18,8 @@
                     <th class="min-w-150px">Asociado</th>
                     <th class="min-w-160px">Saldo</th>
                     <th class="min-w-200px">Tipo Cuenta</th>
+                    <th class="min-w-100px">Compartida</th>
+
                     {{-- <th class="min-w-100px">Apertura</th> --}}
                 </tr>
             </thead>
@@ -41,6 +43,15 @@
                                 {{ $maskedValue }}</span>
                         </td>
                         <td>{{ $cuenta->descripcion_cuenta }}</td>
+                        <td style="text-align: center">
+                            @if ($cuenta->id_asociado_comparte != null)
+                                <a href="/cuentas/{{ $cuenta->id_cuenta }}/compartida" class="btn btn-info btn-sm "><i
+                                        class="fa-solid fa-pencil text-white "></i> &nbsp; Ver Asociado</a>
+                            @else
+                                <span  class="bagde bagde-info "> &nbsp; -</span>
+                            @endif
+                        </td>
+
                     </tr>
                 @endforeach
             </tbody>

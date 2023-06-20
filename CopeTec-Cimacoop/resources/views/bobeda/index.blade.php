@@ -74,19 +74,18 @@
 
 
                             <a href="/bobeda/transferir/{{ $bobeda->id_bobeda }}"
-                                class="btn btn-danger border-dashed {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">Enviar
+                                class="btn btn-danger border-dashed {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
+                             <i class="fa fa-cloud-upload  text-white  fs-1"></i>
+                                Enviar
                                 <br>a Caja
                             </a>
-                            <div
-                                class="position-absolute translate-middle bottom-0 start-10 mb-6 bg-danger rounded-circle border border-4 border-body h-20px w-20px {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
-                            </div>
+                            
                             <a href="/bobeda/recibir"
-                                class="btn btn-success {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">Recibir <br>de
+                                class="btn btn-success {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
+                                  <i class="fa fa-cloud-download  text-white  fs-1"></i>
+                                  Recibir <br>de
                                 Caja</a>
 
-                            <div
-                                class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
-                            </div>
                         </div>
                     </div>
                     <!--end::buttons actions-->
