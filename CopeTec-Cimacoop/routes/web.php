@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AperturaCajaController;
 use App\Http\Controllers\BobedaController;
+use App\Http\Controllers\TempPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -230,3 +231,9 @@ Route::get('/reportes/comprobanteMovimientoBobeda/{id}', [ReportesController::cl
 Reportes Movimientos Caja
 */
 Route::get('/reportes/comprobanteMovimiento/{id}', [ReportesController::class, 'ComprobanteMovimiento'])->middleware(['auth','bitacora']);
+
+/*
+Contraseña temporal para anular operaciones
+*/
+Route::get('/temp/generateTempPassword', [TempPasswordController::class, 'generateTempPassword'])->middleware(['auth', 'bitacora']);
+Route::get('/temp/validatePassword/{password}', [TempPasswordController::class, 'validatePassword'])->middleware(['auth', 'bitacora']);
