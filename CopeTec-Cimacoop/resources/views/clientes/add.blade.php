@@ -3,7 +3,7 @@
     Agregar Cliente
 @endsection
 @section('content')
-    <form action="/clientes/add" method="post" autocomplete="nope">
+    <form action="/clientes/add" method="post" autocomplete="off">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
 

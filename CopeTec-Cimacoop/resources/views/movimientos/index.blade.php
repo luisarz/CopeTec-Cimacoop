@@ -399,16 +399,64 @@
                 icon: "question",
                 buttonsStyling: false,
                 showCancelButton: true,
+                input: 'text',
+
                 confirmButtonText: "Si, Anular Operacion",
                 cancelButtonText: 'No, Cancelar',
                 customClass: {
                     confirmButton: "btn btn-danger btn-block",
                     cancelButton: "btn btn-secondary btn-block"
+                },
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Debe ingresar una contraseña';
+                    }
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $("#id").val(id)
-                    $("#deleteForm").submit();
+
+
+
+
+                    const password = result.value;
+
+                    //
+                    $.ajax({
+                        url: '/temp/validatePassword/' + password,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                $("#id").val(id)
+                                $("#deleteForm").submit();
+                                Swal.fire({
+                                    title: 'Proceso Realizado con exito',
+                                    icon: 'success',
+                                    showConfirmButton: true,
+                                    customClass: {
+                                        confirmButton: "btn btn-info",
+                                    },
+                                    timerProgressBar: true,
+                                    timer: 5000, // 5000 milisegundos = 5 segundos
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Errro al Realizar proceso',
+                                    text: 'El estado de la contraseña es: ' + data.status,
+                                    icon: 'error',
+                                    showConfirmButton: true,
+                                    customClass: {
+                                        confirmButton: "btn btn-info",
+                                    },
+                                    timerProgressBar: true,
+                                    timer: 5000, // 5000 milisegundos = 5 segundos
+                                });
+
+                            }
+
+
+                        }
+                    });
 
                 } else if (result.isDenied) {}
             });

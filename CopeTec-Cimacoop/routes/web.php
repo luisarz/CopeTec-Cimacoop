@@ -149,9 +149,8 @@ Cuentas Route
 Route::get('/cuentas', [CuentasController::class, 'index'])->middleware(['auth','bitacora']);
 Route::get('/cuentas/add', [CuentasController::class, 'add'])->middleware(['auth','bitacora']);
 Route::get('/cuentas/addcuentacompartida', [CuentasController::class, 'addcuentacompartida'])->middleware(['auth', 'bitacora']);
-
-Route::post('/cuentas/add', [CuentasController::class, 'post'])->middleware(['auth','bitacora']);
-Route::delete('/cuentas/delete', [CuentasController::class, 'delete'])->middleware(['auth','bitacora']);
+Route::post('/cuentas/add', [CuentasController::class, 'post'])->middleware(['auth', 'bitacora']);
+Route::post('/cuentas/anularCuenta', [CuentasController::class, 'anularCuenta'])->middleware(['auth','bitacora']);
 Route::get('/cuentas/{id}', [CuentasController::class, 'edit'])->middleware(['auth','bitacora']);
 Route::put('/cuentas/put', [CuentasController::class, 'put'])->middleware(['auth','bitacora']);
 //Consultar el saldo de la cuenta
@@ -224,13 +223,20 @@ Reporest movimiento Bobeda
 */
 Route::get('/reportes/movimientosBobeda/{id}', [ReportesController::class, 'RepMovimientosBobeda'])->middleware(['auth','bitacora']);
 Route::get('/reportes/comprobante/{id}', [ReportesController::class, 'comprobantesBobeda'])->middleware(['auth', 'bitacora']);
-
 Route::get('/reportes/comprobanteMovimientoBobeda/{id}', [ReportesController::class, 'comprobanteBobeda'])->middleware(['auth','bitacora']);
 
 /*
-Reportes Movimientos Caja
+Reportes Movimientos 
 */
+
 Route::get('/reportes/comprobanteMovimiento/{id}', [ReportesController::class, 'ComprobanteMovimiento'])->middleware(['auth','bitacora']);
+// Route::get('/reportes/comprobanteMovimiento/{id}', [ReportesController::class, 'ComprobanteMovimiento'])->middleware(['auth', 'bitacora']);
+Route::get('/reportes/RepEstadoCuenta/{id}', [ReportesController::class, 'RepEstadoCuenta'])->middleware(['auth', 'bitacora']);
+Route::get('/reportes/contrato/{id}', [ReportesController::class, 'contrato'])->middleware(['auth', 'bitacora']);
+
+
+
+
 
 /*
 Contraseña temporal para anular operaciones

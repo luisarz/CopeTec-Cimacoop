@@ -17,6 +17,7 @@ class CuentasController extends Controller
             ->whereNotIn('clientes.estado', [0, 7])
             ->distinct()
             ->orderby('clientes.nombre', 'asc')
+            ->select('cuentas.*', 'clientes.nombre as nombre_cliente','clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
             ->paginate(10);
 
 
@@ -35,7 +36,7 @@ class CuentasController extends Controller
         $asociados = Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->whereNotIn('clientes.estado', [0, 7])->get(); //El cliente no este desactivado ni sea la bobeda
         $tiposcuentas = TipoCuenta::all();
-        
+
         return view("cuentas.addcuentacompartida", compact("asociados", "tiposcuentas"));
     }
 
@@ -119,6 +120,13 @@ class CuentasController extends Controller
             'saldo_cuenta_formateado' => $saldo_cuenta_formateado != null ? $saldo_cuenta_formateado : 0,
             'saldo_cuenta_sin_formato' => $cuenta ? $cuenta->saldo_cuenta : 0,
         ]);
+    }
+    public function anularCuenta(Request $request)
+    {
+        $cuenta = Cuentas::findOrFail($request->id_cuenta_anular);
+        $cuenta->estado = 0;
+        $cuenta->save();
+        return redirect("/cuentas");
     }
 
 
