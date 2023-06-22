@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
+use App\Models\Clientes;
+use App\Models\Cuentas;
+use App\Models\Empleados;
+use App\Models\Movimientos;
 use Carbon\Carbon;
+use DateTime;
+use Luecano\NumeroALetras\NumeroALetras;
 use \PDF;
+use App\Helpers\ConversionHelper;
+
 
 class ReportesController extends Controller
 {
+
+
     public function index()
     {
         $pdf = \App::make('snappy.pdf');
@@ -17,7 +27,7 @@ class ReportesController extends Controller
         //return view("Reportes.informeclientediario",compact('reporte'));
         return $pdf->setOrientation('landscape')->inline();
     }
-    public function movimientosBobeda($id)
+    public function RepMovimientosBobeda($id)
     {
 
         $today = Carbon::today();
@@ -65,7 +75,117 @@ class ReportesController extends Controller
             'cancelados' => $cancelados,
         ]);
 
-        return $pdf->setOrientation('landscape')->inline();
+        return $pdf->setOrientation('portrait')->inline();
 
+    }
+    public function ComprobanteMovimiento($id)
+    {
+        $idMovimiento = $id;
+        $estilos = file_get_contents(public_path('assets/css/css.css'));
+
+        $movimiento = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
+            ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->join('cajas', 'cajas.id_caja', '=', 'movimientos.id_caja')
+            ->join('empleados', 'empleados.id_empleado', '=', 'cajas.id_usuario_asignado')
+            ->where('movimientos.id_movimiento', '=', $idMovimiento)
+            ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente', 'clientes.direccion_personal', 'empleados.nombre_empleado')
+            ->first();
+
+        $formatter = new NumeroALetras();
+        $numeroEnLetras = $formatter->toInvoice($movimiento->monto, 2, 'DoLARES');
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.caja.comprobante', [
+            'movimiento' => $movimiento,
+            'estilos' => $estilos,
+            'numeroEnLetras' => $numeroEnLetras
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
+    public function comprobanteBobeda($id)
+    {
+        $idMovimiento = $id;
+        $estilos = file_get_contents(public_path('assets/css/css.css'));
+
+        $movimientoBobeda = BobedaMovimientos::join('cajas', 'cajas.id_caja', 'bobeda_movimientos.id_caja')
+            ->join('empleados', 'empleados.id_empleado', '=', 'cajas.id_usuario_asignado')
+            ->where('bobeda_movimientos.id_bobeda_movimiento', '=', $idMovimiento)
+            ->orderBy('bobeda_movimientos.id_bobeda_movimiento', 'desc')
+            ->select('bobeda_movimientos.*', 'cajas.*', 'empleados.nombre_empleado as nombre_empleado')
+            ->first();
+
+        $empleados = Empleados::where('id_empleado', '=', $movimientoBobeda->id_empleado)->first();
+
+
+        $formatter = new NumeroALetras();
+        $numeroEnLetras = $formatter->toInvoice($movimientoBobeda->monto, 2, 'DoLARES');
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.bobeda.comprobante', [
+            'movimiento' => $movimientoBobeda,
+            'estilos' => $estilos,
+            'numeroEnLetras' => $numeroEnLetras,
+            'bobeda_empleado'=>$empleados->nombre_empleado
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
+
+    public function RepEstadoCuenta($id)
+    {
+        $idCuenta = $id;
+        $estilos = file_get_contents(public_path('assets/css/css.css'));
+        $movimientosCuenta = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
+        ->join('tipos_cuentas','tipos_cuentas.id_tipo_cuenta','=','cuentas.id_tipo_cuenta')
+        ->join('asociados','asociados.id_asociado','=','cuentas.id_asociado')
+        ->join('clientes','clientes.id_cliente','=','asociados.id_cliente')
+        ->select('movimientos.*','cuentas.*','clientes.nombre as nombre_cliente','clientes.dui_cliente','clientes.id_cliente','tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+        ->where('cuentas.id_cuenta','=',$idCuenta)
+        ->get();
+        if($movimientosCuenta->count()==0){
+            return redirect()->back()->with('error','La cuenta no tiene movimientos');
+        }
+
+        $clienteData=Clientes::find($movimientosCuenta[0]->id_cliente);
+
+        $formatter = new NumeroALetras();
+        $numeroEnLetras = $formatter->toInvoice($movimientosCuenta[0]->saldo_cuenta, 2, 'DoLARES');
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.cuentas.estadoCuenta', [
+            'movimientos' => $movimientosCuenta,
+            'estilos' => $estilos,
+            'numeroEnLetras' => $numeroEnLetras,
+            'clienteData'=>$clienteData
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
+
+    public function contrato($id)
+    {
+        $idCuenta = $id;
+        $estilos = file_get_contents(public_path('assets/css/css.css'));
+
+        $datosContrato = Cuentas::join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('intereses_tipo_cuenta', 'intereses_tipo_cuenta.id_tipo_cuenta', '=', 'tipos_cuentas.id_tipo_cuenta')
+            ->select('cuentas.*', 'clientes.*','tipos_cuentas.descripcion_cuenta as tipo_cuenta','intereses_tipo_cuenta.interes','asociados.fecha_ingreso')
+            ->where('cuentas.id_cuenta', '=', $idCuenta)
+            ->first();
+        $fechaNacimiento = new DateTime($datosContrato->fecha_nacimiento);
+        $fechaActual = new DateTime();
+        $edad = $fechaNacimiento->diff($fechaActual)->y;
+        $beneficiarios = Cuentas::join('beneficiarios', 'beneficiarios.id_cuenta', '=', 'cuentas.id_cuenta')->get();
+        $formatter = new NumeroALetras();
+        $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_apertura, 2, 'DoLARES');
+
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.cuentas.contrato', [
+            'estilos' => $estilos,
+            'datosContrato' => $datosContrato,
+            'beneficiarios' => $beneficiarios,
+            'edad' => $edad,
+            'numeroEnLetras' => $numeroEnLetras
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
     }
 }

@@ -3,7 +3,7 @@
     Agregar Cliente
 @endsection
 @section('content')
-    <form action="/bobeda/realizarAperturaBobeda" method="POST" autocomplete="off">
+    <form action="/bobeda/realizarCierreBobeda" method="POST" autocomplete="off">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_bobeda" name="id_bobeda" value="{{ $bobeda->id_bobeda }}">
@@ -24,7 +24,7 @@
                         </a>
                     </div>
                     <div class="ribbon-label fs-3">
-                        Aperturar - <span class="badge badge-info fs-5">{{ $bobeda->nombre }}</span>
+                        Cerrar - <span class="badge badge-danger fs-5">{{ $bobeda->nombre }}</span>
                         <span class="ribbon-inner bg-success"></span>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                                 value="${{ number_format($bobeda->saldo_bobeda, '1', '.', ',') }}" readonly
                                 class="form-control text-success fs-1" name="monto" placeholder="Monto a depositar"
                                 aria-label="monto" aria-describedby="basic-addon1" />
-                            <label>Saldo Anterior:</label>
+                            <label>Saldo en Bobeda:</label>
                         </div>
 
                         <div class="form-floating col-lg-4">
@@ -58,7 +58,7 @@
                                 @endforeach
                             </select>
 
-                            <label>Empleado Apertura:</label>
+                            <label>Empleado de CIerre:</label>
                         </div>
                     </div>
                     <div class="form-group row mb-5">
@@ -78,9 +78,9 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex flex-wrap justify-content-center pb-lg-0">
-                        <button type="submit" id="kt_password_reset_submit" class="btn btn-primary me-4">
+                        <button type="submit" id="kt_password_reset_submit" class="btn btn-danger me-4">
                             <!--begin::Indicator label-->
-                            <span class="indicator-label">Aperturar bobeda</span>
+                            <span class="indicator-label">Cerrar bobeda</span>
                             <!--end::Indicator label-->
                             <!--begin::Indicator progress-->
                             <span class="indicator-progress">Please wait...

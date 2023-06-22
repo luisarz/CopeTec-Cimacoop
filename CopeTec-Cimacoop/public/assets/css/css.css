@@ -1,4 +1,11 @@
- .text-color-success {
+:root{
+    --mt:5px;
+}
+.body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 17px;
+}
+.text-color-success {
      color: #5cb85c;
      font-size: 16px;
  }
@@ -14,16 +21,28 @@
      font-size: 16px;
 
  }
+ .text-bold{
+     font-weight: bold;
+ }
+ .text-align-rigth{
+     text-align: right;
+ }
+ 
 
  .table {
      width: 100%;
      max-width: 100%;
-     margin-bottom: 20px;
-     border-collapse: collapse;
-     border-spacing: 0;
-     border: 1px solid #ddd;
 
  }
+  .table-bordered {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 20px;
+      border-collapse: collapse;
+      border-spacing: 0;
+      border: 1px solid #050505;
+
+  }
 
  .table>thead>tr>th {
      border-bottom: 1px solid #ddd;
@@ -108,4 +127,12 @@
 .logo {
     object-fit: contain;
     padding-top: 100px;
+}
+.d-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mt{
+    margin-top: var(--mt);
 }

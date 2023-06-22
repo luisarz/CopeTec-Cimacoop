@@ -14,7 +14,7 @@
 
         <div class="me-1 mb-1">
             <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative ">
-                <a href="/bobeda/transferir/{{ $bobeda->id_bobeda }}"
+                <a href="/bobeda/cerrar/{{ $bobeda->id_bobeda }}"
                     class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange fs-3 {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
                     <i class="ki-duotone ki-abstract-26 fs-2x text-white">
                         <i class="path1"></i>
@@ -31,6 +31,15 @@
                         <i class="path2"></i>
                     </i>
                     Movimientos</a>
+            </div>
+            <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative ">
+                <a href="javascript:void(0);" onclick="generateTempPassword()"
+                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-info btn-active-light-info fs-3 {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
+                    <i class="ki-duotone ki-faceid fs-2x text-danger">
+                        <i class="path1"></i>
+                        <i class="path2"></i>
+                    </i>
+                    Contraseña temp</a>
             </div>
         </div>
         <!--end::buttons actions-->
@@ -74,19 +83,18 @@
 
 
                             <a href="/bobeda/transferir/{{ $bobeda->id_bobeda }}"
-                                class="btn btn-danger border-dashed {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">Enviar
+                                class="btn btn-danger border-dashed {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
+                                <i class="fa fa-cloud-upload  text-white  fs-1"></i>
+                                Enviar
                                 <br>a Caja
                             </a>
-                            <div
-                                class="position-absolute translate-middle bottom-0 start-10 mb-6 bg-danger rounded-circle border border-4 border-body h-20px w-20px {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
-                            </div>
-                            <a href="/bobeda/recibir/{{ $bobeda->id_bobeda }}"
-                                class="btn btn-success {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">Recibir <br>de
+
+                            <a href="/bobeda/recibir"
+                                class="btn btn-success {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
+                                <i class="fa fa-cloud-download  text-white  fs-1"></i>
+                                Recibir <br>de
                                 Caja</a>
 
-                            <div
-                                class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
-                            </div>
                         </div>
                     </div>
                     <!--end::buttons actions-->
@@ -227,18 +235,18 @@
                 </div>
             </div>
 
-            <div class="card-body ">
-                <div class="table-responsive  table-loading">
-                    <table class="data-table-coop table table-hover table-rounded fs-4 table-striped border gy-2
-                     gs-2">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">
                         <thead class="thead-dark">
-                            <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                                <th class="min-w-50px">Acciones</th>
-                                <th class="min-w-50px">Operacion</th>
-                                <th class="min-w-50px">Monto</th>
+                            <tr class="fw-semibold fs-3 text-gray-800 border-bottom-3 border-gray-200">
+                                <th class="min-w-100px ">Acciones</th>
+                                <th class="min-w-100px ">Operacion</th>
+                                <th class="min-w-100px">Monto</th>
                                 <th class="min-w-100px">Caja</th>
                                 <th class="min-w-100px">Fecha</th>
-                                <th class="min-w-50px">Estado</th>
+                                <th class="min-w-100px">Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -250,9 +258,8 @@
                                                 @if ($movimiento->tipo_operacion == '6')
                                                     <a href="javascript:void(0);"
                                                         onclick="alertRecibir('{{ $movimiento->id_bobeda_movimiento }}','{{ number_format($movimiento->monto, 2, '.', ',') }}','{{ $movimiento->numero_caja }}')"
-                                                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-info btn-active-light-info">
-                                                      <i
-                                                        class="fa-solid fa-thumbs-up text-inf"></i> &nbsp;
+                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-info btn-active-light-info">
+                                                        <i class="fa-solid fa-thumbs-up text-inf"></i> &nbsp;
 
                                                         <span class="badge badge-info">Recibir</span>
                                                     </a>
@@ -260,27 +267,33 @@
                                                     {{-- Enviada --}}
                                                     <a href="javascript:void(0);"
                                                         onclick="alertAnular('{{ $movimiento->id_bobeda_movimiento }}','{{ number_format($movimiento->monto, 2, '.', ',') }}','{{ $movimiento->numero_caja }}')"
-                                                        class="btn btn-danger btn-sm"><i class="fa-solid fa-trash text-white"></i>
+                                                        class="btn  w-50  btn-danger btn-sm"><i
+                                                            class="fa-solid fa-trash text-white"></i>
                                                         </i> &nbsp;
-                                                        Anular</a>
+                                                        Anular </a>
                                                 @endif
                                             @break
 
                                             @case(2)
                                                 {{-- Recibida en caja --}}
                                                 <span
-                                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange"><i
+                                                    class="btn btn-sm btn-outline w-50 btn-outline-dashed btn-outline-success btn-active-light-dange"><i
                                                         class="fa-solid fa-check text-success"></i> &nbsp; Finalizado</span>
                                             @break
 
                                             @case(3)
                                                 {{-- Anulada --}}
                                                 <span
-                                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"><i
+                                                    class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"><i
                                                         class="fa-solid fa-check text-danger"></i> &nbsp; Cancelada</span>
                                             @break
                                         @endswitch
 
+                                        <a href="/reportes/comprobanteMovimientoBobeda/{{ $movimiento->id_bobeda_movimiento }}"
+                                            target="_blank" class="btn btn-info w-40 btn-sm"><i
+                                                class="fa fa-print text-white"></i>
+                                            </i> &nbsp;Imprimir
+                                        </a>
 
 
                                     </td>
@@ -295,6 +308,9 @@
                                             @break
 
                                             @case(3)
+                                                <span class=" badge badge-light-info">Cerrar bobeda</span>
+                                            @break
+                                              @case(4)
                                                 <span class=" badge badge-light-info">Apertura bobeda</span>
                                             @break
 
@@ -302,7 +318,7 @@
                                                 <span class=" badge badge-info">Corte Z</span>
                                             @break
                                         @endswitch
-
+                                    </td>
                                     <td>
 
                                         @if ($movimiento->tipo_operacion == '1')
@@ -314,7 +330,8 @@
                                         @endif
                                     </td>
                                     <td style="text-align: center">
-                                        @if ($movimiento->tipo_operacion == '3')
+                                       @if ($movimiento->tipo_operacion == '3' || $movimiento->tipo_operacion == '4')
+
                                             <span class="badge badge-light-info fs-5">
                                                 Bobeda</span>
                                         @else
@@ -358,7 +375,7 @@
         {{ method_field('POST') }}
         <input type="hidden" name="id" id="id">
     </form>
-       <form method="post" id="recibirForm" action="/bobeda/recibirCorte">
+    <form method="post" id="recibirForm" action="/bobeda/recibirCorte">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <input type="hidden" name="id_corte_movimiento" id="id_corte_movimiento">
@@ -373,27 +390,85 @@
     <script>
         function alertAnular(id, monto, caja) {
             Swal.fire({
+
                 html: `¿Deseas Eliminar este Traslado, con los siguientes detalles?<br/><br/>
                         <span class="badge badge-primary">Caja: ` + caja + `</span><br/>
-                        <span class="badge badge-secondary">Monto: $` + monto + `</span>`,
+                        <span class="badge badge-secondary">Monto: $` + monto +
+                    `</span>
+                        <br/><br/>
+                      `,
+                input: 'text',
                 icon: "question",
                 buttonsStyling: false,
                 showCancelButton: true,
                 confirmButtonText: "Si, Cancelar el traslado",
                 cancelButtonText: 'No',
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Debe ingresar una contraseña';
+                    }
+                },
                 customClass: {
                     confirmButton: "btn btn-danger",
                     cancelButton: "btn btn-secondary"
-                }
+                },
+                inputAttributes: {
+                    class: 'form-control',
+                    style: 'color: red; font-size: 16px;',
+                    // Aquí puedes agregar más propiedades de estilo según tus necesidades
+                },
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $("#id").val(id)
-                    $("#anularForm").submit();
+
+                    const password = result.value;
+
+                    //
+                    $.ajax({
+                        url: '/temp/validatePassword/' + password,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                $("#id").val(id)
+                                $("#anularForm").submit();
+                                Swal.fire({
+                                    title: 'Proceso Realizado con exito',
+                                    icon: 'success',
+                                    showConfirmButton: true,
+                                    customClass: {
+                                        confirmButton: "btn btn-info",
+                                    },
+                                    timerProgressBar: true,
+                                    timer: 5000, // 5000 milisegundos = 5 segundos
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Errro al Realizar proceso',
+                                    text: 'El estado de la contraseña es: ' + data.status,
+                                    icon: 'error',
+                                    showConfirmButton: true,
+                                    customClass: {
+                                        confirmButton: "btn btn-info",
+                                    },
+                                    timerProgressBar: true,
+                                    timer: 5000, // 5000 milisegundos = 5 segundos
+                                });
+
+                            }
+
+
+                        }
+                    });
+
+
+
+
                 } else if (result.isDenied) {}
             });
 
         }
-           function alertRecibir(id, monto, caja) {
+
+        function alertRecibir(id, monto, caja) {
             Swal.fire({
                 html: `¿Deseas Recibir el Corte Z?<br/><br/>
                         <span class="badge badge-primary">Caja: ` + caja + `</span><br/>
@@ -411,6 +486,53 @@
                 if (result.isConfirmed) {
                     $("#id_corte_movimiento").val(id)
                     $("#recibirForm").submit();
+                } else if (result.isDenied) {}
+            });
+
+        }
+
+
+        function generateTempPassword() {
+            Swal.fire({
+                html: `¿Deseas Recibir Contraseña temporal?`,
+                icon: "question",
+                buttonsStyling: false,
+                showCancelButton: true,
+                confirmButtonText: "Si, Generar Contraseña",
+                cancelButtonText: 'No',
+                customClass: {
+                    confirmButton: "btn btn-danger",
+                    cancelButton: "btn btn-secondary"
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    //crear funcion ajax ara generar contraseña temporal
+                    $.ajax({
+                        url: '/temp/generateTempPassword',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            Swal.fire({
+                                html: `Contraseña Temporal Generada: <br/><br/>
+                                <span class="badge badge-info fs-2">` + data.passwordTemp + `</span><br/>
+                                Vence en 15 minutos:<br/> <span class="badge badge-secondary fs-1">` + data
+                                    .expiration_date + `</span>`,
+                                icon: "success",
+                                buttonsStyling: false,
+                                showCancelButton: false,
+                                allowOutsideClick: false, // Evitar cerrar al hacer clic fuera
+                                confirmButtonText: "Ok",
+                                cancelButtonText: 'No',
+                                customClass: {
+                                    confirmButton: "btn btn-success",
+                                    cancelButton: "btn btn-secondary"
+                                }
+                            });
+
+                        }
+                    });
+
                 } else if (result.isDenied) {}
             });
 

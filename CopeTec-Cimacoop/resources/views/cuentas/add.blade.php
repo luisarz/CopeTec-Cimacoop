@@ -3,84 +3,106 @@
     Agregar Cliente
 @endsection
 @section('content')
-    <form action="/cuentas/add" method="post" autocomplete="nope">
+    <form action="/cuentas/add" method="post" autocomplete="off">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
 
-        <div class="card-body">
+        <div class="card shadow-lg">
+            <div class="card-header ribbon ribbon-end ribbon-clip">
+                <div class="card-toolbar">
+                    <a href="/cuentas">
 
-            <!--begin::row group-->
-            <div class="form-group row mb-5">
-                <div class="form-floating col-lg-8">
-                    <select name="id_asociado" required data-control="select2" class="form-select">
-                        <option value="">Seleccione un asociado</option>
-                        @foreach ($asociados as $asociado)
-                        <option value="{{ $asociado->id_asociado }}">{{ $asociado->nombre }} ->
-                            {{ $asociado->dui_cliente }}</option>
+                        <button type="button"
+                            class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
+                            <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
+                                <i class="path1"></i>
+                                <i class="path2"></i>
+                            </i>
+                        </button>
+                    </a>
+
+                </div>
+                <div class="ribbon-label fs-3">
+                    <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
+                            class="path2"></span><span class="path3"></span></i>
+                    {{-- {{ $cajaAperturada->numero_caja }} --}}
+                    Aperturar Nueva Cuenta
+
+                    <span class="ribbon-inner bg-danger"></span>
+                </div>
+            </div>
+            <div class="card-body">
+
+
+                <!--begin::row group-->
+                <div class="form-group row mb-5">
+                    <div class="form-floating col-lg-8">
+                        <select name="id_asociado" required data-control="select2" class="form-select">
+                            <option value="">Seleccione un asociado</option>
+                            @foreach ($asociados as $asociado)
+                                <option value="{{ $asociado->id_asociado }}">{{ $asociado->nombre }} ->
+                                    {{ $asociado->dui_cliente }}</option>
                             @endforeach
                         </select>
                         <label for="floatingPassword">Asociado</label>
+                    </div>
+                    <div class="form-floating col-lg-4">
+                        <input type="date" required value="{{ old('fecha_apertura') }}" max="{{ date('Y-m-d') }}"
+                            class="form-control" name="fecha_apertura" placeholder="fecha_nacimiento"
+                            aria-label="fecha_apertura" aria-describedby="basic-addon1" />
+                        <label>Fecha Apertura:</label>
+                    </div>
                 </div>
-                <div class="form-floating col-lg-4">
-                    <input type="date" required value="{{ old('fecha_nacimiento') }}" max="{{ date('Y-m-d') }}"
-                    class="form-control" name="fecha_nacimiento" placeholder="fecha_nacimiento"
-                    aria-label="fecha_nacimiento" aria-describedby="basic-addon1" />
-                    <label>Fecha Apertura:</label>
+                <!--begin::row group-->
+                <div class="form-group row mb-5">
+                    <div class="form-floating col-lg-4">
+
+                        <input type="number" required value="{{ old('numero_cuenta') }}" class="form-control text-danger"
+                            name="numero_cuenta" placeholder="Numero de cuenta" aria-label="numero_cuenta"
+                            aria-describedby="basic-addon1" is-valid />
+                        <label for="floatingPassword">Numero cuenta:</label>
+                    </div>
+                    <div class="form-floating col-lg-4">
+                        <select name="id_tipo_cuenta" id="id_tipo_cuenta" required data-control="select2"
+                            class="form-select">
+                            <option value="">Seleccione El Interes </option>
+                            @foreach ($tiposcuentas as $tipoCuenta)
+                                <option value="{{ $tipoCuenta->id_tipo_cuenta }}">
+                                    {{ $tipoCuenta->descripcion_cuenta }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <label>Tipo de Cuenta:</label>
+                    </div>
+                    <div class="form-floating col-lg-4">
+                        <select name="id_interes_tipo_cuenta" id="id_interes_tipo_cuenta" required data-control="select2"
+                            class="form-select">
+                        </select>
+                        <label>Interes aplicar:</label>
+                    </div>
+
                 </div>
+                <!--begin::row group-->
+                <div class=" form-group row mb-5">
+                    <div class="form-floating col-lg-3">
+                        <input type="number" required value="{{ old('monto_apertura') }}" class="form-control text-danger"
+                            name="monto_apertura" placeholder="monto_apertura" aria-label="dui"
+                            aria-describedby="basic-addon1" />
+                        <label>Monto Apertura:</label>
+                    </div>
+                </div>
+
+                @if ($errors->has('dui_cliente'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('dui_cliente') }}
+                    </div>
+                @endif
             </div>
-            <!--begin::row group-->
-            <div class="form-group row mb-5">
-                <div class="form-floating col-lg-4">
-                    
-                    <input type="text" required value="{{ old('numero_cuenta') }}" class="form-control"
-                    name="numero_cuenta" placeholder="Numero de cuenta" aria-label="numero_cuenta"
-                    aria-describedby="basic-addon1" is-valid />
-                    <label for="floatingPassword">Numero cuenta:</label>
-                </div>
-                <div class="form-floating col-lg-4">
-                    <select name="id_tipo_cuenta" id="id_tipo_cuenta" required data-control="select2" class="form-select">
-                        <option value="">Seleccione El Interes </option>
-                        @foreach ($tiposcuentas as $tipoCuenta)
-                        <option value="{{ $tipoCuenta->id_tipo_cuenta }}">{{ $tipoCuenta->descripcion_cuenta }}
-                        </option>
-                        @endforeach
-                    </select>
-                    <label>Tipo de Cuenta:</label>
-                </div>
-                <div class="form-floating col-lg-4">
-                    <select name="id_intereses_tipo_cuenta" id="id_interes_tipo_cuenta" required data-control="select2" class="form-select">
-                    </select>
-                    <label>Interes aplicar:</label>
-                </div>
-
+            <div class="card-footer d-flex justify-content-center py-6">
+                <button type="submit" class="btn btn-bg-primary btn-text-white">Aperturar Nueva Cuenta</button>
             </div>
-            <!--begin::row group-->
-            <div class=" form-group row mb-5">
-
-                <div class="form-floating col-lg-3">
-                    <input type="number" required value="{{ old('monto_apertura') }}" class="form-control"
-                    name="monto_apertura" placeholder="monto_apertura" aria-label="dui"
-                    aria-describedby="basic-addon1" />
-                    <label>Monto Apertura:</label>
-                </div>
-
-
-            </div>
-
-
-            @if ($errors->has('dui_cliente'))
-                <div class="alert alert-danger">
-                    {{ $errors->first('dui_cliente') }}
-                </div>
-            @endif
         </div>
 
-
-
-
-        <div class="card-footer d-flex justify-content-end py-6">
-            <button type="submit" class="btn btn-bg-primary btn-text-white">Agregar</button>
-        </div>
     </form>
 @endsection
 @section('scripts')

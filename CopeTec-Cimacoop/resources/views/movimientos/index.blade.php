@@ -141,8 +141,8 @@
                                 <a href="#"
                                     class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info h-60px w-180px mb-3 fw-bold"
                                     data-kt-menu-trigger="hover" data-kt-menu-placement="bottom-end">
-                                    <i class="fa fa-angle-double-down fs-6 text-info me-1 fa-2x"><span class="path1"></span><span
-                                            class="path2"></span></i>
+                                    <i class="fa fa-angle-double-down fs-6 text-info me-1 fa-2x"><span
+                                            class="path1"></span><span class="path2"></span></i>
                                     Operar Bobeda
                                 </a>
                                 <!--end::Menu toggle-->
@@ -173,10 +173,10 @@
 
                                         <div class="separator border-gray-200"></div>
 
-                                        <a href="movimientos/traslado/{{ $cajaAperturada->id_caja }}"
+                                        <a href="movimientos/transferenciabobeda/{{ $cajaAperturada->id_caja }}"
                                             class="btn btn-outline btn-outline-dotted btn-outline-success btn-active-light-success w-200px mb-3">
                                             <i class="fa fa-cloud-upload  text-success  fs-1x"></i>
-                                           Hacer Transferencia
+                                            Hacer Transferencia
                                         </a>
                                         <div class="separator border-gray-200"></div>
                                         <a href="movimientos/traslado/{{ $cajaAperturada->id_caja }}"
@@ -191,8 +191,6 @@
                                 <!--end::Menu 1-->
                             </div>
                             <!--end::Filter menu-->
-
-
 
                         </div>
 
@@ -209,44 +207,98 @@
                     <table class=" table table-hover table-row-dashed fs-6     gy-2 gs-5">
                         <thead class="thead-dark">
                             <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                                <th class="min-w-50px">Acciones</th>
-                                <th class="min-w-50px"># Cuenta</th>
-                                <th class="min-w-50px">Tipo</th>
-                                <th class="min-w-100px">Tipo</th>
-                                <th class="min-w-100px ">Monto</th>
-                                <th class="min-w-50px">Cliente</th>
+                                <th style="width: 25%">Acciones</th>
+                                <th>Cuenta</th>
+                                <th>Tipo</th>
+                                <th>Operación</th>
+                                <th>Monto</th>
+                                <th>Cliente</th>
                                 <th class="min-w-50px">Fecha</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($movimientos as $cuenta)
-                                <tr @if ($cuenta->estado == 0) class="btn-outline-dashed" @endif>
+                                <tr>
                                     <td>
-                                        @if ($cuenta->estado == 0)
-                                            <a class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"
-                                                style="pointer-events: none; text-decoration: line-through "><i
-                                                    class="fa-solid fa-trash text-danger"></i> &nbsp; Anulado</a>
-                                        @else
-                                            @if ($cuenta->tipo_operacion == 3)
+
+                                        {{-- Validar los depositos y retiros --}}
+                                        {{-- validar los traslados  a bobeda  --}}
+                                        {{-- VAlidar los depositos de Bobeda --}}
+                                        @switch($cuenta->tipo_operacion)
+                                            @case('1')
+                                            @case('2')
+                                                {{-- Deposito y retiro --}}
+                                                @if ($cuenta->estado == 0)
+                                                    <a class="btn btn-sm w-50   fs-6 btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"
+                                                        style="pointer-events: none; text-decoration: line-through "><i
+                                                            class="fa-solid fa-trash text-danger"></i> &nbsp;
+                                                        Anulado</a>
+                                                @else
+                                                    <a href="javascript:void(0);"
+                                                        onclick="alertAnular({{ $cuenta->id_movimiento }},'{{ $cuenta->tipo_operacion }}','{{ number_format($cuenta->monto, 2, '.', ',') }}')"
+                                                        class="btn btn-danger btn-sm w-50"><i
+                                                            class="fa-solid fa-trash text-white"></i>
+                                                        Anular</a>
+                                                @endif
+                                            @break
+
+                                            @case('3')
+                                                {{-- Recepcion de Bobeda --}}
                                                 <a
-                                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange"><i
-                                                        class="fa-solid fa-check text-success"></i> &nbsp; Recibido</a>
-                                            @else
-                                                <a href="javascript:void(0);"
-                                                    onclick="alertAnular({{ $cuenta->id_movimiento }},'{{ $cuenta->tipo_operacion }}','{{ number_format($cuenta->monto, 2, '.', ',') }}')"
-                                                    class="btn btn-danger btn-sm"><i
-                                                        class="fa-solid fa-trash text-white"></i>
-                                                    </i> &nbsp;
-                                                    Anular</a>
-                                            @endif
-                                        @endif
+                                                    class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange">
+                                                    Recibido
+                                                </a>
+                                            @break
+
+                                            @case('4')
+                                                {{-- Traslado a Bobeda --}}
+                                                @if ($cuenta->estado == 1)
+                                                    <a
+                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange">
+                                                        Entregado
+                                                    </a>
+                                                @else
+                                                    <a
+                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-info btn-active-light-dange">
+                                                        En cola
+                                                    </a>
+                                                @endif
+                                            @break
+
+                                            @case('5')
+                                                {{-- Traslado a Caja --}}
+                                            @break
+
+                                            @case('6')
+                                                @if ($cuenta->estado == 1)
+                                                    <a
+                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange">
+                                                        Entregado
+                                                    </a>
+                                                @else
+                                                    <a
+                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-info btn-active-light-dange">
+                                                        En cola
+                                                    </a>
+                                                @endif
+                                            @break
+                                        @endswitch
+
+
+                                        <a href="/reportes/comprobanteMovimiento/{{ $cuenta->id_movimiento }}"
+                                            target="_blank" class="btn btn-info w-40 btn-sm"><i
+                                                class="fa fa-print text-white"></i>
+                                            </i> &nbsp;Imprimir
+                                        </a>
 
 
 
                                     </td>
                                     <td style="text-align:center">
                                         {{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->numero_cuenta }}</td>
-                                    <td>{{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->descripcion_cuenta }}</td>
+                                    <td>
+                                        {{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->descripcion_cuenta }}
+                                    </td>
                                     <td>
                                         @switch($cuenta->tipo_operacion)
                                             @case('1')
@@ -258,7 +310,21 @@
                                             @break
 
                                             @case('3')
+                                                <span class="badge badge-light-danger fs-6"><i
+                                                        class="fa fa-arrow-down text-info"></i>Recepcion</span>
+                                            @break
+
+                                            @case('4')
+                                                <span class="badge badge-light-danger fs-6"> <i
+                                                        class="fa fa-arrow-up text-info"></i>Traslado</span>
+                                            @break
+
+                                            @case('5')
                                                 <span class="badge badge-light-danger fs-6">traslado a Caja</span>
+                                            @break
+
+                                            @case('6')
+                                                <span class="badge badge-light-danger fs-6">Corte Z</span>
                                             @break
                                         @endswitch
 
@@ -304,7 +370,6 @@
 @section('scripts')
     <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-
     <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script>
         function alertAnular(id, tipo_operacion, monto) {
@@ -334,16 +399,64 @@
                 icon: "question",
                 buttonsStyling: false,
                 showCancelButton: true,
+                input: 'text',
+
                 confirmButtonText: "Si, Anular Operacion",
                 cancelButtonText: 'No, Cancelar',
                 customClass: {
                     confirmButton: "btn btn-danger btn-block",
                     cancelButton: "btn btn-secondary btn-block"
+                },
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Debe ingresar una contraseña';
+                    }
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $("#id").val(id)
-                    $("#deleteForm").submit();
+
+
+
+
+                    const password = result.value;
+
+                    //
+                    $.ajax({
+                        url: '/temp/validatePassword/' + password,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                $("#id").val(id)
+                                $("#deleteForm").submit();
+                                Swal.fire({
+                                    title: 'Proceso Realizado con exito',
+                                    icon: 'success',
+                                    showConfirmButton: true,
+                                    customClass: {
+                                        confirmButton: "btn btn-info",
+                                    },
+                                    timerProgressBar: true,
+                                    timer: 5000, // 5000 milisegundos = 5 segundos
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Errro al Realizar proceso',
+                                    text: 'El estado de la contraseña es: ' + data.status,
+                                    icon: 'error',
+                                    showConfirmButton: true,
+                                    customClass: {
+                                        confirmButton: "btn btn-info",
+                                    },
+                                    timerProgressBar: true,
+                                    timer: 5000, // 5000 milisegundos = 5 segundos
+                                });
+
+                            }
+
+
+                        }
+                    });
 
                 } else if (result.isDenied) {}
             });

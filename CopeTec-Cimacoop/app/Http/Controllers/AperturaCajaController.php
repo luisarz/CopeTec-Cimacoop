@@ -7,6 +7,7 @@ use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
 use App\Models\Cajas;
 use App\Models\Cuentas;
+use App\Models\Empleados;
 use App\Models\Movimientos;
 use App\Models\TipoCuenta;
 use Carbon\Carbon;
@@ -36,7 +37,8 @@ class AperturaCajaController extends Controller
         $cajas = Cajas::where("estado_caja", '=', '0')
             ->where('id_usuario_asignado', '=', $id_empleado_usuario)
             ->get();
-        return view("apertura.aperturarcaja", compact("cajas"));
+        $empleados = Empleados::where('id_empleado', '=', $id_empleado_usuario)->get();
+        return view("apertura.aperturarcaja", compact('cajas', 'empleados'));
     }
     public function gettraslado($id)
     {
@@ -96,6 +98,7 @@ class AperturaCajaController extends Controller
                 $movimiento->fecha_operacion = now();
                 $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
                 $movimiento->id_caja = $request->id_caja;
+                $movimiento->cliente_transaccion=$request->id_empleado;
                 $movimiento->estado = 1;
                 $movimiento->save();
                 // $cajaReibe->saldo = $cajaReibe->saldo + $request->monto;
@@ -151,7 +154,7 @@ class AperturaCajaController extends Controller
         $bobedaMovimiento->monto = $caja->saldo;
         $bobedaMovimiento->fecha_operacion = Carbon::now();
         $bobedaMovimiento->observacion = 'Corte Z ->Caja ' . $caja->numero_caja;
-            $bobedaMovimiento->save();
+        $bobedaMovimiento->save();
 
         // $bobeda->saldo_bobeda = $bobeda->saldo_bobeda + $caja->saldo;
 

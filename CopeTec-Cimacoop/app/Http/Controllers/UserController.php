@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         $users = Empleados::join('users', 'users.id_empleado_usuario', '=', 'empleados.id_empleado')
         ->join('roles','roles.id','users.id_rol')
-        ->select('users.*','empleados.nombre_empleado','roles.name')->get();
+        ->select('users.*','empleados.nombre_empleado','roles.name')->paginate(10);
         return view("user.index", compact("users"));
     }
 

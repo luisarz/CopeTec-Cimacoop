@@ -8,59 +8,83 @@
 @endsection
 
 @section('content')
-    <a href="/asociados/add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Solcitud de Asociado</a>
+    <div class="card shadow-lg">
+        <div class="card-header ribbon ribbon-end ribbon-clip">
+            <div class="card-toolbar">
+                <a href="/asociados/add" class="btn btn-info"><i class="fa-solid fa-plus"></i> Nuevo Asociado</a>
 
-    <div class="table-responsive">
-        <table id="table_asociados" class="data-table-coop table table-hover table-row-dashed fs-6 gy-5 my-0 dataTable  gy-4 gs-7">
-            <thead >
-                <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                    <th class="min-w-150px">Acciones</th>
-                    <th class="min-w-200px">Asociado</th>
-                    <th class="min-w-100px">Estado</th>
-                    <th class="min-w-200px">Telefo</th>
-                    <th class="min-w-200px">DUI</th>
-                    <th class="min-w-100px">Aportacion</th>
-                </tr>
-            </thead>
-            <tbody>
+            </div>
+            <div class="ribbon-label fs-3">
+                <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
+                        class="path2"></span><span class="path3"></span></i>
+                Administracion de Asociados
 
-                @foreach ($asociados as $asociado)
-                    <tr>
-                        <td><a href="javascript:void(0);" onclick="alertDelete({{ $asociado->id_asociado }})"
-                                class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp; Eliminar</a>
-                            <a href="/asociados/{{ $asociado->id_asociado }}" class="badge badge-primary"><i
-                                    class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a>
-
-                            @if ($asociado->estado_solicitud != '3')
-                                <a href="/beneficiarios/{{ $asociado->id_asociado }}" class="badge badge-success"><i
-                                        class="fa-solid fa-user-plus text-white"></i> &nbsp; Beneficiarios</a>
-                            @else
-                                <a class="badge badge-success"
-                                    style="pointer-events: none; text-decoration: line-through "><i
-                                        class="fa-solid fa-user-plus text-white"></i> &nbsp; Beneficiarios</a>
-                            @endif
-
-                        </td>
-                        <td>{{ $asociado->nombre }}</td>
-                        <td>
-                            @if ($asociado->estado_solicitud == '1')
-                                <span class="badge badge-warning">Presentada</span>
-                            @elseif($asociado->estado_solicitud == '2')
-                                <span class="badge badge-success">Aceptado</span>
-                            @else
-                                <span class="badge badge-danger">Rechazado</span>
-                            @endif
-                        </td>
-                        <td>{{ $asociado->telefono }}</td>
-                        <td>{{ $asociado->dui_cliente }}</td>
-                        <td>$ {{ $asociado->monto_aportacion }}</td>
-
+                <span class="ribbon-inner bg-info"></span>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="data-table-coop table table-hover table-row-dashed fs-5     gy-2 gs-5">
+                <thead>
+                    <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
+                        <th>Acciones</th>
+                        <th>Asociado</th>
+                        <th>Estado</th>
+                        <th>Telefo</th>
+                        <th>DUI</th>
+                        <th>Aportacion</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+
+                    @foreach ($asociados as $asociado)
+                        <tr>
+                            <td>
+                                <a href="javascript:void(0);" onclick="alertDelete({{ $asociado->id_asociado }})"
+                                    class="btn w-10 btn-danger btn-sm ">
+                                    <i class="fa-solid fa-trash text-white"></i>
+                                </a>
+                                <a href="/asociados/{{ $asociado->id_asociado }}" class="btn w-10 btn-primary btn-sm">
+                                    <i class="fa-solid fa-pencil text-white"></i>
+                                </a>
+
+                                @if ($asociado->estado_solicitud != '3')
+                                    <a href="/beneficiarios/{{ $asociado->id_asociado }}"
+                                        class="btn w-10 btn-success btn-sm fs-8">
+                                        <i class="fa-solid fa-user-plus text-white"></i>
+                                        &nbsp; Beneficiarios
+                                    </a>
+                                @else
+                                    <a class="btn btn-success w-10 btn-sm"
+                                        style="pointer-events: none; text-decoration: line-through "><i
+                                            class="fa-solid fa-user-plus text-white"></i> &nbsp; Beneficiarios
+                                    </a>
+                                @endif
+
+                            </td>
+                            <td>{{ $asociado->nombre }}</td>
+                            <td>
+                                @if ($asociado->estado_solicitud == '1')
+                                    <span class="badge badge-warning">Presentada</span>
+                                @elseif($asociado->estado_solicitud == '2')
+                                    <span class="badge badge-success">Aceptado</span>
+                                @else
+                                    <span class="badge badge-danger">Rechazado</span>
+                                @endif
+                            </td>
+                            <td>{{ $asociado->telefono }}</td>
+                            <td>{{ $asociado->dui_cliente }}</td>
+                            <td>$ {{ $asociado->monto_aportacion }}</td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+
+            {{ $asociados->links('vendor.pagination.bootstrap-5') }}
+        </div>
     </div>
-    {{ $asociados->links('vendor.pagination.bootstrap-5') }} 
 
     <form method="post" id="deleteForm" action="/asociados/delete">
         {!! csrf_field() !!}
@@ -72,10 +96,9 @@
 @section('scripts')
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <script src="assets/plugins/global/plugins.bundle.js"></script>
-    <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
+    <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
     <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
     <script>
-
         function alertDelete(id) {
             Swal.fire({
                 text: "Deseas Eliminar este registro",
