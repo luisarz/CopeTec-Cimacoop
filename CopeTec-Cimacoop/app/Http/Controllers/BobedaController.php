@@ -60,6 +60,34 @@ class BobedaController extends Controller
         $empleados= Empleados::where('id_empleado','=',$id_empleado)->get();
         return view("bobeda.aperturar", compact("bobeda",'empleados'));
     }
+  public function cerrarBobeda($id)
+    {
+        $bobeda = Bobeda::find($id);
+        $id_empleado = session('id_empleado_usuario');
+        $empleados= Empleados::where('id_empleado','=',$id_empleado)->get();
+        return view("bobeda.cerrar", compact("bobeda",'empleados'));
+    }
+    public function realizarCierreBobeda(Request $requet)
+    {
+        $movimientoBobeda = new BobedaMovimientos();
+        $movimientoBobeda->id_bobeda = $requet->id_bobeda;
+        $movimientoBobeda->id_caja = 0;
+        $movimientoBobeda->tipo_operacion = 4; //Cierre de Bobeda
+        $movimientoBobeda->estado = 2;
+        $movimientoBobeda->fecha_operacion = Carbon::now();
+        $movimientoBobeda->monto = $requet->monto;
+        $movimientoBobeda->observacion = $requet->observacion;
+        $movimientoBobeda->id_empleado = $requet->id_empleado;
+        $movimientoBobeda->save();
+
+        $bobeda = Bobeda::findOrFail($requet->id_bobeda);
+        $bobeda->saldo_bobeda = $requet->monto;
+        $bobeda->estado_bobeda = 0;
+        $bobeda->save();
+        return redirect("/bobeda");
+    }
+
+    
     public function realizarAperturaBobeda(Request $requet)
     {
         $movimientoBobeda = new BobedaMovimientos();

@@ -14,7 +14,7 @@
 
         <div class="me-1 mb-1">
             <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative ">
-                <a href="/bobeda/transferir/{{ $bobeda->id_bobeda }}"
+                <a href="/bobeda/cerrar/{{ $bobeda->id_bobeda }}"
                     class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange fs-3 {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
                     <i class="ki-duotone ki-abstract-26 fs-2x text-white">
                         <i class="path1"></i>
@@ -308,6 +308,9 @@
                                             @break
 
                                             @case(3)
+                                                <span class=" badge badge-light-info">Cerrar bobeda</span>
+                                            @break
+                                              @case(4)
                                                 <span class=" badge badge-light-info">Apertura bobeda</span>
                                             @break
 
@@ -327,7 +330,8 @@
                                         @endif
                                     </td>
                                     <td style="text-align: center">
-                                        @if ($movimiento->tipo_operacion == '3')
+                                       @if ($movimiento->tipo_operacion == '3' || $movimiento->tipo_operacion == '4')
+
                                             <span class="badge badge-light-info fs-5">
                                                 Bobeda</span>
                                         @else

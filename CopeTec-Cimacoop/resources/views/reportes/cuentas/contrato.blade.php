@@ -29,26 +29,25 @@
         style="text-align: justify; font-size: 16px; font-family:  'arial'; line-height: 1.5; padding:25px; padding-right:30px;">
 
 
-        La Asociación. Cooperativa de Ahorro Y Crédito LA CIMA DE Responsabilidad Limitada" Y &nbsp; <b>
+        La Asociación. Cooperativa de Ahorro Y Crédito LA CIMA DE Responsabilidad Limitada" Y &nbsp;&nbsp; <b>
             {{ strtoupper($datosContrato->nombre) }}</b> &nbsp; &nbsp; de
         {{ $edad }} años, &nbsp; <b>{{ strtoupper($datosContrato->profesion) }}</b> &nbsp;&nbsp;
         de profesión, &nbsp;<b>{{ $datosContrato->estado_civil }}</b>, Dirección,
-        <b>{{ $datosContrato->direccion_personal }}</b>,
-        <b>{{ $datosContrato->direccion_personal }}</b>, ;
+        <b>{{ $datosContrato->direccion_personal }}</b>;
         Portador(es) de su Documento Unico de Identidad No. (s). <b>{{ $datosContrato->dui_cliente }}</b>. Quienes en
         adelante se denominaran
         respectivamente: "CIMACOOP DE R.L." y Ahorrante(s) celebran el siguiente contrato:
         <ul style=" list-style-type: none;">
-            <li>1. CIMACOOP, DE R.L. acepta la cantidad inicial de de &nbsp; <u> {{ $numeroEnLetras }}
+            <li>1. CIMACOOP, DE R.L. acepta la cantidad inicial de de &nbsp; <u> {{ $numeroEnLetras }} &nbsp; &nbsp;
                     (${{ number_format($datosContrato->monto_apertura, 2) }}) </u> de los Estados Unidos de
                 America, como cuota de ahorro a la vista, valor que servira para acreditarse como ahorrante y que no
                 sera un monto fijo del cual podra retirar dejando un rninirno en la cuenta de <b>UN</b> Dólar ($1.00)
             </li>
             <li>2. El (los) ahorrante(s) podra(n) retirar total o parcialmente sus Deóositos prestando el documento de
                 retiro de sere proporcionado por la Cooperativa.</li>
-            <li>3. CIMACOOP, de R.L. reconocera y pagara por saldo diario de Deposito en Cuenta de
+            <li>3. CIMACOOP, de R.L. reconocera y pagara por saldo diario de Deposito en Cuenta de  &nbsp;
                 {{ $datosContrato->tipo_cuenta }} un
-                interes del {{ $datosContrato->interes }} % anual y capitalizado mensualmente.</li>
+                interes del  &nbsp; &nbsp;{{ $datosContrato->interes }} &nbsp; % anual y capitalizado mensualmente.</li>
             <li>4. Los DepOsitos en Cuenta de Ahorro se recibiran en efectivo o cheque adjuntando el documento de
                 depósito que sere proporcionado por la Cooperativa, cuando el depositó sea por cheque este se reconocera
                 como ahorro al momento que el banco librador acredite la cantidad en efectivo.</li>
