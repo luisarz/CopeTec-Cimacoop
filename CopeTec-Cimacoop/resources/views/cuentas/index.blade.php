@@ -5,8 +5,6 @@
 @endsection
 
 @section('formName')
-  
-
 @endsection
 
 @section('content')
@@ -21,16 +19,7 @@
                 <span class="ribbon-inner bg-info"></span>
             </div>
             <div class="d-flex flex-wrap flex-sm-nowrap mt-5">
-                 @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    {{ $errors }}
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+
                 <!--begin: buttons actions-->
                 <div class="flex-grow-1 me-1 mb-4">
                     <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
@@ -52,11 +41,9 @@
                             </span>
                             Reporte de Cuentas
                         </a>
-
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="card-body">
@@ -73,12 +60,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{ $cuentas }}
                         @foreach ($cuentas as $cuenta)
                             <tr>
                                 <td>
                                     @if ($cuenta->estado != '0')
-
                                         <a href="javascript:void(0);" tol-tip="Cuenta Congelada"
                                             onclick="alertCongelar({{ $cuenta->id_cuenta }})" data-offset="20px 20px"
                                             data-toggle="popover" data-placement="top" data-content="Example content"
@@ -86,29 +71,27 @@
 
                                         </a>
                                     @else
-                                    
-                                        <a class="btn btn-outline btn-outline-dashed btn-outline-danger btn-sm" >
+                                        <a class="btn btn-outline btn-outline-dashed btn-outline-danger btn-sm">
                                             <i class="fa fa-ban text-danger"></i>
                                         </a>
-
                                     @endif
 
                                     <a href="/reportes/contrato/{{ $cuenta->id_cuenta }}"
-                                       
                                         class="btn btn-primary btn-sm w-120px"><i class="fa fa-print text-white"></i>
                                     </a>
                                     <a href="/reportes/RepEstadoCuenta/{{ $cuenta->id_cuenta }}"
-                                       
                                         class="btn btn-info btn-sm w-120px"><i class="fa fa-print text-white"></i>
                                     </a>
 
                                 </td>
                                 <td>
-                                    
-                                      @if ($cuenta->estado == '0')
-                                        <span class="badge badge-danger fs-6">{{ str_pad($cuenta->numero_cuenta, 10, '0', STR_PAD_LEFT) }}</span>
+
+                                    @if ($cuenta->estado == '0')
+                                        <span
+                                            class="badge badge-danger fs-6">{{ str_pad($cuenta->numero_cuenta, 10, '0', STR_PAD_LEFT) }}</span>
                                     @else
-                                        <span class="badge badge-success fs-6">{{ str_pad($cuenta->numero_cuenta, 10, '0', STR_PAD_LEFT) }}</span>
+                                        <span
+                                            class="badge badge-success fs-6">{{ str_pad($cuenta->numero_cuenta, 10, '0', STR_PAD_LEFT) }}</span>
                                     @endif
                                 </td>
                                 <td>{{ $cuenta->nombre_cliente }} ({{ $cuenta->dui_cliente }})</td>
@@ -122,7 +105,9 @@
                                     <span class="fs-5 fw-bold text-gray-800 me-1 lh-3">$
                                         {{ $maskedValue }}</span>
                                 </td>
-                                <td>{{ $cuenta->tipo_cuenta }}</td>
+                                <td>
+                                    {{ $cuenta->tipo_cuenta }}
+                                </td>
                                 <td style="text-align: center">
                                     @if ($cuenta->id_asociado_comparte != null)
                                         <a href="/cuentas/{{ $cuenta->id_cuenta }}/compartida"
@@ -140,7 +125,6 @@
             </div>
         </div>
         <div class="card-footer">
-
             {{ $cuentas->links('vendor.pagination.bootstrap-5') }}
         </div>
     </div>
@@ -162,7 +146,7 @@
             $('[data-toggle="popover"]').popover();
         });
 
-    
+
         function alertCongelar(id) {
 
             Swal.fire({

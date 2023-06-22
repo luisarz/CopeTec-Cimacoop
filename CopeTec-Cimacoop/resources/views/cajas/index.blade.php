@@ -5,59 +5,75 @@
     Administracion de Usuarios
 @endsection
 @section('content')
-    <a href="/cajas/add" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar Caja</a>
+    <div class="card shadow-lg">
+        <div class="card-header ribbon ribbon-end ribbon-clip">
+            <div class="card-toolbar">
+                <a href="/cajas/add" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar Caja</a>
 
-    <div class="table-responsive">
-        <table class="table table-hover table-row-dashed fs-6 gy-5 my-0 dataTable  gy-4 gs-7">
-            <thead>
-                <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                    <th class="min-w-200px">Acciones</th>
-                    <th class="min-w-200px"># Caja</th>
-                    <th class="min-w-100px">Saldo Disponible</th>
-                    <th class="min-w-200px">Cajero Asignado</th>
-                    <th class="min-w-400px">Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($cajas as $caja)
-                    <tr>
-                        <td>
-                            @if ($caja->estado_caja == 1)
-                                <a href="javascript:void(0);" onclick="alertCajaAperturada()" class="badge badge-danger"><i
-                                        class="fa-solid fa-trash text-white"></i> &nbsp; Eliminar</a>
-                                <a href="javascript:void(0);" onclick="alertCajaAperturada()" class="badge badge-primary"><i
-                                        class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a>
-                            @else
-                                <a href="javascript:void(0);" onclick="alertDelete({{ $caja->id_caja }})"
-                                    class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
-                                    Eliminar</a>
-                                <a href="/cajas/{{ $caja->id_caja }}" class="badge badge-primary"><i
-                                        class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a>
-                            @endif
-                        </td>
+            </div>
+            <div class="ribbon-label fs-3">
+                <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
+                        class="path2"></span><span class="path3"></span></i>
+                {{-- {{ $cajaAperturada->numero_caja }} --}}
+                Administracion de Cajas
 
-                        <td>{{ $caja->numero_caja }}</td>
-                        <td >
-                            @if ($caja->estado_caja == 1)
-                                <span class="badge badge-success  text-white fs-6">${{ number_format($caja->saldo,2,'.',',') }}</span>
-
-                            @else
-                                <span class="badge badge-danger  text-white fs-6">$ 0.00</span>
-                            @endif
-                        </td>
-                        <td>{{ $caja->nombre_empleado }}</td>
-                        <td>
-                            @if ($caja->estado_caja == 1)
-                                <span class="text-success fs-4">Aperturada</span>
-                            @else
-                                <span class=" text-danger fs-4">Cerrada</span>
-                            @endif
-                        </td>
-
+                <span class="ribbon-inner bg-info"></span>
+            </div>
+        </div>
+        <div class="card-body">
+               <table class=" table table-hover table-row-dashed fs-6     gy-2 gs-5">
+                <thead>
+                     <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
+                        <th >Acciones</th>
+                        <th ># Caja</th>
+                        <th >Saldo Disponible</th>
+                        <th >Cajero Asignado</th>
+                        <th>Estado</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($cajas as $caja)
+                        <tr>
+                            <td>
+                                @if ($caja->estado_caja == 1)
+                                    <a href="javascript:void(0);" onclick="alertCajaAperturada()"
+                                        class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
+                                        Eliminar</a>
+                                    <a href="javascript:void(0);" onclick="alertCajaAperturada()"
+                                        class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp;
+                                        Modificar</a>
+                                @else
+                                    <a href="javascript:void(0);" onclick="alertDelete({{ $caja->id_caja }})"
+                                        class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
+                                        Eliminar</a>
+                                    <a href="/cajas/{{ $caja->id_caja }}" class="badge badge-primary"><i
+                                            class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a>
+                                @endif
+                            </td>
+
+                            <td>{{ $caja->numero_caja }}</td>
+                            <td>
+                                @if ($caja->estado_caja == 1)
+                                    <span
+                                        class="badge badge-success  text-white fs-6">${{ number_format($caja->saldo, 2, '.', ',') }}</span>
+                                @else
+                                    <span class="badge badge-danger  text-white fs-6">$ 0.00</span>
+                                @endif
+                            </td>
+                            <td>{{ $caja->nombre_empleado }}</td>
+                            <td>
+                                @if ($caja->estado_caja == 1)
+                                    <span class="text-success fs-4">Aperturada</span>
+                                @else
+                                    <span class=" text-danger fs-4">Cerrada</span>
+                                @endif
+                            </td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
     <form method="post" id="deleteForm" action="/cajas/delete">
         {!! csrf_field() !!}

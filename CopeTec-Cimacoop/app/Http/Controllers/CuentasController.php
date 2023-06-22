@@ -65,7 +65,7 @@ class CuentasController extends Controller
             $cuenta->fecha_apertura = $request->fecha_apertura;
             $cuenta->saldo_cuenta = $request->monto_apertura;
             $cuenta->id_asociado_comparte = $request->id_asociado_comparte ?? null;
-            $cuenta->id_interes = $request->id_interes;
+            $cuenta->id_interes = $request->id_interes_tipo_cuenta;
             $cuenta->estado = 1;
             $cuenta->save();
             return redirect("/cuentas");

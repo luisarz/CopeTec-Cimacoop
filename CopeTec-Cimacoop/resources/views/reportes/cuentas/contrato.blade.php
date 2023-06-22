@@ -33,7 +33,8 @@
             {{ strtoupper($datosContrato->nombre) }}</b> &nbsp; &nbsp; de
         {{ $edad }} años, &nbsp; <b>{{ strtoupper($datosContrato->profesion) }}</b> &nbsp;&nbsp;
         de profesión, &nbsp;<b>{{ $datosContrato->estado_civil }}</b>, Dirección,
-        <b>{{ $datosContrato->direccion_personal }}</b>
+        <b>{{ $datosContrato->direccion_personal }}</b>,
+        <b>{{ $datosContrato->direccion_personal }}</b>, ;
         Portador(es) de su Documento Unico de Identidad No. (s). <b>{{ $datosContrato->dui_cliente }}</b>. Quienes en
         adelante se denominaran
         respectivamente: "CIMACOOP DE R.L." y Ahorrante(s) celebran el siguiente contrato:
@@ -85,8 +86,27 @@
         San Miguel,
         {{ \Carbon\Carbon::parse($datosContrato->fecha_ingreso)->format('d \d\e ') . \Carbon\Carbon::parse($datosContrato->fecha_ingreso)->monthName . \Carbon\Carbon::parse($datosContrato->fecha_ingreso)->format(' \d\e Y') }}
 
+        <br>
+        <br>
+        <br>
+<b>
+        <table class="table">
+            <thead >
+                <th style="border-bottom: 1px solid rgb(0, 0, 0) !important;"></th>
+                <th style="border-bottom: 0px solid red !important;"></th>
+                <th style="border-bottom: 1px solid rgb(0, 0, 0) !important;"></th>
 
 
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CIMACOOP DE R.L. <br>FIMRA Y SELLO</td>
+                    <td style="border: 0px solid red; width:50px;"></td>
+                    <td> FIRMA(S) DE (LOS) AHORRANTE(S)</td>
+                </tr>
+            </tbody>
+        </table>
+</b>
 
     </div>
 
