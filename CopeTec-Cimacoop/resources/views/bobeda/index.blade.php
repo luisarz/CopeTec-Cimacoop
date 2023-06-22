@@ -229,7 +229,7 @@
 
             <div class="card-body ">
                 <div class="table-responsive  table-loading">
-                    <table class="table table-hover table-rounded fs-4 table-striped border gy-2
+                    <table class="data-table-coop table table-hover table-rounded fs-4 table-striped border gy-2
                      gs-2">
                         <thead class="thead-dark">
                             <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">

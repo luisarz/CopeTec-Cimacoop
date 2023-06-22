@@ -732,6 +732,18 @@ License: For each use you must have a valid license purchased only from above li
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <!--end::Vendors Javascript-->
     @yield('scripts')
+    <script>
+        $(function(){
+            let table = new DataTable('.data-table-coop', {
+                "dom": 'frtip',
+                "searching": true,
+                "language": {
+                    "search": "Buscar",
+                    "searchPlaceholder": "Escribe Aqui ...",
+                }
+            });
+        })
+    </script>
     <!--end::Javascript-->
 </body>
 <!--end::Body-->

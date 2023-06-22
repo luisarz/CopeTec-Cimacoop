@@ -20,7 +20,7 @@
         @endif
     </div>
     <div class="table-responsive">
-        <table class=" table table-hover table-row-dashed fs-3  my-0 dataTable  gy-2 gs-5">
+        <table class=" data-table-coop table table-hover table-row-dashed fs-3  my-0 dataTable  gy-2 gs-5">
             <thead class="thead-dark">
                 <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
                     <th >Acciones</th>
@@ -95,12 +95,7 @@
                             @else
                                 <span class="badge badge-light-success fs-5">${{ $apertura->monto_cierre }}</span>
                             @endif
-
-
-
-
-
-
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

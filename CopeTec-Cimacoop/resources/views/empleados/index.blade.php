@@ -9,7 +9,7 @@ Administracion de Empleados
 <a href="/empleados/add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Agregar Empleado</a>
 
 <div class="table-responsive">
-    <table class="table table-hover table-row-dashed fs-6 gy-5 my-0 dataTable  gy-4 gs-7">
+    <table class="data-table-coop table table-hover table-row-dashed fs-6 gy-5 my-0 dataTable  gy-4 gs-7">
         <thead class="thead-dark">
             <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                 <th class="min-w-100px">Acciones</th>
@@ -35,7 +35,6 @@ Administracion de Empleados
         </tbody>
     </table>
 </div>
-    {{ $empleados->links('vendor.pagination.bootstrap-5') }} 
 
 <form method="post" id="deleteForm" action="/empleados/delete">
     {!! csrf_field() !!}

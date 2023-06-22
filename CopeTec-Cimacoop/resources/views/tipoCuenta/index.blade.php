@@ -9,7 +9,7 @@ Administracion de tipos de Cuentas
 <a href="/tipoCuenta/add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Agregar Tipo Cuenta</a>
 
 <div class="table-responsive">
-    <table class="table table-hover table-row-dashed fs-6 gy-5 my-0 dataTable  gy-4 gs-7">
+    <table class="data-table-coop table table-hover table-row-dashed fs-6 gy-5 my-0 dataTable  gy-4 gs-7">
         <thead class="thead-dark">
             <tr class="fw-semibold fs-0 text-gray-800 border-bottom-2 border-green-700">
                 <th class="min-w-50px">Acciones</th>
