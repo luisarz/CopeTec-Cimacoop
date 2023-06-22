@@ -161,66 +161,6 @@ License: For each use you must have a valid license purchased only from above li
                         <div class="app-navbar flex-shrink-0">
 
 
-
-
-
-                            <!--begin::My apps links-->
-                            <div class="app-navbar-item ms-1 ms-md-3">
-                                <!--begin::Menu wrapper-->
-                                <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                                    data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
-                                    data-kt-menu-placement="bottom-end">
-                                    <i class="ki-duotone ki-element-11 fs-2 fs-lg-1"><span class="path1"></span><span
-                                            class="path2"></span><span class="path3"></span><span
-                                            class="path4"></span></i>
-                                </div>
-
-                                <!--begin::My apps-->
-                                <div class="menu menu-sub menu-sub-dropdown menu-column w-100 w-sm-350px"
-                                    data-kt-menu="true">
-                                    <!--begin::Card-->
-                                    <div class="card">
-                                        <!--begin::Card header-->
-                                        <div class="card-header">
-                                            <!--begin::Card title-->
-                                            <div class="card-title">My Apps</div>
-                                            <!--end::Card title-->
-                                        </div>
-                                        <!--end::Card header-->
-
-                                        <!--begin::Card body-->
-                                        <div class="card-body py-5">
-                                            <!--begin::Scroll-->
-                                            <div class="mh-450px scroll-y me-n5 pe-5">
-                                                <!--begin::Row-->
-                                                <div class="row g-2">
-
-
-                                                    <!--begin::Col-->
-                                                    <div class="col-4">
-                                                        <a href="#"
-                                                            class="d-flex flex-column flex-center text-center text-gray-800 text-hover-primary bg-hover-light rounded py-4 px-3 mb-3">
-                                                            <img src="/metronic8/demo1/assets/media/svg/brand-logos/gitlab.svg"
-                                                                class="w-25px h-25px mb-2" alt="">
-                                                            <span class="fw-semibold">Gitlab</span>
-                                                        </a>
-                                                    </div>
-                                                    <!--end::Col-->
-
-                                                </div>
-                                                <!--end::Row-->
-                                            </div>
-                                            <!--end::Scroll-->
-                                        </div>
-                                        <!--end::Card body-->
-                                    </div>
-                                    <!--end::Card-->
-                                </div>
-                                <!--end::My apps-->
-                                <!--end::Menu wrapper-->
-                            </div>
-                            <!--end::My apps links-->
-
                             <!--begin::Theme mode-->
                             <div class="app-navbar-item ms-1 ms-md-3">
                                 <!--begin::Menu toggle-->
@@ -323,8 +263,7 @@ License: For each use you must have a valid license purchased only from above li
                                                     @php
                                                         echo session('name');
                                                     @endphp
-                                                    <span
-                                                        class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+                                                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
                                                 </div>
 
                                                 <a href="#"
@@ -342,29 +281,6 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--begin::Menu separator-->
                                     <div class="separator my-2"></div>
                                     <!--end::Menu separator-->
-
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-5">
-                                        <a href="/metronic8/demo1/../demo1/account/overview.html"
-                                            class="menu-link px-5">
-                                            My Profile
-                                        </a>
-                                    </div>
-                                    <!--end::Menu item-->
-
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-5">
-                                        <a href="/metronic8/demo1/../demo1/apps/projects/list.html"
-                                            class="menu-link px-5">
-                                            <span class="menu-text">My Projects</span>
-                                            <span class="menu-badge">
-                                                <span
-                                                    class="badge badge-light-danger badge-circle fw-bold fs-7">3</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <!--end::Menu item-->
-
 
 
                                     <!--begin::Menu separator-->
