@@ -124,9 +124,7 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer">
-            {{ $cuentas->links('vendor.pagination.bootstrap-5') }}
-        </div>
+      
     </div>
 
     <form method="post" id="anularForm" action="/cuentas/anularCuenta">
@@ -137,10 +135,10 @@
 @endsection
 
 @section('scripts')
-    <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    {{-- <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
+    {{-- <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
 
-    <script src="assets/plugins/global/plugins.bundle.js"></script>
+    {{-- <script src="assets/plugins/global/plugins.bundle.js"></script> --}}
     <script>
         $(function() {
             $('[data-toggle="popover"]').popover();

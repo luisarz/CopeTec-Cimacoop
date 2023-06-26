@@ -18,15 +18,7 @@ License: For each use you must have a valid license purchased only from above li
     <base href="../" />
     <title>CoopeTec-Administracion de cooperativas CompuTec Consultores</title>
     <meta charset="utf-8" />
-    <meta name="description"
-        content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
-    <meta name="keywords"
-        content="metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title"
-        content="Metronic - Bootstrap Admin Template, HTML, VueJS, React, Angular. Laravel, Asp.Net Core, Ruby on Rails, Spring Boot, Blazor, Django, Express.js, Node.js, Flask Admin Dashboard Theme & Template" />
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
@@ -113,21 +105,11 @@ License: For each use you must have a valid license purchased only from above li
                             data-kt-swapper-mode="{default: 'append', lg: 'prepend'}"
                             data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
                             <!--begin::Menu-->
-                            <div class="
-            menu 
-            menu-rounded  
-            menu-column 
-            menu-lg-row 
-            my-5 
-            my-lg-0 
-            align-items-stretch 
-            fw-semibold
-            px-2 px-lg-0
-        "
+                            <div class=" menu  menu-rounded  menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0"
                                 id="kt_app_header_menu" data-kt-menu="true">
                                 <!--begin:Menu item-->
                                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                    data-kt-menu-placement="bottom-start"
+                                    data-kt-menu-placement="bottom-end"
                                     class="menu-item here menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
                                     <!--begin:Menu link-->
                                     <a href="/dashboard">
@@ -263,7 +245,8 @@ License: For each use you must have a valid license purchased only from above li
                                                     @php
                                                         echo session('name');
                                                     @endphp
-                                                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+                                                    <span
+                                                        class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
                                                 </div>
 
                                                 <a href="#"
@@ -390,6 +373,22 @@ License: For each use you must have a valid license purchased only from above li
                                         <span class="menu-arrow"></span>
                                     </span>
                                     <!--end:Menu link-->
+
+                                       <!--begin:Menu sub-->
+                                    <div class="menu-sub menu-sub-accordion">
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item">
+                                            <!--begin:Menu link-->
+                                            <a class="menu-link" href="/configuracion">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Configuracion</span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                    </div>
 
                                     <!--begin:Menu sub-->
                                     <div class="menu-sub menu-sub-accordion">
@@ -649,7 +648,7 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::Vendors Javascript-->
     @yield('scripts')
     <script>
-        $(function(){
+        $(function() {
             let table = new DataTable('.data-table-coop', {
                 "dom": 'frtip',
                 "searching": true,

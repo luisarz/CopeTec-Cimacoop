@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AperturaCajaController;
 use App\Http\Controllers\BobedaController;
+use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\TempPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -45,8 +46,10 @@ Route::post('/set-new-password',[LoginController::class, 'setPassword'])->middle
 Dashboard Route
  */
  Route::get('/dashboard',[DashboardController::class, 'index'])->middleware(['auth','bitacora']);
+Route::get('/configuracion', [ConfiguracionController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::post('/configuracion/update', [ConfiguracionController::class, 'update'])->middleware(['auth', 'bitacora']);
 
- 
+
 /*
 User Route
  */
@@ -153,6 +156,7 @@ Route::post('/cuentas/add', [CuentasController::class, 'post'])->middleware(['au
 Route::post('/cuentas/anularCuenta', [CuentasController::class, 'anularCuenta'])->middleware(['auth','bitacora']);
 Route::get('/cuentas/{id}', [CuentasController::class, 'edit'])->middleware(['auth','bitacora']);
 Route::put('/cuentas/put', [CuentasController::class, 'put'])->middleware(['auth','bitacora']);
+
 //Consultar el saldo de la cuenta
 Route::get('cuentas/getcuenta/{id}', [CuentasController::class, 'getCuenta'])->middleware(['auth','bitacora']);
 
@@ -166,6 +170,7 @@ Route::post('/cajas/add', [CajasController::class, 'post'])->middleware(['auth',
 Route::delete('/cajas/delete', [CajasController::class, 'delete'])->middleware(['auth','bitacora']);
 Route::get('/cajas/{id}', [CajasController::class, 'edit'])->middleware(['auth','bitacora']);
 Route::put('/cajas/put', [CajasController::class, 'put'])->middleware(['auth','bitacora']);
+Route::get('/cajas/buscar/{criterio}', [CajasController::class, 'buscar'])->middleware(['auth', 'bitacora']);
 
 
 /*
@@ -183,6 +188,8 @@ Route::post('/movimientos/recibirTraslado', [MovimientosController::class, 'reci
 Route::get('/movimientos/getTrasladoPendiente/{id}', [MovimientosController::class, 'getTrasladoPendiente'])->middleware(['auth','bitacora']);
 Route::get('/movimientos/transferenciabobeda/{id}', [MovimientosController::class, 'transferenciabobeda'])->middleware(['auth', 'bitacora']);
 Route::post('/movimientos/realizarTransferenciaBobeda', [MovimientosController::class, 'realizarTransferenciaBobeda'])->middleware(['auth', 'bitacora']);
+Route::get('/movimientos/solicitartransferencia/{id}', [MovimientosController::class, 'solicitartransferencia'])->middleware(['auth', 'bitacora']);
+
 
 
 

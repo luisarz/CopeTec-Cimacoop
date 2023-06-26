@@ -256,4 +256,9 @@ class MovimientosController extends Controller
 
         return redirect("/movimientos");
     }
+    public function solicitartransferencia($id){
+        $cajas = Cajas::findOrFail($id);
+
+        return view('movimientos.solicitartransferencia',compact('cajas'));
+    }
 }
