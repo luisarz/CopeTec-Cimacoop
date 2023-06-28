@@ -93,6 +93,7 @@ class ReportesController extends Controller
             ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente', 'clientes.direccion_personal', 'empleados.nombre_empleado')
             ->first();
 
+
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimiento->monto, 2, 'DoLARES');
         $pdf = \App::make('snappy.pdf');
@@ -125,7 +126,7 @@ class ReportesController extends Controller
             'movimiento' => $movimientoBobeda,
             'estilos' => $estilos,
             'numeroEnLetras' => $numeroEnLetras,
-            'bobeda_empleado'=>$empleados->nombre_empleado
+            'bobeda_empleado' => $empleados->nombre_empleado
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
@@ -135,17 +136,17 @@ class ReportesController extends Controller
         $idCuenta = $id;
         $estilos = file_get_contents(public_path('assets/css/css.css'));
         $movimientosCuenta = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
-        ->join('tipos_cuentas','tipos_cuentas.id_tipo_cuenta','=','cuentas.id_tipo_cuenta')
-        ->join('asociados','asociados.id_asociado','=','cuentas.id_asociado')
-        ->join('clientes','clientes.id_cliente','=','asociados.id_cliente')
-        ->select('movimientos.*','cuentas.*','clientes.nombre as nombre_cliente','clientes.dui_cliente','clientes.id_cliente','tipos_cuentas.descripcion_cuenta as tipo_cuenta')
-        ->where('cuentas.id_cuenta','=',$idCuenta)
-        ->get();
-        if($movimientosCuenta->count()==0){
-            return redirect()->back()->with('error','La cuenta no tiene movimientos');
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->select('movimientos.*', 'cuentas.*', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente', 'clientes.id_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+            ->where('cuentas.id_cuenta', '=', $idCuenta)
+            ->get();
+        if ($movimientosCuenta->count() == 0) {
+            return redirect()->back()->with('error', 'La cuenta no tiene movimientos');
         }
 
-        $clienteData=Clientes::find($movimientosCuenta[0]->id_cliente);
+        $clienteData = Clientes::find($movimientosCuenta[0]->id_cliente);
 
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimientosCuenta[0]->saldo_cuenta, 2, 'DoLARES');
@@ -154,7 +155,7 @@ class ReportesController extends Controller
             'movimientos' => $movimientosCuenta,
             'estilos' => $estilos,
             'numeroEnLetras' => $numeroEnLetras,
-            'clienteData'=>$clienteData
+            'clienteData' => $clienteData
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
@@ -168,7 +169,7 @@ class ReportesController extends Controller
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('intereses_tipo_cuenta', 'intereses_tipo_cuenta.id_tipo_cuenta', '=', 'tipos_cuentas.id_tipo_cuenta')
-            ->select('cuentas.*', 'clientes.*','tipos_cuentas.descripcion_cuenta as tipo_cuenta','intereses_tipo_cuenta.interes','asociados.fecha_ingreso')
+            ->select('cuentas.*', 'clientes.*', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta', 'intereses_tipo_cuenta.interes', 'asociados.fecha_ingreso')
             ->where('cuentas.id_cuenta', '=', $idCuenta)
             ->first();
         $fechaNacimiento = new DateTime($datosContrato->fecha_nacimiento);

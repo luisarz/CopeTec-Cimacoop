@@ -14,19 +14,19 @@
     </div>
 @endsection
 @section('content')
-    <div class="card shadow-lg  mt-5">
+    <div class="card mt-5 shadow-lg">
 
         <div class="card shadow-lg">
             <div class="card-header ribbon ribbon-end ribbon-clip">
 
                 <div class="ribbon-label fs-3">
-                    <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
+                    <i class="ki-duotone ki-shield-tick fs-2x text-white"><span class="path1"></span><span
                             class="path2"></span><span class="path3"></span></i>
                     {{ $cajaAperturada->numero_caja }}
 
                     <span class="ribbon-inner bg-danger"></span>
                 </div>
-                <div class="d-flex flex-wrap flex-sm-nowrap mt-5">
+                <div class="d-flex flex-sm-nowrap mt-5 flex-wrap">
                     <!--begin: buttons actions-->
                     <div class="flex-grow-1 me-1 mb-4">
                         <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
@@ -38,6 +38,11 @@
 
                                 Nuevo<br> Deposito</a>
 
+                            <a href="movimientos/transferenciaTercero/{{ $cajaAperturada->id_caja }}" class="btn btn-info">
+                                <span><i class="fa fa-exchange  fa-2x"></i></span>
+
+                                Nueva<br> Transferencia </a>
+
                         </div>
                     </div>
                     <!--end::buttons actions-->
@@ -45,9 +50,9 @@
                     <div class="flex-grow-1">
 
                         <!--begin::Title-->
-                        <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+                        <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
                             <!--begin::Stat-->
-                            <div class="border border-gray-500 border-dashed rounded min-w-105px py-3 px-4 me-6 mb-3">
+                            <div class="min-w-105px me-6 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
                                 <!--begin::Number-->
                                 <div class="d-flex align-items-center">
                                     <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
@@ -56,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="fw-semibold fs-6 text-gray-400">
-                                    <i class="ki-duotone ki-category  text-success me-2">
+                                    <i class="ki-duotone ki-category text-success me-2">
                                         <i class="path1"></i>
                                         <i class="path2"></i>
                                         <i class="path3"></i>
@@ -66,7 +71,7 @@
                                 <!--end::Label-->
                             </div>
                             <!--begin::Stat-->
-                            <div class="border border-gray-500 border-dashed rounded min-w-105px py-3 px-4 me-6 mb-3">
+                            <div class="min-w-105px me-6 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
                                 <div class="d-flex align-items-center">
 
                                     <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
@@ -75,12 +80,12 @@
                                     </div>
                                 </div>
                                 <div class="fw-semibold fs-6 text-gray-400"><i
-                                        class="ki-duotone ki-arrow-up  text-success me-2"><span class="path1"></span><span
+                                        class="ki-duotone ki-arrow-up text-success me-2"><span class="path1"></span><span
                                             class="path2"></span></i>Deposito</div>
                             </div>
                             <!--end::Stat-->
                             <!--begin::Stat-->
-                            <div class="border border-gray-500 border-dashed rounded min-w-105px py-3 px-4 me-6 mb-3">
+                            <div class="min-w-105px me-6 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
                                 <div class="d-flex align-items-center">
 
                                     <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
@@ -90,13 +95,13 @@
                                     </div>
                                 </div>
                                 <div class="fw-semibold fs-6 text-gray-400"> <i
-                                        class="ki-duotone ki-arrow-down  text-danger me-2"><span class="path1"></span><span
+                                        class="ki-duotone ki-arrow-down text-danger me-2"><span class="path1"></span><span
                                             class="path2"></span></i>Retiro
                                 </div>
                             </div>
                             <!--end::Stat-->
                             <!--begin::Stat-->
-                            <div class="border border-gray-500 border-dashed rounded min-w-105px py-3 px-4 me-6 mb-3">
+                            <div class="min-w-105px me-6 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
                                 <div class="d-flex align-items-center">
                                     <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                         data-kt-countup-prefix="$" data-kt-initialized="1">
@@ -109,7 +114,7 @@
                             </div>
                             <!--end::Stat-->
                             <!--begin::Stat-->
-                            <div class="border border-gray-500 border-dashed rounded min-w-105px py-3 px-4 me-6 mb-3">
+                            <div class="min-w-105px me-6 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
                                 <div class="d-flex align-items-center">
 
                                     <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
@@ -134,16 +139,16 @@
                     <!--begin: buttons actions-->
                     <div class="flex-grow-1 me-0 mb-4">
 
-                        <div class="d-flex align-items-center gap-2 gap-lg-3">
+                        <div class="d-flex align-items-center gap-lg-3 gap-2">
                             <!--begin::Filter menu-->
                             <div class="m-0">
                                 <!--begin::Menu toggle-->
                                 <a href="#"
-                                    class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info h-60px w-180px mb-3 fw-bold"
+                                    class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info h-60px w-180px fw-bold mb-3"
                                     data-kt-menu-trigger="hover" data-kt-menu-placement="bottom-end">
                                     <i class="fa fa-angle-double-down fs-6 text-info me-1 fa-2x"><span
                                             class="path1"></span><span class="path2"></span></i>
-                                    Operar Bobeda
+                                    Bobeda
                                 </a>
                                 <!--end::Menu toggle-->
 
@@ -167,7 +172,7 @@
 
                                         <a href="movimientos/traslado/{{ $cajaAperturada->id_caja }}"
                                             class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger w-200px mb-3">
-                                            <i class="fa fa-cloud-download  text-danger  fs-1x"></i>
+                                            <i class="fa fa-cloud-download text-danger fs-1x"></i>
                                             Recibir Transferencia
                                         </a>
 
@@ -175,13 +180,13 @@
 
                                         <a href="movimientos/transferenciabobeda/{{ $cajaAperturada->id_caja }}"
                                             class="btn btn-outline btn-outline-dotted btn-outline-success btn-active-light-success w-200px mb-3">
-                                            <i class="fa fa-cloud-upload  text-success  fs-1x"></i>
+                                            <i class="fa fa-cloud-upload text-success fs-1x"></i>
                                             Hacer Transferencia
                                         </a>
                                         <div class="separator border-gray-200"></div>
                                         <a href="movimientos/solicitartransferencia/{{ $cajaAperturada->id_caja }}"
                                             class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info w-200px mb-2">
-                                            <i class="fa fa-reply-all   text-info  fs-1x"></i>
+                                            <i class="fa fa-reply-all text-info fs-1x"></i>
                                             Solicitar Transferencia
                                         </a>
 
@@ -204,9 +209,9 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class=" table table-hover table-row-dashed fs-6     gy-2 gs-5">
+                    <table class="table-hover table-row-dashed fs-6 gy-2 gs-5 table">
                         <thead class="thead-dark">
-                            <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
+                            <tr class="fw-semibold fs-3 border-bottom-2 border-gray-200 text-gray-800">
                                 <th style="width: 25%">Acciones</th>
                                 <th>Cuenta</th>
                                 <th>Tipo</th>
@@ -229,7 +234,7 @@
                                             @case('2')
                                                 {{-- Deposito y retiro --}}
                                                 @if ($cuenta->estado == 0)
-                                                    <a class="btn btn-sm w-50   fs-6 btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"
+                                                    <a class="btn btn-sm w-50 fs-6 btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"
                                                         style="pointer-events: none; text-decoration: line-through "><i
                                                             class="fa-solid fa-trash text-danger"></i> &nbsp;
                                                         Anulado</a>
@@ -286,7 +291,7 @@
 
 
                                         <a href="/reportes/comprobanteMovimiento/{{ $cuenta->id_movimiento }}"
-                                            target="_blank" class="btn btn-info w-40 btn-sm"><i
+                                            target="_blank" class="btn btn-info btn-sm w-40"><i
                                                 class="fa fa-print text-white"></i>
                                             </i> &nbsp;Imprimir
                                         </a>

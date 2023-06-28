@@ -83,11 +83,11 @@ class MovimientosController extends Controller
         $trasladoPendiente = BobedaMovimientos::where('id_caja', '=', $id)
             ->whereNotIn('bobeda_movimientos.estado', [2, 3, 4])->get();
         $tienePendientes = $trasladoPendiente->count();
-        $id_empleado= session()->get('id_empleado_usuario');
+        $id_empleado = session()->get('id_empleado_usuario');
         $empleados = Empleados::where('id_empleado', '=', $id_empleado)->first();
-        $cajero=$empleados->nombre_empleado;
-        
-        return view("movimientos.traslado", compact("trasladoPendiente", "aperturaCaja", "tienePendientes","cajero"));
+        $cajero = $empleados->nombre_empleado;
+
+        return view("movimientos.traslado", compact("trasladoPendiente", "aperturaCaja", "tienePendientes", "cajero"));
     }
 
     public function transferenciabobeda($id)
@@ -97,10 +97,15 @@ class MovimientosController extends Controller
     }
     public function getTrasladoPendiente($id)
     {
-        $trasladoPendiente = BobedaMovimientos::findOrFail($id);
-        return response()->json($trasladoPendiente);
+        $trasladoPendiente = BobedaMovimientos::find($id);
+        if ($trasladoPendiente) {
+            return response()->json($trasladoPendiente);
+        } else {
+            return response()->json(['error' => 'No se encontro el traslado pendiente'], 404);
+        }
     }
-    public function realizarTransferenciaBobeda(Request $request){
+    public function realizarTransferenciaBobeda(Request $request)
+    {
         $cajaEnvia = Cajas::findOrFail($request->id_caja);
         //crear el movimiento de traslado en movimientos
         $movimiento = new Movimientos();
@@ -166,8 +171,8 @@ class MovimientosController extends Controller
         $movimiento->fecha_operacion = now();
         $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
         $movimiento->id_caja = $request->id_caja;
-        $movimiento->dui_transaccion=$request->dui_transaccion;
-        $movimiento->cliente_transaccion=$request->cliente_transaccion;
+        $movimiento->dui_transaccion = $request->dui_transaccion;
+        $movimiento->cliente_transaccion = $request->cliente_transaccion;
         $movimiento->estado = 1;
         $movimiento->save();
         $cuentaDestinoDatos->saldo_cuenta = $cuentaDestinoDatos->saldo_cuenta + $request->monto;
@@ -193,8 +198,8 @@ class MovimientosController extends Controller
         $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
         $movimiento->id_caja = $request->id_caja;
         $movimiento->estado = 1;
-        $movimiento->dui_transaccion=$request->dui_transaccion;
-        $movimiento->cliente_transaccion=$request->cliente_transaccion;
+        $movimiento->dui_transaccion = $request->dui_transaccion;
+        $movimiento->cliente_transaccion = $request->cliente_transaccion;
         $movimiento->save();
         $cuentaOrigenDatos->saldo_cuenta = $cuentaOrigenDatos->saldo_cuenta - $request->monto;
         $cuentaOrigenDatos->save();
@@ -204,35 +209,7 @@ class MovimientosController extends Controller
 
     }
 
-    public function put(Request $request)
-    {
-        $cliente = Cuentas::findOrFail($request->id);
-        if ($cliente->dui_cliente != $request->dui_cliente) {
-            $cliente = Cuentas::where("dui_cliente", $request->dui_cliente)->first();
-            if ($cliente && $cliente->count() > 0) {
-                return redirect("/movimientos/" . $request->id)->withInput()->withErrors(["dui_cliente" => "Cambió el DUI y el ingresado ya existe en otro cliente!!"]);
-            }
-        } else {
-            $cliente->nombre = $request->nombre;
-            $cliente->genero = $request->genero;
-            $cliente->fecha_nacimiento = $request->fecha_nacimiento;
-            $cliente->dui_cliente = $request->dui_cliente;
-            $cliente->dui_extendido = $request->dui_extendido;
-            $cliente->fecha_expedicion = $request->fecha_expedicion;
-            $cliente->telefono = $request->telefono;
-            $cliente->nacionalidad = $request->nacionalidad;
-            $cliente->estado_civil = $request->estado_civil;
-            $cliente->direccion_personal = $request->direccion_personal;
-            $cliente->direccion_negocio = $request->direccion_negocio;
-            $cliente->nombre_negocio = $request->nombre_negocio;
-            $cliente->tipo_vivienda = $request->tipo_vivienda;
-            $cliente->observaciones = $request->observaciones;
-            $cliente->estado = 1;
-            $cliente->save();
-            return redirect("/movimientos");
-        }
 
-    }
     public function anularmovimiento(Request $request)
     {
         $movimiento = Movimientos::findOrFail($request->id);
@@ -256,9 +233,27 @@ class MovimientosController extends Controller
 
         return redirect("/movimientos");
     }
-    public function solicitartransferencia($id){
-        $cajas = Cajas::findOrFail($id);
-
-        return view('movimientos.solicitartransferencia',compact('cajas'));
+    public function solicitartransferencia($id)
+    {
+        $cajas = Cajas::find($id);
+        return view('movimientos.solicitartransferencia', compact('cajas'));
+    }
+    public function realizarSolicitudTransferencia(Request $request)
+    {
+        dd($request->all());
+        $movimiento = new Movimientos();
+        $movimiento->id_cuenta = 0;
+    }
+    public function transferenciaTercero($id)
+    {
+        $caja = Cajas::find($id);
+        $aperturaCaja = $caja->id_caja;
+        $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->select('cuentas.id_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'cuentas.saldo_cuenta', 'clientes.dui_cliente')
+            ->whereNotIn('clientes.estado', [0, 7])
+            ->get();
+        return view('movimientos.transferenciaTercero', compact('caja', 'cuentas', 'aperturaCaja'));
     }
 }
