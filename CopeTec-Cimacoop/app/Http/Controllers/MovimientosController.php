@@ -238,12 +238,7 @@ class MovimientosController extends Controller
         $cajas = Cajas::find($id);
         return view('movimientos.solicitartransferencia', compact('cajas'));
     }
-    public function realizarSolicitudTransferencia(Request $request)
-    {
-        dd($request->all());
-        $movimiento = new Movimientos();
-        $movimiento->id_cuenta = 0;
-    }
+
     public function transferenciaTercero($id)
     {
         $caja = Cajas::find($id);
@@ -255,5 +250,66 @@ class MovimientosController extends Controller
             ->whereNotIn('clientes.estado', [0, 7])
             ->get();
         return view('movimientos.transferenciaTercero', compact('caja', 'cuentas', 'aperturaCaja'));
+    }
+
+
+    public function realizarTransferenciaTerceros(Request $request)
+    {
+        //obtener datos de la cuenta origen
+        $cuentaOrigen = Cuentas::findOrFail($request->id_cuenta_origen);
+        $cuentaDestino = Cuentas::findOrFail($request->id_cuenta_destino);
+
+        //verificar si tiene el monto disponible para realizar la transferencia
+        if ($cuentaOrigen->saldo_cuenta < $request->monto) {
+            return response()->json([
+                'success' => false,
+                'error' => "No tiene saldo suficiente para realizar la transferencia"
+            ]);
+        } else {
+
+
+            //registrar el movimiento de retiro en la cuenta origen
+            $movimientoOrigen = new Movimientos();
+            $movimientoOrigen->id_cuenta = $request->id_cuenta_origen;
+            $movimientoOrigen->tipo_operacion = 2;
+            $movimientoOrigen->id_cuenta_destino = $request->id_cuenta_destino;
+            $movimientoOrigen->monto = $request->monto;
+            $movimientoOrigen->fecha_operacion = now();
+            $movimientoOrigen->cajero_operacion = session()->get('id_empleado_usuario');
+            $movimientoOrigen->id_caja = $request->id_caja;
+            $movimientoOrigen->estado = 1;
+            $movimientoOrigen->dui_transaccion = $request->dui_transaccion;
+            $movimientoOrigen->cliente_transaccion = $request->cliente_transaccion;
+            $movimientoOrigen->save();
+
+            //actualizar el saldo de la cuenta origen
+            $cuentaOrigen->saldo_cuenta = $cuentaOrigen->saldo_cuenta - $request->monto;
+            $cuentaOrigen->save();
+            //realizar el movimiento de deposito en la cuenta destino
+            $movimientoDestino = new Movimientos();
+            $movimientoDestino->id_cuenta = $request->id_cuenta_destino;
+            $movimientoDestino->tipo_operacion = 1;
+            $movimientoDestino->monto = $request->monto;
+            $movimientoDestino->fecha_operacion = now();
+            $movimientoDestino->cajero_operacion = session()->get('id_empleado_usuario');
+            $movimientoDestino->id_caja = $request->id_caja;
+            $movimientoDestino->estado = 1;
+            $movimientoDestino->dui_transaccion = $request->dui_transaccion;
+            $movimientoDestino->cliente_transaccion = $request->cliente_transaccion;
+            $movimientoDestino->id_cuenta_destino = $request->id_cuenta_origen;
+            $movimientoDestino->save();
+            //actualizar el saldo de la cuenta destino
+            $cuentaDestino->saldo_cuenta = $cuentaDestino->saldo_cuenta + $request->monto;
+            $cuentaDestino->save();
+            return response()->json([
+                'success' => true,
+                'error' => "Transferencia realizada con exito",
+                'id_transaccion'=> $movimientoOrigen->id_movimiento
+            ]);
+
+        }
+
+
+
     }
 }

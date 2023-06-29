@@ -34,7 +34,7 @@
             $tipoOperacion = $movimiento->tipo_operacion;
         @endphp
 
-        @if (in_array($tipoOperacion, [3,4, 6]))
+        @if (in_array($tipoOperacion, [3, 4, 6]))
             {{ strtoupper($movimiento->nombre) }}
         @else
             Titular: {{ strtoupper($movimiento->nombre) }} <br> ({{ $movimiento->dui_cliente }})
@@ -56,7 +56,7 @@
                 <td></td>
 
                 <td colspan="2" style="text-align: left">
-                    @if (in_array($tipoOperacion, [3,4, 6]))
+                    @if (in_array($tipoOperacion, [3, 4, 6]))
                     @else
                         {{ $movimiento->numero_cuenta }} {{ $movimiento->descripcion_cuenta }}
                     @endif
@@ -68,6 +68,9 @@
 
                         @case('2')
                             <span class="badge badge-light-danger fs-6">Retiro</span>
+                            @if ($movimiento->id_cuenta_destino != null)
+                                <span class="badge badge-light-danger fs-6"> - Transferencia Tercero</span>
+                            @endif
                         @break
 
                         @case('3')
@@ -85,6 +88,7 @@
                         @case('6')
                             <span class="badge badge-light-danger fs-6">Corte Z</span>
                         @break
+
                     @endswitch
                 </td>
                 <td>$ {{ number_format($movimiento->monto, 2, '.', ',') }}</td>
@@ -113,7 +117,7 @@
                 <td></td>
                 <td></td>
             </tr>
-    
+
             <tr>
                 <td></td>
                 <td></td>

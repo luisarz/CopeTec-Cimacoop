@@ -64,21 +64,22 @@
                             <label>Monto Retirar:</label>
                         </div>
                     </div>
-                     <!--begin::row group-->
+                    <!--begin::row group-->
                     <div class="form-group row mb-5">
                         <div class="form-floating col-lg-12">
-                            <input type="text" id="cliente_transaccion"  required value="{{ old('cliente_transaccion') }}"
+                            <input type="text" id="cliente_transaccion" required value="{{ old('cliente_transaccion') }}"
                                 class="form-control text-danger" name="cliente_transaccion" placeholder="Cliente Retira"
                                 aria-label="cliente_transaccion" aria-describedby="basic-addon1" />
                             <label>Cliente Retira:</label>
                         </div>
                     </div>
-                     <!--begin::row group-->
+                    <!--begin::row group-->
                     <div class="form-group row mb-5">
                         <div class="form-floating col-lg-12">
-                            <input type="text" id="dui_transaccion" required  value="{{ old('dui_transaccion') }}"
-                                class="form-control text-danger" name="dui_transaccion" placeholder="Dui de persona que retira"
-                                aria-label="dui_transaccion" aria-describedby="basic-addon1" />
+                            <input type="text" id="dui_transaccion" required value="{{ old('dui_transaccion') }}"
+                                class="form-control text-danger" name="dui_transaccion"
+                                placeholder="Dui de persona que retira" aria-label="dui_transaccion"
+                                aria-describedby="basic-addon1" />
                             <label>DUI:</label>
                         </div>
                     </div>
@@ -141,7 +142,7 @@
                         $("#lblSaldo").text('$' + response.saldo_cuenta_formateado);
                         $("#monto").attr({
                             "max": response
-                            .saldo_cuenta_sin_formato, // substitute your own
+                                .saldo_cuenta_sin_formato, // substitute your own
                             "min": 1 // values (or variables) here
                         });
                     },

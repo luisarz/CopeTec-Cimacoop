@@ -190,8 +190,9 @@ Route::get('/movimientos/getTrasladoPendiente/{id}', [MovimientosController::cla
 Route::get('/movimientos/transferenciabobeda/{id}', [MovimientosController::class, 'transferenciabobeda'])->middleware(['auth', 'bitacora']);
 Route::post('/movimientos/realizarTransferenciaBobeda', [MovimientosController::class, 'realizarTransferenciaBobeda'])->middleware(['auth', 'bitacora']);
 Route::get('/movimientos/solicitartransferencia/{id}', [MovimientosController::class, 'solicitartransferencia'])->middleware(['auth', 'bitacora']);
-Route::post('/movimientos/realizarSolicitudTransferencia', [MovimientosController::class, 'realizarSolicitudTransferencia'])->middleware(['auth', 'bitacora']);
+// Route::post('/movimientos/realizarSolicitudTransferencia', [MovimientosController::class, 'realizarSolicitudTransferencia'])->middleware(['auth', 'bitacora']);
 Route::get('/movimientos/transferenciaTercero/{id}', [MovimientosController::class, 'transferenciaTercero'])->middleware(['auth', 'bitacora']);
+Route::post('/movimientos/realizarTransferenciaTerceros', [MovimientosController::class, 'realizarTransferenciaTerceros'])->middleware(['auth', 'bitacora']);
 
 
 

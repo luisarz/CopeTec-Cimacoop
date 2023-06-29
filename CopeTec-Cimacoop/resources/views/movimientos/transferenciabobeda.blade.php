@@ -4,7 +4,8 @@
 
 @endsection
 @section('content')
-    <form action="/movimientos/realizarTransferenciaBobeda" id="transferenciForm" method="POST" target="_blank" autocomplete="off">
+    <form action="/movimientos/realizarTransferenciaBobeda" id="transferenciForm" method="POST" target="_blank"
+        autocomplete="off">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_caja" name="id_caja" value="{{ $cajas->id_caja }}">
@@ -14,7 +15,8 @@
                 <div class="card-header ribbon ribbon-end ribbon-clip">
                     <div class="card-toolbar">
                         <a href="/movimientos">
-                            <button type="button" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
+                            <button type="button"
+                                class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
                                 <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
                                     <i class="path1"></i>
                                     <i class="path2"></i>
@@ -42,8 +44,8 @@
                         </div>
                         <div class="form-floating col-lg-5">
                             <input type="text" required value="{{ $cajas->saldo }}" class="form-control text-success"
-                                name="saldo_diponible" id="saldo_diponible" placeholder="saldo_diponible" aria-label="saldo_diponible"
-                                aria-describedby="basic-addon1" />
+                                name="saldo_diponible" id="saldo_diponible" placeholder="saldo_diponible"
+                                aria-label="saldo_diponible" aria-describedby="basic-addon1" />
                             <label for="floatingPassword">Saldo Disponible</label>
                         </div>
                     </div>
@@ -56,26 +58,25 @@
                             <label for="floatingPassword">Monto a transferir Disponible</label>
                         </div>
                     </div>
-                             <!--begin::row group-->
+                    <!--begin::row group-->
                     <div class="form-group row mb-2">
                         <div class="form-floating col-lg-12">
-                            <input required type="text" 
-                                class="form-control text-danger" name="observacion" id="observacion" placeholder="Saldo"
-                                aria-label="monto" aria-describedby="basic-addon1" />
+                            <input required type="text" class="form-control text-danger" name="observacion"
+                                id="observacion" placeholder="Saldo" aria-label="monto" aria-describedby="basic-addon1" />
                             <label for="floatingPassword">Observacion</label>
                         </div>
                     </div>
 
                 </div>
-                    <div class="card-footer d-flex justify-content-center py-6">
-                        <button type="submit" class="btn btn-block btn-bg-success btn-text-white">
-                            <i class="ki-duotone ki-dollar    text-white fs-2x                   ">
-                                <i class="path1"></i>
-                                <i class="path2"></i>
-                                <i class="path3"></i>
-                            </i>
-                            Enviar a Bobeda</button>
-                    </div>
+                <div class="card-footer d-flex justify-content-center py-6">
+                    <button type="submit" class="btn btn-block btn-bg-success btn-text-white">
+                        <i class="ki-duotone ki-dollar    text-white fs-2x                   ">
+                            <i class="path1"></i>
+                            <i class="path2"></i>
+                            <i class="path3"></i>
+                        </i>
+                        Enviar a Bobeda</button>
+                </div>
             </div>
         </div>
 
@@ -93,7 +94,7 @@
 
     <script>
         $(document).ready(function() {
-  $("#transferenciForm").on("submit", function(event) {
+            $("#transferenciForm").on("submit", function(event) {
                 this.submit();
                 setTimeout(function() {
                     window.location.href = "/movimientos";
@@ -110,7 +111,6 @@
                 `,
                     icon: "info",
                     showConfirmButton: false,
-
                     allowOutsideClick: false,
 
                 });
