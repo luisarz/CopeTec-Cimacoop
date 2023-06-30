@@ -21,7 +21,7 @@
 
                 {{-- </div>
             <div class="card-toolbar"> --}}
-                <a href="/captaciones/plazos/add" class="btn btn-success"><i class="fa-solid fa-plus"></i>Nueva Tasa</a>
+                <a href="/captaciones/tasas/add/{{ $plazo->id_plazo }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>Nueva Tasa</a>
             </div>
             <div class="ribbon-label fs-3">
                 <i class="ki-duotone ki-calendar text-white fs-3x"><span class="path1"></span><span

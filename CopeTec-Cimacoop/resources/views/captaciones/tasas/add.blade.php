@@ -9,7 +9,7 @@
         <div class="card shadow-lg">
             <div class="card-header ribbon ribbon-end ribbon-clip">
                 <div class="card-toolbar">
-                    <a href="/captaciones/plazos">
+                    <a href="/captaciones/tasas/{{ $id }}">
 
                         <button type="button"
                             class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">

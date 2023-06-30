@@ -277,7 +277,7 @@ Route::put('/captaciones/plazos/put', [PlazosController::class, 'put'])->middlew
 Tasas para depositos a plazos
 */
 Route::get('/captaciones/tasas/{id}', [TasasPlazosController::class, 'index'])->middleware(['auth', 'bitacora']);
-Route::get('/captaciones/tasas/add', [TasasPlazosController::class, 'add'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/tasas/add/{id}', [TasasPlazosController::class, 'add'])->middleware(['auth', 'bitacora']);
 Route::post('/captaciones/tasas/add', [TasasPlazosController::class, 'post'])->middleware(['auth', 'bitacora']);
 // Route::get('/captaciones/tasas/edit/{id}', [TasasPlazosController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/captaciones/tasas/put', [TasasPlazosController::class, 'put'])->middleware(['auth', 'bitacora']);

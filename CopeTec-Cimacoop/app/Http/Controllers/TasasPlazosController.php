@@ -10,15 +10,14 @@ class TasasPlazosController extends Controller
 {
     public function index($id)
     {
-        $plazo = Plazos::find($id)->select('descripcion','meses')->first();
-
+        $plazo = Plazos::find($id)->select('descripcion','meses','id_plazo')->first();
         $tasasEnPlazo= TasasPlazos::join('plazos','plazos.id_plazo','=','plazos_tasas.id_plazo')
         ->where('plazos_tasas.id_plazo',$id)->paginate(10);
         return view('captaciones.tasas.index', compact('plazo','tasasEnPlazo'));
     }
-    public function add()
+    public function add($id)
     {
-        return view('captaciones.tasas.add');
+        return view('captaciones.tasas.add',compact('id'));
     }
     public function edit($id)
     {
