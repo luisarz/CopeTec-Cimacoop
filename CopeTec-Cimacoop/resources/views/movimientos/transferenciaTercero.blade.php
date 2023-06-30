@@ -72,16 +72,18 @@
                             <label for="floatingPassword">Cantidad Transferir</label>
                         </div>
                     </div>
-                          <!--begin::row group-->
+                    <!--begin::row group-->
                     <div class="form-group row mb-5">
                         <div class="form-floating col-lg-4">
-                            <input type="text" required class="form-control text-danger" name="dui_transaccion" id="dui_transaccion"
-                                placeholder="Saldo" aria-label="monto" aria-describedby="basic-addon1" />
+                            <input type="text" required class="form-control text-danger" name="dui_transaccion"
+                                id="dui_transaccion" placeholder="Saldo" aria-label="monto"
+                                aria-describedby="basic-addon1" />
                             <label for="floatingPassword">DUI</label>
                         </div>
                         <div class="form-floating col-lg-8">
-                            <input type="text" required class="form-control text-danger" name="cliente_transaccion" id="cliente_transaccion"
-                                placeholder="Saldo" aria-label="monto" aria-describedby="basic-addon1" />
+                            <input type="text" required class="form-control text-danger" name="cliente_transaccion"
+                                id="cliente_transaccion" placeholder="Saldo" aria-label="monto"
+                                aria-describedby="basic-addon1" />
                             <label for="floatingPassword">Cliente Transfiere</label>
                         </div>
                     </div>
@@ -125,7 +127,7 @@
 
             $("#transferenciaForm").on("submit", function(event) {
                 event.preventDefault();
-                let id_movimiento="";
+                let id_movimiento = "";
                 Swal.fire({
                     title: 'Cargando',
                     text: 'Por favor, espere...',
@@ -148,7 +150,7 @@
                             $("#error-container").html(response.error);
                             $("#error-container").show();
                         } else {
-                            id_movimiento=response.id_transaccion;
+                            id_movimiento = response.id_transaccion;
                             Swal.fire({
                                 title: 'Transferencia Realizada',
                                 text: 'La transferencia se realizó con éxito',
@@ -163,7 +165,8 @@
                             }).then((result) => {
                                 if (result.dismiss === Swal.DismissReason.timer ||
                                     result.dismiss === Swal.DismissReason.close) {
-                                    window.open("/reportes/comprobanteMovimiento/" + id_movimiento, "_blank");
+                                    window.open("/reportes/comprobanteMovimiento/" +
+                                        id_movimiento, "_blank");
 
                                     window.location.href = "/movimientos";
 
@@ -210,7 +213,8 @@
                     success: function(response) {
                         let id_cuenta_destino = $("#id_cuenta_destino");
                         id_cuenta_destino.empty();
-                        id_cuenta_destino.append('<option value="">Seleccione la cuenta destino</option>');
+                        id_cuenta_destino.append(
+                            '<option value="">Seleccione la cuenta destino</option>');
 
                         $("#saldo_disponible").val(response.saldo_disponible).val()
 

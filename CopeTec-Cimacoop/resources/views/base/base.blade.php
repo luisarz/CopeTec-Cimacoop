@@ -289,7 +289,7 @@ License: For each use you must have a valid license purchased only from above li
                             <!--end::User menu-->
 
                             <!--begin::Header menu toggle-->
-                            <div class="app-navbar-item d-lg-none ms-2 me-n2" title="Show header menu">
+                            <div class="app-navbar-item d-lg-none ms-2 me-n2" title=" header menu">
                                 <div class="btn btn-flex btn-icon btn-active-color-primary w-30px h-30px"
                                     id="kt_app_header_menu_toggle">
                                     <i class="ki-duotone ki-element-4 fs-1"><span class="path1"></span><span
@@ -359,7 +359,7 @@ License: For each use you must have a valid license purchased only from above li
                                 </div>
                                 <!--end:Menu item-->
                                 <!--begin:Menu item-->
-                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion show">
+                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion ">
                                     <!--begin:Menu link-->
                                     <span class="menu-link">
                                         <span class="menu-icon">
@@ -458,7 +458,7 @@ License: For each use you must have a valid license purchased only from above li
 
                                 </div>
                                 <!--end:Menu item-->
-                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion show">
+                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion ">
                                     <!--begin:Menu link-->
                                     <span class="menu-link">
                                         <span class="menu-icon">
@@ -571,6 +571,52 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end:Menu link-->
                                         </div>
                                         <!--end:Menu item-->
+                                    </div>
+                                    <!--end:Menu sub-->
+                                </div>
+                                <!--end:Menu item-->
+                                  <!--end:Menu item-->
+                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion show">
+                                    <!--begin:Menu link-->
+                                    <span class="menu-link">
+                                        <span class="menu-icon">
+                                            <i class="fa fa-cloud-download  text-success  fs-1 fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>
+                                        </span>
+                                        <span class="menu-title ">Captaciones</span>
+                                        <span class="menu-arrow"></span>
+                                    </span>
+                                    <!--end:Menu link-->
+                                    <!--begin:Menu sub-->
+                                    <div class="menu-sub menu-sub-accordion">
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item">
+                                            <!--begin:Menu link-->
+                                            <a class="menu-link" href="/captaciones/plazos">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Plazos</span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                        <!--begin:Menu item-->
+                                        <div class="menu-item">
+                                            <!--begin:Menu link-->
+                                            <a class="menu-link" href="/captaciones/depositos">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Depositos</span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                
                                     </div>
                                     <!--end:Menu sub-->
                                 </div>
