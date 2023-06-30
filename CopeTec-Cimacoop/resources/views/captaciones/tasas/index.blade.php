@@ -21,7 +21,7 @@
 
                 {{-- </div>
             <div class="card-toolbar"> --}}
-                <a href="/captaciones/tasas/add/{{ $plazo->id_plazo }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>Nueva Tasa</a>
+                <a href="/captaciones/tasas/add/{{ $id }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>Nueva Tasa</a>
             </div>
             <div class="ribbon-label fs-3">
                 <i class="ki-duotone ki-calendar text-white fs-3x"><span class="path1"></span><span
@@ -45,7 +45,7 @@
                     @foreach ($tasasEnPlazo as $tasa)
                         <tr>
                             <td>
-                                <a href="/captaciones/plazos/edit/{{ $tasa->id_plazo }}" class="btn btn-info btn-sm"><i
+                                <a href="/captaciones/tasas/edit/{{ $tasa->id_tasa }}" class="btn btn-info btn-sm"><i
                                         class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a>
                             </td>
                             <td>{{ $tasa->descripcion }}</td>

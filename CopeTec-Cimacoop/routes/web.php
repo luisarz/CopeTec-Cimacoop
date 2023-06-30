@@ -3,6 +3,7 @@
 use App\Http\Controllers\AperturaCajaController;
 use App\Http\Controllers\BobedaController;
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\DepositosPlazoController;
 use App\Http\Controllers\PlazosController;
 use App\Http\Controllers\TasasPlazosController;
 use App\Http\Controllers\TempPasswordController;
@@ -279,5 +280,18 @@ Tasas para depositos a plazos
 Route::get('/captaciones/tasas/{id}', [TasasPlazosController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::get('/captaciones/tasas/add/{id}', [TasasPlazosController::class, 'add'])->middleware(['auth', 'bitacora']);
 Route::post('/captaciones/tasas/add', [TasasPlazosController::class, 'post'])->middleware(['auth', 'bitacora']);
-// Route::get('/captaciones/tasas/edit/{id}', [TasasPlazosController::class, 'edit'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/tasas/edit/{id}', [TasasPlazosController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/captaciones/tasas/put', [TasasPlazosController::class, 'put'])->middleware(['auth', 'bitacora']);
+
+
+/*
+Depositos Plazo Fijos
+*/
+Route::get('/captaciones/depositosplazo', [DepositosPlazoController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/depositosplazo/add', [DepositosPlazoController::class, 'add'])->middleware(['auth', 'bitacora']);
+Route::post('/captaciones/depositosplazo/add', [DepositosPlazoController::class, 'post'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/depositosplazo/edit/{id}', [DepositosPlazoController::class, 'edit'])->middleware(['auth', 'bitacora']);
+Route::put('/captaciones/depositosplazo/put', [DepositosPlazoController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/depositosplazo/liquidar/{id}', [DepositosPlazoController::class, 'liquidar'])->middleware(['auth', 'bitacora']);
+Route::post('/captaciones/depositosplazo/liquidar', [DepositosPlazoController::class, 'liquidarDeposito'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/depositosplazo/renovar/{id}', [DepositosPlazoController::class, 'renovar'])->middleware(['auth', 'bitacora']);
