@@ -160,6 +160,7 @@ Route::post('/cuentas/anularCuenta', [CuentasController::class, 'anularCuenta'])
 Route::get('/cuentas/{id}', [CuentasController::class, 'edit'])->middleware(['auth','bitacora']);
 Route::put('/cuentas/put', [CuentasController::class, 'put'])->middleware(['auth','bitacora']);
 Route::get('/cuentas/getCuentasDisponibles/{id}', [CuentasController::class, 'getCuentasDisponibles'])->middleware(['auth', 'bitacora']);
+Route::get('/cuentas/getCuentasByAsociado/{id}', [CuentasController::class, 'getCuentasByAsociado'])->middleware(['auth', 'bitacora']);
 
 
 //Consultar el saldo de la cuenta
@@ -282,6 +283,7 @@ Route::get('/captaciones/tasas/add/{id}', [TasasPlazosController::class, 'add'])
 Route::post('/captaciones/tasas/add', [TasasPlazosController::class, 'post'])->middleware(['auth', 'bitacora']);
 Route::get('/captaciones/tasas/edit/{id}', [TasasPlazosController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/captaciones/tasas/put', [TasasPlazosController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/tasas/getTasasByPlazoid/{id}', [TasasPlazosController::class, 'getTasasByPlazoid'])->middleware(['auth', 'bitacora']);
 
 
 /*

@@ -8,11 +8,12 @@
     <div class="card shadow-lg">
         <div class="card-header ribbon ribbon-end ribbon-clip">
             <div class="card-toolbar">
-                <a href="/captaciones/plazos/add" class="btn btn-success">
+                <a href="/captaciones/depositosplazo/add" class="btn btn-info">
                     <i class="ki-outline ki-calendar-add fs-2x"></i>
                     Nuevo Deposito
                 </a>
-                  <a href="/captaciones/plazos/add" class="btn btn-success">
+                &nbsp;
+                  <a href="/captaciones/depositosplazo/add" class="btn btn-info">
                     <i class="ki-outline ki-calendar-add fs-2x"></i>
                     Nuevo Deposito
                 </a>
@@ -55,7 +56,7 @@
                                         </a>
 
                                           <a href="/captaciones/tasas/{{ $plazo->id_plazo }}" class="btn btn-danger btn-sm w-30"> 
-                                            <i class="ki-outline ki-trash fs-3"></i> 
+                                            <i class="ki-outline ki-cross-circle   fs-3"></i> 
                                         </a>
 
                                   

@@ -41,4 +41,6 @@ class PlazosController extends Controller
         return redirect('/captaciones/plazos');
     }
 
+    
+
 }
