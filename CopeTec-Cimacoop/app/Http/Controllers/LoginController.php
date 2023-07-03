@@ -12,6 +12,7 @@ use Session;
 use Illuminate\Support\Str;
 use \PDF;
 use Auth;
+use App\Models\ModuloRol;
 
 class LoginController extends Controller
 {
@@ -108,6 +109,13 @@ class LoginController extends Controller
         $session->put('id_empleado_usuario', $user->id_empleado_usuario);
         $session->put('email', $user->email);
         $session->put('name', $empleados->nombre_empleado);
+
+
+
+        $Access = ModuloRol::Where("id_rol",$user->id_rol)
+        ->join('modulo','modulo.id_modulo', '=', 'modulo_rol.id_modulo')->get();
+        
+        $session->put("access",$Access);
 
         Auth::login($user, true);
     }

@@ -21,6 +21,8 @@ use App\Http\Controllers\CuentasController;
 use App\Http\Controllers\CajasController;
 use App\Http\Controllers\MovimientosController;
 use App\Http\Controllers\ReportesController;
+use App\Http\Controllers\ModuloController;
+use App\Http\Controllers\PermisosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -259,3 +261,20 @@ Contraseña temporal para anular operaciones
 */
 Route::get('/temp/generateTempPassword', [TempPasswordController::class, 'generateTempPassword'])->middleware(['auth', 'bitacora']);
 Route::get('/temp/validatePassword/{password}', [TempPasswordController::class, 'validatePassword'])->middleware(['auth', 'bitacora']);
+
+/*
+Modulo
+ */
+Route::get('/modulo', [ModuloController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/modulo/add', [ModuloController::class, 'add'])->middleware(['auth','bitacora']);
+Route::post('/modulo/add', [ModuloController::class, 'post'])->middleware(['auth','bitacora']);
+Route::get('/modulo/{id}', [ModuloController::class, 'edit'])->middleware(['auth','bitacora']);
+Route::put('/modulo/put', [ModuloController::class, 'put'])->middleware(['auth','bitacora']);
+Route::delete('/modulo/delete', [ModuloController::class, 'delete'])->middleware(['auth','bitacora']);
+
+/*
+Permisos
+ */
+Route::get('/permisos', [PermisosController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::post('/allowAccess', [PermisosController::class, 'allowAccess'])->middleware(['auth', 'bitacora']);
+Route::post('/getAllowAccess', [PermisosController::class, 'getAccess'])->middleware(['auth', 'bitacora']);
