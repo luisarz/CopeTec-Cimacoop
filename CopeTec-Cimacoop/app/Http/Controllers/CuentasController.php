@@ -20,7 +20,7 @@ class CuentasController extends Controller
             ->select('cuentas.*', 'clientes.nombre as nombre_cliente','clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
             ->paginate(10);
 
-        return view("cuentas.index");
+        return view("cuentas.index",compact("cuentas"));
     }
 
 
@@ -138,6 +138,21 @@ class CuentasController extends Controller
         return response()->json([
             'cuentas' => $cuentas,
             'saldo_disponible'=>$cuenta_origen->saldo_cuenta
+        ]);
+    }
+    public function getCuentasByAsociado($id)
+    {
+        $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->whereNotIn('clientes.estado', [0, 7])
+            ->where('asociados.id_asociado', '=', $id)
+            ->distinct()
+            ->orderby('clientes.nombre', 'asc')
+            ->select('cuentas.id_cuenta', 'cuentas.id_asociado', 'cuentas.numero_cuenta', 'cuentas.id_cuenta', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+            ->get();
+        return response()->json([
+            'cuentas' => $cuentas,
         ]);
     }
 

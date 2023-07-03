@@ -3,6 +3,9 @@
 use App\Http\Controllers\AperturaCajaController;
 use App\Http\Controllers\BobedaController;
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\DepositosPlazoController;
+use App\Http\Controllers\PlazosController;
+use App\Http\Controllers\TasasPlazosController;
 use App\Http\Controllers\TempPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -159,6 +162,7 @@ Route::post('/cuentas/anularCuenta', [CuentasController::class, 'anularCuenta'])
 Route::get('/cuentas/{id}', [CuentasController::class, 'edit'])->middleware(['auth','bitacora']);
 Route::put('/cuentas/put', [CuentasController::class, 'put'])->middleware(['auth','bitacora']);
 Route::get('/cuentas/getCuentasDisponibles/{id}', [CuentasController::class, 'getCuentasDisponibles'])->middleware(['auth', 'bitacora']);
+Route::get('/cuentas/getCuentasByAsociado/{id}', [CuentasController::class, 'getCuentasByAsociado'])->middleware(['auth', 'bitacora']);
 
 
 //Consultar el saldo de la cuenta
@@ -231,7 +235,7 @@ Route::get('/apertura/aperturarcaja', [AperturaCajaController::class, 'aperturar
 Route::post('/apertura/aperturarcaja', [AperturaCajaController::class, 'aperturarcaja'])->middleware(['auth','bitacora']);
 Route::post('/apertura/recibirTraslado', [AperturaCajaController::class, 'recibirTraslado'])->middleware(['auth','bitacora']);
 Route::get('/apertura/recibir/{id}', [AperturaCajaController::class, 'recibir'])->middleware(['auth','bitacora']);
-Route::put('/apertura/put', [AperturaCajaController::class, 'put'])->middleware(['auth','bitacora']);
+// Route::put('/apertura/put', [AperturaCajaController::class, 'put'])->middleware(['auth','bitacora']);
 Route::get('apertura/gettraslado/{id}', [AperturaCajaController::class, 'gettraslado'])->middleware(['auth','bitacora']);
 Route::get('apertura/cortez/{id}', [AperturaCajaController::class, 'cortez'])->middleware(['auth','bitacora']);
 
@@ -278,3 +282,37 @@ Permisos
 Route::get('/permisos', [PermisosController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::post('/allowAccess', [PermisosController::class, 'allowAccess'])->middleware(['auth', 'bitacora']);
 Route::post('/getAllowAccess', [PermisosController::class, 'getAccess'])->middleware(['auth', 'bitacora']);
+
+
+/*
+Plazos para depositos
+*/
+Route::get('/captaciones/plazos', [PlazosController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/plazos/add', [PlazosController::class, 'add'])->middleware(['auth', 'bitacora']);
+Route::post('/captaciones/plazos/add', [PlazosController::class, 'post'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/plazos/edit/{id}', [PlazosController::class, 'edit'])->middleware(['auth', 'bitacora']);
+Route::put('/captaciones/plazos/put', [PlazosController::class, 'put'])->middleware(['auth', 'bitacora']);
+
+/*
+Tasas para depositos a plazos
+*/
+Route::get('/captaciones/tasas/{id}', [TasasPlazosController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/tasas/add/{id}', [TasasPlazosController::class, 'add'])->middleware(['auth', 'bitacora']);
+Route::post('/captaciones/tasas/add', [TasasPlazosController::class, 'post'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/tasas/edit/{id}', [TasasPlazosController::class, 'edit'])->middleware(['auth', 'bitacora']);
+Route::put('/captaciones/tasas/put', [TasasPlazosController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/tasas/getTasasByPlazoid/{id}', [TasasPlazosController::class, 'getTasasByPlazoid'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/tasas/getTasaById/{id}', [TasasPlazosController::class, 'getTasaById'])->middleware(['auth', 'bitacora']);
+
+
+/*
+Depositos Plazo Fijos
+*/
+Route::get('/captaciones/depositosplazo', [DepositosPlazoController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/depositosplazo/add', [DepositosPlazoController::class, 'add'])->middleware(['auth', 'bitacora']);
+Route::post('/captaciones/depositosplazo/add', [DepositosPlazoController::class, 'post'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/depositosplazo/edit/{id}', [DepositosPlazoController::class, 'edit'])->middleware(['auth', 'bitacora']);
+Route::put('/captaciones/depositosplazo/put', [DepositosPlazoController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/depositosplazo/liquidar/{id}', [DepositosPlazoController::class, 'liquidar'])->middleware(['auth', 'bitacora']);
+Route::post('/captaciones/depositosplazo/liquidar', [DepositosPlazoController::class, 'liquidarDeposito'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/depositosplazo/renovar/{id}', [DepositosPlazoController::class, 'renovar'])->middleware(['auth', 'bitacora']);

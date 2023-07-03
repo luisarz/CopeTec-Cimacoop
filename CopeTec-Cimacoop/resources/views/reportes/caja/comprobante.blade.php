@@ -64,6 +64,9 @@
                 <td> @switch($movimiento->tipo_operacion)
                         @case('1')
                             <span class="badge badge-light-success fs-6">Deposito</span>
+                            @if ($movimiento->id_cuenta_destino != null)
+                                <span class="badge badge-light-danger fs-6"> - Transferencia Tercero</span>
+                            @endif
                         @break
 
                         @case('2')
