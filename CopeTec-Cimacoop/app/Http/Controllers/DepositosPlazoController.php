@@ -18,7 +18,7 @@ class DepositosPlazoController extends Controller
         ->orderBy('depositos_plazo.numero_certificado','desc')
         ->paginate(10);
 
-       
+
         return view('captaciones.depositosplazo.index',compact('depositosplazo'));
     }
     public function add()
@@ -39,6 +39,37 @@ class DepositosPlazoController extends Controller
         }
 
         return view('captaciones.depositosplazo.add',compact('asociados','plazos','fecha','certificado'));
+    }
+    public  function post(Request $request){
+        dd($request->all());
+
+        $request->validate([
+            'id_asociado' => 'required',
+            'id_plazo' => 'required',
+            'monto' => 'required',
+            'interes' => 'required',
+            'fecha_inicio' => 'required',
+            'fecha_vencimiento' => 'required',
+            'numero_certificado' => 'required',
+        ]);
+        $deposito = new DepositosPlazo();
+        $deposito->numero_certificado = $request->numero_certificado;
+        $deposito->id_asociado = $request->id_asociado;
+        $deposito->monto_deposito = $request->monto_deposito;
+        $deposito->numero_cheque = $request->numero_cheque;
+        $deposito->id_cuenta_depositar=$request->id_cuenta_depoositar;
+        $deposito->interes = $request->interes;
+        $deposito->fecha_deposito = $request->fecha_deposito;
+        $deposito->fecha_vencimiento = $request->fecha_vencimiento;
+        $deposito->forma_pago_interes = $request->forma_pago_interes;
+        $deposito->fecha_activacion_automatica = addDays($request->fecha_vencimiento,5);
+        $deposito->is_renoved=0;
+        $deposito->estado = 1;
+        $deposito->save();
+
+
+
+        return redirect()->route('depositosplazo.index')->with('success','Deposito a plazo creado correctamente');
     }
 
 

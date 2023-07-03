@@ -50,7 +50,7 @@ class TasasPlazosController extends Controller
             ->select('plazos_tasas.id_tasa', 'plazos_tasas.valor', 'plazos.descripcion')->get();
         $diasDeposito = 0;
         if ($plazo) {
-            $diasDeposito = $plazo->meses*30;
+            $diasDeposito = $plazo->meses * 30;
         }
 
         return response()->json([
@@ -58,6 +58,18 @@ class TasasPlazosController extends Controller
             "diasDeposito" => $diasDeposito
         ]);
 
+    }
+    public function getTasaById($id)
+    {
+        $interes = TasasPlazos::where('id_tasa', '=', $id)->first(); // Obtener solo el primer resultado
+        $tasaInteres = 0;
+        if ($interes) {
+            $tasaInteres = $interes->valor;
+        }
+
+        return response()->json([
+            'tasa_interes' => $tasaInteres
+        ]);
 
     }
 }

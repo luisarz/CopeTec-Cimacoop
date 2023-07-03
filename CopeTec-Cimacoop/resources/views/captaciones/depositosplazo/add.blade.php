@@ -6,6 +6,10 @@
     <form action="/captaciones/depositosplazo/add" method="post" autocomplete="off">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
+        <input type="hidden" name="periodo_en_dias" id="periodo_en_dias">
+        <input type="hidden" name="tasa" id="tasa">
+
+
         <div class="card card-bordered shadow-lg mt-5">
             <div class="card-header ribbon ribbon-end ribbon-clip">
                 <div class="card-toolbar">
@@ -24,8 +28,8 @@
                 <div class="ribbon-label fs-3">
                     <i class="ki-duotone ki-calendar text-white fs-3x"><span class="path1"></span><span
                             class="path2"></span><span class="path3"></span></i> &nbsp;
-                    Registrar Plazo
-                    <span class="ribbon-inner bg-success"></span>
+                    Aperturar Deposito a Plazo
+                    <span class="ribbon-inner bg-info"></span>
                 </div>
             </div>
             <div class="card-body">
@@ -70,13 +74,13 @@
                         <label>Forma Deposito:</label>
                     </div>
                     <div class="form-floating col-lg-3">
-                        <input type="number" step="1" min="6" required class="form-control"
+                        <input type="number" step="1"   class="form-control"
                             placeholder="numero_cheque" name="numero_cheque" />
                         <label>Cheque Número</label>
                     </div>
                     <div class="form-floating col-lg-6">
                         <input type="number" step="1" min="6" required class="form-control"
-                            placeholder="monto_deposito" name="monto_deposito" />
+                            placeholder="monto_deposito" id="monto_deposito" name="monto_deposito" />
                         <label>Monto Deposito:</label>
                     </div>
                 </div>
@@ -104,8 +108,8 @@
                         <label>Plazo Deposito:</label>
                     </div>
                 </div>
+                <!--begin::row group-->
                 <div class="form-group row mb-5">
-
                     <div class="form-floating col-lg-4">
                         <select name="interes_deposito" id="interes_deposito" class="form-select" data-control="select2"
                             data-placeholder="Select an option" required>
@@ -130,6 +134,18 @@
                         <label>Fecha Vencimiento:</label>
                     </div>
                 </div>
+                <!--begin::row group-->
+                <div class="form-group row mb-5">
+                    <div class="form-floating col-lg-6">
+                        <input type="number" name="interes_total" id="interes_total" class="form-control" require readonly>
+                        <label>Interes Total:</label>
+                    </div>
+                    <div class="form-floating col-lg-6">
+                        <input type="number" name="interes_mensual" id="interes_mensual" class="form-control" require readonly>
+                        <label>Interes Mensual:</label>
+                    </div>
+
+                </div>
 
             </div>
             <div class="card-footer d-flex justify-content-center py-6">
@@ -146,7 +162,7 @@
                             Cancelar
                         </button>
                     </a>
-                    <button type="submit" class="btn btn-bg-primary btn-text-white">
+                    <button type="submit" class="btn btn-bg-info btn-text-white">
                         <i class="fa-solid fa-save fs-2 text-white"></i>
                         Abrir Deposito a Plazo
                     </button>
@@ -234,6 +250,7 @@
                         });
 
                         //fecha de vencimiento
+                        $("#periodo_en_dias").val(data.diasDeposito);
                         let fecha = new Date($("#fecha_deposito").val());
                         let fecha_vencimiento = new Date(fecha.setDate(fecha.getDate() +
                             parseInt(data.diasDeposito)));
@@ -252,6 +269,46 @@
 
             });
 
+            $("#interes_deposito").on('change', function() {
+                let id_tasa = $(this).val();
+                swalProcessing();
+                $.ajax({
+                    url: '/captaciones/tasas/getTasaById/' + id_tasa,
+                    type: 'GET',
+                    dataType: 'json',
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Cargando...',
+                            text: 'Espere un momento por favor.',
+                            allowOutsideClick: false,
+                            showCancelButton: false,
+                            allowEscapeKey: false,
+                            showConfirmButton: false,
+                            allowEnterKey: false,
+
+                        });
+                    },
+                    success: function(data) {
+                        Swal.close();
+                        $("#tasa").val(data.tasa_interes);
+                        let monto = $("#monto_deposito").val();
+
+                        let periodo_en_dias = $("#periodo_en_dias").val();
+                        let periodo_en_meses = $("#periodo_en_dias").val()/30;
+
+
+                        let interes = ((monto * periodo_en_dias * (data.tasa_interes/100) ) / 365);
+                        $("#interes_total").val(interes.toFixed(2));
+                        let interes_mensual=$("#interes_total").val()/periodo_en_meses
+                        $("#interes_mensual").val(interes_mensual.toFixed(2));
+
+                    },
+                    error: function() {
+                        Swal.close();
+                    }
+                });
+
+            });
         });
     </script>
 @endsection
