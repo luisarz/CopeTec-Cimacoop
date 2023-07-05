@@ -7,7 +7,7 @@
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <input type="hidden" name="periodo_en_dias" id="periodo_en_dias">
-        <input type="hidden" name="tasa" id="tasa">
+        <input type="hidden" name="tasa_interes_deposito" id="tasa_interes_deposito">
 
 
         <div class="card card-bordered shadow-lg mt-5">
@@ -64,7 +64,7 @@
                 <div class="form-group row mb-5">
 
                     <div class="form-floating col-lg-3">
-                        <select name="forma_pago" class="form-select" data-control="select2"
+                        <select name="forma_deposito" class="form-select" data-control="select2"
                             data-placeholder="Select an option" required>
                             <option value="Cheque">Cheque</option>
                             <option value="Efectivo" selected>Efectivo</option>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="form-floating col-lg-6">
                         <input type="number" step="1" min="6" required class="form-control"
-                            placeholder="monto_deposito" id="monto_deposito" name="monto_deposito" />
+                            placeholder="Monto a Depositar" id="monto_deposito" name="monto_deposito" />
                         <label>Monto Deposito:</label>
                     </div>
                 </div>
@@ -111,14 +111,13 @@
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
                     <div class="form-floating col-lg-4">
-                        <select name="interes_deposito" id="interes_deposito" class="form-select" data-control="select2"
-                            data-placeholder="Select an option" required>
-                            <option value="">Seleccione un asociado</option>
+                        <select name="interes_deposito" id="interes_deposito" class="form-select" data-control="select2" required>
+                            <option value="">Seleccione una tasa </option>
                         </select>
                         <label>Interes Anual:</label>
                     </div>
                     <div class="form-floating col-lg-4">
-                        <select name="interes_deposito" id="interes_deposito" class="form-select" data-control="select2"
+                        <select name="forma_pago_interes" id="forma_pago_interes" class="form-select" data-control="select2"
                             data-placeholder="Select an option" required>
                             <option value="0">Anticipado</option>
                             <option value="1">Semanal</option>
@@ -240,7 +239,7 @@
 
                         $("#interes_deposito").empty();
                         $("#interes_deposito").append(
-                            '<option value="">Seleccione una cuenta</option>');
+                            '<option value="">Seleccione una Tasa</option>');
 
                         $.each(data.tasasInteres, function(index, element) {
                             $("#interes_deposito").append('<option value="' + element
@@ -270,10 +269,10 @@
             });
 
             $("#interes_deposito").on('change', function() {
-                let id_tasa = $(this).val();
+                let id_interes_deposito = $(this).val();
                 swalProcessing();
                 $.ajax({
-                    url: '/captaciones/tasas/getTasaById/' + id_tasa,
+                    url: '/captaciones/tasas/getTasaById/' + id_interes_deposito,
                     type: 'GET',
                     dataType: 'json',
                     beforeSend: function() {
@@ -290,12 +289,13 @@
                     },
                     success: function(data) {
                         Swal.close();
-                        $("#tasa").val(data.tasa_interes);
+                        $("#tasa_interes_deposito").val(data.tasa_interes);
                         let monto = $("#monto_deposito").val();
 
                         let periodo_en_dias = $("#periodo_en_dias").val();
                         let periodo_en_meses = $("#periodo_en_dias").val()/30;
 
+                        // alert(monto +" "+ periodo_en_dias +" "+ data.tasa_interes)
 
                         let interes = ((monto * periodo_en_dias * (data.tasa_interes/100) ) / 365);
                         $("#interes_total").val(interes.toFixed(2));

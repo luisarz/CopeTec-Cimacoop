@@ -378,7 +378,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end:Menu link-->
                                             <div class="menu-sub menu-sub-accordion">
                                                 @foreach(Session::get("access") as $sub_access)
-                                                    @if($sub_access->id_padre==$access->id_modulo)    
+                                                    @if($sub_access->id_padre==$access->id_modulo)
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item">
                                                             <!--begin:Menu link-->

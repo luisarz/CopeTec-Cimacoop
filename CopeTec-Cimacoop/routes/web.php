@@ -255,6 +255,8 @@ Route::get('/reportes/comprobanteMovimiento/{id}', [ReportesController::class, '
 // Route::get('/reportes/comprobanteMovimiento/{id}', [ReportesController::class, 'ComprobanteMovimiento'])->middleware(['auth', 'bitacora']);
 Route::get('/reportes/RepEstadoCuenta/{id}', [ReportesController::class, 'RepEstadoCuenta'])->middleware(['auth', 'bitacora']);
 Route::get('/reportes/contrato/{id}', [ReportesController::class, 'contrato'])->middleware(['auth', 'bitacora']);
+Route::get('/reportes/depositoplazo/{id}', [ReportesController::class, 'certificadoDeposito'])->middleware(['auth', 'bitacora']);
+
 
 
 
@@ -303,7 +305,6 @@ Route::get('/captaciones/tasas/edit/{id}', [TasasPlazosController::class, 'edit'
 Route::put('/captaciones/tasas/put', [TasasPlazosController::class, 'put'])->middleware(['auth', 'bitacora']);
 Route::get('/captaciones/tasas/getTasasByPlazoid/{id}', [TasasPlazosController::class, 'getTasasByPlazoid'])->middleware(['auth', 'bitacora']);
 Route::get('/captaciones/tasas/getTasaById/{id}', [TasasPlazosController::class, 'getTasaById'])->middleware(['auth', 'bitacora']);
-
 
 /*
 Depositos Plazo Fijos

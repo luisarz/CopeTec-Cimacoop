@@ -6,6 +6,7 @@ use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
 use App\Models\Clientes;
 use App\Models\Cuentas;
+use App\Models\DepositosPlazo;
 use App\Models\Empleados;
 use App\Models\Movimientos;
 use Carbon\Carbon;
@@ -188,5 +189,36 @@ class ReportesController extends Controller
             'numeroEnLetras' => $numeroEnLetras
         ]);
         return $pdf->setOrientation('portrait')->inline();
+    }
+
+    public function certificadoDeposito($id)
+    {
+        $idCuenta = $id;
+        $estilos = file_get_contents(public_path('assets/css/css.css'));
+
+      $datosContrato = DepositosPlazo::join('asociados','depositos_plazo.id_asociado','=','asociados.id_asociado')
+        ->join('clientes','clientes.id_cliente','=','asociados.id_cliente')
+        ->join('plazos_tasas','plazos_tasas.id_tasa','=','depositos_plazo.interes_deposito')
+        ->join('cuentas','cuentas.id_cuenta','=','depositos_plazo.id_cuenta_depositar')
+        ->where('depositos_plazo.id_deposito_plazo_fijo',"=",$id)
+        ->orderBy('depositos_plazo.numero_certificado','desc')
+        ->first();
+        // dd($datosContrato);
+        $fechaActual = new DateTime();
+        $beneficiarios = Cuentas::join('beneficiarios', 'beneficiarios.id_cuenta', '=', 'cuentas.id_cuenta')->get();
+        $formatter = new NumeroALetras();
+        $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_deposito, 2, 'DóLARES');
+        $img = public_path('assets/media/logos/certificado_fondo.jpg');
+
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.depositoplazo.certificado', [
+            'estilos' => $estilos,
+            'datosContrato' => $datosContrato,
+            'beneficiarios' => $beneficiarios,
+            'numeroEnLetras' => $numeroEnLetras,
+            'fondo' => $img
+        ]);
+        return $pdf->setOrientation('landscape')->inline();
+
     }
 }

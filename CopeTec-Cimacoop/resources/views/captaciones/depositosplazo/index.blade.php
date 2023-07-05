@@ -13,7 +13,7 @@
                     Nuevo Deposito
                 </a>
                 &nbsp;
-                  <a href="/captaciones/depositosplazo/add" class="btn btn-info">
+                <a href="/captaciones/depositosplazo/add" class="btn btn-info">
                     <i class="ki-outline ki-calendar-add fs-2x"></i>
                     Nuevo Deposito
                 </a>
@@ -27,55 +27,61 @@
             </div>
         </div>
         <div class="card-body">
-         <div class="table-responsive">
-               <table class="table table-hover table-row-dashed fs-6     gy-2 gs-5">
-                <thead>
-                    <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                        <th class="min-w-50px">Acciones</th>
-                        <th class="min-w-30px">Certificado</th>
-                        <th class="min-w-100px">Asociado</th>
-                        <th class="min-w-50px">Monto</th>
-                        <th class="min-w-50px">Plazo</th>
-                        <th class="min-w-10px">Tasa</th>
-                        <th class="min-w-50px">Apertura</th>
-                        <th class="min-w-50px">Vencimiento</th>
+            <div class="table-responsive">
+                <table class="table table-hover table-row-dashed fs-5     gy-2 gs-5">
+                    <thead>
+                        <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
+                            <th class="min-w-200px">Acciones</th>
+                            <th class="min-w-20px">Certificado</th>
+                            <th class="min-w-80px">Asociado</th>
+                            <th class="min-w-50px">Monto</th>
+                            <th class="min-w-10px">Tasa</th>
+                            <th class="min-w-30px">Plazo</th>
+                            <th class="min-w-30px">D. Mensual</th>
+                            <th class="min-w-30px text-center">Apertura</th>
 
 
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($depositosplazo as $plazo)
-                        <tr>
-                            <td>
-                                <a href="/captaciones/plazos/edit/{{ $plazo->id_plazo }}" class="btn btn-warning btn-sm w-30">
-                                    <i class="ki-outline ki-pencil fs-3"></i>  </a>
-
-                                         <a href="/captaciones/tasas/{{ $plazo->id_plazo }}" class="btn btn-info btn-sm w-30">
-                                            <i class="ki-outline ki-printer fs-3"></i>
-                                        </a>
-
-                                          <a href="/captaciones/tasas/{{ $plazo->id_plazo }}" class="btn btn-danger btn-sm w-30"> 
-                                            <i class="ki-outline ki-cross-circle   fs-3"></i> 
-                                        </a>
-
-                                  
-
-
-                            </td>
-                            <td>{{ $plazo->numero_certificado }}</td>
-                            <td>{{ $plazo->nombre }}</td>
-                            <td>{{ $plazo->monto_deposito }}</td>
-                            <td>{{ $plazo->interes_deposito }}</td>
-                            <td>{{ $plazo->plazo_deposito }}</td>
-                            <td>{{ $plazo->fecha_deposito }}</td>
-                            <td>{{ $plazo->fecha_vencimiento }}</td>
 
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-         </div>
+                    </thead>
+                    <tbody>
+                        @foreach ($depositosplazo as $plazo)
+                            <tr>
+                                <td>
+                                    <a href="/captaciones/plazos/edit/{{ $plazo->id_plazo }}"
+                                        class="btn btn-warning btn-sm w-30">
+                                        <i class="ki-outline ki-pencil fs-5"></i> </a>
+
+                                    <a href="/captaciones/tasas/{{ $plazo->id_plazo }}" class="btn btn-info btn-sm w-30">
+                                        <i class="ki-outline ki-printer fs-5"></i>
+                                    </a>
+
+                                    <a href="/captaciones/tasas/{{ $plazo->id_plazo }}" class="btn btn-danger btn-sm w-30">
+                                        <i class="ki-outline ki-cross-circle   fs-5"></i>
+                                    </a>
+
+
+
+
+                                </td>
+                                <td>{{ $plazo->numero_certificado }}</td>
+                                <td>{{ $plazo->nombre }}</td>
+                                <td>$ {{ number_format($plazo->monto_deposito, 2, '.', ',') }}</td>
+                                <td>{{ $plazo->valor }}%</td>
+                                <td>{{ $plazo->plazo_deposito }} Meses</td>
+                                <td><span class="badge badge-info"> ${{ number_format($plazo->interes_mensual,2,'.',',') }}</span>
+                                {{-- <span class="badge badge-info"> ${{ number_format($plazo->interes_total,2,'.',',') }}</span> --}}
+                                </td>
+
+                                <td><span class="badge badge-success"> {{ \Carbon\Carbon::parse($plazo->fecha_deposito)->format('d-m-Y') }}</span>
+                                <span class="badge badge-danger">{{ \Carbon\Carbon::parse($plazo->fecha_vencimiento)->format('d-m-Y') }}</span>
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="card-footer">
             {{ $depositosplazo->links('vendor.pagination.bootstrap-5') }}

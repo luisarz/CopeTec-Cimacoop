@@ -38,7 +38,9 @@ return [
         'binary'  => env('WKHTML_PDF_BINARY', base_path().'\storage\lib\wkhtmltopdf.exe'),
         
         'timeout' => false,
-        'options' => [],
+        'options' => [
+            'enable-local-file-access' => true,
+        ],
         'env'     => [],
     ],
     
