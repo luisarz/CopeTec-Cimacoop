@@ -207,7 +207,7 @@ class ReportesController extends Controller
         $fechaActual = new DateTime();
         $beneficiarios = Cuentas::join('beneficiarios', 'beneficiarios.id_cuenta', '=', 'cuentas.id_cuenta')->get();
         $formatter = new NumeroALetras();
-        $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_deposito, 2, 'DóLARES');
+        $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_deposito, 2, 'DLARES');
         $img = public_path('assets/media/logos/certificado_fondo.jpg');
 
         $pdf = \App::make('snappy.pdf');

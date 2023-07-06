@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AperturaCajaController;
+use App\Http\Controllers\BeneficiarosDepositosController;
 use App\Http\Controllers\BobedaController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\DepositosPlazoController;
@@ -306,6 +307,8 @@ Route::put('/captaciones/tasas/put', [TasasPlazosController::class, 'put'])->mid
 Route::get('/captaciones/tasas/getTasasByPlazoid/{id}', [TasasPlazosController::class, 'getTasasByPlazoid'])->middleware(['auth', 'bitacora']);
 Route::get('/captaciones/tasas/getTasaById/{id}', [TasasPlazosController::class, 'getTasaById'])->middleware(['auth', 'bitacora']);
 
+
+
 /*
 Depositos Plazo Fijos
 */
@@ -317,3 +320,9 @@ Route::put('/captaciones/depositosplazo/put', [DepositosPlazoController::class, 
 Route::get('/captaciones/depositosplazo/liquidar/{id}', [DepositosPlazoController::class, 'liquidar'])->middleware(['auth', 'bitacora']);
 Route::post('/captaciones/depositosplazo/liquidar', [DepositosPlazoController::class, 'liquidarDeposito'])->middleware(['auth', 'bitacora']);
 Route::get('/captaciones/depositosplazo/renovar/{id}', [DepositosPlazoController::class, 'renovar'])->middleware(['auth', 'bitacora']);
+
+/*
+Beneficiarios Depositos Plazo Fijos
+*/
+
+Route::get('/captaciones/depositosplazo/{id}/beneficiarios', [BeneficiarosDepositosController::class, 'indexBeneficiarios'])->middleware(['auth', 'bitacora']);

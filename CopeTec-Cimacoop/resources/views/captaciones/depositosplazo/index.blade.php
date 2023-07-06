@@ -4,6 +4,19 @@
     Administracion de Roles
 @endsection
 
+@section('formName')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+@endsection
+
 @section('content')
     <div class="card shadow-lg">
         <div class="card-header ribbon ribbon-end ribbon-clip">
@@ -25,13 +38,15 @@
 
                 <span class="ribbon-inner bg-info"></span>
             </div>
+
+          
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover table-row-dashed fs-5     gy-2 gs-5">
                     <thead>
                         <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
-                            <th class="min-w-200px">Acciones</th>
+                            <th class="min-w-230px">Acciones</th>
                             <th class="min-w-20px">Certificado</th>
                             <th class="min-w-80px">Asociado</th>
                             <th class="min-w-50px">Monto</th>
@@ -45,18 +60,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($depositosplazo as $plazo)
+                        @foreach ($depositosplazo as $deposito)
                             <tr>
                                 <td>
-                                    <a href="/captaciones/plazos/edit/{{ $plazo->id_plazo }}"
-                                        class="btn btn-warning btn-sm w-30">
+
+
+
+                                    <a href="/captaciones/plazos/edit/{{ $deposito->id_deposito_plazo_fijo }}"
+                                        target="_b.lank" class="btn btn-warning btn-sm w-30">
                                         <i class="ki-outline ki-pencil fs-5"></i> </a>
 
-                                    <a href="/captaciones/tasas/{{ $plazo->id_plazo }}" class="btn btn-info btn-sm w-30">
-                                        <i class="ki-outline ki-printer fs-5"></i>
+                               
+                                    <a href="/captaciones/depositosplazo/{{ $deposito->id_deposito_plazo_fijo }}/beneficiarios"
+                                        class="btn btn-success btn-sm w-30">
+                                        <i class="ki-outline ki-security-user   fs-3"></i>
                                     </a>
 
-                                    <a href="/captaciones/tasas/{{ $plazo->id_plazo }}" class="btn btn-danger btn-sm w-30">
+                                    <a href="/captaciones/tasas/{{ $deposito->id_deposito_plazo_fijo }}"
+                                        class="btn btn-danger btn-sm w-30">
                                         <i class="ki-outline ki-cross-circle   fs-5"></i>
                                     </a>
 
@@ -64,17 +85,21 @@
 
 
                                 </td>
-                                <td>{{ $plazo->numero_certificado }}</td>
-                                <td>{{ $plazo->nombre }}</td>
-                                <td>$ {{ number_format($plazo->monto_deposito, 2, '.', ',') }}</td>
-                                <td>{{ $plazo->valor }}%</td>
-                                <td>{{ $plazo->plazo_deposito }} Meses</td>
-                                <td><span class="badge badge-info"> ${{ number_format($plazo->interes_mensual,2,'.',',') }}</span>
-                                {{-- <span class="badge badge-info"> ${{ number_format($plazo->interes_total,2,'.',',') }}</span> --}}
+                                <td>{{ $deposito->numero_certificado }}</td>
+                                <td>{{ $deposito->nombre }}</td>
+                                <td>$ {{ number_format($deposito->monto_deposito, 2, '.', ',') }}</td>
+                                <td>{{ $deposito->valor }}%</td>
+                                <td>{{ $deposito->plazo_deposito }} Meses</td>
+                                <td><span class="badge badge-info">
+                                        ${{ number_format($deposito->interes_mensual, 2, '.', ',') }}</span>
+                                    {{-- <span class="badge badge-info"> ${{ number_format($plazo->interes_total,2,'.',',') }}</span> --}}
                                 </td>
 
-                                <td><span class="badge badge-success"> {{ \Carbon\Carbon::parse($plazo->fecha_deposito)->format('d-m-Y') }}</span>
-                                <span class="badge badge-danger">{{ \Carbon\Carbon::parse($plazo->fecha_vencimiento)->format('d-m-Y') }}</span>
+                                <td><span class="badge badge-success">
+                                        {{ \Carbon\Carbon::parse($deposito->fecha_deposito)->format('d-m-Y') }}</span>
+                                    <br />
+                                    <span
+                                        class="badge badge-danger">{{ \Carbon\Carbon::parse($deposito->fecha_vencimiento)->format('d-m-Y') }}</span>
                                 </td>
 
                             </tr>
@@ -96,9 +121,12 @@
 @endsection
 
 @section('scripts')
-    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-    <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script>
+        $(document).ready(function() {
+            $('.dropdown-toggle').dropdown();
+
+        });
+
         function alertDelete(id) {
             Swal.fire({
                 text: "Deseas Eliminar este registro",
