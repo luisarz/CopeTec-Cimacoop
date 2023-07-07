@@ -8,7 +8,7 @@
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-        {{ $estilos }}
+        {{ $estilos }} {{ $stilosBundle }}
     </style>
 
 </head>
@@ -17,7 +17,7 @@
 
 
     <div style="position: relative; color:#333683">
-        <img src="{{ $fondo }}" alt="Image" style="width: 1350px; height: 950px;">
+        <img src="{{ $fondo }}" alt="Image" style="width: 1350px; height: 930px;">
         <div style="position: absolute; top: 200px; left: 150px; width: 80%; height: 100%; z-index: 1;">
             <div style=" font-family: 'Segoe UI' !important; font-size:28px !important;">
 
@@ -45,7 +45,7 @@
 
                 Este deposito está sujeto a las condiciones siguientes.
                 <ul style=" list-style-type: none;">
-                    <li>1. Los intereses devengados poor el presente certificado se abonarán a la cuenta de ahorro.
+                    <li>1. Los intereses devengados por el presente certificado se abonarán a la cuenta de ahorro.
 
                     </li>
                     <li>2. Los intereses serán pagados de forma:
@@ -97,20 +97,10 @@
             </div>
             <br>
             <br>
-            <br>
-            <br>
-            <br>
-            <table class="table">
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+            <table class="table table-borderless">
 
-                <tbody>
-                    <tr>
+                <tbody style="border: 1px solid white;">
+                    <tr style="border: 1px solid white;">
                         <td style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5;">
                             San Miguel,
                             {{ \Carbon\Carbon::parse($datosContrato->fecha_deposito)->format('d \d\e ') . \Carbon\Carbon::parse($datosContrato->fecha_deposito)->monthName . \Carbon\Carbon::parse($datosContrato->fecha_deposito)->format(' \d\e Y') }}
@@ -122,23 +112,23 @@
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <tr style="border: 1px solid white;">
                         <td
-                            style="width:30%; font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 1px solid #333683; text-align:center">
-                            Lugar y fecha</td>
-                        <td></td>
+                            style="width:35%; font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 2px solid #333683 !important; text-align:center">
+                            Lugar y fecha
+                        <td>
                         <td
-                            style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 1px solid #333683; text-align:center">
-                            Autoriza</td>
-                        <td></td>
+                            style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 2px solid #333683 !important; text-align:center">
+                            Autoriza
+                        <td>
                         <td
-                            style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 1px solid #333683; text-align:center">
+                            style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 2px solid #333683 !important; text-align:center">
                             Cajero/a</td>
                         <td></td>
                         <td
-                            style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 1px solid #333683; text-align:center">
+                            style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 2px solid #333683 !important; text-align:center">
                             Sello</td>
-                        <td></td>
+
                     </tr>
 
                 </tbody>
@@ -146,50 +136,53 @@
         </div>
     </div>
     <div>
+        <br>
+        <span class="description"> BENEFICIARIOS </span>
+        <br>
+        <br>
 
-        <table class="table">
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+        <div class="w-80%">
+            <table class="table table-bordered w-80%">
+                <thead style="text-align: center; font-size:18px;">
+                    <tr>
+                        <th class="min-w-90px">No</th>
+                        <th class="min-w-200px"> BENEFICIRIO</th>
+                        <th class="min-w-100">PORCENTAJE</th>
+                        <th class="min-w-100px">PARENTESCO</th>
+                        <th class="min-w-200px">EDAD</th>
+                        <th class="min-w-200px">DIRECCION</th>
 
-            <tbody>
-                <tr>
-                    <td style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5;">San
-                        Miguel,
-                        {{ \Carbon\Carbon::parse($datosContrato->fecha_deposito)->format('d \d\e ') . \Carbon\Carbon::parse($datosContrato->fecha_deposito)->monthName . \Carbon\Carbon::parse($datosContrato->fecha_deposito)->format(' \d\e Y') }}
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td
-                        style="width:30%; font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 1px solid #333683; text-align:center">
-                        Lugar y fecha</td>
-                    <td></td>
-                    <td
-                        style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 1px solid #333683; text-align:center">
-                        Autoriza</td>
-                    <td></td>
-                    <td
-                        style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 1px solid #333683; text-align:center">
-                        Cajero/a</td>
-                    <td></td>
-                    <td
-                        style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 1px solid #333683; text-align:center">
-                        Sello</td>
-                    <td></td>
-                </tr>
+                    </tr>
+                </thead>
 
-            </tbody>
-        </table>
+                <tbody class=" fs-1 text-black-800">
+
+                    @foreach ($beneficiarios as $beneficiario)
+                        <tr style="text-align: center; font-size:18px;">
+                            <td>{{ $loop->iteration }}</td>
+
+                            <td style="text-align: center;">{{ $beneficiario->nombre_beneficiario }}</td>
+                            <td>{{ $beneficiario->porcentaje }}%</td>
+                            <td>{{ $beneficiario->parentesco }}</td>
+                            <td>{{ $beneficiario->edad }}-Años</td>
+                            <td>{{ $beneficiario->direccion }}</td>
+
+
+                        </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+            <br />
+            <br />
+            <br />
+
+            <div style="font-size: 18px;">
+                F:____________________________________________<br>
+                Asociado
+
+            </div>
+        </div>
     </div>
 </body>
 

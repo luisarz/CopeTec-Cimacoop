@@ -9,9 +9,9 @@
 
 @section('content')
 
-<input type="hidden" name="tieneBeneficiarios" id="tieneBeneficiarios" value="{{ $tieneBeneficiarios }}">
+    <input type="hidden" name="tieneBeneficiarios" id="tieneBeneficiarios" value="{{ $tieneBeneficiarios }}">
     <div class="card mb-5 mb-xl-10">
-        <div class="card-body pt-9 pb-0">
+        <div class="card-body pt-9 pb-5">
             <!--begin::Details-->
             <div class="d-flex flex-wrap flex-sm-nowrap">
                 <!--begin: Pic-->
@@ -122,11 +122,22 @@
                 <!--end::Info-->
             </div>
             <!--end::Details-->
+            <a href="/captaciones/depositosplazo">
 
-            <a href="/beneficiarios/add/{{ $depositoPlazo->id_depositoPlazo }}" class="btn btn-success btn-sm">
+                <button type="button"
+                    class="btn btn-outline btn-outline-dashed btn-outline-danger btn-sm btn-active-light-danger">
+                    <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
+                        <i class="path1"></i>
+                        <i class="path2"></i>
+                    </i>
+                </button>
+            </a>
+            <a href="/captaciones/beneficiarios/add/{{ $depositoPlazo->id_deposito_plazo_fijo }}"
+                class="btn btn-success btn-sm">
                 <i class="ki-outline ki-user-tick fs-1"></i> Agregar Beneficiario
             </a>
-            <a a href="javascript:void(0);" onclick="imprimirCertificado({{ $depositoPlazo->id_deposito_plazo_fijo}})"  class="btn btn-info btn-sm w-30">
+            <a a href="javascript:void(0);" onclick="imprimirCertificado({{ $depositoPlazo->id_deposito_plazo_fijo }})"
+                class="btn btn-info btn-sm w-30">
                 <i class="ki-outline ki-printer fs-1"></i>
                 Certificado
             </a>
@@ -140,9 +151,12 @@
             <thead class="thead-dark">
                 <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                     <th class="min-w-90px">Acciones</th>
-                    <th class="min-w-200px">depositoPlazo</th>
+                    <th class="min-w-200px">Beneficiario</th>
+                    <th class="min-w-100">Pocentaje</th>
                     <th class="min-w-100px">parentesco</th>
-                    <th class="min-w-200px">porcentaje</th>
+                    <th class="min-w-200px">Edad</th>
+                    <th class="min-w-200px">Dirección</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -151,27 +165,29 @@
                     <tr>
                         <td colspan="4" class="text-center">
                             <div class="alert alert-danger">
-                                No hay Beneficiaarios Registrados
+                                No hay Beneficiarios Registrados
                             </div>
                         </td>
                     </tr>
                 @else
                     @foreach ($beneficiarios as $beneficiario)
                         <tr>
-                            <td><a href="javascript:void(0);" onclick="alertDelete({{ $beneficiario->id_beneficiario }})"
-                                    class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
+                            <td><a href="javascript:void(0);" onclick="alertDelete({{ $beneficiario->id_beneficiario }},{{ $depositoPlazo->id_deposito_plazo_fijo }})"
+                                    class=" btn btn-sm btn-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
                                     Eliminar</a>
-                                <a href="/beneficiarios/edit/{{ $beneficiario->id_beneficiario }}"
-                                    class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp;
+                                <a href="/captaciones/beneficiarios/edit/{{ $beneficiario->id_beneficiario }}"
+                                    class="btn btn-sm btn-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp;
                                     Modificar</a>
 
 
 
                             </td>
-                            <td>{{ $beneficiario->nombre }}</td>
-                            <td>{{ $beneficiario->parentesco }}</td>
+                            <td>{{ $beneficiario->nombre_beneficiario }}</td>
                             <td>{{ $beneficiario->porcentaje }}%</td>
+                            <td>{{ $beneficiario->parentesco }}</td>
+                            <td>{{ $beneficiario->edad }}-Años</td>
                             <td>{{ $beneficiario->direccion }}</td>
+
 
                         </tr>
                     @endforeach
@@ -180,10 +196,12 @@
             </tbody>
         </table>
     </div>
-    <form method="post" id="deleteForm" action="/intereses/delete">
+    <form method="post" id="deleteForm" action="/captaciones/beneficiarios/delete">
         {!! csrf_field() !!}
         {{ method_field('DELETE') }}
         <input type="hidden" name="id" id="id">
+        <input type="hidden" name="id_deposito_plazo_fijo" id="id_deposito_plazo_fijo">
+
     </form>
 @endsection
 
@@ -191,27 +209,27 @@
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script>
-        $("#table_depositoPlazos").DataTable();
-        function imprimirCertificado(id){
-            let tieneBeneficiarios=$("#tieneBeneficiarios").val();
-            if (tieneBeneficiarios){
-                window.open('/reportes/depositoplazo/'+id, '_blank');
-            }else{
+
+        function imprimirCertificado(id) {
+            let tieneBeneficiarios = $("#tieneBeneficiarios").val();
+            if (tieneBeneficiarios) {
+                window.open('/reportes/depositoplazo/' + id, '_blank');
+            } else {
                 Swal.fire({
-                text: "Agregue al menos un beneficiario para poder imprimir el certificado",
-                icon: "info",
-                buttonsStyling: false,
-                showCancelButton: false,
-                showConfirmButton: true,
-                confirmButtonText: "Volver",
-                customClass: {
-                    confirmButton: "btn btn-info"
-                }
-            })
+                    text: "Agregue al menos un beneficiario para poder imprimir el certificado",
+                    icon: "info",
+                    buttonsStyling: false,
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    confirmButtonText: "Volver",
+                    customClass: {
+                        confirmButton: "btn btn-info"
+                    }
+                })
             }
         }
 
-        function alertDelete(id) {
+        function alertDelete(id,id_deposito) {
             Swal.fire({
                 text: "Deseas Eliminar este registro",
                 icon: "question",
@@ -226,6 +244,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $("#id").val(id)
+                    $("#id_deposito_plazo_fijo").val(id_deposito)
                     $("#deleteForm").submit();
                 } else if (result.isDenied) {}
             });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BeneficiarosDepositos;
 use App\Models\DepositosPlazo;
+use App\Models\Parentesco;
 use Illuminate\Http\Request;
 
 class BeneficiarosDepositosController extends Controller
@@ -11,13 +12,14 @@ class BeneficiarosDepositosController extends Controller
     //
     public function indexBeneficiarios($id)
     {
-        $beneficiarios = BeneficiarosDepositos::where('id_deposito', '=', $id)->get();
+        $beneficiarios = BeneficiarosDepositos::where('id_deposito', '=', $id)
+        ->join('parentesco','parentesco.id_parentesco','=','beneficiarios_depositos.parentesco')->get();
+
         $tieneBeneficiarios = true;
         if ($beneficiarios->isEmpty()) {
            $beneficiarios=null;
            $tieneBeneficiarios = false;
         }
-        // dd($beneficiarios);
 
 
         $totalAsignado = BeneficiarosDepositos::where('id_deposito', '=', $id)
@@ -38,5 +40,60 @@ class BeneficiarosDepositosController extends Controller
         }
 
         return view('captaciones.beneficiarios.index', compact('beneficiarios', 'id', 'depositoPlazo', 'totalAsignado', 'tieneBeneficiarios'));
+    }
+    public function add($id_deposito){
+
+        $totalAsignado = BeneficiarosDepositos::where('id_deposito', '=', $id_deposito)
+            ->sum('porcentaje');
+        $parentescos = Parentesco::all();
+
+        return view("captaciones.beneficiarios.add",compact("id_deposito", "totalAsignado",  'parentescos'));
+
+    }
+
+    public function post(Request $request){
+    
+        $beneficiarioDeposito = new BeneficiarosDepositos();
+        $beneficiarioDeposito->id_deposito = $request->id_deposito;
+        $beneficiarioDeposito->nombre_beneficiario = $request->nombre_beneficiario;
+        $beneficiarioDeposito->edad = $request->edad;
+        $beneficiarioDeposito->parentesco = $request->parentesco;
+        $beneficiarioDeposito->porcentaje = $request->porcentaje;
+        $beneficiarioDeposito->direccion = $request->direccion;
+        $beneficiarioDeposito->telefono = $request->telefono;
+        $beneficiarioDeposito->save();
+       return redirect('captaciones/depositosplazo/'. $request->id_deposito.'/beneficiarios');
+
+    }
+    public function edit($id_beneficiario)
+    {
+        $beneficiario = BeneficiarosDepositos::findOrFail($id_beneficiario);
+        $id_deposito = $beneficiario->id_deposito;
+        $parentescos = Parentesco::all();
+
+        $totalAsignado = BeneficiarosDepositos::where('id_deposito', '=', $id_deposito)
+            ->sum('porcentaje');
+        return view("/captaciones/beneficiarios/edit", compact("beneficiario", "totalAsignado",'id_deposito', 'parentescos'));
+    }
+
+    public function put(Request $request){
+
+
+        $beneficiarioDeposito = BeneficiarosDepositos::findOrFail($request->id_beneficiario);
+        $beneficiarioDeposito->nombre_beneficiario = $request->nombre_beneficiario;
+        $beneficiarioDeposito->edad = $request->edad;
+        $beneficiarioDeposito->parentesco = $request->parentesco;
+        $beneficiarioDeposito->porcentaje = $request->porcentaje;
+        $beneficiarioDeposito->direccion = $request->direccion;
+        $beneficiarioDeposito->telefono = $request->telefono;
+        $beneficiarioDeposito->save();
+        return redirect('/captaciones/depositosplazo/'. $request->id_deposito.'/beneficiarios');
+
+    }
+    public function delete(Request $request){
+        $id = $request->id;
+        BeneficiarosDepositos::destroy($id);
+        return redirect("/captaciones/depositosplazo/".$request->id_deposito_plazo_fijo."/beneficiarios");
+
     }
 }

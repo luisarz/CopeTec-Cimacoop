@@ -26,9 +26,9 @@
                     Nuevo Deposito
                 </a>
                 &nbsp;
-                <a href="/captaciones/depositosplazo/add" class="btn btn-info">
+                <a href="/captaciones/depositosplazo/add" class="btn btn-danger">
                     <i class="ki-outline ki-calendar-add fs-2x"></i>
-                    Nuevo Deposito
+                        Depositar Intereses
                 </a>
             </div>
             <div class="ribbon-label fs-3">
@@ -66,8 +66,8 @@
 
 
 
-                                    <a href="/captaciones/plazos/edit/{{ $deposito->id_deposito_plazo_fijo }}"
-                                        target="_b.lank" class="btn btn-warning btn-sm w-30">
+                                    <a href="/captaciones/depositosplazo/edit/{{ $deposito->id_deposito_plazo_fijo }}"
+                                        class="btn btn-warning btn-sm w-30">
                                         <i class="ki-outline ki-pencil fs-5"></i> </a>
 
                                
@@ -89,7 +89,7 @@
                                 <td>{{ $deposito->nombre }}</td>
                                 <td>$ {{ number_format($deposito->monto_deposito, 2, '.', ',') }}</td>
                                 <td>{{ $deposito->valor }}%</td>
-                                <td>{{ $deposito->plazo_deposito }} Meses</td>
+                                <td>{{ $deposito->meses }} Meses</td>
                                 <td><span class="badge badge-info">
                                         ${{ number_format($deposito->interes_mensual, 2, '.', ',') }}</span>
                                     {{-- <span class="badge badge-info"> ${{ number_format($plazo->interes_total,2,'.',',') }}</span> --}}
@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <form method="post" id="deleteForm" action="/rol/delete">
+    <form method="post" id="deleteForm" action="/captaciones/beneficiarios/delete">
         {!! csrf_field() !!}
         {{ method_field('DELETE') }}
         <input type="hidden" name="id" id="id">
@@ -122,11 +122,7 @@
 
 @section('scripts')
     <script>
-        $(document).ready(function() {
-            $('.dropdown-toggle').dropdown();
-
-        });
-
+      
         function alertDelete(id) {
             Swal.fire({
                 text: "Deseas Eliminar este registro",
@@ -143,7 +139,7 @@
                 if (result.isConfirmed) {
                     $("#id").val(id)
                     $("#deleteForm").submit();
-                } else if (result.isDenied) {}
+                } 
             });
         }
     </script>

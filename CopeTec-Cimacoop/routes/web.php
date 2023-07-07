@@ -326,3 +326,8 @@ Beneficiarios Depositos Plazo Fijos
 */
 
 Route::get('/captaciones/depositosplazo/{id}/beneficiarios', [BeneficiarosDepositosController::class, 'indexBeneficiarios'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/beneficiarios/add/{id_deposito}', [BeneficiarosDepositosController::class, 'add'])->middleware(['auth', 'bitacora']);
+Route::post('/captaciones/beneficiarios/add', [BeneficiarosDepositosController::class, 'post'])->middleware(['auth', 'bitacora']);
+Route::get('/captaciones/beneficiarios/edit/{id}', [BeneficiarosDepositosController::class, 'edit'])->middleware(['auth', 'bitacora']);
+Route::put('/captaciones/beneficiarios/put', [BeneficiarosDepositosController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::delete('/captaciones/beneficiarios/delete', [BeneficiarosDepositosController::class, 'delete'])->middleware(['auth', 'bitacora']);

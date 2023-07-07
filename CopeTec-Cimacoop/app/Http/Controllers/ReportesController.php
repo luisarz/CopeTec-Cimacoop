@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BeneficiarosDepositos;
 use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
 use App\Models\Clientes;
@@ -195,6 +196,8 @@ class ReportesController extends Controller
     {
         $idCuenta = $id;
         $estilos = file_get_contents(public_path('assets/css/css.css'));
+        $stilosBundle = file_get_contents(public_path('assets/css/style.bundle.css'));
+
 
       $datosContrato = DepositosPlazo::join('asociados','depositos_plazo.id_asociado','=','asociados.id_asociado')
         ->join('clientes','clientes.id_cliente','=','asociados.id_cliente')
@@ -205,7 +208,9 @@ class ReportesController extends Controller
         ->first();
         // dd($datosContrato);
         $fechaActual = new DateTime();
-        $beneficiarios = Cuentas::join('beneficiarios', 'beneficiarios.id_cuenta', '=', 'cuentas.id_cuenta')->get();
+        $beneficiarios = BeneficiarosDepositos::where('id_deposito', '=', $id)
+            ->join('parentesco', 'parentesco.id_parentesco', '=', 'beneficiarios_depositos.parentesco')->get();
+
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_deposito, 2, 'DLARES');
         $img = public_path('assets/media/logos/certificado_fondo.jpg');
@@ -213,6 +218,7 @@ class ReportesController extends Controller
         $pdf = \App::make('snappy.pdf');
         $pdf = PDF::loadView('reportes.depositoplazo.certificado', [
             'estilos' => $estilos,
+            'stilosBundle' => $stilosBundle,
             'datosContrato' => $datosContrato,
             'beneficiarios' => $beneficiarios,
             'numeroEnLetras' => $numeroEnLetras,
