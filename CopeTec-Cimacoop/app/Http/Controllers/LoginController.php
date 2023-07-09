@@ -113,7 +113,8 @@ class LoginController extends Controller
 
 
         $Access = ModuloRol::Where("id_rol",$user->id_rol)
-        ->join('modulo','modulo.id_modulo', '=', 'modulo_rol.id_modulo')->get();
+        ->join('modulo','modulo.id_modulo', '=', 'modulo_rol.id_modulo')
+        ->orderBy('modulo.orden', 'ASC')->get();
         
         $session->put("access",$Access);
 

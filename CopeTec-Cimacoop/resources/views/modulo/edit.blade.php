@@ -76,6 +76,20 @@
                     </div>
                 </div>
             </div>
+            <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                <div class="col">
+                    <div class="fv-row mb-7">
+                        <!--begin::Label-->
+                        <label class="fs-6 fw-semibold form-label mt-3">
+                            <span>Orden del Modulo</span>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Input-->                        
+                            <input type="number" min="1"  placeholder="Orden Modulo" class="form-control form-control-solid" name="orden" value="{{$modulo->orden}}">
+                        <!--end::Input-->
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
     <div class="card-footer">

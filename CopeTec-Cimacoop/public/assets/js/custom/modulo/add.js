@@ -17,14 +17,6 @@ var KTAuthNewPassword = function() {
                         validators: {
                             notEmpty: {
                                 message: 'El campo nombre de modulo es obligatoria'
-                            },
-                            callback: {
-                                message: 'Ingresa una contraseña valida',
-                                callback: function(input) {
-                                    if (input.value.length > 0) {        
-                                        return validatePassword();
-                                    }
-                                }
                             }
                         }
                     },
@@ -32,6 +24,19 @@ var KTAuthNewPassword = function() {
                         validators: {
                             notEmpty: {
                                 message: 'La Ruta del modulo es obligatoria'
+                            }
+                        }
+                    },
+                    'orden': {
+                        validators: {
+                            notEmpty: {
+                                message: 'El Orden de modulo es Obligatorio'
+                            },
+                            callback: {
+                                message: 'El Orden del modulo debe ser mayor a 0',
+                                callback: function(input) {
+                                    return parseInt(input.value) > 0
+                                }
                             }
                         }
                     }
