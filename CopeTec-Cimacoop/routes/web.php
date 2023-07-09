@@ -331,3 +331,12 @@ Route::post('/captaciones/beneficiarios/add', [BeneficiarosDepositosController::
 Route::get('/captaciones/beneficiarios/edit/{id}', [BeneficiarosDepositosController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/captaciones/beneficiarios/put', [BeneficiarosDepositosController::class, 'put'])->middleware(['auth', 'bitacora']);
 Route::delete('/captaciones/beneficiarios/delete', [BeneficiarosDepositosController::class, 'delete'])->middleware(['auth', 'bitacora']);
+
+
+
+
+/*
+Creditos
+*/
+
+Route::get('/creditos/solicitudes', [App\Http\Controllers\CreditosController::class, 'index'])->middleware(['auth', 'bitacora']);
