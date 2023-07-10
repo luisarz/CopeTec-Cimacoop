@@ -6,6 +6,7 @@ use App\Http\Controllers\BobedaController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\DepositosPlazoController;
 use App\Http\Controllers\PlazosController;
+use App\Http\Controllers\SolicitudCreditoController;
 use App\Http\Controllers\TasasPlazosController;
 use App\Http\Controllers\TempPasswordController;
 use Illuminate\Support\Facades\Route;
@@ -105,6 +106,7 @@ Route::get('/clientes/add', [ClientesController::class, 'add'])->middleware(['au
 Route::post('/clientes/add', [ClientesController::class, 'post'])->middleware(['auth','bitacora']);
 Route::delete('/clientes/delete', [ClientesController::class, 'delete'])->middleware(['auth','bitacora']);
 Route::get('/clientes/{id}', [ClientesController::class, 'edit'])->middleware(['auth','bitacora']);
+Route::get('/clientes/getClienteData/{id}', [ClientesController::class, 'getClienteData'])->middleware(['auth', 'bitacora']);
 Route::put('/clientes/put', [ClientesController::class, 'put'])->middleware(['auth','bitacora']);
 
 /*
@@ -339,4 +341,5 @@ Route::delete('/captaciones/beneficiarios/delete', [BeneficiarosDepositosControl
 Creditos
 */
 
-Route::get('/creditos/solicitudes', [App\Http\Controllers\CreditosController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/solicitudes', [SolicitudCreditoController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/solicitudes/add', [SolicitudCreditoController::class, 'add'])->middleware(['auth', 'bitacora']);

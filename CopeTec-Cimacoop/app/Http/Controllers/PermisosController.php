@@ -11,7 +11,7 @@ class PermisosController extends Controller
 {
     public function index()
     {
-        $modulos = Modulo::all();
+        $modulos = Modulo::all()->sortBy("orden");
         $roles = Roles::all();
         return view("permisos.index",compact("modulos","roles"));
     }

@@ -20,10 +20,11 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">
+           <div class="table-responsive">
+             <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">
                 <thead>
-                    <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                        <th class="min-w-100px">Acciones</th>
+                    <tr class="fw-semibold fs-2 text-gray-800 border-bottom-2 border-gray-200">
+                        <th class="min-w-150px">Acciones</th>
                         <th class="min-w-200px">Nombre</th>
                         <th class="min-w-90px">Genero</th>
                         <th class="min-w-90px">DUI</th>
@@ -35,9 +36,9 @@
                     @foreach ($empleados as $empleado)
                         <tr>
                             <td><a href="javascript:void(0);" onclick="alertDelete({{ $empleado->id_empleado }})"
-                                    class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
+                                    class="btn btn-sm btn-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
                                     Eliminar</a> <a href="/empleados/{{ $empleado->id_empleado }}"
-                                    class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp;
+                                    class="btn btn-sm btn-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp;
                                     Modificar</a></td>
                             <td>{{ $empleado->nombre_empleado }}</td>
                             <td>{{ $empleado->genero_empleado }}</td>
@@ -49,6 +50,7 @@
                     @endforeach
                 </tbody>
             </table>
+           </div>
         </div>
         <div class="card-footer">
 

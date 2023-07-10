@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Clientes;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 
 class ClientesController extends Controller
 {
     public function index()
     {
-        $clientes = Clientes::whereNotIn('estado',[0,7])->paginate(10);// 1-Para los anulados 2-Para la Bobeda
+        $clientes = Clientes::whereNotIn('estado', [0, 7])->paginate(10); // 1-Para los anulados 2-Para la Bobeda
         return view("clientes.index", compact("clientes"));
     }
 
@@ -27,10 +29,10 @@ class ClientesController extends Controller
 
     public function post(Request $request)
     {
-        $cliente=Clientes::where("dui_cliente",$request->dui_cliente)->first();
-        if($cliente && $cliente->count()>0){
-            return redirect("/clientes/add")->withInput()->withErrors(["dui_cliente"=>"Ya existe un cliente con este DUI!!"]);
-        }else{
+        $cliente = Clientes::where("dui_cliente", $request->dui_cliente)->first();
+        if ($cliente && $cliente->count() > 0) {
+            return redirect("/clientes/add")->withInput()->withErrors(["dui_cliente" => "Ya existe un cliente con este DUI!!"]);
+        } else {
             $cliente = new Clientes();
             $cliente->nombre = $request->nombre;
             $cliente->genero = $request->genero;
@@ -50,9 +52,39 @@ class ClientesController extends Controller
             $cliente->save();
             return redirect("/clientes");
         }
-      
-    }
 
+    }
+    public function getClienteData($id)
+    {
+        try {
+            $cliente = Clientes::findOrFail($id)->select(
+                'id_cliente',
+                'nombre',
+                'dui_cliente',
+                'fecha_nacimiento',
+                'genero',
+                'telefono',
+                'nacionalidad',
+                'estado_civil',
+                'direccion_personal',
+                'direccion_negocio',
+                'tipo_vivienda',
+                'profesion',
+                'fecha_expedicion',
+            )->first();
+
+            return response()->json([
+                "estado" => true,
+                "cliente" => $cliente
+            ]);
+        } catch (ModelNotFoundException $ex) {
+            return response()->json([
+                "estado" => false,
+                "mensaje" => "No se encontró el cliente"
+            ]);
+        }
+
+    }
     public function delete(Request $request)
     {
         Clientes::destroy($request->id);
@@ -62,13 +94,13 @@ class ClientesController extends Controller
     public function put(Request $request)
     {
         $cliente = Clientes::findOrFail($request->id);
-        if($cliente->dui_cliente!=$request->dui_cliente){
-            $cliente=Clientes::where("dui_cliente",$request->dui_cliente)->first();
-            if($cliente && $cliente->count()>0){
-                return redirect("/clientes/".$request->id)->withInput()->withErrors(["dui_cliente"=>"Cambió el DUI y el ingresado ya existe en otro cliente!!"]);
+        if ($cliente->dui_cliente != $request->dui_cliente) {
+            $cliente = Clientes::where("dui_cliente", $request->dui_cliente)->first();
+            if ($cliente && $cliente->count() > 0) {
+                return redirect("/clientes/" . $request->id)->withInput()->withErrors(["dui_cliente" => "Cambió el DUI y el ingresado ya existe en otro cliente!!"]);
             }
             //Aqui debe guardar si no se ha cambiado el dui
-        }else{
+        } else {
             $cliente->nombre = $request->nombre;
             $cliente->genero = $request->genero;
             $cliente->fecha_nacimiento = $request->fecha_nacimiento;

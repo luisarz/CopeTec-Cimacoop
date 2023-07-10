@@ -21,7 +21,8 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">
+          <div class="table-responsive">
+              <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">
                 <thead>
                     <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
                         <th>Acciones</th>
@@ -100,6 +101,7 @@
                     @endforeach
                 </tbody>
             </table>
+          </div>
         </div>
     </div>
 

@@ -23,8 +23,8 @@
             <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">
                 <thead>
                     <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                        <th class="min-w-50px">Acciones</th>
-                        <th class="min-w-650px">Nombre</th>
+                        <th class="min-w-150px">Acciones</th>
+                        <th class="min-w-350px">Nombre</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,11 +32,11 @@
                         <tr>
                             <td>
                                 <a href="javascript:void(0);" onclick="alertDelete({{ $tipoCuenta->id_tipo_cuenta }})"
-                                    class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
+                                    class=" btn btn-sm btn-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
                                     Eliminar</a>
-                                <a href="/tipoCuenta/{{ $tipoCuenta->id_tipo_cuenta }}" class="badge badge-primary"><i
+                                <a href="/tipoCuenta/{{ $tipoCuenta->id_tipo_cuenta }}" class="btn btn-sm btn-primary"><i
                                         class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a>
-                                <a href="/intereses/{{ $tipoCuenta->id_tipo_cuenta }}" class="badge badge-success"><i
+                                <a href="/intereses/{{ $tipoCuenta->id_tipo_cuenta }}" class="btn btn-sm  btn-success"><i
                                         class="fa-solid fa-bank text-white"></i>&nbsp;Intereses</a>
 
                             </td>
