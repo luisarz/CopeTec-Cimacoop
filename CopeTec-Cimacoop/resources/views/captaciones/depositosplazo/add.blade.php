@@ -177,9 +177,7 @@
 @endsection
 @section('scripts')
     <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/app/depositoplazo.js') }}"></script>
     <script>
         $(document).ready(function() {
 

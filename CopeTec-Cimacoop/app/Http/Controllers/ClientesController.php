@@ -57,22 +57,7 @@ class ClientesController extends Controller
     public function getClienteData($id)
     {
         try {
-            $cliente = Clientes::findOrFail($id)->select(
-                'id_cliente',
-                'nombre',
-                'dui_cliente',
-                'fecha_nacimiento',
-                'genero',
-                'telefono',
-                'nacionalidad',
-                'estado_civil',
-                'direccion_personal',
-                'direccion_negocio',
-                'tipo_vivienda',
-                'profesion',
-                'fecha_expedicion',
-            )->first();
-
+            $cliente = Clientes::findOrFail($id);
             return response()->json([
                 "estado" => true,
                 "cliente" => $cliente

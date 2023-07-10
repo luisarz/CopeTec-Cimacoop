@@ -360,8 +360,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end:Menu item-->
                                 <!--begin:Menu item-->
 
-                                @foreach(Session::get("access") as $access)
-                                    @if($access->is_padre == 1)
+                                @foreach (Session::get('access') as $access)
+                                    @if ($access->is_padre == 1)
                                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion show">
                                             <!--begin:Menu link-->
                                             <span class="menu-link">
@@ -372,21 +372,22 @@ License: For each use you must have a valid license purchased only from above li
                                                         <span class="path3"></span>
                                                     </i>
                                                 </span>
-                                                <span class="menu-title ">{{$access->nombre}}</span>
+                                                <span class="menu-title ">{{ $access->nombre }}</span>
                                                 <span class="menu-arrow"></span>
                                             </span>
                                             <!--end:Menu link-->
                                             <div class="menu-sub menu-sub-accordion">
-                                                @foreach(Session::get("access") as $sub_access)
-                                                    @if($sub_access->id_padre==$access->id_modulo)
+                                                @foreach (Session::get('access') as $sub_access)
+                                                    @if ($sub_access->id_padre == $access->id_modulo)
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item">
                                                             <!--begin:Menu link-->
-                                                            <a class="menu-link" href="{{$sub_access->ruta}}">
+                                                            <a class="menu-link" href="{{ $sub_access->ruta }}">
                                                                 <span class="menu-bullet">
                                                                     <span class="bullet bullet-dot"></span>
                                                                 </span>
-                                                                <span class="menu-title">{{$sub_access->nombre}}</span>
+                                                                <span
+                                                                    class="menu-title">{{ $sub_access->nombre }}</span>
                                                             </a>
                                                             <!--end:Menu link-->
                                                         </div>
@@ -480,7 +481,7 @@ License: For each use you must have a valid license purchased only from above li
             });
         })
 
-        function showLoading(){
+        function showLoading() {
             document.body.prepend(loadingEl);
             loadingEl.classList.add("page-loader");
             loadingEl.classList.add("flex-column");
@@ -495,9 +496,22 @@ License: For each use you must have a valid license purchased only from above li
             KTApp.showPageLoading();
         }
 
-        function hidenLoading(){
+        function hidenLoading() {
             KTApp.hidePageLoading();
             loadingEl.remove();
+        }
+
+        function swalProcessing() {
+            const swal = Swal.fire({
+                title: 'Cargando...',
+                text: 'Espere un momento por favor.',
+                allowOutsideClick: false,
+                showCancelButton: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                allowEnterKey: false,
+
+            });
         }
     </script>
     @yield('scripts')
