@@ -81,12 +81,12 @@
                         <!--begin::row group-->
                         <div class="form-group row mb-5">
                             <div class="form-floating  col-lg-2">
-                                <input type="date"  class="form-control" name="fecha_nacimiento"
-                                    id="fecha_nacimiento" placeholder="fecha_nacimiento" />
+                                <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento"
+                                    placeholder="fecha_nacimiento" />
                                 <label>Fecha Nacimiento:</label>
                             </div>
                             <div class="form-floating  col-lg-3">
-                                <select name="genero"   class="form-control">
+                                <select name="genero" class="form-control">
                                     @if ($cliente->genero == 1)
                                         <option selected value="1">Masculino</option>
                                         <option value="0">Femenino</option>
@@ -101,14 +101,13 @@
 
 
                             <div class="form-floating  col-lg-3">
-                                <input type="text" required
-                                    class="form-control" placeholder="Dui Cliente" name="dui_cliente" id="dui_cliente" />
+                                <input type="text" required class="form-control" placeholder="Dui Cliente"
+                                    name="dui_cliente" id="dui_cliente" />
                                 <label>Dui:</label>
                             </div>
 
                             <div class="form-floating  col-lg-4">
-                                <input type="date" max="{{ date('Y-m-d') }}" 
-                                     class="form-control" name="fecha_expedicion"
+                                <input type="date" max="{{ date('Y-m-d') }}" class="form-control" name="fecha_expedicion"
                                     id="fecha_expedicion" />
                                 <label>Fecha Expedicion dui:</label>
                             </div>
@@ -117,20 +116,18 @@
                         <div class="form-group row mb-5">
 
                             <div class="form-floating  col-lg-3">
-                                <input type="text" class="form-control"
-                                    name="telefono" placeholder="telefono" id="telefono" aria-label="dui"
-                                    aria-describedby="basic-addon1" />
+                                <input type="text" class="form-control" name="telefono" placeholder="telefono"
+                                    id="telefono" aria-label="dui" aria-describedby="basic-addon1" />
                                 <label>Telefono:</label>
                             </div>
                             <div class="form-floating  col-lg-5">
-                                <input type="text"   class="form-control"
-                                    name="nacionalidad" id="nacionalidad" placeholder="Nacionalidad del cliente"
-                                    aria-label="nacionalidad" aria-describedby="basic-addon1" />
+                                <input type="text" class="form-control" name="nacionalidad" id="nacionalidad"
+                                    placeholder="Nacionalidad del cliente" aria-label="nacionalidad"
+                                    aria-describedby="basic-addon1" />
                                 <label>Nacionalidad:</label>
                             </div>
                             <div class="form-floating  col-lg-4">
-                                <input type="text"   class="form-control"
-                                    name="estado_civil" id="estado_civil"
+                                <input type="text" class="form-control" name="estado_civil" id="estado_civil"
                                     placeholder="Estado Civil" />
                                 <label>Estado civil:</label>
 
@@ -140,15 +137,18 @@
                         <div class="form-group row mb-5">
 
                             <div class="form-floating  col-lg-3">
-                                <input type="text"  class="form-control" placeholder="Direccion cliente" name="direccion_personal"  id="direccion_personal" />
+                                <input type="text" class="form-control" placeholder="Direccion cliente"
+                                    name="direccion_personal" id="direccion_personal" />
                                 <label>Direccion Personal:</label>
                             </div>
                             <div class="form-floating  col-lg-5">
-                                <input type="text"  class="form-control" placeholder="Nombre negocio " name="nombre_negocio" id="nombre_negocio" />
+                                <input type="text" class="form-control" placeholder="Nombre negocio "
+                                    name="nombre_negocio" id="nombre_negocio" />
                                 <label>Nombre del negocio:</label>
                             </div>
                             <div class="form-floating  col-lg-4">
-                                <input type="text"  class="form-control" placeholder="Direccion del negocio" name="direccion_negocio"id="direccion_negocio" />
+                                <input type="text" class="form-control" placeholder="Direccion del negocio"
+                                    name="direccion_negocio"id="direccion_negocio" />
                                 <label>Direccion del negocio:</label>
                             </div>
 
@@ -157,7 +157,7 @@
 
                         <div class="form-group row mb-5">
                             <div class="form-floating  col-lg-3">
-                                <select name="tipo_vivienda"  class="form-control">
+                                <select name="tipo_vivienda" class="form-control">
                                     @if ($cliente->tipo_vivienda == 1)
                                         <option selected value="1">Propia</option>
                                         <option value="0">Alquilada</option>
@@ -170,7 +170,8 @@
 
                             </div>
                             <div class="form-floating  col-lg-9">
-                                <input type="text" class="form-control" name="observaciones" placeholder="Observaciones" />
+                                <input type="text" class="form-control" name="observaciones"
+                                    placeholder="Observaciones" />
                                 <label>Observaciones:</label>
 
                             </div>
@@ -182,52 +183,101 @@
 
                     </div>
                     <div class="tab-pane fade show" id="tabCredito" role="tabpanel">
-                        <!--begin::row group-->
-                        <div class="form-group row mb-5">
+                        <div class="row">
+                            <div class="col-md-6 p-5" style="border: 1px solid red; border-radius:5px">
+                                <div class="row mb-5">
+                                    <span class="badge badge-danger fs-3">Datos del Crédito</span>
+                                </div>
+                                <!--begin::row group-->
+                                <div class="form-group row mb-5">
 
-                            <div class="form-floating col-lg-3">
-                                <input type="number" step="any" name="monto_solicitado" class="form-control"
-                                    placeholder="numero_cheque" />
-                                <label>Monto Solicitado:</label>
-                            </div>
-                            <div class="form-floating col-lg-3">
-                                <input type="number" step="any" name="plazo" id="plazo" class="form-control"
-                                    placeholder="numero_cheque" />
-                                <label>Plazo </label>
-                            </div>
-                            <div class="form-floating col-lg-3">
-                                <input type="number" step="any" required class="form-control"
-                                    placeholder="Monto a solicitar" id="monto_deposito" name="monto_deposito">
-                                <label>Tasa :</label>
-                            </div>
-                            <div class="form-floating col-lg-3">
-                                <input type="number" readonly required class="form-control" placeholder="Cuota"
-                                    id="cuota" name="cuota" />
-                                <label>Cuota :</label>
-                            </div>
-                        </div>
-                        <!--begin::row group-->
-                        <div class="form-group row mb-5">
-                            <div class="form-floating col-lg-3">
-                                <input type="number" step="any" name="seguro_deuda" class="form-control"
-                                    placeholder="Seguro de deuda" />
-                                <label>Seguro de Deuda:</label>
-                            </div>
-                            <div class="form-floating col-lg-9">
-                                <input type="text" name="destino" id="destino" class="form-control"
-                                    placeholder="Destino Crédito" />
-                                <label>Destino:</label>
-                            </div>
-                        </div>
-                        <!--begin::row group-->
-                        <div class="form-group row mb-5">
+                                    <div class="form-floating col-lg-6">
+                                        <input type="number" step="any" name="monto_solicitado"
+                                            id="monto_solicitado" class="form-control" placeholder="numero_cheque" />
+                                        <label>Monto Solicitado:</label>
+                                    </div>
+                                    <div class="form-floating col-lg-6">
+                                        <input type="number" step="any" name="plazo" id="plazo"
+                                            class="form-control" placeholder="numero_cheque" />
+                                        <label>Plazo </label>
+                                    </div>
+                                </div>
+                                <!--begin::row group-->
+                                <div class="form-group row mb-5">
+                                    <div class="form-floating col-lg-6">
+                                        <input type="number" step="any" required class="form-control"
+                                            placeholder="Monto a solicitar" id="tasa" name="tasa">
+                                        <label>Tasa :</label>
+                                    </div>
+                                    <div class="form-floating col-lg-6">
+                                        <input type="number" readonly required class="form-control" placeholder="Cuota"
+                                            id="cuota" name="cuota" />
+                                        <label>Cuota :</label>
+                                    </div>
+                                </div>
+                                <!--begin::row group-->
+                                <div class="form-group row mb-5">
+                                    <div class="form-floating col-lg-6">
+                                        <input type="number" step="any" name="seguro_deuda" id="seguro_deuda"
+                                            class="form-control" placeholder="Seguro de deuda" />
+                                        <label>Seguro de Deuda:</label>
+                                    </div>
+                                    <div class="form-floating col-lg-6">
+                                        <input type="number" name="aportaciones" id="aportaciones" class="form-control"
+                                            placeholder="Aportaciones">
+                                        <label>Aportaciones:</label>
 
-                            <div class="form-floating col-lg-12">
-                                <textarea name="garantia" placeholder="Garantia" id="garantia" rows="10" class="form-control"
-                                    data-kt-autosize="true"></textarea>
-                                <label>Garantia:</label>
+                                    </div>
+                                </div>
+                                <!--begin::row group-->
+                                <div class="form-group row mb-5">
+                                    <div class="form-floating col-lg-12">
+                                        <input type="text" name="destino" id="destino" class="form-control"
+                                            placeholder="Destino Crédito" />
+                                        <label>Destino:</label>
+                                    </div>
+                                </div>
+                                <!--begin::row group-->
+                                <div class="form-group row mb-5">
+
+                                    <div class="form-floating col-lg-12">
+                                        <textarea name="garantia" placeholder="Garantia" id="garantia" rows="10" class="form-control"
+                                            data-kt-autosize="true"></textarea>
+                                        <label>Garantia:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 p-5" style="border: 1px solid red; border-radius:5px">
+                                <div class="row mb-5">
+                                    <span class="badge badge-danger fs-3">Tabla de Amortización</span>
+                                </div>
+                                <!--begin::row group-->
+                                <div class="form-group row mb-5">
+                                    <div class="form-floating col-lg-12">
+                                        <div class="table-responsive">
+                                            <table id="kt_datatable_vertical_scroll"
+                                                class="table table-striped table-row-bordered gy-5 gs-7">
+                                                <thead class="th-dark">
+                                                    <tr
+                                                        class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
+                                                        <th>Periodo</th>
+                                                        <th>fecha</th>
+                                                        <th>Cuota</th>
+                                                        <th>Interes</th>
+                                                        <th>Capital</th>
+                                                        <th>Saldo</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tablaAmortizacion">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="tab-pane fade show" id="tabConyugue" role="tabpanel">
                         <!--begin::row group-->
@@ -437,7 +487,6 @@
 
 
     </form>
-
 @endsection
 @section('scripts')
     <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -447,50 +496,94 @@
         $(document).ready(function() {
 
 
-
-            $("#id_cliente").on('change', function() {
-                let id_cliente = $(this).val();
-                swalProcessing();
-                $.ajax({
-                    url: '/clientes/getClienteData/' + id_cliente,
-                    type: 'GET',
-                    dataType: 'json',
-                    beforeSend: function() {
-                        swalProcessing();
-                    },
-                    success: function(data) {
-                        Swal.close();
-                        if (data.estado == true) {
-                            let cliente = data.cliente;
-                            $("#genero").val(cliente.genero).change();
-                            $("#fecha_nacimiento").val(cliente.fecha_nacimiento);
-                            $("#dui_cliente").val(cliente.dui_cliente);
-                            $("#fecha_expedicion").val(cliente.fecha_expedicion);
-                            $("#telefono").val(cliente.telefono);
-                            $("#nacionalidad").val(cliente.nacionalidad);
-                            $("#estado_civil").val(cliente.estado_civil).change();
-                            $("#direccion_personal").val(cliente.direccion_personal);
-                            $("#nombre_negocio").val(cliente.nombre_negocio);
-                            $("#direccion_negocio").val(cliente.direccion_negocio);
-                            $("#tipo_vivienda").val(cliente.tipo_vivienda).change();
-                            $("#observaciones").val(cliente.observaciones);
-                        }
-                    },
-                    error: function() {
-                        Swal.close();
-                    }
-                });
-
+            $("#monto_solicitado").on('keyup', function() {
+                calcularPago();
+            });
+            $("#plazo").on('keyup', function() {
+                calcularPago();
+            });
+            $("#tasa").on('keyup', function() {
+                calcularPago();
+            });
+            $("#cuota").on('keyup', function() {
+                calcularPago();
+            });
+            $("#seguro_deuda").on('keyup', function() {
+                calcularPago();
             });
 
 
-          
+
+
+
+            function calcularPago() {
+                let tasa = $("#tasa").val() / 100;
+                let periodos = $("#plazo").val();
+                let monto = $("#monto_solicitado").val();
+                let valorFuturo = 0;
+                let tipo = 0;
+                var fecha_solicitud = $("#fecha_solicitud").val() === "" ? new Date() : new Date($(
+                    "#fecha_solicitud").val());
+
+                if (isNaN(fecha_solicitud.getTime())) {
+                    fecha_solicitud = new Date(); // Si el valor no es una fecha válida, utilizar la fecha actual
+                } else {
+                    fecha_solicitud.setMonth(fecha_solicitud.getMonth() + 1);
+                }
+
+
+
+
+                let tasaPeriodo = tasa / 12
+                let pago;
+                if (tasaPeriodo === 0) {
+                    pago = (monto + valorFuturo) / periodos;
+                } else {
+                    let denominador = Math.pow(1 + tasaPeriodo, periodos) - 1;
+                    pago = (monto * tasaPeriodo * Math.pow(1 + tasaPeriodo, periodos)) / denominador +
+                        (valorFuturo * tasaPeriodo) / denominador;
+                }
+
+                $("#cuota").val(pago.toFixed(2));
+
+                // Generar la tabla de amortización
+                let tablaAmortizacion = $("#tablaAmortizacion");
+                tablaAmortizacion.empty();
+                let saldoPendiente = monto;
+
+                for (let i = 1; i <= periodos; i++) {
+                    fecha_solicitud.setMonth(fecha_solicitud.getMonth() + 1);
+                    var options = {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                    };
+                    var fecha_formateada = fecha_solicitud.toLocaleDateString('es-ES', options);
+
+                    let interes = saldoPendiente * tasaPeriodo;
+                    let principal = pago - interes;
+                    saldoPendiente -= principal;
+
+                    let fila = $("<tr>").append(
+                        $("<td>").text(i),
+                        $("<td>").text(fecha_formateada),
+                        $("<td>").text(pago.toFixed(2)),
+                        $("<td>").text(interes.toFixed(2)),
+                        $("<td>").text(principal.toFixed(2)),
+                        $("<td>").text(saldoPendiente.toFixed(2))
+
+                    );
+
+                    tablaAmortizacion.append(fila);
+                }
+
+            }
 
 
 
 
 
-          
+
         });
     </script>
 @endsection

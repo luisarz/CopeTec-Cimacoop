@@ -1,3 +1,37 @@
+$("#id_cliente").on('change', function () {
+    let id_cliente = $(this).val();
+    swalProcessing();
+    $.ajax({
+        url: '/clientes/getClienteData/' + id_cliente,
+        type: 'GET',
+        dataType: 'json',
+        beforeSend: function () {
+            swalProcessing();
+        },
+        success: function (data) {
+            Swal.close();
+            if (data.estado == true) {
+                let cliente = data.cliente;
+                $("#genero").val(cliente.genero).change();
+                $("#fecha_nacimiento").val(cliente.fecha_nacimiento);
+                $("#dui_cliente").val(cliente.dui_cliente);
+                $("#fecha_expedicion").val(cliente.fecha_expedicion);
+                $("#telefono").val(cliente.telefono);
+                $("#nacionalidad").val(cliente.nacionalidad);
+                $("#estado_civil").val(cliente.estado_civil).change();
+                $("#direccion_personal").val(cliente.direccion_personal);
+                $("#nombre_negocio").val(cliente.nombre_negocio);
+                $("#direccion_negocio").val(cliente.direccion_negocio);
+                $("#tipo_vivienda").val(cliente.tipo_vivienda).change();
+                $("#observaciones").val(cliente.observaciones);
+            }
+        },
+        error: function () {
+            Swal.close();
+        }
+    });
+
+});
 
 
 function equitarReferencia(id) {
