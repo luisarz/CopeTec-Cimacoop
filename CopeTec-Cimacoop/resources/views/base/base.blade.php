@@ -360,6 +360,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end:Menu item-->
                                 <!--begin:Menu item-->
 
+
                                 @foreach (Session::get('access') as $access)
                                     @if ($access->is_padre == 1)
                                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion show">

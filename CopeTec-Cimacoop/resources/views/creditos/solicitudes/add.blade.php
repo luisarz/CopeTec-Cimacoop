@@ -6,7 +6,11 @@
     <span class="badge badge-info fs-5">Solicitud: <span class="badge badge-danger">{{ $idSolicitud }}</span></span>
 @endsection
 @section('content')
-    <form action="/captaciones/depositosplazo/add" method="post" autocomplete="off">
+    <input type="hidden" id="token" value="{{ csrf_token() }}">
+
+
+
+    <form action="/creditos/solicitudes/add" method="post" autocomplete="off">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <input type="hidden" name="id_solicitud" id="id_solicitud" value="{{ $idSolicitud }}">
@@ -379,7 +383,7 @@
                                     <div class="form-floating">
                                         <input type="number" class="form-control col-lg-12 mb-5" name="gastos_vida"
                                             id="gastos_vida" placeholder="gastos de Vida">
-                                        <label>Sueldo</label>
+                                        <label>Gastos Para Vivir</label>
                                     </div>
                                     <div class="form-floating">
                                         <input type="number" class="form-control  mb-5"
@@ -429,8 +433,9 @@
                                 <label>Referencia:</label>
                             </div>
                             <div class="form-floating col-lg-2">
-                                <input type="button" class="btn btn-danger" id="btnAddReferencia"
+                                <button type="button" class="btn btn-danger" id="btnAddReferencia"
                                     name="btnAddReferencia" value="Registrar">
+                                </button>
 
                             </div>
 
@@ -450,6 +455,69 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tableReferencias">
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade show" id="tabBienes" role="tabpanel">
+
+                        {{-- formulario de bienes --}}
+                        <!--begin::row group-->
+                        <div class="form-group row mb-5">
+                            <div class="form-floating col-lg-4">
+                                <input type="text" class="form-control"  name="clase_propiedad" id="clase_propiedad"
+                                    placeholder="Tipo de bien">
+                                <label>Clase de bien:</label>
+                            </div>
+                            <div class="form-floating col-lg-8">
+                                <input type="text" class="form-control"  name="direccion_bien" id="direccion_bien"
+                                    placeholder="Tipo de bien">
+                                <label>Direccion del bien:</label>
+                            </div>
+                        </div>
+                        <!--begin::row group-->
+                        <div class="form-group row mb-3">
+                            <div class="form-floating col-lg-4">
+                                <input type="number" step="any"  class="form-control" name="valor_bien" id="valor_bien"
+                                    placeholder="Tipo de bien">
+                                <label>Valor:</label>
+                            </div>
+                            <div class="form-floating col-lg-4">
+                                <select name="hipotecado_bien"  id="hipotecado_bien" class="form-control">
+                                    <option value="1">Si</option>
+                                    <option value="0" selected>No</option>
+                                </select>
+                                <label>Hipotecado:</label>
+                            </div>
+
+                            <div class="form-floating col-lg-4 text-align-rigth">
+                                <div class="d-grid mb-5">
+                                    <button type="butoom" id="btnRegistrarBien" class="btn btn-danger text-white fs-3">
+                                        Registrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        {{-- begin rows group-- --}}
+                        <div class="form-group row mb-5 pl-10">
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-row-dashed fs-5     gy-2 gs-5">
+                                    <thead class="th-dark">
+                                        <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
+                                            <th class="min-w-230px">Acciones</th>
+                                            <th>Tipo Propiedad</th>
+                                            <th>Direccion</th>
+                                            <th>Valor</th>
+                                            <th>Hipotecada</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableBienes">
 
                                 </table>
                             </div>
@@ -494,6 +562,13 @@
     <script src="{{ asset('assets/js/app/credito.solicitud.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+         
+
+
+
+
+
 
 
             $("#monto_solicitado").on('keyup', function() {

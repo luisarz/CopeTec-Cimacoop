@@ -28,7 +28,7 @@
                 &nbsp;
                 <a href="/captaciones/solicitudsplazo/add" class="btn btn-danger">
                     <i class="ki-outline ki-calendar-add fs-2x"></i>
-                        Depositar Intereses
+                    Depositar Intereses
                 </a>
             </div>
             <div class="ribbon-label fs-3">
@@ -38,7 +38,7 @@
                 <span class="ribbon-inner bg-info"></span>
             </div>
 
-          
+
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -66,57 +66,59 @@
 
 
 
-                                    <a href="/captaciones/solicitudsplazo/edit/{{ $solicitud->id_solicitud_plazo_fijo }}"
-                                        class="btn btn-warning btn-sm w-30">
-                                        <i class="ki-outline ki-pencil fs-5"></i> </a>
 
-                               
-                                    <a href="/captaciones/solicitudsplazo/{{ $solicitud->id_solicitud_plazo_fijo }}/beneficiarios"
-                                        class="btn btn-success btn-sm w-30">
-                                        <i class="ki-outline ki-security-user   fs-3"></i>
-                                    </a>
 
-                                    <a href="/captaciones/tasas/{{ $solicitud->id_solicitud_plazo_fijo }}"
-                                        class="btn btn-danger btn-sm w-30">
-                                        <i class="ki-outline ki-cross-circle   fs-5"></i>
-                                    </a>
 
-                                     @switch($solicitud->estado)
+                                    @switch($solicitud->estado)
                                         @case(1)
-                                            <span class="badge badge-info">Pendiente</span>
-                                            @break
+                                            {{-- Editar --}}
+                                            <a href="/captaciones/solicitudsplazo/edit/{{ $solicitud->id_solicitud_plazo_fijo }}"
+                                                class="btn btn-warning btn-sm w-30">
+                                                <i class="ki-outline ki-pencil fs-5"></i> </a>
+
+                                            {{-- Resolver --}}
+                                            <a href="/captaciones/solicitudsplazo/{{ $solicitud->id_solicitud_plazo_fijo }}/beneficiarios"
+                                                class="btn btn-success btn-sm w-30">
+                                                <i class="ki-outline ki-security-user   fs-3"></i>
+                                            </a>
+                                            {{-- Anular --}}
+                                            <a href="/captaciones/tasas/{{ $solicitud->id_solicitud_plazo_fijo }}"
+                                                class="btn btn-outline btn-danger btn-sm w-30">
+                                                <i class="ki-outline ki-cross-circle   fs-5"></i>
+                                            </a>
+                                        @break
+
                                         @case(2)
                                             <span class="badge badge-success">Aprobada</span>
-                                            
-                                            @break
-                                              @case(2)
-                                            <span class="badge badge-danger">Rechazada</span>
-                                            
-                                            @break
+                                        @break
+
+                                        @case(3)
+                                        @break
+
                                         @default
-                                            
                                     @endswitch
 
 
 
 
                                 </td>
-                                <td>{{ $solicitud->id_solicitud }}</td>
+                                <td>{{ $solicitud->numero_solicitud }}</td>
                                 <td>
                                     @switch($solicitud->estado)
                                         @case(1)
+                                            {{ $solicitud->estado }}
                                             <span class="badge badge-info">Pendiente</span>
-                                            @break
+                                        @break
+
                                         @case(2)
                                             <span class="badge badge-success">Aprobada</span>
-                                            
-                                            @break
-                                              @case(2)
+                                        @break
+
+                                        @case(3)
                                             <span class="badge badge-danger">Rechazada</span>
-                                            
-                                            @break
+                                        @break
+
                                         @default
-                                            
                                     @endswitch
                                 </td>
                                 <td>{{ $solicitud->nombre }}</td>
@@ -131,7 +133,7 @@
                                 <td><span class="badge badge-success">
                                         {{ \Carbon\Carbon::parse($solicitud->fecha_solicitud)->format('d-m-Y') }}</span>
                                     <br />
-                                   </td>
+                                </td>
 
                             </tr>
                         @endforeach
@@ -153,7 +155,6 @@
 
 @section('scripts')
     <script>
-      
         function alertDelete(id) {
             Swal.fire({
                 text: "Deseas Eliminar este registro",
@@ -170,7 +171,7 @@
                 if (result.isConfirmed) {
                     $("#id").val(id)
                     $("#deleteForm").submit();
-                } 
+                }
             });
         }
     </script>
