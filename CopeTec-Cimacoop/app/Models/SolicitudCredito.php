@@ -9,5 +9,7 @@ class SolicitudCredito extends Model
 {
     protected $table = 'solicitud_credito';
     protected $primaryKey = 'id_solicitud';
+    protected $keyType = 'string';
+    public $incrementing = false;
     use HasFactory;
 }

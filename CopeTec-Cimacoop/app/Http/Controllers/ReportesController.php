@@ -19,6 +19,16 @@ use App\Helpers\ConversionHelper;
 
 class ReportesController extends Controller
 {
+    private $estilos;
+    private $stilosBundle;
+
+    public function __construct()
+    {
+        $this->estilos = file_get_contents(public_path('assets/css/css.css'));
+        $this->stilosBundle = file_get_contents(public_path('assets/css/style.bundle.css'));
+
+    }
+
 
 
     public function index()
@@ -64,15 +74,13 @@ class ReportesController extends Controller
         $pdf->setOptions([
             'enable-local-file-access' => true
         ]);
-        $estilos = file_get_contents(public_path('assets/css/css.css'));
-
 
         $pdf = PDF::loadView('reportes.movimientosBobeda', [
             'movimientoBobeda' => $movimientoBobeda,
             'trasladoACaja' => $trasladoACaja,
             'recibidoDeCaja' => $recibidoDeCaja,
             'aperturaCaja' => $aperturaCaja,
-            'estilos' => $estilos,
+            'estilos' =>$this->estilos,
             'bobeda' => $bobeda,
             'cancelados' => $cancelados,
         ]);
@@ -83,7 +91,6 @@ class ReportesController extends Controller
     public function ComprobanteMovimiento($id)
     {
         $idMovimiento = $id;
-        $estilos = file_get_contents(public_path('assets/css/css.css'));
 
         $movimiento = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
@@ -101,7 +108,7 @@ class ReportesController extends Controller
         $pdf = \App::make('snappy.pdf');
         $pdf = PDF::loadView('reportes.caja.comprobante', [
             'movimiento' => $movimiento,
-            'estilos' => $estilos,
+            'estilos' => $this->estilos,
             'numeroEnLetras' => $numeroEnLetras
         ]);
         return $pdf->setOrientation('portrait')->inline();
@@ -109,7 +116,6 @@ class ReportesController extends Controller
     public function comprobanteBobeda($id)
     {
         $idMovimiento = $id;
-        $estilos = file_get_contents(public_path('assets/css/css.css'));
 
         $movimientoBobeda = BobedaMovimientos::join('cajas', 'cajas.id_caja', 'bobeda_movimientos.id_caja')
             ->join('empleados', 'empleados.id_empleado', '=', 'cajas.id_usuario_asignado')
@@ -120,13 +126,12 @@ class ReportesController extends Controller
 
         $empleados = Empleados::where('id_empleado', '=', $movimientoBobeda->id_empleado)->first();
 
-
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimientoBobeda->monto, 2, 'DoLARES');
         $pdf = \App::make('snappy.pdf');
         $pdf = PDF::loadView('reportes.bobeda.comprobante', [
             'movimiento' => $movimientoBobeda,
-            'estilos' => $estilos,
+            'estilos' => $this->estilos,
             'numeroEnLetras' => $numeroEnLetras,
             'bobeda_empleado' => $empleados->nombre_empleado
         ]);
@@ -136,7 +141,6 @@ class ReportesController extends Controller
     public function RepEstadoCuenta($id)
     {
         $idCuenta = $id;
-        $estilos = file_get_contents(public_path('assets/css/css.css'));
         $movimientosCuenta = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
@@ -155,7 +159,7 @@ class ReportesController extends Controller
         $pdf = \App::make('snappy.pdf');
         $pdf = PDF::loadView('reportes.cuentas.estadoCuenta', [
             'movimientos' => $movimientosCuenta,
-            'estilos' => $estilos,
+            'estilos' => $this->estilos,
             'numeroEnLetras' => $numeroEnLetras,
             'clienteData' => $clienteData
         ]);
@@ -165,7 +169,6 @@ class ReportesController extends Controller
     public function contrato($id)
     {
         $idCuenta = $id;
-        $estilos = file_get_contents(public_path('assets/css/css.css'));
 
         $datosContrato = Cuentas::join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
@@ -174,6 +177,7 @@ class ReportesController extends Controller
             ->select('cuentas.*', 'clientes.*', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta', 'intereses_tipo_cuenta.interes', 'asociados.fecha_ingreso')
             ->where('cuentas.id_cuenta', '=', $idCuenta)
             ->first();
+
         $fechaNacimiento = new DateTime($datosContrato->fecha_nacimiento);
         $fechaActual = new DateTime();
         $edad = $fechaNacimiento->diff($fechaActual)->y;
@@ -183,7 +187,7 @@ class ReportesController extends Controller
 
         $pdf = \App::make('snappy.pdf');
         $pdf = PDF::loadView('reportes.cuentas.contrato', [
-            'estilos' => $estilos,
+            'estilos' => $this->estilos,
             'datosContrato' => $datosContrato,
             'beneficiarios' => $beneficiarios,
             'edad' => $edad,
@@ -195,9 +199,6 @@ class ReportesController extends Controller
     public function certificadoDeposito($id)
     {
         $idCuenta = $id;
-        $estilos = file_get_contents(public_path('assets/css/css.css'));
-        $stilosBundle = file_get_contents(public_path('assets/css/style.bundle.css'));
-
 
       $datosContrato = DepositosPlazo::join('asociados','depositos_plazo.id_asociado','=','asociados.id_asociado')
         ->join('clientes','clientes.id_cliente','=','asociados.id_cliente')
@@ -217,8 +218,39 @@ class ReportesController extends Controller
 
         $pdf = \App::make('snappy.pdf');
         $pdf = PDF::loadView('reportes.depositoplazo.certificado', [
-            'estilos' => $estilos,
-            'stilosBundle' => $stilosBundle,
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'datosContrato' => $datosContrato,
+            'beneficiarios' => $beneficiarios,
+            'numeroEnLetras' => $numeroEnLetras,
+            'fondo' => $img
+        ]);
+        return $pdf->setOrientation('landscape')->inline();
+
+    }
+
+     public function solicitudCredito($idSolicitud)
+    {
+
+      $datosContrato = DepositosPlazo::join('asociados','depositos_plazo.id_asociado','=','asociados.id_asociado')
+        ->join('clientes','clientes.id_cliente','=','asociados.id_cliente')
+        ->join('plazos_tasas','plazos_tasas.id_tasa','=','depositos_plazo.interes_deposito')
+        ->join('cuentas','cuentas.id_cuenta','=','depositos_plazo.id_cuenta_depositar')
+        ->where('depositos_plazo.id_deposito_plazo_fijo',"=",$idSolicitud)
+        ->orderBy('depositos_plazo.numero_certificado','desc')
+        ->first();
+        // dd($datosContrato);
+        $fechaActual = new DateTime();
+        $beneficiarios = BeneficiarosDepositos::where('id_deposito', '=', $idSolicitud)
+            ->join('parentesco', 'parentesco.id_parentesco', '=', 'beneficiarios_depositos.parentesco')->get();
+
+        $formatter = new NumeroALetras();
+        $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_deposito, 2, 'DLARES');
+
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.depositoplazo.certificado', [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
             'datosContrato' => $datosContrato,
             'beneficiarios' => $beneficiarios,
             'numeroEnLetras' => $numeroEnLetras,

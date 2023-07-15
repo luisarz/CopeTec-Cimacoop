@@ -3,7 +3,7 @@
     Editar Cliente
 @endsection
 @section('content')
-    <form action="/bobeda/realizarTraslado" id="traslado" method="post" target='_blank' autocomplete="off">
+    <form action="/boveda/realizarTraslado" id="traslado" method="post" target='_blank' autocomplete="off">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <input type="hidden" name="id_bobeda" value="{{ $bobeda->id_bobeda }}">
@@ -19,7 +19,7 @@
             <div class="card shadow-lg">
                 <div class="card-header ribbon ribbon-end ribbon-clip">
                     <div class="card-toolbar">
-                        <a href="/bobeda" cla>
+                        <a href="/boveda">
 
                             <button type="button"
                                 class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
@@ -51,7 +51,7 @@
                             <label>Caja Destino:</label>
                         </div>
 
-              
+
                         <div class=" form-floating col-lg-4">
                             <input type="number" required class="form-control input-group-lg" name="monto"
                                 placeholder="monto" aria-label="monto" aria-describedby="basic-addon1" />
@@ -60,7 +60,7 @@
 
 
                     </div>
-                     <div class="form-group row mb-5">
+                    <div class="form-group row mb-5">
                         <div class="form-floating col-lg-12">
                             <select class="form-select" required name="id_empleado" id="id_empleado">
 
@@ -83,15 +83,15 @@
 
 
                 </div>
-                  <div class="card-footer d-flex justify-content-center py-6">
-                        <button type="submit" class="btn btn-block btn-bg-danger btn-text-white">
-                            <i class="ki-duotone ki-dollar    text-white fs-2x                   ">
-                                <i class="path1"></i>
-                                <i class="path2"></i>
-                                <i class="path3"></i>
-                            </i>
-                            Enviar Traslado</button>
-                    </div>
+                <div class="card-footer d-flex justify-content-center py-6">
+                    <button type="submit" class="btn btn-block btn-bg-danger btn-text-white">
+                        <i class="ki-duotone ki-dollar    text-white fs-2x                   ">
+                            <i class="path1"></i>
+                            <i class="path2"></i>
+                            <i class="path3"></i>
+                        </i>
+                        Enviar Traslado</button>
+                </div>
             </div>
         </div>
         @if ($errors->has('dui_cliente'))
@@ -111,7 +111,7 @@
         document.getElementById("traslado").addEventListener("submit", function(event) {
             this.submit();
             setTimeout(function() {
-                window.location.href = "/bobeda";
+                window.location.href = "/boveda";
             }, 1000);
         });
     </script>

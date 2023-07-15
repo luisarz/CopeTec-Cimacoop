@@ -3,7 +3,7 @@
     Editar Cliente
 @endsection
 @section('content')
-    <form action="/bobeda/recibirTransferencia" id="recibirTrasladoForm" target="_blank" method="POST" autocomplete="nope">
+    <form action="/boveda/recibirTransferencia" id="recibirTrasladoForm" target="_blank" method="POST" autocomplete="nope">
         {!! csrf_field() !!}
         <input type="hidden" id="id_movimiento" name="id_movimiento">
         <div class="input-group mb-5"></div>
@@ -13,7 +13,7 @@
                 <div class="card shadow-lg">
                     <div class="card-header ribbon ribbon-end ribbon-clip">
                         <div class="card-toolbar">
-                            <a href="/bobeda" cla>
+                            <a href="/boveda">
 
                                 <button type="button"
                                     class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
@@ -63,19 +63,19 @@
                             </div>
 
                         </div>
-                         <div class="form-group row mb-5">
-                        <div class="form-floating col-lg-12">
-                            <select class="form-select" required name="id_empleado" id="id_empleado">
+                        <div class="form-group row mb-5">
+                            <div class="form-floating col-lg-12">
+                                <select class="form-select" required name="id_empleado" id="id_empleado">
 
-                                @foreach ($empleados as $empleado)
-                                    <option value="{{ $empleado->id_empleado }}">{{ $empleado->nombre_empleado }}
-                                        {{ $empleado->dui }}</option>
-                                @endforeach
-                            </select>
+                                    @foreach ($empleados as $empleado)
+                                        <option value="{{ $empleado->id_empleado }}">{{ $empleado->nombre_empleado }}
+                                            {{ $empleado->dui }}</option>
+                                    @endforeach
+                                </select>
 
-                            <label>Empleado Recibe:</label>
+                                <label>Empleado Recibe:</label>
+                            </div>
                         </div>
-                    </div>
 
                     </div>
                     <div class="card-footer d-flex justify-content-center py-6">
@@ -104,7 +104,7 @@
             $("#recibirTrasladoForm").on("submit", function(event) {
                 this.submit();
                 setTimeout(function() {
-                    window.location.href = "/bobeda";
+                    window.location.href = "/boveda";
                 }, 1000);
             });
 
@@ -112,7 +112,7 @@
                 let id = $(this).val();
                 $('#monto_envia').val(0.00);
                 $('#monto').val(0.00);
-                let url = '/bobeda/getTrasladoPendiente/' + id;
+                let url = '/boveda/getTrasladoPendiente/' + id;
                 $.ajax({
                     url: url,
                     method: 'GET',

@@ -215,21 +215,21 @@ Route::post('/movimientos/realizarTransferenciaTerceros', [MovimientosController
 /*
 Movimientos Route
  */
-Route::get('/bobeda', [BobedaController::class, 'index'])->middleware(['auth', 'bitacora']);
-Route::get('/bobeda/transferir/{id}', [BobedaController::class, 'transferir'])->middleware(['auth', 'bitacora']);
-Route::post('/bobeda/realizarTraslado', [BobedaController::class, 'realizarTraslado'])->middleware(['auth', 'bitacora']);
-Route::post('/bobeda/recibirCorte', [BobedaController::class, 'recibirCorte'])->middleware(['auth', 'bitacora']);
-Route::get('/bobeda/recibir', [BobedaController::class, 'recibirDeCajaABobeda'])->middleware(['auth', 'bitacora']);
-Route::post('/bobeda/anularTraslado', [BobedaController::class, 'anularTraslado'])->middleware(['auth', 'bitacora']);
-Route::get('/bobeda/aperturar/{id}', [BobedaController::class, 'aperturarBobeda'])->middleware(['auth', 'bitacora']);
-Route::get('/bobeda/cerrar/{id}', [BobedaController::class, 'cerrarBobeda'])->middleware(['auth', 'bitacora']);
+Route::get('/boveda', [BobedaController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/boveda/transferir/{id}', [BobedaController::class, 'transferir'])->middleware(['auth', 'bitacora']);
+Route::post('/boveda/realizarTraslado', [BobedaController::class, 'realizarTraslado'])->middleware(['auth', 'bitacora']);
+Route::post('/boveda/recibirCorte', [BobedaController::class, 'recibirCorte'])->middleware(['auth', 'bitacora']);
+Route::get('/boveda/recibir', [BobedaController::class, 'recibirDeCajaABobeda'])->middleware(['auth', 'bitacora']);
+Route::post('/boveda/anularTraslado', [BobedaController::class, 'anularTraslado'])->middleware(['auth', 'bitacora']);
+Route::get('/boveda/aperturar/{id}', [BobedaController::class, 'aperturarBobeda'])->middleware(['auth', 'bitacora']);
+Route::get('/boveda/cerrar/{id}', [BobedaController::class, 'cerrarBobeda'])->middleware(['auth', 'bitacora']);
 
-Route::get('/bobeda/getTrasladoPendiente/{id}', [BobedaController::class, 'getTrasladoPendienteCajaABobeda'])->middleware(['auth', 'bitacora']);
-Route::post('/bobeda/realizarAperturaBobeda', [BobedaController::class, 'realizarAperturaBobeda'])->middleware(['auth', 'bitacora']);
-Route::post('/bobeda/realizarCierreBobeda', [BobedaController::class, 'realizarCierreBobeda'])->middleware(['auth', 'bitacora']);
+Route::get('/boveda/getTrasladoPendiente/{id}', [BobedaController::class, 'getTrasladoPendienteCajaABobeda'])->middleware(['auth', 'bitacora']);
+Route::post('/boveda/realizarAperturaBobeda', [BobedaController::class, 'realizarAperturaBobeda'])->middleware(['auth', 'bitacora']);
+Route::post('/boveda/realizarCierreBobeda', [BobedaController::class, 'realizarCierreBobeda'])->middleware(['auth', 'bitacora']);
 
-Route::post('/bobeda/recibirTransferencia', [BobedaController::class, 'recibirTransferenciaDeCaja'])->middleware(['auth', 'bitacora']);
-Route::put('/bobeda/put', [BobedaController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::post('/boveda/recibirTransferencia', [BobedaController::class, 'recibirTransferenciaDeCaja'])->middleware(['auth', 'bitacora']);
+Route::put('/boveda/put', [BobedaController::class, 'put'])->middleware(['auth', 'bitacora']);
 
 
 
@@ -262,6 +262,8 @@ Route::get('/reportes/comprobanteMovimiento/{id}', [ReportesController::class, '
 Route::get('/reportes/RepEstadoCuenta/{id}', [ReportesController::class, 'RepEstadoCuenta'])->middleware(['auth', 'bitacora']);
 Route::get('/reportes/contrato/{id}', [ReportesController::class, 'contrato'])->middleware(['auth', 'bitacora']);
 Route::get('/reportes/depositoplazo/{id}', [ReportesController::class, 'certificadoDeposito'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/solicitud/{id}', [ReportesController::class, 'solicitudCredito'])->middleware(['auth', 'bitacora']);
+
 
 
 

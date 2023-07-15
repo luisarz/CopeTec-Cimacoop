@@ -54,9 +54,6 @@
                             <th class="min-w-30px">Plazo</th>
                             <th class="min-w-30px">Cuota. Mensual</th>
                             <th class="min-w-30px text-center">Fecha solicitud</th>
-
-
-
                         </tr>
                     </thead>
                     <tbody>
@@ -64,30 +61,23 @@
                             <tr>
                                 <td>
 
-
-
-
-
-
                                     @switch($solicitud->estado)
                                         @case(1)
                                             {{-- Editar --}}
-                                            <a href="/captaciones/solicitudsplazo/edit/{{ $solicitud->id_solicitud_plazo_fijo }}"
+                                            <a href="/creditos/solicitudes/edit/{{ $solicitud->id_solicitud }}"
                                                 class="btn btn-warning btn-sm w-30">
                                                 <i class="ki-outline ki-pencil fs-5"></i> </a>
-
                                             {{-- Resolver --}}
-                                            <a href="/captaciones/solicitudsplazo/{{ $solicitud->id_solicitud_plazo_fijo }}/beneficiarios"
-                                                class="btn btn-success btn-sm w-30">
-                                                <i class="ki-outline ki-security-user   fs-3"></i>
+                                            <a href="/creditos/solicitud/{{ $solicitud->id_solicitud }}"
+                                                class="btn btn-info btn-sm w-30">
+                                                <i class="ki-outline ki-printer   fs-3"></i>
                                             </a>
                                             {{-- Anular --}}
-                                            <a href="/captaciones/tasas/{{ $solicitud->id_solicitud_plazo_fijo }}"
+                                            <a href="/reditos/solicitudes/cancelar/{{ $solicitud->id_solicitud }}"
                                                 class="btn btn-outline btn-danger btn-sm w-30">
                                                 <i class="ki-outline ki-cross-circle   fs-5"></i>
                                             </a>
                                         @break
-
                                         @case(2)
                                             <span class="badge badge-success">Aprobada</span>
                                         @break
@@ -98,16 +88,12 @@
                                         @default
                                     @endswitch
 
-
-
-
                                 </td>
                                 <td>{{ $solicitud->numero_solicitud }}</td>
                                 <td>
                                     @switch($solicitud->estado)
                                         @case(1)
-                                            {{ $solicitud->estado }}
-                                            <span class="badge badge-info">Pendiente</span>
+                                            <span class="badge badge-info">Prsentada</span>
                                         @break
 
                                         @case(2)
@@ -127,9 +113,7 @@
                                 <td>{{ $solicitud->plazo }} Meses</td>
                                 <td><span class="badge badge-danger fs-5">
                                         ${{ number_format($solicitud->cuota, 2, '.', ',') }}</span>
-                                    {{-- <span class="badge badge-info"> ${{ number_format($plazo->interes_total,2,'.',',') }}</span> --}}
                                 </td>
-
                                 <td><span class="badge badge-success">
                                         {{ \Carbon\Carbon::parse($solicitud->fecha_solicitud)->format('d-m-Y') }}</span>
                                     <br />

@@ -14,7 +14,7 @@
 
         <div class="me-1 mb-1">
             <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative ">
-                <a href="/bobeda/cerrar/{{ $bobeda->id_bobeda }}"
+                <a href="/boveda/cerrar/{{ $bobeda->id_bobeda }}"
                     class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange fs-3 {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
                     <i class="ki-duotone ki-abstract-26 fs-2x text-white">
                         <i class="path1"></i>
@@ -72,7 +72,7 @@
 
                         <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative ">
 
-                            <a href="/bobeda/aperturar/{{ $bobeda->id_bobeda }}"
+                            <a href="/boveda/aperturar/{{ $bobeda->id_bobeda }}"
                                 class="btn btn-sm btn-outline btn-outline-dashed btn-outline-success  fs-5 {{ $bobeda->estado_bobeda == 1 ? ' d-none ' : '' }}">
                                 <i class="ki-duotone ki-abstract-26 fs-2x text-">
                                     <i class="path1"></i>
@@ -82,14 +82,14 @@
                             </a>
 
 
-                            <a href="/bobeda/transferir/{{ $bobeda->id_bobeda }}"
+                            <a href="/boveda/transferir/{{ $bobeda->id_bobeda }}"
                                 class="btn btn-danger border-dashed {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
                                 <i class="fa fa-cloud-upload  text-white  fs-1"></i>
                                 Enviar
                                 <br>a Caja
                             </a>
 
-                            <a href="/bobeda/recibir"
+                            <a href="/boveda/recibir"
                                 class="btn btn-success {{ $bobeda->estado_bobeda == 0 ? ' d-none ' : '' }}">
                                 <i class="fa fa-cloud-download  text-white  fs-1"></i>
                                 Recibir <br>de
@@ -220,7 +220,7 @@
 
                                 <!--begin::Label-->
                                 <div class="fw-semibold fs-6 text-gray-400">
-                                    <span class="badge badge-info">Saldo en Bobeda</span>
+                                    <span class="badge badge-info">Saldo en Bovéda</span>
                                 </div>
                                 <!--end::Label-->
                             </div>
@@ -370,12 +370,12 @@
 
 
 
-    <form method="post" id="anularForm" action="/bobeda/anularTraslado">
+    <form method="post" id="anularForm" action="/boveda/anularTraslado">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <input type="hidden" name="id" id="id">
     </form>
-    <form method="post" id="recibirForm" action="/bobeda/recibirCorte">
+    <form method="post" id="recibirForm" action="/boveda/recibirCorte">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <input type="hidden" name="id_corte_movimiento" id="id_corte_movimiento">

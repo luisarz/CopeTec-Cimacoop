@@ -41,7 +41,7 @@ class BobedaController extends Controller
             ->sum('monto');
 
 
-        return view("bobeda.index", compact("movimientoBobeda", 'bobeda', 'trasladoACaja', 'recibidoDeCaja', "aperturaCaja",'cancelados'));
+        return view("boveda.index", compact("movimientoBobeda", 'bobeda', 'trasladoACaja', 'recibidoDeCaja', "aperturaCaja",'cancelados'));
     }
 
 
@@ -51,21 +51,21 @@ class BobedaController extends Controller
         $cajas = Cajas::where('id_caja', '!=', 0)->get();
         $id_empleado = session('id_empleado_usuario');
         $empleados = Empleados::where('id_empleado', '=', $id_empleado)->get();
-        return view("bobeda.transferir", compact("bobeda", "cajas", 'empleados'));
+        return view("boveda.transferir", compact("bobeda", "cajas", 'empleados'));
     }
     public function aperturarBobeda($id)
     {
         $bobeda = Bobeda::find($id);
         $id_empleado = session('id_empleado_usuario');
         $empleados= Empleados::where('id_empleado','=',$id_empleado)->get();
-        return view("bobeda.aperturar", compact("bobeda",'empleados'));
+        return view("boveda.aperturar", compact("bobeda",'empleados'));
     }
   public function cerrarBobeda($id)
     {
         $bobeda = Bobeda::find($id);
         $id_empleado = session('id_empleado_usuario');
         $empleados= Empleados::where('id_empleado','=',$id_empleado)->get();
-        return view("bobeda.cerrar", compact("bobeda",'empleados'));
+        return view("boveda.cerrar", compact("bobeda",'empleados'));
     }
     public function realizarCierreBobeda(Request $requet)
     {
@@ -84,7 +84,7 @@ class BobedaController extends Controller
         $bobeda->saldo_bobeda = $requet->monto;
         $bobeda->estado_bobeda = 0;
         $bobeda->save();
-        return redirect("/bobeda");
+        return redirect("/boveda");
     }
 
     
@@ -105,14 +105,14 @@ class BobedaController extends Controller
         $bobeda->saldo_bobeda = $requet->monto;
         $bobeda->estado_bobeda = 1;
         $bobeda->save();
-        return redirect("/bobeda");
+        return redirect("/boveda");
     }
     public function recibirDeCajaABobeda()
     {
         $cajas = Cajas::where('id_caja', '!=', 0)->get();
         $id_empleado = session('id_empleado_usuario');
         $empleados = Empleados::where('id_empleado', '=', $id_empleado)->get();
-        return view("bobeda.recibir", compact("cajas", 'empleados'));
+        return view("boveda.recibir", compact("cajas", 'empleados'));
     }
 
     public function realizarTraslado(Request $request)
@@ -137,7 +137,7 @@ class BobedaController extends Controller
         return redirect("/reportes/comprobanteMovimientoBobeda/$bobedaMovimiento->id_bobeda_movimiento");
 
         }
-        return redirect("/bobeda/transferir/$request->id_bobeda")->withInput()->withErrors(['Monto' => 'El monto que intentas enviar sobrepasa el limite']);
+        return redirect("/boveda/transferir/$request->id_bobeda")->withInput()->withErrors(['Monto' => 'El monto que intentas enviar sobrepasa el limite']);
 
     }
     public function recibirCorte(Request $request)
@@ -159,7 +159,7 @@ class BobedaController extends Controller
         // actualizar la caja para que se cierre
    
         
-           return redirect('/bobeda');
+           return redirect('/boveda');
     }
 
 
@@ -202,7 +202,7 @@ class BobedaController extends Controller
         $bobeda = Bobeda::first();
         $bobeda->saldo_bobeda = $bobeda->saldo_bobeda + $movimientoBobeda->monto;
         $bobeda->save();
-        return redirect("/bobeda");
+        return redirect("/boveda");
     }
     public function getTrasladoPendienteCajaABobeda($id){
         $movimientos = Movimientos::where('id_caja','=',$id)

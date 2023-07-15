@@ -14,26 +14,34 @@ class SolicitudCreditoController extends Controller
     //
     public function index()
     {
-        $solicitudes = SolicitudCredito::join('clientes','clientes.id_cliente','=','solicitud_credito.id_cliente')
-        ->orderBy('solicitud_credito.fecha_solicitud')
-        ->select('solicitud_credito.*',
-        'clientes.nombre')->paginate(10);
-      
-        return view('creditos.solicitudes.index',compact('solicitudes'));
+        $solicitudes = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
+            ->orderBy('solicitud_credito.fecha_solicitud')
+            ->select(
+                'solicitud_credito.*',
+                'clientes.nombre'
+            )->paginate(10);
+     
+
+        return view('creditos.solicitudes.index', compact('solicitudes'));
     }
     public function add()
     {
-        $clientes = Clientes::whereNotIn('estado',[0,7])->get();
-        $beneficiarios=Beneficiarios::all();
+        $clientes = Clientes::whereNotIn('estado', [0, 7])->get();
+        $beneficiarios = Beneficiarios::all();
         $idSolicitud = Str::uuid()->toString();
-        $referencias=Referencias::select(
+        $referencias = Referencias::select(
             'id_referencia'
-            ,'nombre'
-            ,'parentesco'
-            ,'dui'
-            ,'lugar_trabajo')->get();
+            ,
+            'nombre'
+            ,
+            'parentesco'
+            ,
+            'dui'
+            ,
+            'lugar_trabajo'
+        )->get();
 
-        return view('creditos.solicitudes.add',compact('clientes','beneficiarios','idSolicitud','referencias'));
+        return view('creditos.solicitudes.add', compact('clientes', 'beneficiarios', 'idSolicitud', 'referencias'));
     }
 
 
@@ -46,7 +54,7 @@ class SolicitudCreditoController extends Controller
 
         $solicitud->numero_solicitud = $numeroSolicitud + 1;
         $solicitud->id_cliente = $request->id_cliente;
-        $solicitud->id_socio =null;
+        $solicitud->id_socio = null;
         $solicitud->monto_solicitado = $request->monto_solicitado;
         $solicitud->fecha_solicitud = $request->fecha_solicitud;
         $solicitud->plazo = $request->plazo;
@@ -60,7 +68,7 @@ class SolicitudCreditoController extends Controller
         $solicitud->empresa_labora = $request->empresa_labora;
         $solicitud->sueldo_conyugue = $request->sueldo_conyugue;
         $solicitud->tiempo_laborando = $request->tiempo_laborando;
-        $solicitud->sueldo = $request->sueldo; 
+        $solicitud->sueldo = $request->sueldo;
         $solicitud->cargo = $request->cargo;
         $solicitud->telefono_trabajo = $request->telefono_trabajo;
         $solicitud->sueldo_solicitante = $request->sueldo_solicitante;
@@ -73,7 +81,7 @@ class SolicitudCreditoController extends Controller
         $solicitud->gastos_negocios = $request->gastos_negocios;
         $solicitud->otros_gastos = $request->otros_gastos;
         $solicitud->total_gasto = $request->total_gasto;
-        $solicitud->estado = 1;//Presentada
+        $solicitud->estado = 1; //Presentada
         $solicitud->save();
 
         return redirect('/creditos/solicitudes');

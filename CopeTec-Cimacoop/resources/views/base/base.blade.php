@@ -353,7 +353,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <div class="menu-item pt-5">
                                     <!--begin:Menu content-->
                                     <div class="menu-content">
-                                        <span class="menu-heading fw-bold text-uppercase fs-7">Menu</span>
+                                        <span class="menu-heading fw-bold text-uppercase fs-7">Menú</span>
                                     </div>
                                     <!--end:Menu content-->
                                 </div>

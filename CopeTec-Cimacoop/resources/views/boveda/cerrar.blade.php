@@ -3,7 +3,7 @@
     Agregar Cliente
 @endsection
 @section('content')
-    <form action="/bobeda/realizarCierreBobeda" method="POST" autocomplete="off">
+    <form action="/boveda/realizarCierreBobeda" method="POST" autocomplete="off">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_bobeda" name="id_bobeda" value="{{ $bobeda->id_bobeda }}">
@@ -13,7 +13,7 @@
             <div class="card card-md shadow-lg">
                 <div class="card-header ribbon ribbon-end ribbon-clip">
                     <div class="card-toolbar">
-                        <a href="/bobeda">
+                        <a href="/boveda">
 
                             <button type="button" class="btn btn-sm btn-light">
                                 <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">

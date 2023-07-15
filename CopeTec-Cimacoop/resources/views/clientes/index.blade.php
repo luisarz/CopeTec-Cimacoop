@@ -1,7 +1,7 @@
 @extends('base.base')
 
 @section('formName')
-    Administracion de Clientes
+    Administración de Clientes
 @endsection
 
 
@@ -9,13 +9,13 @@
     <div class="card shadow-lg">
         <div class="card-header ribbon ribbon-end ribbon-clip">
             <div class="card-toolbar">
-                <a href="/clientes/add" class="btn btn-info"><i class="fa-solid fa-plus"></i> Agregar Nuevo Cliente</a>
+                <a href="/clientes/add" class="btn btn-info"><i class="fa-solid fa-plus"></i>Nuevo Cliente</a>
 
             </div>
             <div class="ribbon-label fs-3">
                 <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
                         class="path2"></span><span class="path3"></span></i>
-                Administracion de Clientes
+                Administración de Clientes
 
                 <span class="ribbon-inner bg-info"></span>
             </div>
@@ -27,10 +27,10 @@
                     <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
                         <th class="min-w-140px">Acciones</th>
                         <th class="min-w-200px">Nombre</th>
-                        <th class="min-w-90px">Genero</th>
+                        <th class="min-w-90px">Género</th>
                         <th class="min-w-90px">DUI</th>
                         <th class="min-w-200px">Domicilio</th>
-                        <th class="min-w-200px">Telefono</th>
+                        <th class="min-w-200px">Teléfono</th>
                     </tr>
                 </thead>
                 <tbody>
