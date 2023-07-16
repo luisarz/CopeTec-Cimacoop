@@ -10,6 +10,9 @@ use App\Models\Cuentas;
 use App\Models\DepositosPlazo;
 use App\Models\Empleados;
 use App\Models\Movimientos;
+use App\Models\ReferenciaSolicitud;
+use App\Models\SolicitudCredito;
+use App\Models\SolicitudCreditoBienes;
 use Carbon\Carbon;
 use DateTime;
 use Luecano\NumeroALetras\NumeroALetras;
@@ -80,7 +83,7 @@ class ReportesController extends Controller
             'trasladoACaja' => $trasladoACaja,
             'recibidoDeCaja' => $recibidoDeCaja,
             'aperturaCaja' => $aperturaCaja,
-            'estilos' =>$this->estilos,
+            'estilos' => $this->estilos,
             'bobeda' => $bobeda,
             'cancelados' => $cancelados,
         ]);
@@ -200,13 +203,13 @@ class ReportesController extends Controller
     {
         $idCuenta = $id;
 
-      $datosContrato = DepositosPlazo::join('asociados','depositos_plazo.id_asociado','=','asociados.id_asociado')
-        ->join('clientes','clientes.id_cliente','=','asociados.id_cliente')
-        ->join('plazos_tasas','plazos_tasas.id_tasa','=','depositos_plazo.interes_deposito')
-        ->join('cuentas','cuentas.id_cuenta','=','depositos_plazo.id_cuenta_depositar')
-        ->where('depositos_plazo.id_deposito_plazo_fijo',"=",$id)
-        ->orderBy('depositos_plazo.numero_certificado','desc')
-        ->first();
+        $datosContrato = DepositosPlazo::join('asociados', 'depositos_plazo.id_asociado', '=', 'asociados.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('plazos_tasas', 'plazos_tasas.id_tasa', '=', 'depositos_plazo.interes_deposito')
+            ->join('cuentas', 'cuentas.id_cuenta', '=', 'depositos_plazo.id_cuenta_depositar')
+            ->where('depositos_plazo.id_deposito_plazo_fijo', "=", $id)
+            ->orderBy('depositos_plazo.numero_certificado', 'desc')
+            ->first();
         // dd($datosContrato);
         $fechaActual = new DateTime();
         $beneficiarios = BeneficiarosDepositos::where('id_deposito', '=', $id)
@@ -229,34 +232,52 @@ class ReportesController extends Controller
 
     }
 
-     public function solicitudCredito($idSolicitud)
+    public function solicitudCredito($idSolicitud)
     {
 
-      $datosContrato = DepositosPlazo::join('asociados','depositos_plazo.id_asociado','=','asociados.id_asociado')
-        ->join('clientes','clientes.id_cliente','=','asociados.id_cliente')
-        ->join('plazos_tasas','plazos_tasas.id_tasa','=','depositos_plazo.interes_deposito')
-        ->join('cuentas','cuentas.id_cuenta','=','depositos_plazo.id_cuenta_depositar')
-        ->where('depositos_plazo.id_deposito_plazo_fijo',"=",$idSolicitud)
-        ->orderBy('depositos_plazo.numero_certificado','desc')
-        ->first();
-        // dd($datosContrato);
-        $fechaActual = new DateTime();
-        $beneficiarios = BeneficiarosDepositos::where('id_deposito', '=', $idSolicitud)
-            ->join('parentesco', 'parentesco.id_parentesco', '=', 'beneficiarios_depositos.parentesco')->get();
+        $solicitud = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
+            ->orderBy('solicitud_credito.fecha_solicitud')
+           ->where('solicitud_credito.id_solicitud', '=', $idSolicitud)->first();
+
+        $conyugue = Clientes::where('id_cliente', '=', $solicitud->id_conyugue)->first();
+
+        $referencias = ReferenciaSolicitud::join('referencias', 'referencias.id_referencia', '=', 'referencia_solicitud.id_referencia')
+            ->where('referencia_solicitud.id_solicitud', '=', $idSolicitud)->get();
+
+        $bienes = SolicitudCreditoBienes::where('id_solicitud', '=', $idSolicitud)->get();
+
 
         $formatter = new NumeroALetras();
-        $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_deposito, 2, 'DLARES');
+        $cuotaEnLetras = $formatter->toInvoice($solicitud->cuota, 2, 'DÓLARES');
+        $montoSolicitadoEnLetras = $formatter->toInvoice($solicitud->monto_solicitado, 2, 'DÓLARES');
+        $hoy = new DateTime();
+        $nacimiento = new DateTime($solicitud->fecha_nacimiento);
+        $edad = $hoy->diff($nacimiento);
+        $edadCliente= $edad->y;
+     
+        $edadConyugue = null;
+        if ($conyugue==null) {
+           $conyugue= new Clientes();
+        }else{
+            $nacimientoConyugue = new DateTime($conyugue->fecha_nacimiento);
+            $edadConyugue = $hoy->diff($nacimientoConyugue);
+            $edadConyugue = $edadConyugue->y;
+        }
 
         $pdf = \App::make('snappy.pdf');
-        $pdf = PDF::loadView('reportes.depositoplazo.certificado', [
+        $pdf = PDF::loadView('reportes.creditos.solicitud', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
-            'datosContrato' => $datosContrato,
-            'beneficiarios' => $beneficiarios,
-            'numeroEnLetras' => $numeroEnLetras,
-            'fondo' => $img
+            'solicitud' => $solicitud,
+            'referencias' => $referencias,
+            'bienes'=>$bienes,
+            'edadCliente'=>$edadCliente,
+            'conyugue'=>$conyugue,
+            'cuotaEnLetras' => $cuotaEnLetras,
+            'edadConyugue'=>$edadConyugue,
+            'montoSolicitadoEnLetras'=>$montoSolicitadoEnLetras
         ]);
-        return $pdf->setOrientation('landscape')->inline();
+        return $pdf->setOrientation('portrait')->inline();
 
     }
 }

@@ -30,14 +30,10 @@ class SolicitudCreditoController extends Controller
         $beneficiarios = Beneficiarios::all();
         $idSolicitud = Str::uuid()->toString();
         $referencias = Referencias::select(
-            'id_referencia'
-            ,
-            'nombre'
-            ,
-            'parentesco'
-            ,
-            'dui'
-            ,
+            'id_referencia',
+            'nombre',
+            'parentesco',
+            'dui',
             'lugar_trabajo'
         )->get();
 

@@ -434,7 +434,9 @@
                             </div>
                             <div class="form-floating col-lg-2">
                                 <button type="button" class="btn btn-danger" id="btnAddReferencia"
-                                    name="btnAddReferencia" value="Registrar">
+                                    name="btnAddReferencia" >
+                                    <span class="fa fa-download"></span>
+                                    Registrar
                                 </button>
 
                             </div>

@@ -13,128 +13,92 @@
 
 </head>
 
-<body>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+
+    <div class="row" style="font-size:20px; ">
+        <center>
+            SOLICITUD DE CRÉDITO # {{ str_pad($solicitud->numero_solicitud, 10, '0', STR_PAD_LEFT) }}
+        </center>
+        {{ $solicitud->fecha_solicitud }}
+        <ul style=" list-style-type: none;">
+
+            <li class="items_li"><span class="item-solicitud">1- DATOS GENERALES DEL SOLICITANTE:</span>
+                <div class="datos_solicitante">
+                    Nombre según DUI: <b>{{ $solicitud->nombre }}</b> edad: <b>{{ $edadCliente }} </b> años
+                    <br>
+                    Profesión u oficio: <b>{{ $solicitud->profesion }}</b>, DUI: <b> {{ $solicitud->dui_cliente }}</b>,
+                    Extendido en:
+                    <b>{{ $solicitud->dui_extendido }}</b>
+                    <br>
+                    Fecha de expedicion: <b>{{ $solicitud->fecha_expedicion }}</b>, fecha de nacimiento.
+                    <b>{{ $solicitud->fecha_nacimiento }}</b>
+                    <br>
+                    Nacionalidad: <b>{{ $solicitud->nacionalidad }}</b>, estado Civi:
+                    <b>{{ $solicitud->estado_civil }}</b>,
+                    Telefono: <b> {{ $solicitud->telefono }}</b>
+                    <br>
+                    Dirección personal: <b> {{ $solicitud->direccion_personal }}</b>
+                    <br>
+                    Dirección del negocio: <b> {{ $solicitud->direccion_negocio }} </b>
+                    <br>
+                    Nombre del negocio: <b> {{ $solicitud->nombre_negocio }}</b>, Casa: <b>
+                        {{ $solicitud->tipo_vivienda }}</b>
+                </div>
+            <li><span class="item-solicitud">2- DATOS DEL CRÉDITO SOLICITADO:</span>
+                <div class="datos_solicitante">
+                    Cantidad Solicitada: <b>${{ number_format($solicitud->monto_solicitado, 2, '.', ',') }}</b>
+                    ({{ $montoSolicitadoEnLetras }}), plazo: &nbsp;&nbsp; <b>&nbsp;{{ $solicitud->plazo }}</b>
+                    (meses),
+                    Tasa de interes: <b> {{ $solicitud->tasa }}%</b>, cuota: <b>
+                        ${{ number_format($solicitud->cuota, 2, '.', ',') }}</b>
+                    ({{ $cuotaEnLetras }})
+                    <br>
+                    Seguro de deuda: <b>{{ $solicitud->seguro_deuda }}</b>, Destino del préstamo: <b>
+                        {{ $solicitud->destino }}</b>
+                    <br>
+                    garantías:
+                    <b>{{ $solicitud->garantia }}</b>
 
 
-    <div style="position: relative; color:#333683">
-        <img src="{{ $fondo }}" alt="Image" style="width: 1350px; height: 930px;">
-        <div style="position: absolute; top: 200px; left: 150px; width: 80%; height: 100%; z-index: 1;">
-            <div style=" font-family: 'Segoe UI' !important; font-size:28px !important;">
+                </div>
+            <li><span class="item-solicitud">3- DATOS PERSONALES DEL CONYUGUE:</span>
+                <div class="datos_solicitante">
 
-                <center>La asociación Cooperativa de Ahorro y Crédito La Cima de Responsabilidad Limitada CIMACOOP DE
-                    R.L. Hace
-                    Constar que en esta fecha ha abonado. </center><br>
-            </div>
-            <div
-                style=" font-family: 'Segoe UI' !important; font-size:20px !important; line-height: 1.5; text-align: justify;">
+                    Nombre según DUI:
+                    <b>{{ $conyugue->nombre != null ? $conyugue->nombre : '_______________________________________' }}</b>
+                    edad:
+                    <b>{{ $edadConyugue != null ? $edadConyugue : '______________________________________________' }} </b>
+                    años
+                    <br>
+                    Profesión u oficio:
+                    <b>{{ $conyugue->profesion != null ? $conyugue->profesion : '________________' }}</b>, DUI:
+                    <b>
+                        {{ $conyugue->dui_cliente != null ? $conyugue->dui_cliente : '_____________________________________' }}</b>,
+                    Extendido en:
+                    <b>{{ $conyugue->dui_extendido != null ? $conyugue->dui_extendido : '_________________________' }}</b>
+                    <br>
+                    Fecha de expedicion: <b>{{ ($conyugue->fecha_expedicion!=null)?$conyugue->fecha_expedicion:'______________________________________' }}</b>, fecha de nacimiento.
+                    <b>{{ ($conyugue->fecha_nacimiento!=null)?$conyugue->fecha_nacimiento:'____________________________________' }}</b>
+                    <br>
+                    Nacionalidad: <b>{{( $conyugue->nacionalidad !=null)? $conyugue->nacionalidad :'__________________________'}}</b>, estado Civi:
+                    <b>{{ ($conyugue->estado_civil!=null)?$conyugue->estado_civil:'__________________________' }}</b>,
+                    Telefono: <b> {{( $conyugue->telefono!=null)? $conyugue->telefono:'____________________________' }}</b>
+                    <br>
+                    Dirección personal: <b> {{( $conyugue->direccion_personal!=null)? $conyugue->direccion_personal:'_____________________________________________________________________________________________________' }}</b>
+                    <br>
+                    Lugar de trabajo: <b> {{ $conyugue->direccion_negocio  }} </b>
+                    <br>
+                    Nombre del negocio: <b> {{ ($conyugue->nombre_negocio !=null)?$conyugue->nombre_negocio :'____________________________________________________'}}</b>, Casa: <b>
+                        {{ ($conyugue->tipo_vivienda!=null)?$conyugue->tipo_vivienda:'_______________________________________' }}</b>
+                </div>
+            <li><span class="item-solicitud">4- INGRESOS Y EGRESOS MENSUALES DEL SOLICITANTE:</span>
+            <li><span class="item-solicitud">5- REFERENCIAS PERSONALES Y FAMILIARES:</span>
+        </ul>
 
-                A favor de: <b><u> {{ strtoupper($datosContrato->nombre) }}</u></b> <br>
-                En su cuenta de Deposito a Plazo fijo,la suma de: <b>
-                    {{ $numeroEnLetras }} , $ {{ number_format($datosContrato->monto_deposito, 2, '.', ',') }},
-                    &nbsp;</b>
-                Para el plazo de
-                {{ $datosContrato->plazo_deposito * 30 }} días, al {{ $datosContrato->valor }}% de interes anual, por
-                periodos iguales, salvo aviso por escrito, dado a la fecha de vencimiento:<br>
 
-                VENCE: <b><u>
-                        {{ \Carbon\Carbon::parse($datosContrato->fecha_vencimiento)->format('d \d\e ') . \Carbon\Carbon::parse($datosContrato->fecha_vencimiento)->monthName . \Carbon\Carbon::parse($datosContrato->fecha_vencimiento)->format(' \d\e Y') }}.</u></b>
-                No. de cuenta: <b><u> {{ str_pad($datosContrato->numero_cuenta, 10, '0', STR_PAD_LEFT) }}</u></b>
-            </div>
-            <div
-                style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify;">
-
-                Este deposito está sujeto a las condiciones siguientes.
-                <ul style=" list-style-type: none;">
-                    <li>1. Los intereses devengados por el presente certificado se abonarán a la cuenta de ahorro.
-
-                    </li>
-                    <li>2. Los intereses serán pagados de forma:
-
-                        @php
-                            $anticipado = 'Anticipado  <b>&#10696;</b>';
-                            $semanal = 'Semanal <b>&#10696;</b>';
-                            $mensual = 'Mensual <b>&#10696;</b>';
-                            $finPlazo = 'A fin de plazo <b>&#10696;</b>';
-                        @endphp
-
-                        @switch($datosContrato->forma_pago_interes)
-                            @case(0)
-                                @php
-                                    $anticipado = '<b>Anticipado &#9745;</b>';
-                                @endphp
-                            @break
-
-                            @case(1)
-                                @php
-                                    $semanal = '<b>Semanal &#9745;</b>';
-                                @endphp
-                            @break
-
-                            @case(2)
-                                @php
-                                    $mensual = '<b>Mensual &#9745;</b>';
-                                @endphp
-                            @break
-
-                            @case(3)
-                                @php
-                                    $finPlazo = '<b>A fin de plazo &#9745;</b>';
-                                @endphp
-                            @break
-                        @endswitch
-
-                        {!! $anticipado !!}, {!! $semanal !!}, {!! $mensual !!},
-                        {!! $finPlazo !!}.
-
-                    </li>
-                    <li>3. Si el presente certificado no fuese presentado para su cancelación a la fecha de su
-                        vencimiento
-                        el asociado tendrá 5 días adicionales para realizar algún cambio en el mismo, caso contrario se
-                        renovara automaticame por un periodo igual, sujeto a la tasa de interes vigentre por la
-                        asociación
-                        Coopertiva.
-                </ul>
-            </div>
-            <br>
-            <br>
-            <table class="table table-borderless">
-
-                <tbody style="border: 1px solid white;">
-                    <tr style="border: 1px solid white;">
-                        <td style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5;">
-                            San Miguel,
-                            {{ \Carbon\Carbon::parse($datosContrato->fecha_deposito)->format('d \d\e ') . \Carbon\Carbon::parse($datosContrato->fecha_deposito)->monthName . \Carbon\Carbon::parse($datosContrato->fecha_deposito)->format(' \d\e Y') }}
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr style="border: 1px solid white;">
-                        <td
-                            style="width:35%; font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 2px solid #333683 !important; text-align:center">
-                            Lugar y fecha
-                        <td>
-                        <td
-                            style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 2px solid #333683 !important; text-align:center">
-                            Autoriza
-                        <td>
-                        <td
-                            style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 2px solid #333683 !important; text-align:center">
-                            Cajero/a</td>
-                        <td></td>
-                        <td
-                            style=" font-family: 'Segoe UI' !important; font-size:20px !important;  line-height: 1.5; text-align: justify; border-top: 2px solid #333683 !important; text-align:center">
-                            Sello</td>
-
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
     </div>
+
+
     <div>
         <br>
         <span class="description"> BENEFICIARIOS </span>
@@ -157,7 +121,7 @@
 
                 <tbody class=" fs-1 text-black-800">
 
-                    @foreach ($beneficiarios as $beneficiario)
+                    @foreach ($referencias as $beneficiario)
                         <tr style="text-align: center; font-size:18px;">
                             <td>{{ $loop->iteration }}</td>
 
