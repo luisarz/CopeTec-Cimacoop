@@ -264,6 +264,7 @@ Route::get('/reportes/RepEstadoCuenta/{id}', [ReportesController::class, 'RepEst
 Route::get('/reportes/contrato/{id}', [ReportesController::class, 'contrato'])->middleware(['auth', 'bitacora']);
 Route::get('/reportes/depositoplazo/{id}', [ReportesController::class, 'certificadoDeposito'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/solicitud/{id}', [ReportesController::class, 'solicitudCredito'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/pagare/{id}', [ReportesController::class, 'pagareCredito'])->middleware(['auth', 'bitacora']);
 
 
 

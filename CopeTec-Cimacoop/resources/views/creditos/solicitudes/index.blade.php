@@ -45,7 +45,7 @@
                 <table class="table table-hover table-row-dashed fs-5     gy-2 gs-5">
                     <thead>
                         <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
-                            <th class="min-w-230px">Acciones</th>
+                            <th class="min-w-300px">Acciones</th>
                             <th class="min-w-20px">No</th>
                             <th class="min-w-20px">Estado</th>
                             <th class="min-w-80px">Cliente</th>
@@ -70,6 +70,11 @@
                                             {{-- Resolver --}}
                                             <a href="/creditos/solicitud/{{ $solicitud->id_solicitud }}"
                                                 class="btn btn-info btn-sm w-30">
+                                                <i class="ki-outline ki-printer   fs-3"></i>
+                                            </a>
+                                              {{-- pagare --}}
+                                            <a href="/creditos/pagare/{{ $solicitud->id_solicitud }}"
+                                                class="btn btn-success btn-sm w-30">
                                                 <i class="ki-outline ki-printer   fs-3"></i>
                                             </a>
                                             {{-- Anular --}}
