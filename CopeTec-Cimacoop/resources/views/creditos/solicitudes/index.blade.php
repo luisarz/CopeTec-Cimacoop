@@ -77,6 +77,14 @@
                                                 class="btn btn-outline btn-danger btn-sm w-30">
                                                 <i class="ki-outline ki-cross-circle   fs-5"></i>
                                             </a>
+                                            {{-- desembolsar --}}
+                                            <a href="/creditos/solicitudes/desembolso/{{ $solicitud->id_solicitud }}"
+                                                class="btn btn-outline btn-success btn-sm w-30">
+                                                <i class="ki-duotone ki-folder-added">
+                                                    <i class="path1"></i>
+                                                    <i class="path2"></i>
+                                                </i>
+                                            </a>
                                         @break
                                         @case(2)
                                             <span class="badge badge-success">Aprobada</span>

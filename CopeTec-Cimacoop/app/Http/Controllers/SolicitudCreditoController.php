@@ -6,6 +6,7 @@ use App\Models\Beneficiarios;
 use App\Models\Clientes;
 use App\Models\Referencias;
 use App\Models\SolicitudCredito;
+use App\Models\Credito;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -38,6 +39,49 @@ class SolicitudCreditoController extends Controller
         )->get();
 
         return view('creditos.solicitudes.add', compact('clientes', 'beneficiarios', 'idSolicitud', 'referencias'));
+    }
+
+
+    public function desembolso($id)
+    {
+        $solicitud = SolicitudCredito::where('id_solicitud',$id)->first();
+        $clientes = Clientes::whereNotIn('estado', [0, 7])->get();
+        $cliente = Clientes::where('id_cliente',$solicitud->id_cliente)->first();
+        $referencias = Referencias::select(
+            'id_referencia',
+            'nombre',
+            'parentesco',
+            'dui',
+            'lugar_trabajo'
+        )->get();
+        return view("creditos.solicitudes.desembolso",compact("solicitud","clientes","referencias","cliente"));
+    }
+
+
+    public function createCredit(Request $request)
+    {
+        $credito = new Credito();
+        $solicitud = SolicitudCredito::where('id_solicitud',$request->id_solicitud)->first();
+        $cliente = Clientes::where('id_cliente',$solicitud->id_cliente)->first();
+        $solicitud->estado = 2;
+        $solicitud->save();
+        $credito->id_credito=Str::uuid()->toString();
+        $credito->id_cliente=$solicitud->id_cliente;
+        $credito->id_solicitud=$solicitud->id_solicitud;
+        $credito->plazo=$solicitud->plazo;
+        $credito->tasa=$solicitud->tasa;
+        $credito->monto_solicitado=$solicitud->monto_solicitado;
+        $credito->saldo_capital=$solicitud->monto_solicitado;
+        $credito->cuota=$solicitud->cuota;
+        $credito->aportaciones=$solicitud->aportaciones;
+        $credito->seguro_deuda=$solicitud->seguro_deuda;
+        $codCredito=$cliente->id_cliente.date("ymdHis").$solicitud->numero_solicitud;
+        $credito->codigo_credito=str_pad($codCredito,20,"0",STR_PAD_LEFT);
+        $credito->fecha_vencimiento = date('Y-m-d', strtotime("+".$solicitud->plazo." months", strtotime(date('Y-m-d'))));
+        $credito->proxima_fecha_pago = date('Y-m-d', strtotime("+1 months", strtotime(date('Y-m-d'))));
+        $credito->save();
+
+        return redirect('/creditos/solicitudes');
     }
 
 

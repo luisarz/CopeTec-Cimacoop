@@ -17,7 +17,9 @@ class RegisterBitacoraMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        //dd();
+        if(session::get("access")==null){
+            return redirect("/logout");
+        }
         $bitacora = new Bitacora();
         $bitacora->route = $request->getPathInfo();
         $bitacora->request = json_encode($request->toArray());

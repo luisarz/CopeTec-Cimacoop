@@ -30,6 +30,7 @@ use App\Http\Controllers\MovimientosController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\PermisosController;
+use App\Http\Controllers\CreditoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -365,3 +366,9 @@ Bienes Solicitud Credito
 Route::post('/creditos/solicitudes/bienes/add', [SolicitudCreditoBienesController::class, 'addBien'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/solicitudes/bienes/quitar/{id}', [SolicitudCreditoBienesController::class, 'quitar'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/solicitudes/bienes/getBienes/{id}', [SolicitudCreditoBienesController::class, 'getBienes'])->middleware(['auth', 'bitacora']);
+
+Route::get('/creditos/solicitudes/desembolso/{id}', [SolicitudCreditoController::class, 'desembolso'])->middleware(['auth', 'bitacora']);
+Route::post('/creditos/solicitudes/create-credit', [SolicitudCreditoController::class, 'createCredit'])->middleware(['auth', 'bitacora']);
+
+
+Route::get('/creditos/abonos', [CreditoController::class, 'index'])->middleware(['auth', 'bitacora']);
