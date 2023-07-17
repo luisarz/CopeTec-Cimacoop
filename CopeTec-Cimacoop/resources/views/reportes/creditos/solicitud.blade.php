@@ -67,7 +67,8 @@
                     Nombre según DUI:
                     <b>{{ $conyugue->nombre != null ? $conyugue->nombre : '_______________________________________' }}</b>
                     edad:
-                    <b>{{ $edadConyugue != null ? $edadConyugue : '______________________________________________' }} </b>
+                    <b>{{ $edadConyugue != null ? $edadConyugue : '______________________________________________' }}
+                    </b>
                     años
                     <br>
                     Profesión u oficio:
@@ -77,77 +78,163 @@
                     Extendido en:
                     <b>{{ $conyugue->dui_extendido != null ? $conyugue->dui_extendido : '_________________________' }}</b>
                     <br>
-                    Fecha de expedicion: <b>{{ ($conyugue->fecha_expedicion!=null)?$conyugue->fecha_expedicion:'______________________________________' }}</b>, fecha de nacimiento.
-                    <b>{{ ($conyugue->fecha_nacimiento!=null)?$conyugue->fecha_nacimiento:'____________________________________' }}</b>
+                    Fecha de expedicion:
+                    <b>{{ $conyugue->fecha_expedicion != null ? $conyugue->fecha_expedicion : '______________________________________' }}</b>,
+                    fecha de nacimiento.
+                    <b>{{ $conyugue->fecha_nacimiento != null ? $conyugue->fecha_nacimiento : '____________________________________' }}</b>
                     <br>
-                    Nacionalidad: <b>{{( $conyugue->nacionalidad !=null)? $conyugue->nacionalidad :'__________________________'}}</b>, estado Civi:
-                    <b>{{ ($conyugue->estado_civil!=null)?$conyugue->estado_civil:'__________________________' }}</b>,
-                    Telefono: <b> {{( $conyugue->telefono!=null)? $conyugue->telefono:'____________________________' }}</b>
+                    Nacionalidad:
+                    <b>{{ $conyugue->nacionalidad != null ? $conyugue->nacionalidad : '__________________________' }}</b>,
+                    estado Civi:
+                    <b>{{ $conyugue->estado_civil != null ? $conyugue->estado_civil : '__________________________' }}</b>,
+                    Telefono: <b>
+                        {{ $conyugue->telefono != null ? $conyugue->telefono : '____________________________' }}</b>
                     <br>
-                    Dirección personal: <b> {{( $conyugue->direccion_personal!=null)? $conyugue->direccion_personal:'_____________________________________________________________________________________________________' }}</b>
+                    Dirección personal: <b>
+                        {{ $conyugue->direccion_personal != null ? $conyugue->direccion_personal : '_____________________________________________________________________________________________________' }}</b>
                     <br>
-                    Lugar de trabajo: <b> {{ $conyugue->direccion_negocio  }} </b>
+                    Lugar de trabajo: <b>
+                        {{ $conyugue->direccion_negocio != '' ? $conyugue->direccion_negocio : '________________________________________________________________________________________________________' }}
+                    </b>
                     <br>
-                    Nombre del negocio: <b> {{ ($conyugue->nombre_negocio !=null)?$conyugue->nombre_negocio :'____________________________________________________'}}</b>, Casa: <b>
-                        {{ ($conyugue->tipo_vivienda!=null)?$conyugue->tipo_vivienda:'_______________________________________' }}</b>
+                    Nombre del negocio: <b>
+                        {{ $solicitud->empresa_labora != null ? $solicitud->empresa_labora : '____________________________________________________' }}</b>,
+                    Tiempo laborando: <b>
+                        {{ $solicitud->tiempo_laborando != null ? $solicitud->tiempo_laborando : '_______________________________________' }}</b>
+                    <br>
+                    Cargo que desempeña: <b>
+                        {{ $solicitud->cargo != null ? $solicitud->cargo : '____________________________________________________' }}</b>,
+                    Salario: <b>
+                        {{ $solicitud->sueldo_conyugue != null ? $solicitud->sueldo_conyugue : '_______________________________________' }}</b>,
+                    Telefono trabajo: {{ $solicitud->telefono_trabajo }}
                 </div>
             <li><span class="item-solicitud">4- INGRESOS Y EGRESOS MENSUALES DEL SOLICITANTE:</span>
-            <li><span class="item-solicitud">5- REFERENCIAS PERSONALES Y FAMILIARES:</span>
-        </ul>
+                <div class="datos_solicitante">
+                    <table class="table w-50%" style="border: 1px solid white;">
+                        <thead style="text-align: center; font-size:18px;">
+                            <tr>
+                                <th class="min-w-400px"> INGRESOS</th>
+                                <th class="min-w-200"></th>
+                                <th class="min-w-100"></th>
+                                <th class="min-w-400px">EGRESOS</th>
+                                <th class="min-w-200"></th>
 
-
-    </div>
-
-
-    <div>
-        <br>
-        <span class="description"> BENEFICIARIOS </span>
-        <br>
-        <br>
-
-        <div class="w-80%">
-            <table class="table table-bordered w-80%">
-                <thead style="text-align: center; font-size:18px;">
-                    <tr>
-                        <th class="min-w-90px">No</th>
-                        <th class="min-w-200px"> BENEFICIRIO</th>
-                        <th class="min-w-100">PORCENTAJE</th>
-                        <th class="min-w-100px">PARENTESCO</th>
-                        <th class="min-w-200px">EDAD</th>
-                        <th class="min-w-200px">DIRECCION</th>
-
-                    </tr>
-                </thead>
-
-                <tbody class=" fs-1 text-black-800">
-
-                    @foreach ($referencias as $beneficiario)
-                        <tr style="text-align: center; font-size:18px;">
-                            <td>{{ $loop->iteration }}</td>
-
-                            <td style="text-align: center;">{{ $beneficiario->nombre_beneficiario }}</td>
-                            <td>{{ $beneficiario->porcentaje }}%</td>
-                            <td>{{ $beneficiario->parentesco }}</td>
-                            <td>{{ $beneficiario->edad }}-Años</td>
-                            <td>{{ $beneficiario->direccion }}</td>
-
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td class="min-w-400px">Sueldo</td>
+                            <td class="min-w-100">${{ number_format($solicitud->sueldo_solicitante, 2, '.', ',') }}
+                            </td>
+                            <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
+                            <td class="min-w-400px">Gastos de vida</td>
+                            <td class="min-w-100">{{ $solicitud->gastos_vida }}</td>
 
                         </tr>
-                    @endforeach
+                        <tr>
+                            <td class="min-w-400px">Comisiones</td>
+                            <td class="min-w-100">{{ $solicitud->comisiones }}</td>
+                            <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
 
-                </tbody>
-            </table>
-            <br />
-            <br />
-            <br />
+                            <td class="min-w-400px">Pago de obligaciones</td>
+                            <td class="min-w-100">{{ $solicitud->pagos_obligaciones }}</td>
 
-            <div style="font-size: 18px;">
-                F:____________________________________________<br>
-                Asociado
+                        </tr>
+                        <tr>
+                            <td class="min-w-400px">Negocio Propio</td>
+                            <td class="min-w-100">{{ $solicitud->negocio_propio }}</td>
+                            <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
+                            <td class="min-w-400px">Gastos de negocio</td>
+                            <td class="min-w-100">{{ $solicitud->gastos_negocios }}</td>
 
-            </div>
-        </div>
+                        </tr>
+                        <tr>
+                            <td class="min-w-400px">Otros Ingresos</td>
+                            <td class="min-w-100">{{ $solicitud->otros_ingresos }}</td>
+                            <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
+
+                            <td class="min-w-400px">Otros Gastos</td>
+                            <td class="min-w-100">{{ $solicitud->otros_gastos }}</td>
+
+                        </tr>
+                        <tr style="border-top: 3px solid rgb(0, 0, 0);">
+                            <td class="min-w-400px">TOTAL</td>
+                            <td class="min-w-100">{{ $solicitud->total_ingresos }}</td>
+                            <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
+
+                            <td class="min-w-400px">TOTAL</td>
+                            <td class="min-w-100">{{ $solicitud->total_gasto }}</td>
+
+                        </tr>
+
+
+                        <tbody class=" fs-1 text-black-800">
+                        </tbody>
+                    </table>
+                </div>
+
+            <li><span class="item-solicitud">5- REFERENCIAS PERSONALES Y FAMILIARES:</span>
+                <div class="datos_solicitante">
+                    <table class="table table-bordered">
+                        <thead style="text-align: center; font-size:18px;">
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="30%"> Nombre</th>
+                                <th width="10%">Parentesco</th>
+                                <th width="30%">Direccion</th>
+                                <th width="30%">Lugar de trabajo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($referencias as $referencia)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $referencia->nombre }}</td>
+                                    <td>{{ $referencia->parentesco }}</td>
+                                    <td>{{ $referencia->direccion }}</td>
+                                    <td>{{ $referencia->lugar_trabajo }}</td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+
+                </div>
+            <li><span class="item-solicitud">6- DETALLES DE BIENES:</span>
+                <div class="datos_solicitante">
+                    <table class="table table-bordered">
+                        <thead style="text-align: center; font-size:18px;">
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="20%"> Clase de propiedad</th>
+                                <th width="30%">Direccion</th>
+                                <th width="10%">Valor</th>
+                                <th width="10%">Hipotecada</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($bienes as $bien)
+                                <tr style="padding: 10px">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $bien->clase_propiedad }}</td>
+                                    <td>{{ $bien->direccion }}</td>
+                                    <td style="text-align: center">{{ number_format($bien->valor,2,'.',',') }}</td>
+                                    <td style="text-align: center">{{ ($bien->Hipotecado_bien ==0)?'NO':'SI'}}</td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+
+                </div>
+        </ul>
+        <br>
+        F:_______________________________________
+        <br>FIRMA DEL SOLICITANTE o CODEUDOR
+
+
     </div>
+
+
 </body>
 
 </html>

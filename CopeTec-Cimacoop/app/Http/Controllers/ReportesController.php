@@ -158,7 +158,7 @@ class ReportesController extends Controller
         $clienteData = Clientes::find($movimientosCuenta[0]->id_cliente);
 
         $formatter = new NumeroALetras();
-        $numeroEnLetras = $formatter->toInvoice($movimientosCuenta[0]->saldo_cuenta, 2, 'DoLARES');
+        $numeroEnLetras = $formatter->toInvoice($movimientosCuenta[0]->saldo_cuenta, 2, 'DOLARES');
         $pdf = \App::make('snappy.pdf');
         $pdf = PDF::loadView('reportes.cuentas.estadoCuenta', [
             'movimientos' => $movimientosCuenta,
@@ -276,6 +276,40 @@ class ReportesController extends Controller
             'cuotaEnLetras' => $cuotaEnLetras,
             'edadConyugue'=>$edadConyugue,
             'montoSolicitadoEnLetras'=>$montoSolicitadoEnLetras
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+
+    }
+    public function pagareCredito($idSolicitud)
+    {
+
+        $solicitud = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
+            ->orderBy('solicitud_credito.fecha_solicitud')
+            ->where('solicitud_credito.id_solicitud', '=', $idSolicitud)->first();
+
+     
+
+        $formatter = new NumeroALetras();
+        $cuotaEnLetras = $formatter->toInvoice($solicitud->cuota, 2, 'DÓLARES  ');
+        $montoSolicitadoEnLetras = $formatter->toInvoice($solicitud->monto_solicitado, 2, 'DÓLARES  ');
+        $tasaEnletras= $formatter->toWords($solicitud->tasa);
+        $plazoEnLetras= $formatter->toWords($solicitud->plazo);
+        $hoy = new DateTime();
+        $nacimiento = new DateTime($solicitud->fecha_nacimiento);
+        $edad = $hoy->diff($nacimiento);
+        $edadCliente = $edad->y;
+        
+
+
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.creditos.pagare', [
+            'estilos' => $this->estilos,
+            'solicitud' => $solicitud,
+            'edadCliente' => $edadCliente,
+            'tasaEnletras'=>$tasaEnletras,
+            'plazoEnLetras'=>$plazoEnLetras,
+            'cuotaEnLetras' => $cuotaEnLetras,
+            'montoSolicitadoEnLetras' => $montoSolicitadoEnLetras
         ]);
         return $pdf->setOrientation('portrait')->inline();
 

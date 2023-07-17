@@ -162,5 +162,26 @@
     font-family: 'vernada';
     line-height: 1.5;
     padding-top: 10px;
-    padding-left: 30px;
+    padding-left: 20px;
+}
+
+/* pagare*/
+.datos_solicitante_pagare {
+    text-align: justify !important;
+    font-size: 18px;
+    font-family: 'verdana';
+    line-height: 1.5;
+    padding: 10px;
+}
+.divFecha {
+    text-align: right;
+    font-size: 18px;
+    /* font-family: 'vernada'; */
+    line-height: 1.5;
+    padding-top: 10px;
+}
+
+.label-info {
+    font-size: 15px;
+    font-weight: bold;
 }
