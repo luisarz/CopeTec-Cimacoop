@@ -533,7 +533,7 @@
             <div class="card-footer d-flex justify-content-center py-6">
                 <div class="form-floating col-lg-6">
 
-                    <a href="/captaciones/depositosplazo">
+                    <a href="/creditos/solicitudes">
 
                         <button type="button"
                             class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
