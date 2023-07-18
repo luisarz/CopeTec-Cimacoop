@@ -79,6 +79,7 @@ class SolicitudCreditoController extends Controller
         $credito->codigo_credito=str_pad($codCredito,20,"0",STR_PAD_LEFT);
         $credito->fecha_vencimiento = date('Y-m-d', strtotime("+".$solicitud->plazo." months", strtotime(date('Y-m-d'))));
         $credito->proxima_fecha_pago = date('Y-m-d', strtotime("+1 months", strtotime(date('Y-m-d'))));
+        $credito->ultima_fecha_pago = date('Y-m-d');
         $credito->save();
 
         return redirect('/creditos/solicitudes');

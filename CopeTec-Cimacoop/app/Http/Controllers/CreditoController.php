@@ -4,12 +4,125 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Credito;
+use App\Models\PagosCredito;
+use Illuminate\Support\Str;
 
 class CreditoController extends Controller
 {
-   function index() 
+   function index(Request $request) 
    {
-        $creditos = Credito::all();
-        return view('creditos.abonos.index', compact('creditos'));
+      $creditos = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->get();
+      if(isset($request->codigo_credito) || isset($request->nombre_cliente)){
+         $creditos = $creditos = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
+         ->where("clientes.nombre","LIKE",$request->nombre_cliente)
+         ->Where('creditos.codigo_credito', 'LIKE', $request->codigo_credito)
+         ->get();
+      }
+      //dd($creditos);
+      return view('creditos.abonos.index', compact('creditos'));
+   }
+
+   function payment($id)
+   {
+      $credito = Credito::where('id_credito', $id)->
+      join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
+
+
+
+      $pagos = PagosCredito::where('id_credito', $id)->get();
+
+      $MORA=0.000*0;
+
+      $proxima_fecha_pago = date("Y-m-d");
+      $ultima_proxima_fecha_pago = $credito->ultima_fecha_pago;
+
+      $CUOTA =  $credito->cuota;
+      $APORTACION = $credito->aportaciones;
+      $SEGURO_DEUDA = $credito->seguro_deuda;
+
+      #calculo de intereses
+      $SALDO_CAPITAL = $credito->saldo_capital;
+      $TASA = $credito->tasa/100;
+      $DIAS_TRASCURRIDOS = $this->diasEntreFechas($ultima_proxima_fecha_pago, $proxima_fecha_pago);
+      $INTERESES = ($SALDO_CAPITAL * $TASA * $DIAS_TRASCURRIDOS) / 365;
+      $INTERESES_30_DIAS = ($SALDO_CAPITAL * $TASA * 30) / 365;
+
+
+      $CAPITAL = $CUOTA - $INTERESES;
+      if($CAPITAL<0){
+         $CAPITAL = 0.0;
+      }
+     if($DIAS_TRASCURRIDOS>33){
+         $TASA_MORA = $credito->interes_mora/100;
+         $CAPITAL_VENCIDO = $CUOTA - $INTERESES_30_DIAS;
+         $DIAS_MORA = $DIAS_TRASCURRIDOS - 30;
+         //dd($CAPITAL_VENCIDO);
+         $MORA = ($CAPITAL_VENCIDO * $TASA_MORA * $DIAS_MORA) / 365;
+     }
+
+     $TOTAL_PAGAR = $CAPITAL + $MORA + $APORTACION + $SEGURO_DEUDA + $INTERESES;
+
+      return view('creditos.abonos.pago',compact('credito','pagos','MORA','INTERESES','CAPITAL','TOTAL_PAGAR'));
+   }
+
+   function payCredit(Request $request) {
+      $credito = Credito::where('id_credito', $request->id_credito)->first();
+      $pago = new PagosCredito();
+      
+      $MORA=0.000*0;
+
+      $proxima_fecha_pago = $credito->proxima_fecha_pago;
+      $ultima_proxima_fecha_pago = $credito->ultima_fecha_pago;
+
+      $CUOTA =  $credito->cuota;
+      $APORTACION = $credito->aportaciones;
+      $SEGURO_DEUDA = $credito->seguro_deuda;
+
+      #calculo de intereses
+      $SALDO_CAPITAL = $credito->saldo_capital;
+      $TASA = $credito->tasa/100;
+      $DIAS_TRASCURRIDOS = $this->diasEntreFechas($ultima_proxima_fecha_pago, $proxima_fecha_pago);
+      $INTERESES = ($SALDO_CAPITAL * $TASA * $DIAS_TRASCURRIDOS) / 365;
+      $INTERESES_30_DIAS = ($SALDO_CAPITAL * $TASA * 30) / 365;
+
+
+      
+     if($DIAS_TRASCURRIDOS>33){
+         $TASA_MORA = $credito->interes_mora/100;
+         $CAPITAL_VENCIDO = $CUOTA - $INTERESES_30_DIAS;
+         $DIAS_MORA = $DIAS_TRASCURRIDOS - 30;
+         //dd($CAPITAL_VENCIDO);
+         $MORA = ($CAPITAL_VENCIDO * $TASA_MORA * $DIAS_MORA) / 365;
+     }
+
+     $CAPITAL = $request->monto_saldo - $INTERESES - $MORA - $SEGURO_DEUDA - $APORTACION;
+      if($CAPITAL<0){
+         $CAPITAL = 0.0;
+      }
+
+     $TOTAL_PAGAR = $CAPITAL + $MORA + $APORTACION + $SEGURO_DEUDA + $INTERESES;
+
+     $credito->saldo_capital = $credito->saldo_capital - $CAPITAL;
+     $credito->proxima_fecha_pago =  date('Y-m-d', strtotime("+2 months", strtotime($credito->fecha_pago)));
+     $credito->fecha_pago =  date('Y-m-d', strtotime("+1 months", strtotime($credito->fecha_pago)));
+     $credito->ultima_fecha_pago = date('Y-m-d');
+     $credito->save();
+
+     $pago->id_credito= $credito->id_credito;
+     $pago->id_pago_credito=Str::uuid()->toString();
+     $pago->capital=$CAPITAL;
+     $pago->interes=$INTERESES;
+     $pago->mora=$MORA;
+     $pago->aportacion=$APORTACION;
+     $pago->seguro_deuda=$SEGURO_DEUDA;
+     $pago->total_pago=$TOTAL_PAGAR;
+     $pago->fecha_pago= date('Y-m-d H:i:s');
+     $pago->save();
+
+
+   }
+
+   function diasEntreFechas($fechainicio, $fechafin){
+      return ((strtotime($fechafin)-strtotime($fechainicio))/86400);
    }
 }
