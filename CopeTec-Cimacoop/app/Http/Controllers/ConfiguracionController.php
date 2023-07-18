@@ -34,6 +34,9 @@ class ConfiguracionController extends Controller
         $configuracion->correo=$request->correo;
         $configuracion->telefono=$request->telefono;
         $configuracion->direccion=$request->direccion;
+        $configuracion->dias_gracia = $request->dias_gracia;
+        $configuracion->interes_moratorio = $request->interes_moratorio;
+
         $configuracion->save();
         return redirect('/configuracion');
     }

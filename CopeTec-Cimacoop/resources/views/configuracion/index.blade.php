@@ -23,6 +23,9 @@
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#tabCorreo">Correo</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#tabTasa">Tasa</a>
+                    </li>
 
                 </ul>
             </div>
@@ -97,6 +100,25 @@
                     <div class="tab-pane fade" id="tabCorreo" role="tabpanel">
                         ...
                     </div>
+                    <div class="tab-pane fade" id="tabTasa" role="tabpanel">
+                        <!--begin::row group-->
+                        <div class="form-group row mb-5">
+                            <div class="form-floating col-lg-4">
+                                <input type="number" required value="{{ $configuracion->dias_gracia }}"
+                                    class="form-control text-info" name="dias_gracia" id="dias_gracia"
+                                    placeholder="Interes Moratorio" aria-label="saldo" aria-describedby="basic-addon1" />
+                                <label for="floatingPassword">Dias de Gracia</label>
+                            </div>
+                             <div class="form-floating col-lg-4">
+                                <input type="number" required value="{{ $configuracion->interes_moratorio }}"
+                                    class="form-control text-info" name="interes_moratorio" id="interes_moratorio"
+                                    placeholder="Interes Moratorio" aria-label="saldo" aria-describedby="basic-addon1" />
+                                <label for="floatingPassword">Tasa Interes Moratorio %</label>
+                            </div>
+
+                        </div>
+                    </div>
+
 
 
                 </div>
