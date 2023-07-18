@@ -9,5 +9,7 @@ class PagosCredito extends Model
 {
     protected $table = 'pagos_credito';
     protected $primaryKey = 'id_pago_credito';
+    protected $keyType = 'string';
+    public $incrementing = false;
     use HasFactory;
 }

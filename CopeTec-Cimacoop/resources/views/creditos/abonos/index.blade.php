@@ -36,6 +36,16 @@
         </div>
     </div>
     <div class="card-body">
+        @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li class="fs-1">{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
         <div class="table-responsive">
             <table class="table table-hover data-table-coop table-row-dashed fs-5     gy-2 gs-5">
                 <thead>

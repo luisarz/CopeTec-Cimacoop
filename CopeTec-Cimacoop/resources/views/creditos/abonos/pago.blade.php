@@ -154,6 +154,7 @@
                 <table class="table table-hover  table-row-dashed fs-5     gy-2 gs-5">
                     <thead>
                         <tr>
+                            <th>Acciones</th>
                             <th>No</th>
                             <th>Capital</th>
                             <th>Intereses</th>
@@ -167,7 +168,15 @@
                     <tbody>
                         @foreach ($pagos as $pago)
                             <tr>
+                                <td>
+                                    <a href="javascript:imprimirBoleta('{{ $pago->id_pago_credito }}')"
+                                       class="btn btn-outline btn-info btn-sm w-30">
+                                                <i class="ki-outline ki-printer   fs-5"></i>
+                                    </a>
+
+                                </td>
                                 <td>{{ $loop->iteration }}</td>
+
                                 <td>{{ $pago->capital }}</td>
                                 <td>{{ $pago->interes }}</td>
                                 <td>{{ $pago->mora }}</td>
@@ -185,4 +194,11 @@
         <div class="card-footer">
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        function imprimirBoleta(id_pago_credito) {
+            window.open('/creditos/abonos/imprimir/' + id_pago_credito, '_blank');
+        }
+    </script>
 @endsection

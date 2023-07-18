@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Beneficiarios;
 use App\Models\Catalogo;
 use App\Models\Clientes;
+use App\Models\Cuentas;
 use App\Models\Referencias;
 use App\Models\SolicitudCredito;
 use App\Models\Credito;
@@ -193,15 +194,45 @@ class SolicitudCreditoController extends Controller
             'lugar_trabajo'
         )->get();
         $destinoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
+        $tiposCuenta = Catalogo::where('tipo_catalogo', '=', 2)->get();
+        $ingresosPorAplicar = Catalogo::where('tipo_catalogo', '=', 3)->get();
+        $seguroDescuentos = Catalogo::where('tipo_catalogo', '=', 4)->get();
+        $desceuntosIVA= Catalogo::where('tipo_catalogo', '=', 5)->get();
+        $descuentoDeAportaciones= Catalogo::where('tipo_catalogo', '=', 6)->get();
+        $descuentoComisiones= Catalogo::where('tipo_catalogo', '=', 7)->get();
+        $otrosDescuentos= Catalogo::where('tipo_catalogo', '=', 8)->get();
+
+
+
+
         $tiposGarantia = TipoGarantia::all();
-        return view("creditos.solicitudes.desembolso", compact(
-            "solicitud",
-            "clientes",
-            "referencias",
-            "cliente",
-            'destinoCredito',
-            'tiposGarantia'
-        )
+
+        $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->select('cuentas.id_cuenta', 'cuentas.numero_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta')
+            ->where('clientes.id_cliente', '=', $solicitud->id_cliente)
+            ->get();
+            // dd($cuentas);
+
+        return view(
+            "creditos.solicitudes.desembolso",
+            compact(
+                "solicitud",
+                "clientes",
+                "referencias",
+                "cliente",
+                'destinoCredito',
+                'tiposGarantia',
+                'cuentas',
+                'tiposCuenta',
+                'ingresosPorAplicar',
+                'seguroDescuentos',
+                'desceuntosIVA',
+                'descuentoDeAportaciones',
+                'descuentoComisiones',
+                'otrosDescuentos'
+            )
         );
     }
 

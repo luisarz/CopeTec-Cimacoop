@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cajas;
 use App\Models\Configuracion;
 use Illuminate\Http\Request;
 use App\Models\Credito;
 use App\Models\PagosCredito;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class CreditoController extends Controller
@@ -19,12 +21,25 @@ class CreditoController extends Controller
             ->Where('creditos.codigo_credito', 'LIKE', $request->codigo_credito)
             ->get();
       }
-      //dd($creditos);
+
       return view('creditos.abonos.index', compact('creditos'));
    }
 
    function payment($id)
    {
+      $id_empleado_usuario = Session::get('id_empleado_usuario');
+      $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
+         ->where("estado_caja", '=', '1')
+         ->where('id_usuario_asignado', '=', $id_empleado_usuario)
+         ->select('cajas.id_caja', 'cajas.numero_caja')
+         ->first();
+
+      if (is_null($cajaAperturada)) {
+         return redirect("/creditos/abonos")->withErrors('No tienes caja aperturada 😵‍💫, Asegurate de aperturar caja antes de intentar cobrar un crédito.');
+
+      }
+
+
       $credito = Credito::where('id_credito', $id)->
          join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
       $configuracion = Configuracion::first();
@@ -75,7 +90,8 @@ class CreditoController extends Controller
          'CAPITAL',
          'TOTAL_PAGAR',
          'DIAS_MORA',
-         'TASA'
+         'TASA',
+         'cajaAperturada',
       )
       );
    }

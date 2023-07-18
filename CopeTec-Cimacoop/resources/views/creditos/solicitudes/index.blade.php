@@ -102,7 +102,7 @@
                                 <td>
                                     @switch($solicitud->estado)
                                         @case(1)
-                                            <span class="badge badge-info">Prsentada</span>
+                                            <span class="badge badge-info">Presentada</span>
                                         @break
 
                                         @case(2)

@@ -185,3 +185,10 @@
     font-size: 15px;
     font-weight: bold;
 }
+
+.table-scrollable {
+    height: 300px;
+    /* Establece la altura deseada para el contenedor */
+    overflow-y: auto;
+    /* Habilita el desplazamiento vertical */
+}
