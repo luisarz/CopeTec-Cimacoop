@@ -3,6 +3,7 @@
 use App\Http\Controllers\AperturaCajaController;
 use App\Http\Controllers\BeneficiarosDepositosController;
 use App\Http\Controllers\BobedaController;
+use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\DepositosPlazoController;
 use App\Http\Controllers\PlazosController;
@@ -351,6 +352,9 @@ Creditos
 Route::get('/creditos/solicitudes', [SolicitudCreditoController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/solicitudes/add', [SolicitudCreditoController::class, 'add'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/solicitudes/add', [SolicitudCreditoController::class, 'post'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/solicitudes/edit/{id}', [SolicitudCreditoController::class, 'edit'])->middleware(['auth', 'bitacora']);
+Route::put('/creditos/solicitudes/put', [SolicitudCreditoController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::delete('/creditos/solicitudes/delete', [SolicitudCreditoController::class, 'delete'])->middleware(['auth', 'bitacora']);
 
 
 /*
@@ -361,6 +365,10 @@ Route::get('/creditos/solicitudes/referencias/add/{id_referencia}/{id_solicitud}
 Route::get('/creditos/solicitudes/referencias/quitar/{id}', [ReferenciaSolicitudController::class, 'quitar'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/solicitudes/referencias/getReferencias/{id}', [ReferenciaSolicitudController::class, 'getReferencias'])->middleware(['auth', 'bitacora']);
 
+/*Desembolso*/
+Route::get('/creditos/solicitudes/desembolso/{id}', [SolicitudCreditoController::class, 'desembolso'])->middleware(['auth', 'bitacora']);
+Route::post('/creditos/solicitudes/create-credit', [SolicitudCreditoController::class, 'createCredit'])->middleware(['auth', 'bitacora']);
+
 /*
 Bienes Solicitud Credito
 */
@@ -368,11 +376,22 @@ Route::post('/creditos/solicitudes/bienes/add', [SolicitudCreditoBienesControlle
 Route::get('/creditos/solicitudes/bienes/quitar/{id}', [SolicitudCreditoBienesController::class, 'quitar'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/solicitudes/bienes/getBienes/{id}', [SolicitudCreditoBienesController::class, 'getBienes'])->middleware(['auth', 'bitacora']);
 
-Route::get('/creditos/solicitudes/desembolso/{id}', [SolicitudCreditoController::class, 'desembolso'])->middleware(['auth', 'bitacora']);
-Route::post('/creditos/solicitudes/create-credit', [SolicitudCreditoController::class, 'createCredit'])->middleware(['auth', 'bitacora']);
 
+Route::get('/creditos/abonos', [CreditoController::class, 'index'])->middleware(['auth', 'bitacora']);
+
+/*
+Contabilidad
+*/
 
 Route::get('/creditos/abonos', [CreditoController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/abonos', [CreditoController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/payment/{id}', [CreditoController::class, 'payment'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/payment', [CreditoController::class, 'payCredit'])->middleware(['auth', 'bitacora']);
+
+
+Route::get('/contabilidad/catalogo', [CatalogoController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/catalogo/add', [CatalogoController::class, 'add'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/catalogo/add', [CatalogoController::class, 'post'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/catalogo/edit/{id}', [CatalogoController::class, 'edit'])->middleware(['auth', 'bitacora']);
+Route::put('/contabilidad/catalogo/put', [CatalogoController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::delete('/contabilidad/catalogo/delete', [CatalogoController::class, 'delete'])->middleware(['auth', 'bitacora']);

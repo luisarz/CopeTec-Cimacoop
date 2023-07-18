@@ -233,22 +233,47 @@
 
                                     </div>
                                 </div>
-                                <!--begin::row group-->
+                                 <!--begin::row group-->
                                 <div class="form-group row mb-5">
                                     <div class="form-floating col-lg-12">
-                                        <input type="text" name="destino" id="destino" class="form-control"
-                                            placeholder="Destino Crédito" />
+                                        <select name="destino" id="destino" class="form-select"
+                                            data-control="select2">
+
+                                            @foreach ($destinoCredito as $destino)
+                                               
+                                                    <option value="{{ $destino->id_cuenta }}">
+                                                        {{ $destino->descripcion }}
+                                                    </option>
+                                            @endforeach
+                                        </select>
                                         <label>Destino:</label>
                                     </div>
                                 </div>
                                 <!--begin::row group-->
                                 <div class="form-group row mb-5">
-
                                     <div class="form-floating col-lg-12">
-                                        <textarea name="garantia" placeholder="Garantia" id="garantia" rows="10" class="form-control"
-                                            data-kt-autosize="true"></textarea>
-                                        <label>Garantia:</label>
+                                        <select name="tipo_garantia" id="tipo_garantia" class="form-select"
+                                            data-control="select2">
+                                            @foreach ($tiposGarantia as $tipogarantia)
+                                              
+                                                    <option value="{{ $tipogarantia->id_tipo_garantia }}">
+                                                        {{ $tipogarantia->descripcion }}
+                                                    </option>
+                                            @endforeach
+                                        </select>
+                                        <label>Tipo garantia:</label>
                                     </div>
+                                </div>
+                                   <!--begin::row group-->
+                                <div class="form-group row mb-5">
+                                    <div class="form-group row mb-5">
+                                        <div class="form-floating col-lg-12">
+                                            <textarea name="garantia" placeholder="Garantia" id="garantia" rows="10" class="form-control" readonline
+                                                data-kt-autosize="true"></textarea>
+                                            <label>Garantia:</label>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="col-md-6 p-5" style="border: 1px solid red; border-radius:5px">
@@ -533,7 +558,7 @@
             <div class="card-footer d-flex justify-content-center py-6">
                 <div class="form-floating col-lg-6">
 
-                    <a href="/captaciones/depositosplazo">
+                    <a href="/creditos/solicitudes">
 
                         <button type="button"
                             class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">

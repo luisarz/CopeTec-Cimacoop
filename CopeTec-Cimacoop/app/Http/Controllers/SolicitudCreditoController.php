@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Beneficiarios;
+use App\Models\Catalogo;
 use App\Models\Clientes;
 use App\Models\Referencias;
 use App\Models\SolicitudCredito;
 use App\Models\Credito;
+use App\Models\TipoGarantia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -21,7 +23,7 @@ class SolicitudCreditoController extends Controller
                 'solicitud_credito.*',
                 'clientes.nombre'
             )->paginate(10);
-     
+
 
         return view('creditos.solicitudes.index', compact('solicitudes'));
     }
@@ -38,15 +40,26 @@ class SolicitudCreditoController extends Controller
             'lugar_trabajo'
         )->get();
 
-        return view('creditos.solicitudes.add', compact('clientes', 'beneficiarios', 'idSolicitud', 'referencias'));
+        $destinoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
+        $tiposGarantia = TipoGarantia::all();
+
+        return view(
+            'creditos.solicitudes.add',
+            compact(
+                'clientes',
+                'beneficiarios',
+                'idSolicitud',
+                'referencias',
+                'destinoCredito',
+                'tiposGarantia'
+            )
+        );
     }
-
-
-    public function desembolso($id)
+    public function edit($id)
     {
-        $solicitud = SolicitudCredito::where('id_solicitud',$id)->first();
+        $solicitud = SolicitudCredito::where('id_solicitud', $id)->first();
         $clientes = Clientes::whereNotIn('estado', [0, 7])->get();
-        $cliente = Clientes::where('id_cliente',$solicitud->id_cliente)->first();
+        $cliente = Clientes::where('id_cliente', $solicitud->id_cliente)->first();
         $referencias = Referencias::select(
             'id_referencia',
             'nombre',
@@ -54,36 +67,26 @@ class SolicitudCreditoController extends Controller
             'dui',
             'lugar_trabajo'
         )->get();
-        return view("creditos.solicitudes.desembolso",compact("solicitud","clientes","referencias","cliente"));
+        $destinoCredito = Catalogo::select('id_cuenta', 'descripcion')->where('tipo_catalogo', '=', 1)->get();
+        $tiposGarantia = TipoGarantia::all();
+
+        // dd($destinoCredito);
+
+
+        return view(
+            "creditos.solicitudes.edit",
+            compact(
+                "solicitud",
+                "clientes",
+                "referencias",
+                "cliente",
+                'destinoCredito',
+                'tiposGarantia'
+            )
+        );
     }
 
 
-    public function createCredit(Request $request)
-    {
-        $credito = new Credito();
-        $solicitud = SolicitudCredito::where('id_solicitud',$request->id_solicitud)->first();
-        $cliente = Clientes::where('id_cliente',$solicitud->id_cliente)->first();
-        $solicitud->estado = 2;
-        $solicitud->save();
-        $credito->id_credito=Str::uuid()->toString();
-        $credito->id_cliente=$solicitud->id_cliente;
-        $credito->id_solicitud=$solicitud->id_solicitud;
-        $credito->plazo=$solicitud->plazo;
-        $credito->tasa=$solicitud->tasa;
-        $credito->monto_solicitado=$solicitud->monto_solicitado;
-        $credito->saldo_capital=$solicitud->monto_solicitado;
-        $credito->cuota=$solicitud->cuota;
-        $credito->aportaciones=$solicitud->aportaciones;
-        $credito->seguro_deuda=$solicitud->seguro_deuda;
-        $codCredito=$cliente->id_cliente.date("ymdHis").$solicitud->numero_solicitud;
-        $credito->codigo_credito=str_pad($codCredito,20,"0",STR_PAD_LEFT);
-        $credito->fecha_vencimiento = date('Y-m-d', strtotime("+".$solicitud->plazo." months", strtotime(date('Y-m-d'))));
-        $credito->proxima_fecha_pago = date('Y-m-d', strtotime("+1 months", strtotime(date('Y-m-d'))));
-        $credito->ultima_fecha_pago = date('Y-m-d');
-        $credito->save();
-
-        return redirect('/creditos/solicitudes');
-    }
 
 
     public function post(Request $request)
@@ -104,6 +107,7 @@ class SolicitudCreditoController extends Controller
         $solicitud->aportaciones = $request->aportaciones;
         $solicitud->seguro_deuda = $request->seguro_deuda;
         $solicitud->destino = $request->destino;
+        $solicitud->tipo_garantia = $request->tipo_garantia;
         $solicitud->garantia = $request->garantia;
         $solicitud->id_conyugue = $request->id_conyugue;
         $solicitud->empresa_labora = $request->empresa_labora;
@@ -124,6 +128,110 @@ class SolicitudCreditoController extends Controller
         $solicitud->total_gasto = $request->total_gasto;
         $solicitud->estado = 1; //Presentada
         $solicitud->save();
+
+        return redirect('/creditos/solicitudes');
+    }
+
+    public function put(Request $request)
+    {
+        $solicitud = SolicitudCredito::where('id_solicitud', $request->id_solicitud)->first();
+        $solicitud->id_solicitud = $request->id_solicitud;
+        $solicitud->id_cliente = $request->id_cliente;
+        $solicitud->id_socio = null;
+        $solicitud->monto_solicitado = $request->monto_solicitado;
+        $solicitud->fecha_solicitud = $request->fecha_solicitud;
+        $solicitud->plazo = $request->plazo;
+        $solicitud->tasa = $request->tasa;
+        $solicitud->cuota = $request->cuota;
+        $solicitud->aportaciones = $request->aportaciones;
+        $solicitud->seguro_deuda = $request->seguro_deuda;
+        $solicitud->destino = $request->destino;
+        $solicitud->tipo_garantia = $request->tipo_garantia;
+        $solicitud->garantia = $request->garantia;
+        $solicitud->id_conyugue = $request->id_conyugue;
+        $solicitud->empresa_labora = $request->empresa_labora;
+        $solicitud->sueldo_conyugue = $request->sueldo_conyugue;
+        $solicitud->tiempo_laborando = $request->tiempo_laborando;
+        $solicitud->sueldo = $request->sueldo;
+        $solicitud->cargo = $request->cargo;
+        $solicitud->telefono_trabajo = $request->telefono_trabajo;
+        $solicitud->sueldo_solicitante = $request->sueldo_solicitante;
+        $solicitud->comisiones = $request->comisiones;
+        $solicitud->negocio_propio = $request->negocio_propio;
+        $solicitud->otros_ingresos = $request->otros_ingresos;
+        $solicitud->total_ingresos = $request->total_ingresos;
+        $solicitud->gastos_vida = $request->gastos_vida;
+        $solicitud->pagos_obligaciones = $request->pagos_obligaciones;
+        $solicitud->gastos_negocios = $request->gastos_negocios;
+        $solicitud->otros_gastos = $request->otros_gastos;
+        $solicitud->total_gasto = $request->total_gasto;
+        $solicitud->estado = 1; //Presentada
+        $solicitud->save();
+
+        return redirect('/creditos/solicitudes');
+    }
+
+
+    public function delete(Request $request)
+    {
+        $id = $request->id;
+        SolicitudCredito::destroy($id);
+        return redirect("creditos/solicitudes/");
+
+    }
+
+    public function desembolso($id)
+    {
+        $solicitud = SolicitudCredito::where('id_solicitud', $id)->first();
+        $clientes = Clientes::whereNotIn('estado', [0, 7])->get();
+        $cliente = Clientes::where('id_cliente', $solicitud->id_cliente)->first();
+        $referencias = Referencias::select(
+            'id_referencia',
+            'nombre',
+            'parentesco',
+            'dui',
+            'lugar_trabajo'
+        )->get();
+        $destinoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
+        $tiposGarantia = TipoGarantia::all();
+        return view("creditos.solicitudes.desembolso", compact(
+            "solicitud",
+            "clientes",
+            "referencias",
+            "cliente",
+            'destinoCredito',
+            'tiposGarantia'
+        )
+        );
+    }
+
+
+
+    public function createCredit(Request $request)
+    {
+        $credito = new Credito();
+        $solicitud = SolicitudCredito::where('id_solicitud', $request->id_solicitud)->first();
+        $cliente = Clientes::where('id_cliente', $solicitud->id_cliente)->first();
+        $solicitud->estado = 2;
+        $solicitud->save();
+        $credito->id_credito = Str::uuid()->toString();
+        $credito->id_cliente = $solicitud->id_cliente;
+        $credito->id_solicitud = $solicitud->id_solicitud;
+        $credito->plazo = $solicitud->plazo;
+        $credito->tasa = $solicitud->tasa;
+        $credito->monto_solicitado = $solicitud->monto_solicitado;
+        $credito->saldo_capital = $solicitud->monto_solicitado;
+        $credito->cuota = $solicitud->cuota;
+        $credito->aportaciones = $solicitud->aportaciones;
+        $credito->seguro_deuda = $solicitud->seguro_deuda;
+        $codCredito = $cliente->id_cliente . date("ymdHis") . $solicitud->numero_solicitud;
+        $credito->codigo_credito = str_pad($codCredito, 20, "0", STR_PAD_LEFT);
+        $credito->fecha_vencimiento = date('Y-m-d', strtotime("+" . $solicitud->plazo . " months", strtotime(date('Y-m-d'))));
+        $credito->proxima_fecha_pago = date('Y-m-d', strtotime("+1 months", strtotime(date('Y-m-d'))));
+        $credito->fecha_pago = date('Y-m-d');
+        $credito->ultima_fecha_pago = date('Y-m-d');
+        $credito->interes_mora = 36;
+        $credito->save();
 
         return redirect('/creditos/solicitudes');
     }
