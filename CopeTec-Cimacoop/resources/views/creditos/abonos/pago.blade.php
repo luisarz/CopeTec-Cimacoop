@@ -50,7 +50,7 @@
             </div>
 
             <div class="form-floating  col-lg-4">
-            <span class="form-control">${{number_format($credito->interes_mora,2)}}%</span>
+            <span class="form-control">{{number_format($credito->interes_mora,2)}}%</span>
                 <label>Tasa Mora:</label>
             </div>
         </div>
