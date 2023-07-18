@@ -42,7 +42,7 @@ class SolicitudCreditoBienesController extends Controller
     {
         $bienQuitar = SolicitudCreditoBienes::find($id);
         $id_solicitud = $bienQuitar->id_solicitud;
-        $bienQuitar->delete();
+        $bienQuitar::destroy($id);
         $bienes = SolicitudCreditoBienes::where('id_solicitud', '=', $id_solicitud)->get();
 
         return response()->json([

@@ -28,17 +28,10 @@ class ReferenciaSolicitudController extends Controller
 
     public function quitar($id){
         $referenciaQuitar = ReferenciaSolicitud::find($id);
-        $id_solicitud=$referenciaQuitar->id_solicitud;
-
-        $referenciaQuitar->delete();
-
-        $referencias = ReferenciaSolicitud::join('referencias', 'referencias.id_referencia', '=', 'referencia_solicitud.id_referencia')
-            ->where('referencia_solicitud.id_solicitud', '=', $id_solicitud)->get();
-
+        $referenciaQuitar::destroy($id);
         return response()->json([
             'success' => true,
             'message' => 'Referencia eliminada correctamente',
-            'referencias' => $referencias
         ]);
 
     }
