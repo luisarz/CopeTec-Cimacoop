@@ -170,6 +170,14 @@ class SolicitudCreditoController extends Controller
         return redirect('/creditos/solicitudes');
     }
 
+
+    public function delete(Request $request)
+    {
+        $id = $request->id;
+        SolicitudCredito::destroy($id);
+        return redirect("creditos/solicitudes/");
+
+    }
     public function desembolso($id)
     {
         $solicitud = SolicitudCredito::where('id_solicitud', $id)->first();

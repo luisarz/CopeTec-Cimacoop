@@ -25,11 +25,7 @@
                     <i class="ki-outline ki-electricity fs-2x"></i>
                     Nueva solicitud
                 </a>
-                &nbsp;
-                <a href="/captaciones/solicitudsplazo/add" class="btn btn-danger">
-                    <i class="ki-outline ki-calendar-add fs-2x"></i>
-                    Depositar Intereses
-                </a>
+               
             </div>
             <div class="ribbon-label fs-3">
                 <i class="ki-outline ki-book-square text-white fs-3x"></i>
@@ -78,7 +74,7 @@
                                                 <i class="ki-outline ki-printer   fs-3"></i>
                                             </a>
                                             {{-- Anular --}}
-                                            <a href="/reditos/solicitudes/cancelar/{{ $solicitud->id_solicitud }}"
+                                            <a href="javascript:alertDelete('{{ $solicitud->id_solicitud }}')"
                                                 class="btn btn-outline btn-danger btn-sm w-30">
                                                 <i class="ki-outline ki-cross-circle   fs-5"></i>
                                             </a>
@@ -143,7 +139,7 @@
         </div>
     </div>
 
-    <form method="post" id="deleteForm" action="/captaciones/beneficiarios/delete">
+    <form method="post" id="deleteForm" action="/creditos/solicitudes/delete">
         {!! csrf_field() !!}
         {{ method_field('DELETE') }}
         <input type="hidden" name="id" id="id">

@@ -63,7 +63,7 @@ cargarReferencias = function () {
             let idReferencia = element.id_referencia_solicitud;
             let row = $("<tr>");
             row.append($("<td>").html(
-                `<a href="javascript:void(0);" onclick="quitarReferencia(${idReferencia})"><span class='badge badge-danger'>Quitar</span></a>`
+                `<a href="javascript:void(0);" onclick="quitarReferencia(${idReferencia})"><span class=' btn btn-sm btn-danger'>Quitar</span></a>`
             ));
             row.append($("<td>").text(numero));
             row.append($("<td>").text(element.nombre));
@@ -158,7 +158,7 @@ cargarBienes = function () {
             let idReferencia = element.id_propiedad;
             let row = $("<tr>");
             row.append($("<td>").html(
-                `<a href="javascript:void(0);" onclick="equitarBien(${idReferencia})"><span class='badge badge-danger'>Quitar</span></a>`
+                `<a href="javascript:void(0);" onclick="equitarBien(${idReferencia})"><span class='btn btn-sm btn-danger'>Quitar</span></a>`
             ));
             row.append($("<td>").text(element.clase_propiedad));
             row.append($("<td>").text(element.direccion));

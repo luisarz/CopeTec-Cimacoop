@@ -354,6 +354,7 @@ Route::get('/creditos/solicitudes/add', [SolicitudCreditoController::class, 'add
 Route::post('/creditos/solicitudes/add', [SolicitudCreditoController::class, 'post'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/solicitudes/edit/{id}', [SolicitudCreditoController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/creditos/solicitudes/put', [SolicitudCreditoController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::delete('/creditos/solicitudes/delete', [SolicitudCreditoController::class, 'delete'])->middleware(['auth', 'bitacora']);
 
 
 /*

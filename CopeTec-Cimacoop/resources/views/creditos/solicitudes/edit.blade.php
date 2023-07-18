@@ -44,7 +44,7 @@
                 <div class="ribbon-label fs-3">
                     <i class="ki-duotone ki-calendar text-white fs-3x"><span class="path1"></span><span
                             class="path2"></span><span class="path3"></span></i> &nbsp;
-                    Solicitud de Credito
+                    Modificar | Solicitud de Credito
                     <span class="ribbon-inner bg-info"></span>
                 </div>
 
