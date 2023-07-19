@@ -28,6 +28,7 @@ class SolicitudCreditoController extends Controller
 
         return view('creditos.solicitudes.index', compact('solicitudes'));
     }
+
     public function add()
     {
         $clientes = Clientes::whereNotIn('estado', [0, 7])->get();
@@ -181,6 +182,26 @@ class SolicitudCreditoController extends Controller
 
     }
 
+
+
+
+
+     /**
+      Etudio de credito
+      */
+    public function estudios()
+    {
+        $solicitudes = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
+            ->orderBy('solicitud_credito.fecha_solicitud')
+            ->select(
+                'solicitud_credito.*',
+                'clientes.nombre'
+            )->paginate(10);
+
+
+        return view('creditos.estudios.index', compact('solicitudes'));
+    }
+
     public function desembolso($id)
     {
         $solicitud = SolicitudCredito::where('id_solicitud', $id)->first();
@@ -262,6 +283,7 @@ class SolicitudCreditoController extends Controller
         $credito->fecha_pago = date('Y-m-d');
         $credito->ultima_fecha_pago = date('Y-m-d');
         $credito->interes_mora = 36;
+        $credito->estado = 1;
         $credito->save();
 
         return redirect('/creditos/solicitudes');

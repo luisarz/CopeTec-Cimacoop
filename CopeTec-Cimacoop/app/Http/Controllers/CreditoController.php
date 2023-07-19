@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cajas;
+use App\Models\Catalogo;
 use App\Models\Configuracion;
+use App\Models\Cuentas;
 use Illuminate\Http\Request;
 use App\Models\Credito;
 use App\Models\PagosCredito;
@@ -14,15 +16,32 @@ class CreditoController extends Controller
 {
    function index(Request $request)
    {
-      $creditos = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->get();
-      if (isset($request->codigo_credito) || isset($request->nombre_cliente)) {
-         $creditos = $creditos = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
-            ->where("clientes.nombre", "LIKE", $request->nombre_cliente)
-            ->Where('creditos.codigo_credito', 'LIKE', $request->codigo_credito)
-            ->get();
+      $creditosQuery = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
+         ->where('creditos.estado', 2);
+      if (isset($request->codigo_credito)) {
+         $creditosQuery->where('creditos.codigo_credito', 'LIKE', '%' . $request->codigo_credito . '%');
+      }
+      if (isset($request->nombre_cliente)) {
+         $creditosQuery->where('clientes.nombre', 'LIKE', '%' . $request->nombre_cliente . '%');
       }
 
+      $creditos = $creditosQuery->paginate(10);
+
       return view('creditos.abonos.index', compact('creditos'));
+   }
+
+   function estudios(Request $request)
+   {
+      $creditosQuery = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
+         ->where('creditos.estado', 1);
+      if (isset($request->codigo_credito)) {
+         $creditosQuery->where('creditos.codigo_credito', 'LIKE', '%' . $request->codigo_credito . '%');
+      }
+      if (isset($request->nombre_cliente)) {
+         $creditosQuery->where('clientes.nombre', 'LIKE', '%' . $request->nombre_cliente . '%');
+      }
+      $creditos = $creditosQuery->paginate(10);
+      return view('creditos.estudios.index', compact('creditos'));
    }
 
    function payment($id)
@@ -82,17 +101,19 @@ class CreditoController extends Controller
 
       $TOTAL_PAGAR = $CAPITAL + $MORA + $APORTACION + $SEGURO_DEUDA + $INTERESES;
 
-      return view('creditos.abonos.pago', compact(
-         'credito',
-         'pagos',
-         'MORA',
-         'INTERESES',
-         'CAPITAL',
-         'TOTAL_PAGAR',
-         'DIAS_MORA',
-         'TASA',
-         'cajaAperturada',
-      )
+      return view(
+         'creditos.abonos.pago',
+         compact(
+            'credito',
+            'pagos',
+            'MORA',
+            'INTERESES',
+            'CAPITAL',
+            'TOTAL_PAGAR',
+            'DIAS_MORA',
+            'TASA',
+            'cajaAperturada',
+         )
       );
    }
 
@@ -163,5 +184,61 @@ class CreditoController extends Controller
    function diasEntreFechas($fechainicio, $fechafin)
    {
       return ((strtotime($fechafin) - strtotime($fechainicio)) / 86400);
+   }
+
+   function liquidar($id)
+   {
+      $id_empleado_usuario = Session::get('id_empleado_usuario');
+      $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
+         ->where("estado_caja", '=', '1')
+         ->where('id_usuario_asignado', '=', $id_empleado_usuario)
+         ->select('cajas.id_caja', 'cajas.numero_caja')
+         ->first();
+
+      if (is_null($cajaAperturada)) {
+         return redirect("/creditos/abonos")->withErrors('No tienes caja aperturada 😵‍💫, Asegurate de aperturar caja antes de intentar cobrar un crédito.');
+
+      }
+
+
+      $credito = Credito::where('id_credito', $id)->
+         join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
+      $configuracion = Configuracion::first();
+      $destinoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
+      $tiposCuenta = Catalogo::where('tipo_catalogo', '=', 2)->get();
+      $ingresosPorAplicar = Catalogo::where('tipo_catalogo', '=', 3)->get();
+      $seguroDescuentos = Catalogo::where('tipo_catalogo', '=', 4)->get();
+      $desceuntosIVA = Catalogo::where('tipo_catalogo', '=', 5)->get();
+      $descuentoDeAportaciones = Catalogo::where('tipo_catalogo', '=', 6)->get();
+      $descuentoComisiones = Catalogo::where('tipo_catalogo', '=', 7)->get();
+      $otrosDescuentos = Catalogo::where('tipo_catalogo', '=', 8)->get();
+
+      $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+         ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+         ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+         ->select('cuentas.id_cuenta', 'cuentas.numero_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta')
+         ->where('clientes.id_cliente', '=', $credito->id_cliente)
+         ->get();
+
+
+
+      return view(
+         'creditos.liquidar.index',
+         compact(
+            'credito',
+            'cajaAperturada',
+            'configuracion',
+            'destinoCredito',
+            'tiposCuenta',
+            'ingresosPorAplicar',
+            'seguroDescuentos',
+            'desceuntosIVA',
+            'descuentoDeAportaciones',
+            'descuentoComisiones',
+            'otrosDescuentos',
+            'cuentas',
+
+         )
+      );
    }
 }

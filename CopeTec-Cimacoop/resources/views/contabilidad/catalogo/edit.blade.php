@@ -51,7 +51,7 @@
                         <label>Tipo Catalogo:</label>
                     </div>
                     <div class="form-floating col-lg-4">
-                        <input type="number" name="numero" id="numero" value="{{ $cuenta->numero }}"
+                        <input type="text" name="numero" id="numero" value="{{ $cuenta->numero }}"
                             class="form-control" required>
                         <label>Numero de Cuenta:</label>
                     </div>

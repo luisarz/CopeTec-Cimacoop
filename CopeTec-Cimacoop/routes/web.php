@@ -357,6 +357,7 @@ Route::put('/creditos/solicitudes/put', [SolicitudCreditoController::class, 'put
 Route::delete('/creditos/solicitudes/delete', [SolicitudCreditoController::class, 'delete'])->middleware(['auth', 'bitacora']);
 
 
+
 /*
 Referencias Solicitud Creditos
 
@@ -366,6 +367,16 @@ Route::get('/creditos/solicitudes/referencias/quitar/{id}', [ReferenciaSolicitud
 Route::get('/creditos/solicitudes/referencias/getReferencias/{id}', [ReferenciaSolicitudController::class, 'getReferencias'])->middleware(['auth', 'bitacora']);
 
 /*Desembolso*/
+
+/*Estudios pre aprobados*/
+Route::get('/creditos/solicitudes/estudios', [CreditoController::class, 'estudios'])->middleware(['auth', 'bitacora']);
+Route::post('/creditos/solicitudes/estudios', [CreditoController::class, 'estudios'])->middleware(['auth', 'bitacora']);
+Route::post('/creditos/solicitudes/estudios', [CreditoController::class, 'estudios'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/preaprobado/liquidar/{id}', [CreditoController::class, 'liquidar'])->middleware(['auth', 'bitacora']);
+
+
+
+
 Route::get('/creditos/solicitudes/desembolso/{id}', [SolicitudCreditoController::class, 'desembolso'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/solicitudes/create-credit', [SolicitudCreditoController::class, 'createCredit'])->middleware(['auth', 'bitacora']);
 
@@ -377,13 +388,15 @@ Route::get('/creditos/solicitudes/bienes/quitar/{id}', [SolicitudCreditoBienesCo
 Route::get('/creditos/solicitudes/bienes/getBienes/{id}', [SolicitudCreditoBienesController::class, 'getBienes'])->middleware(['auth', 'bitacora']);
 
 
-Route::get('/creditos/abonos', [CreditoController::class, 'index'])->middleware(['auth', 'bitacora']);
+
+
+
 
 /*
 Contabilidad
 */
 
-// Route::get('/creditos/abonos', [CreditoController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/abonos', [CreditoController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/abonos', [CreditoController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/payment/{id}', [CreditoController::class, 'payment'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/payment', [CreditoController::class, 'payCredit'])->middleware(['auth', 'bitacora']);
