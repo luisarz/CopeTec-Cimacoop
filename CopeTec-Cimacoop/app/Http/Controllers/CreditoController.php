@@ -6,6 +6,7 @@ use App\Models\Cajas;
 use App\Models\Catalogo;
 use App\Models\Configuracion;
 use App\Models\Cuentas;
+use App\Models\SolicitudCredito;
 use Illuminate\Http\Request;
 use App\Models\Credito;
 use App\Models\PagosCredito;
@@ -186,7 +187,7 @@ class CreditoController extends Controller
       return ((strtotime($fechafin) - strtotime($fechainicio)) / 86400);
    }
 
-   function liquidar($id)
+   function liquidar($credito)
    {
       $id_empleado_usuario = Session::get('id_empleado_usuario');
       $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
@@ -201,17 +202,23 @@ class CreditoController extends Controller
       }
 
 
-      $credito = Credito::where('id_credito', $id)->
+      $credito = Credito::where('id_credito', $credito)->
          join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
       $configuracion = Configuracion::first();
-      $destinoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
-      $tiposCuenta = Catalogo::where('tipo_catalogo', '=', 2)->get();
-      $ingresosPorAplicar = Catalogo::where('tipo_catalogo', '=', 3)->get();
-      $seguroDescuentos = Catalogo::where('tipo_catalogo', '=', 4)->get();
-      $desceuntosIVA = Catalogo::where('tipo_catalogo', '=', 5)->get();
-      $descuentoDeAportaciones = Catalogo::where('tipo_catalogo', '=', 6)->get();
-      $descuentoComisiones = Catalogo::where('tipo_catalogo', '=', 7)->get();
-      $otrosDescuentos = Catalogo::where('tipo_catalogo', '=', 8)->get();
+      $catalogo = Catalogo::all();
+      $tipoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
+
+      $configuracion = Configuracion::first();
+      $costoConsultaCrediticia =number_format( $configuracion->costo_consulta_crediticia);
+
+
+      $solicitud= SolicitudCredito::where('id_solicitud', $credito->id_solicitud)->first();
+      // $ingresosPorAplicar = Catalogo::where('tipo_catalogo', '=', 3)->get();
+      // $seguroDescuentos = Catalogo::where('tipo_catalogo', '=', 4)->get();
+      // $desceuntosIVA = Catalogo::where('tipo_catalogo', '=', 5)->get();
+      // $descuentoDeAportaciones = Catalogo::where('tipo_catalogo', '=', 6)->get();
+      // $descuentoComisiones = Catalogo::where('tipo_catalogo', '=', 7)->get();
+      // $otrosDescuentos = Catalogo::where('tipo_catalogo', '=', 8)->get();
 
       $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
          ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
@@ -228,15 +235,18 @@ class CreditoController extends Controller
             'credito',
             'cajaAperturada',
             'configuracion',
-            'destinoCredito',
-            'tiposCuenta',
-            'ingresosPorAplicar',
-            'seguroDescuentos',
-            'desceuntosIVA',
-            'descuentoDeAportaciones',
-            'descuentoComisiones',
-            'otrosDescuentos',
+            'catalogo',
             'cuentas',
+            'tipoCredito',
+            'solicitud',
+            'costoConsultaCrediticia',
+            // 'ingresosPorAplicar',
+            // 'seguroDescuentos',
+            // 'desceuntosIVA',
+            // 'descuentoDeAportaciones',
+            // 'descuentoComisiones',
+            // 'otrosDescuentos',
+            // 'cuentas',
 
          )
       );

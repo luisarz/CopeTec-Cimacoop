@@ -65,12 +65,28 @@
                 </div>
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
-                    <div class="form-floating col-lg-6">
+                    <div class="form-floating col-lg-4">
                         <input type="number" name="saldo" id="saldo" value="{{ $cuenta->saldo }}"
                             class="form-control" required>
                         <label>Numero de Cuenta:</label>
                     </div>
-                    <div class="form-floating col-lg-6">
+                    <div class="form-floating col-lg-4">
+
+                        <select class="form-select form-select-solid" name="iva" id="iva" data-control="select2">
+
+                            @if ($cuenta->iva == 1)
+                                <option value="1" selected>Aplica IVA</option>
+                                <option value="0">Sin IVA</option>
+                            @else
+                                <option value="1">Aplica IVA</option>
+                                <option value="0" selected>Sin IVA</option>
+                            @endif
+                        </select>
+                        <label>IVA:</label>
+                    </div>
+
+
+                    <div class="form-floating col-lg-4">
 
                         <select class="form-select form-select-solid" name="estado" id="estado">
                             @if ($cuenta->estado == 1)
@@ -84,31 +100,32 @@
 
                         <label>Estado:</label>
                     </div>
-
-
                 </div>
 
+
             </div>
-            <div class="card-footer d-flex justify-content-center py-6">
-                <div class="form-floating col-lg-4">
 
-                    <a href="/contabilidad/catalogo">
+        </div>
+        <div class="card-footer d-flex justify-content-center py-6">
+            <div class="form-floating col-lg-4">
 
-                        <button type="button"
-                            class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
-                            <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
-                                <i class="path1"></i>
-                                <i class="path2"></i>
-                            </i>
-                            Cancelar
-                        </button>
-                    </a>
-                    <button type="submit" class="btn btn-bg-info btn-text-white">
-                        <i class="fa-solid fa-save fs-2 text-white"></i>
-                        Modificar Cuenta
+                <a href="/contabilidad/catalogo">
+
+                    <button type="button"
+                        class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
+                        <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
+                            <i class="path1"></i>
+                            <i class="path2"></i>
+                        </i>
+                        Cancelar
                     </button>
-                </div>
+                </a>
+                <button type="submit" class="btn btn-bg-info btn-text-white">
+                    <i class="fa-solid fa-save fs-2 text-white"></i>
+                    Modificar Cuenta
+                </button>
             </div>
+        </div>
         </div>
 
     </form>

@@ -1,0 +1,148 @@
+
+$(document).ready(function () {
+
+
+
+    $('#id_cuenta').on('change', function () {
+        let destinoCredito = $('#destino_credito').val();
+        let id_cuenta = $(this).val();
+        if (destinoCredito == id_cuenta) {
+            let cuota = $('#monto_credito').val();
+            cuota = parseFloat(cuota).toFixed(2);
+
+            $("#monto_debe").val(cuota);
+            Swal.fire({
+                icon: 'success',
+                title: 'Aplicacion el monto de la credito',
+                text: 'Has seleccionado la cuenta destino de la credito.',
+                timer: 1000,
+            });
+        } else {
+            $("#monto_debe").val(0);
+        }
+        $("#monto_haber").val(0);
+    });
+
+
+
+    $("#btnAplicarDescuento").on("click", function (e) {
+
+        e.preventDefault();
+        let id_cuenta = $("#id_cuenta").val();
+        if (id_cuenta == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Debes seleccionar una cuenta',
+            });
+            return false;
+        }
+
+
+        let data = {
+            "id_cuenta": $("#id_cuenta").val(),
+            "monto_debe": $("#monto_debe").val(),
+            "monto_haber": $("#monto_haber").val(),
+            "id_credito": $("#id_credito").val(),
+            "_token": $("#token").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/creditos/preaprobado/liquidar/add-descuento/",
+            data: data, // No es necesario convertir a JSON.stringify
+            success: function (response) {
+                swal.close();
+                getLiquidacionesDetalles();
+                $("#id_cuenta").val("").change();
+                $("#monto_debe").val(0);
+                $("#monto_haber").val(0);
+            },
+            error: function (xhr, status, error) {
+                swal.close();
+                console.log(error);
+            },
+            dataType: "json" // Especifica el tipo de datos esperados en la respuesta
+        });
+
+        $("#id_cuenta").val("").change();
+        $("#monto_debe").val(0);
+        $("#monto_haber").val(0);
+
+
+    });
+
+
+
+
+    getLiquidacionesDetalles = function () {
+        let id_credito = $("#id_credito").val();
+        $.get("/creditos/preaprobado/liquidar/getDescuentos/" + id_credito, function (data) {
+            let tableLiquidaciones = $("#tableLiquidaciones");
+            tableLiquidaciones.empty();
+            let numero = 0;
+            $.each(data.liquidaciones, function (index, element) {
+                $("#clase_propiedad").val("");
+                $("#direccion_bien").val("");
+                $("#valor_bien").val(0);
+                $("#hipotecado_bien").val(0);
+
+                numero = index + 1;
+                let id_liquidacion = element.id_liquidacion;
+                let row = $("<tr>");
+                row.append($("<td style='text-align:center;'>").html(
+                    `<a href="javascript:void(0);" onclick="quitarDescuento(${id_liquidacion})"><span class='btn btn-sm btn-danger'>Quitar</span></a>`
+                ));
+                row.append($("<td>").text(element.numero));
+                row.append($("<td>").text(element.descripcion));
+                row.append($("<td style='text-align:right;'>").text('$ ' + element.monto_debe));
+                row.append($("<td style='text-align:right;'>").text('$ ' +element.monto_haber));
+
+                tableLiquidaciones.append(row);
+                
+            });
+            var formattedMontoDebe = '$' + data.sumMontoDebe;
+            var formattedMontoHaber = '$' + data.sumMontoHaber;
+            $('#montoDebe').text(formattedMontoDebe);
+            $('#montoHaber').text(formattedMontoHaber);
+        });
+
+
+    }
+
+    window.quitarDescuento=function(id) {
+        Swal.fire({
+            text: "Deseas Eliminar este registro",
+            icon: "question",
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: "Si",
+            cancelButtonText: 'No',
+            customClass: {
+                confirmButton: "btn btn-warning",
+                cancelButton: "btn btn-secondary"
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.get("/creditos/preaprobado/liquidar/quitarDescuento/" + id, function (data) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Eliminado exitoso',
+                        text: 'El bien  ha sido eliminada correctamente.',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        timerProgressBar: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                    });
+
+                    getLiquidacionesDetalles();
+                });
+            } else if (result.isDenied) { }
+        });
+    }
+
+    getLiquidacionesDetalles();
+
+});

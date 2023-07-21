@@ -6,6 +6,7 @@ use App\Http\Controllers\BobedaController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\DepositosPlazoController;
+use App\Http\Controllers\LiquidacionController;
 use App\Http\Controllers\PlazosController;
 use App\Http\Controllers\ReferenciaSolicitudController;
 use App\Http\Controllers\SolicitudCreditoBienesController;
@@ -371,8 +372,16 @@ Route::get('/creditos/solicitudes/referencias/getReferencias/{id}', [ReferenciaS
 /*Estudios pre aprobados*/
 Route::get('/creditos/solicitudes/estudios', [CreditoController::class, 'estudios'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/solicitudes/estudios', [CreditoController::class, 'estudios'])->middleware(['auth', 'bitacora']);
-Route::post('/creditos/solicitudes/estudios', [CreditoController::class, 'estudios'])->middleware(['auth', 'bitacora']);
+// Route::post('/creditos/solicitudes/estudios', [CreditoController::class, 'estudios'])->middleware(['auth', 'bitacora']);
+
 Route::get('/creditos/preaprobado/liquidar/{id}', [CreditoController::class, 'liquidar'])->middleware(['auth', 'bitacora']);
+Route::post('/creditos/preaprobado/liquidar/add-descuento/', [LiquidacionController::class, 'addDescuentoDesembolso'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/preaprobado/liquidar/getDescuentos/{id}', [LiquidacionController::class, 'getDescuentos'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/preaprobado/liquidar/quitarDescuento/{id}', [LiquidacionController::class, 'deleteDescuento'])->middleware(['auth', 'bitacora']);
+
+
+
+
 
 
 
@@ -403,6 +412,8 @@ Route::post('/creditos/payment', [CreditoController::class, 'payCredit'])->middl
 
 
 Route::get('/contabilidad/catalogo', [CatalogoController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/catalogo', [CatalogoController::class, 'index'])->middleware(['auth', 'bitacora']);
+
 Route::get('/contabilidad/catalogo/add', [CatalogoController::class, 'add'])->middleware(['auth', 'bitacora']);
 Route::post('/contabilidad/catalogo/add', [CatalogoController::class, 'post'])->middleware(['auth', 'bitacora']);
 Route::get('/contabilidad/catalogo/edit/{id}', [CatalogoController::class, 'edit'])->middleware(['auth', 'bitacora']);

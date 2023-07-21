@@ -25,8 +25,29 @@
                     <i class="ki-outline ki-abstract-27 fs-2x"></i>
                     Nueva Cuenta
                 </a>
-              
+
+
+                <div class="d-flex align-items-center border-active-dark ">
+                    <form action="/contabilidad/catalogo" method="post" autocomplete="off"
+                        class="d-flex align-items-center">
+                        {!! csrf_field() !!}
+                        {{ method_field('POST') }}
+                        <!--end::Input group-->
+                        <div class="position-relative w-md-400px me-md-2">
+                            <i class="ki-outline ki-magnifier fs-3 text-gray-500 position-absolute top-50 translate-middle ms-6">
+                            </i>
+                            <input type="text" class="form-control form-control-solid ps-10" name="filtro"
+                                value="" placeholder="Nombre Cuenta o código">
+                        </div>
+                        <!--begin:Action-->
+                        <div class="d-flex align-items-center">
+                            <button type="submit" class="btn btn-info me-5">Buscar</button>
+                        </div>
+                        <!--end:Action-->
+                    </form>
+                </div>
             </div>
+
             <div class="ribbon-label fs-3">
                 <i class="ki-outline ki-medal-star text-white fs-3x"><span class="path1"></span><span
                         class="path2"></span><span class="path3"></span></i>
@@ -35,19 +56,21 @@
                 <span class="ribbon-inner bg-info"></span>
             </div>
 
-          
+
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover table-row-dashed fs-5     gy-2 gs-5">
                     <thead>
                         <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
-                            <th class="min-w-150px">Acciones</th>
+                            <th class="min-w-250px">Acciones</th>
                             <th class="min-w-100px">Catalogo</th>
                             <th class="min-w-50px">Cuenta</th>
                             <th class="min-w-80px">Descripcion</th>
                             <th class="min-w-100px">Saldo</th>
+                            <th class="min-w-50px text-center">IVA</th>
                             <th class="min-w-150px text-center">Estado</th>
+
 
                         </tr>
                     </thead>
@@ -59,7 +82,7 @@
                                     <a href="/contabilidad/catalogo/edit/{{ $cuenta->id_cuenta }}"
                                         class="btn btn-warning btn-sm w-30">
                                         <i class="ki-outline ki-pencil fs-4"></i> </a>
-                               
+
                                     <a href="/contabilidad/catalogo/{{ $cuenta->id_cuenta }}/beneficiarios"
                                         class="btn btn-info btn-sm w-30">
                                         <i class="ki-outline ki-security-user   fs-4"></i>
@@ -74,14 +97,22 @@
                                 <td>{{ $cuenta->catalogo }}</td>
                                 <td>{{ $cuenta->numero }}</td>
                                 <td>{{ $cuenta->descripcion }}</td>
-                                <td>$ {{ number_format($cuenta->saldo, 2, '.', ',') }}</td>
+                                <td>$ {{ number_format($cuenta->saldo, 2) }}</td>
+                                <td>
+                                    @if ($cuenta->iva == 1)
+                                        <span class="badge badge-light-danger fs-5">Si</span>
+                                    @else
+                                        <span class="badge badge-light-success fs-5">No</span>
+                                    @endif
+                                </td>
+
                                 <td style="text-align: center">
 
-                                        @if($cuenta->estado == 1)
-                                            <span class="badge badge-light-success fs-5">Activa</span>
-                                        @else
-                                            <span class="badge badge-light-danger fs-5">Inactiva</span>
-                                        @endif
+                                    @if ($cuenta->estado == 1)
+                                        <span class="badge badge-light-success fs-5">Activa</span>
+                                    @else
+                                        <span class="badge badge-light-danger fs-5">Inactiva</span>
+                                    @endif
                                 </td>
 
                             </tr>
@@ -104,7 +135,6 @@
 
 @section('scripts')
     <script>
-      
         function alertDelete(id) {
             Swal.fire({
                 text: "Deseas Eliminar este registro",
@@ -121,7 +151,7 @@
                 if (result.isConfirmed) {
                     $("#id").val(id)
                     $("#deleteForm").submit();
-                } 
+                }
             });
         }
     </script>

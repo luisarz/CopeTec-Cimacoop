@@ -36,6 +36,7 @@ class ConfiguracionController extends Controller
         $configuracion->direccion=$request->direccion;
         $configuracion->dias_gracia = $request->dias_gracia;
         $configuracion->interes_moratorio = $request->interes_moratorio;
+        $configuracion->consulta_crediticia = $request->consulta_crediticia;
 
         $configuracion->save();
         return redirect('/configuracion');

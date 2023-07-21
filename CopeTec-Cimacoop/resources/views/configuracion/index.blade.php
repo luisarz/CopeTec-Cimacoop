@@ -109,11 +109,17 @@
                                     placeholder="Interes Moratorio" aria-label="saldo" aria-describedby="basic-addon1" />
                                 <label for="floatingPassword">Dias de Gracia</label>
                             </div>
-                             <div class="form-floating col-lg-4">
-                                <input type="number" required value="{{ $configuracion->interes_moratorio }}"
+                            <div class="form-floating col-lg-4">
+                                <input type="number" step="any" required value="{{ $configuracion->interes_moratorio }}"
                                     class="form-control text-info" name="interes_moratorio" id="interes_moratorio"
                                     placeholder="Interes Moratorio" aria-label="saldo" aria-describedby="basic-addon1" />
                                 <label for="floatingPassword">Tasa Interes Moratorio %</label>
+                            </div>
+                            <div class="form-floating col-lg-4">
+                                <input type="number" required step="any" value="{{ $configuracion->consulta_crediticia }}"
+                                    class="form-control text-info" name="consulta_crediticia" id="consulta_crediticia"
+                                    placeholder="Interes Moratorio" aria-label="saldo" aria-describedby="basic-addon1" />
+                                <label for="floatingPassword">Monto por Consulta crediticia</label>
                             </div>
 
                         </div>

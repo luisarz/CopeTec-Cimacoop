@@ -8,14 +8,19 @@ use Illuminate\Http\Request;
 
 class CatalogoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $cuentas = Catalogo::join('catalogo_tipo', 'catalogo_tipo.id_tipo_catalogo', '=', 'catalogo.tipo_catalogo')
-            ->select(
-                'catalogo_tipo.descripcion as catalogo',
-                'catalogo.*'
-            )->paginate(10);
+            ->when(isset($request->filtro), function ($query) use ($request) {
+                $query->where('catalogo.descripcion', 'LIKE', '%' . $request->filtro . '%')
+                    ->orWhere('catalogo.numero', '=', $request->filtro);
+
+            })
+            ->select('catalogo_tipo.descripcion as catalogo', 'catalogo.*')
+            ->paginate(10);
+
         return view('contabilidad.catalogo.index', compact('cuentas'));
+
     }
 
     public function add()
@@ -39,6 +44,7 @@ class CatalogoController extends Controller
         $cuenta->tipo_catalogo = $request->tipo_catalogo;
         $cuenta->estado = $request->estado;
         $cuenta->saldo = $request->saldo;
+        $cuenta->iva = $request->iva;
         $cuenta->save();
         return redirect("/contabilidad/catalogo");
     }
@@ -56,6 +62,8 @@ class CatalogoController extends Controller
         $cuenta->descripcion = $request->descripcion;
         $cuenta->estado = $request->estado;
         $cuenta->saldo = $request->saldo;
+        $cuenta->iva = $request->iva;
+
         $cuenta->save();
         return redirect("/contabilidad/catalogo");
     }

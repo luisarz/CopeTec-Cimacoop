@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RecoveryPasswordEmail;
+use App\Models\Empleados;
+use App\Models\ModuloRol;
+use App\Models\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use App\Models\Empleados;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\RecoveryPasswordEmail;
-use Session;
 use Illuminate\Support\Str;
-use \PDF;
-use Auth;
-use App\Models\ModuloRol;
+use Session;
 
 class LoginController extends Controller
 {

@@ -44,11 +44,11 @@
                         <label>Tipo Catalogo:</label>
                     </div>
                     <div class="form-floating col-lg-4">
-                        <input type="text" name="numero" id="numero" class="form-control" required>
+                        <input type="text" name="numero" id="numero" class="form-control" required placeholder="Codigo">
                         <label>Código de Cuenta:</label>
                     </div>
                     <div class="form-floating col-lg-4">
-                        <input type="text" name="descripcion" id="descripcion" class="form-control" required>
+                        <input type="text" name="descripcion" id="descripcion" class="form-control" required placeholder="Des">
                         <label>Descripcion:</label>
                     </div>
 
@@ -56,13 +56,20 @@
                 </div>
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
-                    <div class="form-floating col-lg-6">
-                        <input type="number" name="saldo" id="saldo" class="form-control" required>
+                    <div class="form-floating col-lg-4">
+                        <input type="number" name="saldo" id="saldo" class="form-control" required placeholder="Saldo Cuenta">
                         <label>Saldo de Cuenta:</label>
                     </div>
-                    <div class="form-floating col-lg-6">
+                    <div class="form-floating col-lg-4">
+                           <select class="form-select form-select-solid" name="iva" id="iva" data-control="select2">
+                            <option value="1">Aplica IVA</option>
+                            <option value="0" selected>Sin IVA</option>
+                        </select>
+                        <label>IVA:</label>
+                    </div>
+                    <div class="form-floating col-lg-4">
                        
-                        <select class="form-select form-select-solid" name="estado" id="estado">
+                        <select class="form-select form-select-solid" name="estado" id="estado" data-control="select2">
                             <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
                         </select>
