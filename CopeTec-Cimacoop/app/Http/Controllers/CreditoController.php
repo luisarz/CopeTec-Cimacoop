@@ -209,16 +209,12 @@ class CreditoController extends Controller
       $tipoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
 
       $configuracion = Configuracion::first();
-      $costoConsultaCrediticia =number_format( $configuracion->costo_consulta_crediticia);
+      $costoConsultaCrediticia = number_format($configuracion->costo_consulta_crediticia);
 
 
-      $solicitud= SolicitudCredito::where('id_solicitud', $credito->id_solicitud)->first();
-      // $ingresosPorAplicar = Catalogo::where('tipo_catalogo', '=', 3)->get();
-      // $seguroDescuentos = Catalogo::where('tipo_catalogo', '=', 4)->get();
-      // $desceuntosIVA = Catalogo::where('tipo_catalogo', '=', 5)->get();
-      // $descuentoDeAportaciones = Catalogo::where('tipo_catalogo', '=', 6)->get();
-      // $descuentoComisiones = Catalogo::where('tipo_catalogo', '=', 7)->get();
-      // $otrosDescuentos = Catalogo::where('tipo_catalogo', '=', 8)->get();
+      $solicitud = SolicitudCredito::where('id_solicitud', $credito->id_solicitud)->first();
+     
+
 
       $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
          ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
@@ -239,15 +235,7 @@ class CreditoController extends Controller
             'cuentas',
             'tipoCredito',
             'solicitud',
-            'costoConsultaCrediticia',
-            // 'ingresosPorAplicar',
-            // 'seguroDescuentos',
-            // 'desceuntosIVA',
-            // 'descuentoDeAportaciones',
-            // 'descuentoComisiones',
-            // 'otrosDescuentos',
-            // 'cuentas',
-
+            'costoConsultaCrediticia'
          )
       );
    }

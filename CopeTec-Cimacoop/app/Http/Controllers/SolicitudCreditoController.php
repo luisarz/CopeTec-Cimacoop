@@ -293,16 +293,20 @@ class SolicitudCreditoController extends Controller
     public function liquidar(Request $request){
 
         $id_credito=$request->id_credito;
-        $liquido=$request->liquido_recibido;
         $id_cuenta_ahorro_destino=$request->id_cuenta_ahorro_destino;
         $id_cuenta_aportacion_destino=$request->id_cuenta_aportacion_destino;
         $aportacionMonto=$request->aportacionMonto;
 
+        $id_empleado = session()->get('id_empleado_usuario');
 
         $credito= Credito::find($id_credito);
-        $credito->liquido_recibido=$liquido;
+        $credito->liquido_recibido= $request->liquido;
         $credito->estado=2;
+        $credito->empleado_liquido=$id_empleado;
         $credito->fecha_desembolso=now();
+        $credito->id_cuenta_ahorro = $id_cuenta_ahorro_destino;
+        $credito->id_cuenta_aportacion = $id_cuenta_aportacion_destino;
+        $credito->aportacion_credito=$aportacionMonto;
         $credito->save();
 
         //hacer el deposito en la cuenta de ahorro

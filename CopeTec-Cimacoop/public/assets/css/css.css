@@ -192,3 +192,20 @@
     overflow-y: auto;
     /* Habilita el desplazamiento vertical */
 }
+
+/* Liquidacion */
+.linea-horizontal {
+    border-bottom: 2px dotted #000;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+}
+
+.datos_solicitante_liquidacion {
+    text-align: justify;
+    font-size: 18px;
+    font-family: 'vernada';
+    line-height: 1.5;
+    padding-top: 10px;
+    /* padding-left: 20px; */
+}

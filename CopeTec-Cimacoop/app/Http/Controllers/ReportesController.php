@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\BeneficiarosDepositos;
 use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
+use App\Models\Catalogo;
 use App\Models\Clientes;
 use App\Models\Configuracion;
 use App\Models\Credito;
 use App\Models\Cuentas;
 use App\Models\DepositosPlazo;
 use App\Models\Empleados;
+use App\Models\LiquidacionModel;
 use App\Models\Movimientos;
 use App\Models\ReferenciaSolicitud;
 use App\Models\SolicitudCredito;
 use App\Models\SolicitudCreditoBienes;
+use App\Models\TipoGarantia;
 use Carbon\Carbon;
 use DateTime;
 use Luecano\NumeroALetras\NumeroALetras;
@@ -321,7 +324,6 @@ class ReportesController extends Controller
 
         $credito = Credito::where('id_credito',$idCredito)->
             join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
-        $configuracion = Configuracion::first();
 
         $id_solicitud=$credito->id_solicitud;
 
@@ -329,16 +331,45 @@ class ReportesController extends Controller
             ->orderBy('solicitud_credito.fecha_solicitud')
             ->where('solicitud_credito.id_solicitud', '=', $id_solicitud)->first();
 
+       
+        $lineaCredito = Catalogo::find($solicitud->destino);
+        $destino = $lineaCredito->descripcion;
 
-        $formatter = new NumeroALetras();
-        $cuotaEnLetras = $formatter->toInvoice($credito->cuota, 2, 'DÓLARES  ');
-        $montoSolicitadoEnLetras = $formatter->toInvoice($credito->monto_solicitado, 2, 'DÓLARES  ');
-        $tasaEnletras = $formatter->toWords($credito->tasa);
-        $plazoEnLetras = $formatter->toWords($credito->plazo);
-        $hoy = new DateTime();
-        $nacimiento = new DateTime($credito->fecha_nacimiento);
-        $edad = $hoy->diff($nacimiento);
-        $edadCliente = $edad->y;
+        $garantia = TipoGarantia::find($solicitud->tipo_garantia);
+        $garantiaTipo = $garantia->descripcion;
+
+        $liquidaciones = LiquidacionModel::join('catalogo', 'catalogo.id_cuenta', 'liquidacion.id_cuenta')->where('id_credito', $idCredito)->get();
+        $sumMontoDebe = $liquidaciones->pluck('monto_debe')->sum();
+        $sumMontoHaber = $liquidaciones->pluck('monto_haber')->sum();
+
+        $empleado = Empleados::find($credito->empleado_liquido);
+        $empleadoLiquido = $empleado->nombre_empleado;
+
+
+        $cuentaAhorrro= Cuentas::find($credito->id_cuenta_ahorro);
+        $cuentaAportacion= Cuentas::find($credito->id_cuenta_aportacion);
+        $numero_cuenta_ahorro = "";
+        if($cuentaAhorrro){
+            $numero_cuenta_ahorro= $cuentaAhorrro->numero_cuenta;
+
+        }
+        $numero_cuenta_aportacion = "";
+        if($cuentaAportacion){
+
+            $numero_cuenta_aportacion= $cuentaAportacion->numero_cuenta;
+        }
+
+        $liquido = LiquidacionModel::where(function ($query) {
+            $query->where('id_cuenta', 8)
+                ->orWhere('id_cuenta', 9);
+        })
+            ->where('id_credito', $idCredito)
+            ->first();
+        if ($liquido) {
+            $liquido = $liquido->monto_haber;
+        } else {
+            $liquido = 0;
+        }
 
 
 
@@ -346,14 +377,18 @@ class ReportesController extends Controller
         $pdf = PDF::loadView('reportes.creditos.liquidacion', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
-
             'solicitud' => $solicitud,
             'credito' => $credito,
-            'edadCliente' => $edadCliente,
-            'tasaEnletras' => $tasaEnletras,
-            'plazoEnLetras' => $plazoEnLetras,
-            'cuotaEnLetras' => $cuotaEnLetras,
-            'montoSolicitadoEnLetras' => $montoSolicitadoEnLetras
+            'destino'=>$destino,
+            'garantiaTipo'=>$garantiaTipo,
+            'liquidaciones'=>$liquidaciones,
+            'sumMontoDebe'=>$sumMontoDebe,
+            'sumMontoHaber'=>$sumMontoHaber,
+            'liquido'=>$liquido,
+            'empleadoLiquido'=>$empleadoLiquido,
+            'numero_cuenta_ahorro'=>$numero_cuenta_ahorro,
+            'numero_cuenta_aportacion'=>$numero_cuenta_aportacion
+
         ]);
         return $pdf->setOrientation('portrait')->inline();
 

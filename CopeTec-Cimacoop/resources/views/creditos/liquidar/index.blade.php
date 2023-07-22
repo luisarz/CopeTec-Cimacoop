@@ -71,7 +71,6 @@
                 <div class="form-floating  col-lg-3">
                     <select class="form-select" name="destino_credito" id="destino_credito" data-control="select2" disabled>
                         @foreach ($tipoCredito as $tipo)
-                            {{ $solicitud->id_tipo_credito }}
                             @if ($tipo->id_cuenta == $solicitud->id_tipo_credito)
                                 <option value="{{ $tipo->id_tipo_credito }}" selected>
                                     {{ $tipo->descripcion }}

@@ -15,182 +15,198 @@
 
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
 
-    <div class="row" style="font-size:20px; ">
-        <center>
-          CIMACOOP DE R.L 
-          <br>
-          HOJA DE LIQUIDACION DE PRESTAMO
-          <hr>
-          DATOS DEL PRESTAMO
+    <div class="row" style="font-size:20px; " class="reportName">
+       <div class="col-md-12 fw-bold" style="padding-left: 30px;">
+         <center>
+            CIMACOOP DE R.L
+            <br>
+            HOJA DE LIQUIDACION DE PRESTAMO
+            <div class="linea-horizontal"></div>
+
+            <div class="linea-horizontal">
+                DATOS DEL PRESTAMO
+            </div>
+
+
+
         </center>
-      <div class="divFecha"> 
-        Fecha de desembolso: 
-        {{ \Carbon\Carbon::parse($credito->fecha_desembolso)->format('d \d\e ') . \Carbon\Carbon::parse($solicitud->fecha_solicitud)->monthName . \Carbon\Carbon::parse($solicitud->fecha_solicitud)->format(' \d\e Y') }}
+       </div>
+        <div class="divFecha ">
+            Fecha de desembolso:
+            {{ \Carbon\Carbon::parse($credito->fecha_desembolso)->format('d \d\e ') . \Carbon\Carbon::parse($solicitud->fecha_solicitud)->monthName . \Carbon\Carbon::parse($solicitud->fecha_solicitud)->format(' \d\e Y') }}
         </div>
         <ul style=" list-style-type: none;">
 
             <li class="items_li">
-                <span class="item-solicitud">1- DATOS GENERALES DEL SOLICITANTE:</span>
-                <div class="datos_solicitante">
-                   Asociado: <b>{{ $solicitud->nombre }}</b> Codigo: <b>{{ $solicitud->id_cliente }} </b> 
-                    <br>
-                   Fecha de desembolso <b>{{ $credito->fecha_desembolso }}</b>, Número prestamos: <b> {{ $credito->codigo_credito }}</b> <br>
-                    Linea de Credito en:<b>{{ $solicitud->dui_extendido }}</b>
-                    <br>
-                    Fecha de expedicion: <b>{{ $solicitud->fecha_expedicion }}</b>, fecha de nacimiento.
-                    <b>{{ $solicitud->fecha_nacimiento }}</b>
-                    <br>
-                    Nacionalidad: <b>{{ $solicitud->nacionalidad }}</b>, estado Civi:
-                    <b>{{ $solicitud->estado_civil }}</b>,
-                    Telefono: <b> {{ $solicitud->telefono }}</b>
-                    <br>
-                    Dirección personal: <b> {{ $solicitud->direccion_personal }}</b>
-                    <br>
-                    Dirección del negocio: <b> {{ $solicitud->direccion_negocio }} </b>
-                    <br>
-                    Nombre del negocio: <b> {{ $solicitud->nombre_negocio }}</b>, Casa: <b>
-                        {{ $solicitud->tipo_vivienda }}</b>
-                </div>
-            <li><span class="item-solicitud">2- DATOS DEL CRÉDITO SOLICITADO:</span>
-                <div class="datos_solicitante">
-                    Cantidad Solicitada: <b>${{ number_format($solicitud->monto_solicitado, 2, '.', ',') }}</b>
-                    ({{ $montoSolicitadoEnLetras }}), plazo: &nbsp;&nbsp; <b>&nbsp;{{ $solicitud->plazo }}</b>
-                    (meses),
-                    Tasa de interes: <b> {{ $solicitud->tasa }}%</b>, cuota: <b>
-                        ${{ number_format($solicitud->cuota, 2, '.', ',') }}</b>
-                    ({{ $cuotaEnLetras }})
-                    <br>
-                    Seguro de deuda: <b>{{ $solicitud->seguro_deuda }}</b>, Destino del préstamo: <b>
-                        {{ $solicitud->destino }}</b>
-                    <br>
-                    garantías:
-                    <b>{{ $solicitud->garantia }}</b>
-
-
-                </div>
-            <li><span class="item-solicitud">4- INGRESOS Y EGRESOS MENSUALES DEL SOLICITANTE:</span>
-                <div class="datos_solicitante">
-                    <table class="table w-50%" style="border: 1px solid white;">
-                        <thead style="text-align: center; font-size:18px;">
+                <div class="datos_solicitante_liquidacion">
+                    <table class="table">
+                       
+                        <tbody >
                             <tr>
-                                <th class="min-w-400px"> INGRESOS</th>
-                                <th class="min-w-200"></th>
-                                <th class="min-w-100"></th>
-                                <th class="min-w-400px">EGRESOS</th>
-                                <th class="min-w-200"></th>
+                                <td>
+                                    Asociado: <b> <i> {{ $solicitud->nombre }} </i><br> </b>
+                                </td>
+                                <td>
+                                    Codigo: <b>{{ $credito->id_credito }} </b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Fecha de desembolso <b>{{ $credito->fecha_desembolso }}</b>
+                                </td>
+                                <td>
+                                    Número prestamos: <b>{{ $credito->codigo_credito }}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Linea de Credito: &nbsp;<b>{{ $destino }}</b>
+                                </td>
+                                <td>
+                                    Tipo garantia: <b>{{ $garantiaTipo }}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    Garantia: <b>{{ $solicitud->garantia }}</b>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Monto: &nbsp;<b>${{ number_format($credito->monto_solicitado, 2) }}</b>
+                                </td>
+                                <td>
+                                    Tasa: <b>{{ $solicitud->tasa }}%</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    Plazo: &nbsp;<b>{{ $solicitud->plazo }} mes(es)</b>
+                                </td>
 
                             </tr>
+
+                            <tr>
+                                <td>
+                                    Cuenta de ahorro Deposito:
+                                    &nbsp;<b>{{ str_pad($numero_cuenta_ahorro, 10, '0', STR_PAD_LEFT) }}</b>
+                                </td>
+                                <td>
+                                    Monto Deposito:
+                                    <b>{{ str_pad('$ '.number_format($liquido, 2), 15, '*', STR_PAD_LEFT) }}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cuenta Aportacion:
+                                    &nbsp;<b>{{ str_pad($numero_cuenta_aportacion, 10, '0', STR_PAD_LEFT) }}</b>
+                                </td>
+                                <td>
+                                    Monto Deposito:
+                                    <b>{{ str_pad('$ '.number_format($credito->aportacion_credito, 2), 15, '*', STR_PAD_LEFT) }}</b>
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+
+
+                </div>
+            <li>
+
+
+            <li>
+                <div class="linea-horizontal">
+                    Detalles liquidación
+                </div>
+                <hr>
+                <span class="item-solicitud"></span>
+                <div class="datos_solicitante_liquidacion">
+                    <table class="table w-100">
+                        <thead style="text-align: center; font-size:18px;">
+                            <tr>
+                                <th class="min-w-150px fw-bold"> CODIGO</th>
+                                <th class="min-w-200px fw-bold">DESCRIPCION</th>
+                                <th class="min-w-150px fw-bold">MOV.1</th>
+                                <th class="min-w-150px fw-bold">MOV.2</th>
+                            </tr>
                         </thead>
-                        <tr>
-                            <td class="min-w-400px">Sueldo</td>
-                            <td class="min-w-100">${{ number_format($solicitud->sueldo_solicitante, 2, '.', ',') }}
-                            </td>
-                            <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
-                            <td class="min-w-400px">Gastos de vida</td>
-                            <td class="min-w-100">{{ $solicitud->gastos_vida }}</td>
-
-                        </tr>
-                        <tr>
-                            <td class="min-w-400px">Comisiones</td>
-                            <td class="min-w-100">{{ $solicitud->comisiones }}</td>
-                            <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
-
-                            <td class="min-w-400px">Pago de obligaciones</td>
-                            <td class="min-w-100">{{ $solicitud->pagos_obligaciones }}</td>
-
-                        </tr>
-                        <tr>
-                            <td class="min-w-400px">Negocio Propio</td>
-                            <td class="min-w-100">{{ $solicitud->negocio_propio }}</td>
-                            <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
-                            <td class="min-w-400px">Gastos de negocio</td>
-                            <td class="min-w-100">{{ $solicitud->gastos_negocios }}</td>
-
-                        </tr>
-                        <tr>
-                            <td class="min-w-400px">Otros Ingresos</td>
-                            <td class="min-w-100">{{ $solicitud->otros_ingresos }}</td>
-                            <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
-
-                            <td class="min-w-400px">Otros Gastos</td>
-                            <td class="min-w-100">{{ $solicitud->otros_gastos }}</td>
-
-                        </tr>
-                        <tr style="border-top: 3px solid rgb(0, 0, 0);">
-                            <td class="min-w-400px">TOTAL</td>
-                            <td class="min-w-100">{{ $solicitud->total_ingresos }}</td>
-                            <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
-
-                            <td class="min-w-400px">TOTAL</td>
-                            <td class="min-w-100">{{ $solicitud->total_gasto }}</td>
-
-                        </tr>
-
 
                         <tbody class=" fs-1 text-black-800">
-                        </tbody>
-                    </table>
-                </div>
-
-            <li><span class="item-solicitud">5- REFERENCIAS PERSONALES Y FAMILIARES:</span>
-                <div class="datos_solicitante">
-                    <table class="table table-bordered">
-                        <thead style="text-align: center; font-size:18px;">
-                            <tr>
-                                <th width="5%">#</th>
-                                <th width="30%"> Nombre</th>
-                                <th width="10%">Parentesco</th>
-                                <th width="30%">Direccion</th>
-                                <th width="30%">Lugar de trabajo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{-- @foreach ($referencias as $referencia)
+                            @foreach ($liquidaciones as $decuento)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $referencia->nombre }}</td>
-                                    <td>{{ $referencia->parentesco }}</td>
-                                    <td>{{ $referencia->direccion }}</td>
-                                    <td>{{ $referencia->lugar_trabajo }}</td>
+                                    <td style="text-align: left; padding-left:5px;">
+                                        {{ $decuento->numero != 0 ? $decuento->numero : '' }}</td>
+                                    <td style="text-align: left; padding-left:5px;">{{ $decuento->descripcion }}</td>
+                                    <td style="text-align: right;  padding-right:5px;">
+                                        {{ $decuento->monto_debe != 0 ? '$ ' . number_format($decuento->monto_debe, 2) : '-' }}
+                                    </td>
+
+                                     @if ($liquido == $decuento->monto_haber) 
+                                        <td style="text-align: right; padding-right:5px;" class="fw-bold">
+                                            {{ $decuento->monto_haber != 0 ? '$ ' . number_format($decuento->monto_haber, 2) : '-' }}
+                                        </td>
+                                    @else 
+                                        <td style="text-align: right; padding-right:5px;">
+                                            {{ $decuento->monto_haber != 0 ? '$ ' . number_format($decuento->monto_haber, 2) : '-' }}
+                                        </td>
+                                    @endif
                                 </tr>
-                            @endforeach --}}
-
+                            @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" style="text-align: right;  padding-right:5px;">TOTAL</td>
+                                <td style="text-align: right; padding-right:5px;" class="fw-bold">
+                                    ${{ number_format($sumMontoDebe, 2) }}
+                                </td>
+                                <td style="text-align: right; padding-right:5px;" class="fw-bold">
+                                    ${{ number_format($sumMontoHaber, 2) }}
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
-
                 </div>
-            <li><span class="item-solicitud">6- DETALLES DE BIENES:</span>
-                <div class="datos_solicitante">
-                    <table class="table table-bordered">
+                <br>
+                <br>
+                <div class="datos_solicitante_liquidacion">
+                    <table class="table w-100" style="border: 1px solid white;">
                         <thead style="text-align: center; font-size:18px;">
                             <tr>
-                                <th width="5%">#</th>
-                                <th width="20%"> Clase de propiedad</th>
-                                <th width="30%">Direccion</th>
-                                <th width="10%">Valor</th>
-                                <th width="10%">Hipotecada</th>
+                                <th class="min-w-250px fw-bold"> <u>&nbsp;&nbsp;&nbsp; {{ $empleadoLiquido }}
+                                        &nbsp;&nbsp;&nbsp;</u> </th>
+                                <th class="min-w-50px fw-bold"></th>
+                                <th class="min-w-150px fw-bold">F:____________________________________</th>
+                                <th class="min-w-50px fw-bold"></th>
+                                <th class="min-w-150px fw-bold">F:____________________________________</th>
+
+
                             </tr>
                         </thead>
-                        <tbody>
-                            {{-- @foreach ($bienes as $bien)
-                                <tr style="padding: 10px">
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $bien->clase_propiedad }}</td>
-                                    <td>{{ $bien->direccion }}</td>
-                                    <td style="text-align: center">{{ number_format($bien->valor,2,'.',',') }}</td>
-                                    <td style="text-align: center">{{ ($bien->Hipotecado_bien ==0)?'NO':'SI'}}</td>
-                                </tr>
-                            @endforeach --}}
 
+                        <tbody style="text-align: center; font-size:18px;">
+                            <tr>
+                                <td>
+                                    Elaboró
+                                </td>
+                                <td></td>
+                                <td>
+                                    Revisa y autoriza
+                                </td>
+                                <td></td>
+                                <td>
+                                    Firma de Asociado
+                                </td>
+
+                            </tr>
                         </tbody>
+
                     </table>
-
                 </div>
-        </ul>
-        <br>
-        F:_______________________________________
-        <br>FIRMA DEL SOLICITANTE o CODEUDOR
 
+        </ul>
 
     </div>
 

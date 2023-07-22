@@ -50,13 +50,13 @@
             <table class="table table-hover data-table-coop table-row-dashed fs-5     gy-2 gs-5">
                 <thead>
                     <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
-                        <th></th>
+                        <th class="min-w-150"></th>
                         <th class="min-w-20px">No</th>
                         <th class="min-w-20px">Cliente</th>
                         <th class="min-w-80px">Fecha Pago</th>
-                        <th class="min-w-50px">Fecha Venci.</th>
+                        {{-- <th class="min-w-50px">Fecha Venci.</th> --}}
                         <th class="min-w-30px">Plazo</th>
-                        <th class="min-w-30px">Cuota. Mensual</th>
+                        <th class="min-w-30px">Cuota</th>
                         <th class="min-w-30px">Saldo</th>
                         <th class="min-w-30px">Prestamo</th>
                     </tr>
@@ -65,18 +65,19 @@
                     @foreach ($creditos as $credito)
                         <tr>
                             <td>
-                                <a href="/creditos/payment/{{$credito->id_credito}}" class="btn btn-success btn-sm w-30">
-                                    <i class="ki-duotone ki-dollar">
-                                        <i class="path1"></i>
-                                        <i class="path2"></i>
-                                        <i class="path3"></i>
-                                    </i> Pagar
+                                <a href="/creditos/payment/{{$credito->id_credito}}" class="btn btn-success btn-sm ">
+                                    <i class="ki-outline ki-dollar fs-3">
+                                    </i>Depositar
+                                </a>
+                                <a href="creditos/aprobado/liquidacion/{{$credito->id_credito}}" target="_blank" class="btn btn-info btn-sm ">
+                                    <i class="ki-outline ki-printer fs-3">
+                                    </i>
                                 </a>
                             </td>
                             <td>{{$credito->codigo_credito}}</td>
                             <td>{{$credito->nombre}}</td>
                             <td><span class="badge badge-info">{{$credito->proxima_fecha_pago}}</span></td>
-                            <td><span class="badge badge-info">{{$credito->fecha_vencimiento}}</span></td>
+                            {{-- <td><span class="badge badge-info">{{$credito->fecha_vencimiento}}</span></td> --}}
                             <td>{{$credito->plazo}}</td>
                             <td>${{number_format($credito->cuota,2)}}</td>
                             <td>${{number_format($credito->saldo_capital,2)}}</td>
