@@ -283,9 +283,11 @@ class SolicitudCreditoController extends Controller
         $credito->fecha_pago = date('Y-m-d');
         $credito->ultima_fecha_pago = date('Y-m-d');
         $credito->interes_mora = 36;
+        $credito->liquido_recibido = 0;
         $credito->estado = 1;
         $credito->save();
 
         return redirect('/creditos/solicitudes');
     }
+    
 }

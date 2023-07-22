@@ -8,6 +8,7 @@
     <input type="hidden" id="monto_cuota" name="monto_cuota" value="{{ $credito->cuota }}">
     <input type="hidden" id="monto_credito" name="monto_credito" value="{{ $credito->monto_solicitado }}">
     <input type="hidden" id="costoConsultaCrediticia" name="costoConsultaCrediticia" value="{{ $credito->costoConsultaCrediticia }}">
+    <input type="hidden" id="liquido" name="liquido" value="0">
 
 
     <input type="hidden" id="token" value="{{ csrf_token() }}">
@@ -38,6 +39,7 @@
             </div>
         </div>
         <div class="card-body">
+             
             <div class="form-group row mb-3">
                 <div class="form-floating  col-lg-2">
                     <input class="form-control fw-bold text-info" disabled
@@ -186,6 +188,14 @@
                     </div>
                 </div>
             </div>
+            
+        </div>
+        <div class="card-footer">
+                      <button class="btn btn-success btn w-100 fw-bold" id="btnLiquidar"
+                                    name="btnLiquidar">
+                                    <i class="ki-outline ki-brifecase-tick text-white fs-2x"></i>
+                                    Realizar Liquidación
+                                </button>
         </div>
     </div>
 @endsection

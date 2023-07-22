@@ -73,6 +73,50 @@ $(document).ready(function () {
     });
 
 
+    $("#btnLiquidar").on("click", function (e) {
+
+        e.preventDefault();
+        let liquido = $("#liquido").val();
+        if (liquido == 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Debes detalles, la liquidación del credito',
+            });
+            return false;
+        }
+
+
+        let data = {
+            "id_credito": $("#id_credito").val(),
+            "_token": $("#token").val()
+        };
+
+        // $.ajax({
+        //     type: "POST",
+        //     url: "/creditos/preaprobado/liquidar/add-descuento/",
+        //     data: data, // No es necesario convertir a JSON.stringify
+        //     success: function (response) {
+        //         swal.close();
+        //         getLiquidacionesDetalles();
+        //         $("#id_cuenta").val("").change();
+        //         $("#monto_debe").val(0);
+        //         $("#monto_haber").val(0);
+        //     },
+        //     error: function (xhr, status, error) {
+        //         swal.close();
+        //         console.log(error);
+        //     },
+        //     dataType: "json" // Especifica el tipo de datos esperados en la respuesta
+        // });
+
+
+
+
+    });
+
+
+
 
 
     getLiquidacionesDetalles = function () {
@@ -81,6 +125,7 @@ $(document).ready(function () {
             let tableLiquidaciones = $("#tableLiquidaciones");
             tableLiquidaciones.empty();
             let numero = 0;
+            $("#liquido").val(data.liquido);
             $.each(data.liquidaciones, function (index, element) {
                 $("#clase_propiedad").val("");
                 $("#direccion_bien").val("");
@@ -95,9 +140,13 @@ $(document).ready(function () {
                 ));
                 row.append($("<td>").text(element.numero));
                 row.append($("<td>").text(element.descripcion));
-                row.append($("<td style='text-align:right;'>").text('$ ' + element.monto_debe));
-                row.append($("<td style='text-align:right;'>").text('$ ' +element.monto_haber));
+                row.append($("<td style='text-align:right;'>").text('$ ' + parseFloat(element.monto_debe).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
+                if (data.liquido == element.monto_haber) {
+                    row.append($("<td style='text-align:right;' >").html("<span class='badge badge-success fs-4'> $ " + parseFloat(element.monto_haber).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + "</span>"));
 
+                } else {
+                    row.append($("<td style='text-align:right;'>").text('$ ' + parseFloat(element.monto_haber).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
+                }
                 tableLiquidaciones.append(row);
                 
             });

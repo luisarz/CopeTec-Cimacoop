@@ -97,6 +97,9 @@ class LiquidacionController extends Controller
 
 
 
+
+
+
         return response()->json([
             "status" => true,
             "message" => "Detalle de liquidacion  agregado correctamente"
@@ -109,12 +112,23 @@ class LiquidacionController extends Controller
         $liquidaciones = LiquidacionModel::join('catalogo', 'catalogo.id_cuenta', 'liquidacion.id_cuenta')->where('id_credito', $id)->get();
         $sumMontoDebe = $liquidaciones->pluck('monto_debe')->sum();
         $sumMontoHaber = $liquidaciones->pluck('monto_haber')->sum();
+
+        $liquido = LiquidacionModel::where(function ($query) {
+            $query->where('id_cuenta', 8)
+                ->orWhere('id_cuenta', 9);
+        })
+            ->where('id_credito', $id)
+            ->first();
+        $liquido = $liquido->monto_haber;
+
+
         return response()->json([
             "status" => true,
             "message" => "Detalle recuperados   correctamente",
             "liquidaciones" => $liquidaciones,
             "sumMontoDebe" => number_format($sumMontoDebe, 2),
-            "sumMontoHaber" => number_format($sumMontoHaber, 2)
+            "sumMontoHaber" => number_format($sumMontoHaber, 2),
+            "liquido" => $liquido,
         ]);
     }
 
@@ -123,22 +137,55 @@ class LiquidacionController extends Controller
         $liquidacion = LiquidacionModel::find($id);
         $id_credito = $liquidacion->id_credito;
         $montoHaber = $liquidacion->monto_haber;
+        $id_cuenta = $liquidacion->id_cuenta;
         $liquidacion->delete();
 
         $actualizarLiquido = LiquidacionModel::where(function ($query) {
             $query->where('id_cuenta', 8)
                 ->orWhere('id_cuenta', 9);
         })
-        ->where('id_credito', $id_credito)
-        ->first();
-
+            ->where('id_credito', $id_credito)
+            ->first();
+        //Actualizando el monto haber de la cuenta 8 y 9
         if ($actualizarLiquido) {
-
             $actualizarLiquido->monto_haber = $actualizarLiquido->monto_haber + $montoHaber;
             $actualizarLiquido->save();
 
         }
 
+        //buscando si tiene  IVA la cuenta para desconarle el iva
+        $buscarIvaEnCuenta = Catalogo::find($id_cuenta);
+        if ($buscarIvaEnCuenta->iva != null) {
+            // Calculate the IVA if the 'catalogo' has IVA.
+            $iva = $montoHaber * 0.13; // Assuming 16% IVA, adjust the percentage accordingly.
+            // If IVA is greater than 0, register the 'liquidacion' entry.
+            if ($iva > 0) {
+
+                // Register the IVA entry (ID=18 -2203010101 Debito Fiscal- Facturas)
+                //verificamos si existe el iva en la tabla liquidacion
+
+                $existenciaIva = LiquidacionModel::where('id_credito', $id_credito)
+                    ->where('id_cuenta', 18)
+                    ->first();
+                if ($existenciaIva) {
+                    $existenciaIva->monto_haber = $existenciaIva->monto_haber - $iva;
+                    $existenciaIva->save();
+                }
+
+                $aumentarLiquido = LiquidacionModel::where(function ($query) {
+                    $query->where('id_cuenta', 8)
+                        ->orWhere('id_cuenta', 9);
+                })
+                    ->where('id_credito', $id_credito)
+                    ->first();
+
+                if ($aumentarLiquido) {
+                    $aumentarLiquido->monto_haber = $aumentarLiquido->monto_haber + $iva;
+                    $aumentarLiquido->save();
+                }
+
+            }
+        }
 
 
 
