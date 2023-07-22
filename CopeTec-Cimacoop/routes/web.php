@@ -378,6 +378,7 @@ Route::get('/creditos/preaprobado/liquidar/{id}', [CreditoController::class, 'li
 Route::post('/creditos/preaprobado/liquidar/add-descuento/', [LiquidacionController::class, 'addDescuentoDesembolso'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/preaprobado/liquidar/getDescuentos/{id}', [LiquidacionController::class, 'getDescuentos'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/preaprobado/liquidar/quitarDescuento/{id}', [LiquidacionController::class, 'deleteDescuento'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/aprobado/liquidacion/{id}', [ReportesController::class, 'liquidacionPrint'])->middleware(['auth', 'bitacora']);
 
 
 
@@ -388,6 +389,7 @@ Route::get('/creditos/preaprobado/liquidar/quitarDescuento/{id}', [LiquidacionCo
 
 Route::get('/creditos/solicitudes/desembolso/{id}', [SolicitudCreditoController::class, 'desembolso'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/solicitudes/create-credit', [SolicitudCreditoController::class, 'createCredit'])->middleware(['auth', 'bitacora']);
+Route::post('/creditos/solicitudes/liquidar', [SolicitudCreditoController::class, 'liquidar'])->middleware(['auth', 'bitacora']);
 
 /*
 Bienes Solicitud Credito

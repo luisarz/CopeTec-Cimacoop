@@ -87,33 +87,110 @@ $(document).ready(function () {
         }
 
 
-        let data = {
-            "id_credito": $("#id_credito").val(),
-            "_token": $("#token").val()
-        };
+        let id_cuenta_ahorro_destino = $("#id_cuenta_ahorro_destino").val();
+        let id_cuenta_aportacion_destino = $("#id_cuenta_aportacion_destino").val();
+        if (id_cuenta_ahorro_destino == id_cuenta_aportacion_destino) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: 'La cuenta de <b>ahorro</b> y <b>aportaciones</b> deben ser diferentes',
+                confirmButton: false,
+                cancelButton: true,
+                confirmButtonText: 'Volver y seleccionar datos correctos',
 
-        // $.ajax({
-        //     type: "POST",
-        //     url: "/creditos/preaprobado/liquidar/add-descuento/",
-        //     data: data, // No es necesario convertir a JSON.stringify
-        //     success: function (response) {
-        //         swal.close();
-        //         getLiquidacionesDetalles();
-        //         $("#id_cuenta").val("").change();
-        //         $("#monto_debe").val(0);
-        //         $("#monto_haber").val(0);
-        //     },
-        //     error: function (xhr, status, error) {
-        //         swal.close();
-        //         console.log(error);
-        //     },
-        //     dataType: "json" // Especifica el tipo de datos esperados en la respuesta
-        // });
+            });
+            return false;
+        }
+
+
+
+
+
+        Swal.fire({
+            icon: 'question',
+            title: 'Liquidar crédito',
+            text: '¿Estás seguro de que deseas liquidar y desembolsar este crédito?',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, liquidar crédito',
+            cancelButtonText: 'Cancelar',
+            allowEscapeKey: false,     // Evita que se cierre con la tecla "Escape"
+            allowOutsideClick: false,  // Evita que se cierre al hacer clic fuera del cuadro
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Aquí puedes agregar la lógica para liquidar y desembolsar el crédito
+                liquidarCredito();
+
+
+            } else {
+                // Aquí puedes agregar la lógica para manejar la cancelación
+                // realizarOtraAccion();
+            }
+        });
+
+
+
+
+
+
 
 
 
 
     });
+
+    window.liquidarCredito = function (id) {
+        let id_credito = $("#id_credito").val();
+
+        let data = {
+            "id_credito": $("#id_credito").val(),
+            "liquido": $("#liquido").val(),
+            "id_cuenta_ahorro_destino": $("#id_cuenta_ahorro_destino").val(),
+            "id_cuenta_aportacion_destino": $("#id_cuenta_aportacion_destino").val(),
+            "aportacionMonto": $("#aportacionMonto").val(),
+            "_token": $("#token").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/creditos/solicitudes/liquidar",
+            data: data, // No es necesario convertir a JSON.stringify
+            success: function (response) {
+
+
+                if (response.estado == "success") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Crédito liquidado',
+                        text: 'El crédito ha sido liquidado exitosamente.',
+                        willClose: () => {
+                            // Redirige a la nueva página en una pestaña nueva
+                            window.open('/creditos/aprobado/liquidacion/'+id_credito, '_blank');
+                            
+                            // Después de 1 segundo, redirige a otra página en la pestaña actual
+                            setTimeout(() => {
+                                window.location.href = '/creditos/solicitudes/estudios';
+                            }, 1000);
+                        }
+                    });
+
+
+                    // setTimeout(() => {
+                    // }, 1000);
+                    //mandar a imprimir la hoja de liquidacion
+                }
+
+
+            },
+            error: function (xhr, status, error) {
+                swal.close();
+                console.log(error);
+            },
+            dataType: "json" // Especifica el tipo de datos esperados en la respuesta
+        });
+
+    }
 
 
 
@@ -125,7 +202,9 @@ $(document).ready(function () {
             let tableLiquidaciones = $("#tableLiquidaciones");
             tableLiquidaciones.empty();
             let numero = 0;
+            $("#aportacionMonto").val(data.aportacion);
             $("#liquido").val(data.liquido);
+
             $.each(data.liquidaciones, function (index, element) {
                 $("#clase_propiedad").val("");
                 $("#direccion_bien").val("");
@@ -148,7 +227,7 @@ $(document).ready(function () {
                     row.append($("<td style='text-align:right;'>").text('$ ' + parseFloat(element.monto_haber).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
                 }
                 tableLiquidaciones.append(row);
-                
+
             });
             var formattedMontoDebe = '$' + data.sumMontoDebe;
             var formattedMontoHaber = '$' + data.sumMontoHaber;
@@ -159,7 +238,7 @@ $(document).ready(function () {
 
     }
 
-    window.quitarDescuento=function(id) {
+    window.quitarDescuento = function (id) {
         Swal.fire({
             text: "Deseas Eliminar este registro",
             icon: "question",

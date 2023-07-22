@@ -9,6 +9,8 @@
     <input type="hidden" id="monto_credito" name="monto_credito" value="{{ $credito->monto_solicitado }}">
     <input type="hidden" id="costoConsultaCrediticia" name="costoConsultaCrediticia" value="{{ $credito->costoConsultaCrediticia }}">
     <input type="hidden" id="liquido" name="liquido" value="0">
+    <input type="hidden" id="aportacionMonto" name="aportacionMonto" value="0">
+
 
 
     <input type="hidden" id="token" value="{{ csrf_token() }}">
@@ -17,7 +19,7 @@
     <div class="card shadow-lg">
         <div class="card-header ribbon ribbon-end ribbon-clip">
             <div class="card-toolbar">
-                <a href="/creditos/abonos">
+                <a href="/creditos/solicitudes/estudios">
 
                     <button type="button"
                         class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
@@ -85,7 +87,7 @@
                     <label>Linea de Credito</label>
                 </div>
                 <div class="form-floating  col-lg-3">
-                    <select class="form-select fw-bold text-success">
+                    <select class="form-select fw-bold text-success" id="id_cuenta_ahorro_destino" name="id_cuenta_ahorro_destino">
                         @foreach ($cuentas as $cuenta)
                             <option value="{{ $cuenta->id_cuenta }}">
                                 {{ $cuenta->numero_cuenta }} ->
@@ -96,7 +98,7 @@
                     <label>Cuenta a depositar Liquido</label>
                 </div>
                 <div class="form-floating  col-lg-4">
-                    <select class="form-select fw-bold text-success">
+                    <select class="form-select fw-bold text-success" id="id_cuenta_aportacion_destino" name="id_cuenta_aportacion_destino">
                         @foreach ($cuentas as $cuenta)
                             <option value="{{ $cuenta->id_cuenta }}">
                                 {{ $cuenta->numero_cuenta }} ->

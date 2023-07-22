@@ -289,5 +289,30 @@ class SolicitudCreditoController extends Controller
 
         return redirect('/creditos/solicitudes');
     }
-    
+
+    public function liquidar(Request $request){
+
+        $id_credito=$request->id_credito;
+        $liquido=$request->liquido_recibido;
+        $id_cuenta_ahorro_destino=$request->id_cuenta_ahorro_destino;
+        $id_cuenta_aportacion_destino=$request->id_cuenta_aportacion_destino;
+        $aportacionMonto=$request->aportacionMonto;
+
+
+        $credito= Credito::find($id_credito);
+        $credito->liquido_recibido=$liquido;
+        $credito->estado=2;
+        $credito->fecha_desembolso=now();
+        $credito->save();
+
+        //hacer el deposito en la cuenta de ahorro
+        //hacer el deposito en la cuenta de aporaciones
+
+        return response()->json([
+            'estado'=>'success',
+            'success'=>'Credito liquidado con exito'
+        ]);
+      
+    }
+
 }

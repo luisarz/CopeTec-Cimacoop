@@ -119,7 +119,23 @@ class LiquidacionController extends Controller
         })
             ->where('id_credito', $id)
             ->first();
-        $liquido = $liquido->monto_haber;
+        if ($liquido) {
+            $liquido = $liquido->monto_haber;
+        } else {
+            $liquido = 0;
+        }
+        // $liquido = $liquido->monto_haber;
+
+        $aportacion = LiquidacionModel::where('id_credito', $id)
+            ->where('id_cuenta', 14)
+            ->first();
+
+            if($aportacion){
+                $aportacion = $aportacion->monto_haber;
+            }else{
+                $aportacion = 0;
+            }
+        // $aportacion = $aportacion->monto_haber;
 
 
         return response()->json([
@@ -129,6 +145,7 @@ class LiquidacionController extends Controller
             "sumMontoDebe" => number_format($sumMontoDebe, 2),
             "sumMontoHaber" => number_format($sumMontoHaber, 2),
             "liquido" => $liquido,
+            "aportacion" => $aportacion,
         ]);
     }
 

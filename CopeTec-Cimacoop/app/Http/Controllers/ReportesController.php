@@ -6,6 +6,8 @@ use App\Models\BeneficiarosDepositos;
 use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
 use App\Models\Clientes;
+use App\Models\Configuracion;
+use App\Models\Credito;
 use App\Models\Cuentas;
 use App\Models\DepositosPlazo;
 use App\Models\Empleados;
@@ -308,6 +310,48 @@ class ReportesController extends Controller
             'edadCliente' => $edadCliente,
             'tasaEnletras'=>$tasaEnletras,
             'plazoEnLetras'=>$plazoEnLetras,
+            'cuotaEnLetras' => $cuotaEnLetras,
+            'montoSolicitadoEnLetras' => $montoSolicitadoEnLetras
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+
+    }
+    public function liquidacionPrint($idCredito)
+    {
+
+        $credito = Credito::where('id_credito',$idCredito)->
+            join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
+        $configuracion = Configuracion::first();
+
+        $id_solicitud=$credito->id_solicitud;
+
+        $solicitud = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
+            ->orderBy('solicitud_credito.fecha_solicitud')
+            ->where('solicitud_credito.id_solicitud', '=', $id_solicitud)->first();
+
+
+        $formatter = new NumeroALetras();
+        $cuotaEnLetras = $formatter->toInvoice($credito->cuota, 2, 'DÓLARES  ');
+        $montoSolicitadoEnLetras = $formatter->toInvoice($credito->monto_solicitado, 2, 'DÓLARES  ');
+        $tasaEnletras = $formatter->toWords($credito->tasa);
+        $plazoEnLetras = $formatter->toWords($credito->plazo);
+        $hoy = new DateTime();
+        $nacimiento = new DateTime($credito->fecha_nacimiento);
+        $edad = $hoy->diff($nacimiento);
+        $edadCliente = $edad->y;
+
+
+
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.creditos.liquidacion', [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+
+            'solicitud' => $solicitud,
+            'credito' => $credito,
+            'edadCliente' => $edadCliente,
+            'tasaEnletras' => $tasaEnletras,
+            'plazoEnLetras' => $plazoEnLetras,
             'cuotaEnLetras' => $cuotaEnLetras,
             'montoSolicitadoEnLetras' => $montoSolicitadoEnLetras
         ]);
