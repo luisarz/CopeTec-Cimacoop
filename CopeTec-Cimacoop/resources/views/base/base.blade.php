@@ -363,7 +363,10 @@ License: For each use you must have a valid license purchased only from above li
 
                                 @foreach (Session::get('access') as $access)
                                     @if ($access->is_padre == 1)
-                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion show">
+                                        @php
+                                         $showMenuPadre=Session::get('active_menu_padre')==$access->id_modulo ? 'show':'';
+                                        @endphp
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{$showMenuPadre}}">
                                             <!--begin:Menu link-->
                                             <span class="menu-link">
                                                 <span class="menu-icon">
@@ -383,7 +386,10 @@ License: For each use you must have a valid license purchased only from above li
                                                         <!--begin:Menu item-->
                                                         <div class="menu-item">
                                                             <!--begin:Menu link-->
-                                                            <a class="menu-link" href="{{ $sub_access->ruta }}">
+                                                            @php
+                                                             $activemenulink=$sub_access->id_modulo==Session::get('active_menu')?'active':'';
+                                                            @endphp
+                                                            <a class="menu-link {{$activemenulink}}" href="{{ $sub_access->ruta }}">
                                                                 <span class="menu-bullet">
                                                                     <span class="bullet bullet-dot"></span>
                                                                 </span>

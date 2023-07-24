@@ -31,6 +31,15 @@ class RegisterBitacoraMiddleware
 
         $bitacora->save();
 
+        //dd($request->getMethod());
+        foreach (Session::get('access') as $access)
+        {
+            if($request->getPathInfo() == $access->ruta){
+                Session::put("active_menu",$access->id_modulo);
+                Session::put("active_menu_padre",$access->id_padre);
+            }
+        }
+
         return $next($request);
     }
 }
