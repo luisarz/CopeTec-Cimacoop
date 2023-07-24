@@ -80,11 +80,11 @@
                                 <td>
 
                                     <a href="/contabilidad/catalogo/edit/{{ $cuenta->id_cuenta }}"
-                                        class="btn btn-warning btn-sm w-30">
+                                        class="btn btn-info btn-sm w-30">
                                         <i class="ki-outline ki-pencil fs-4"></i> </a>
 
                                     <a href="/contabilidad/catalogo/{{ $cuenta->id_cuenta }}/beneficiarios"
-                                        class="btn btn-info btn-sm w-30">
+                                        class="btn btn-success btn-sm w-30">
                                         <i class="ki-outline ki-security-user   fs-4"></i>
                                     </a>
 

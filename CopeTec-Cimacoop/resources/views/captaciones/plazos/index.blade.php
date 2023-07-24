@@ -33,7 +33,8 @@
                         <tr>
                             <td>
                                 <a href="/captaciones/plazos/edit/{{ $plazo->id_plazo }}" class="btn btn-info btn-sm"><i
-                                        class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a>
+                                        class="fa-solid fa-pencil text-white"></i>
+                                    </a>
                                          <a href="/captaciones/tasas/{{ $plazo->id_plazo }}" class="btn btn-success btn-sm"><i
                                         class="fa-solid fa-pencil text-white"></i> &nbsp; Tasas</a>
 

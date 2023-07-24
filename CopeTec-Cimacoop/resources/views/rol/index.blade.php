@@ -30,10 +30,14 @@
                 <tbody>
                     @foreach ($roles as $rol)
                         <tr>
-                            <td><a href="javascript:void(0);" onclick="alertDelete({{ $rol->id }})"
-                                    class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
-                                    Eliminar</a> <a href="/rol/{{ $rol->id }}" class="badge badge-primary"><i
-                                        class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a></td>
+                            <td>
+                                <a href="javascript:void(0);" onclick="alertDelete({{ $rol->id }})"
+                                    class="btn btn-sm btn-danger"><i class="fa-solid fa-trash text-white"></i>
+                                    </a> 
+                                    <a href="/rol/{{ $rol->id }}" class="btn btn-sm btn-info"><i
+                                        class="fa-solid fa-pencil text-white"></i>
+                                    </a>
+                                </td>
                             <td>{{ $rol->name }}</td>
                         </tr>
                     @endforeach

@@ -88,7 +88,11 @@
                                             </a>
                                         @break
                                         @case(2)
-                                            <span class="badge badge-success fs-5">Aprobada</span>
+                                         <a href="/creditos/solicitud/{{ $solicitud->id_solicitud }}" target="_blank"
+                                                class="btn btn-info btn-sm w-30">
+                                                <i class="ki-outline ki-printer   fs-3"></i>
+                                            </a>
+                                            {{-- <span class="btn btn-sm btn-success ">Aprobada</span> --}}
                                         @break
 
                                         @case(3)

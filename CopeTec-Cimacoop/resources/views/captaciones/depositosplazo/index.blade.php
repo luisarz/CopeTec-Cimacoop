@@ -67,7 +67,7 @@
 
 
                                     <a href="/captaciones/depositosplazo/edit/{{ $deposito->id_deposito_plazo_fijo }}"
-                                        class="btn btn-warning btn-sm w-30">
+                                        class="btn btn-info btn-sm w-30">
                                         <i class="ki-outline ki-pencil fs-5"></i> </a>
 
                                

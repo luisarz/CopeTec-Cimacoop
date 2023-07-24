@@ -43,7 +43,7 @@
                                     class="btn w-10 btn-danger btn-sm ">
                                     <i class="fa-solid fa-trash text-white"></i>
                                 </a>
-                                <a href="/asociados/{{ $asociado->id_asociado }}" class="btn w-10 btn-primary btn-sm">
+                                <a href="/asociados/{{ $asociado->id_asociado }}" class="btn w-10 btn-info btn-sm">
                                     <i class="fa-solid fa-pencil text-white"></i>
                                 </a>
 

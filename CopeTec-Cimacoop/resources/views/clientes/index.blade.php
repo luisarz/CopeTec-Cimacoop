@@ -25,22 +25,25 @@
              <table class="data-table-coop table table-hover table-row-dashed fs-5     gy-2 gs-5">
                 <thead>
                     <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                        <th class="min-w-140px">Acciones</th>
+                        <th class="min-w-150px">Acciones</th>
                         <th class="min-w-200px">Nombre</th>
                         <th class="min-w-90px">Género</th>
                         <th class="min-w-90px">DUI</th>
                         <th class="min-w-200px">Domicilio</th>
-                        <th class="min-w-200px">Teléfono</th>
+                        <th class="min-w-100px">Teléfono</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($clientes as $cliente)
                         <tr>
                             <td><a href="javascript:void(0);" onclick="alertDelete({{ $cliente->id_cliente }})"
-                                    class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
-                                    Eliminar</a> <a href="/clientes/{{ $cliente->id_cliente }}"
-                                    class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp;
-                                    Modificar</a></td>
+                                    class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash text-white"></i>
+                                    </a> 
+                                    <a href="/clientes/{{ $cliente->id_cliente }}"
+                                    class="btn btn-sm btn-info"><i class="fa-solid fa-pencil text-white"></i>
+                                    </a>
+                                </td>
                             <td>{{ $cliente->nombre }}</td>
                             <td>{{ $cliente->genero == '1' ? 'Masculino' : 'Femenino' }}</td>
                             <td>{{ $cliente->dui_cliente }}</td>
