@@ -66,7 +66,8 @@ class CreditoController extends Controller
 
 
 
-      $pagos = PagosCredito::where('id_credito', $id)->get();
+      $pagos = PagosCredito::join('cajas', 'cajas.id_caja', '=', 'pagos_credito.id_caja')->where('id_credito', $id)->orderBy('fecha_pago', 'desc')->get();
+
 
       $MORA = 0.000 * 0;
 
@@ -82,7 +83,12 @@ class CreditoController extends Controller
       // $TASA = $credito->tasa / 100;
       $TASA = $configuracion->interes_moratorio / 100;
 
+      // $DIAS_TRASCURRIDOS = $this->diasEntreFechas($ultima_proxima_fecha_pago, $proxima_fecha_pago);
       $DIAS_TRASCURRIDOS = $this->diasEntreFechas($ultima_proxima_fecha_pago, $proxima_fecha_pago);
+      if ($DIAS_TRASCURRIDOS < 0) {
+         $DIAS_TRASCURRIDOS = 0;
+      }
+
       $INTERESES = ($SALDO_CAPITAL * $TASA * $DIAS_TRASCURRIDOS) / 365;
       $INTERESES_30_DIAS = ($SALDO_CAPITAL * $TASA * 30) / 365;
 
@@ -126,7 +132,8 @@ class CreditoController extends Controller
 
       $MORA = 0.000 * 0;
 
-      $proxima_fecha_pago = $credito->proxima_fecha_pago;
+      // $proxima_fecha_pago = $credito->proxima_fecha_pago;
+      $proxima_fecha_pago = date("Y-m-d");
       $ultima_proxima_fecha_pago = $credito->ultima_fecha_pago;
 
       $CUOTA = $credito->cuota;
@@ -175,6 +182,9 @@ class CreditoController extends Controller
       $pago->seguro_deuda = $SEGURO_DEUDA;
       $pago->total_pago = $TOTAL_PAGAR;
       $pago->fecha_pago = date('Y-m-d H:i:s');
+      $pago->cliente_operacion = $request->cliente_operacion;
+      $pago->dui_operacion = $request->dui_operacion;
+      $pago->id_caja = $request->id_caja;
       $pago->save();
 
       return redirect('/creditos/payment/' . $credito->id_credito);
@@ -213,7 +223,7 @@ class CreditoController extends Controller
 
 
       $solicitud = SolicitudCredito::where('id_solicitud', $credito->id_solicitud)->first();
-     
+
 
 
       $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')

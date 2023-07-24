@@ -34,6 +34,10 @@ $(document).ready(function () {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Debes seleccionar una cuenta',
+                confirmButtonText:"Corregir datos",
+                customClass: {
+                    confirmButton:"btn btn-danger"
+                }
             });
             return false;
         }
@@ -82,6 +86,9 @@ $(document).ready(function () {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Debes detalles, la liquidación del credito',
+                customClass: {
+                    confirmButton: "btn btn-danger"
+                }
             });
             return false;
         }
@@ -97,6 +104,9 @@ $(document).ready(function () {
                 confirmButton: false,
                 cancelButton: true,
                 confirmButtonText: 'Volver y seleccionar datos correctos',
+                customClass: {
+                    confirmButton: "btn btn-danger"
+                }
 
             });
             return false;
@@ -109,14 +119,18 @@ $(document).ready(function () {
         Swal.fire({
             icon: 'question',
             title: 'Liquidar crédito',
-            text: '¿Estás seguro de que deseas liquidar y desembolsar este crédito?',
+            html: '¿Estás seguro de que deseas liquidar y desembolsar este crédito? <br> Liquido a depositar <span class=\" badge badge-danger fs-4\">  $' + liquido +'</span>',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, liquidar crédito',
+            // confirmButtonColor: '#3085d6',
+            // cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, liquidar crédito ' ,
             cancelButtonText: 'Cancelar',
             allowEscapeKey: false,     // Evita que se cierre con la tecla "Escape"
             allowOutsideClick: false,  // Evita que se cierre al hacer clic fuera del cuadro
+            customClass: {
+                confirmButton: "btn btn-danger",
+                cancelButton: "btn btn-info"
+            }
         }).then((result) => {
             if (result.isConfirmed) {
                 // Aquí puedes agregar la lógica para liquidar y desembolsar el crédito
