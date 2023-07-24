@@ -47,6 +47,16 @@
         </div>
 
         <div class="card-body">
+           @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li class="fs-1">{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
             <div class="table-responsive">
                 <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">
                     <thead class="thead-dark">
@@ -124,7 +134,7 @@
                 </table>
             </div>
         </div>
-      
+
     </div>
 
     <form method="post" id="anularForm" action="/cuentas/anularCuenta">

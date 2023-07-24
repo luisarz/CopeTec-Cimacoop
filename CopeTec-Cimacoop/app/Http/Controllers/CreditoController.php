@@ -94,6 +94,10 @@ class CreditoController extends Controller
       $INTERESES_30_DIAS = ($SALDO_CAPITAL * $TASA * 30) / 365;
 
 
+      if ($CUOTA > $SALDO_CAPITAL) { //Si la cuota es mayor al saldo capital se le asigna el saldo capital
+         $CUOTA = $SALDO_CAPITAL;
+      }
+
       $CAPITAL = $CUOTA - $INTERESES;
       if ($CAPITAL < 0) {
          $CAPITAL = 0.0;
@@ -127,6 +131,7 @@ class CreditoController extends Controller
 
    function payCredit(Request $request)
    {
+      // dd($request->all());
       $credito = Credito::where('id_credito', $request->id_credito)->first();
       $pago = new PagosCredito();
       $configuracion = Configuracion::first();
@@ -191,8 +196,8 @@ class CreditoController extends Controller
 
 
 
-      //Registrando el movimiento en la caja
-      $cajaReibe = Cajas::findOrFail($request->id_caja);
+      //Registrando el movimiento en la caja del Abono al credito
+      $cajaRecibe = Cajas::findOrFail($request->id_caja);
       $movimiento = new Movimientos();
       $movimiento->id_cuenta = 0;
       $movimiento->tipo_operacion = 7;
@@ -207,11 +212,27 @@ class CreditoController extends Controller
       $movimiento->id_pago_credito = $pago->id_pago_credito;
       $movimiento->save();
       //Actualizando el saldo de la caja
-      $cajaReibe->saldo = $cajaReibe->saldo + $TOTAL_PAGAR;
-      $cajaReibe->save();
+      $cajaRecibe->saldo = $cajaRecibe->saldo + ($TOTAL_PAGAR - $APORTACION);
+      $cajaRecibe->save();
 
-      
-      return redirect("/reportes/comprobanteAbono/" .$pago->id_pago_credito);
+      //Registrando el movimiento en la cuenta de APortaciones del cliente
+      $aportacion=new Movimientos();
+      $aportacion->id_cuenta = $credito->id_cuenta_aportacion;
+      $aportacion->tipo_operacion = 1;
+      $aportacion->monto = $APORTACION;
+      $aportacion->fecha_operacion = now();
+      $aportacion->cajero_operacion = session()->get('id_empleado_usuario');
+      $aportacion->id_caja = $request->id_caja;
+      $aportacion->observacion = "Aportación crédito";
+      $aportacion->cliente_transaccion = $request->cliente_operacion;
+      $aportacion->dui_transaccion = $request->dui_operacion;
+      $aportacion->estado = 1;
+      $aportacion->id_pago_credito = $pago->id_pago_credito;
+      $aportacion->save();
+
+
+
+      return redirect("/reportes/comprobanteAbono/" . $pago->id_pago_credito);
 
       // return redirect('/creditos/payment/' . $credito->id_credito);
 
@@ -272,7 +293,7 @@ class CreditoController extends Controller
             'cuentas',
             'tipoCredito',
             'solicitud',
-            'costoConsultaCrediticia'
+            'costoConsultaCrediticia',
          )
       );
    }

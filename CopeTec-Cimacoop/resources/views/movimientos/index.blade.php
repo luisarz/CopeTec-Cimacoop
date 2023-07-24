@@ -312,6 +312,14 @@
                                                     </a>
                                                 @endif
                                             @break
+                                            @case('8')
+                                                @if ($cuenta->estado == 1)
+                                                    <a
+                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange">
+                                                        Finalizado
+                                                    </a>
+                                                @endif
+                                            @break
                                         @endswitch
 
 
@@ -334,14 +342,19 @@
                                     <td style="text-align:center">
 
                                         @if ($cuenta->tipo_operacion == 7)
-                                            <span class="badge badge-light-danger fs-6">Credito</span>
+                                            <span class="badge badge-light-danger fs-6">Crédito</span>
                                         @else
                                             {{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->numero_cuenta }}
                                         @endif
 
                                     </td>
                                     <td>
-                                        {{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->descripcion_cuenta }}
+
+                                         @if ($cuenta->tipo_operacion == 7)
+                                            <span class="badge badge-light-danger fs-6">Crédito</span>
+                                        @else
+                                            {{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->descripcion_cuenta }}
+                                        @endif
                                     </td>
                                     <td>
                                         @switch($cuenta->tipo_operacion)
@@ -378,7 +391,10 @@
                                             @break
 
                                             @case('7')
-                                                <span class="badge badge-light-info fs-6">Abono a Credito</span>
+                                                <span class="badge badge-light-info fs-6">Abono a Crédito</span>
+                                            @break
+                                             @case('8')
+                                                <span class="badge badge-light-info fs-6">Desembolso Credito</span>
                                             @break
                                         @endswitch
 

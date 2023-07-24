@@ -53,9 +53,14 @@ class ReportesController extends Controller
             ->paginate(10);
 
 
+        $currentDateTime = Carbon::today();
+        // Check the data returned by the query
         $aperturaCaja = BobedaMovimientos::where('tipo_operacion', 3)
-            ->where('fecha_operacion', '>=', today())
-            ->select('monto', 'fecha_operacion')->first();
+            ->whereDate('fecha_operacion', '>=', $currentDateTime)
+            ->select('monto', 'fecha_operacion')
+            ->first();
+   
+
 
 
         $trasladoACaja = BobedaMovimientos::where('tipo_operacion', '1')
@@ -126,8 +131,6 @@ class ReportesController extends Controller
             ->select('bobeda_movimientos.*', 'cajas.*', 'empleados.nombre_empleado as nombre_empleado')
             ->first();
 
-        $empleados = Empleados::where('id_empleado', '=', $movimientoBobeda->id_empleado)->first();
-
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimientoBobeda->monto, 2, 'DoLARES');
         $pdf = \App::make('snappy.pdf');
@@ -135,7 +138,7 @@ class ReportesController extends Controller
             'movimiento' => $movimientoBobeda,
             'estilos' => $this->estilos,
             'numeroEnLetras' => $numeroEnLetras,
-            'bobeda_empleado' => $empleados->nombre_empleado
+            'bobeda_empleado' => $movimientoBobeda->nombre_empleado
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
@@ -151,7 +154,9 @@ class ReportesController extends Controller
             ->where('cuentas.id_cuenta', '=', $idCuenta)
             ->get();
         if ($movimientosCuenta->count() == 0) {
-            return redirect()->back()->with('error', 'La cuenta no tiene movimientos');
+         return redirect("/cuentas")->withErrors('La cuenta no tiene movimientos aun 😵‍💫, Asegurate realizar una operación antes de generarlo');
+
+
         }
 
         $clienteData = Clientes::find($movimientosCuenta[0]->id_cliente);

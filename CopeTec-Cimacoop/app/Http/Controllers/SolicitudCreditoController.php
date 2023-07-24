@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Beneficiarios;
+use App\Models\Cajas;
 use App\Models\Catalogo;
 use App\Models\Clientes;
 use App\Models\Cuentas;
+use App\Models\Movimientos;
 use App\Models\Referencias;
 use App\Models\SolicitudCredito;
 use App\Models\Credito;
@@ -292,6 +294,8 @@ class SolicitudCreditoController extends Controller
 
     public function liquidar(Request $request){
 
+        // dd($request->all());
+
         $id_credito=$request->id_credito;
         $id_cuenta_ahorro_destino=$request->id_cuenta_ahorro_destino;
         $id_cuenta_aportacion_destino=$request->id_cuenta_aportacion_destino;
@@ -310,6 +314,25 @@ class SolicitudCreditoController extends Controller
         $credito->save();
 
         //hacer el deposito en la cuenta de ahorro
+        $caja = Cajas::findOrFail($request->id_caja_aperturada);
+        $id_cuenta_destino = $request->id_cuenta_ahorro_destino;
+        $cuentaDestinoDatos = Cuentas::findOrFail($id_cuenta_destino);
+        $movimiento = new Movimientos();
+        $movimiento->id_cuenta = $id_cuenta_destino;
+        $movimiento->tipo_operacion = 8;//Deposito
+        $movimiento->monto = $request->liquido;
+        $movimiento->fecha_operacion = now();
+        $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
+        $movimiento->id_caja = $request->id_caja_aperturada;
+        $movimiento->dui_transaccion = '---------';
+        $movimiento->cliente_transaccion = 'Caja por Desembolso de credito';
+        $movimiento->estado = 1;
+        $movimiento->save();
+        $cuentaDestinoDatos->saldo_cuenta = $cuentaDestinoDatos->saldo_cuenta + $request->liquido;
+        $cuentaDestinoDatos->save();
+        // $caja->saldo = $caja->saldo + $request->monto;
+        // $caja->save();
+
         //hacer el deposito en la cuenta de aporaciones
 
         return response()->json([

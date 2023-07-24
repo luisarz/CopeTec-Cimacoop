@@ -163,6 +163,7 @@ $(document).ready(function () {
             "id_cuenta_ahorro_destino": $("#id_cuenta_ahorro_destino").val(),
             "id_cuenta_aportacion_destino": $("#id_cuenta_aportacion_destino").val(),
             "aportacionMonto": $("#aportacionMonto").val(),
+            "id_caja_aperturada":$("#id_caja_aperturada").val(),
             "_token": $("#token").val()
         };
 

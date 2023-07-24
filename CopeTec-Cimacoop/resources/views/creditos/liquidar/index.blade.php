@@ -10,9 +10,7 @@
     <input type="hidden" id="costoConsultaCrediticia" name="costoConsultaCrediticia" value="{{ $credito->costoConsultaCrediticia }}">
     <input type="hidden" id="liquido" name="liquido" value="0">
     <input type="hidden" id="aportacionMonto" name="aportacionMonto" value="0">
-
-
-
+    <input type="hidden" name="id_caja_aperturada" id="id_caja_aperturada" value="{{ $cajaAperturada->id_caja }}">
     <input type="hidden" id="token" value="{{ csrf_token() }}">
 
 
