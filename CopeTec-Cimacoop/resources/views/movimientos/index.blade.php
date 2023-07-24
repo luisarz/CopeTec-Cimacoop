@@ -108,7 +108,7 @@
 
                                     </div>
                                 </div>
-                                <div class="fw-semibold fs-6 text-gray-400"> 
+                                <div class="fw-semibold fs-6 text-gray-400">
                                     <div class="separator  border-danger"></div>
                                     Retiro
                                 </div>
@@ -245,82 +245,58 @@
                                         {{-- Validar los depositos y retiros --}}
                                         {{-- validar los traslados  a bobeda  --}}
                                         {{-- VAlidar los depositos de Bobeda --}}
+                                        @php
+                                            // Define an associative array to map tipo_operacion to states and labels
+                                            $operationStates = [
+                                                '1' => ['anulados' => ['0' => 'Anulado'], 'activos' => ['1' => 'Anular']],
+                                                '2' => ['anulados' => ['0' => 'Anulado'], 'activos' => ['1' => 'Anular']],
+                                                '3' => ['anulados' => [], 'activos' => ['1' => 'Recibido']],
+                                                '4' => ['anulados' => [], 'activos' => ['1' => 'Entregado', '0' => 'En cola']],
+                                                '5' => ['anulados' => [], 'activos' => []],
+                                                '6' => ['anulados' => [], 'activos' => ['1' => 'Entregado', '0' => 'En cola']],
+                                                '7' => ['anulados' => [], 'activos' => ['1' => 'Finalizado']],
+                                                '8' => ['anulados' => [], 'activos' => ['1' => 'Finalizado']],
+                                                '9' => ['anulados' => [], 'activos' => ['1' => 'Finalizado']],
+                                            ];
+                                        @endphp
+
                                         @switch($cuenta->tipo_operacion)
                                             @case('1')
                                             @case('2')
                                                 {{-- Deposito y retiro --}}
-                                                @if ($cuenta->estado == 0)
+                                                @if (array_key_exists($cuenta->estado, $operationStates[$cuenta->tipo_operacion]['anulados']))
                                                     <a class="btn btn-sm w-50 fs-6 btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"
-                                                        style="pointer-events: none; text-decoration: line-through "><i
-                                                            class="fa-solid fa-trash text-danger"></i> &nbsp;
-                                                        Anulado</a>
+                                                        style="pointer-events: none; text-decoration: line-through">
+                                                        <i class="fa-solid fa-trash text-danger"></i>
+                                                        &nbsp;{{ $operationStates[$cuenta->tipo_operacion]['anulados'][$cuenta->estado] }}
+                                                    </a>
                                                 @else
                                                     <a href="javascript:void(0);"
                                                         onclick="alertAnular({{ $cuenta->id_movimiento }},'{{ $cuenta->tipo_operacion }}','{{ number_format($cuenta->monto, 2) }}')"
-                                                        class="btn btn-danger btn-sm w-50"><i
-                                                            class="fa-solid fa-trash text-white"></i>
-                                                        Anular</a>
+                                                        class="btn btn-danger btn-sm w-50">
+                                                        <i class="fa-solid fa-trash text-white"></i>
+                                                        {{ $operationStates[$cuenta->tipo_operacion]['activos'][$cuenta->estado] }}
+                                                    </a>
                                                 @endif
                                             @break
 
                                             @case('3')
-                                                {{-- Recepcion de Bobeda --}}
-                                                <a
-                                                    class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange">
-                                                    Recibido
-                                                </a>
-                                            @break
-
                                             @case('4')
-                                                {{-- Traslado a Bobeda --}}
-                                                @if ($cuenta->estado == 1)
-                                                    <a
-                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange">
-                                                        Entregado
-                                                    </a>
-                                                @else
-                                                    <a
-                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-info btn-active-light-dange">
-                                                        En cola
-                                                    </a>
-                                                @endif
-                                            @break
-
-                                            @case('5')
-                                                {{-- Traslado a Caja --}}
-                                            @break
 
                                             @case('6')
-                                                @if ($cuenta->estado == 1)
-                                                    <a
-                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange">
-                                                        Entregado
-                                                    </a>
-                                                @else
-                                                    <a
-                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-info btn-active-light-dange">
-                                                        En cola
-                                                    </a>
-                                                @endif
-                                            @break
-
                                             @case('7')
-                                                @if ($cuenta->estado == 1)
-                                                    <a
-                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange">
-                                                        Finalizado
-                                                    </a>
-                                                @endif
-                                            @break
+
                                             @case('8')
-                                                @if ($cuenta->estado == 1)
+                                            @case('9')
+                                                @if (array_key_exists($cuenta->estado, $operationStates[$cuenta->tipo_operacion]['activos']))
                                                     <a
                                                         class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange">
-                                                        Finalizado
+                                                        {{ $operationStates[$cuenta->tipo_operacion]['activos'][$cuenta->estado] }}
                                                     </a>
                                                 @endif
                                             @break
                                         @endswitch
+
 
 
                                         @if ($cuenta->tipo_operacion == 7)
@@ -350,52 +326,48 @@
                                     </td>
                                     <td>
 
-                                         @if ($cuenta->tipo_operacion == 7)
+                                        @if ($cuenta->tipo_operacion == 7)
                                             <span class="badge badge-light-danger fs-6">Crédito</span>
                                         @else
                                             {{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->descripcion_cuenta }}
                                         @endif
                                     </td>
                                     <td>
+                                        @php
+                                            // Define an associative array to map tipo_operacion to badges
+                                            $operationBadges = [
+                                                '1' => ['badge' => 'light-success', 'icon' => null, 'label' => 'Deposito'],
+                                                '2' => ['badge' => 'light-danger', 'icon' => null, 'label' => 'Retiro'],
+                                                '3' => ['badge' => 'light-danger', 'icon' => 'fa-arrow-down text-info', 'label' => 'Recepcion'],
+                                                '4' => ['badge' => 'light-danger', 'icon' => 'fa-arrow-up text-info', 'label' => 'Traslado'],
+                                                '5' => ['badge' => 'light-danger', 'icon' => null, 'label' => 'Traslado a Caja'],
+                                                '6' => ['badge' => 'light-danger', 'icon' => null, 'label' => 'Corte Z'],
+                                                '7' => ['badge' => 'light-info', 'icon' => null, 'label' => 'Abono a Crédito'],
+                                                '8' => ['badge' => 'light-info', 'icon' => null, 'label' => 'Desembolso Credito'],
+                                                '9' => ['badge' => 'light-info', 'icon' => null, 'label' => 'Deposito Aportaciones'],
+                                            ];
+                                        @endphp
+
                                         @switch($cuenta->tipo_operacion)
                                             @case('1')
-                                                <span class="badge badge-light-success fs-6">Deposito</span>
-                                                @if ($cuenta->id_cuenta_destino != null)
-                                                    <span class="badge badge-light-success fs-6">-Transferencia Tercero</span>
-                                                @endif
-                                            @break
-
                                             @case('2')
-                                                <span class="badge badge-light-danger fs-6">Retiro</span>
+                                                <span
+                                                    class="badge badge-{{ $operationBadges[$cuenta->tipo_operacion]['badge'] }} fs-6">{{ $operationBadges[$cuenta->tipo_operacion]['label'] }}</span>
                                                 @if ($cuenta->id_cuenta_destino != null)
-                                                    <span class="badge badge-light-danger fs-6">-Transferencia Tercero</span>
+                                                    <span
+                                                        class="badge badge-{{ $operationBadges[$cuenta->tipo_operacion]['badge'] }} fs-6">-Transferencia
+                                                        Tercero</span>
                                                 @endif
                                             @break
 
-                                            @case('3')
-                                                <span class="badge badge-light-danger fs-6"><i
-                                                        class="fa fa-arrow-down text-info"></i>Recepcion</span>
-                                            @break
-
-                                            @case('4')
-                                                <span class="badge badge-light-danger fs-6"> <i
-                                                        class="fa fa-arrow-up text-info"></i>Traslado</span>
-                                            @break
-
-                                            @case('5')
-                                                <span class="badge badge-light-danger fs-6">traslado a Caja</span>
-                                            @break
-
-                                            @case('6')
-                                                <span class="badge badge-light-danger fs-6">Corte Z</span>
-                                            @break
-
-                                            @case('7')
-                                                <span class="badge badge-light-info fs-6">Abono a Crédito</span>
-                                            @break
-                                             @case('8')
-                                                <span class="badge badge-light-info fs-6">Desembolso Credito</span>
-                                            @break
+                                            @default
+                                                <span
+                                                    class="badge badge-{{ $operationBadges[$cuenta->tipo_operacion]['badge'] }} fs-6">
+                                                    @if ($operationBadges[$cuenta->tipo_operacion]['icon'])
+                                                        <i class="fa {{ $operationBadges[$cuenta->tipo_operacion]['icon'] }}"></i>
+                                                    @endif
+                                                    {{ $operationBadges[$cuenta->tipo_operacion]['label'] }}
+                                                </span>
                                         @endswitch
 
 
@@ -403,21 +375,19 @@
                                     <td style="text-align:right">
 
 
-                                        @switch($cuenta->tipo_operacion)
-                                            @case('1')
-                                                <span
-                                                    class="badge badge-light-success fs-6">${{ number_format($cuenta->monto, 2) }}</span>
-                                            @break
+                                        @php
+                                            // Define an associative array to map tipo_operacion to badge classes
+                                            $operationBadges = [
+                                                '1' => 'light-success',
+                                                '7' => 'light-success',
+                                            ];
+                                        @endphp
 
-                                            @case('7')
-                                                <span
-                                                    class="badge badge-light-success fs-6">${{ number_format($cuenta->monto, 2) }}</span>
-                                            @break
+                                        <span
+                                            class="badge badge-light-{{ $operationBadges[$cuenta->tipo_operacion] ?? 'danger' }} fs-6">
+                                            ${{ number_format($cuenta->monto, 2) }}
+                                        </span>
 
-                                            @default
-                                                <span
-                                                    class="badge badge-light-danger fs-6">${{ number_format($cuenta->monto, 2) }}</span>
-                                        @endswitch
 
 
                                     </td>

@@ -188,9 +188,9 @@ class SolicitudCreditoController extends Controller
 
 
 
-     /**
-      Etudio de credito
-      */
+    /**
+     Etudio de credito
+     */
     public function estudios()
     {
         $solicitudes = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
@@ -220,10 +220,10 @@ class SolicitudCreditoController extends Controller
         $tiposCuenta = Catalogo::where('tipo_catalogo', '=', 2)->get();
         $ingresosPorAplicar = Catalogo::where('tipo_catalogo', '=', 3)->get();
         $seguroDescuentos = Catalogo::where('tipo_catalogo', '=', 4)->get();
-        $desceuntosIVA= Catalogo::where('tipo_catalogo', '=', 5)->get();
-        $descuentoDeAportaciones= Catalogo::where('tipo_catalogo', '=', 6)->get();
-        $descuentoComisiones= Catalogo::where('tipo_catalogo', '=', 7)->get();
-        $otrosDescuentos= Catalogo::where('tipo_catalogo', '=', 8)->get();
+        $desceuntosIVA = Catalogo::where('tipo_catalogo', '=', 5)->get();
+        $descuentoDeAportaciones = Catalogo::where('tipo_catalogo', '=', 6)->get();
+        $descuentoComisiones = Catalogo::where('tipo_catalogo', '=', 7)->get();
+        $otrosDescuentos = Catalogo::where('tipo_catalogo', '=', 8)->get();
 
 
 
@@ -236,7 +236,7 @@ class SolicitudCreditoController extends Controller
             ->select('cuentas.id_cuenta', 'cuentas.numero_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta')
             ->where('clientes.id_cliente', '=', $solicitud->id_cliente)
             ->get();
-            // dd($cuentas);
+        // dd($cuentas);
 
         return view(
             "creditos.solicitudes.desembolso",
@@ -292,25 +292,26 @@ class SolicitudCreditoController extends Controller
         return redirect('/creditos/solicitudes');
     }
 
-    public function liquidar(Request $request){
+    public function liquidar(Request $request)
+    {
 
         // dd($request->all());
 
-        $id_credito=$request->id_credito;
-        $id_cuenta_ahorro_destino=$request->id_cuenta_ahorro_destino;
-        $id_cuenta_aportacion_destino=$request->id_cuenta_aportacion_destino;
-        $aportacionMonto=$request->aportacionMonto;
+        $id_credito = $request->id_credito;
+        $id_cuenta_ahorro_destino = $request->id_cuenta_ahorro_destino;
+        $id_cuenta_aportacion_destino = $request->id_cuenta_aportacion_destino;
+        $aportacionMonto = $request->aportacionMonto;
 
         $id_empleado = session()->get('id_empleado_usuario');
 
-        $credito= Credito::find($id_credito);
-        $credito->liquido_recibido= $request->liquido;
-        $credito->estado=2;
-        $credito->empleado_liquido=$id_empleado;
-        $credito->fecha_desembolso=now();
+        $credito = Credito::find($id_credito);
+        $credito->liquido_recibido = $request->liquido;
+        $credito->estado = 2;
+        $credito->empleado_liquido = $id_empleado;
+        $credito->fecha_desembolso = now();
         $credito->id_cuenta_ahorro = $id_cuenta_ahorro_destino;
         $credito->id_cuenta_aportacion = $id_cuenta_aportacion_destino;
-        $credito->aportacion_credito=$aportacionMonto;
+        $credito->aportacion_credito = $aportacionMonto;
         $credito->save();
 
         //hacer el deposito en la cuenta de ahorro
@@ -319,7 +320,7 @@ class SolicitudCreditoController extends Controller
         $cuentaDestinoDatos = Cuentas::findOrFail($id_cuenta_destino);
         $movimiento = new Movimientos();
         $movimiento->id_cuenta = $id_cuenta_destino;
-        $movimiento->tipo_operacion = 8;//Deposito
+        $movimiento->tipo_operacion = 8; //Deposito liquido
         $movimiento->monto = $request->liquido;
         $movimiento->fecha_operacion = now();
         $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
@@ -334,12 +335,28 @@ class SolicitudCreditoController extends Controller
         // $caja->save();
 
         //hacer el deposito en la cuenta de aporaciones
+        $saldAportacionCuenta = Cuentas::findOrfail($id_cuenta_aportacion_destino);
+        $aportacion = new Movimientos();
+        $aportacion->id_cuenta = $id_cuenta_aportacion_destino;
+        $aportacion->tipo_operacion = 9; //Deposito aportacion
+        $aportacion->monto = $credito->aportaciones;
+        $aportacion->fecha_operacion = now();
+        $aportacion->cajero_operacion = session()->get('id_empleado_usuario');
+        $aportacion->id_caja = $request->id_caja_aperturada;
+        $aportacion->dui_transaccion = '---------';
+        $aportacion->cliente_transaccion = 'Caja - Aportacion por Desembolso de credito';
+        $aportacion->estado = 1;
+        $aportacion->save();
+        $saldAportacionCuenta->saldo_cuenta = $saldAportacionCuenta->saldo_cuenta + $aportacionMonto;
+        $saldAportacionCuenta->save();
+
+
 
         return response()->json([
-            'estado'=>'success',
-            'success'=>'Credito liquidado con exito'
+            'estado' => 'success',
+            'success' => 'Credito liquidado con exito'
         ]);
-      
+
     }
 
 }

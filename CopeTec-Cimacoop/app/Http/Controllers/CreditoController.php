@@ -200,8 +200,8 @@ class CreditoController extends Controller
       $cajaRecibe = Cajas::findOrFail($request->id_caja);
       $movimiento = new Movimientos();
       $movimiento->id_cuenta = 0;
-      $movimiento->tipo_operacion = 7;
-      $movimiento->monto = $TOTAL_PAGAR;
+      $movimiento->tipo_operacion = 7; //Abono a credito
+      $movimiento->monto = ($TOTAL_PAGAR - $APORTACION);
       $movimiento->fecha_operacion = now();
       $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
       $movimiento->id_caja = $request->id_caja;
@@ -218,7 +218,7 @@ class CreditoController extends Controller
       //Registrando el movimiento en la cuenta de APortaciones del cliente
       $aportacion=new Movimientos();
       $aportacion->id_cuenta = $credito->id_cuenta_aportacion;
-      $aportacion->tipo_operacion = 1;
+      $aportacion->tipo_operacion = 9;
       $aportacion->monto = $APORTACION;
       $aportacion->fecha_operacion = now();
       $aportacion->cajero_operacion = session()->get('id_empleado_usuario');
@@ -283,8 +283,7 @@ class CreditoController extends Controller
 
 
 
-      return view(
-         'creditos.liquidar.index',
+      return view('creditos.liquidar.index',
          compact(
             'credito',
             'cajaAperturada',

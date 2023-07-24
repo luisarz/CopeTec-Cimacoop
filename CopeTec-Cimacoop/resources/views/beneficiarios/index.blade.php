@@ -10,13 +10,13 @@
 @section('content')
 
     <div class="card mb-5 mb-xl-10">
-        <div class="card-body pt-9 pb-0">
+        <div class="card-body pt-9 pb-0 mb-5">
             <!--begin::Details-->
             <div class="d-flex flex-wrap flex-sm-nowrap">
                 <!--begin: Pic-->
                 <div class="me-7 mb-4">
                     <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
-                        <img src="/assets/media/avatars/300-1.jpg" alt="user">
+                        <img src="/assets/media/avatars/usericon.svg" alt="user">
                         <div
                             class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
                         </div>
@@ -32,30 +32,24 @@
                         <div class="d-flex flex-column">
                             <!--begin::Name-->
                             <div class="d-flex align-items-center mb-2">
-                                <a href="#"
-                                    class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ $asociado->nombre }}</a>
-                                <a href="#"><i class="ki-duotone ki-verify fs-2 text-primary"><span
-                                            class="path1"></span><span class="path2"></span></i></a>
+                              <h3> {{ $asociado->nombre }}</h3>
+                               <i class="ki-outline ki-verify fs-2 text-primary"></i>
                             </div>
                             <!--end::Name-->
 
                             <!--begin::Info-->
-                            <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-                                <a href="#"
-                                    class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
-                                    <i class="ki-duotone ki-profile-circle fs-4 me-1"><span class="path1"></span><span
-                                            class="path2"></span><span class="path3"></span></i>
+                            <div class=" flex-wrap fw-semibold fs-6 mb-4 pe-2">
+                                   
+                                    <i class="ki-outline ki-profile-circle fs-4 me-1"></i>
                                     {{ $asociado->profesion }}
-                                </a>
-                                <a href="#"
-                                    class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
-                                    <i class="ki-duotone ki-geolocation fs-4 me-1"><span class="path1"></span><span
-                                            class="path2"></span></i> {{ $asociado->direccion_personal }}
-                                </a>
-                                <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
-                                    <i class="ki-duotone ki-sms fs-4 me-1"><span class="path1"></span><span
-                                            class="path2"></span></i> {{ $asociado->telefono }}
-                                </a>
+                              <br>
+                                
+                                    <i class="ki-outline ki-geolocation fs-4 me-1"></i> 
+                                        {{ $asociado->direccion_personal }}
+                                <br>
+                                    <i class="ki-outline ki-sms fs-4 me-1"></i>
+                                     {{ $asociado->telefono }}
+                               
                             </div>
 
                             <!--end::Info-->
@@ -140,6 +134,7 @@
                 <!--end::Info-->
             </div>
             <!--end::Details-->
+            <a href="/asociados" class="btn btn-info btn-sm"><i class="fa-solid fa-arrow-left"></i> Ir a Asociados</a>
 
             <a href="/beneficiarios/add/{{$asociado->id_asociado}}" class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i> Agregar Beneficiario</a>
             
