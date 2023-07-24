@@ -17,11 +17,6 @@ var KTAuthNewPassword = function() {
                         validators: {
                             notEmpty: {
                                 message: 'El Cliente es obligatorio'
-                            }, callback: {
-                                message: 'El campo no debe estar vacio',
-                                callback: function (input) {
-                                    return parseInt(input.value) > 0
-                                }
                             }
                         }
                     },
@@ -63,6 +58,8 @@ var KTAuthNewPassword = function() {
 
         submitButton.addEventListener('click', function (e) {
             e.preventDefault();
+          
+  
 
             validator.revalidateField('cliente_operacion');
 
@@ -84,6 +81,11 @@ var KTAuthNewPassword = function() {
 
                         // Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                         document.querySelector("#kt_new_abono_form").submit();
+
+
+                   
+
+
                         Swal.fire({
                             text: "El abono se ha registrado correctamente",
                             icon: "success",
@@ -91,12 +93,9 @@ var KTAuthNewPassword = function() {
                             confirmButtonText: "Ok",
                             customClass: {
                                 confirmButton: "btn btn-primary"
-                            }
+                            },timer: 1000,
                         }).then(function (result) {
-                            if (result.isConfirmed) {
-                                window.location.href = "/abonos";
-                                // mandar a imprimir el comprobante
-                            }
+                                window.location.href = "/creditos/abonos";
                         }
                         );
                     }, 1500);   						

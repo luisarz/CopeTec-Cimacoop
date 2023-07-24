@@ -32,16 +32,19 @@
                         <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
                             <a href="movimientos/retirar/{{ $cajaAperturada->id_caja }}" class="btn btn-danger">
                                 <span><i class="fa fa-upload fa-2x"></i></span>
-                                Nuevo <br>Retiro</a>
+                                Nuevo <br>Retiro
+                            </a>
                             <a href="movimientos/depositar/{{ $cajaAperturada->id_caja }}" class="btn btn-success">
-                                <span><i class="fa fa-download fa-2x"></i></span>
+                                <span>
+                                    <i class="fa fa-download fa-2x"></i>
+                                </span>
 
                                 Nuevo<br> Deposito</a>
 
                             <a href="movimientos/transferenciaTercero/{{ $cajaAperturada->id_caja }}" class="btn btn-info">
                                 <span><i class="fa fa-exchange  fa-2x"></i></span>
 
-                                Nueva<br> Transferencia </a>
+                                Nueva<br> Transf. </a>
 
                         </div>
                     </div>
@@ -52,81 +55,94 @@
                         <!--begin::Title-->
                         <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
                             <!--begin::Stat-->
-                            <div class="min-w-105px me-6 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
+                            <div class="min-w-105px me-2 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
                                 <!--begin::Number-->
                                 <div class="d-flex align-items-center">
-                                    <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
-                                        data-kt-countup-prefix="$" data-kt-initialized="1">
-                                        ${{ number_format($cajaAperturada->monto_apertura, 2, '.', ',') }}
+                                    <div class="fs-6 fw-bold ">
+                                        ${{ number_format($cajaAperturada->monto_apertura, 2) }}
                                     </div>
                                 </div>
                                 <div class="fw-semibold fs-6 text-gray-400">
-                                    <i class="ki-duotone ki-category text-success me-2">
-                                        <i class="path1"></i>
-                                        <i class="path2"></i>
-                                        <i class="path3"></i>
-                                        <i class="path4"></i>
-                                    </i>Apertura
+                                    <div class="separator  border-info"></div>
+
+                                    Apertura
                                 </div>
                                 <!--end::Label-->
                             </div>
                             <!--begin::Stat-->
-                            <div class="min-w-105px me-6 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
+                            <div class="min-w-105px me-2 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
                                 <div class="d-flex align-items-center">
 
-                                    <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
-                                        data-kt-countup-prefix="$" data-kt-initialized="1">
-                                        ${{ number_format($totalDepositos, 2, '.', ',') }}
+                                    <div class="fs-6 fw-bold ">
+                                        ${{ number_format($totalDepositos, 2) }}
                                     </div>
                                 </div>
-                                <div class="fw-semibold fs-6 text-gray-400"><i
-                                        class="ki-duotone ki-arrow-up text-success me-2"><span class="path1"></span><span
-                                            class="path2"></span></i>Deposito</div>
-                            </div>
-                            <!--end::Stat-->
-                            <!--begin::Stat-->
-                            <div class="min-w-105px me-6 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
-                                <div class="d-flex align-items-center">
+                                <div class="fw-semibold fs-6 text-gray-400">
+                                    <div class="separator  border-success"></div>
 
-                                    <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
-                                        data-kt-countup-prefix="$" data-kt-initialized="1">
-                                        ${{ number_format($totalRetiros, 2, '.', ',') }}
-
-                                    </div>
-                                </div>
-                                <div class="fw-semibold fs-6 text-gray-400"> <i
-                                        class="ki-duotone ki-arrow-down text-danger me-2"><span class="path1"></span><span
-                                            class="path2"></span></i>Retiro
+                                    Deposito
                                 </div>
                             </div>
                             <!--end::Stat-->
                             <!--begin::Stat-->
-                            <div class="min-w-105px me-6 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
+                            <div class="min-w-105px me-2 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
                                 <div class="d-flex align-items-center">
-                                    <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
-                                        data-kt-countup-prefix="$" data-kt-initialized="1">
-                                        ${{ number_format($totalAnuladas, 2, '.', ',') }}
+
+                                    <div class="fs-6 fw-bold ">
+                                        ${{ number_format($totalAbonosCreditos, 2) }}
                                     </div>
                                 </div>
-                                <div class="fw-semibold fs-6 text-gray-400"> <i
-                                        class="ki-duotone ki-minus-square fs-1x text-danger me-2"><span
-                                            class="path1"></span><span class="path2"></span></i>Anulado</div>
+                                <div class="fw-semibold fs-6 text-gray-400">
+                                    <div class="separator  border-success"></div>
+
+                                    Abonos
+                                </div>
                             </div>
                             <!--end::Stat-->
                             <!--begin::Stat-->
-                            <div class="min-w-105px me-6 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
+                            <div class="min-w-105px me-2 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
                                 <div class="d-flex align-items-center">
 
-                                    <div class="fs-5 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
-                                        data-kt-countup-prefix="$" data-kt-initialized="1">
-                                        ${{ number_format($saldo, 2, '.', ',') }}
+                                    <div class="fs-6 fw-bold ">
+                                        ${{ number_format($totalRetiros, 2) }}
+
+                                    </div>
+                                </div>
+                                <div class="fw-semibold fs-6 text-gray-400"> 
+                                    <div class="separator  border-danger"></div>
+                                    Retiro
+                                </div>
+                            </div>
+                            <!--end::Stat-->
+                            <!--begin::Stat-->
+                            <div class="min-w-105px me-2 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-6 fw-bold ">
+                                        ${{ number_format($totalAnuladas, 2) }}
+                                    </div>
+                                </div>
+                                <div class="fw-semibold fs-6 text-gray-400">
+                                    <div class="separator  border-danger"></div>
+
+                                    Anulado
+                                </div>
+                            </div>
+                            <!--end::Stat-->
+                            <!--begin::Stat-->
+                            <div class="min-w-105px me-2 mb-3 rounded border border-dashed border-gray-500 py-3 px-4">
+                                <div class="d-flex align-items-center">
+
+                                    <div class="fs-6 fw-bold ">
+                                        ${{ number_format($saldo, 2) }}
                                     </div>
 
                                 </div>
 
-                                <div class="fw-semibold fs-6 text-gray-400"><i
-                                        class="ki-duotone ki-arrows-circle text-success me-2"><span
-                                            class="path1"></span><span class="path2"></span></i>Saldos</div>
+                                <div class="fw-semibold fs-6 text-gray-400">
+                                    <div class="separator  border-success"></div>
+
+                                    Saldos
+                                </div>
                             </div>
                             <!--end::Stat-->
 
@@ -240,7 +256,7 @@
                                                         Anulado</a>
                                                 @else
                                                     <a href="javascript:void(0);"
-                                                        onclick="alertAnular({{ $cuenta->id_movimiento }},'{{ $cuenta->tipo_operacion }}','{{ number_format($cuenta->monto, 2, '.', ',') }}')"
+                                                        onclick="alertAnular({{ $cuenta->id_movimiento }},'{{ $cuenta->tipo_operacion }}','{{ number_format($cuenta->monto, 2) }}')"
                                                         class="btn btn-danger btn-sm w-50"><i
                                                             class="fa-solid fa-trash text-white"></i>
                                                         Anular</a>
@@ -287,20 +303,43 @@
                                                     </a>
                                                 @endif
                                             @break
+
+                                            @case('7')
+                                                @if ($cuenta->estado == 1)
+                                                    <a
+                                                        class="btn btn-sm w-50 btn-outline btn-outline-dashed btn-outline-success btn-active-light-dange">
+                                                        Finalizado
+                                                    </a>
+                                                @endif
+                                            @break
                                         @endswitch
 
 
-                                        <a href="/reportes/comprobanteMovimiento/{{ $cuenta->id_movimiento }}"
-                                            target="_blank" class="btn btn-info btn-sm w-40"><i
-                                                class="fa fa-print text-white"></i>
-                                            </i> &nbsp;Imprimir
-                                        </a>
-
+                                        @if ($cuenta->tipo_operacion == 7)
+                                            <a href="/reportes/comprobanteAbono/{{ $cuenta->id_pago_credito }}"
+                                                target="_blank" class="btn btn-success btn-sm w-40"><i
+                                                    class="fa fa-print text-white"></i>
+                                                </i> &nbsp;Imprimir
+                                            </a>
+                                        @else
+                                            <a href="/reportes/comprobanteMovimiento/{{ $cuenta->id_movimiento }}"
+                                                target="_blank" class="btn btn-info btn-sm w-40"><i
+                                                    class="fa fa-print text-white"></i>
+                                                </i> &nbsp;Imprimir
+                                            </a>
+                                        @endif
 
 
                                     </td>
                                     <td style="text-align:center">
-                                        {{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->numero_cuenta }}</td>
+
+                                        @if ($cuenta->tipo_operacion == 7)
+                                            <span class="badge badge-light-danger fs-6">Credito</span>
+                                        @else
+                                            {{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->numero_cuenta }}
+                                        @endif
+
+                                    </td>
                                     <td>
                                         {{ $cuenta->numero_cuenta == 0 ? 'Bobeda' : $cuenta->descripcion_cuenta }}
                                     </td>
@@ -308,7 +347,7 @@
                                         @switch($cuenta->tipo_operacion)
                                             @case('1')
                                                 <span class="badge badge-light-success fs-6">Deposito</span>
-                                                  @if ($cuenta->id_cuenta_destino != null)
+                                                @if ($cuenta->id_cuenta_destino != null)
                                                     <span class="badge badge-light-success fs-6">-Transferencia Tercero</span>
                                                 @endif
                                             @break
@@ -337,6 +376,10 @@
                                             @case('6')
                                                 <span class="badge badge-light-danger fs-6">Corte Z</span>
                                             @break
+
+                                            @case('7')
+                                                <span class="badge badge-light-info fs-6">Abono a Credito</span>
+                                            @break
                                         @endswitch
 
 
@@ -347,17 +390,30 @@
                                         @switch($cuenta->tipo_operacion)
                                             @case('1')
                                                 <span
-                                                    class="badge badge-light-success fs-6">${{ number_format($cuenta->monto, 2, '.', ',') }}</span>
+                                                    class="badge badge-light-success fs-6">${{ number_format($cuenta->monto, 2) }}</span>
+                                            @break
+
+                                            @case('7')
+                                                <span
+                                                    class="badge badge-light-success fs-6">${{ number_format($cuenta->monto, 2) }}</span>
                                             @break
 
                                             @default
                                                 <span
-                                                    class="badge badge-light-danger fs-6">${{ number_format($cuenta->monto, 2, '.', ',') }}</span>
+                                                    class="badge badge-light-danger fs-6">${{ number_format($cuenta->monto, 2) }}</span>
                                         @endswitch
 
 
                                     </td>
-                                    <td>{{ $cuenta->nombre }}</td>
+                                    <td>
+                                        @if ($cuenta->tipo_operacion == 7)
+                                            {{ $cuenta->cliente_transaccion }}
+                                            <br>
+                                            DUI:{{ $cuenta->dui_transaccion }}
+                                        @else
+                                            {{ $cuenta->nombre }}
+                                        @endif
+                                    </td>
                                     <td>{{ $cuenta->fecha_operacion }}</td>
                                 </tr>
                             @endforeach

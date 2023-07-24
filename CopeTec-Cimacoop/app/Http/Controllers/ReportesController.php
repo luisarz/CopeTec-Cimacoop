@@ -14,6 +14,7 @@ use App\Models\DepositosPlazo;
 use App\Models\Empleados;
 use App\Models\LiquidacionModel;
 use App\Models\Movimientos;
+use App\Models\PagosCredito;
 use App\Models\ReferenciaSolicitud;
 use App\Models\SolicitudCredito;
 use App\Models\SolicitudCreditoBienes;
@@ -39,14 +40,7 @@ class ReportesController extends Controller
 
 
 
-    public function index()
-    {
-        $pdf = \App::make('snappy.pdf');
-        //return view("welcome");
-        $pdf = PDF::loadView('reportes.test.index');
-        //return view("Reportes.informeclientediario",compact('reporte'));
-        return $pdf->setOrientation('landscape')->inline();
-    }
+   
     public function RepMovimientosBobeda($id)
     {
 
@@ -392,5 +386,25 @@ class ReportesController extends Controller
         ]);
         return $pdf->setOrientation('portrait')->inline();
 
+    }
+    public function comprobanteAbono($id_pago_credito){
+
+        $abonoCredito=PagosCredito::join('creditos','creditos.id_credito','=','pagos_credito.id_credito')
+            ->join('clientes','clientes.id_cliente','=','creditos.id_cliente')
+            ->where('pagos_credito.id_pago_credito','=',$id_pago_credito)
+            ->first();
+// dd($abonoCredito);
+        $formatter = new NumeroALetras();
+        $TOTALPAGOENLETRAS = $formatter->toInvoice($abonoCredito->total_pago, 2, 'DÓLARES');
+
+
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.creditos.abonocomprobante', [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'abonoCredito' => $abonoCredito,
+            'numeroEnLetras'=>$TOTALPAGOENLETRAS
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
     }
 }

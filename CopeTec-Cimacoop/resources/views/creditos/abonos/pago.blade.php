@@ -19,7 +19,8 @@
                 @if ($credito->saldo_capital <= 0)
                     <span class="badge badge-success fs-2">Credito Cancelado</span>
                 @else
-                    <span class="badge badge-danger fs-2">Credito Activo</span>
+
+                &nbsp;<span class="badge badge-success fs-2">Credito Activo</span>
                 @endif
                 <h3>
             </div>
@@ -143,7 +144,7 @@
                 <!--end::Slider-->
             </div>
             <!--end::Input wrapper-->
-            <form action="/creditos/payment" autocomplete="off" method="post" id="kt_new_abono_form">
+            <form action="/creditos/payment" autocomplete="off" target="_blank" method="post" id="kt_new_abono_form">
                 {!! csrf_field() !!}
                 {{ method_field('POST') }}
                 <input type="hidden" name="id_credito" value="{{ $credito->id_credito }}">
@@ -176,7 +177,7 @@
                 <div class="form-group fv-row row mb-5">
                     <button type="submit" id="kt_new_abono_submit" class="btn btn-primary">
                         <!--begin::Indicator label-->
-                       @if ($credito->saldo_capital <= 0)
+                        @if ($credito->saldo_capital <= 0)
                             <span class="indicator-label" disabled>Credito Cancelado 👌</span>
                         @else
                             <span class="indicator-label">Realizar Pago</span>
@@ -275,7 +276,7 @@
     <script>
         $(document).ready(function() {
 
-$("#cliente_operacion").focus();
+            $("#cliente_operacion").focus();
             let saldo = $('#saldo_capital').val();
 
             if (saldo <= 0) {
@@ -284,8 +285,8 @@ $("#cliente_operacion").focus();
                 $('#kt_new_abono_submit').attr('disabled', false);
             }
 
-            function imprimirBoleta(id_pago_credito) {
-                window.open('/creditos/abonos/imprimir/' + id_pago_credito, '_blank');
+            window.imprimirBoleta = function(id_pago_credito) {
+                window.open('/reportes/comprobanteAbono/' + id_pago_credito, '_blank');
             }
         })
     </script>

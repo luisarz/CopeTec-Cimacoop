@@ -6,6 +6,7 @@ use App\Models\Cajas;
 use App\Models\Catalogo;
 use App\Models\Configuracion;
 use App\Models\Cuentas;
+use App\Models\Movimientos;
 use App\Models\SolicitudCredito;
 use Illuminate\Http\Request;
 use App\Models\Credito;
@@ -187,10 +188,36 @@ class CreditoController extends Controller
       $pago->id_caja = $request->id_caja;
       $pago->save();
 
-      return redirect('/creditos/payment/' . $credito->id_credito);
+
+
+
+      //Registrando el movimiento en la caja
+      $cajaReibe = Cajas::findOrFail($request->id_caja);
+      $movimiento = new Movimientos();
+      $movimiento->id_cuenta = 0;
+      $movimiento->tipo_operacion = 7;
+      $movimiento->monto = $TOTAL_PAGAR;
+      $movimiento->fecha_operacion = now();
+      $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
+      $movimiento->id_caja = $request->id_caja;
+      $movimiento->observacion = "Abono credito";
+      $movimiento->cliente_transaccion = $request->cliente_operacion;
+      $movimiento->dui_transaccion = $request->dui_operacion;
+      $movimiento->estado = 1;
+      $movimiento->id_pago_credito = $pago->id_pago_credito;
+      $movimiento->save();
+      //Actualizando el saldo de la caja
+      $cajaReibe->saldo = $cajaReibe->saldo + $TOTAL_PAGAR;
+      $cajaReibe->save();
+
+      
+      return redirect("/reportes/comprobanteAbono/" .$pago->id_pago_credito);
+
+      // return redirect('/creditos/payment/' . $credito->id_credito);
 
 
    }
+
 
    function diasEntreFechas($fechainicio, $fechafin)
    {

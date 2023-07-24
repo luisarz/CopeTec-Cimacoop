@@ -411,6 +411,7 @@ Route::get('/creditos/abonos', [CreditoController::class, 'index'])->middleware(
 Route::post('/creditos/abonos', [CreditoController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/payment/{id}', [CreditoController::class, 'payment'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/payment', [CreditoController::class, 'payCredit'])->middleware(['auth', 'bitacora']);
+Route::get('/reportes/comprobanteAbono/{id}', [ReportesController::class, 'comprobanteAbono'])->middleware(['auth', 'bitacora']);
 
 
 Route::get('/contabilidad/catalogo', [CatalogoController::class, 'index'])->middleware(['auth', 'bitacora']);

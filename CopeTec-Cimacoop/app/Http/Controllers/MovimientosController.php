@@ -39,7 +39,12 @@ class MovimientosController extends Controller
 
 
 
-        $totalMovimientos = Movimientos::selectRaw('SUM(CASE WHEN tipo_operacion = 1 AND estado = 1 THEN monto ELSE 0 END) AS totalDepositos, SUM(CASE WHEN tipo_operacion = 2 AND estado = 1 THEN monto ELSE 0 END) AS totalRetiros, SUM(CASE WHEN estado = 0 THEN monto ELSE 0 END) AS totalAnuladas')
+        $totalMovimientos = Movimientos::selectRaw(
+            'SUM(CASE WHEN tipo_operacion = 1 AND estado = 1 THEN monto ELSE 0 END) AS totalDepositos,
+             SUM(CASE WHEN tipo_operacion = 2 AND estado = 1 THEN monto ELSE 0 END) AS totalRetiros, 
+             SUM(CASE WHEN tipo_operacion = 7 AND estado = 1 THEN monto ELSE 0 END) AS totalAbonosCreditos, 
+             SUM(CASE WHEN estado = 0 THEN monto ELSE 0 END) AS totalAnuladas'
+        )
             ->whereDate('fecha_operacion', today())
             ->where('id_caja', '=', $cajaAperturada->id_caja)
             ->first();
@@ -47,9 +52,19 @@ class MovimientosController extends Controller
         $totalDepositos = $totalMovimientos->totalDepositos;
         $totalRetiros = $totalMovimientos->totalRetiros;
         $totalAnuladas = $totalMovimientos->totalAnuladas;
+        $totalAbonosCreditos = $totalMovimientos->totalAbonosCreditos;
         // $saldo = ($cajaAperturada->monto_apertura + $totalDepositos) - ($totalRetiros + $totalAnuladas);
 
-        return view("movimientos.index", compact("movimientos", "cajaAperturada", "totalRetiros", "totalDepositos", "totalAnuladas", "saldo"));
+        return view("movimientos.index", compact(
+            "movimientos",
+            "cajaAperturada",
+            "totalRetiros",
+            "totalDepositos",
+            "totalAnuladas",
+            "saldo",
+            "totalAbonosCreditos"
+        )
+        );
     }
 
     public function depositar($id)
@@ -304,7 +319,7 @@ class MovimientosController extends Controller
             return response()->json([
                 'success' => true,
                 'error' => "Transferencia realizada con exito",
-                'id_transaccion'=> $movimientoOrigen->id_movimiento
+                'id_transaccion' => $movimientoOrigen->id_movimiento
             ]);
 
         }
