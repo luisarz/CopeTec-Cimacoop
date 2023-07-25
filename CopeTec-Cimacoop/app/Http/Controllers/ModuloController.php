@@ -42,17 +42,11 @@ class ModuloController extends Controller
         if($request->is_padre==1){
             $modulo->is_padre = 1;
             $modulo->id_padre = 0;
-            $modulo->icono='<span class="menu-icon">
-                                <i class="ki-duotone ki-address-book fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                </i>
-                            </span>';
+            $modulo->icono=$request->icono;
         }
         else{
             $modulo->is_padre = 0;
-            $modulo->icono='';
+            $modulo->icono=$request->icono;
             $modulo->id_padre = $request->id_padre;
         }
         $modulo->save();
@@ -61,7 +55,6 @@ class ModuloController extends Controller
 
     public function post(Request $request)
     {
-        //dd($request);
         $modulo = new Modulo();
         $modulo->nombre = $request->modulo;
         $modulo->ruta = $request->ruta;
@@ -69,17 +62,12 @@ class ModuloController extends Controller
         if($request->is_padre==1){
             $modulo->is_padre = 1;
             $modulo->id_padre = 0;
-            $modulo->icono='<span class="menu-icon">
-                                <i class="ki-duotone ki-address-book fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                </i>
-                            </span>';
+            $modulo->icono=$request->icono;
         }
         else{
             $modulo->is_padre = 0;
-            $modulo->icono='';
+            $modulo->icono = $request->icono;
+
             $modulo->id_padre = $request->id_padre;
         }
         $modulo->save();
