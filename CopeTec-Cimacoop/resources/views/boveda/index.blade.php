@@ -7,6 +7,7 @@
     <i class="ki-duotone ki-shield-tick text-success fs-2x"><span class="path1"></span><span class="path2"></span><span
             class="path3"></span></i>
     <div class="d-flex align-items-center mb-2">
+        
         <div class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">
             {{ $bobeda->nombre }}
         </div>
@@ -54,15 +55,10 @@
             <div class="card-header ribbon ribbon-end ribbon-clip">
 
                 <div class="ribbon-label fs-3">
-                    {{ $bobeda->nombre }}
+                    {{-- {{ $bobeda->nombre }} --}}
 
-                    <i class="ki-duotone ki-book-square text-white fs-2x                      ">
-                        <i class="path1"></i>
-                        <i class="path2"></i>
-                        <i class="path3"></i>
-                        <i class="path4"></i>
-                        <i class="path5"></i>
-                    </i>
+                    <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+                Administración | {{ Session::get('name_module') }}
 
                     <span class="ribbon-inner bg-info"></span>
                 </div>

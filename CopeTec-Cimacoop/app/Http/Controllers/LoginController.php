@@ -116,6 +116,7 @@ class LoginController extends Controller
         ->orderBy('modulo.orden', 'ASC')->get();
         
         $session->put("access",$Access);
+        echo Session::get('access');
 
         Auth::login($user, true);
     }

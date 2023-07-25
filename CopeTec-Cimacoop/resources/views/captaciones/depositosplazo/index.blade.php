@@ -32,9 +32,8 @@
                 </a>
             </div>
             <div class="ribbon-label fs-3">
-                <i class="ki-outline ki-verify text-white fs-3x"><span class="path1"></span><span
-                        class="path2"></span><span class="path3"></span></i>
-                Administracion - Deposito a Plazo
+               <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+                Administración | {{ Session::get('name_module') }}
 
                 <span class="ribbon-inner bg-info"></span>
             </div>

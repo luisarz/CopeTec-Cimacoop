@@ -12,9 +12,8 @@
 
             </div>
             <div class="ribbon-label fs-3">
-                <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
-                        class="path2"></span><span class="path3"></span></i>
-                {{-- {{ $cajaAperturada->numero_caja }} --}}
+                               <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+
                 Adminsitracion Apertura de Cajas
 
                 <span class="ribbon-inner bg-info"></span>

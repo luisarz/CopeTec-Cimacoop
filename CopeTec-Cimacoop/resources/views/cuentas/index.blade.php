@@ -12,10 +12,8 @@
         <div class="card-header ribbon ribbon-end ribbon-clip">
 
             <div class="ribbon-label fs-3">
-                <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
-                        class="path2"></span><span class="path3"></span></i>
-                Administracion de Cuentas
-
+                <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+                Administración | {{ Session::get('name_module') }}
                 <span class="ribbon-inner bg-info"></span>
             </div>
             <div class="d-flex flex-wrap flex-sm-nowrap mt-5">
@@ -47,15 +45,15 @@
         </div>
 
         <div class="card-body">
-           @if($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li class="fs-1">{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li class="fs-1">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <div class="table-responsive">
                 <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">

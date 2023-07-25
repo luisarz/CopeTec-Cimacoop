@@ -6,12 +6,8 @@
                 <a href="/modulo/add" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar Modulo</a>
             </div>
             <div class="ribbon-label fs-3">
-                <i class="ki-duotone ki-shield-tick text-white fs-2x">
-                    <span class="path1"></span>
-                    <span class="path2"></span>
-                    <span class="path3"></span>
-                </i>
-                Administracion de Modulos
+                 <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+                Administración | {{ Session::get('name_module') }}
                 <span class="ribbon-inner bg-info"></span>
             </div>
         </div>

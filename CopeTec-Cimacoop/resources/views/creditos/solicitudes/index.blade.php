@@ -25,11 +25,11 @@
                     <i class="ki-outline ki-electricity fs-2x"></i>
                     Nueva solicitud
                 </a>
-               
+
             </div>
             <div class="ribbon-label fs-3">
-                <i class="ki-outline ki-book-square text-white fs-3x"></i>
-                Administracion - Solicitudes Crédito
+                <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+                Administración | {{ Session::get('name_module') }}
 
                 <span class="ribbon-inner bg-info"></span>
             </div>
@@ -68,7 +68,7 @@
                                                 class="btn btn-info btn-sm w-30">
                                                 <i class="ki-outline ki-printer   fs-3"></i>
                                             </a>
-                                              {{-- pagare --}}
+                                            {{-- pagare --}}
                                             <a href="/creditos/pagare/{{ $solicitud->id_solicitud }}"
                                                 class="btn btn-success btn-sm w-30">
                                                 <i class="ki-outline ki-printer   fs-3"></i>
@@ -87,8 +87,9 @@
                                                 </i>
                                             </a>
                                         @break
+
                                         @case(2)
-                                         <a href="/creditos/solicitud/{{ $solicitud->id_solicitud }}" target="_blank"
+                                            <a href="/creditos/solicitud/{{ $solicitud->id_solicitud }}" target="_blank"
                                                 class="btn btn-info btn-sm w-30">
                                                 <i class="ki-outline ki-printer   fs-3"></i>
                                             </a>

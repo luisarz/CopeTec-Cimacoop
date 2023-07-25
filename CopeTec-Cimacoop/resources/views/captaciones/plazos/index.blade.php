@@ -11,9 +11,8 @@
                 <a href="/captaciones/plazos/add" class="btn btn-success"><i class="fa-solid fa-plus"></i>Nuevo Plazo</a>
             </div>
             <div class="ribbon-label fs-3">
-                <i class="ki-duotone ki-calendar text-white fs-3x"><span class="path1"></span><span
-                        class="path2"></span><span class="path3"></span></i>
-                Administracion de Plazos para Deposito
+                <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+                Administracion | {{ Session::get('name_module') }}
 
                 <span class="ribbon-inner bg-info"></span>
             </div>
@@ -34,8 +33,8 @@
                             <td>
                                 <a href="/captaciones/plazos/edit/{{ $plazo->id_plazo }}" class="btn btn-info btn-sm"><i
                                         class="fa-solid fa-pencil text-white"></i>
-                                    </a>
-                                         <a href="/captaciones/tasas/{{ $plazo->id_plazo }}" class="btn btn-success btn-sm"><i
+                                </a>
+                                <a href="/captaciones/tasas/{{ $plazo->id_plazo }}" class="btn btn-success btn-sm"><i
                                         class="fa-solid fa-pencil text-white"></i> &nbsp; Tasas</a>
 
 

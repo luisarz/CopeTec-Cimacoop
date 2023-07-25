@@ -20,11 +20,11 @@
             <div class="card-header ribbon ribbon-end ribbon-clip">
 
                 <div class="ribbon-label fs-3">
-                    <i class="ki-duotone ki-shield-tick fs-2x text-white"><span class="path1"></span><span
-                            class="path2"></span><span class="path3"></span></i>
+                    <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+
                     {{ $cajaAperturada->numero_caja }}
 
-                    <span class="ribbon-inner bg-danger"></span>
+                    <span class="ribbon-inner bg-info"></span>
                 </div>
                 <div class="d-flex flex-sm-nowrap mt-5 flex-wrap">
                     <!--begin: buttons actions-->
