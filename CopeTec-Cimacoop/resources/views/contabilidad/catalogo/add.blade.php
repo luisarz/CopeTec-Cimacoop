@@ -41,15 +41,15 @@
                               <option value="{{ $tipo->id_tipo_catalogo }}">{{ $tipo->descripcion }}</option>
                             @endforeach
                         </select>
-                        <label>Tipo Catalogo:</label>
+                        <label>TIPO CUENTA:</label>
                     </div>
                     <div class="form-floating col-lg-4">
                         <input type="text" name="numero" id="numero" class="form-control" required placeholder="Codigo">
-                        <label>Código de Cuenta:</label>
+                        <label>CODIGO CUENTA:</label>
                     </div>
                     <div class="form-floating col-lg-4">
                         <input type="text" name="descripcion" id="descripcion" class="form-control" required placeholder="Des">
-                        <label>Descripcion:</label>
+                        <label>NOMBRE CUENTA:</label>
                     </div>
 
 
@@ -58,22 +58,30 @@
                 <div class="form-group row mb-5">
                     <div class="form-floating col-lg-4">
                         <input type="number" name="saldo" id="saldo" class="form-control" required placeholder="Saldo Cuenta">
-                        <label>Saldo de Cuenta:</label>
+                        <label>SALDO CUENTA:</label>
                     </div>
-                    <div class="form-floating col-lg-4">
-                           <select class="form-select form-select-solid" name="iva" id="iva" data-control="select2">
+                    <div class="form-floating col-lg-2">
+                           <select class="form-select form-select-solid" name="iva" id="iva" data-control="">
                             <option value="1">Aplica IVA</option>
                             <option value="0" selected>Sin IVA</option>
                         </select>
                         <label>IVA:</label>
                     </div>
-                    <div class="form-floating col-lg-4">
+                    <div class="form-floating col-lg-2">
                        
-                        <select class="form-select form-select-solid" name="estado" id="estado" data-control="select2">
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
+                        <select class="form-select form-select-solid" name="movimiento" id="movimiento" data-control="">
+                            <option value="1">SI</option>
+                            <option value="0">NO</option>
                         </select>
-                        <label>Estado:</label>
+                        <label>MOVIMIENTO:</label>
+                    </div>
+                     <div class="form-floating col-lg-4">
+                       
+                        <select class="form-select form-select-solid" name="estado" id="estado" data-control="">
+                            <option value="1">ACTIVO</option>
+                            <option value="0">INACTIVO</option>
+                        </select>
+                        <label>ESTADO:</label>
                     </div>
 
 
