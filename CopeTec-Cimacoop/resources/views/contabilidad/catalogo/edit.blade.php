@@ -48,17 +48,17 @@
                                 @endif
                             @endforeach
                         </select>
-                        <label>Tipo Catalogo:</label>
+                           <label>TIPO CUENTA:</label>
                     </div>
                     <div class="form-floating col-lg-4">
                         <input type="text" name="numero" id="numero" value="{{ $cuenta->numero }}"
                             class="form-control" required>
-                        <label>Numero de Cuenta:</label>
+                        <label>CODIGO CUENTA:</label>
                     </div>
                     <div class="form-floating col-lg-4">
                         <input type="text" name="descripcion" id="descripcion" value="{{ $cuenta->descripcion }}"
                             class="form-control" required>
-                        <label>Descripcion:</label>
+                         <label>NOMBRE CUENTA:</label>
                     </div>
 
 
@@ -68,11 +68,11 @@
                     <div class="form-floating col-lg-4">
                         <input type="number" name="saldo" id="saldo" value="{{ $cuenta->saldo }}"
                             class="form-control" required>
-                        <label>Numero de Cuenta:</label>
+                       <label>SALDO CUENTA:</label>
                     </div>
-                    <div class="form-floating col-lg-4">
+                    <div class="form-floating col-lg-2">
 
-                        <select class="form-select form-select-solid" name="iva" id="iva" data-control="select2">
+                        <select class="form-select form-select-solid" name="iva" id="iva" data-control="">
 
                             @if ($cuenta->iva == 1)
                                 <option value="1" selected>Aplica IVA</option>
@@ -82,8 +82,24 @@
                                 <option value="0" selected>Sin IVA</option>
                             @endif
                         </select>
-                        <label>IVA:</label>
+                         <label>IVA:</label>
                     </div>
+
+                     <div class="form-floating col-lg-2">
+
+                        <select class="form-select form-select-solid" name="movimiento" id="movimiento" data-control="">
+
+                            @if ($cuenta->movimiento == 1)
+                                <option value="1" selected>SI</option>
+                                <option value="0">NO</option>
+                            @else
+                                <option value="1">SI</option>
+                                <option value="0" selected>NO</option>
+                            @endif
+                        </select>
+                         <label>MOVIMIENTO:</label>
+                    </div>
+                    
 
 
                     <div class="form-floating col-lg-4">
@@ -98,7 +114,7 @@
                             @endif
                         </select>
 
-                        <label>Estado:</label>
+                       <label>ESTADO:</label>
                     </div>
                 </div>
 

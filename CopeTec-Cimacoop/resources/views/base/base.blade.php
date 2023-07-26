@@ -364,17 +364,15 @@ License: For each use you must have a valid license purchased only from above li
                                 @foreach (Session::get('access') as $access)
                                     @if ($access->is_padre == 1)
                                         @php
-                                         $showMenuPadre=Session::get('active_menu_padre')==$access->id_modulo ? 'show':'';
+                                            $showMenuPadre = Session::get('active_menu_padre') == $access->id_modulo ? 'show' : '';
                                         @endphp
-                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{$showMenuPadre}}">
+                                        <div data-kt-menu-trigger="click"
+                                            class="menu-item menu-accordion {{ $showMenuPadre }}">
                                             <!--begin:Menu link-->
                                             <span class="menu-link">
                                                 <span class="menu-icon">
-                                                    <i class="ki-duotone ki-address-book fs-2">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                        <span class="path3"></span>
-                                                    </i>
+                                                    <i class="ki-outline {{ $access->icono }} fs-2"></i>
+
                                                 </span>
                                                 <span class="menu-title ">{{ $access->nombre }}</span>
                                                 <span class="menu-arrow"></span>
@@ -387,11 +385,14 @@ License: For each use you must have a valid license purchased only from above li
                                                         <div class="menu-item">
                                                             <!--begin:Menu link-->
                                                             @php
-                                                             $activemenulink=$sub_access->id_modulo==Session::get('active_menu')?'active':'';
+                                                                $activemenulink = $sub_access->id_modulo == Session::get('active_menu') ? 'active' : '';
                                                             @endphp
-                                                            <a class="menu-link {{$activemenulink}}" href="{{ $sub_access->ruta }}">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
+                                                            <a class="menu-link {{ $activemenulink }}"
+                                                                href="{{ $sub_access->ruta }}">
+                                                                <span class="menu-icon">
+                                                                    <i
+                                                                        class="ki-outline {{ $sub_access->icono }} fs-2"></i>
+
                                                                 </span>
                                                                 <span
                                                                     class="menu-title">{{ $sub_access->nombre }}</span>

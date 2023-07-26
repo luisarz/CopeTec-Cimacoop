@@ -33,7 +33,8 @@
                 </form>
             </div>
             <div class="ribbon-label fs-5">
-                <i class="ki-outline ki-abstract-18  text-white fs-2x"></i>
+                               <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+
                 Créditos | Pre aprobados
                 <span class="ribbon-inner bg-info"></span>
             </div>

@@ -13,48 +13,47 @@
 
             </div>
             <div class="ribbon-label fs-3">
-                <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
-                        class="path2"></span><span class="path3"></span></i>
-                Administración de Clientes
+                <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+                Administración | {{ Session::get('name_module') }}
 
                 <span class="ribbon-inner bg-info"></span>
             </div>
         </div>
         <div class="card-body">
-       <div class="table table-responsive">
-             <table class="data-table-coop table table-hover table-row-dashed fs-5     gy-2 gs-5">
-                <thead>
-                    <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                        <th class="min-w-150px">Acciones</th>
-                        <th class="min-w-200px">Nombre</th>
-                        <th class="min-w-90px">Género</th>
-                        <th class="min-w-90px">DUI</th>
-                        <th class="min-w-200px">Domicilio</th>
-                        <th class="min-w-100px">Teléfono</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($clientes as $cliente)
-                        <tr>
-                            <td><a href="javascript:void(0);" onclick="alertDelete({{ $cliente->id_cliente }})"
-                                    class="btn btn-sm btn-danger">
-                                    <i class="fa-solid fa-trash text-white"></i>
-                                    </a> 
-                                    <a href="/clientes/{{ $cliente->id_cliente }}"
-                                    class="btn btn-sm btn-info"><i class="fa-solid fa-pencil text-white"></i>
+            <div class="table table-responsive">
+                <table class="data-table-coop table table-hover table-row-dashed fs-5     gy-2 gs-5">
+                    <thead>
+                        <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
+                            <th class="min-w-150px">Acciones</th>
+                            <th class="min-w-200px">Nombre</th>
+                            <th class="min-w-90px">Género</th>
+                            <th class="min-w-90px">DUI</th>
+                            <th class="min-w-200px">Domicilio</th>
+                            <th class="min-w-100px">Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($clientes as $cliente)
+                            <tr>
+                                <td><a href="javascript:void(0);" onclick="alertDelete({{ $cliente->id_cliente }})"
+                                        class="btn btn-sm btn-danger">
+                                        <i class="fa-solid fa-trash text-white"></i>
+                                    </a>
+                                    <a href="/clientes/{{ $cliente->id_cliente }}" class="btn btn-sm btn-info"><i
+                                            class="fa-solid fa-pencil text-white"></i>
                                     </a>
                                 </td>
-                            <td>{{ $cliente->nombre }}</td>
-                            <td>{{ $cliente->genero == '1' ? 'Masculino' : 'Femenino' }}</td>
-                            <td>{{ $cliente->dui_cliente }}</td>
-                            <td>{{ $cliente->direccion_personal }}</td>
-                            <td>{{ $cliente->telefono }}</td>
+                                <td>{{ $cliente->nombre }}</td>
+                                <td>{{ $cliente->genero == '1' ? 'Masculino' : 'Femenino' }}</td>
+                                <td>{{ $cliente->dui_cliente }}</td>
+                                <td>{{ $cliente->direccion_personal }}</td>
+                                <td>{{ $cliente->telefono }}</td>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-       </div>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="card-footer">
 

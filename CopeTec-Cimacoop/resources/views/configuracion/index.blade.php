@@ -11,9 +11,8 @@
             <div class="card-header ribbon ribbon-end ribbon-clip">
 
                 <div class="ribbon-label fs-3">
-                    <i class="ki-duotone ki-user-tick text-white fs-2x"><span class="path1"></span><span
-                            class="path2"></span><span class="path3"></span></i>
-                    Configuracion de Empresa
+                   <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+                Administración | {{ Session::get('name_module') }}
                     <span class="ribbon-inner bg-info"></span>
                 </div>
                 <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0">

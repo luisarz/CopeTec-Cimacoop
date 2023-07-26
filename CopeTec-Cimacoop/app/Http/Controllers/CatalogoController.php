@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Catalogo;
 use App\Models\CatalogoTipo;
+use App\Models\TipoCuentaCotableModel;
 use Illuminate\Http\Request;
 
 class CatalogoController extends Controller
@@ -17,7 +18,9 @@ class CatalogoController extends Controller
 
             })
             ->select('catalogo_tipo.descripcion as catalogo', 'catalogo.*')
+            ->orderBy('catalogo.numero', 'asc')
             ->paginate(10);
+        // dd($cuentas);
 
         return view('contabilidad.catalogo.index', compact('cuentas'));
 
@@ -25,8 +28,8 @@ class CatalogoController extends Controller
 
     public function add()
     {
-        $tipoCatalogo = CatalogoTipo::all();
-        return view('contabilidad.catalogo.add', compact('tipoCatalogo'));
+        $tipoCatalogo = TipoCuentaCotableModel::all();
+        return view("contabilidad.catalogo.add", compact('tipoCatalogo'));
     }
 
     public function delete(Request $request)
@@ -51,7 +54,7 @@ class CatalogoController extends Controller
     public function edit($id)
     {
         $cuenta = Catalogo::find($id);
-        $tipoCatalogo = CatalogoTipo::all();
+        $tipoCatalogo = TipoCuentaCotableModel::all();
 
         return view('contabilidad.catalogo.edit', compact('cuenta', 'tipoCatalogo'));
     }

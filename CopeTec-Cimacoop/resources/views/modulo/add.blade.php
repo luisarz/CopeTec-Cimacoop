@@ -75,7 +75,8 @@
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
-                <div class="col">
+
+                <div class="col-md-6">
                     <div class="fv-row mb-7">
                         <!--begin::Label-->
                         <label class="fs-6 fw-semibold form-label mt-3">
@@ -84,6 +85,18 @@
                         <!--end::Label-->
                         <!--begin::Input-->                        
                             <input type="number" min="1"  placeholder="Orden Modulo" class="form-control form-control-solid" name="orden" value="">
+                        <!--end::Input-->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="fv-row mb-7">
+                        <!--begin::Label-->
+                        <label class="fs-6 fw-semibold form-label mt-3">
+                            <span>Icono Modulo</span>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Input-->                        
+                            <input type="text"   placeholder="Icono Modulo" class="form-control form-control-solid" name="icono" value="">
                         <!--end::Input-->
                     </div>
                 </div>

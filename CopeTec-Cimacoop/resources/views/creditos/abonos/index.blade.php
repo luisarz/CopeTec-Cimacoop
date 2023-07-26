@@ -32,8 +32,9 @@
                 </form>
             </div>
             <div class="ribbon-label fs-3">
-                <i class="ki-outline ki-book-square text-white fs-3x"></i>
+                <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i>
                 Caja - Abono de Crédito
+                
                 <span class="ribbon-inner bg-info"></span>
             </div>
         </div>

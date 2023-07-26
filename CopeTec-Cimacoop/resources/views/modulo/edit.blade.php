@@ -89,6 +89,19 @@
                         <!--end::Input-->
                     </div>
                 </div>
+           
+                <div class="col">
+                    <div class="fv-row mb-7">
+                        <!--begin::Label-->
+                        <label class="fs-6 fw-semibold form-label mt-3">
+                            <span>Icono del Modulo</span>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Input-->                        
+                            <input type="text"   placeholder="Orden Modulo" class="form-control form-control-solid" name="icono" value="{{$modulo->icono}}">
+                        <!--end::Input-->
+                    </div>
+                </div>
             </div>
         </form>
     </div>
