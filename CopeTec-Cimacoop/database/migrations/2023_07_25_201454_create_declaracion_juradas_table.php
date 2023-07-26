@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('declaracion_juradas', function (Blueprint $table) {
             $table->id();
+            $table->string('origen_fondos');
+            $table->string('comprobante_procedencia_fondo');
+            $table->string('lugar');
+            $table->date('fecha');
             $table->timestamps();
         });
     }
