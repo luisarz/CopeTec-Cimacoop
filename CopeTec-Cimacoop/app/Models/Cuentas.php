@@ -10,4 +10,9 @@ class Cuentas extends Model
     protected $table = 'cuentas';
     protected $primaryKey = 'id_cuenta';
     use HasFactory;
+
+    public function asociado()
+    {
+        return $this->belongsTo(Asociados::class,'id_asociado');
+    }
 }
