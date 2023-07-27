@@ -20,7 +20,9 @@ class DeclaracionJuradaController extends Controller
      */
     public function create()
     {
-        //
+
+
+        return view('declaracion.declare');
     }
 
     /**
