@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('origen_fondos');
             $table->string('comprobante_procedencia_fondo');
             $table->string('lugar');
-            $table->date('fecha')
+            $table->date('fecha');
             $table->unsignedBigInteger('id_cliente');
             $table->foreign('id_cliente')->references('id_cliente')->on('clientes');
             $table->unsignedBigInteger('id_cuenta');

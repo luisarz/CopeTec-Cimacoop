@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('partida_contables', function (Blueprint $table) {
             $table->id();
-            $table->int('codigo');
+            $table->integer('codigo');
             $table->string('nombre_cuenta');
             $table->string('tipo_cuenta');
-            $table->boolval('movimiento');
+            $table->boolean('movimiento');
             $table->float('saldo');
             $table->timestamps();
         });
