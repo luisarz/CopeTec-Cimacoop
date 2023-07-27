@@ -97,7 +97,99 @@
                                 </select>
                             </div>
                         </div>
-                        
+                        {{-- start founds origins --}}
+                        <div class="col-12">
+                            <h5 class="my-4 text-center">
+                                Origen de los fondos
+                            </h5>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control custom-select custom-select-lg mb-3">
+                                <option value="Salarios">Salarios</option>
+                                <option value="Negocio Propio">Negocio Propio</option>
+                                <option value="Pensión">Pensión</option>
+                                <option value="Remesas">Remesas</option>
+                                <option value="Dividendos">Dividendos</option>
+                                <option value="Herencia">Herencia</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input type="test" step="0.00" class="form-control" id="other_text"
+                                    aria-describedby="emailHelp" placeholder="En caso de otros llenar esta parte">
+                                <small class="text-muted" for="exampleInputEmail1">*Si selecciono otros, por favor
+                                    especifique:</small>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <h5 class="my-4 text-center">
+                                Favor detalle documentación adjunta que ampara la procedencia de los fondos
+                            </h5>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control custom-select custom-select-lg mb-3">
+                                <option value="Constancia de Salarios">Constancia de Salarios</option>
+                                <option value="Negocio Propio, Ultimas Dos Declaraciones de renta">En caso de Negocio
+                                    Propio: Ultimas dos declaraciones de renta</option>
+                                <option value="Negocio Propio, Ultimas Tres Declaraciones de IVA">En caso de Negocio Propio:
+                                    Ultimas tres declaraciones de IVA</option>
+                                <option value="Carné o constancia de pensión">Carné o constancia de pensión</option>
+                                <option value="Últimas tres remesas recibidas">Últimas tres remesas recibidas</option>
+                                <option value="Constancia de división de dividendos">Constancia de división de dividendos
+                                </option>
+                                <option value="Declaratoria de heredero">Declaratoria de heredero</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input type="test" step="0.00" class="form-control" id="other_text"
+                                    aria-describedby="emailHelp" placeholder="En caso de otros llenar esta parte">
+                                <small class="text-muted" for="exampleInputEmail1">*Si selecciono otros, por favor
+                                    especifique:</small>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <h5 class="my-4 text-center">
+                                Declaración Jurada
+                            </h5>
+                            <p>
+                                Por este medio, en cumplimiento del instructivo emitido por la Unidad de Investigación de la
+                                Fiscalía General de la República, para la prevención del Lavado de Dinero y de Activos en
+                                las instituciones bancarias; BAJO JURAMENTO DECLARO: Que la información
+                                anterior que he proporcionado a CIMACOOP de RL. . y que forma parte de mi expediente o del
+                                expediente de mi representada en su
+                                caso, es fidedigna y que las transacciones efectuadas en la cuenta de operaciones pasivas no
+                                proceden, ni serán utilizadas con la finalidad de favorecer ningún tipo de actividad ilegal,
+                                contempladas en la Ley Contra el Lavado de Dinero y Activos. Además declaro que
+                                me someto a cualquier tipo de investigación necesaria para establecer la procedenciade los
+                                fondos de mi persona o de mi representada en su caso.
+                            </p>
+                        </div>
+                        <div class="col-8">
+                            <div class="d-flex">
+                                <label for="Client name">Nombre:</label>
+                                <p> Nombre cliente</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="d-flex">
+                                <label for="Signature">Firma:</label>
+                                <p>______________________</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex">
+                                <label for="date" class="mr-2">Lugar y Fecha:</label>
+                                <p>San Miguel, FECHA MM/DD/YYYY</p>
+                            </div>
+                        </div>
+                        <div class="mt-5 text-end">
+                            <button class="btn btn-primary">
+                                Guardar e Imprimir
+                            </button>
+                        </div>
                     </div>
                 </div>
             </form>
