@@ -13,14 +13,18 @@ return new class extends Migration
     {
         Schema::create('declaracion_juradas', function (Blueprint $table) {
             $table->id('declaracion_id');
+            $table->string('lugar');
+            $table->date('fecha');
+            $table->integer('n_depositos');
+            $table->integer('n_retiros');
+            $table->float('val_prom_depositos');
+            $table->float('val_prom_retiros');
             $table->string('origen_fondos');
             $table->string('comprobante_procedencia_fondo');
-            $table->string('lugar');
-            $table->date('fecha')
-            $table->unsignedBigInteger('id_cliente');
+            $table->integer('id_cliente');
+            $table->integer('id_cuenta');
+            $table->foreign('id_cuenta')->references('id_cuenta')->on('cuentas');
             $table->foreign('id_cliente')->references('id_cliente')->on('clientes');
-            $table->unsignedBigInteger('id_cuenta');
-            $table->foreign('id_cuenta')->references('id_cuenta')->on('clientes');
             $table->timestamps();
         });
     }

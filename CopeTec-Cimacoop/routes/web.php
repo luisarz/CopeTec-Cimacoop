@@ -34,6 +34,7 @@ use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\CreditoController;
+use App\Http\Controllers\DeclaracionJuradaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -252,7 +253,7 @@ Route::get('/reportes/comprobante/{id}', [ReportesController::class, 'comprobant
 Route::get('/reportes/comprobanteMovimientoBobeda/{id}', [ReportesController::class, 'comprobanteBobeda'])->middleware(['auth', 'bitacora']);
 
 /*
-Reportes Movimientos 
+Reportes Movimientos
 */
 
 Route::get('/reportes/comprobanteMovimiento/{id}', [ReportesController::class, 'ComprobanteMovimiento'])->middleware(['auth', 'bitacora']);
@@ -407,3 +408,8 @@ Route::post('/contabilidad/catalogo/add', [CatalogoController::class, 'post'])->
 Route::get('/contabilidad/catalogo/edit/{id}', [CatalogoController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/contabilidad/catalogo/put', [CatalogoController::class, 'put'])->middleware(['auth', 'bitacora']);
 Route::delete('/contabilidad/catalogo/delete', [CatalogoController::class, 'delete'])->middleware(['auth', 'bitacora']);
+
+// * rutas de declaraciones
+Route::middleware(['auth', 'bitacora'])->prefix('declare')->group(function() {
+    Route::get('/{acc}/new',[DeclaracionJuradaController::class,'create']); // user routes
+});
