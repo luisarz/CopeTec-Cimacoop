@@ -48,12 +48,13 @@ $(document).ready(function () {
             "monto_debe": $("#monto_debe").val(),
             "monto_haber": $("#monto_haber").val(),
             "id_credito": $("#id_credito").val(),
+            "comentario": $("#comentario").val(),
             "_token": $("#token").val()
         };
 
         $.ajax({
             type: "POST",
-            url: "/creditos/preaprobado/liquidar/add-descuento/",
+            url: "/creditos/preaprobado/liquidar/add-descuento",
             data: data, // No es necesario convertir a JSON.stringify
             success: function (response) {
                 swal.close();
@@ -233,7 +234,8 @@ $(document).ready(function () {
                     `<a href="javascript:void(0);" onclick="quitarDescuento(${id_liquidacion})"><span class='btn btn-sm btn-danger'>Quitar</span></a>`
                 ));
                 row.append($("<td>").text(element.numero));
-                row.append($("<td>").text(element.descripcion));
+                row.append($("<td>").html(element.descripcion + '<br/>' + ((element.comentario == null) ? '' : '<span class="badge badge-light-danger fs-4">' +  element.comentario+'</span>')));
+
                 row.append($("<td style='text-align:right;'>").text('$ ' + parseFloat(element.monto_debe).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
                 if (data.liquido == element.monto_haber) {
                     row.append($("<td style='text-align:right;' >").html("<span class='badge badge-success fs-4'> $ " + parseFloat(element.monto_haber).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + "</span>"));

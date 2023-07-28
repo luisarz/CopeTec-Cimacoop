@@ -7,6 +7,7 @@ use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\DepositosPlazoController;
 use App\Http\Controllers\LiquidacionController;
+use App\Http\Controllers\PartidasContablesController;
 use App\Http\Controllers\PlazosController;
 use App\Http\Controllers\ReferenciaSolicitudController;
 use App\Http\Controllers\SolicitudCreditoBienesController;
@@ -408,6 +409,14 @@ Route::post('/contabilidad/catalogo/add', [CatalogoController::class, 'post'])->
 Route::get('/contabilidad/catalogo/edit/{id}', [CatalogoController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/contabilidad/catalogo/put', [CatalogoController::class, 'put'])->middleware(['auth', 'bitacora']);
 Route::delete('/contabilidad/catalogo/delete', [CatalogoController::class, 'delete'])->middleware(['auth', 'bitacora']);
+
+/*Partidas Contables */
+Route::get('/contabilidad/partidas', [PartidasContablesController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/partidas', [PartidasContablesController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/partidas/add', [PartidasContablesController::class, 'add'])->middleware(['auth', 'bitacora']);
+
+
+
 
 // * rutas de declaraciones
 Route::middleware(['auth', 'bitacora'])->prefix('declare')->group(function() {

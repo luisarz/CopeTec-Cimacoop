@@ -242,7 +242,9 @@
                                             @foreach ($destinoCredito as $destino)
                                                
                                                     <option value="{{ $destino->id_cuenta }}">
-                                                        {{ $destino->descripcion }}
+                                                         {{ $destino->numero }}->
+                                                        {{ $destino->descripcion }} 
+
                                                     </option>
                                             @endforeach
                                         </select>

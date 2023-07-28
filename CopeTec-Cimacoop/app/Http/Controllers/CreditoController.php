@@ -263,9 +263,9 @@ class CreditoController extends Controller
       $credito = Credito::where('id_credito', $credito)->
          join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
       $configuracion = Configuracion::first();
-      $catalogo = Catalogo::all();
-      $tipoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
+      $catalogo = Catalogo::where('estado', '=', 1)->get();
 
+      // $tipoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
       $configuracion = Configuracion::first();
       $costoConsultaCrediticia = number_format($configuracion->costo_consulta_crediticia);
 
@@ -290,7 +290,7 @@ class CreditoController extends Controller
             'configuracion',
             'catalogo',
             'cuentas',
-            'tipoCredito',
+            // 'tipoCredito',
             'solicitud',
             'costoConsultaCrediticia',
          )

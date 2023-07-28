@@ -44,7 +44,8 @@ class SolicitudCreditoController extends Controller
             'lugar_trabajo'
         )->get();
 
-        $destinoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
+        $destinoCredito = Catalogo::where('movimiento', '=', 1)
+            ->where('tipo_catalogo', '=', 1)->get();
         $tiposGarantia = TipoGarantia::all();
 
         return view(

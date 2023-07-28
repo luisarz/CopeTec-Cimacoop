@@ -15,14 +15,14 @@
     <div class="card shadow-lg">
         <div class="card-header ribbon ribbon-end ribbon-clip">
             <div class="card-toolbar">
-                <a href="/contabilidad/catalogo/add" class="btn btn-info">
-                    <i class="ki-outline ki-abstract-27 fs-2x"></i>
-                    Nueva Cuenta
+                <a href="/contabilidad/partidas/add" class="btn btn-info">
+                    <i class="ki-outline ki-add-item fs-2x"></i>
+                    Nueva Partida
                 </a>
 
 
                 <div class="d-flex align-items-center border-active-dark ">
-                    <form action="/contabilidad/catalogo" method="post" autocomplete="off" class="d-flex align-items-center">
+                    <form action="/partidas/catalogo" method="post" autocomplete="off" class="d-flex align-items-center">
                         {!! csrf_field() !!}
                         {{ method_field('POST') }}
                         <!--end::Input group-->
@@ -57,13 +57,10 @@
                     <thead>
                         <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-250px">Acciones</th>
-                            <th class="min-w-50px">CODIGO</th>
-                            <th class="min-w-100px">TIPO CUENTA</th>
-                            <th class="min-w-80px">NOMBRE CUENTA</th>
-                            <th class="min-w-50px text-center">MOVIMIENTO</th>
-                            <th class="min-w-50px text-center">IVA</th>
-                            <th class="min-w-50px text-center">ESTADO</th>
-                            <th class="min-w-100px text-center">SALDO</th>
+                            <th class="min-w-50px">Número</th>
+                            <th class="min-w-100px">TIPO PARTIDA</th>
+                            <th class="min-w-80px">FECHA</th>
+                            <th class="min-w-50px text-center">CONCETO</th>
 
                         </tr>
                     </thead>
@@ -126,7 +123,7 @@
         </div>
     </div>
 
-    <form method="post" id="deleteForm" action="/contabilidad/catalogo/delete">
+    <form method="post" id="deleteForm" action="/contabilidad/partidas/delete">
         {!! csrf_field() !!}
         {{ method_field('DELETE') }}
         <input type="hidden" name="id" id="id">
