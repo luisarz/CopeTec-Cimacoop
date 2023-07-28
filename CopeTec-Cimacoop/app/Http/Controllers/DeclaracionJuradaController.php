@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DeclaracionJurada;
+use App\Models\Cuentas;
 use Illuminate\Http\Request;
 
 class DeclaracionJuradaController extends Controller
@@ -18,11 +19,10 @@ class DeclaracionJuradaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $rq)
     {
-
-
-        return view('declaracion.declare');
+        $acc = Cuentas::find($rq->acc);
+        return view('declaracion.declare',compact('acc'));
     }
 
     /**
