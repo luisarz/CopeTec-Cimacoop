@@ -410,6 +410,7 @@ Route::put('/contabilidad/catalogo/put', [CatalogoController::class, 'put'])->mi
 Route::delete('/contabilidad/catalogo/delete', [CatalogoController::class, 'delete'])->middleware(['auth', 'bitacora']);
 
 // * rutas de declaraciones
-Route::middleware(['auth', 'bitacora'])->prefix('declare')->group(function() {
-    Route::get('/{acc}/new',[DeclaracionJuradaController::class,'create']); // user routes
+Route::middleware(['auth', 'bitacora'])->prefix('declare')->group(function () {
+    Route::get('/{acc}/new', [DeclaracionJuradaController::class, 'create']);
+    Route::post('/add', [DeclaracionJuradaController::class, 'store'])->name('store-declare');
 });
