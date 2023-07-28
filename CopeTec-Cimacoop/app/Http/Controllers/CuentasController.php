@@ -17,7 +17,8 @@ class CuentasController extends Controller
             ->whereNotIn('clientes.estado', [0, 7])
             ->distinct()
             ->orderby('clientes.nombre', 'asc')
-            ->select('cuentas.*', 'clientes.nombre as nombre_cliente','clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')->get();
+            ->select('cuentas.*', 'clientes.nombre as nombre_cliente','clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+            ->paginate(10);
 
         return view("cuentas.index",compact("cuentas"));
     }
