@@ -28,8 +28,13 @@
                 </div>
             @endif
 
-            <form>
+            <form method="POST" action="{{url('declare/add')}}">
                 <div class="container">
+                    {!! csrf_field() !!}
+                    {{ method_field('POST') }}
+                    <input type="hidden" name="id_cuenta" id="id_cuenta" value="{{ $acc->id_cuenta }}">
+                    <input type="hidden" name="id_cliente" id="id_cliente"
+                        value="{{ $acc->asociado->cliente->id_cliente }}">
                     <div class="row">
                         <div class="col-12">
                             <h5 class="my-4 text-center">
@@ -38,25 +43,25 @@
                         </div>
                         {{-- Client name --}}
                         <div class="col-5">NOMBRE DEL ASOCIADOO REPRESENTANTE LEGAL</div>
-                        <div class="col-7">{{$acc->asociado->cliente->nombre}}</div>
+                        <div class="col-7">{{ $acc->asociado->cliente->nombre }}</div>
                         {{-- ID number --}}
                         <div class="col-5">Número de documento (DUI, PASAPORTE, CARNÉ DE RESIDENTE)</div>
-                        <div class="col-7">{{$acc->asociado->cliente->dui_cliente}}</div>
+                        <div class="col-7">{{ $acc->asociado->cliente->dui_cliente }}</div>
                         <div class="col-12">
                             <h5 class="my-4 text-center">
                                 Datos Generales de la cuenta de ahorro
                             </h5>
                         </div>
                         <div class="col-4">
-                            Numero de cuenta de ahorro: {{$acc->numero_cuenta}}
+                            Numero de cuenta de ahorro: {{ $acc->numero_cuenta }}
                         </div>
                         <div class="col-4">
 
-                           Monto de apertura: $ {{$acc->monto_apertura}}
+                            Monto de apertura: $ {{ $acc->monto_apertura }}
                         </div>
                         <div class="col-4">
 
-                            Fecha de apertura : {{$acc->created_at}}
+                            Fecha de apertura : {{ $acc->created_at }}
                         </div>
                         {{-- start savings section --}}
                         <div class="col-12">
@@ -67,21 +72,22 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Número de depositos</label>
-                                <input type="number" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Número de depositos">
+                                <input type="number" class="form-control" id="n_depositos" name="n_depositos"
+                                    placeholder="Número de depositos">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Valor promedio de depósitos</label>
-                                <input type="number" step="0.00" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Valor promedio de depósitos">
+                                <input type="number" step="0.00" class="form-control" id="val_prom_depositos"
+                                    name="val_prom_depositos" placeholder="Valor promedio de depósitos">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Al depositar realizare abonos mediante:</label>
-                                <select class="form-control custom-select custom-select-lg mb-3">
+                                <select name="depo_tipo" id="depo_tipo"
+                                    class="form-control custom-select custom-select-lg mb-3">
                                     <option value="Ambos">Ambos (Cheque y/o Efectivo)</option>
                                     <option value="Cheque">Cheque</option>
                                     <option value="Efectivo">Efectivo</option>
@@ -92,21 +98,22 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Número de retiros</label>
-                                <input type="number" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Número de retiros">
+                                <input type="number" class="form-control" id="n_retiros" name="n_retiros"
+                                    placeholder="Número de retiros">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Valor promedio de retiros</label>
-                                <input type="number" step="0.00" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Valor promedio de retiros">
+                                <input type="number" step="0.00" class="form-control" id="val_prom_retiros"
+                                    name="val_prom_retiros" placeholder="Valor promedio de retiros">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Al realizar retiros lo ha hare mediante:</label>
-                                <select class="form-control custom-select custom-select-lg mb-3">
+                                <select name="ret_tipo" id="ret_tipo"
+                                    class="form-control custom-select custom-select-lg mb-3">
                                     <option value="Ambos">Ambos (Cheque y/o Efectivo)</option>
                                     <option value="Cheque">Cheque</option>
                                     <option value="Efectivo">Efectivo</option>
@@ -120,7 +127,8 @@
                             </h5>
                         </div>
                         <div class="col-6">
-                            <select class="form-control custom-select custom-select-lg mb-3">
+                            <select name="origen_fondos" id="origen_fondos"
+                                class="form-control custom-select custom-select-lg mb-3">
                                 <option value="Salarios">Salarios</option>
                                 <option value="Negocio Propio">Negocio Propio</option>
                                 <option value="Pensión">Pensión</option>
@@ -132,10 +140,10 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <input type="test" step="0.00" class="form-control" id="other_text"
-                                    aria-describedby="emailHelp" placeholder="En caso de otros llenar esta parte">
+                                <input type="text" name="otro_origen_fondos" class="form-control"
+                                    id="otro_origen_fondos" placeholder="En caso de otros llenar esta parte">
                                 <small class="text-muted" for="exampleInputEmail1">*Si selecciono otros, por favor
-                                    especifique:</small>
+                                    especifique</small>
                             </div>
                         </div>
                         <div class="col-12">
@@ -144,11 +152,13 @@
                             </h5>
                         </div>
                         <div class="col-6">
-                            <select class="form-control custom-select custom-select-lg mb-3">
+                            <select name="comprobante_procedencia_fondos" id="comprobante_procedencia_fondos"
+                                class="form-control custom-select custom-select-lg mb-3">
                                 <option value="Constancia de Salarios">Constancia de Salarios</option>
                                 <option value="Negocio Propio, Ultimas Dos Declaraciones de renta">En caso de Negocio
                                     Propio: Ultimas dos declaraciones de renta</option>
-                                <option value="Negocio Propio, Ultimas Tres Declaraciones de IVA">En caso de Negocio Propio:
+                                <option value="Negocio Propio, Ultimas Tres Declaraciones de IVA">En caso de Negocio
+                                    Propio:
                                     Ultimas tres declaraciones de IVA</option>
                                 <option value="Carné o constancia de pensión">Carné o constancia de pensión</option>
                                 <option value="Últimas tres remesas recibidas">Últimas tres remesas recibidas</option>
@@ -160,8 +170,8 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <input type="test" step="0.00" class="form-control" id="other_text"
-                                    aria-describedby="emailHelp" placeholder="En caso de otros llenar esta parte">
+                                <input type="text" name="otro_comprobante_fondos" step="0.00" class="form-control"
+                                    id="otro_comprobante_fondos" placeholder="En caso de otros llenar esta parte">
                                 <small class="text-muted" for="exampleInputEmail1">*Si selecciono otros, por favor
                                     especifique:</small>
                             </div>
@@ -186,7 +196,7 @@
                         <div class="col-8 mt-5">
                             <div class="d-flex">
                                 <label for="Client name">Nombre:</label>
-                                <p> {{$acc->asociado->cliente->nombre}}</p>
+                                <p> {{ $acc->asociado->cliente->nombre }}</p>
                             </div>
                         </div>
                         <div class="col-4 mt-5">
@@ -202,7 +212,7 @@
                             </div>
                         </div>
                         <div class="mt-5 text-end">
-                            <button class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary">
                                 Guardar e Imprimir
                             </button>
                         </div>
