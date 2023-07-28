@@ -47,7 +47,23 @@
                                 Datos Generales de la cuenta de ahorro
                             </h5>
                         </div>
+                        <div class="col-4">
+                            Numero de cuenta de ahorro: (cuenta de ahorro)
+                        </div>
+                        <div class="col-4">
+
+                           Monto de apertura: ($$$$)
+                        </div>
+                        <div class="col-4">
+
+                            Fecha de apertura : (Fecha)
+                        </div>
                         {{-- start savings section --}}
+                        <div class="col-12">
+                            <h5 class="my-4 text-center">
+                                Transacciones bancarias que proyecto realizar mensualmente
+                            </h5>
+                        </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Número de depositos</label>
