@@ -65,31 +65,34 @@
                             <th>Saldo</th>
                             <th>Tipo Cuenta</th>
                             <th>Compartida</th>
+                            <th>Declaración</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($cuentas as $cuenta)
                             <tr>
                                 <td>
-                                    @if ($cuenta->estado != '0')
-                                        <a href="javascript:void(0);" tol-tip="Cuenta Congelada"
-                                            onclick="alertCongelar({{ $cuenta->id_cuenta }})" data-offset="20px 20px"
-                                            data-toggle="popover" data-placement="top" data-content="Example content"
-                                            class="btn btn-danger btn-sm w-50px"><i class="fa fa-ban text-white"></i>
+                                    <div class="d-flex">
+                                        @if ($cuenta->estado != '0')
+                                            <a href="javascript:void(0);" tol-tip="Cuenta Congelada"
+                                                onclick="alertCongelar({{ $cuenta->id_cuenta }})" data-offset="20px 20px"
+                                                data-toggle="popover" data-placement="top" data-content="Example content"
+                                                class="btn btn-danger btn-sm w-50px"><i class="fa fa-ban text-white"></i>
 
-                                        </a>
-                                    @else
-                                        <a class="btn btn-outline btn-outline-dashed btn-outline-danger btn-sm">
-                                            <i class="fa fa-ban text-danger"></i>
-                                        </a>
-                                    @endif
+                                            </a>
+                                        @else
+                                            <a class="btn btn-outline btn-outline-dashed btn-outline-danger btn-sm">
+                                                <i class="fa fa-ban text-danger"></i>
+                                            </a>
+                                        @endif
 
-                                    <a href="/reportes/contrato/{{ $cuenta->id_cuenta }}"
-                                        class="btn btn-primary btn-sm w-120px"><i class="fa fa-print text-white"></i>
-                                    </a>
-                                    <a href="/reportes/RepEstadoCuenta/{{ $cuenta->id_cuenta }}"
-                                        class="btn btn-info btn-sm w-120px"><i class="fa fa-print text-white"></i>
-                                    </a>
+                                        <a href="/reportes/contrato/{{ $cuenta->id_cuenta }}"
+                                            class="btn btn-primary btn-sm mx-1"><i class="fa fa-print text-white"></i>
+                                        </a>
+                                        <a href="/reportes/RepEstadoCuenta/{{ $cuenta->id_cuenta }}"
+                                            class="btn btn-info btn-sm"><i class="fa fa-print text-white"></i>
+                                        </a>
+                                    </div>
 
                                 </td>
                                 <td>
@@ -126,6 +129,13 @@
                                     @endif
                                 </td>
 
+                                <td>
+                                    @if ($cuenta->declarado)
+                                        <button class="btn btn-info btn-sm"> Ver/Editar</button>
+                                    @else
+                                    <a href="/declare/{{ $cuenta->id_cuenta }}/new" class="btn btn-success btn-sm"> Crear</a>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
