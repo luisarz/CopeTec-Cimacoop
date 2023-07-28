@@ -38,25 +38,25 @@
                         </div>
                         {{-- Client name --}}
                         <div class="col-5">NOMBRE DEL ASOCIADOO REPRESENTANTE LEGAL</div>
-                        <div class="col-7">Client name</div>
+                        <div class="col-7">{{$acc->asociado->cliente->nombre}}</div>
                         {{-- ID number --}}
                         <div class="col-5">Número de documento (DUI, PASAPORTE, CARNÉ DE RESIDENTE)</div>
-                        <div class="col-7">Id Number</div>
+                        <div class="col-7">{{$acc->asociado->cliente->dui_cliente}}</div>
                         <div class="col-12">
                             <h5 class="my-4 text-center">
                                 Datos Generales de la cuenta de ahorro
                             </h5>
                         </div>
                         <div class="col-4">
-                            Numero de cuenta de ahorro: (cuenta de ahorro)
+                            Numero de cuenta de ahorro: {{$acc->numero_cuenta}}
                         </div>
                         <div class="col-4">
 
-                           Monto de apertura: ($$$$)
+                           Monto de apertura: $ {{$acc->monto_apertura}}
                         </div>
                         <div class="col-4">
 
-                            Fecha de apertura : (Fecha)
+                            Fecha de apertura : {{$acc->created_at}}
                         </div>
                         {{-- start savings section --}}
                         <div class="col-12">
@@ -68,14 +68,14 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Número de depositos</label>
                                 <input type="number" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Enter email">
+                                    aria-describedby="emailHelp" placeholder="Número de depositos">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Valor promedio de depósitos</label>
                                 <input type="number" step="0.00" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Enter email">
+                                    aria-describedby="emailHelp" placeholder="Valor promedio de depósitos">
                             </div>
                         </div>
                         <div class="col-4">
@@ -93,14 +93,14 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Número de retiros</label>
                                 <input type="number" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Enter email">
+                                    aria-describedby="emailHelp" placeholder="Número de retiros">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Valor promedio de retiros</label>
                                 <input type="number" step="0.00" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Enter email">
+                                    aria-describedby="emailHelp" placeholder="Valor promedio de retiros">
                             </div>
                         </div>
                         <div class="col-4">
@@ -183,13 +183,13 @@
                                 fondos de mi persona o de mi representada en su caso.
                             </p>
                         </div>
-                        <div class="col-8">
+                        <div class="col-8 mt-5">
                             <div class="d-flex">
                                 <label for="Client name">Nombre:</label>
-                                <p> Nombre cliente</p>
+                                <p> {{$acc->asociado->cliente->nombre}}</p>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-4 mt-5">
                             <div class="d-flex">
                                 <label for="Signature">Firma:</label>
                                 <p>______________________</p>
@@ -198,7 +198,7 @@
                         <div class="col-12">
                             <div class="d-flex">
                                 <label for="date" class="mr-2">Lugar y Fecha:</label>
-                                <p>San Miguel, FECHA MM/DD/YYYY</p>
+                                <p class="mx-1">San Miguel, {{ \Carbon\Carbon::now()->format('d/m/Y') }}</p>
                             </div>
                         </div>
                         <div class="mt-5 text-end">
