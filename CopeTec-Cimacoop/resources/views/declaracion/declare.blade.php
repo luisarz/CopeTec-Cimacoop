@@ -28,7 +28,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{url('declare/add')}}">
+            <form method="POST" action="{{ url('declare/add') }}">
                 <div class="container">
                     {!! csrf_field() !!}
                     {{ method_field('POST') }}
@@ -72,14 +72,17 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Número de depositos</label>
-                                <input type="number" value="0"  min="0" class="form-control" id="n_depositos" name="n_depositos"
+                                <input type="number" value="{{ $dec->n_depositos == null ? '0' : $dec->n_depositos }}"
+                                    min="0" class="form-control" id="n_depositos" name="n_depositos"
                                     placeholder="Número de depositos">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Valor promedio de depósitos</label>
-                                <input type="number"  value="0" min="0" step="0.00" class="form-control" id="val_prom_depositos"
+                                <input type="number"
+                                    value="{{ $dec->val_prom_depositos == null ? '0' : $dec->val_prom_depositos }}"
+                                    min="0" step="0.00" class="form-control" id="val_prom_depositos"
                                     name="val_prom_depositos" placeholder="Valor promedio de depósitos">
                             </div>
                         </div>
@@ -88,9 +91,9 @@
                                 <label for="exampleInputEmail1">Al depositar realizare abonos mediante:</label>
                                 <select name="depo_tipo" id="depo_tipo"
                                     class="form-control custom-select custom-select-lg mb-3">
-                                    <option value="Ambos">Ambos (Cheque y/o Efectivo)</option>
-                                    <option value="Cheque">Cheque</option>
-                                    <option value="Efectivo">Efectivo</option>
+                                    <option value="Ambos" {{ $dec->depo_tipo == 'Ambos' ? 'selected' : '' }}>Ambos (Cheque y/o Efectivo)</option>
+                                    <option value="Cheque" {{ $dec->depo_tipo == 'Cheque' ? 'selected' : '' }}>Cheque</option>
+                                    <option value="Efectivo" {{ $dec->depo_tipo == 'Efectivo' ? 'selected' : '' }}>Efectivo</option>
                                 </select>
                             </div>
                         </div>
@@ -98,14 +101,17 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Número de retiros</label>
-                                <input type="number"  value="0"  min="0" class="form-control" id="n_retiros" name="n_retiros"
+                                <input type="number" value="{{ $dec->n_retiros == null ? '0' : $dec->n_retiros }}"
+                                    min="0" class="form-control" id="n_retiros" name="n_retiros"
                                     placeholder="Número de retiros">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Valor promedio de retiros</label>
-                                <input type="number"  value="0"   min="0" step="0.00" class="form-control" id="val_prom_retiros"
+                                <input type="number"
+                                    value="{{ $dec->val_prom_retiros == null ? '0' : $dec->val_prom_retiros }}"
+                                    min="0" step="0.00" class="form-control" id="val_prom_retiros"
                                     name="val_prom_retiros" placeholder="Valor promedio de retiros">
                             </div>
                         </div>
@@ -114,9 +120,9 @@
                                 <label for="exampleInputEmail1">Al realizar retiros lo ha hare mediante:</label>
                                 <select name="ret_tipo" id="ret_tipo"
                                     class="form-control custom-select custom-select-lg mb-3">
-                                    <option value="Ambos">Ambos (Cheque y/o Efectivo)</option>
-                                    <option value="Cheque">Cheque</option>
-                                    <option value="Efectivo">Efectivo</option>
+                                    <option value="Ambos" {{ $dec->ret_tipo == 'Ambos' ? 'selected' : '' }}>Ambos (Cheque y/o Efectivo)</option>
+                                    <option value="Cheque" {{ $dec->ret_tipo == 'Cheque' ? 'selected' : '' }}>Cheque</option>
+                                    <option value="Efectivo" {{ $dec->ret_tipo == 'Efectivo' ? 'selected' : '' }}>Efectivo</option>
                                 </select>
                             </div>
                         </div>
@@ -129,18 +135,28 @@
                         <div class="col-6">
                             <select name="origen_fondos" id="origen_fondos"
                                 class="form-control custom-select custom-select-lg mb-3">
-                                <option value="Salarios">Salarios</option>
-                                <option value="Negocio Propio">Negocio Propio</option>
-                                <option value="Pensión">Pensión</option>
-                                <option value="Remesas">Remesas</option>
-                                <option value="Dividendos">Dividendos</option>
-                                <option value="Herencia">Herencia</option>
-                                <option value="Otros">Otros</option>
+                                <option value="Salarios" {{ $dec->origen_fondos == 'Salarios' ? 'selected' : '' }}>Salarios
+                                </option>
+                                <option value="Negocio Propio"
+                                    {{ $dec->origen_fondos == 'Negocio Propio' ? 'selected' : '' }}>Negocio
+                                    Propio</option>
+                                <option value="Pensión" {{ $dec->origen_fondos == 'Pensión' ? 'selected' : '' }}>Pensión
+                                </option>
+                                <option value="Remesas" {{ $dec->origen_fondos == 'Remesas' ? 'selected' : '' }}>Remesas
+                                </option>
+                                <option value="Dividendos" {{ $dec->origen_fondos == 'Dividendos' ? 'selected' : '' }}>
+                                    Dividendos
+                                </option>
+                                <option value="Herencia" {{ $dec->origen_fondos == 'Herencia' ? 'selected' : '' }}>
+                                    Herencia
+                                </option>
+                                <option value="Otros" {{ $dec->origen_fondos == 'Otros' ? 'selected' : '' }}>Otros
+                                </option>
                             </select>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <input type="text" name="otro_origen_fondos" class="form-control"
+                                <input type="text" name="otro_origen_fondos" value="{{ $dec->otro_origen_fondos }}"  class="form-control"
                                     id="otro_origen_fondos"placeholder="En caso de otros llenar esta parte">
                                 <small class="text-muted" for="exampleInputEmail1">*Si selecciono otros, por favor
                                     especifique</small>
@@ -154,26 +170,47 @@
                         <div class="col-6">
                             <select name="comprobante_procedencia_fondo" id="comprobante_procedencia_fondo"
                                 class="form-control custom-select custom-select-lg mb-3">
-                                <option value="Constancia de Salarios">Constancia de Salarios</option>
-                                <option value="Negocio Propio, Ultimas Dos Declaraciones de renta">En caso de Negocio
+                                <option value="Constancia de Salarios"
+                                    {{ $dec->origen_fondos == 'Constancia de Salarios' ? 'selected' : '' }}>Constancia de
+                                    Salarios
+                                </option>
+                                <option value="Negocio Propio, Ultimas Dos Declaraciones de renta"
+                                    {{ $dec->origen_fondos == 'Negocio Propio, Ultimas Dos Declaraciones de renta' ? 'selected' : '' }}>
+                                    En caso de Negocio
                                     Propio: Ultimas dos declaraciones de renta</option>
-                                <option value="Negocio Propio, Ultimas Tres Declaraciones de IVA">En caso de Negocio
+                                <option value="Negocio Propio, Ultimas Tres Declaraciones de IVA"
+                                    {{ $dec->origen_fondos == 'Negocio Propio, Ultimas Tres Declaraciones de IVA' ? 'selected' : '' }}>
+                                    En caso de Negocio
                                     Propio:
                                     Ultimas tres declaraciones de IVA</option>
-                                <option value="Carné o constancia de pensión">Carné o constancia de pensión</option>
-                                <option value="Últimas tres remesas recibidas">Últimas tres remesas recibidas</option>
-                                <option value="Constancia de división de dividendos">Constancia de división de dividendos
+                                <option value="Carné o constancia de pensión"
+                                    {{ $dec->origen_fondos == 'Carné o constancia de pensión' ? 'selected' : '' }}>Carné o
+                                    constancia de pensión
                                 </option>
-                                <option value="Declaratoria de heredero">Declaratoria de heredero</option>
-                                <option value="Otros">Otros</option>
+                                <option value="Últimas tres remesas recibidas"
+                                    {{ $dec->origen_fondos == 'Últimas tres remesas recibidas' ? 'selected' : '' }}>Últimas
+                                    tres remesas
+                                    recibidas</option>
+                                <option value="Constancia de división de dividendos"
+                                    {{ $dec->origen_fondos == 'Constancia de división de dividendos' ? 'selected' : '' }}>
+                                    Constancia de división de
+                                    dividendos
+                                </option>
+                                <option value="Declaratoria de heredero"
+                                    {{ $dec->origen_fondos == 'Declaratoria de heredero' ? 'selected' : '' }}>Declaratoria
+                                    de heredero
+                                </option>
+                                <option value="Otros" {{ $dec->origen_fondos == 'Otros' ? 'selected' : '' }}>Otros
+                                </option>
                             </select>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <input type="text" name="otro_comprobante_fondos" step="0.00" class="form-control"
+                                <input type="text" name="otro_comprobante_fondos"
+                                    value="{{ $dec->otro_comprobante_fondos }}" class="form-control"
                                     id="otro_comprobante_fondos" placeholder="En caso de otros llenar esta parte">
                                 <small class="text-muted" for="exampleInputEmail1">*Si selecciono otros, por favor
-                                    especifique:</small>
+                                    especifique</small>
                             </div>
                         </div>
                         <div class="col-12">
