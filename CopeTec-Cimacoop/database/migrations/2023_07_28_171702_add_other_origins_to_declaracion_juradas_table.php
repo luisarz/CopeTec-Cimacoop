@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('declaracion_juradas', function (Blueprint $table) {
             $table->boolean('otro_origen_fondos')->nullable();
             $table->boolean('otro_comprobante_fondos')->nullable();
+            $table->string('comprobante_procedencia_fondo')->nullable()->change();
             $table->string('depo_tipo');
             $table->string('ret_tipo');
         });
