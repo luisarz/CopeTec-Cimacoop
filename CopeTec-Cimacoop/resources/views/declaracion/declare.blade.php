@@ -72,14 +72,14 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Número de depositos</label>
-                                <input type="number" class="form-control" id="n_depositos" name="n_depositos"
+                                <input type="number" value="0"  min="0" class="form-control" id="n_depositos" name="n_depositos"
                                     placeholder="Número de depositos">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Valor promedio de depósitos</label>
-                                <input type="number" step="0.00" class="form-control" id="val_prom_depositos"
+                                <input type="number"  value="0" min="0" step="0.00" class="form-control" id="val_prom_depositos"
                                     name="val_prom_depositos" placeholder="Valor promedio de depósitos">
                             </div>
                         </div>
@@ -98,14 +98,14 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Número de retiros</label>
-                                <input type="number" class="form-control" id="n_retiros" name="n_retiros"
+                                <input type="number"  value="0"  min="0" class="form-control" id="n_retiros" name="n_retiros"
                                     placeholder="Número de retiros">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Valor promedio de retiros</label>
-                                <input type="number" step="0.00" class="form-control" id="val_prom_retiros"
+                                <input type="number"  value="0"   min="0" step="0.00" class="form-control" id="val_prom_retiros"
                                     name="val_prom_retiros" placeholder="Valor promedio de retiros">
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <input type="text" name="otro_origen_fondos" class="form-control"
-                                    id="otro_origen_fondos" placeholder="En caso de otros llenar esta parte">
+                                    id="otro_origen_fondos"placeholder="En caso de otros llenar esta parte">
                                 <small class="text-muted" for="exampleInputEmail1">*Si selecciono otros, por favor
                                     especifique</small>
                             </div>
@@ -152,7 +152,7 @@
                             </h5>
                         </div>
                         <div class="col-6">
-                            <select name="comprobante_procedencia_fondos" id="comprobante_procedencia_fondos"
+                            <select name="comprobante_procedencia_fondo" id="comprobante_procedencia_fondo"
                                 class="form-control custom-select custom-select-lg mb-3">
                                 <option value="Constancia de Salarios">Constancia de Salarios</option>
                                 <option value="Negocio Propio, Ultimas Dos Declaraciones de renta">En caso de Negocio
