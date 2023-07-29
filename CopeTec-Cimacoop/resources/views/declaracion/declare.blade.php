@@ -91,9 +91,12 @@
                                 <label for="exampleInputEmail1">Al depositar realizare abonos mediante:</label>
                                 <select name="depo_tipo" id="depo_tipo"
                                     class="form-control custom-select custom-select-lg mb-3">
-                                    <option value="Ambos" {{ $dec->depo_tipo == 'Ambos' ? 'selected' : '' }}>Ambos (Cheque y/o Efectivo)</option>
-                                    <option value="Cheque" {{ $dec->depo_tipo == 'Cheque' ? 'selected' : '' }}>Cheque</option>
-                                    <option value="Efectivo" {{ $dec->depo_tipo == 'Efectivo' ? 'selected' : '' }}>Efectivo</option>
+                                    <option value="Ambos" {{ $dec->depo_tipo == 'Ambos' ? 'selected' : '' }}>Ambos (Cheque
+                                        y/o Efectivo)</option>
+                                    <option value="Cheque" {{ $dec->depo_tipo == 'Cheque' ? 'selected' : '' }}>Cheque
+                                    </option>
+                                    <option value="Efectivo" {{ $dec->depo_tipo == 'Efectivo' ? 'selected' : '' }}>Efectivo
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -120,9 +123,12 @@
                                 <label for="exampleInputEmail1">Al realizar retiros lo ha hare mediante:</label>
                                 <select name="ret_tipo" id="ret_tipo"
                                     class="form-control custom-select custom-select-lg mb-3">
-                                    <option value="Ambos" {{ $dec->ret_tipo == 'Ambos' ? 'selected' : '' }}>Ambos (Cheque y/o Efectivo)</option>
-                                    <option value="Cheque" {{ $dec->ret_tipo == 'Cheque' ? 'selected' : '' }}>Cheque</option>
-                                    <option value="Efectivo" {{ $dec->ret_tipo == 'Efectivo' ? 'selected' : '' }}>Efectivo</option>
+                                    <option value="Ambos" {{ $dec->ret_tipo == 'Ambos' ? 'selected' : '' }}>Ambos (Cheque
+                                        y/o Efectivo)</option>
+                                    <option value="Cheque" {{ $dec->ret_tipo == 'Cheque' ? 'selected' : '' }}>Cheque
+                                    </option>
+                                    <option value="Efectivo" {{ $dec->ret_tipo == 'Efectivo' ? 'selected' : '' }}>Efectivo
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -156,7 +162,8 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <input type="text" name="otro_origen_fondos" value="{{ $dec->otro_origen_fondos }}"  class="form-control"
+                                <input type="text" name="otro_origen_fondos" value="{{ $dec->otro_origen_fondos }}"
+                                    class="form-control"
                                     id="otro_origen_fondos"placeholder="En caso de otros llenar esta parte">
                                 <small class="text-muted" for="exampleInputEmail1">*Si selecciono otros, por favor
                                     especifique</small>
@@ -245,12 +252,17 @@
                         <div class="col-12">
                             <div class="d-flex">
                                 <label for="date" class="mr-2">Lugar y Fecha:</label>
-                                <p class="mx-1">San Miguel, {{ \Carbon\Carbon::now()->format('d/m/Y') }}</p>
+                                <p class="mx-1">San Miguel,
+                                    {{ $dec->fecha == null ? \Carbon\Carbon::now()->format('d/m/Y') : \Carbon\Carbon::parse($dec->fecha)->format('d/m/Y') }}
+                                </p>
                             </div>
                         </div>
                         <div class="mt-5 text-end">
                             <button type="submit" class="btn btn-primary">
-                                Guardar e Imprimir
+                                Guardar
+                            </button>
+                            <button class="btn btn-secondary">
+                                Imprimir
                             </button>
                         </div>
                     </div>
