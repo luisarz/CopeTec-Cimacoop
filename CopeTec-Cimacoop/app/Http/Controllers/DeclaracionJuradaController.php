@@ -84,9 +84,8 @@ class DeclaracionJuradaController extends Controller
      */
     public function update(Request $request, DeclaracionJurada $declaracionJurada)
     {
-        $dec = DeclaracionJurada::where('id_cuenta', $request->id_cuenta)->where('id_cuenta', $request->id_cuenta)->first();
-        $dec->lugar = "San Miguel";
-        $dec->fecha = Carbon::now();
+        $dec = DeclaracionJurada::find($request->declaracion_id);
+        // $dec = $declaracionJurada;
         $dec->id_cuenta = $request->id_cuenta;
         $dec->id_cliente = $request->id_cliente;
         $dec->n_depositos = $request->n_depositos;
@@ -99,11 +98,8 @@ class DeclaracionJuradaController extends Controller
         $dec->otro_origen_fondos = $request->otro_origen_fondos;
         $dec->comprobante_procedencia_fondo = $request->comprobante_procedencia_fondo;
         $dec->otro_comprobante_fondos = $request->otro_comprobante_fondos;
-        $acc = Cuentas::find($request->id_cuenta);
-        $acc->declarado = true;
         try {
             $dec->save();
-            $acc->save();
             return redirect('/cuentas');
         } catch (\Throwable $th) {
             dd($th);
