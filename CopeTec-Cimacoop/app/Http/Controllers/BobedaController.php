@@ -12,11 +12,14 @@ use App\Models\Movimientos;
 use App\Models\TipoCuenta;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class BobedaController extends Controller
 {
     public function index()
     {
+      Session::put("estadoMenuminimizado", "1");
+
         $today = Carbon::today();
         $bobeda = Bobeda::first();
 

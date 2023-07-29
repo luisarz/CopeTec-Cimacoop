@@ -13,6 +13,7 @@ use App\Models\SolicitudCredito;
 use App\Models\Credito;
 use App\Models\TipoGarantia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class SolicitudCreditoController extends Controller
@@ -33,6 +34,8 @@ class SolicitudCreditoController extends Controller
 
     public function add()
     {
+        Session::put("estadoMenuminimizado", "1");
+
         $clientes = Clientes::whereNotIn('estado', [0, 7])->get();
         $beneficiarios = Beneficiarios::all();
         $idSolicitud = Str::uuid()->toString();

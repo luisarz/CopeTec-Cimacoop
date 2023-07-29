@@ -48,6 +48,8 @@ class CreditoController extends Controller
 
    function payment($id)
    {
+      Session::put("estadoMenuminimizado", "1");
+
       $id_empleado_usuario = Session::get('id_empleado_usuario');
       $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
          ->where("estado_caja", '=', '1')
@@ -247,6 +249,8 @@ class CreditoController extends Controller
 
    function liquidar($credito)
    {
+      Session::put("estadoMenuminimizado", "1");
+
       $id_empleado_usuario = Session::get('id_empleado_usuario');
       $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
          ->where("estado_caja", '=', '1')

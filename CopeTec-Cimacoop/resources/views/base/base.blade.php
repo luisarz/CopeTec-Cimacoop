@@ -42,7 +42,6 @@ License: For each use you must have a valid license purchased only from above li
 <!--begin::Body-->
 @php
     $sidebarMinimize = (Session::get("estadoMenuminimizado") == '1') ?'on':'off';
-    echo $sidebarMinimize;
 @endphp
 
 <body id="kt_app_body" data-kt-app-layout="light-sidebar" data-kt-app-header-fixed="true"

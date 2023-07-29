@@ -6,13 +6,15 @@ use App\Models\Catalogo;
 use App\Models\PartidasContablesModel;
 use App\Models\TiposPartidasContablesModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PartidasContablesController extends Controller
 {
     public function index(Request $request)
     {
 
-    
+
+
         $filtro = $request->input('filtro');
         $cuentas = PartidasContablesModel::join('catalogo','catalogo.id_cuenta','=','partidas_contables.id_partida_contable')
         ->join('catalogo_tipo', 'catalogo_tipo.id_tipo_catalogo', '=', 'catalogo.tipo_catalogo')
@@ -32,7 +34,8 @@ class PartidasContablesController extends Controller
 
     public function add()
     {
-      $catalogo = Catalogo::where('estado', '=', 1)->get();
+        Session::put("estadoMenuminimizado", "1");
+        $catalogo = Catalogo::where('estado', '=', 1)->get();
 
         return view("contabilidad.partidas.add", compact('catalogo'));
         
