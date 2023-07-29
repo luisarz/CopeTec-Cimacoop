@@ -39,6 +39,7 @@ class ModuloController extends Controller
         $modulo->nombre = $request->modulo;
         $modulo->ruta = $request->ruta;
         $modulo->orden = $request->orden;
+        $modulo->is_minimazed=$request->is_minimazed;
         if($request->is_padre==1){
             $modulo->is_padre = 1;
             $modulo->id_padre = 0;
@@ -59,6 +60,7 @@ class ModuloController extends Controller
         $modulo->nombre = $request->modulo;
         $modulo->ruta = $request->ruta;
         $modulo->orden = $request->orden;
+        $modulo->is_minimazed=$request->is_minimazed;
         if($request->is_padre==1){
             $modulo->is_padre = 1;
             $modulo->id_padre = 0;

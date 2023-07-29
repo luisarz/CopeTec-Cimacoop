@@ -15,6 +15,7 @@ use App\Http\Controllers\SolicitudCreditoController;
 use App\Http\Controllers\TasasPlazosController;
 use App\Http\Controllers\TempPasswordController;
 use App\Http\Controllers\TipoCuentaCotableController;
+use App\Http\Controllers\TiposPartidasContablesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -409,6 +410,17 @@ Route::post('/contabilidad/catalogo/add', [CatalogoController::class, 'post'])->
 Route::get('/contabilidad/catalogo/edit/{id}', [CatalogoController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/contabilidad/catalogo/put', [CatalogoController::class, 'put'])->middleware(['auth', 'bitacora']);
 Route::delete('/contabilidad/catalogo/delete', [CatalogoController::class, 'delete'])->middleware(['auth', 'bitacora']);
+
+
+/*Tipos Partidas Contables */
+Route::get('/contabilidad/tipos-partidas', [TiposPartidasContablesController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/tipos-partidas', [TiposPartidasContablesController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/tipos-partidas/add', [TiposPartidasContablesController::class, 'add'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/tipos-partidas/add', [TiposPartidasContablesController::class, 'post'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/tipos-partidas/edit/{id}', [TiposPartidasContablesController::class, 'edit'])->middleware(['auth', 'bitacora']);
+Route::put('/contabilidad/tipos-partidas/put', [TiposPartidasContablesController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::delete('/contabilidad/tipos-partidas/delete', [TiposPartidasContablesController::class, 'delete'])->middleware(['auth', 'bitacora']);
+
 
 /*Partidas Contables */
 Route::get('/contabilidad/partidas', [PartidasContablesController::class, 'index'])->middleware(['auth', 'bitacora']);

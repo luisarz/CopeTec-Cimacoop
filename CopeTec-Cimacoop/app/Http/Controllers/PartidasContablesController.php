@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Catalogo;
 use App\Models\PartidasContablesModel;
+use App\Models\TiposPartidasContablesModel;
 use Illuminate\Http\Request;
 
 class PartidasContablesController extends Controller
@@ -31,8 +32,9 @@ class PartidasContablesController extends Controller
 
     public function add()
     {
-        $tipoCatalogo = Catalogo::all();
-        return view("contabilidad.partidas.add", compact('tipoCatalogo'));
+      $catalogo = Catalogo::where('estado', '=', 1)->get();
+
+        return view("contabilidad.partidas.add", compact('catalogo'));
         
     }
 
