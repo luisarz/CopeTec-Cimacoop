@@ -3,40 +3,28 @@ $(document).ready(function () {
 
 
 
-    $('#id_cuenta').on('change', function () {
-        let destinoCredito = $('#destino_credito').val();
-        let id_cuenta = $(this).val();
-        if (destinoCredito == id_cuenta) {
-            let cuota = $('#monto_credito').val();
-            cuota = parseFloat(cuota).toFixed(2);
 
-            $("#monto_debe").val(cuota);
-            Swal.fire({
-                icon: 'success',
-                title: 'Aplicacion el monto de la credito',
-                text: 'Has seleccionado la cuenta destino de la credito.',
-                timer: 1000,
-            });
-        } else {
-            $("#monto_debe").val(0);
-        }
-        $("#monto_haber").val(0);
-    });
-
-
-
-    $("#btnAplicarDescuento").on("click", function (e) {
-
+    $("#btnDetallePartidaAdd").on("click", function (e) {
         e.preventDefault();
         let id_cuenta = $("#id_cuenta").val();
         if (id_cuenta == "") {
+            swalError('Oops...', "'Debes seleccionar una cuenta',", "Corregir datos");
+            return false;
+        }
+
+        let parcial = $("#parcial").val();
+        let cargos = $("#cargos").val();
+        let abonos = $("#abonos").val();
+
+
+        if (parcial == 0 && cargos == 0 && abonos == 0) {
             Swal.fire({
-                icon: 'error',
+                icon: 'info',
                 title: 'Oops...',
-                text: 'Debes seleccionar una cuenta',
-                confirmButtonText:"Corregir datos",
+                text: 'Debes ingresar un monto',
+                confirmButtonText: "Corregir datos",
                 customClass: {
-                    confirmButton:"btn btn-danger"
+                    confirmButton: "btn btn-danger"
                 }
             });
             return false;
@@ -44,24 +32,31 @@ $(document).ready(function () {
 
 
         let data = {
-            "id_cuenta": $("#id_cuenta").val(),
-            "monto_debe": $("#monto_debe").val(),
-            "monto_haber": $("#monto_haber").val(),
-            "id_credito": $("#id_credito").val(),
-            "comentario": $("#comentario").val(),
+            "id_cuenta": id_cuenta,
+            "parcial": parcial,
+            "cargos": cargos,
+            "abonos": abonos,
+            "id_partida": $("#id_partida").val(),
             "_token": $("#token").val()
         };
 
         $.ajax({
             type: "POST",
-            url: "/creditos/preaprobado/liquidar/add-descuento",
+            url: "/contabilidad/partidas-detalle/add",
             data: data, // No es necesario convertir a JSON.stringify
             success: function (response) {
-                swal.close();
-                getLiquidacionesDetalles();
-                $("#id_cuenta").val("").change();
-                $("#monto_debe").val(0);
-                $("#monto_haber").val(0);
+                // swal.close();
+                let message = response.message;
+                if (response.estado == true) {
+                    swalSuccess("Cuenta agregada", message, "Ok");
+                    getPartidaDetalles();
+                    $("#id_cuenta").val("").change();
+                    $("#monto_debe").val(0);
+                    $("#monto_haber").val(0);
+                } else {
+                    swalError("Error, al agregar la cuenta", message, "Corregir datos");
+                }
+
             },
             error: function (xhr, status, error) {
                 swal.close();
@@ -83,14 +78,7 @@ $(document).ready(function () {
         e.preventDefault();
         let liquido = $("#liquido").val();
         if (liquido == 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Debes detalles, la liquidación del credito',
-                customClass: {
-                    confirmButton: "btn btn-danger"
-                }
-            });
+            swalError('Oops...', 'Debes detalles, la liquidación del credito', "Corregir datos");
             return false;
         }
 
@@ -120,11 +108,11 @@ $(document).ready(function () {
         Swal.fire({
             icon: 'question',
             title: 'Liquidar crédito',
-            html: '¿Estás seguro de que deseas liquidar y desembolsar este crédito? <br> Liquido a depositar <span class=\" badge badge-danger fs-4\">  $' + liquido +'</span>',
+            html: '¿Estás seguro de que deseas liquidar y desembolsar este crédito? <br> Liquido a depositar <span class=\" badge badge-danger fs-4\">  $' + liquido + '</span>',
             showCancelButton: true,
             // confirmButtonColor: '#3085d6',
             // cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, liquidar crédito ' ,
+            confirmButtonText: 'Sí, liquidar crédito ',
             cancelButtonText: 'Cancelar',
             allowEscapeKey: false,     // Evita que se cierre con la tecla "Escape"
             allowOutsideClick: false,  // Evita que se cierre al hacer clic fuera del cuadro
@@ -135,13 +123,8 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Aquí puedes agregar la lógica para liquidar y desembolsar el crédito
-                liquidarCredito();
-
-
-            } else {
-                // Aquí puedes agregar la lógica para manejar la cancelación
-                // realizarOtraAccion();
-            }
+                generarPartidaContable();
+            } 
         });
 
 
@@ -155,7 +138,7 @@ $(document).ready(function () {
 
     });
 
-    window.liquidarCredito = function (id) {
+    window.generarPartidaContable = function (id) {
         let id_credito = $("#id_credito").val();
 
         let data = {
@@ -164,7 +147,7 @@ $(document).ready(function () {
             "id_cuenta_ahorro_destino": $("#id_cuenta_ahorro_destino").val(),
             "id_cuenta_aportacion_destino": $("#id_cuenta_aportacion_destino").val(),
             "aportacionMonto": $("#aportacionMonto").val(),
-            "id_caja_aperturada":$("#id_caja_aperturada").val(),
+            "id_caja_aperturada": $("#id_caja_aperturada").val(),
             "_token": $("#token").val()
         };
 
@@ -182,8 +165,8 @@ $(document).ready(function () {
                         text: 'El crédito ha sido liquidado exitosamente.',
                         willClose: () => {
                             // Redirige a la nueva página en una pestaña nueva
-                            window.open('/creditos/aprobado/liquidacion/'+id_credito, '_blank');
-                            
+                            window.open('/creditos/aprobado/liquidacion/' + id_credito, '_blank');
+
                             // Después de 1 segundo, redirige a otra página en la pestaña actual
                             setTimeout(() => {
                                 window.location.href = '/creditos/solicitudes/estudios';
@@ -212,38 +195,35 @@ $(document).ready(function () {
 
 
 
-    getLiquidacionesDetalles = function () {
-        let id_credito = $("#id_credito").val();
-        $.get("/creditos/preaprobado/liquidar/getDescuentos/" + id_credito, function (data) {
-            let tableLiquidaciones = $("#tableLiquidaciones");
-            tableLiquidaciones.empty();
+    getPartidaDetalles = function () {
+        let id_partida = $("#id_partida").val();
+        $.get("/contabilidad/partidas-detalle/getPartidaDetalles/" + id_partida, function (data) {
+            let tablePartidaDetalles = $("#tablePartidaDetalles");
+            tablePartidaDetalles.empty();
             let numero = 0;
             $("#aportacionMonto").val(data.aportacion);
             $("#liquido").val(data.liquido);
 
-            $.each(data.liquidaciones, function (index, element) {
-                $("#clase_propiedad").val("");
-                $("#direccion_bien").val("");
-                $("#valor_bien").val(0);
-                $("#hipotecado_bien").val(0);
+            $.each(data.detalles, function (index, element) {
+
 
                 numero = index + 1;
-                let id_liquidacion = element.id_liquidacion;
+                let id_detalle_partida_contable = element.id_detalle_partida_contable;
                 let row = $("<tr>");
                 row.append($("<td style='text-align:center;'>").html(
-                    `<a href="javascript:void(0);" onclick="quitarDescuento(${id_liquidacion})"><span class='btn btn-sm btn-danger'>Quitar</span></a>`
+                    `<a href="javascript:void(0);" onclick="quitarDescuento(${id_detalle_partida_contable})"><span class='btn btn-sm btn-danger'>Quitar</span></a>`
                 ));
                 row.append($("<td>").text(element.numero));
-                row.append($("<td>").html(element.descripcion + '<br/>' + ((element.comentario == null) ? '' : '<span class="badge badge-light-danger fs-4">' +  element.comentario+'</span>')));
+                row.append($("<td>").html(element.descripcion + '<br/>' + ((element.comentario == null) ? '' : '<span class="badge badge-light-danger fs-4">' + element.comentario + '</span>')));
 
-                row.append($("<td style='text-align:right;'>").text('$ ' + parseFloat(element.monto_debe).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
-                if (data.liquido == element.monto_haber) {
-                    row.append($("<td style='text-align:right;' >").html("<span class='badge badge-success fs-4'> $ " + parseFloat(element.monto_haber).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + "</span>"));
+                row.append($("<td style='text-align:right;'>").text('$ ' + parseFloat(element.parcial).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
+                // if (data.liquido == element.cargos) {
+                row.append($("<td style='text-align:right;' >").html("<span class='badge badge-success fs-4'> $ " + parseFloat(element.cargos).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + "</span>"));
 
-                } else {
-                    row.append($("<td style='text-align:right;'>").text('$ ' + parseFloat(element.monto_haber).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
-                }
-                tableLiquidaciones.append(row);
+                // } else {
+                row.append($("<td style='text-align:right;'>").text('$ ' + parseFloat(element.abonos).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
+                // }
+                tablePartidaDetalles.append(row);
 
             });
             var formattedMontoDebe = '$' + data.sumMontoDebe;
@@ -269,7 +249,7 @@ $(document).ready(function () {
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                $.get("/creditos/preaprobado/liquidar/quitarDescuento/" + id, function (data) {
+                $.get("/contabilidad/partidas-detalle/delete/" + id, function (data) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Eliminado exitoso',
@@ -282,12 +262,12 @@ $(document).ready(function () {
                         allowEnterKey: false,
                     });
 
-                    getLiquidacionesDetalles();
+                    getPartidaDetalles();
                 });
-            } else if (result.isDenied) { }
+            }
         });
     }
 
-    getLiquidacionesDetalles();
+    getPartidaDetalles();
 
 });

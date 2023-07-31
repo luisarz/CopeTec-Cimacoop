@@ -7,6 +7,7 @@ use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\DepositosPlazoController;
 use App\Http\Controllers\LiquidacionController;
+use App\Http\Controllers\PartidaContableDetalleController;
 use App\Http\Controllers\PartidasContablesController;
 use App\Http\Controllers\PlazosController;
 use App\Http\Controllers\ReferenciaSolicitudController;
@@ -426,6 +427,13 @@ Route::delete('/contabilidad/tipos-partidas/delete', [TiposPartidasContablesCont
 Route::get('/contabilidad/partidas', [PartidasContablesController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::post('/contabilidad/partidas', [PartidasContablesController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::get('/contabilidad/partidas/add', [PartidasContablesController::class, 'add'])->middleware(['auth', 'bitacora']);
+
+/**Detalles partida contable */
+Route::post('/contabilidad/partidas-detalle/add', [PartidaContableDetalleController::class, 'post'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/partidas-detalle/getPartidaDetalles/{id}', [PartidaContableDetalleController::class, 'getPartidaDetalles'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/partidas-detalle/delete/{id}', [PartidaContableDetalleController::class, 'delete'])->middleware(['auth', 'bitacora']);
+
+
 
 
 

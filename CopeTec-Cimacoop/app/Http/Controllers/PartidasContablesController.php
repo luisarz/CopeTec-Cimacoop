@@ -7,6 +7,7 @@ use App\Models\PartidasContablesModel;
 use App\Models\TiposPartidasContablesModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class PartidasContablesController extends Controller
 {
@@ -36,8 +37,11 @@ class PartidasContablesController extends Controller
     {
         Session::put("estadoMenuminimizado", "1");
         $catalogo = Catalogo::where('estado', '=', 1)->get();
+        $tipoPartida = TiposPartidasContablesModel::all();
+        $idPartida = Str::uuid()->toString();
 
-        return view("contabilidad.partidas.add", compact('catalogo'));
+
+        return view("contabilidad.partidas.add", compact('catalogo', 'tipoPartida', 'idPartida'));
         
     }
 

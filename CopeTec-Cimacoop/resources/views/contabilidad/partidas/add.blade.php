@@ -2,10 +2,17 @@
 @section('title')
     Editar Rol
 @endsection
+@section('formName')
+    <span class="badge badge-info fs-5">Patida ID: &nbsp;<span class="badge badge-danger">{{ $idPartida }}</span></span>
+@endsection
 @section('content')
+        <input type="hidden" name="id_partida" id="id_partida" value="{{ $idPartida }}">
+        <input type="hidden" id="token" value="{{ csrf_token() }}">
+
     <form action="/contabilidad/partidas/add" method="post" autocomplete="off">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
+        
 
         <div class="card card-bordered shadow-lg mt-5">
             <div class="card-header ribbon ribbon-end ribbon-clip">
@@ -46,8 +53,8 @@
                     <div class="form-floating col-lg-2">
                         <select class="form-select form-select-solid" name="tipo_catalogo" id="tipo_catalogo"
                             data-control="select2">
-                            @foreach ($catalogo as $tipo)
-                                <option value="{{ $tipo->id_tipo_catalogo }}">{{ $tipo->descripcion }}</option>
+                            @foreach ($tipoPartida as $tipo)
+                                <option value="{{ $tipo->id_tipo_partida }}">{{ $tipo->descripcion }}</option>
                             @endforeach
                         </select>
                         <label>Tipo de Partida:</label>
@@ -92,26 +99,26 @@
                                     <label>CATALOGO</label>
                                 </div>
                                 <div class="form-floating col-lg-2">
-                                    <input type="number" id="monto_debe" name="monto_debe"
+                                    <input type="number" id="parcial" name="parcial"
                                         class="form-control form-control-solid-bg  fw-bold fs-3 text-info"
                                         placeholder="Movimiento 1" />
                                     <label>PARCIAL:</label>
                                 </div>
                                 <div class="form-floating col-lg-2">
-                                    <input type="number" id="monto_debe" name="monto_debe"
+                                    <input type="number" id="cargos" name="cargos"
                                         class="form-control fw-bold fs-3 text-info" placeholder="Movimiento 1" />
                                     <label>CARGO:</label>
                                 </div>
                                 <div class="form-floating col-lg-2">
-                                    <input type="number" id="monto_haber" name="monto_haber"
+                                    <input type="number" id="abonos" name="abonos"
                                         class="form-control fw-bold fs-3 text-info" placeholder="Movimiento 2" />
                                     <label>ABONO:</label>
                                 </div>
                                 <div class="form-floating col-lg-2">
-                                    <button class="btn btn-danger btn w-100 fw-bold" id="btnAplicarDescuento"
-                                        name="btnAplicarDescuento">
+                                    <button class="btn btn-danger btn w-100 fw-bold" id="btnDetallePartidaAdd"
+                                        name="btnDetallePartidaAdd">
                                         <i class="ki-outline ki-brifecase-tick text-white fs-2x"></i>
-                                        Aplicar
+                                        Agregar
                                     </button>
                                 </div>
 
@@ -131,7 +138,7 @@
                                             <th class="min-w-140px" style="text-align: right">ABONO</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tableLiquidaciones">
+                                    <tbody id="tablePartidaDetalles">
                                         <tr>
                                             <td colspan="6">
                                                 <center>
@@ -188,7 +195,7 @@
 @endsection
 <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
-<script src="{{ asset('assets/js/app/credito.liquidacion.js') }}"></script>
+<script src="{{ asset('assets/js/app/partidas/partidas.add.js') }}"></script>
 
 @section('scripts')
     <script>
