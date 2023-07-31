@@ -93,7 +93,11 @@
                                     <label for="exampleInputEmail1">Al depositar realizare abonos mediante:</label>
                                     <select name="depo_tipo" id="depo_tipo"
                                         class="form-control custom-select custom-select-lg mb-3">
-                                        <option value="Ambos" {{ $dec->depo_tipo == 'Ambos' ? 'selected' : '' }}>Ambos
+                                        <option value="Ambos
+                                        (Cheque
+                                        y/o Efectivo)" {{ $dec->depo_tipo == 'Ambos
+                                        (Cheque
+                                        y/o Efectivo)' ? 'selected' : '' }}>Ambos
                                             (Cheque
                                             y/o Efectivo)</option>
                                         <option value="Cheque" {{ $dec->depo_tipo == 'Cheque' ? 'selected' : '' }}>Cheque
@@ -127,7 +131,11 @@
                                     <label for="exampleInputEmail1">Al realizar retiros lo ha hare mediante:</label>
                                     <select name="ret_tipo" id="ret_tipo"
                                         class="form-control custom-select custom-select-lg mb-3">
-                                        <option value="Ambos" {{ $dec->ret_tipo == 'Ambos' ? 'selected' : '' }}>Ambos
+                                        <option value="Ambos
+                                        (Cheque
+                                        y/o Efectivo)" {{ $dec->ret_tipo == 'Ambos
+                                        (Cheque
+                                        y/o Efectivo)' ? 'selected' : '' }}>Ambos
                                             (Cheque
                                             y/o Efectivo)</option>
                                         <option value="Cheque" {{ $dec->ret_tipo == 'Cheque' ? 'selected' : '' }}>Cheque
