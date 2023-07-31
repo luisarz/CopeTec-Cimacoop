@@ -131,9 +131,11 @@
 
                                 <td>
                                     @if ($cuenta->declarado)
-                                        <button class="btn btn-info btn-sm"> Ver/Editar</button>
+                                        <a href="/declare/{{ $cuenta->id_cuenta }}" class="btn btn-info btn-sm">
+                                            Ver/Editar</a>
                                     @else
-                                    <a href="/declare/{{ $cuenta->id_cuenta }}/new" class="btn btn-success btn-sm"> Crear</a>
+                                        <a href="/declare/{{ $cuenta->id_cuenta }}/new" class="btn btn-success btn-sm">
+                                            Crear</a>
                                     @endif
                                 </td>
                             </tr>
