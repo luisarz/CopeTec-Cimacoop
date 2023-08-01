@@ -131,8 +131,13 @@
 
                                 <td>
                                     @if ($cuenta->declarado)
-                                        <a href="/declare/{{ $cuenta->id_cuenta }}" class="btn btn-info btn-sm">
-                                            Ver/Editar</a>
+                                        <div class="d-flex">
+                                            <a href="/declare/{{ $cuenta->id_cuenta }}" class="btn btn-info btn-sm">
+                                                Editar</a>
+                                            <a href="/declare/{{ $cuenta->id_cuenta }}/pdf"
+                                                class="btn btn-secondary btn-sm" target="_blank">
+                                                Imprimir</a>
+                                        </div>
                                     @else
                                         <a href="/declare/{{ $cuenta->id_cuenta }}/new" class="btn btn-success btn-sm">
                                             Crear</a>

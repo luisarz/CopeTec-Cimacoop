@@ -57,7 +57,6 @@ class DeclaracionJuradaController extends Controller
             dd($th);
             return redirect("/declare/" . $request->id_cuenta . "/add")->withInput()->withErrors(["Error" => $th]);
         }
-
     }
 
     /**
@@ -78,7 +77,15 @@ class DeclaracionJuradaController extends Controller
         $acc = Cuentas::find($request->acc);
         return view('declaracion.declare', compact('acc', 'dec'));
     }
+    // pdf prev func
+    public function pdf(Request $request)
+    {
 
+        $dec = DeclaracionJurada::where('id_cuenta', $request->acc)->first();
+        $acc = Cuentas::find($request->acc);
+        // dd($dec);
+        return view('declaracion.pdf', compact('acc', 'dec'));
+    }
     /**
      * Update the specified resource in storage.
      */
