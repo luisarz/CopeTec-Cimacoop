@@ -427,6 +427,7 @@ Route::delete('/contabilidad/tipos-partidas/delete', [TiposPartidasContablesCont
 Route::get('/contabilidad/partidas', [PartidasContablesController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::post('/contabilidad/partidas', [PartidasContablesController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::get('/contabilidad/partidas/add', [PartidasContablesController::class, 'add'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/partidas/edit/{id}', [PartidasContablesController::class, 'edit'])->middleware(['auth', 'bitacora']);
 
 /**Detalles partida contable */
 Route::post('/contabilidad/partidas-detalle/add', [PartidaContableDetalleController::class, 'post'])->middleware(['auth', 'bitacora']);

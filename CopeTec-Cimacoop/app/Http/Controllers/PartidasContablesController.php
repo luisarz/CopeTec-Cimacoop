@@ -17,16 +17,19 @@ class PartidasContablesController extends Controller
 
 
         $filtro = $request->input('filtro');
-        $cuentas = PartidasContablesModel::join('catalogo','catalogo.id_cuenta','=','partidas_contables.id_partida_contable')
-        ->join('catalogo_tipo', 'catalogo_tipo.id_tipo_catalogo', '=', 'catalogo.tipo_catalogo')
+
+
+        $cuentas = PartidasContablesModel::join('tipos_partidas_contables', 'tipos_partidas_contables.id_tipo_partida', '=', 'partidas_contables.tipo_partida')
             ->when(isset($request->filtro), function ($query) use ($filtro) {
-                $query->where('catalogo.descripcion', 'LIKE', '%' . $filtro . '%')
-                    ->orWhere('catalogo.numero', 'LIKE', '%' . $filtro . '%');
+                $query->where('partidas_contables.num_partida', 'LIKE', '%' . $filtro . '%')
+                    ->orWhere('partidas_contables.tipo_partida', 'LIKE', '%' . $filtro . '%')
+                    ->orWhere('partidas_contables.concepto', 'LIKE', '%' . $filtro . '%');
+
 
             })
-            ->select('catalogo_tipo.descripcion as catalogo', 'catalogo.*')
-            ->orderBy('catalogo.id_cuenta', 'asc')
-            ->paginate(10);
+            // ->select('catalogo_tipo.descripcion as catalogo', 'catalogo.*')
+            ->orderBy('partidas_contables.num_partida', 'desc')
+            ->paginate(25);
         // dd($cuentas);
 
         return view('contabilidad.partidas.index', compact('cuentas', 'filtro'));
@@ -68,10 +71,10 @@ class PartidasContablesController extends Controller
     }
     public function edit($id)
     {
-        // $cuenta = Catalogo::find($id);
-        // $tipoCatalogo = TipoCuentaCotableModel::all();
-
-        // return view('contabilidad.catalogo.edit', compact('cuenta', 'tipoCatalogo'));
+        $catalogo = Catalogo::where('estado', '=', 1)->get();
+        $tipoPartida = TiposPartidasContablesModel::all();
+        $partida=PartidasContablesModel::find($id);
+        return view('contabilidad.partidas.edit', compact('catalogo', 'tipoPartida','partida'));
     }
     public function put(Request $request)
     {

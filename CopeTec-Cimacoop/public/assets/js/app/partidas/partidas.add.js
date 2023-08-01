@@ -159,6 +159,7 @@ $(document).ready(function () {
 
 
                 if (response.estado == "success") {
+                    
                     Swal.fire({
                         icon: 'success',
                         title: 'Crédito liquidado',

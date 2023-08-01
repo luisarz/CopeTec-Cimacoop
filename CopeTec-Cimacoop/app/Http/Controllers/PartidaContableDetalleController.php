@@ -23,7 +23,6 @@ class PartidaContableDetalleController extends Controller
             $partidaContable->year_contable = date('Y');
             $partidaContable->fecha_partida = today();
             $partidaContable->save();
-
         }
 
 
@@ -58,15 +57,11 @@ class PartidaContableDetalleController extends Controller
     }
     public function getPartidaDetalles($idPartida)
     {
-        $detalles = PartidaContableDetalleModel::join(
-            'catalogo',
-            'catalogo.id_cuenta',
-            '=',
-            'partida_contables_detalle.id_cuenta'
-        )->where('id_partida', '=', $idPartida)
-        ->orderBy('cargos', 'desc')
-            ->orderBy('catalogo.numero', 'asc')
 
+        $detalles = PartidaContableDetalleModel::join('catalogo', 'catalogo.id_cuenta', '=', 'partida_contables_detalle.id_cuenta')
+            ->where('id_partida', '=', $idPartida)
+            ->orderBy('cargos', 'desc')
+            ->orderBy('catalogo.numero', 'asc')
             ->get();
         return response()->json([
             'success' => true,
@@ -81,6 +76,6 @@ class PartidaContableDetalleController extends Controller
             'success' => true,
             'message' => 'Detalle eliminado correctamente'
         ], 200);
-        
+
     }
 }
