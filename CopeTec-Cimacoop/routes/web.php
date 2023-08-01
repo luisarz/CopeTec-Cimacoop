@@ -444,4 +444,5 @@ Route::middleware(['auth', 'bitacora'])->prefix('declare')->group(function () {
     Route::post('/add', [DeclaracionJuradaController::class, 'store'])->name('store-declare');
     Route::get('/{acc}', [DeclaracionJuradaController::class, 'edit'])->name('edit-declare');
     Route::post('/update', [DeclaracionJuradaController::class, 'update'])->name('update-declare');
+    Route::get('/{acc}/pdf', [DeclaracionJuradaController::class, 'pdf']);
 });
