@@ -18,7 +18,8 @@
             @endif
             <div id="GFG">
                 <div class="container">
-                    <img alt="Logo" class="my-5" style="max-height: 100px;" src=" {{ asset('assets/media/logos/cimacoop.png') }}"/>
+                    <img alt="Logo" class="my-5" style="max-height: 100px;"
+                        src=" {{ asset('assets/media/logos/cimacoop.png') }}" />
                     <input type="hidden" name="id_cuenta" id="id_cuenta" value="{{ $acc->id_cuenta }}">
                     <input type="hidden" name="id_cliente" id="id_cliente"
                         value="{{ $acc->asociado->cliente->id_cliente }}">
@@ -185,4 +186,11 @@
     </div>
 
 
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            window.print();
+        });
+    </script>
 @endsection
