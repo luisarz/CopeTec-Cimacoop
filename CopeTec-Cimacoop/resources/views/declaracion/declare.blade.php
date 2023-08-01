@@ -289,9 +289,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     Guardar
                                 </button>
-                                <button class="btn btn-secondary" onclick="printDiv()">
-                                    Imprimir
-                                </button>
                             </div>
                         </div>
                     </div>
