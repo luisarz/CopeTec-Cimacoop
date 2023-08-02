@@ -71,6 +71,8 @@ class PartidasContablesController extends Controller
     }
     public function edit($id)
     {
+        Session::put("estadoMenuminimizado", "1");
+
         $catalogo = Catalogo::where('estado', '=', 1)->get();
         $tipoPartida = TiposPartidasContablesModel::all();
         $partida=PartidasContablesModel::find($id);

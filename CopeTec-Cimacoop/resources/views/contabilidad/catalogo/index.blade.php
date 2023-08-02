@@ -57,6 +57,7 @@
                     <thead>
                         <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-250px">Acciones</th>
+                            {{-- <th class="min-w-50px">PADRE</th> --}}
                             <th class="min-w-50px">CODIGO</th>
                             <th class="min-w-100px">TIPO CUENTA</th>
                             <th class="min-w-80px">NOMBRE CUENTA</th>
@@ -86,6 +87,7 @@
                                     </a>
 
                                 </td>
+                                {{-- <td>{{ $cuenta->id_cuenta_padre }}</td> --}}
                                 <td>{{ $cuenta->numero }}</td>
                                 <td>{{ $cuenta->catalogo }}</td>
                                 <td>{{ $cuenta->descripcion }}</td>

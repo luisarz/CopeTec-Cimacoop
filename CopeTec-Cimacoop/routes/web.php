@@ -407,6 +407,8 @@ Route::delete('/contabilidad/tipocuentacontable/delete', [TipoCuentaCotableContr
 Route::get('/contabilidad/catalogo', [CatalogoController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::post('/contabilidad/catalogo', [CatalogoController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::get('/contabilidad/catalogo/add', [CatalogoController::class, 'add'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/catalogo/getCuentasById/{id}', [CatalogoController::class, 'getCuentasById'])->middleware(['auth', 'bitacora']);
+
 Route::post('/contabilidad/catalogo/add', [CatalogoController::class, 'post'])->middleware(['auth', 'bitacora']);
 Route::get('/contabilidad/catalogo/edit/{id}', [CatalogoController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/contabilidad/catalogo/put', [CatalogoController::class, 'put'])->middleware(['auth', 'bitacora']);

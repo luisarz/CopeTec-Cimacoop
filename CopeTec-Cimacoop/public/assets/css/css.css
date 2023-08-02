@@ -209,3 +209,17 @@
     padding-top: 10px;
     /* padding-left: 20px; */
 }
+
+.table-container {
+    height: 300px;
+    /* Altura fija del contenedor */
+    overflow-y: auto;
+    /* Permite el scroll vertical cuando el contenido excede la altura del contenedor */
+}
+th,
+td {
+    border: 1px solid #ccc;
+    /* Bordes de las celdas para mayor claridad */
+    padding: 8px;
+    /* Espacio interno de las celdas */
+}

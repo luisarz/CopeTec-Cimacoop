@@ -13,35 +13,6 @@ class CatalogoController extends Controller
     public function index(Request $request)
     {
 
-        $numeroValue = '22010102';
-
-        $results = DB::select("
-  WITH RECURSIVE superior_accounts AS (
-    -- Base case: select the initial account
-    SELECT numero, descripcion
-    FROM catalogo
-    WHERE numero = ?
-    
-    UNION ALL
-    
-    -- Recursive part: select the superior accounts iteratively
-    SELECT 
-      SUBSTRING(sa.numero, 1, LENGTH(sa.numero) - 2) AS numero, c.descripcion
-    FROM superior_accounts sa
-    JOIN catalogo c ON SUBSTRING(sa.numero, 1, LENGTH(sa.numero) - 2) = c.numero
-    WHERE LENGTH(sa.numero) >= 2 AND LENGTH(c.numero) >= 2 
-    -- Stop when the length is less than 2 (root account)
-  )
-  SELECT * FROM superior_accounts
-  ORDER BY numero ASC;
-", [$numeroValue]);
-
-        // $results now contains the recursive results from the '11040101' account code and its superior accounts
-
-
-        // dd($results);
-
-
         $filtro = $request->input('filtro');
         $cuentas = Catalogo::join('catalogo_tipo', 'catalogo_tipo.id_tipo_catalogo', '=', 'catalogo.tipo_catalogo')
             ->when(isset($request->filtro), function ($query) use ($filtro) {
@@ -52,7 +23,6 @@ class CatalogoController extends Controller
             ->select('catalogo_tipo.descripcion as catalogo', 'catalogo.*')
             ->orderBy('catalogo.id_cuenta', 'asc')
             ->paginate(10);
-        // dd($cuentas);
 
         return view('contabilidad.catalogo.index', compact('cuentas', 'filtro'));
 
@@ -60,8 +30,9 @@ class CatalogoController extends Controller
 
     public function add()
     {
+        $cuentaPadre = Catalogo::all();
         $tipoCatalogo = TipoCuentaCotableModel::all();
-        return view("contabilidad.catalogo.add", compact('tipoCatalogo'));
+        return view("contabilidad.catalogo.add", compact('tipoCatalogo','cuentaPadre'));
     }
 
     public function delete(Request $request)
@@ -74,6 +45,7 @@ class CatalogoController extends Controller
     public function post(Request $request)
     {
         $cuenta = new Catalogo();
+        $cuenta->id_cuenta_padre= $request->id_cuenta_padre;
         $cuenta->numero = $request->numero;
         $cuenta->descripcion = $request->descripcion;
         $cuenta->tipo_catalogo = $request->tipo_catalogo;
@@ -88,20 +60,33 @@ class CatalogoController extends Controller
     public function edit($id)
     {
         $cuenta = Catalogo::find($id);
-        $tipoCatalogo = TipoCuentaCotableModel::all();
+        // $cuentaPadre = Catalogo::select('numero as numCuentaPadre', 'descripcion as descripcionPadre')->paginate(5);
 
+        $tipoCatalogo = TipoCuentaCotableModel::all();
+        
         return view('contabilidad.catalogo.edit', compact('cuenta', 'tipoCatalogo'));
     }
     public function put(Request $request)
     {
         $cuenta = Catalogo::find($request->id);
+        $cuenta->id_cuenta_padre = $request->id_cuenta_padre;
         $cuenta->numero = $request->numero;
         $cuenta->descripcion = $request->descripcion;
+        $cuenta->tipo_catalogo = $request->tipo_catalogo;
+
         $cuenta->movimiento = $request->movimiento;
         $cuenta->estado = $request->estado;
         $cuenta->saldo = $request->saldo;
         $cuenta->iva = $request->iva;
         $cuenta->save();
         return redirect("/contabilidad/catalogo");
+    }
+    public function getCuentasById($tipo_catalogo)
+    {
+        $cuentaPadre = Catalogo::where('tipo_catalogo','=',$tipo_catalogo)->get();
+        return response()->json([
+            "cuentaPadre" => $cuentaPadre
+        ]);
+
     }
 }

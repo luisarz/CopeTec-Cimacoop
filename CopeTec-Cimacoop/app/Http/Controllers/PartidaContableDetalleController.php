@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Catalogo;
 use App\Models\PartidaContable;
 use App\Models\PartidaContableDetalleModel;
 use Illuminate\Http\Request;
@@ -37,6 +38,9 @@ class PartidaContableDetalleController extends Controller
                 'message' => 'La cuenta ya existe en la partida'
             ], 200);
         } else {
+
+          
+
             $detallePartida = new PartidaContableDetalleModel();
             $detallePartida->id_cuenta = $request->id_cuenta;
             $detallePartida->id_partida = $request->id_partida;
@@ -63,9 +67,17 @@ class PartidaContableDetalleController extends Controller
             ->orderBy('cargos', 'desc')
             ->orderBy('catalogo.numero', 'asc')
             ->get();
+
+        $sumCargos= $detalles->pluck('cargos')->sum();
+        $sumAbonos = $detalles->pluck('abonos')->sum();
+
+
+
         return response()->json([
             'success' => true,
-            'detalles' => $detalles
+            'detalles' => $detalles,
+            'sumCargos' => number_format( $sumCargos,2),
+            'sumAbonos' => number_format( $sumAbonos,2),
         ], 200);
     }
 

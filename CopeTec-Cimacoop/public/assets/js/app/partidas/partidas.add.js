@@ -215,20 +215,19 @@ $(document).ready(function () {
                     `<a href="javascript:void(0);" onclick="quitarDescuento(${id_detalle_partida_contable})"><span class='btn btn-sm btn-danger'>Quitar</span></a>`
                 ));
                 row.append($("<td>").text(element.numero));
-                row.append($("<td>").html(element.descripcion + '<br/>' + ((element.comentario == null) ? '' : '<span class="badge badge-light-danger fs-4">' + element.comentario + '</span>')));
+                row.append($("<td>").html(element.descripcion ));
+        
+                row.append($("<td style='text-align:right;' >").html(" $ " + parseFloat(element.cargos).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') ));
 
-                row.append($("<td style='text-align:right;'>").text('$ ' + parseFloat(element.parcial).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
-                // if (data.liquido == element.cargos) {
-                row.append($("<td style='text-align:right;' >").html("<span class='badge badge-success fs-4'> $ " + parseFloat(element.cargos).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + "</span>"));
-
-                // } else {
                 row.append($("<td style='text-align:right;'>").text('$ ' + parseFloat(element.abonos).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
-                // }
                 tablePartidaDetalles.append(row);
 
             });
-            var formattedMontoDebe = '$' + data.sumMontoDebe;
-            var formattedMontoHaber = '$' + data.sumMontoHaber;
+            var formattedMontoDebe = '$' + data.sumCargos;
+
+            $("#totalAbono").val(data.sumAbonos);
+            $("#totalCargo").val(data.sumCargos);
+            var formattedMontoHaber = '$' + data.sumAbonos;
             $('#montoDebe').text(formattedMontoDebe);
             $('#montoHaber').text(formattedMontoHaber);
         });

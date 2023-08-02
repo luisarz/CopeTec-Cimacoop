@@ -8,6 +8,8 @@
         {{ method_field('PUT') }}
 
         <input type="hidden" name="id" value="{{ $cuenta->id_cuenta }}">
+        <input type="hidden" id="id_cuenta_padre_actual" value="{{ $cuenta->id_cuenta_padre }}">
+
         <div class="card card-bordered shadow-lg mt-5">
             <div class="card-header ribbon ribbon-end ribbon-clip">
                 <div class="card-toolbar">
@@ -36,7 +38,7 @@
 
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
-                    <div class="form-floating col-lg-4">
+                    <div class="form-floating col-lg-2">
                         <select class="form-select form-select-solid" name="tipo_catalogo" id="tipo_catalogo"
                             data-control="select2">
                             @foreach ($tipoCatalogo as $tipo)
@@ -50,12 +52,19 @@
                         </select>
                            <label>TIPO CUENTA:</label>
                     </div>
-                    <div class="form-floating col-lg-4">
+                       <div class="form-floating col-lg-4">
+                        <select class="form-select form-select-solid" name="id_cuenta_padre" id="id_cuenta_padre"
+                            data-control="select2">
+                          
+                        </select>
+                        <label>CUENTA PADRE:</label>
+                    </div>
+                    <div class="form-floating col-lg-3">
                         <input type="text" name="numero" id="numero" value="{{ $cuenta->numero }}"
                             class="form-control" required>
                         <label>CODIGO CUENTA:</label>
                     </div>
-                    <div class="form-floating col-lg-4">
+                    <div class="form-floating col-lg-3">
                         <input type="text" name="descripcion" id="descripcion" value="{{ $cuenta->descripcion }}"
                             class="form-control" required>
                          <label>NOMBRE CUENTA:</label>
@@ -149,5 +158,6 @@
 @section('scripts')
     <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/app/partidas/catalogo.js') }}"></script>
     <script></script>
 @endsection

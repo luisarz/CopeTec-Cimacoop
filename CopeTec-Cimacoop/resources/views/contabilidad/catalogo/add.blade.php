@@ -35,20 +35,35 @@
 
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
-                      <div class="form-floating col-lg-4">
-                      <select class="form-select form-select-solid" name="tipo_catalogo" id="tipo_catalogo" data-control="select2">
-                          @foreach ($tipoCatalogo as $tipo)
-                              <option value="{{ $tipo->id_tipo_catalogo }}">{{ $tipo->descripcion }}</option>
+                    <div class="form-floating col-lg-2">
+                        <select class="form-select form-select-solid" name="tipo_catalogo" id="tipo_catalogo"
+                            data-control="select2">
+                            @foreach ($tipoCatalogo as $tipo)
+                                <option value="{{ $tipo->id_tipo_catalogo }}">{{ $tipo->descripcion }}</option>
                             @endforeach
                         </select>
                         <label>TIPO CUENTA:</label>
                     </div>
                     <div class="form-floating col-lg-4">
-                        <input type="text" name="numero" id="numero" class="form-control" required placeholder="Codigo">
+                        <select class="form-select form-select-solid" name="id_cuenta_padre" id="id_cuenta_padre"
+                            data-control="select2">
+                            @foreach ($cuentaPadre as $cuenta)
+                                <option value="{{ $cuenta->id_cuenta }}">
+                                    {{ $cuenta->numero }}->
+                                    {{ $cuenta->descripcion }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <label>CUENTA PADRE:</label>
+                    </div>
+                    <div class="form-floating col-lg-3">
+                        <input type="text" name="numero" id="numero" class="form-control" required
+                            placeholder="Codigo">
                         <label>CODIGO CUENTA:</label>
                     </div>
-                    <div class="form-floating col-lg-4">
-                        <input type="text" name="descripcion" id="descripcion" class="form-control" required placeholder="Des">
+                    <div class="form-floating col-lg-3">
+                        <input type="text" name="descripcion" id="descripcion" class="form-control" required
+                            placeholder="Des">
                         <label>NOMBRE CUENTA:</label>
                     </div>
 
@@ -57,26 +72,27 @@
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
                     <div class="form-floating col-lg-4">
-                        <input type="number" name="saldo" id="saldo" class="form-control" required placeholder="Saldo Cuenta">
+                        <input type="number" name="saldo" id="saldo" class="form-control" required
+                            placeholder="Saldo Cuenta">
                         <label>SALDO CUENTA:</label>
                     </div>
                     <div class="form-floating col-lg-2">
-                           <select class="form-select form-select-solid" name="iva" id="iva" data-control="">
+                        <select class="form-select form-select-solid" name="iva" id="iva" data-control="">
                             <option value="1">Aplica IVA</option>
                             <option value="0" selected>Sin IVA</option>
                         </select>
                         <label>IVA:</label>
                     </div>
                     <div class="form-floating col-lg-2">
-                       
+
                         <select class="form-select form-select-solid" name="movimiento" id="movimiento" data-control="">
                             <option value="1">SI</option>
                             <option value="0">NO</option>
                         </select>
                         <label>MOVIMIENTO:</label>
                     </div>
-                     <div class="form-floating col-lg-4">
-                       
+                    <div class="form-floating col-lg-4">
+
                         <select class="form-select form-select-solid" name="estado" id="estado" data-control="">
                             <option value="1">ACTIVO</option>
                             <option value="0">INACTIVO</option>
@@ -115,5 +131,7 @@
 @section('scripts')
     <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/app/partidas/catalogo.js') }}"></script>
+
     <script></script>
 @endsection
