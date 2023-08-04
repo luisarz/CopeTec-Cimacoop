@@ -6,6 +6,7 @@ use App\Models\Catalogo;
 use App\Models\PartidaContable;
 use App\Models\PartidaContableDetalleModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PartidaContableDetalleController extends Controller
 {
@@ -39,7 +40,7 @@ class PartidaContableDetalleController extends Controller
             ], 200);
         } else {
 
-          
+
 
             $detallePartida = new PartidaContableDetalleModel();
             $detallePartida->id_cuenta = $request->id_cuenta;
@@ -73,8 +74,63 @@ class PartidaContableDetalleController extends Controller
 
 
 
+
+
+
+        $results = DB::table('catalogo AS c')
+            ->select(
+                'c.descripcion AS descripcion_cuenta_padre',
+                'c.numero AS cuentaPadre',
+                'b.numero AS cuentaHija',
+                'b.descripcion AS descripcion_cuenta_hija',
+                'a.parcial',
+                'a.cargos',
+                'a.abonos'
+            )
+            ->join('catalogo AS b', 'c.id_cuenta', '=', 'b.id_cuenta_padre')
+            ->leftJoin('partida_contables_detalle AS a', 'b.id_cuenta', '=', 'a.id_cuenta')
+            ->where('a.id_partida', '3c4fb732-8045-4267-9766-32fb2da0a126')
+            ->orderBy('a.cargos', 'desc')
+            ->get();
+
+        $formattedResults = [];
+        foreach ($results as $result) {
+            if (!array_key_exists($result->descripcion_cuenta_padre, $formattedResults)) {
+                $formattedResults[$result->descripcion_cuenta_padre] = [
+                    'descripcion_cuenta_hija' => [],
+                    'total_parcial' => 0,
+                    'total_cargos' => 0,
+                    'total_abonos' => 0,
+                ];
+            }
+
+          
+            $formattedResults[$result->descripcion_cuenta_padre]['descripcion_cuenta_hija'][] = [
+                'cuenta' => $result->cuentaHija,
+                'descripcion_cuenta_hija' => $result->descripcion_cuenta_hija,
+                'parcial' => $result->parcial,
+                'cargos' => $result->cargos,
+                'abonos' => $result->abonos,
+            ];
+            $formattedResults[$result->descripcion_cuenta_padre]['cuenta_padre'] = $result->cuentaPadre;
+            $formattedResults[$result->descripcion_cuenta_padre]['total_parcial'] += $result->parcial;
+            $formattedResults[$result->descripcion_cuenta_padre]['total_cargos'] += $result->cargos;
+            $formattedResults[$result->descripcion_cuenta_padre]['total_abonos'] += $result->abonos;
+
+        }
+
+
+
+
+
+
+        // return response()->json($results);
+
+
+
         return response()->json([
             'success' => true,
+            'results' => $formattedResults,
             'detalles' => $detalles,
             'sumCargos' => number_format( $sumCargos,2),
             'sumAbonos' => number_format( $sumAbonos,2),
