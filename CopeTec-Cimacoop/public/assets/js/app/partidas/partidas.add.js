@@ -43,7 +43,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "/contabilidad/partidas-detalle/add",
-            data: data, // No es necesario convertir a JSON.stringify
+            data: data,
             success: function (response) {
                 // swal.close();
                 let message = response.message;
@@ -73,23 +73,35 @@ $(document).ready(function () {
     });
 
 
-    $("#btnLiquidar").on("click", function (e) {
+    $("#btnProcesarPartida").on("click", function (e) {
 
         e.preventDefault();
-        let liquido = $("#liquido").val();
-        if (liquido == 0) {
-            swalError('Oops...', 'Debes detalles, la liquidación del credito', "Corregir datos");
+   
+        let montoDebeText = $("#montoDebe").text();
+        let montoHaberText = $("#montoHaber").text();
+
+        // Remover símbolo "$" y comas de los textos
+        montoDebeText = montoDebeText.replace('$', '').replace(',', '');
+        montoHaberText = montoHaberText.replace('$', '').replace(',', '');
+
+        let montoDebe = parseFloat(montoDebeText);
+        let montoHaber = parseFloat(montoHaberText);
+
+
+      
+        if (montoDebe != montoHaber) {
+            swalError('Oops...', 'Los Saldos no coinciden', "Corregir datos");
             return false;
         }
 
 
-        let id_cuenta_ahorro_destino = $("#id_cuenta_ahorro_destino").val();
-        let id_cuenta_aportacion_destino = $("#id_cuenta_aportacion_destino").val();
-        if (id_cuenta_ahorro_destino == id_cuenta_aportacion_destino) {
+        let fecha_partida = $("#fecha_partida").val();
+        let tipo_catalogo = $("#tipo_catalogo").val();
+        if ( fecha_partida =="" || tipo_catalogo=="") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                html: 'La cuenta de <b>ahorro</b> y <b>aportaciones</b> deben ser diferentes',
+                html: 'La cuenta de <b>La Fecha </b> y <b>Tipo de Cuenta</b> Son obligatorios',
                 confirmButton: false,
                 cancelButton: true,
                 confirmButtonText: 'Volver y seleccionar datos correctos',
@@ -107,22 +119,19 @@ $(document).ready(function () {
 
         Swal.fire({
             icon: 'question',
-            title: 'Liquidar crédito',
-            html: '¿Estás seguro de que deseas liquidar y desembolsar este crédito? <br> Liquido a depositar <span class=\" badge badge-danger fs-4\">  $' + liquido + '</span>',
+            title: 'Generar partida?',
+            html: '¿Estás seguro de que deseas generar la siguiente partida? <br>Cargos <span class=\" badge badge-light-danger fs-5\">  $' + montoDebeText + '</span> Abonos <span class=\" badge badge-light-danger fs-5\">  $' + montoHaberText + '</span>',
             showCancelButton: true,
-            // confirmButtonColor: '#3085d6',
-            // cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, liquidar crédito ',
+            confirmButtonText: 'Sí, procesar Partida',
             cancelButtonText: 'Cancelar',
-            allowEscapeKey: false,     // Evita que se cierre con la tecla "Escape"
-            allowOutsideClick: false,  // Evita que se cierre al hacer clic fuera del cuadro
+            allowEscapeKey: false,     
+            allowOutsideClick: false, 
             customClass: {
                 confirmButton: "btn btn-danger",
                 cancelButton: "btn btn-info"
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                // Aquí puedes agregar la lógica para liquidar y desembolsar el crédito
                 generarPartidaContable();
             } 
         });
@@ -138,22 +147,23 @@ $(document).ready(function () {
 
     });
 
-    window.generarPartidaContable = function (id) {
-        let id_credito = $("#id_credito").val();
+    window.generarPartidaContable = function () {
+        let id_partida = $("#id_partida").val();
 
         let data = {
-            "id_credito": $("#id_credito").val(),
-            "liquido": $("#liquido").val(),
-            "id_cuenta_ahorro_destino": $("#id_cuenta_ahorro_destino").val(),
-            "id_cuenta_aportacion_destino": $("#id_cuenta_aportacion_destino").val(),
-            "aportacionMonto": $("#aportacionMonto").val(),
-            "id_caja_aperturada": $("#id_caja_aperturada").val(),
+            "id_partida": $("#id_partida").val(),
+            "num_partida": $("#num_partida").val(),
+            "yearContable": $("#yearContable").val(),
+            "fecha_partida": $("#fecha_partida").val(),
+            "tipo_partida": $("#tipo_partida").val(),
+            "concepto": $("#concepto").val(),
+            "monto": $("#totalCargo").val(),
             "_token": $("#token").val()
         };
 
         $.ajax({
             type: "POST",
-            url: "/creditos/solicitudes/liquidar",
+            url: "/contabilidad/partidas/put",
             data: data, // No es necesario convertir a JSON.stringify
             success: function (response) {
 
@@ -166,11 +176,11 @@ $(document).ready(function () {
                         text: 'El crédito ha sido liquidado exitosamente.',
                         willClose: () => {
                             // Redirige a la nueva página en una pestaña nueva
-                            window.open('/creditos/aprobado/liquidacion/' + id_credito, '_blank');
+                            window.open('/reportes/partidaContable/' + id_partida, '_blank');
 
                             // Después de 1 segundo, redirige a otra página en la pestaña actual
                             setTimeout(() => {
-                                window.location.href = '/creditos/solicitudes/estudios';
+                                window.location.href = '/contabilidad/partidas';
                             }, 1000);
                         }
                     });

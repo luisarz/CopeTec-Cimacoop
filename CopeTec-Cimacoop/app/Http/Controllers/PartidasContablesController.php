@@ -14,11 +14,7 @@ class PartidasContablesController extends Controller
     public function index(Request $request)
     {
 
-
-
         $filtro = $request->input('filtro');
-
-
         $cuentas = PartidasContablesModel::join('tipos_partidas_contables', 'tipos_partidas_contables.id_tipo_partida', '=', 'partidas_contables.tipo_partida')
             ->when(isset($request->filtro), function ($query) use ($filtro) {
                 $query->where('partidas_contables.num_partida', 'LIKE', '%' . $filtro . '%')
@@ -27,11 +23,8 @@ class PartidasContablesController extends Controller
 
 
             })
-            // ->select('catalogo_tipo.descripcion as catalogo', 'catalogo.*')
             ->orderBy('partidas_contables.num_partida', 'desc')
             ->paginate(25);
-        // dd($cuentas);
-
         return view('contabilidad.partidas.index', compact('cuentas', 'filtro'));
 
     }
@@ -42,19 +35,11 @@ class PartidasContablesController extends Controller
         $catalogo = Catalogo::where('estado', '=', 1)->get();
         $tipoPartida = TiposPartidasContablesModel::all();
         $idPartida = Str::uuid()->toString();
-
-
         return view("contabilidad.partidas.add", compact('catalogo', 'tipoPartida', 'idPartida'));
         
     }
 
-    public function delete(Request $request)
-    {
-        // $id = $request->id;
-        // Catalogo::destroy($id);
-        // return redirect("/contabilidad/catalogo");
 
-    }
     public function post(Request $request)
     {
         $cuenta = new PartidasContablesModel();
@@ -80,15 +65,19 @@ class PartidasContablesController extends Controller
     }
     public function put(Request $request)
     {
-        $cuenta = PartidasContablesModel::find($request->id);
-        $cuenta->numero = $request->numero;
-        $cuenta->descripcion = $request->descripcion;
-        $cuenta->movimiento = $request->movimiento;
-        $cuenta->estado = $request->estado;
-        $cuenta->saldo = $request->saldo;
-        $cuenta->iva = $request->iva;
-        $cuenta->save();
-        return redirect("/contabilidad/catalogo");
+        // dd($request->all());
+        $partidaContable = PartidasContablesModel::find($request->id_partida);
+        $partidaContable->num_partida = $request->num_partida;
+        $partidaContable->year_contable = $request->yearContable;
+        $partidaContable->fecha_partida = $request->fecha_partida;
+        $partidaContable->concepto = $request->concepto;
+        $partidaContable->monto = $request->monto;
+        $partidaContable->estado = 2;
+        $partidaContable->save();
+        return response()->json([
+            'estado' => "success",
+            'message' => 'Partida guardada correctamente'
+        ], 200);
     }
 
 

@@ -186,8 +186,8 @@ class CreditoController extends Controller
       $pago->capital = $CAPITAL;
       $pago->interes = $INTERESES;
       $pago->mora = $MORA;
-      $pago->aportacion = $APORTACION;
-      $pago->seguro_deuda = $SEGURO_DEUDA;
+      $pago->aportacion = ($APORTACION == null ? 0 : $APORTACION);
+      $pago->seguro_deuda = ($SEGURO_DEUDA == null ? 0 : $SEGURO_DEUDA);
       $pago->total_pago = $TOTAL_PAGAR;
       $pago->fecha_pago = date('Y-m-d H:i:s');
       $pago->cliente_operacion = $request->cliente_operacion;
@@ -218,7 +218,7 @@ class CreditoController extends Controller
       $cajaRecibe->save();
 
       //Registrando el movimiento en la cuenta de APortaciones del cliente
-      $aportacion=new Movimientos();
+      $aportacion = new Movimientos();
       $aportacion->id_cuenta = $credito->id_cuenta_aportacion;
       $aportacion->tipo_operacion = 9;
       $aportacion->monto = $APORTACION;
@@ -287,7 +287,8 @@ class CreditoController extends Controller
 
 
 
-      return view('creditos.liquidar.index',
+      return view(
+         'creditos.liquidar.index',
          compact(
             'credito',
             'cajaAperturada',

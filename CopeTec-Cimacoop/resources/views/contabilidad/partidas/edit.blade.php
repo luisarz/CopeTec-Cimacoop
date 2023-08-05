@@ -11,12 +11,14 @@
     <input type="hidden" name="id_partida" id="id_partida" value="{{ $partida->id_partida_contable }}">
     <input type="hidden" name="totalCargo" id="totalCargo">
     <input type="hidden" name="totalAbono" id="totalAbono">
+    <input type="hidden" name="yearContable" id="yearContable" value="{{ $partida->year_contable }}">
+
 
     <input type="hidden" id="token" value="{{ csrf_token() }}">
 
-    <form action="/contabilidad/partidas/add" method="post" autocomplete="off">
+    <form action="/contabilidad/partidas/put"  autocomplete="off">
         {!! csrf_field() !!}
-        {{ method_field('POST') }}
+        {{ method_field('PUT') }}
 
 
         <div class="card card-bordered shadow-lg mt-1 ">
@@ -131,7 +133,7 @@
 
                             </div>
 
-                            <div class="table-responsive scroll h-200px px-1">
+                            <div class="table-responsive scroll h-200px px-1 form-group row mb-1 alert alert-info d-flex align-items-center p-5">
                                 <table class="table table-hover table-bordered table-striped border gy-1 fs-5 ">
 
                                     <thead>
@@ -177,7 +179,7 @@
 
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-bg-info btn-text-white">
+                            <button type="submit" id="btnProcesarPartida" class="btn btn-bg-info btn-text-white">
                                 <i class="fa-solid fa-save fs-2 text-white"></i>
                                 Guardar Y Procesar
                             </button>
