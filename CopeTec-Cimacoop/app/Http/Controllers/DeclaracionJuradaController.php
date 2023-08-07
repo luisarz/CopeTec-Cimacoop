@@ -6,6 +6,7 @@ use App\Models\DeclaracionJurada;
 use App\Models\Cuentas;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use \PDF;
 
 class DeclaracionJuradaController extends Controller
 {
@@ -84,7 +85,18 @@ class DeclaracionJuradaController extends Controller
         $dec = DeclaracionJurada::where('id_cuenta', $request->acc)->first();
         $acc = Cuentas::find($request->acc);
         // dd($dec);
-        return view('declaracion.pdf', compact('acc', 'dec'));
+        // return view('declaracion.pdf', compact('acc', 'dec'));
+        $pdf = \App::make('snappy.pdf');
+
+        $pdf->setOptions([
+            'enable-local-file-access' => true
+        ]);
+        $pdf = PDF::loadView('declaracion.pdf', [
+            'acc' => $acc,
+            'dec' => $dec
+        ]);
+
+        return $pdf->setOrientation('portrait')->inline();
     }
     /**
      * Update the specified resource in storage.
