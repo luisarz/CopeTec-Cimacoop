@@ -233,19 +233,24 @@
 
                                     </div>
                                 </div>
-                                 <!--begin::row group-->
+                                <!--begin::row group-->
                                 <div class="form-group row mb-5">
                                     <div class="form-floating col-lg-12">
                                         <select name="destino" id="destino" class="form-select"
                                             data-control="select2">
 
                                             @foreach ($destinoCredito as $destino)
-                                               
-                                                    <option value="{{ $destino->id_cuenta }}">
-                                                         {{ $destino->numero }}->
-                                                        {{ $destino->descripcion }} 
+                                                @if ($destino->movimiento == 0)
+                                                    <optgroup label="{{ $destino->descripcion }}">
+                                                @endif
+                                                <option value="{{ $destino->id_cuenta }}">
+                                                    {{ $destino->numero }}->
+                                                    {{ $destino->descripcion }}
 
-                                                    </option>
+                                                </option>
+                                                @if ($destino->movimiento == 0)
+                                                    </optgroup>
+                                                @endif
                                             @endforeach
                                         </select>
                                         <label>Destino:</label>
@@ -257,16 +262,15 @@
                                         <select name="tipo_garantia" id="tipo_garantia" class="form-select"
                                             data-control="select2">
                                             @foreach ($tiposGarantia as $tipogarantia)
-                                              
-                                                    <option value="{{ $tipogarantia->id_tipo_garantia }}">
-                                                        {{ $tipogarantia->descripcion }}
-                                                    </option>
+                                                <option value="{{ $tipogarantia->id_tipo_garantia }}">
+                                                    {{ $tipogarantia->descripcion }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         <label>Tipo garantia:</label>
                                     </div>
                                 </div>
-                                   <!--begin::row group-->
+                                <!--begin::row group-->
                                 <div class="form-group row mb-5">
                                     <div class="form-group row mb-5">
                                         <div class="form-floating col-lg-12">
@@ -461,7 +465,7 @@
                             </div>
                             <div class="form-floating col-lg-2">
                                 <button type="button" class="btn btn-danger" id="btnAddReferencia"
-                                    name="btnAddReferencia" >
+                                    name="btnAddReferencia">
                                     <span class="fa fa-download"></span>
                                     Registrar
                                 </button>
@@ -496,12 +500,12 @@
                         <!--begin::row group-->
                         <div class="form-group row mb-5">
                             <div class="form-floating col-lg-4">
-                                <input type="text" class="form-control"  name="clase_propiedad" id="clase_propiedad"
+                                <input type="text" class="form-control" name="clase_propiedad" id="clase_propiedad"
                                     placeholder="Tipo de bien">
                                 <label>Clase de bien:</label>
                             </div>
                             <div class="form-floating col-lg-8">
-                                <input type="text" class="form-control"  name="direccion_bien" id="direccion_bien"
+                                <input type="text" class="form-control" name="direccion_bien" id="direccion_bien"
                                     placeholder="Tipo de bien">
                                 <label>Direccion del bien:</label>
                             </div>
@@ -509,12 +513,12 @@
                         <!--begin::row group-->
                         <div class="form-group row mb-3">
                             <div class="form-floating col-lg-4">
-                                <input type="number" step="any"  class="form-control" name="valor_bien" id="valor_bien"
-                                    placeholder="Tipo de bien">
+                                <input type="number" step="any" class="form-control" name="valor_bien"
+                                    id="valor_bien" placeholder="Tipo de bien">
                                 <label>Valor:</label>
                             </div>
                             <div class="form-floating col-lg-4">
-                                <select name="hipotecado_bien"  id="hipotecado_bien" class="form-control">
+                                <select name="hipotecado_bien" id="hipotecado_bien" class="form-control">
                                     <option value="1">Si</option>
                                     <option value="0" selected>No</option>
                                 </select>
@@ -592,7 +596,7 @@
     <script>
         $(document).ready(function() {
 
-         
+
 
 
 

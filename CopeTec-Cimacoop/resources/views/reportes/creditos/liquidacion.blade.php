@@ -16,21 +16,21 @@
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
 
     <div class="row" style="font-size:20px; " class="reportName">
-       <div class="col-md-12 fw-bold" style="padding-left: 30px;">
-         <center>
-            CIMACOOP DE R.L
-            <br>
-            HOJA DE LIQUIDACION DE PRESTAMO
-            <div class="linea-horizontal"></div>
+        <div class="col-md-12 fw-bold" style="padding-left: 30px;">
+            <center>
+                CIMACOOP DE R.L
+                <br>
+                HOJA DE LIQUIDACION DE PRESTAMO
+                <div class="linea-horizontal"></div>
 
-            <div class="linea-horizontal">
-                DATOS DEL PRESTAMO
-            </div>
+                <div class="linea-horizontal">
+                    DATOS DEL PRESTAMO
+                </div>
 
 
 
-        </center>
-       </div>
+            </center>
+        </div>
         <div class="divFecha ">
             Fecha de desembolso:
             {{ \Carbon\Carbon::parse($credito->fecha_desembolso)->format('d \d\e ') . \Carbon\Carbon::parse($solicitud->fecha_solicitud)->monthName . \Carbon\Carbon::parse($solicitud->fecha_solicitud)->format(' \d\e Y') }}
@@ -40,8 +40,8 @@
             <li class="items_li">
                 <div class="datos_solicitante_liquidacion">
                     <table class="table">
-                       
-                        <tbody >
+
+                        <tbody>
                             <tr>
                                 <td>
                                     Asociado: <b> <i> {{ $solicitud->nombre }} </i><br> </b>
@@ -92,7 +92,7 @@
                                 </td>
                                 <td>
                                     Monto Deposito:
-                                    <b>{{ str_pad('$ '.number_format($liquido, 2), 15, '*', STR_PAD_LEFT) }}</b>
+                                    <b>{{ str_pad('$ ' . number_format($liquido, 2), 15, '*', STR_PAD_LEFT) }}</b>
                                 </td>
                             </tr>
                             <tr>
@@ -102,20 +102,15 @@
                                 </td>
                                 <td>
                                     Monto Deposito:
-                                    <b>{{ str_pad('$ '.number_format($credito->aportacion_credito, 2), 15, '*', STR_PAD_LEFT) }}</b>
+                                    <b>{{ str_pad('$ ' . number_format($credito->aportacion_credito, 2), 15, '*', STR_PAD_LEFT) }}</b>
 
                                 </td>
                             </tr>
 
                         </tbody>
                     </table>
-
-
-
-
                 </div>
             <li>
-
 
             <li>
                 <div class="linea-horizontal">
@@ -144,11 +139,11 @@
                                         {{ $decuento->monto_debe != 0 ? '$ ' . number_format($decuento->monto_debe, 2) : '-' }}
                                     </td>
 
-                                     @if ($liquido == $decuento->monto_haber) 
+                                    @if ($liquido == $decuento->monto_haber)
                                         <td style="text-align: right; padding-right:5px;" class="fw-bold">
                                             {{ $decuento->monto_haber != 0 ? '$ ' . number_format($decuento->monto_haber, 2) : '-' }}
                                         </td>
-                                    @else 
+                                    @else
                                         <td style="text-align: right; padding-right:5px;">
                                             {{ $decuento->monto_haber != 0 ? '$ ' . number_format($decuento->monto_haber, 2) : '-' }}
                                         </td>

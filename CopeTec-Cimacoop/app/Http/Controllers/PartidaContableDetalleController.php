@@ -41,15 +41,20 @@ class PartidaContableDetalleController extends Controller
         } else {
 
 
-
             $detallePartida = new PartidaContableDetalleModel();
             $detallePartida->id_cuenta = $request->id_cuenta;
             $detallePartida->id_partida = $request->id_partida;
-            $detallePartida->parcial = $request->parcial > 0 ? $request->parcial : 0.00;
+            if ($request->cargos > 0) {
+                $detallePartida->parcial = $request->cargos; 
+            }
+            if ($request->abonos > 0) {
+                $detallePartida->parcial = $request->abonos;
+            }
             $detallePartida->cargos = $request->cargos > 0 ? $request->cargos : 0.00;
             $detallePartida->abonos = $request->abonos > 0 ? $request->abonos : 0.00;
             $detallePartida->estado = 0; //Pendiente de procesar la partida
             $detallePartida->save();
+
 
             return response()->json([
                 'estado' => true,
@@ -69,7 +74,7 @@ class PartidaContableDetalleController extends Controller
             ->orderBy('catalogo.numero', 'asc')
             ->get();
 
-        $sumCargos= $detalles->pluck('cargos')->sum();
+        $sumCargos = $detalles->pluck('cargos')->sum();
         $sumAbonos = $detalles->pluck('abonos')->sum();
 
 
@@ -104,7 +109,7 @@ class PartidaContableDetalleController extends Controller
                 ];
             }
 
-          
+
             $formattedResults[$result->descripcion_cuenta_padre]['descripcion_cuenta_hija'][] = [
                 'cuenta' => $result->cuentaHija,
                 'descripcion_cuenta_hija' => $result->descripcion_cuenta_hija,
@@ -132,8 +137,8 @@ class PartidaContableDetalleController extends Controller
             'success' => true,
             'results' => $formattedResults,
             'detalles' => $detalles,
-            'sumCargos' => number_format( $sumCargos,2),
-            'sumAbonos' => number_format( $sumAbonos,2),
+            'sumCargos' => number_format($sumCargos, 2),
+            'sumAbonos' => number_format($sumAbonos, 2),
         ], 200);
     }
 

@@ -429,9 +429,10 @@ class ReportesController extends Controller
             )
             ->join('catalogo AS b', 'c.id_cuenta', '=', 'b.id_cuenta_padre')
             ->leftJoin('partida_contables_detalle AS a', 'b.id_cuenta', '=', 'a.id_cuenta')
-            ->where('a.id_partida', '3c4fb732-8045-4267-9766-32fb2da0a126')
+            ->where('a.id_partida', $id_partida)
             ->orderBy('a.cargos', 'desc')
             ->get();
+
 
         $totalCargos = 0;
         $totalAbonos = 0;
@@ -468,6 +469,7 @@ class ReportesController extends Controller
 
         }
 
+
         // $formatter = new NumeroALetras();
         // $TOTALPAGOENLETRAS = $formatter->toInvoice($abonoCredito->total_pago, 2, 'DÓLARES');
 
@@ -480,8 +482,6 @@ class ReportesController extends Controller
             'totalCargos' => $totalCargos,
             'totalAbonos' => $totalAbonos,
             'formattedResults'=> $formattedResults
-            // 'abonoCredito' => $abonoCredito,
-            // 'numeroEnLetras' => $TOTALPAGOENLETRAS
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }

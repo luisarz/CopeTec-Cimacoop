@@ -28,7 +28,7 @@ class LiquidacionController extends Controller
         if ($actualizarLiquido->iva != null) {
 
             // Calculate the IVA if the 'catalogo' has IVA.
-            $iva = $request->monto_haber * 0.13; // Assuming 16% IVA, adjust the percentage accordingly.
+            $iva =number_format($request->monto_haber * 0.13,2); // Assuming 16% IVA, adjust the percentage accordingly.
 
             if ($iva > 0) {
                 // If IVA is greater than 0, register the 'liquidacion' entry.

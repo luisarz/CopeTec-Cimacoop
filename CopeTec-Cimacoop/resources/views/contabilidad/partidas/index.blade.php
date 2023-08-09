@@ -81,6 +81,10 @@
                                         class="btn btn-info btn-sm w-30">
                                         <i class="ki-outline ki-pencil fs-4"></i> </a>
 
+                                         <a href="/reportes/partidaContable/{{ $partida->id_partida_contable }}"
+                                        class="btn btn-info btn-sm w-30">
+                                        <i class="ki-outline ki-printer fs-4"></i> </a>
+
                                     <a href="/contabilidad/catalogo/{{ $partida->id_partida_contable }}/beneficiarios"
                                         class="btn btn-success btn-sm w-30">
                                         <i class="ki-outline ki-security-user   fs-4"></i>

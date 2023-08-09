@@ -14,12 +14,15 @@
 </head>
 
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
- <div class="double-strikethrough"> &nbsp;</div>
+    <div class="double-strikethrough">
+        ASOCIACION COOPERATIVA DE AHORRO Y CREDITO LA CIMA - "CIMACOOP, DE R.L." <br>
+PARTIDAS DE {{ $partida->descripcion }}
+    </div>
 
     <table class="" style="border: 0px solid white;">
         <tr class="parent-row">
             <td>Número de Partida</td>
-            <td>{{ date('d-m-Y',strtotime($partida->num_partida))  }}</td>
+            <td>{{ date('d-m-Y', strtotime($partida->num_partida)) }}</td>
         </tr>
         <tr class="parent-row">
 
@@ -38,7 +41,7 @@
         </tr>
     </table>
 
-    <table class="table" style="border: 1px solid white;">
+    <table class="table table-sm fs-5" style="border: 1px solid rgb(255, 255, 255);">
         <thead style="border-top: 1px solid black; border-bottom: 1px solid black; font-size:18px; " class="font-bold">
             <tr>
                 <th>Cuenta Contable</th>
@@ -51,11 +54,11 @@
         <tbody>
             @foreach ($formattedResults as $parentAccountName => $accountData)
                 {{-- <tr class="parent-row" style="border-top: 1px solid black; border-bottom: 1px solid black;"> --}}
-                <tr class="parent-row">
+                <tr class="parent-row" style="height: 8px !important;">
                     <td>{{ $accountData['cuenta_padre'] }}</td>
                     <td>{{ $parentAccountName }}</td>
                     <td>
-                        {{ $accountData['total_parcial'] > 0 ? $accountData['total_parcial'] : '' }}
+                        {{-- {{ $accountData['total_parcial'] > 0 ? $accountData['total_parcial'] : '' }} --}}
 
 
                     <td style="{{ $accountData['total_cargos'] > 0 ? 'border-bottom: 1px solid black;' : '' }}">
@@ -74,14 +77,13 @@
 
                 </tr>
                 @foreach ($accountData['descripcion_cuenta_hija'] as $cuentaHija)
-                    <tr class="child-row">
+                    <tr class="child-row"  style="height: 8px !important;">
+
                         <td>{{ $cuentaHija['cuenta'] }}</td>
                         <td>{{ $cuentaHija['descripcion_cuenta_hija'] }}</td>
 
                         <td>
-                            @if ($cuentaHija['abonos'] > 0)
-                                $ {{ number_format($cuentaHija['abonos'], 2) }}
-                            @endif
+                            $ {{ number_format($cuentaHija['parcial'], 2) }}
 
                         </td>
                         <td>
@@ -95,10 +97,10 @@
             @endforeach
         </tbody>
         <tfoot>
-                <tr class="parent-row">
+            <tr class="parent-row">
                 <td colspan="3" style="text-align: center"><b>TOTAL DE CARGOS Y ABONOS</b></td>
-                <td class="double-strikethrough">${{  number_format( $totalCargos,2) }}</td>
-                <td class="double-strikethrough">${{ number_format( $totalAbonos,2) }}</td>
+                <td class="double-strikethrough">${{ number_format($totalCargos, 2) }}</td>
+                <td class="double-strikethrough">${{ number_format($totalAbonos, 2) }}</td>
 
             </tr>
         </tfoot>

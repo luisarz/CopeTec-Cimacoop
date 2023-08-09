@@ -7,7 +7,10 @@ use App\Models\Cajas;
 use App\Models\Catalogo;
 use App\Models\Clientes;
 use App\Models\Cuentas;
+use App\Models\LiquidacionModel;
 use App\Models\Movimientos;
+use App\Models\PartidaContable;
+use App\Models\PartidaContableDetalleModel;
 use App\Models\Referencias;
 use App\Models\SolicitudCredito;
 use App\Models\Credito;
@@ -47,8 +50,10 @@ class SolicitudCreditoController extends Controller
             'lugar_trabajo'
         )->get();
 
-        $destinoCredito = Catalogo::where('movimiento', '=', 1)
-            ->where('tipo_catalogo', '=', 1)->get();
+        $destinoCredito = Catalogo::where('tipo_catalogo', '=', 1)
+            ->where('descripcion', 'like', '%prestamo%')
+            ->get();
+
         $tiposGarantia = TipoGarantia::all();
 
         return view(
@@ -75,7 +80,9 @@ class SolicitudCreditoController extends Controller
             'dui',
             'lugar_trabajo'
         )->get();
-        $destinoCredito = Catalogo::select('id_cuenta', 'descripcion')->where('tipo_catalogo', '=', 1)->get();
+        $destinoCredito = Catalogo::select('id_cuenta', 'descripcion', 'numero')->where('descripcion', 'like', '%prestamo%')
+            ->get();
+
         $tiposGarantia = TipoGarantia::all();
 
         // dd($destinoCredito);
@@ -142,6 +149,7 @@ class SolicitudCreditoController extends Controller
 
     public function put(Request $request)
     {
+        // dd($request->all());
         $solicitud = SolicitudCredito::where('id_solicitud', $request->id_solicitud)->first();
         $solicitud->id_solicitud = $request->id_solicitud;
         $solicitud->id_cliente = $request->id_cliente;
@@ -192,9 +200,6 @@ class SolicitudCreditoController extends Controller
 
 
 
-    /**
-     Etudio de credito
-     */
     public function estudios()
     {
         $solicitudes = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
@@ -298,17 +303,20 @@ class SolicitudCreditoController extends Controller
 
     public function liquidar(Request $request)
     {
-
-        // dd($request->all());
-
         $id_credito = $request->id_credito;
-        $id_cuenta_ahorro_destino = $request->id_cuenta_ahorro_destino;
-        $id_cuenta_aportacion_destino = $request->id_cuenta_aportacion_destino;
-        $aportacionMonto = $request->aportacionMonto;
+
+
+
+
 
         $id_empleado = session()->get('id_empleado_usuario');
 
+        $id_cuenta_ahorro_destino = $request->id_cuenta_ahorro_destino;
+        $id_cuenta_aportacion_destino = $request->id_cuenta_aportacion_destino;
+        $aportacionMonto = $request->aportacionMonto;
         $credito = Credito::find($id_credito);
+        $id_cliente = $credito->id_cliente;
+
         $credito->liquido_recibido = $request->liquido;
         $credito->estado = 2;
         $credito->empleado_liquido = $id_empleado;
@@ -338,6 +346,8 @@ class SolicitudCreditoController extends Controller
         // $caja->saldo = $caja->saldo + $request->monto;
         // $caja->save();
 
+
+
         //hacer el deposito en la cuenta de aporaciones
         $saldAportacionCuenta = Cuentas::findOrfail($id_cuenta_aportacion_destino);
         $aportacion = new Movimientos();
@@ -353,6 +363,47 @@ class SolicitudCreditoController extends Controller
         $aportacion->save();
         $saldAportacionCuenta->saldo_cuenta = $saldAportacionCuenta->saldo_cuenta + $aportacionMonto;
         $saldAportacionCuenta->save();
+
+
+        //Generar la partida contable 
+        $id_partida = Str::uuid()->toString();
+        $partidaContable = new PartidaContable;
+        $id_cliente = $cuentaDestinoDatos->id_cliente;
+        $cliente = Clientes::find($id_cliente);
+
+
+
+        $partidaContable->concepto = 'POR PRESTAMO OTORGADO A' . $cliente->nombre;
+        $partidaContable->tipo_partida = 1; //Partida Diaria
+        $partidaContable->id_partida_contable = $id_partida;
+        $numero_cuenta = PartidaContable::where('year_contable', '=', date('Y'))->max('num_partida');
+        $partidaContable->num_partida = $numero_cuenta + 1;
+        $partidaContable->year_contable = date('Y');
+        $partidaContable->fecha_partida = today();
+        $partidaContable->save();
+
+        //recorremos los detalles de la liquidaacion para asignarlos a la partida contable
+        $detallesLiquidacion = LiquidacionModel::join('catalogo', 'catalogo.id_cuenta', 'liquidacion.id_cuenta')->where('id_credito', $id_credito)->get();
+
+        foreach ($detallesLiquidacion as $liquidacion) {
+            // generar los detalles de la partida contable
+            $detallePartida = new PartidaContableDetalleModel();
+            $detallePartida->id_cuenta = $liquidacion->id_cuenta;
+            $detallePartida->id_partida = $id_partida;
+            if ($liquidacion->monto_debe > 0) {
+                $detallePartida->parcial = $liquidacion->monto_debe;
+            }
+            if ($liquidacion->monto_haber > 0) {
+                $detallePartida->parcial = $liquidacion->monto_haber;
+            }
+            $detallePartida->cargos = $liquidacion->monto_debe;
+            $detallePartida->abonos = $liquidacion->monto_haber;
+            $detallePartida->estado = 0; //Pendiente de procesar la partida
+            $detallePartida->save();
+        }
+
+
+
 
 
 

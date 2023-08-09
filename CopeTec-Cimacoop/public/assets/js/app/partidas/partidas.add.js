@@ -17,7 +17,7 @@ $(document).ready(function () {
         let abonos = $("#abonos").val();
 
 
-        if (parcial == 0 && cargos == 0 && abonos == 0) {
+        if ( cargos == 0 && abonos == 0) {
             Swal.fire({
                 icon: 'info',
                 title: 'Oops...',
@@ -50,9 +50,9 @@ $(document).ready(function () {
                 if (response.estado == true) {
                     swalSuccess("Cuenta agregada", message, "Ok");
                     getPartidaDetalles();
+                    $("#cargos").val(0);
+                    $("#abonos").val(0);
                     $("#id_cuenta").val("").change();
-                    $("#monto_debe").val(0);
-                    $("#monto_haber").val(0);
                 } else {
                     swalError("Error, al agregar la cuenta", message, "Corregir datos");
                 }
@@ -172,8 +172,8 @@ $(document).ready(function () {
                     
                     Swal.fire({
                         icon: 'success',
-                        title: 'Crédito liquidado',
-                        text: 'El crédito ha sido liquidado exitosamente.',
+                        title: 'Partida',
+                        text: 'La partida contable fue procesada  exitosamente.',
                         willClose: () => {
                             // Redirige a la nueva página en una pestaña nueva
                             window.open('/reportes/partidaContable/' + id_partida, '_blank');
@@ -184,22 +184,14 @@ $(document).ready(function () {
                             }, 1000);
                         }
                     });
-
-
-                    // setTimeout(() => {
-                    // }, 1000);
-                    //mandar a imprimir la hoja de liquidacion
                 }
-
-
             },
             error: function (xhr, status, error) {
                 swal.close();
                 console.log(error);
             },
-            dataType: "json" // Especifica el tipo de datos esperados en la respuesta
+            // dataType: "json" // Especifica el tipo de datos esperados en la respuesta
         });
-
     }
 
 
