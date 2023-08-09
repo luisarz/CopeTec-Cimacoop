@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class DeclaracionJurada extends Model
 {
-
+    use Notifiable;
     protected $table = 'declaracion_juradas';
     protected $primaryKey = 'declaracion_id';
     protected $fillable = [
