@@ -146,6 +146,7 @@ class CreditoController extends Controller
 
       $CUOTA = $credito->cuota;
       $APORTACION = $credito->aportaciones;
+      dd($credito);
       $SEGURO_DEUDA = $credito->seguro_deuda;
 
       #calculo de intereses
