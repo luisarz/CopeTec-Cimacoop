@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\DeclaracionJurada;
 use App\Models\Cuentas;
+use App\Notifications\MoneylaunderingNotification;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Notification;
 use \PDF;
 
 class DeclaracionJuradaController extends Controller
@@ -84,8 +86,7 @@ class DeclaracionJuradaController extends Controller
 
         $dec = DeclaracionJurada::where('id_cuenta', $request->acc)->first();
         $acc = Cuentas::find($request->acc);
-        // dd($dec);
-        // return view('declaracion.pdf', compact('acc', 'dec'));
+        Notification::send($acc, new MoneylaunderingNotification($acc));
         $pdf = \App::make('snappy.pdf');
 
         $pdf->setOptions([
