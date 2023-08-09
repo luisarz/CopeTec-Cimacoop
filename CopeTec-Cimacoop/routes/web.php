@@ -447,7 +447,7 @@ Route::get('/contabilidad/partidas-detalle/delete/{id}', [PartidaContableDetalle
 
 
 
-// * rutas de declaraciones
+/** rutas de declaraciones*/
 Route::middleware(['auth', 'bitacora'])->prefix('declare')->group(function () {
     Route::get('/{acc}/new', [DeclaracionJuradaController::class, 'create']);
     Route::post('/add', [DeclaracionJuradaController::class, 'store'])->name('store-declare');
@@ -455,7 +455,7 @@ Route::middleware(['auth', 'bitacora'])->prefix('declare')->group(function () {
     Route::post('/update', [DeclaracionJuradaController::class, 'update'])->name('update-declare');
     Route::get('/{acc}/pdf', [DeclaracionJuradaController::class, 'pdf']);
 });
-// * rutas de alerts
+/* rutas de alerts*/
 Route::middleware(['auth', 'bitacora'])->prefix('alerts')->group(function () {
     Route::get('', [MoneylaunderingController::class, 'index']);
 });
