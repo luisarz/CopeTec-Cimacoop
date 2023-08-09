@@ -49,8 +49,7 @@
                                     @if (!$n->read_at)
                                         <a n="javascript:void(0);" tol-tip="Marcar como leída" data-offset="20px 20px"
                                             data-toggle="popover" data-placement="top" data-content="Example content"
-                                            class="btn btn-danger btn-sm w-50px"><i class="fa fa-ban text-white"></i>
-
+                                            class="btn btn-primary btn-sm w-50px"><i class="fa fa-check text-white"></i>
                                         </a>
                                     @else
                                         <a class="btn btn-outline btn-outline-dashed btn-outline-danger btn-sm">
@@ -63,7 +62,7 @@
                             <td>
                                 <?php
                                 $info = json_decode($n->data);
-                                print_r (($info->client));
+                                print_r($info->client);
                                 ?>
                             </td>
                             <td> {{ $info->id_cuenta }}</td>
