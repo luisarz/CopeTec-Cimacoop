@@ -1,7 +1,7 @@
 @extends('base.base')
 
 @section('title')
-    Administracion de Clientes
+    Declaración Jurada
 @endsection
 
 @section('formName')
