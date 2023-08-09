@@ -11,6 +11,9 @@ class Cuentas extends Model
     use Notifiable;
     protected $table = 'cuentas';
     protected $primaryKey = 'id_cuenta';
+    protected $casts = [
+        'data' => 'array',
+    ];
     use HasFactory;
 
     public function asociado()
