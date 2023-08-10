@@ -11,20 +11,32 @@
             <div class="card-header ribbon ribbon-end ribbon-clip">
 
                 <div class="ribbon-label fs-3">
-                   <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
-                Administración | {{ Session::get('name_module') }}
+                    <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+                    Administración | {{ Session::get('name_module') }}
                     <span class="ribbon-inner bg-info"></span>
                 </div>
                 <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0">
                     <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#tab_empresa">Empresa</a>
+                        <a class="nav-link text-active-info d-flex align-items-center  active" data-bs-toggle="tab"
+                            href="#tab_empresa">
+                            <i class="ki-solid ki-shop fs-2 me-2"></i>
+                            Empresa
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#tabCorreo">Correo</a>
+                        <a class="nav-link text-active-info d-flex align-items-center" data-bs-toggle="tab"
+                            href="#tabCredito">
+                            <i class="ki-solid ki-price-tag fs-2 me-2"></i>
+
+                            Créditos
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#tabTasa">Tasa</a>
-                    </li>
+                    {{-- <li class="nav-item">
+                        <a class="nav-link text-active-info d-flex align-items-center" data-bs-toggle="tab" href="#tabTasa">
+                            <i class="ki-solid ki-verify fs-2 me-2"></i>
+                            Tasa
+                        </a>
+                    </li> --}}
 
                 </ul>
             </div>
@@ -96,8 +108,154 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="tabCorreo" role="tabpanel">
-                        ...
+                    <div class="tab-pane fade" id="tabCredito" role="tabpanel">
+                        <!--begin::row group-->
+                        <div class="form-group row mb-5 ">
+                            <span class="badge badge-light-danger fs-4">Parametros Moratorios</span>
+                            <hr>
+                            <div class="form-floating col-lg-4">
+                                <input type="number" required value="{{ $configuracion->dias_gracia }}"
+                                    class="form-control text-info" name="dias_gracia" id="dias_gracia"
+                                    placeholder="Interes Moratorio" aria-label="saldo" aria-describedby="basic-addon1" />
+                                <label for="floatingPassword">Dias de Gracia</label>
+                            </div>
+                            <div class="form-floating col-lg-4">
+                                <input type="number" step="any" required
+                                    value="{{ $configuracion->interes_moratorio }}" class="form-control text-info"
+                                    name="interes_moratorio" id="interes_moratorio" placeholder="Interes Moratorio"
+                                    aria-label="saldo" aria-describedby="basic-addon1" />
+                                <label for="floatingPassword">Tasa Interes Moratorio %</label>
+                            </div>
+                            <div class="form-floating col-lg-4">
+                                <input type="number" required step="any"
+                                    value="{{ $configuracion->consulta_crediticia }}" class="form-control text-info"
+                                    name="consulta_crediticia" id="consulta_crediticia" placeholder="Interes Moratorio"
+                                    aria-label="saldo" aria-describedby="basic-addon1" />
+                                <label for="floatingPassword">Monto por Consulta crediticia</label>
+                            </div>
+
+                        </div>
+                        <div class="form-group row mb-5 ">
+                            <h3></h3>
+                            <span class="badge badge-light-info fs-4">Parametros Contables</span>
+
+                            <hr>
+                            <div class="form-floating col-lg-6">
+                                <select name="monto_deposito_credito" id="monto_deposito_credito" class="form-select"
+                                    data-control="select2">
+                                    @foreach ($catalogo as $cuenta)
+                                        @if ($cuenta->movimiento == 0)
+                                            <optgroup label="{{ $cuenta->descripcion }}">
+                                        @endif
+
+                                        <option value="{{ $cuenta->id_cuenta }}"
+                                            {{ $cuenta->id_cuenta == $configuracion->monto_deposito_credito ? 'selected' : '' }}>
+                                            {{ $cuenta->numero }}->
+                                            {{ $cuenta->descripcion }}
+
+                                        </option>
+                                        @if ($cuenta->movimiento == 0)
+                                            </optgroup>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingPassword">Cuenta Deposito</label>
+                            </div>
+                            <div class="form-floating col-lg-6">
+                                <select name="cuenta_tipo_credito" id="cuenta_tipo_credito" class="form-select"
+                                     data-control="select2">
+                                    @foreach ($catalogo as $cuenta)
+                                        @if ($cuenta->movimiento == 0)
+                                            <optgroup label="{{ $cuenta->descripcion }}">
+                                        @endif
+
+                                        <option value="{{ $cuenta->id_cuenta }}"
+                                            {{ $cuenta->id_cuenta == $configuracion->cuenta_tipo_credito ? 'selected' : '' }}>
+                                            {{ $cuenta->numero }}->
+                                            {{ $cuenta->descripcion }}
+
+                                        </option>
+                                        @if ($cuenta->movimiento == 0)
+                                            </optgroup>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingPassword">Cuenta Crédito</label>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group row mb-5 ">
+                            <div class="form-floating col-lg-6">
+                                <select name="cuenta_aportacion" id="cuenta_aportacion" class="form-select"
+                                   data-control="select2">
+                                    @foreach ($catalogo as $cuenta)
+                                        @if ($cuenta->movimiento == 0)
+                                            <optgroup label="{{ $cuenta->descripcion }}">
+                                        @endif
+
+                                        <option value="{{ $cuenta->id_cuenta }}"
+                                            {{ $cuenta->id_cuenta == $configuracion->cuenta_aportacion ? 'selected' : '' }}>
+                                            {{ $cuenta->numero }}->
+                                            {{ $cuenta->descripcion }}
+
+                                        </option>
+                                        @if ($cuenta->movimiento == 0)
+                                            </optgroup>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingPassword">Cuenta de Aportaciones</label>
+                            </div>
+
+
+                            <div class="form-floating col-lg-6">
+                                <select name="cuenta_interes_credito" id="cuenta_interes_credito" class="form-select"
+                                   data-control="select2">
+                                   @foreach ($catalogo as $cuenta)
+                                        @if ($cuenta->movimiento == 0)
+                                            <optgroup label="{{ $cuenta->descripcion }}">
+                                        @endif
+
+                                        <option value="{{ $cuenta->id_cuenta }}"
+                                            {{ $cuenta->id_cuenta == $configuracion->cuenta_interes_credito ? 'selected' : '' }}>
+                                            {{ $cuenta->numero }}->
+                                            {{ $cuenta->descripcion }}
+
+                                        </option>
+                                        @if ($cuenta->movimiento == 0)
+                                            </optgroup>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingPassword">Cuenta Intereses Sobre Prestamos</label>
+                            </div>
+
+
+                        </div>
+                        <div class="form-group row mb-5 ">
+                            <div class="form-floating col-lg-6">
+                                <select name="cuenta_interes_credito_moratorio" id="cuenta_interes_credito_moratorio" class="form-select"
+                                   data-control="select2">
+                                    @foreach ($catalogo as $cuenta)
+                                        @if ($cuenta->movimiento == 0)
+                                            <optgroup label="{{ $cuenta->descripcion }}">
+                                        @endif
+
+                                        <option value="{{ $cuenta->id_cuenta }}"
+                                            {{ $cuenta->id_cuenta == $configuracion->cuenta_interes_credito_moratorio ? 'selected' : '' }}>
+                                            {{ $cuenta->numero }}->
+                                            {{ $cuenta->descripcion }}
+
+                                        </option>
+                                        @if ($cuenta->movimiento == 0)
+                                            </optgroup>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingPassword">Cuenta Interes Moratorio</label>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="tabTasa" role="tabpanel">
                         <!--begin::row group-->
@@ -109,19 +267,22 @@
                                 <label for="floatingPassword">Dias de Gracia</label>
                             </div>
                             <div class="form-floating col-lg-4">
-                                <input type="number" step="any" required value="{{ $configuracion->interes_moratorio }}"
-                                    class="form-control text-info" name="interes_moratorio" id="interes_moratorio"
-                                    placeholder="Interes Moratorio" aria-label="saldo" aria-describedby="basic-addon1" />
+                                <input type="number" step="any" required
+                                    value="{{ $configuracion->interes_moratorio }}" class="form-control text-info"
+                                    name="interes_moratorio" id="interes_moratorio" placeholder="Interes Moratorio"
+                                    aria-label="saldo" aria-describedby="basic-addon1" />
                                 <label for="floatingPassword">Tasa Interes Moratorio %</label>
                             </div>
                             <div class="form-floating col-lg-4">
-                                <input type="number" required step="any" value="{{ $configuracion->consulta_crediticia }}"
-                                    class="form-control text-info" name="consulta_crediticia" id="consulta_crediticia"
-                                    placeholder="Interes Moratorio" aria-label="saldo" aria-describedby="basic-addon1" />
+                                <input type="number" required step="any"
+                                    value="{{ $configuracion->consulta_crediticia }}" class="form-control text-info"
+                                    name="consulta_crediticia" id="consulta_crediticia" placeholder="Interes Moratorio"
+                                    aria-label="saldo" aria-describedby="basic-addon1" />
                                 <label for="floatingPassword">Monto por Consulta crediticia</label>
                             </div>
 
                         </div>
+
                     </div>
 
 

@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Cajas;
 use App\Models\Catalogo;
+use App\Models\Clientes;
 use App\Models\Configuracion;
 use App\Models\Cuentas;
+use App\Models\LiquidacionModel;
 use App\Models\Movimientos;
+use App\Models\PartidaContable;
+use App\Models\PartidaContableDetalleModel;
 use App\Models\SolicitudCredito;
 use Illuminate\Http\Request;
 use App\Models\Credito;
@@ -82,7 +86,9 @@ class CreditoController extends Controller
       $SEGURO_DEUDA = $credito->seguro_deuda;
 
       #calculo de intereses
-      $SALDO_CAPITAL = $credito->saldo_capital;
+      // $SALDO_CAPITAL = number_format( $credito->saldo_capital);
+      $SALDO_CAPITAL = sprintf("%.2f", $credito->saldo_capital);
+
       // $TASA = $credito->tasa / 100;
       $TASA = $configuracion->interes_moratorio / 100;
 
@@ -93,7 +99,9 @@ class CreditoController extends Controller
       }
 
       $INTERESES = ($SALDO_CAPITAL * $TASA * $DIAS_TRASCURRIDOS) / 365;
+      $INTERESES = sprintf("%.2f", $INTERESES);
       $INTERESES_30_DIAS = ($SALDO_CAPITAL * $TASA * 30) / 365;
+      $INTERESES_30_DIAS == sprintf("%.2f", $INTERESES_30_DIAS);
 
 
       if ($CUOTA > $SALDO_CAPITAL) { //Si la cuota es mayor al saldo capital se le asigna el saldo capital
@@ -133,10 +141,12 @@ class CreditoController extends Controller
 
    function payCredit(Request $request)
    {
-      // dd($request->all());
-      $credito = Credito::where('id_credito', $request->id_credito)->first();
-      $pago = new PagosCredito();
       $configuracion = Configuracion::first();
+
+
+
+
+      $credito = Credito::where('id_credito', $request->id_credito)->first();
 
       $MORA = 0.000 * 0;
 
@@ -158,18 +168,16 @@ class CreditoController extends Controller
       $INTERESES = ($SALDO_CAPITAL * $TASA * $DIAS_TRASCURRIDOS) / 365;
       $INTERESES_30_DIAS = ($SALDO_CAPITAL * $TASA * 30) / 365;
 
-
-
       if ($DIAS_TRASCURRIDOS > 33) {
          // $TASA_MORA = $credito->interes_mora / 100;
          $TASA_MORA = $configuracion->interes_moratorio / 100;
          $CAPITAL_VENCIDO = $CUOTA - $INTERESES_30_DIAS;
          $DIAS_MORA = $DIAS_TRASCURRIDOS - 30;
          //dd($CAPITAL_VENCIDO);
-         $MORA = ($CAPITAL_VENCIDO * $TASA_MORA * $DIAS_MORA) / 365;
+         $MORA = sprintf("%.2f", ($CAPITAL_VENCIDO * $TASA_MORA * $DIAS_MORA) / 365);
       }
 
-      $CAPITAL = $request->monto_saldo - $INTERESES - $MORA - $SEGURO_DEUDA - $APORTACION;
+      $CAPITAL = sprintf("%.2f", $request->monto_saldo - $INTERESES - $MORA - $SEGURO_DEUDA - $APORTACION);
       if ($CAPITAL < 0) {
          $CAPITAL = 0.0;
       }
@@ -182,6 +190,7 @@ class CreditoController extends Controller
       $credito->ultima_fecha_pago = date('Y-m-d');
       $credito->save();
 
+      $pago = new PagosCredito();
       $pago->id_credito = $credito->id_credito;
       $pago->id_pago_credito = Str::uuid()->toString();
       $pago->capital = $CAPITAL;
@@ -232,6 +241,81 @@ class CreditoController extends Controller
       $aportacion->estado = 1;
       $aportacion->id_pago_credito = $pago->id_pago_credito;
       $aportacion->save();
+
+      //generar la partida contable del Deposito del credito
+      $id_solicitud = $credito->id_solicitud;
+      $solicitud = SolicitudCredito::where('id_solicitud', $id_solicitud)->first();
+
+
+
+      //Generar la partida contable 
+      $id_partida = Str::uuid()->toString();
+      $partidaContable = new PartidaContable;
+      $cliente = Clientes::find($solicitud->id_cliente);
+
+
+
+      $partidaContable->concepto = 'POR PAGO DE CUOTA A PRESTAMO ' . $cliente->nombre;
+      $partidaContable->tipo_partida = 1; //Partida Diaria
+      $partidaContable->id_partida_contable = $id_partida;
+      $numero_cuenta = PartidaContable::where('year_contable', '=', date('Y'))->max('num_partida');
+      $partidaContable->num_partida = $numero_cuenta + 1;
+      $partidaContable->year_contable = date('Y');
+      $partidaContable->fecha_partida = today();
+      $partidaContable->save();
+
+
+      $arrayDatos = [];
+      $arrayDatos[] = ['cuenta' => $configuracion->monto_deposito_credito, 'debe' => $TOTAL_PAGAR, 'haber' => 0];
+
+
+      if ($CAPITAL > 0) {
+         $arrayDatos[] = ['cuenta' => $solicitud->destino, 'debe' => 0, 'haber' => $CAPITAL];
+      }
+
+      if ($APORTACION > 0) {
+         $arrayDatos[] = ['cuenta' => $configuracion->cuenta_aportacion, 'debe' => 0, 'haber' => $APORTACION];
+      }
+
+      if ($INTERESES > 0) {
+         $arrayDatos[] = ['cuenta' => $configuracion->cuenta_interes_credito, 'debe' => 0, 'haber' => $INTERESES];
+      }
+      // if ($SEGURO_DEUDA > 0) {
+      //    $arrayDatos[] = ['cuenta' => $configuracion->cuenta_seguro_deuda, 'debe' => 0, 'haber' => $SEGURO_DEUDA];
+      // }
+      if ($MORA > 0) {
+         $arrayDatos[] = ['cuenta' => $configuracion->cuenta_interes_credito_moratorio, 'debe' => 0, 'haber' => $MORA];
+      }
+
+      foreach ($arrayDatos as $item) {
+         $detallePartida = new PartidaContableDetalleModel();
+         $detallePartida->id_cuenta = $item['cuenta'];
+         $detallePartida->id_partida = $id_partida;
+         if ($item['debe'] > 0) {
+            $detallePartida->parcial = $item['debe'];
+            //Sumar al saldo de la cuenta
+            $cuenta = Catalogo::find($item['cuenta']);
+            $cuenta->saldo = $cuenta->saldo + $item['debe'];
+            $cuenta->save();
+
+         }
+         if ($item['haber'] > 0) {
+            $detallePartida->parcial = $item['haber'];
+            //Restar al saldo de la cuenta
+            $cuenta = Catalogo::find($item['cuenta']);
+            $cuenta->saldo = $cuenta->saldo - $item['haber'];
+            $cuenta->save();
+         }
+         $detallePartida->cargos = $item['debe'];
+         $detallePartida->abonos = $item['haber'];
+         $detallePartida->estado = 0; //Pendiente de procesar la partida
+         $detallePartida->save();
+      }
+
+
+
+
+
 
 
 

@@ -149,8 +149,8 @@
                 {{ method_field('POST') }}
                 <input type="hidden" name="id_credito" value="{{ $credito->id_credito }}">
                 <input type="hidden" name="id_caja" value="{{ $cajaAperturada->id_caja }}">
-                <input type="hidden" name="saldo_capital" id="saldo_capital" value="{{ $credito->saldo_capital }}">
-                <input type="hidden" name="aportacion_deposito" id="aportacion_deposito" value="{{ $credito->aportaciones }}">
+                <input type="hidden" name="saldo_capital" id="saldo_capital" value="{{  sprintf("%.2f", $credito->saldo_capital)}}">
+                <input type="hidden" name="aportacion_deposito" id="aportacion_deposito" value="{{ sprintf("%.2f",$credito->aportaciones) }}">
 
 
                 <div class="form-group row mb-5">

@@ -39,6 +39,12 @@
                         </div>
                         <!--end:Action-->
                     </form>
+                     <div class="d-flex align-items-center">
+                           <a href="/contabilidad/catalogo/reporte" class="btn btn-success" target="_blank">
+                          <i class="ki-outline ki-cheque fs-2"></i>
+                            Reporte Catalogo
+                            </a>
+                        </div>
                 </div>
             </div>
 

@@ -414,6 +414,7 @@ Route::post('/contabilidad/catalogo/add', [CatalogoController::class, 'post'])->
 Route::get('/contabilidad/catalogo/edit/{id}', [CatalogoController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/contabilidad/catalogo/put', [CatalogoController::class, 'put'])->middleware(['auth', 'bitacora']);
 Route::delete('/contabilidad/catalogo/delete', [CatalogoController::class, 'delete'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/catalogo/reporte', [ReportesController::class, 'catalogoCuentas'])->middleware(['auth', 'bitacora']);
 
 
 /*Tipos Partidas Contables */
