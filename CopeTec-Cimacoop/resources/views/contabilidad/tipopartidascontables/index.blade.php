@@ -1,59 +1,64 @@
 @extends('base.base')
+
+@section('title')
+    Administracion de Roles
+@endsection
+
 @section('content')
-    <div class="card shadow-sm">
+    <div class="card shadow-lg">
         <div class="card-header ribbon ribbon-end ribbon-clip">
             <div class="card-toolbar">
-                <a href="/modulo/add" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar Modulo</a>
+                <a href="/contabilidad/tipos-partidas/add" class="btn btn-info"><i class="fa-solid fa-plus"></i> Agregar
+                    Tipo Partida</a>
+
             </div>
             <div class="ribbon-label fs-3">
-                 <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+                <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
                 Administración | {{ Session::get('name_module') }}
                 <span class="ribbon-inner bg-info"></span>
             </div>
         </div>
         <div class="card-body">
             <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">
-                <thead class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                    <tr>
-                        <th>Acciones</th>
-                        <th>Modulo</th>
-                        <th>Icono</th>
-                        <th>M. Minizado</th>
-
-                        <th>Ruta</th>
-                        <th>Es Padre</th>
+                <thead>
+                    <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
+                        <th class="min-w-10px">Acciones</th>
+                        <th class="min-w-600px">Nombre</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($modulos as $modulo)
+                    @foreach ($tiposPartidas as $tipoCuenta)
                         <tr>
-                            <td><a href="javascript:void(0);" onclick="alertDelete({{ $modulo->id_modulo }})"
-                                    class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
-                                    Eliminar</a> <a href="/modulo/{{ $modulo->id_modulo }}" class="badge badge-primary"><i
-                                        class="fa-solid fa-pencil text-white"></i> &nbsp;
-                                    Modificar</a></td>
-                            <td>{{ $modulo->nombre }}</td>
                             <td>
-                                <i class="ki-outline {{ $modulo->icono }} fs-2"></i>
+
+                                <a href="/contabilidad/tipos-partidas/edit/{{ $tipoCuenta->id_tipo_partida }}"
+                                    class="btn btn-sm btn-info"><i class="fa-solid fa-pencil text-white"></i>
+                                </a>
+
+                                <a href="javascript:void(0);" onclick="alertDelete({{ $tipoCuenta->id_tipo_partida }})"
+                                    class="btn btn-sm btn-danger"><i class="fa-solid fa-trash text-white"></i>
+                                </a>
 
 
                             </td>
-                            <td>{{ $modulo->is_minimazed == 1 ? 'Si' : 'No' }}</td>
-
-                            <td>{{ $modulo->ruta }}</td>
-                            <td>{{ $modulo->is_padre == true ? 'Si' : 'No' }}</td>
+                            <td>{{ $tipoCuenta->descripcion }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+        <div class="card-footer">
+            {{ $tiposPartidas->links('vendor.pagination.bootstrap-5') }}
+        </div>
     </div>
-    <form method="post" id="deleteForm" action="/modulo/delete">
+
+    <form method="post" id="deleteForm" action="/contabilidad/tipos-partidas/delete">
         {!! csrf_field() !!}
         {{ method_field('DELETE') }}
         <input type="hidden" name="id" id="id">
     </form>
 @endsection
+
 @section('scripts')
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <script src="assets/plugins/global/plugins.bundle.js"></script>
@@ -61,7 +66,7 @@
         function alertDelete(id) {
             Swal.fire({
                 text: "Deseas Eliminar este registro",
-                icon: "question",
+                icon: "warning",
                 buttonsStyling: false,
                 showCancelButton: true,
                 confirmButtonText: "Si",

@@ -7,11 +7,14 @@ use App\Models\Credito;
 use App\Models\Movimientos;
 use App\Models\PagosCredito;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+      Session::put("estadoMenuminimizado", "0");
+
         //ultimos 10 depositos
         //ultimos 10 retiros
         //ultimos 10 creditos

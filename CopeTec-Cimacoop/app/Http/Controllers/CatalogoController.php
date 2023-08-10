@@ -6,30 +6,33 @@ use App\Models\Catalogo;
 use App\Models\CatalogoTipo;
 use App\Models\TipoCuentaCotableModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CatalogoController extends Controller
 {
     public function index(Request $request)
     {
+
+        $filtro = $request->input('filtro');
         $cuentas = Catalogo::join('catalogo_tipo', 'catalogo_tipo.id_tipo_catalogo', '=', 'catalogo.tipo_catalogo')
-            ->when(isset($request->filtro), function ($query) use ($request) {
-                $query->where('catalogo.descripcion', 'LIKE', '%' . $request->filtro . '%')
-                    ->orWhere('catalogo.numero', '=', $request->filtro);
+            ->when(isset($request->filtro), function ($query) use ($filtro) {
+                $query->where('catalogo.descripcion', 'LIKE', '%' . $filtro . '%')
+                    ->orWhere('catalogo.numero', 'LIKE', '%' . $filtro . '%');
 
             })
             ->select('catalogo_tipo.descripcion as catalogo', 'catalogo.*')
-            ->orderBy('catalogo.numero', 'asc')
+            ->orderBy('catalogo.id_cuenta', 'asc')
             ->paginate(10);
-        // dd($cuentas);
 
-        return view('contabilidad.catalogo.index', compact('cuentas'));
+        return view('contabilidad.catalogo.index', compact('cuentas', 'filtro'));
 
     }
 
     public function add()
     {
+        $cuentaPadre = Catalogo::all();
         $tipoCatalogo = TipoCuentaCotableModel::all();
-        return view("contabilidad.catalogo.add", compact('tipoCatalogo'));
+        return view("contabilidad.catalogo.add", compact('tipoCatalogo','cuentaPadre'));
     }
 
     public function delete(Request $request)
@@ -42,10 +45,13 @@ class CatalogoController extends Controller
     public function post(Request $request)
     {
         $cuenta = new Catalogo();
+        $cuenta->id_cuenta_padre= $request->id_cuenta_padre;
         $cuenta->numero = $request->numero;
         $cuenta->descripcion = $request->descripcion;
         $cuenta->tipo_catalogo = $request->tipo_catalogo;
         $cuenta->estado = $request->estado;
+        $cuenta->movimiento = $request->movimiento;
+
         $cuenta->saldo = $request->saldo;
         $cuenta->iva = $request->iva;
         $cuenta->save();
@@ -54,20 +60,33 @@ class CatalogoController extends Controller
     public function edit($id)
     {
         $cuenta = Catalogo::find($id);
-        $tipoCatalogo = TipoCuentaCotableModel::all();
+        // $cuentaPadre = Catalogo::select('numero as numCuentaPadre', 'descripcion as descripcionPadre')->paginate(5);
 
+        $tipoCatalogo = TipoCuentaCotableModel::all();
+        
         return view('contabilidad.catalogo.edit', compact('cuenta', 'tipoCatalogo'));
     }
     public function put(Request $request)
     {
         $cuenta = Catalogo::find($request->id);
+        $cuenta->id_cuenta_padre = $request->id_cuenta_padre;
         $cuenta->numero = $request->numero;
         $cuenta->descripcion = $request->descripcion;
+        $cuenta->tipo_catalogo = $request->tipo_catalogo;
+
+        $cuenta->movimiento = $request->movimiento;
         $cuenta->estado = $request->estado;
         $cuenta->saldo = $request->saldo;
         $cuenta->iva = $request->iva;
-
         $cuenta->save();
         return redirect("/contabilidad/catalogo");
+    }
+    public function getCuentasById($tipo_catalogo)
+    {
+        $cuentaPadre = Catalogo::where('tipo_catalogo','=',$tipo_catalogo)->get();
+        return response()->json([
+            "cuentaPadre" => $cuentaPadre
+        ]);
+
     }
 }

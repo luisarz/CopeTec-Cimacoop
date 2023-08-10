@@ -7,7 +7,6 @@ use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
 use App\Models\Catalogo;
 use App\Models\Clientes;
-use App\Models\Configuracion;
 use App\Models\Credito;
 use App\Models\Cuentas;
 use App\Models\DepositosPlazo;
@@ -15,12 +14,14 @@ use App\Models\Empleados;
 use App\Models\LiquidacionModel;
 use App\Models\Movimientos;
 use App\Models\PagosCredito;
+use App\Models\PartidasContablesModel;
 use App\Models\ReferenciaSolicitud;
 use App\Models\SolicitudCredito;
 use App\Models\SolicitudCreditoBienes;
 use App\Models\TipoGarantia;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 use Luecano\NumeroALetras\NumeroALetras;
 use \PDF;
 use App\Helpers\ConversionHelper;
@@ -398,7 +399,6 @@ class ReportesController extends Controller
             ->join('clientes','clientes.id_cliente','=','creditos.id_cliente')
             ->where('pagos_credito.id_pago_credito','=',$id_pago_credito)
             ->first();
-// dd($abonoCredito);
         $formatter = new NumeroALetras();
         $TOTALPAGOENLETRAS = $formatter->toInvoice($abonoCredito->total_pago, 2, 'DÓLARES');
 
@@ -409,6 +409,79 @@ class ReportesController extends Controller
             'stilosBundle' => $this->stilosBundle,
             'abonoCredito' => $abonoCredito,
             'numeroEnLetras'=>$TOTALPAGOENLETRAS
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
+    public function partidaContable($id_partida)
+    {
+        $partida = PartidasContablesModel::join('tipos_partidas_contables','tipos_partidas_contables.id_tipo_partida','=','partidas_contables.tipo_partida')
+        ->where('partidas_contables.id_partida_contable','=',$id_partida)->first();
+
+        $results = DB::table('catalogo AS c')
+            ->select(
+                'c.descripcion AS descripcion_cuenta_padre',
+                'c.numero AS cuentaPadre',
+                'b.numero AS cuentaHija',
+                'b.descripcion AS descripcion_cuenta_hija',
+                'a.parcial',
+                'a.cargos',
+                'a.abonos'
+            )
+            ->join('catalogo AS b', 'c.id_cuenta', '=', 'b.id_cuenta_padre')
+            ->leftJoin('partida_contables_detalle AS a', 'b.id_cuenta', '=', 'a.id_cuenta')
+            ->where('a.id_partida', $id_partida)
+            ->orderBy('a.cargos', 'desc')
+            ->get();
+
+
+        $totalCargos = 0;
+        $totalAbonos = 0;
+
+        foreach ($results as $row) {
+            $totalCargos += $row->cargos;
+            $totalAbonos += $row->abonos;
+        }
+
+
+        $formattedResults = [];
+        foreach ($results as $result) {
+            if (!array_key_exists($result->descripcion_cuenta_padre, $formattedResults)) {
+                $formattedResults[$result->descripcion_cuenta_padre] = [
+                    'descripcion_cuenta_hija' => [],
+                    'total_parcial' => 0,
+                    'total_cargos' => 0,
+                    'total_abonos' => 0,
+                ];
+            }
+
+
+            $formattedResults[$result->descripcion_cuenta_padre]['descripcion_cuenta_hija'][] = [
+                'cuenta' => $result->cuentaHija,
+                'descripcion_cuenta_hija' => $result->descripcion_cuenta_hija,
+                'parcial' => $result->parcial,
+                'cargos' => $result->cargos,
+                'abonos' => $result->abonos,
+            ];
+            $formattedResults[$result->descripcion_cuenta_padre]['cuenta_padre'] = $result->cuentaPadre;
+            $formattedResults[$result->descripcion_cuenta_padre]['total_parcial'] += $result->parcial;
+            $formattedResults[$result->descripcion_cuenta_padre]['total_cargos'] += $result->cargos;
+            $formattedResults[$result->descripcion_cuenta_padre]['total_abonos'] += $result->abonos;
+
+        }
+
+
+        // $formatter = new NumeroALetras();
+        // $TOTALPAGOENLETRAS = $formatter->toInvoice($abonoCredito->total_pago, 2, 'DÓLARES');
+
+
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.contabilidad.partidas.partida', [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'partida' => $partida,
+            'totalCargos' => $totalCargos,
+            'totalAbonos' => $totalAbonos,
+            'formattedResults'=> $formattedResults
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }

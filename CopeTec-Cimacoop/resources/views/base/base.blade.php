@@ -19,12 +19,12 @@ License: For each use you must have a valid license purchased only from above li
     <title>CoopeTec-Administracion de cooperativas CompuTec Consultores</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:url" content="https://keenthemes.com/metronic" />
+    {{-- <meta property="og:url" content="https://keenthemes.com/metronic" /> --}}
     <meta property="og:site_name" content="Keenthemes | Metronic" />
-    <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
+    {{-- <link rel="canonical" href="https://preview.keenthemes.com/metronic8" /> --}}
     <link rel="shortcut icon" href=" {{ asset('assets/media/logos/favicon.ico') }}" />
     <!--begin::Fonts(mandatory for all pages)-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+    {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> --}}
     <!--end::Fonts-->
     <!--begin::Vendor Stylesheets(used for this page only)-->
     <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
@@ -40,11 +40,15 @@ License: For each use you must have a valid license purchased only from above li
 </head>
 <!--end::Head-->
 <!--begin::Body-->
+@php
+    $sidebarMinimize = Session::get('estadoMenuminimizado') == '1' ? 'on' : 'off';
+@endphp
 
 <body id="kt_app_body" data-kt-app-layout="light-sidebar" data-kt-app-header-fixed="true"
     data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true"
     data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true"
-    data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+    data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default"
+    data-kt-app-sidebar-minimize="{{ $sidebarMinimize }}">
     <!--begin::Theme mode setup on page load-->
     <script>
         var defaultThemeMode = "light";
@@ -67,7 +71,8 @@ License: For each use you must have a valid license purchased only from above li
     </script>
     <!--end::Theme mode setup on page load-->
     <!--begin::App-->
-    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+    <div class="d-flex
+    flex-column flex-root app-root" id="kt_app_root">
         <!--begin::Page-->
         <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
             <!--begin::Header-->
@@ -464,7 +469,9 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::Global Javascript Bundle-->
     <!--begin::Vendors Javascript(used for this page only)-->
     <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+
+
+    {{-- <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
@@ -474,7 +481,9 @@ License: For each use you must have a valid license purchased only from above li
     <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script> --}}
+
+
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <!--end::Vendors Javascript-->
     <script>
@@ -519,6 +528,40 @@ License: For each use you must have a valid license purchased only from above li
                 showConfirmButton: false,
                 allowEnterKey: false,
 
+            });
+        }
+
+        function swalSuccess(title, text, confirmButtonText) {
+            Swal.fire({
+                icon: 'success',
+                title: title,
+                text: text,
+                confirmButtonText: confirmButtonText,
+                customClass: {
+                    confirmButton: "btn btn-succes"
+                },
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                timer: 1500,
+                timerProgressBar: true,
+            });
+        }
+
+        function swalError(title, text, confirmButtonText) {
+            Swal.fire({
+                icon: 'success',
+                title: title,
+                text: text,
+                confirmButtonText: confirmButtonText,
+                customClass: {
+                    confirmButton: "btn btn-danger"
+                },
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                timer: 1500,
+                timerProgressBar: true,
             });
         }
     </script>

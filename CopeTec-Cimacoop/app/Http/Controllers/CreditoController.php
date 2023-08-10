@@ -48,6 +48,8 @@ class CreditoController extends Controller
 
    function payment($id)
    {
+      Session::put("estadoMenuminimizado", "1");
+
       $id_empleado_usuario = Session::get('id_empleado_usuario');
       $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
          ->where("estado_caja", '=', '1')
@@ -144,7 +146,7 @@ class CreditoController extends Controller
 
       $CUOTA = $credito->cuota;
       $APORTACION = $credito->aportaciones;
-      dd($credito);
+      // dd($credito);
       $SEGURO_DEUDA = $credito->seguro_deuda;
 
       #calculo de intereses
@@ -185,8 +187,8 @@ class CreditoController extends Controller
       $pago->capital = $CAPITAL;
       $pago->interes = $INTERESES;
       $pago->mora = $MORA;
-      $pago->aportacion = $APORTACION;
-      $pago->seguro_deuda = $SEGURO_DEUDA;
+      $pago->aportacion = ($APORTACION == null ? 0 : $APORTACION);
+      $pago->seguro_deuda = ($SEGURO_DEUDA == null ? 0 : $SEGURO_DEUDA);
       $pago->total_pago = $TOTAL_PAGAR;
       $pago->fecha_pago = date('Y-m-d H:i:s');
       $pago->cliente_operacion = $request->cliente_operacion;
@@ -217,7 +219,7 @@ class CreditoController extends Controller
       $cajaRecibe->save();
 
       //Registrando el movimiento en la cuenta de APortaciones del cliente
-      $aportacion=new Movimientos();
+      $aportacion = new Movimientos();
       $aportacion->id_cuenta = $credito->id_cuenta_aportacion;
       $aportacion->tipo_operacion = 9;
       $aportacion->monto = $APORTACION;
@@ -248,6 +250,8 @@ class CreditoController extends Controller
 
    function liquidar($credito)
    {
+      Session::put("estadoMenuminimizado", "1");
+
       $id_empleado_usuario = Session::get('id_empleado_usuario');
       $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
          ->where("estado_caja", '=', '1')
@@ -264,9 +268,9 @@ class CreditoController extends Controller
       $credito = Credito::where('id_credito', $credito)->
          join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
       $configuracion = Configuracion::first();
-      $catalogo = Catalogo::all();
-      $tipoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
+      $catalogo = Catalogo::where('estado', '=', 1)->get();
 
+      // $tipoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
       $configuracion = Configuracion::first();
       $costoConsultaCrediticia = number_format($configuracion->costo_consulta_crediticia);
 
@@ -284,14 +288,15 @@ class CreditoController extends Controller
 
 
 
-      return view('creditos.liquidar.index',
+      return view(
+         'creditos.liquidar.index',
          compact(
             'credito',
             'cajaAperturada',
             'configuracion',
             'catalogo',
             'cuentas',
-            'tipoCredito',
+            // 'tipoCredito',
             'solicitud',
             'costoConsultaCrediticia',
          )

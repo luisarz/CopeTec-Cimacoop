@@ -243,19 +243,30 @@
                                 </div>
                                 <!--begin::row group-->
                                 <div class="form-group row mb-5">
+
                                     <div class="form-floating col-lg-12">
                                         <select name="destino" id="destino" class="form-select"
                                             data-control="select2">
 
                                             @foreach ($destinoCredito as $destino)
+                                                @if ($destino->movimiento == 0)
+                                                    <optgroup label="{{ $destino->descripcion }}">
+                                                @endif
+
                                                 @if ($destino->id_cuenta == $solicitud->destino)
                                                     <option selected value="{{ $destino->id_cuenta }}">
+                                                        {{ $destino->numero }}->
                                                         {{ $destino->descripcion }}
+
                                                     </option>
-                                                @else
+                                                    @else
                                                     <option value="{{ $destino->id_cuenta }}">
+                                                        {{ $destino->numero }}->
                                                         {{ $destino->descripcion }}
                                                     </option>
+                                                @endif
+                                                @if ($destino->movimiento == 0)
+                                                    </optgroup>
                                                 @endif
                                             @endforeach
                                         </select>

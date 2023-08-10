@@ -37,8 +37,12 @@ class RegisterBitacoraMiddleware
             if($request->getPathInfo() == $access->ruta){
                 Session::put("active_menu",$access->id_modulo);
                 Session::put("icon_menu", $access->icono);
+                Session::put("estadoMenuminimizado", $access->is_minimazed);
                 Session::put("name_module", $access->nombre);
                 Session::put("active_menu_padre",$access->id_padre);
+
+              
+
             }
         }
 
