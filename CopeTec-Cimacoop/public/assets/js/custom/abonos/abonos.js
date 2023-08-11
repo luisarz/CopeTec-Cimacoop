@@ -141,6 +141,10 @@ var KTAuthNewPassword = (function () {
                                     },
                                     dataType: "json", // Especifica el tipo de datos esperados en la respuesta
                                 });
+                                document
+                                    .querySelector("#kt_new_abono_form")
+                                    .submit();
+
                                 Swal.fire({
                                     text: "El abono se ha registrado correctamente",
                                     icon: "success",
