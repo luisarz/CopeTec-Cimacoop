@@ -14,9 +14,9 @@ class MoneylaunderingNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct($account)
+    public function __construct($credit)
     {
-        $this->account = $account;
+        $this->credit = $credit;
     }
 
     /**
@@ -35,9 +35,9 @@ class MoneylaunderingNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -48,8 +48,14 @@ class MoneylaunderingNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'client' => $this->account->asociado->cliente->nombre,
-            'id_cuenta' => $this->account->id_cuenta
+            'numero_caja' => $this->credit->numero_caja,
+            'monto_saldo' => $this->credit->monto_saldo,
+            'justificante' => $this->credit->justificante,
+            'comprobante' => $this->credit->comprobante,
+            'cliente' => $this->credit->cliente->nombre,
+            'cobrado_por' => $this->credit->cobrado_por,
+            'codigo_credito' => $this->credit->codigo_credito,
+            'id_caja' => $this->credit->id_caja
         ];
     }
 }
