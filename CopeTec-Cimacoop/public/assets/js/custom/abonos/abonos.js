@@ -82,9 +82,6 @@ var KTAuthNewPassword = (function () {
                         monto_saldo =
                             document.querySelector("#monto_saldo").value;
                         let qty_cuotas = monto_saldo % payment;
-                        console.log(
-                            qty_cuotas > 4 || parseFloat(monto_saldo) > 3000.0
-                        );
                         if (
                             qty_cuotas > 4 ||
                             parseFloat(monto_saldo) > 3000.0
@@ -96,11 +93,11 @@ var KTAuthNewPassword = (function () {
                                 confirmButtonText: "Procesar Pago",
                                 focusConfirm: false,
                                 preConfirm: () => {
-                                    const login =
+                                    const justificante =
                                         Swal.getPopup().querySelector(
                                             "#justificante"
                                         ).value;
-                                    const password =
+                                    const comprobante =
                                         Swal.getPopup().querySelector(
                                             "#comprobante"
                                         ).value;
@@ -109,9 +106,39 @@ var KTAuthNewPassword = (function () {
                                             `Por favor ingrese justificación y si obtuvo comprobante`
                                         );
                                     }
-                                    return { justificante: justificante, comprobante: comprobante };
+                                    return {
+                                        justificante: justificante,
+                                        comprobante: comprobante,
+                                    };
                                 },
                             }).then((result) => {
+                                let data = {
+                                    id_credito: $("#id_credito").val(),
+                                    id_caja: $("#id_caja").val(),
+                                    _token: $("#token").val(),
+                                    monto_saldo: monto_saldo,
+                                    justificante: result.value.justificante,
+                                    comprobante: result.value.comprobante,
+                                };
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/alerts/new",
+                                    headers: {
+                                        "X-CSRF-TOKEN": $(
+                                            'meta[name="csrf-token"]'
+                                        ).attr("content"),
+                                    },
+                                    data: data, // No es necesario convertir a JSON.stringify
+                                    success: function (response) {
+                                        console.log(response);
+                                    },
+                                    error: function (xhr, status, error) {
+                                        swal.close();
+                                        console.log(error);
+                                    },
+                                    dataType: "json", // Especifica el tipo de datos esperados en la respuesta
+                                });
                                 Swal.fire({
                                     text: "El abono se ha registrado correctamente",
                                     icon: "success",

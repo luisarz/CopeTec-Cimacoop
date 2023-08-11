@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MoneylaunderingController extends Controller
@@ -12,7 +13,7 @@ class MoneylaunderingController extends Controller
      */
     public function index()
     {
-        $notifications= DB::table('notifications')->get();
+        $notifications = DB::table('notifications')->get();
         return view('alerts.index', compact('notifications'));
     }
 
@@ -29,7 +30,7 @@ class MoneylaunderingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd(auth()->user());
     }
 
     /**
