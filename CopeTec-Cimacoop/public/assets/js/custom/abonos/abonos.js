@@ -87,8 +87,10 @@ var KTAuthNewPassword = (function () {
                             parseFloat(monto_saldo) > 3000.0
                         ) {
                             Swal.fire({
-                                title: "Confirmar/Justificar abono alto",
-                                html: `<input type="text" id="justificante" class="swal2-input" placeholder="Justificación de abono:">
+                                title: "Confirmar/Justificar abono",
+                                html: `<label>Justificación de depósito</label>
+                                <input type="text" id="justificante" class="swal2-input" placeholder="Justificación de abono:">
+                                <label>Presenta comprobante</label>
                                 <input type="text" id="comprobante" class="swal2-input" placeholder="Obtuvo comprobante (Sí, No)?">`,
                                 confirmButtonText: "Procesar Pago",
                                 focusConfirm: false,
@@ -149,7 +151,7 @@ var KTAuthNewPassword = (function () {
                                     },
                                     timer: 1000,
                                 }).then(function (result) {
-                                    // window.location.href = "/creditos/abonos";
+                                    window.location.href = "/creditos/abonos";
                                 });
                             });
                         } else {
