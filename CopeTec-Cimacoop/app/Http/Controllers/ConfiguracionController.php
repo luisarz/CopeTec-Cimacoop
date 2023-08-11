@@ -49,6 +49,13 @@ class ConfiguracionController extends Controller
         $configuracion->cuenta_interes_credito = $request->cuenta_interes_credito;
         $configuracion->cuenta_interes_credito_moratorio = $request->cuenta_interes_credito_moratorio;
 
+        $configuracion->deposito_cuenta_debe = $request->deposito_cuenta_debe;
+        $configuracion->deposito_cuenta_haber = $request->deposito_cuenta_haber;
+        $configuracion->retiro_cuenta_debe = $request->retiro_cuenta_debe;
+        $configuracion->retiro_cuenta_haber = $request->retiro_cuenta_haber;
+
+
+
 
         $configuracion->save();
         return redirect('/configuracion');

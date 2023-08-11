@@ -13,9 +13,10 @@ class PartidasContablesController extends Controller
 {
     public function index(Request $request)
     {
+       
 
         $filtro = $request->input('filtro');
-        $fecha = $request->input('fecha_partida');
+        $fecha_partida = $request->input('fecha_partida');
         $cuentas = PartidasContablesModel::join('tipos_partidas_contables', 'tipos_partidas_contables.id_tipo_partida', '=', 'partidas_contables.tipo_partida')
             ->when(isset($filtro), function ($query) use ($filtro) {
                 $query->where(function ($subquery) use ($filtro) {
@@ -24,13 +25,13 @@ class PartidasContablesController extends Controller
                         ->orWhere('partidas_contables.concepto', 'LIKE', '%' . $filtro . '%');
                 });
             })
-            ->when(isset($fecha), function ($query) use ($fecha) {
-                $query->where('partidas_contables.fecha_partida', '=', $fecha);
+            ->when(isset($fecha_partida), function ($query) use ($fecha_partida) {
+                $query->where('partidas_contables.fecha_partida', '=', $fecha_partida);
             })
             ->orderBy('partidas_contables.num_partida', 'desc')
-            ->paginate(25);
+            ->paginate(10);
 
-        return view('contabilidad.partidas.index', compact('cuentas', 'filtro'));
+        return view('contabilidad.partidas.index', compact('cuentas', 'filtro','fecha_partida'));
 
     }
 

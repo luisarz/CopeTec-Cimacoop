@@ -31,12 +31,12 @@
                             Créditos
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link text-active-info d-flex align-items-center" data-bs-toggle="tab" href="#tabTasa">
+                    <li class="nav-item">
+                        <a class="nav-link text-active-info d-flex align-items-center" data-bs-toggle="tab" href="#tabCaja">
                             <i class="ki-solid ki-verify fs-2 me-2"></i>
-                            Tasa
+                            Caja
                         </a>
-                    </li> --}}
+                    </li>
 
                 </ul>
             </div>
@@ -257,32 +257,103 @@
 
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="tabTasa" role="tabpanel">
-                        <!--begin::row group-->
-                        <div class="form-group row mb-5">
-                            <div class="form-floating col-lg-4">
-                                <input type="number" required value="{{ $configuracion->dias_gracia }}"
-                                    class="form-control text-info" name="dias_gracia" id="dias_gracia"
-                                    placeholder="Interes Moratorio" aria-label="saldo" aria-describedby="basic-addon1" />
-                                <label for="floatingPassword">Dias de Gracia</label>
-                            </div>
-                            <div class="form-floating col-lg-4">
-                                <input type="number" step="any" required
-                                    value="{{ $configuracion->interes_moratorio }}" class="form-control text-info"
-                                    name="interes_moratorio" id="interes_moratorio" placeholder="Interes Moratorio"
-                                    aria-label="saldo" aria-describedby="basic-addon1" />
-                                <label for="floatingPassword">Tasa Interes Moratorio %</label>
-                            </div>
-                            <div class="form-floating col-lg-4">
-                                <input type="number" required step="any"
-                                    value="{{ $configuracion->consulta_crediticia }}" class="form-control text-info"
-                                    name="consulta_crediticia" id="consulta_crediticia" placeholder="Interes Moratorio"
-                                    aria-label="saldo" aria-describedby="basic-addon1" />
-                                <label for="floatingPassword">Monto por Consulta crediticia</label>
-                            </div>
+                    <div class="tab-pane fade" id="tabCaja" role="tabpanel">
+                        <div class="form-group row mb-5 ">
+                            <span class="badge badge-light-success fs-4 mb-5">Parametros Depositos</span>
 
+                            <div class="form-floating col-lg-6">
+                                <select name="deposito_cuenta_debe" id="deposito_cuenta_debe" class="form-select"
+                                    data-control="select2">
+                                    @foreach ($catalogo as $cuenta)
+                                        @if ($cuenta->movimiento == 0)
+                                            <optgroup label="{{ $cuenta->descripcion }}">
+                                        @endif
+
+                                        <option value="{{ $cuenta->id_cuenta }}"
+                                            {{ $cuenta->id_cuenta == $configuracion->deposito_cuenta_debe ? 'selected' : '' }}>
+                                            {{ $cuenta->numero }}->
+                                            {{ $cuenta->descripcion }}
+
+                                        </option>
+                                        @if ($cuenta->movimiento == 0)
+                                            </optgroup>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingPassword">Cuenta DEBE Depositos</label>
+                            </div>
+                            <div class="form-floating col-lg-6">
+                                <select name="deposito_cuenta_haber" id="deposito_cuenta_haber" class="form-select"
+                                     data-control="select2">
+                                    @foreach ($catalogo as $cuenta)
+                                        @if ($cuenta->movimiento == 0)
+                                            <optgroup label="{{ $cuenta->descripcion }}">
+                                        @endif
+
+                                        <option value="{{ $cuenta->id_cuenta }}"
+                                            {{ $cuenta->id_cuenta == $configuracion->deposito_cuenta_haber ? 'selected' : '' }}>
+                                            {{ $cuenta->numero }}->
+                                            {{ $cuenta->descripcion }}
+
+                                        </option>
+                                        @if ($cuenta->movimiento == 0)
+                                            </optgroup>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingPassword">Cuenta HABER Depositos</label>
+
+                            </div>
+                            
                         </div>
+                         <div class="form-group row mb-5 ">
+                            <span class="badge badge-light-danger fs-4 mb-5">Parametros Retiros</span>
 
+                            <div class="form-floating col-lg-6">
+                                <select name="retiro_cuenta_debe" id="retiro_cuenta_debe" class="form-select"
+                                    data-control="select2">
+                                    @foreach ($catalogo as $cuenta)
+                                        @if ($cuenta->movimiento == 0)
+                                            <optgroup label="{{ $cuenta->descripcion }}">
+                                        @endif
+
+                                        <option value="{{ $cuenta->id_cuenta }}"
+                                            {{ $cuenta->id_cuenta == $configuracion->retiro_cuenta_debe ? 'selected' : '' }}>
+                                            {{ $cuenta->numero }}->
+                                            {{ $cuenta->descripcion }}
+
+                                        </option>
+                                        @if ($cuenta->movimiento == 0)
+                                            </optgroup>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingPassword">Cuenta DEBE Depositos</label>
+                            </div>
+                            <div class="form-floating col-lg-6">
+                                <select name="retiro_cuenta_haber" id="retiro_cuenta_haber" class="form-select"
+                                     data-control="select2">
+                                    @foreach ($catalogo as $cuenta)
+                                        @if ($cuenta->movimiento == 0)
+                                            <optgroup label="{{ $cuenta->descripcion }}">
+                                        @endif
+
+                                        <option value="{{ $cuenta->id_cuenta }}"
+                                            {{ $cuenta->id_cuenta == $configuracion->retiro_cuenta_haber ? 'selected' : '' }}>
+                                            {{ $cuenta->numero }}->
+                                            {{ $cuenta->descripcion }}
+
+                                        </option>
+                                        @if ($cuenta->movimiento == 0)
+                                            </optgroup>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingPassword">Cuenta HABER Depositos</label>
+
+                            </div>
+                            
+                        </div>
                     </div>
 
 
