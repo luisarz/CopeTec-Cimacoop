@@ -34,18 +34,21 @@
                 <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">
                     <thead class="thead-dark">
                         <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                            <th class="min-w-150px">Acciones</th>
-                            <th>Id Cuenta</th>
+                            {{-- <th class="min-w-150px">Acciones</th> --}}
+                            <th>Id Credito</th>
                             <th>Cliente</th>
-                            <th>Monto transacción (WIP)</th>
-                            <th>Caja (WIP)</th>
-                            <th>Atendido por: (WIP)</th>
+                            <th>Monto transacción </th>
+                            <th># Caja</th>
+                            <th>Atendido por: </th>
+                            <th>Justificante</th>
+                            <th>Se recibió comprobante</th>
+                            <th>Fecha/Hora</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($notifications as $n)
                             <tr>
-                                <td>
+                                {{-- <td>
                                     <div class="d-flex">
                                         @if (!$n->read_at)
                                             <a n="javascript:void(0);" tol-tip="Marcar como leída" data-offset="20px 20px"
@@ -59,22 +62,31 @@
                                         @endif
                                     </div>
 
-                                </td>
+                                </td> --}}
                                 <td>
                                     <?php
                                     $info = json_decode($n->data);
-                                    print_r($info->client);
+                                    print_r($info->codigo_credito);
                                     ?>
                                 </td>
-                                <td> {{ $info->id_cuenta }}</td>
+                                <td> {{ $info->cliente }}</td>
                                 <td>
-                                    $3,000.00
+                                    ${{ $info->monto_saldo }}
                                 </td>
                                 <td>
-                                    Caja #333
+                                    {{ $info->numero_caja }}
                                 </td>
                                 <td style="text-align: center">
-                                    Pedrito Fernandez
+                                    {{ $info->cobrado_por }}
+                                </td>
+                                <td style="text-align: center">
+                                    {{ $info->justificante }}
+                                </td>
+                                <td style="text-align: center">
+                                    {{ $info->comprobante }}
+                                </td>
+                                <td class="text-start">
+                                    {{ \Carbon\Carbon::parse($n->created_at)->format('d/m/Y h:i:s A') }}
                                 </td>
                             </tr>
                         @endforeach

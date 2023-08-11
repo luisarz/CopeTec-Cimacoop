@@ -86,7 +86,6 @@ class DeclaracionJuradaController extends Controller
 
         $dec = DeclaracionJurada::where('id_cuenta', $request->acc)->first();
         $acc = Cuentas::find($request->acc);
-        Notification::send($acc, new MoneylaunderingNotification($acc));
         $pdf = \App::make('snappy.pdf');
 
         $pdf->setOptions([

@@ -459,4 +459,5 @@ Route::middleware(['auth', 'bitacora'])->prefix('declare')->group(function () {
 /* rutas de alerts*/
 Route::middleware(['auth', 'bitacora'])->prefix('alerts')->group(function () {
     Route::get('', [MoneylaunderingController::class, 'index']);
+    Route::post('new', [MoneylaunderingController::class, 'store']);
 });
