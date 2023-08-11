@@ -19,8 +19,7 @@
                 @if ($credito->saldo_capital <= 0)
                     <span class="badge badge-success fs-2">Credito Cancelado</span>
                 @else
-
-                &nbsp;<span class="badge badge-success fs-2">Credito Activo</span>
+                    &nbsp;<span class="badge badge-success fs-2">Credito Activo</span>
                 @endif
                 <h3>
             </div>
@@ -152,6 +151,12 @@
                 <input type="hidden" name="saldo_capital" id="saldo_capital" value="{{  sprintf("%.2f", $credito->saldo_capital)}}">
                 <input type="hidden" name="aportacion_deposito" id="aportacion_deposito" value="{{ sprintf("%.2f",$credito->aportaciones) }}">
 <input type="hidden" step="any" min="{{ $TOTAL_PAGAR }}" value="{{ $TOTAL_PAGAR }}"
+                <input type="hidden" name="id_credito" id="id_credito" value="{{ $credito->id_credito }}">
+                <input type="hidden" name="id_caja" id="id_caja" value="{{ $cajaAperturada->id_caja }}">
+                <input type="hidden" name="saldo_capital" id="saldo_capital" value="{{ $credito->saldo_capital }}">
+                <input type="hidden" name="aportacion_deposito" id="aportacion_deposito"
+                    value="{{ $credito->aportaciones }}">
+                <input type="hidden" step="any" min="{{ $TOTAL_PAGAR }}" value="{{ $TOTAL_PAGAR }}"
                     name="min_payment" id="min_payment" class="form-control fw-bold text-info" placeholder="Monto Abonar">
 
                 <div class="form-group row mb-5">
