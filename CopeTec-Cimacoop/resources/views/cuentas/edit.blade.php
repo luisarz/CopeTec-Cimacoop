@@ -26,7 +26,7 @@ Editar Cliente
                         <option value="1">Masculino</option>
                         <option selected value="0">Femenino</option>
                         @endif
-                        
+
                     </select>
                     <label>Genero:</label>
                 </div>
@@ -125,9 +125,9 @@ Editar Cliente
                 </div>
             @endif
         </div>
-    
-        
-     
+
+
+
 
         <div class="card-footer d-flex justify-content-end py-6">
             <button type="submit" class="btn btn-bg-primary btn-text-white">Modificar</button>

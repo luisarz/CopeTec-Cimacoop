@@ -464,4 +464,6 @@ Route::middleware(['auth', 'bitacora'])->prefix('alerts')->group(function () {
 /* rutas de alerts*/
 Route::middleware(['auth', 'bitacora'])->prefix('params')->group(function () {
     Route::get('', [ParameterController::class, 'index']);
+    Route::get('/edit', [ParameterController::class, 'edit']);
+    Route::post('/update', [ParameterController::class, 'update']);
 });
