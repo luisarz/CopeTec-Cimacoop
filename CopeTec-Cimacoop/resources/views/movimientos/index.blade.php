@@ -345,6 +345,8 @@
                                                 '7' => ['badge' => 'light-info', 'icon' => null, 'label' => 'Abono a Crédito'],
                                                 '8' => ['badge' => 'light-info', 'icon' => null, 'label' => 'Desembolso Credito'],
                                                 '9' => ['badge' => 'light-info', 'icon' => null, 'label' => 'Deposito Aportaciones'],
+                                                '10' => ['badge' => 'light-info', 'icon' => null, 'label' => 'Depositos a plazo'],
+
                                             ];
                                         @endphp
 

@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asociados;
+use App\Models\Cajas;
+use App\Models\Catalogo;
+use App\Models\Clientes;
 use App\Models\Cuentas;
 use App\Models\DepositosPlazo;
+use App\Models\Movimientos;
+use App\Models\PartidaContable;
+use App\Models\PartidaContableDetalleModel;
 use App\Models\Plazos;
 use App\Models\TasasPlazos;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class DepositosPlazoController extends Controller
 {
@@ -51,17 +58,44 @@ class DepositosPlazoController extends Controller
             $certificado = 1;
         }
 
-        return view('captaciones.depositosplazo.add', compact('asociados', 'plazos', 'fecha', 'certificado'));
+        $id_empleado_usuario = session()->get('id_empleado_usuario');
+        $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
+            ->where("estado_caja", '=', '1')
+            ->where('id_usuario_asignado', '=', $id_empleado_usuario)
+            ->select('cajas.id_caja', 'cajas.saldo', 'cajas.numero_caja', 'cajas.id_usuario_asignado', 'apertura_caja.monto_apertura', 'apertura_caja.fecha_apertura')
+            ->first();
+        if (is_null($cajaAperturada)) {
+            return redirect("/apertura")->withErrors('No tienes caja aperturada, te redirigimos aqui, para que puedas aperturala y poder realizar movimientos.');
+
+        }
+
+        //pasar la cuenta contable de la cuenta de ahorro
+        $CUENTA_CONTABLE = Catalogo::where('descripcion', 'like', '%DEPOSITO%')->get();
+
+        return view('captaciones.depositosplazo.add', compact(
+            'asociados',
+            'plazos',
+            'fecha',
+            'certificado',
+            'CUENTA_CONTABLE',
+            'cajaAperturada'
+        )
+        );
     }
     public function post(Request $request)
     {
+        // dd($request->all());
+
+
         $deposito = new DepositosPlazo();
         $deposito->numero_certificado = $request->numero_certificado;
         $deposito->id_asociado = $request->id_asociado;
         $deposito->monto_deposito = $request->monto_deposito;
+        $deposito->monto_total = $request->monto_total;
         $deposito->forma_deposito = $request->forma_deposito;
         $deposito->numero_cheque = $request->numero_cheque;
         $deposito->id_cuenta_depositar = $request->id_cuenta_depositar;
+        $deposito->id_cuenta_aportacion = $request->id_cuenta_aportacion ? $request->id_cuenta_aportacion : null;
         $deposito->interes_deposito = $request->interes_deposito;
         $deposito->plazo_deposito = $request->plazo_deposito;
         $deposito->fecha_deposito = $request->fecha_deposito;
@@ -70,16 +104,118 @@ class DepositosPlazoController extends Controller
         $fechaVencimiento = Carbon::parse($request->fecha_vencimiento);
         $deposito->fecha_activacion_automatica = $fechaVencimiento->addDays(5);
         $deposito->is_renoved = 0;
+        $deposito->monto_aportacion_cuenta = $request->monto_aportacion_cuenta;
+        $deposito->monto_comision = $request->monto_comision;
+        $deposito->monto_apertura_cuenta = $request->monto_apertura_cuenta;
         $deposito->interes_total = $request->interes_total;
         $deposito->interes_mensual = $request->interes_mensual;
+        $deposito->id_cuenta_tipodeposito = $request->id_cuenta_tipodeposito; //Cuenta contable de deposito a plazo fijo
+        $deposito->id_cuenta_depositar_aportaciones = $request->id_cuenta_depositar_aportaciones;
+
         $deposito->estado = 1;
         $deposito->save();
+
+        //registrar el movimiento de deposito
+        $movimiento = new Movimientos();
+        $movimiento->id_cuenta = 0;// $request->id_cuenta_depositar;
+        $movimiento->tipo_operacion = 10;
+        $movimiento->monto = $request->monto_total;
+        $movimiento->fecha_operacion = now();
+        $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
+        $movimiento->id_caja = $request->id_caja;
+        $movimiento->observacion = 'DEPOSITO A PLAZO FIJO # ' . $request->numero_certificado;
+        $movimiento->estado = 1;
+        $movimiento->save();
+
+        //registrar el movimiento de aportacion
+        if ($request->id_cuenta_aportacion) {
+            $movimiento = new Movimientos();
+            $movimiento->id_cuenta = $request->id_cuenta_aportacion;
+            $movimiento->tipo_operacion = 1;
+            $movimiento->monto = $request->monto_aportacion_cuenta;
+            $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
+            $movimiento->id_caja = $request->id_caja;
+            $movimiento->fecha_operacion = now();
+            $movimiento->observacion = 'APORTACION A CUENTA DE AHORRO';
+            $movimiento->estado = 1;
+
+            $movimiento->save();
+        }
+
+        //registrar las partidas contables
+
+        // //Generar la partida contable 
+        // $id_partida = Str::uuid()->toString();
+        // $partidaContable = new PartidaContable;
+        // $cliente = Clientes::find($solicitud->id_cliente);
+
+
+
+        // $partidaContable->concepto = 'POR PAGO DE CUOTA A PRESTAMO ' . $cliente->nombre;
+        // $partidaContable->tipo_partida = 1; //Partida Diaria
+        // $partidaContable->id_partida_contable = $id_partida;
+        // $numero_cuenta = PartidaContable::where('year_contable', '=', date('Y'))->max('num_partida');
+        // $partidaContable->num_partida = $numero_cuenta + 1;
+        // $partidaContable->year_contable = date('Y');
+        // $partidaContable->fecha_partida = today();
+        // $partidaContable->save();
+
+
+        // $arrayDatos = [];
+        // $arrayDatos[] = ['cuenta' => '11010101', 'debe' => $TOTAL_PAGAR, 'haber' => 0];
+
+
+        // if ($CAPITAL > 0) {
+        //     $arrayDatos[] = ['cuenta' => $solicitud->destino, 'debe' => 0, 'haber' => $CAPITAL];
+        // }
+
+        // if ($APORTACION > 0) {
+        //     $arrayDatos[] = ['cuenta' => $configuracion->cuenta_aportacion, 'debe' => 0, 'haber' => $APORTACION];
+        // }
+
+        // if ($INTERESES > 0) {
+        //     $arrayDatos[] = ['cuenta' => $configuracion->cuenta_interes_credito, 'debe' => 0, 'haber' => $INTERESES];
+        // }
+        // // if ($SEGURO_DEUDA > 0) {
+        // //    $arrayDatos[] = ['cuenta' => $configuracion->cuenta_seguro_deuda, 'debe' => 0, 'haber' => $SEGURO_DEUDA];
+        // // }
+        // if ($MORA > 0) {
+        //     $arrayDatos[] = ['cuenta' => $configuracion->cuenta_interes_credito_moratorio, 'debe' => 0, 'haber' => $MORA];
+        // }
+
+        // foreach ($arrayDatos as $item) {
+        //     $detallePartida = new PartidaContableDetalleModel();
+        //     $detallePartida->id_cuenta = $item['cuenta'];
+        //     $detallePartida->id_partida = $id_partida;
+        //     if ($item['debe'] > 0) {
+        //         $detallePartida->parcial = $item['debe'];
+        //         //Sumar al saldo de la cuenta
+        //         $cuenta = Catalogo::find($item['cuenta']);
+        //         $cuenta->saldo = $cuenta->saldo + $item['debe'];
+        //         $cuenta->save();
+
+        //     }
+        //     if ($item['haber'] > 0) {
+        //         $detallePartida->parcial = $item['haber'];
+        //         //Restar al saldo de la cuenta
+        //         $cuenta = Catalogo::find($item['cuenta']);
+        //         $cuenta->saldo = $cuenta->saldo - $item['haber'];
+        //         $cuenta->save();
+        //     }
+        //     $detallePartida->cargos = $item['debe'];
+        //     $detallePartida->abonos = $item['haber'];
+        //     $detallePartida->estado = 0; //Pendiente de procesar la partida
+        //     $detallePartida->save();
+        // }
+
+
+
         return redirect('/captaciones/depositosplazo');
     }
     public function edit($id)
     {
         $deposito = DepositosPlazo::where('id_deposito_plazo_fijo', '=', $id)->first();
-        
+
         $asociados = Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->where('asociados.id_asociado', '!=', 0)
             ->select('asociados.id_asociado', 'clientes.nombre', 'clientes.dui_cliente')->get();
@@ -91,10 +227,10 @@ class DepositosPlazoController extends Controller
             ->select('cuentas.id_cuenta', 'cuentas.numero_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta')
             ->where('cuentas.id_asociado', '=', $deposito->id_asociado)
             ->get();
-        $tasas=TasasPlazos::where('id_plazo','=',$deposito->plazo_deposito)->get();
+        $tasas = TasasPlazos::where('id_plazo', '=', $deposito->plazo_deposito)->get();
 
 
-        return view('captaciones.depositosplazo.edit', compact('deposito', 'asociados', 'plazos','cuentas','tasas'));
+        return view('captaciones.depositosplazo.edit', compact('deposito', 'asociados', 'plazos', 'cuentas', 'tasas'));
 
     }
     public function put(Request $request)
@@ -118,6 +254,15 @@ class DepositosPlazoController extends Controller
         $deposito->interes_total = $request->interes_total;
         $deposito->interes_mensual = $request->interes_mensual;
         $deposito->estado = 1;
+        $deposito->save();
+        return redirect('/captaciones/depositosplazo');
+    }
+
+    public function delete(Request $request)
+    {
+        $id_deposito = $request->id;
+        $deposito = DepositosPlazo::findorfail($id_deposito);
+        $deposito->estado = 0;
         $deposito->save();
         return redirect('/captaciones/depositosplazo');
     }

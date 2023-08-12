@@ -11,6 +11,7 @@ use App\Http\Controllers\PartidaContableDetalleController;
 use App\Http\Controllers\PartidasContablesController;
 use App\Http\Controllers\PlazosController;
 use App\Http\Controllers\ReferenciaSolicitudController;
+use App\Http\Controllers\ReporteContabilidad;
 use App\Http\Controllers\SolicitudCreditoBienesController;
 use App\Http\Controllers\SolicitudCreditoController;
 use App\Http\Controllers\TasasPlazosController;
@@ -323,7 +324,7 @@ Route::put('/captaciones/depositosplazo/put', [DepositosPlazoController::class, 
 Route::get('/captaciones/depositosplazo/liquidar/{id}', [DepositosPlazoController::class, 'liquidar'])->middleware(['auth', 'bitacora']);
 Route::post('/captaciones/depositosplazo/liquidar', [DepositosPlazoController::class, 'liquidarDeposito'])->middleware(['auth', 'bitacora']);
 Route::get('/captaciones/depositosplazo/renovar/{id}', [DepositosPlazoController::class, 'renovar'])->middleware(['auth', 'bitacora']);
-
+Route::delete('/captaciones/depositosplazo/delete', [DepositosPlazoController::class, 'delete'])->middleware(['auth', 'bitacora']);
 /*
 Beneficiarios Depositos Plazo Fijos
 */
@@ -433,6 +434,7 @@ Route::post('/contabilidad/partidas', [PartidasContablesController::class, 'inde
 Route::get('/contabilidad/partidas/add', [PartidasContablesController::class, 'add'])->middleware(['auth', 'bitacora']);
 Route::get('/contabilidad/partidas/edit/{id}', [PartidasContablesController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::post('/contabilidad/partidas/put', [PartidasContablesController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/reportes', [ReporteContabilidad::class, 'index'])->middleware(['auth', 'bitacora']);
 /**Reporte partidas contables */
 Route::get('/reportes/partidaContable/{id}', [ReportesController::class, 'partidaContable'])->middleware(['auth', 'bitacora']);
 

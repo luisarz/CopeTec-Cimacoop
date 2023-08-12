@@ -36,7 +36,7 @@
                 <div class="form-group row mb-5">
                    
                     <div class="form-floating col-lg-4">
-                        <input type="number" step="1"  value="{{ $tasa->valor }}" required
+                        <input type="number" step="any"  value="{{ $tasa->valor }}" required
                             class="form-control" placeholder="valor" name="valor" />
                         <label>Periodo:</label>
                     </div>

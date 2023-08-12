@@ -17,7 +17,8 @@
                 <!--begin: Pic-->
                 <div class="me-7 mb-4">
                     <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
-                        <img src="/assets/media/avatars/300-1.jpg" alt="user">
+
+                        <i class="ki-outline ki-user-square fs-5x"></i>
                         <div
                             class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
                         </div>
@@ -163,7 +164,7 @@
 
                 @if ($beneficiarios == null)
                     <tr>
-                        <td colspan="4" class="text-center">
+                        <td colspan="6" class="text-center">
                             <div class="alert alert-danger">
                                 No hay Beneficiarios Registrados
                             </div>
