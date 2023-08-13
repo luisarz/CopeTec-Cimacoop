@@ -46,7 +46,10 @@ class MoneylaunderingController extends Controller
         $credito->cobrado_por = $emp->nombre_empleado;
         // dd($credito);
         Notification::send($credito, new MoneylaunderingNotification($credito));
-        return response('alert_created', 200);
+        return response()->json([
+            'message' => 'alert created',
+            'codeResponse' => '200',
+        ]);
     }
 
     /**

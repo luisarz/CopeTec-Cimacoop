@@ -9,6 +9,7 @@ use App\Models\Configuracion;
 use App\Models\Cuentas;
 use App\Models\LiquidacionModel;
 use App\Models\Movimientos;
+use App\Models\Parameter;
 use App\Models\PartidaContable;
 use App\Models\PartidaContableDetalleModel;
 use App\Models\SolicitudCredito;
@@ -53,7 +54,7 @@ class CreditoController extends Controller
    function payment($id)
    {
       Session::put("estadoMenuminimizado", "1");
-
+      $param = Parameter::all();
       $id_empleado_usuario = Session::get('id_empleado_usuario');
       $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
          ->where("estado_caja", '=', '1')
@@ -135,6 +136,7 @@ class CreditoController extends Controller
             'DIAS_MORA',
             'TASA',
             'cajaAperturada',
+            'param'
          )
       );
    }
@@ -248,7 +250,7 @@ class CreditoController extends Controller
 
 
 
-      //Generar la partida contable 
+      //Generar la partida contable
       $id_partida = Str::uuid()->toString();
       $partidaContable = new PartidaContable;
       $cliente = Clientes::find($solicitud->id_cliente);

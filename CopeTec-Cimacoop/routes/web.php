@@ -40,6 +40,7 @@ use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\CreditoController;
 use App\Http\Controllers\DeclaracionJuradaController;
 use App\Http\Controllers\MoneylaunderingController;
+use App\Http\Controllers\ParameterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -462,4 +463,10 @@ Route::middleware(['auth', 'bitacora'])->prefix('declare')->group(function () {
 Route::middleware(['auth', 'bitacora'])->prefix('alerts')->group(function () {
     Route::get('', [MoneylaunderingController::class, 'index']);
     Route::post('new', [MoneylaunderingController::class, 'store']);
+});
+/* rutas de alerts*/
+Route::middleware(['auth', 'bitacora'])->prefix('params')->group(function () {
+    Route::get('', [ParameterController::class, 'index']);
+    Route::get('/edit', [ParameterController::class, 'edit']);
+    Route::post('/update', [ParameterController::class, 'update']);
 });
