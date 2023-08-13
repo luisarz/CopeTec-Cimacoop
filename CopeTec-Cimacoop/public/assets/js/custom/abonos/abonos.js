@@ -161,7 +161,7 @@ var KTAuthNewPassword = (function () {
                                     },
                                     timer: 1000,
                                 }).then(function (result) {
-                                    // window.location.href = "/creditos/abonos";
+                                    window.location.href = "/creditos/abonos";
                                 });
                             });
                         } else {
@@ -175,7 +175,7 @@ var KTAuthNewPassword = (function () {
                                 },
                                 timer: 1000,
                             }).then(function (result) {
-                                // window.location.href = "/creditos/abonos";
+                                window.location.href = "/creditos/abonos";
                             });
                         }
                     }, 1500);
