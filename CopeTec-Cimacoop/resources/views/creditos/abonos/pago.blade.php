@@ -149,9 +149,16 @@
                 {{ method_field('POST') }}
                 <input type="hidden" name="id_credito" value="{{ $credito->id_credito }}">
                 <input type="hidden" name="id_caja" value="{{ $cajaAperturada->id_caja }}">
+
+                <input type="hidden" name="cuota" value="{{ $credito->id_credito }}">
+                <input type="hidden" name="id_caja" value="{{ $cajaAperturada->id_caja }}">
                 <input type="hidden" name="saldo_capital" id="saldo_capital" value="{{  sprintf("%.2f", $credito->saldo_capital)}}">
                 <input type="hidden" name="aportacion_deposito" id="aportacion_deposito" value="{{ sprintf("%.2f",$credito->aportaciones) }}">
+                <input type="hidden" step="any" min="{{ $TOTAL_PAGAR }}" value="{{ $TOTAL_PAGAR }}"
+                name="min_payment" id="min_payment">
 
+                <input type="hidden" name="cuota_to_val" id="cuota_to_val" value="{{ $param[0]->cuotas }}">
+                <input type="hidden" name="monto_to_val" id="monto_to_val" value="{{ $param[0]->monto }}">
 
                 <div class="form-group row mb-5">
                     <div class="form-floating fv-row col-lg-4">

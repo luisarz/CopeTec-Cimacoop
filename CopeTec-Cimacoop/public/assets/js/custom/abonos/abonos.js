@@ -81,10 +81,16 @@ var KTAuthNewPassword = (function () {
 
                         monto_saldo =
                             document.querySelector("#monto_saldo").value;
+                           let monto_to_val =
+                            document.querySelector("#monto_to_val").value;
+                            let cuotas_to_val =
+                            document.querySelector("#cuota_to_val").value;
                         let qty_cuotas = monto_saldo % payment;
+                        console.log(qty_cuotas > parseInt(cuotas_to_val) ||
+                        parseFloat(monto_saldo) > parseFloat(monto_to_val));
                         if (
-                            qty_cuotas > 4 ||
-                            parseFloat(monto_saldo) > 3000.0
+                            qty_cuotas > parseInt(cuotas_to_val) ||
+                            parseFloat(monto_saldo) > parseFloat(monto_to_val)
                         ) {
                             Swal.fire({
                                 title: "Confirmar/Justificar abono",
@@ -155,7 +161,7 @@ var KTAuthNewPassword = (function () {
                                     },
                                     timer: 1000,
                                 }).then(function (result) {
-                                    window.location.href = "/creditos/abonos";
+                                    // window.location.href = "/creditos/abonos";
                                 });
                             });
                         } else {
@@ -169,7 +175,7 @@ var KTAuthNewPassword = (function () {
                                 },
                                 timer: 1000,
                             }).then(function (result) {
-                                window.location.href = "/creditos/abonos";
+                                // window.location.href = "/creditos/abonos";
                             });
                         }
                     }, 1500);
