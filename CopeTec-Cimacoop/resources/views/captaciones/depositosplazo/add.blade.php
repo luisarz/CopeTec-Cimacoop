@@ -92,18 +92,18 @@
 
                     <div class="form-floating col-lg-3">
                         <input type="number" name="monto_apertura_cuenta" id="monto_apertura_cuenta" required
-                            class="form-control text-danger text-bold fs-2" read step="any" min="0">
-                        <label>Apertura de Cuenta:</label>
+                            class="form-control text-danger text-bold fs-2" read step="any" min="0" placeholder="">
+                        <label>Apertura de Cuenta ($5):</label>
                     </div>
                     <div class="form-floating col-lg-3">
                         <input type="number" name="monto_aportacion_cuenta" id="monto_aportacion_cuenta" required
-                            class="form-control text-danger text-bold fs-2" step="any" min="0">
-                        <label>Aportacion:</label>
+                            class="form-control text-danger text-bold fs-2" step="any" min="0" placeholder="10.00">
+                        <label>Aportacion ($10.00):</label>
                     </div>
                     <div class="form-floating col-lg-3">
                         <input type="number" name="monto_comision" id="monto_comision" required
-                            class="form-control text-danger text-bold fs-2" step="any" min="0">
-                        <label>Comision:</label>
+                            class="form-control text-danger text-bold fs-2" step="any" min="0" placeholder="">
+                        <label>Comision ($10):</label>
                     </div>
                     <div class="form-floating col-lg-3">
                         <input type="hidden" name="monto_deposito" id="monto_deposito" required

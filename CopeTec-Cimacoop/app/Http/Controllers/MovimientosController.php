@@ -38,7 +38,7 @@ class MovimientosController extends Controller
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
-            ->whereDate('movimientos.fecha_operacion', today())
+            ->whereDate('movimientos.fecha_operacion', '>=', now()->subDays(5))
             ->where('movimientos.id_caja', '=', $idCajaAperturada)
             ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
             ->orderby('movimientos.id_movimiento', 'desc')
@@ -52,7 +52,7 @@ class MovimientosController extends Controller
              SUM(CASE WHEN tipo_operacion = 7 AND estado = 1 THEN monto ELSE 0 END) AS totalAbonosCreditos, 
              SUM(CASE WHEN estado = 0 THEN monto ELSE 0 END) AS totalAnuladas'
         )
-            ->whereDate('fecha_operacion', today())
+            ->whereDate('fecha_operacion', '>=', now()->subDays(5))
             ->where('id_caja', '=', $cajaAperturada->id_caja)
             ->first();
 
