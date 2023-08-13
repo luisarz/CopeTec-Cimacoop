@@ -485,4 +485,44 @@ class ReportesController extends Controller
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
+    public function catalogoCuentas()
+    {
+
+        // Obtener el catálogo con la información de las cuentas y sus tipos
+        $catalogo = Catalogo::join('catalogo_tipo', 'catalogo_tipo.id_tipo_catalogo', '=', 'catalogo.tipo_catalogo')
+            ->select('catalogo_tipo.descripcion as tipoCuenta', 'catalogo.*')
+            ->orderBy('catalogo.id_cuenta', 'asc')
+            ->get();
+
+        // Crear un arreglo para almacenar las sumas de las cuentas hijas
+        $sumasHijas = [];
+
+        // Recorrer el catálogo para obtener las sumas de las cuentas hijas
+        foreach ($catalogo as $cuenta) {
+            $sumasHijas[$cuenta->id_cuenta] = Catalogo::where('id_cuenta_padre', $cuenta->id_cuenta)
+                ->sum('saldo');
+        }
+        //unir el catálogo con las sumas de las cuentas hijas
+        $catalogo = $catalogo->map(function ($cuenta) use ($sumasHijas) {
+            $cuenta->saldoHijas = $sumasHijas[$cuenta->id_cuenta];
+            return $cuenta;
+        });
+
+        //msotrar el resultado de toda la consulta
+      
+        
+
+        // $catalogo = Catalogo::join('catalogo_tipo', 'catalogo_tipo.id_tipo_catalogo', '=', 'catalogo.tipo_catalogo')
+        //     ->select('catalogo_tipo.descripcion as tipoCuenta', 'catalogo.*')
+        //     ->orderBy('catalogo.id_cuenta', 'asc')
+        //     ->get();
+
+        $pdf = \App::make('snappy.pdf');
+        $pdf = PDF::loadView('reportes.contabilidad.catalogo.catalogo', [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'catalogo' => $catalogo,
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
 }

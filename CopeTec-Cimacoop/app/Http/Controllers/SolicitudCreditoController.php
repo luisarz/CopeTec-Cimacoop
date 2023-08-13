@@ -343,8 +343,8 @@ class SolicitudCreditoController extends Controller
         $movimiento->save();
         $cuentaDestinoDatos->saldo_cuenta = $cuentaDestinoDatos->saldo_cuenta + $request->liquido;
         $cuentaDestinoDatos->save();
-        // $caja->saldo = $caja->saldo + $request->monto;
-        // $caja->save();
+        $caja->saldo = $caja->saldo + $request->monto;
+        $caja->save();
 
 
 
@@ -370,16 +370,21 @@ class SolicitudCreditoController extends Controller
         $partidaContable = new PartidaContable;
         $id_cliente = $cuentaDestinoDatos->id_cliente;
         $cliente = Clientes::find($id_cliente);
+        $cliente_prestamo = "";
+        if ($cliente) {
+            $cliente_prestamo = $cliente->nombre;
+        }
 
 
 
-        $partidaContable->concepto = 'POR PRESTAMO OTORGADO A' . $cliente->nombre;
+        $partidaContable->concepto = 'POR PRESTAMO OTORGADO A' . $cliente_prestamo;
         $partidaContable->tipo_partida = 1; //Partida Diaria
         $partidaContable->id_partida_contable = $id_partida;
         $numero_cuenta = PartidaContable::where('year_contable', '=', date('Y'))->max('num_partida');
         $partidaContable->num_partida = $numero_cuenta + 1;
         $partidaContable->year_contable = date('Y');
         $partidaContable->fecha_partida = today();
+        $partidaContable->monto= $request->liquido;
         $partidaContable->save();
 
         //recorremos los detalles de la liquidaacion para asignarlos a la partida contable
@@ -392,9 +397,17 @@ class SolicitudCreditoController extends Controller
             $detallePartida->id_partida = $id_partida;
             if ($liquidacion->monto_debe > 0) {
                 $detallePartida->parcial = $liquidacion->monto_debe;
+                //Sumar al saldo de la cuenta
+                $cuenta = Catalogo::find($liquidacion->id_cuenta);
+                $cuenta->saldo = $cuenta->saldo + $liquidacion->monto_debe;
+                $cuenta->save();
             }
             if ($liquidacion->monto_haber > 0) {
                 $detallePartida->parcial = $liquidacion->monto_haber;
+                //Resta al saldo de la cuenta
+                $cuenta = Catalogo::find($liquidacion->id_cuenta);
+                $cuenta->saldo = $cuenta->saldo + $liquidacion->monto_haber;
+                $cuenta->save();
             }
             $detallePartida->cargos = $liquidacion->monto_debe;
             $detallePartida->abonos = $liquidacion->monto_haber;

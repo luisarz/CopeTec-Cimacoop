@@ -37,7 +37,7 @@ PARTIDAS DE {{ $partida->descripcion }}
         <tr class="parent-row">
 
             <td>Concepto general</td>
-            <td>{{ $partida->concepto }}</td>
+            <td>{{  strtoupper( $partida->concepto) }}</td>
         </tr>
     </table>
 

@@ -24,7 +24,7 @@ License: For each use you must have a valid license purchased only from above li
     {{-- <link rel="canonical" href="https://preview.keenthemes.com/metronic8" /> --}}
     <link rel="shortcut icon" href=" {{ asset('assets/media/logos/favicon.ico') }}" />
     <!--begin::Fonts(mandatory for all pages)-->
-    {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> --}}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
     <!--begin::Vendor Stylesheets(used for this page only)-->
     <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
@@ -151,18 +151,12 @@ License: For each use you must have a valid license purchased only from above li
                             <!--begin::Theme mode-->
                             <div class="app-navbar-item ms-1 ms-md-3">
                                 <!--begin::Menu toggle-->
-                                <a href="#"
-                                    class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                                    data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent"
-                                    data-kt-menu-placement="bottom-end">
-                                    <i class="ki-duotone ki-night-day theme-light-show fs-2 fs-lg-1"><span
-                                            class="path1"></span><span class="path2"></span><span
-                                            class="path3"></span><span class="path4"></span><span
-                                            class="path5"></span><span class="path6"></span><span
-                                            class="path7"></span><span class="path8"></span><span
-                                            class="path9"></span><span class="path10"></span></i> <i
-                                        class="ki-duotone ki-moon theme-dark-show fs-2 fs-lg-1"><span
-                                            class="path1"></span><span class="path2"></span></i></a>
+                               <a href="#" class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+										<i class="ki-outline ki-night-day theme-light-show fs-2 fs-lg-1">
+										</i>
+										<i class="ki-outline ki-moon theme-dark-show fs-2 fs-lg-1">
+										</i>
+									</a>
                                 <!--begin::Menu toggle-->
 
                                 <!--begin::Menu-->
@@ -225,10 +219,16 @@ License: For each use you must have a valid license purchased only from above li
                             <!--begin::User menu-->
                             <div class="app-navbar-item ms-1 ms-md-3" id="kt_header_user_menu_toggle">
                                 <!--begin::Menu wrapper-->
-                                <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
+                                <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
                                     data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                                     data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                                    <img src="/assets/media/avatars/300-1.jpg" alt="user">
+                                    <span class="menu-icon" data-kt-element="icon">
+                                        {{-- <i class="ki-outline ki-profile-circle fs-2 "></i> --}}
+                                        <i class="ki-outline ki-profile-circle theme-light-show fs-2 fs-lg-1"></i>
+                                        <i class="ki-outline ki-profile-circle theme-dark-show fs-2 fs-lg-1">
+											
+										</i>
+                                    </span>
                                 </div>
 
                                 <!--begin::User account menu-->
@@ -239,27 +239,18 @@ License: For each use you must have a valid license purchased only from above li
                                         <div class="menu-content d-flex align-items-center px-3">
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-50px me-5">
-                                                <img alt="Logo" src="/assets/media/avatars/300-1.jpg">
+                                                <i class="ki-outline ki-profile-circle theme-light-show fs-2 fs-lg-1">
+                                                </i>
+
                                             </div>
-                                            <i class="flaticon-globe"></i>
                                             <!--end::Avatar-->
 
                                             <!--begin::Username-->
                                             <div class="d-flex flex-column">
                                                 <div class="fw-bold d-flex align-items-center fs-5">
-                                                    @php
-                                                        echo session('name');
-                                                    @endphp
-                                                    <span
-                                                        class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+                                                    @php echo session('name'); @endphp
                                                 </div>
-
-                                                <a href="#"
-                                                    class="fw-semibold text-muted text-hover-primary fs-7">
-                                                    @php
-                                                        echo session('email');
-                                                    @endphp
-                                                </a>
+                                                @php echo session('email'); @endphp
                                             </div>
                                             <!--end::Username-->
                                         </div>
@@ -270,20 +261,10 @@ License: For each use you must have a valid license purchased only from above li
                                     <div class="separator my-2"></div>
                                     <!--end::Menu separator-->
 
-
-                                    <!--begin::Menu separator-->
-                                    <div class="separator my-2"></div>
-                                    <!--end::Menu separator-->
-
-
-
-
-
-
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-5">
                                         <a href="/logout" class="menu-link px-5">
-                                            Cerrar sesión
+                                            <i class="ki-outline ki-exit-right fs-2 px-2"></i>Cerrar sesión
                                         </a>
                                     </div>
                                     <!--end::Menu item-->
@@ -335,9 +316,7 @@ License: For each use you must have a valid license purchased only from above li
                             class="app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary body-bg h-30px w-30px position-absolute top-50 start-100 translate-middle rotate"
                             data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body"
                             data-kt-toggle-name="app-sidebar-minimize">
-                            <i class="ki-duotone ki-double-left fs-2 rotate-180">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
+                            <i class="ki-outline ki-double-left fs-2 rotate-180">
                             </i>
                         </div>
                         <!--end::Sidebar toggle-->
@@ -468,7 +447,7 @@ License: For each use you must have a valid license purchased only from above li
     <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Vendors Javascript(used for this page only)-->
-    <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
+    {{-- <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script> --}}
 
 
     {{-- <script src="https://cdn.amcharts.com/lib/5/index.js"></script>

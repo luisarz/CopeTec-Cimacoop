@@ -16,7 +16,7 @@ class CuentasController extends Controller
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
             ->whereNotIn('clientes.estado', [0, 7])
             ->distinct()
-            ->orderby('clientes.nombre', 'asc')
+            ->orderby('cuentas.created_at', 'desc')
             ->select('cuentas.*', 'clientes.nombre as nombre_cliente','clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
             ->get();
 

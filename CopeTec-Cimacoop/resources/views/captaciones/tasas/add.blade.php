@@ -32,7 +32,7 @@
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
                     <div class="form-floating col-lg-4">
-                        <input type="number" step="1" min="1" required class="form-control"
+                        <input type="number" step="any" min="0.1" required class="form-control"
                             placeholder="valor" name="valor" />
                         <label>Tasa:</label>
                     </div>

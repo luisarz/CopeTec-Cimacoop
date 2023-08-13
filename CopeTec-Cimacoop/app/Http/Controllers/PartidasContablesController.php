@@ -13,19 +13,25 @@ class PartidasContablesController extends Controller
 {
     public function index(Request $request)
     {
+       
 
         $filtro = $request->input('filtro');
+        $fecha_partida = $request->input('fecha_partida');
         $cuentas = PartidasContablesModel::join('tipos_partidas_contables', 'tipos_partidas_contables.id_tipo_partida', '=', 'partidas_contables.tipo_partida')
-            ->when(isset($request->filtro), function ($query) use ($filtro) {
-                $query->where('partidas_contables.num_partida', 'LIKE', '%' . $filtro . '%')
-                    ->orWhere('partidas_contables.tipo_partida', 'LIKE', '%' . $filtro . '%')
-                    ->orWhere('partidas_contables.concepto', 'LIKE', '%' . $filtro . '%');
-
-
+            ->when(isset($filtro), function ($query) use ($filtro) {
+                $query->where(function ($subquery) use ($filtro) {
+                    $subquery->where('partidas_contables.num_partida', 'LIKE', '%' . $filtro . '%')
+                        ->orWhere('partidas_contables.tipo_partida', 'LIKE', '%' . $filtro . '%')
+                        ->orWhere('partidas_contables.concepto', 'LIKE', '%' . $filtro . '%');
+                });
+            })
+            ->when(isset($fecha_partida), function ($query) use ($fecha_partida) {
+                $query->where('partidas_contables.fecha_partida', '=', $fecha_partida);
             })
             ->orderBy('partidas_contables.num_partida', 'desc')
-            ->paginate(25);
-        return view('contabilidad.partidas.index', compact('cuentas', 'filtro'));
+            ->paginate(10);
+
+        return view('contabilidad.partidas.index', compact('cuentas', 'filtro','fecha_partida'));
 
     }
 
@@ -36,7 +42,7 @@ class PartidasContablesController extends Controller
         $tipoPartida = TiposPartidasContablesModel::all();
         $idPartida = Str::uuid()->toString();
         return view("contabilidad.partidas.add", compact('catalogo', 'tipoPartida', 'idPartida'));
-        
+
     }
 
 
@@ -60,8 +66,8 @@ class PartidasContablesController extends Controller
 
         $catalogo = Catalogo::where('estado', '=', 1)->get();
         $tipoPartida = TiposPartidasContablesModel::all();
-        $partida=PartidasContablesModel::find($id);
-        return view('contabilidad.partidas.edit', compact('catalogo', 'tipoPartida','partida'));
+        $partida = PartidasContablesModel::find($id);
+        return view('contabilidad.partidas.edit', compact('catalogo', 'tipoPartida', 'partida'));
     }
     public function put(Request $request)
     {

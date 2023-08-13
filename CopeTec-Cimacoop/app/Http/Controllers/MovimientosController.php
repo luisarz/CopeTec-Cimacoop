@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asociados;
 use App\Models\BobedaMovimientos;
 use App\Models\Cajas;
+use App\Models\Catalogo;
+use App\Models\Clientes;
+use App\Models\Configuracion;
 use App\Models\Cuentas;
 use App\Models\Empleados;
 use App\Models\Movimientos;
+use App\Models\PartidaContable;
+use App\Models\PartidaContableDetalleModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MovimientosController extends Controller
 {
@@ -55,15 +62,17 @@ class MovimientosController extends Controller
         $totalAbonosCreditos = $totalMovimientos->totalAbonosCreditos;
         // $saldo = ($cajaAperturada->monto_apertura + $totalDepositos) - ($totalRetiros + $totalAnuladas);
 
-        return view("movimientos.index", compact(
-            "movimientos",
-            "cajaAperturada",
-            "totalRetiros",
-            "totalDepositos",
-            "totalAnuladas",
-            "saldo",
-            "totalAbonosCreditos"
-        )
+        return view(
+            "movimientos.index",
+            compact(
+                "movimientos",
+                "cajaAperturada",
+                "totalRetiros",
+                "totalDepositos",
+                "totalAnuladas",
+                "saldo",
+                "totalAbonosCreditos"
+            )
         );
     }
 
@@ -194,6 +203,71 @@ class MovimientosController extends Controller
         $cuentaDestinoDatos->save();
         $caja->saldo = $caja->saldo + $request->monto;
         $caja->save();
+
+        //Generar la partida contable 
+        $configuracion = Configuracion::first();
+        $id_partida = Str::uuid()->toString();
+        $partidaContable = new PartidaContable;
+
+
+
+        $cuentaDatos = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->where('cuentas.id_cuenta', '=', $request->id_cuenta)
+            ->whereNotIn('clientes.estado', [0, 7])
+            ->distinct()
+            ->orderby('cuentas.created_at', 'desc')
+            ->select('cuentas.*', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+            ->first();
+
+        $descripcionPartida = $cuentaDatos->tipo_cuenta . ' ' . $cuentaDatos->nombre_cliente;
+
+        $partidaContable->concepto = 'POR DEPOSITO A CUENTA DE ' . $descripcionPartida;
+        $partidaContable->tipo_partida = 1; //Partida Diaria
+        $partidaContable->id_partida_contable = $id_partida;
+        $yearContableMax = $configuracion->max('year_contable');
+        $numero_cuenta = PartidaContable::where('year_contable', $yearContableMax)->max('num_partida');
+
+        $partidaContable->num_partida = $numero_cuenta + 1;
+        $partidaContable->year_contable = date('Y');
+        $partidaContable->fecha_partida = today();
+        $partidaContable->save();
+
+
+        $arrayDatos = [];
+        $arrayDatos[] = ['cuenta' => $configuracion->deposito_cuenta_debe, 'debe' => $request->monto, 'haber' => 0];
+        $arrayDatos[] = ['cuenta' => $configuracion->deposito_cuenta_haber, 'debe' => 0, 'haber' => $request->monto];
+
+
+
+        foreach ($arrayDatos as $item) {
+            $detallePartida = new PartidaContableDetalleModel();
+            $detallePartida->id_cuenta = $item['cuenta'];
+            $detallePartida->id_partida = $id_partida;
+            if ($item['debe'] > 0) {
+                $detallePartida->parcial = $item['debe'];
+                //Sumar al saldo de la cuenta
+                $cuenta = Catalogo::find($item['cuenta']);
+                $cuenta->saldo = $cuenta->saldo + $item['debe'];
+                $cuenta->save();
+
+            }
+            if ($item['haber'] > 0) {
+                $detallePartida->parcial = $item['haber'];
+                //Restar al saldo de la cuenta
+                $cuenta = Catalogo::find($item['cuenta']);
+                $cuenta->saldo = $cuenta->saldo - $item['haber'];
+                $cuenta->save();
+            }
+            $detallePartida->cargos = $item['debe'];
+            $detallePartida->abonos = $item['haber'];
+            $detallePartida->estado = 0; //Pendiente de procesar la partida
+            $detallePartida->save();
+        }
+
+
+
         return redirect("/reportes/comprobanteMovimiento/" . $movimiento->id_movimiento);
 
 
@@ -220,6 +294,74 @@ class MovimientosController extends Controller
         $cuentaOrigenDatos->save();
         $caja->saldo = $caja->saldo - $request->monto;
         $caja->save();
+
+
+        //Generar la partida contable 
+        $configuracion = Configuracion::first();
+        $id_partida = Str::uuid()->toString();
+        $partidaContable = new PartidaContable;
+
+
+
+        $cuentaDatos = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->where('cuentas.id_cuenta', '=', $request->id_cuenta)
+            ->whereNotIn('clientes.estado', [0, 7])
+            ->distinct()
+            ->orderby('cuentas.created_at', 'desc')
+            ->select('cuentas.*', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+            ->first();
+
+        $descripcionPartida=$cuentaDatos->tipo_cuenta.' '.$cuentaDatos->nombre_cliente;
+
+        $partidaContable->concepto = 'RETIRO DE LA CUENTA DE '.$descripcionPartida;
+        $partidaContable->tipo_partida = 1; //Partida Diaria
+        $partidaContable->id_partida_contable = $id_partida;
+        $yearContableMax = $configuracion->max('year_contable');
+        $numero_cuenta = PartidaContable::where('year_contable', $yearContableMax)->max('num_partida');
+
+        $partidaContable->num_partida = $numero_cuenta + 1;
+        $partidaContable->year_contable = date('Y');
+        $partidaContable->fecha_partida = today();
+        $partidaContable->save();
+
+
+        $arrayDatos = [];
+        $arrayDatos[] = ['cuenta' => $configuracion->retiro_cuenta_debe, 'debe' => $request->monto, 'haber' => 0];
+        $arrayDatos[] = ['cuenta' => $configuracion->retiro_cuenta_haber, 'debe' => 0, 'haber' => $request->monto];
+
+
+
+        foreach ($arrayDatos as $item) {
+            $detallePartida = new PartidaContableDetalleModel();
+            $detallePartida->id_cuenta = $item['cuenta'];
+            $detallePartida->id_partida = $id_partida;
+            if ($item['debe'] > 0) {
+                $detallePartida->parcial = $item['debe'];
+                //Sumar al saldo de la cuenta
+                $cuenta = Catalogo::find($item['cuenta']);
+                $cuenta->saldo = $cuenta->saldo + $item['debe'];
+                $cuenta->save();
+
+            }
+            if ($item['haber'] > 0) {
+                $detallePartida->parcial = $item['haber'];
+                //Restar al saldo de la cuenta
+                $cuenta = Catalogo::find($item['cuenta']);
+                $cuenta->saldo = $cuenta->saldo - $item['haber'];
+                $cuenta->save();
+            }
+            $detallePartida->cargos = $item['debe'];
+            $detallePartida->abonos = $item['haber'];
+            $detallePartida->estado = 0; //Pendiente de procesar la partida
+            $detallePartida->save();
+        }
+
+
+
+
+
         return redirect("/reportes/comprobanteMovimiento/" . $movimiento->id_movimiento);
 
     }

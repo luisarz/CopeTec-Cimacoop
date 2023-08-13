@@ -75,7 +75,7 @@
                                         <i class="ki-outline ki-security-user   fs-3"></i>
                                     </a>
 
-                                    <a href="/captaciones/tasas/{{ $deposito->id_deposito_plazo_fijo }}"
+                                    <a href="javascript:alertDelete({{$deposito->id_deposito_plazo_fijo }})"
                                         class="btn btn-danger btn-sm w-30">
                                         <i class="ki-outline ki-cross-circle   fs-5"></i>
                                     </a>
@@ -112,7 +112,7 @@
         </div>
     </div>
 
-    <form method="post" id="deleteForm" action="/captaciones/beneficiarios/delete">
+    <form method="post" id="deleteForm" action="/captaciones/depositosplazo/delete">
         {!! csrf_field() !!}
         {{ method_field('DELETE') }}
         <input type="hidden" name="id" id="id">
