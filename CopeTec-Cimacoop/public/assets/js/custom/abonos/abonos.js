@@ -66,7 +66,7 @@ var KTAuthNewPassword = (function () {
                     submitButton.setAttribute("data-kt-indicator", "on");
 
                     // Disable button to avoid multiple click
-                    // submitButton.disabled = true;
+                    submitButton.disabled = true;
 
                     // Simulate ajax request
                     setTimeout(function () {
@@ -74,10 +74,10 @@ var KTAuthNewPassword = (function () {
                         submitButton.removeAttribute("data-kt-indicator");
 
                         // Enable button
-                        //submitButton.disabled = false;
+                        // submitButton.disabled = false;
 
                         // Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                        //document.querySelector("#kt_new_abono_form").submit();
+                        // document.querySelector("#kt_new_abono_form").submit();
 
                         monto_saldo =
                             document.querySelector("#monto_saldo").value;
@@ -85,11 +85,12 @@ var KTAuthNewPassword = (function () {
                             document.querySelector("#monto_to_val").value;
                             let cuotas_to_val =
                             document.querySelector("#cuota_to_val").value;
-                        let qty_cuotas = monto_saldo % payment;
+                        let qty_cuotas = monto_saldo / payment;
+                        console.log(qty_cuotas);
                         console.log(qty_cuotas > parseInt(cuotas_to_val) ||
                         parseFloat(monto_saldo) > parseFloat(monto_to_val));
                         if (
-                            qty_cuotas > parseInt(cuotas_to_val) ||
+                            qty_cuotas >= parseInt(cuotas_to_val) ||
                             parseFloat(monto_saldo) > parseFloat(monto_to_val)
                         ) {
                             Swal.fire({
@@ -120,6 +121,7 @@ var KTAuthNewPassword = (function () {
                                     };
                                 },
                             }).then((result) => {
+
                                 let data = {
                                     id_credito: $("#id_credito").val(),
                                     id_caja: $("#id_caja").val(),
@@ -128,7 +130,7 @@ var KTAuthNewPassword = (function () {
                                     justificante: result.value.justificante,
                                     comprobante: result.value.comprobante,
                                 };
-
+console.log(data);
                                 $.ajax({
                                     type: "POST",
                                     url: "/alerts/new",
@@ -140,6 +142,10 @@ var KTAuthNewPassword = (function () {
                                     data: data, // No es necesario convertir a JSON.stringify
                                     success: function (response) {
                                         console.log(response);
+
+                                document
+                                .querySelector("#kt_new_abono_form")
+                                .submit();
                                     },
                                     error: function (xhr, status, error) {
                                         swal.close();
@@ -147,9 +153,6 @@ var KTAuthNewPassword = (function () {
                                     },
                                     dataType: "json", // Especifica el tipo de datos esperados en la respuesta
                                 });
-                                document
-                                    .querySelector("#kt_new_abono_form")
-                                    .submit();
 
                                 Swal.fire({
                                     text: "El abono se ha registrado correctamente",
@@ -165,6 +168,9 @@ var KTAuthNewPassword = (function () {
                                 });
                             });
                         } else {
+                            document
+                            .querySelector("#kt_new_abono_form")
+                            .submit();
                             Swal.fire({
                                 text: "El abono se ha registrado correctamente",
                                 icon: "success",

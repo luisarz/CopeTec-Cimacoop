@@ -147,8 +147,8 @@
             <form action="/creditos/payment" autocomplete="off" target="_blank" method="post" id="kt_new_abono_form">
                 {!! csrf_field() !!}
                 {{ method_field('POST') }}
-                <input type="hidden" name="id_credito" value="{{ $credito->id_credito }}">
-                <input type="hidden" name="id_caja" value="{{ $cajaAperturada->id_caja }}">
+                <input type="hidden" name="id_credito" id="id_credito" value="{{ $credito->id_credito }}">
+                <input type="hidden" name="id_caja" id="id_caja" value="{{ $cajaAperturada->id_caja }}">
 
                 <input type="hidden" name="cuota" value="{{ $credito->id_credito }}">
                 <input type="hidden" name="id_caja" value="{{ $cajaAperturada->id_caja }}">
