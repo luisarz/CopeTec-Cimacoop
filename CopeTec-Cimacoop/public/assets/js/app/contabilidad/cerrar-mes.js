@@ -65,6 +65,18 @@ $(document).ready(function () {
             "year": $("#year").val(),
             "_token": token
         };
+        Swal.fire({
+            title: 'Procesando...',
+            text: 'Por favor, espera mientras se realiza la consulta.',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            showCancelButton: false,
+            showConfirmButton: false,
+            onBeforeOpen: () => {
+                Swal.showLoading();
+                Swal.getHtmlContainer().querySelector('.swal2-loading').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            }
+        });
 
         $.ajax({
             type: "POST",
@@ -72,7 +84,7 @@ $(document).ready(function () {
             data: data, // No es necesario convertir a JSON.stringify
             success: function (response) {
                 let mensaje=response.mensaje;
-
+                swal.close();
                 if (response.estado == "success") {
                     id_cierre = response.id_cierre;
                     Swal.fire({
@@ -81,7 +93,7 @@ $(document).ready(function () {
                         text: mensaje,
                         willClose: () => {
                             // Redirige a la nueva página en una pestaña nueva
-                            window.open('/reportes/partidaContable/' + id_cierre, '_blank');
+                            window.open('/contabilidad/cierre-mensual/imprimir/' + id_cierre, '_blank');
                             setTimeout(() => {
                                 window.location.href = '/contabilidad/cierre-mensual';
                             }, 1000);

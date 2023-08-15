@@ -39,7 +39,7 @@
                     <i class="ki-outline ki-abstract-27 fs-2x"></i>
                     Nuevo Cierre
                 </a>
-             
+
             </div>
 
             <div class="ribbon-label fs-3">
@@ -54,29 +54,59 @@
                     <thead>
                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-250px">Acciones</th>
+                            <th class="min-w-50px text-center">Estado</th>
                             <th class="min-w-100px">Mes</th>
                             <th class="min-w-100px">Año</th>
-                            <th class="min-w-500px">Fecha de Cierre</th>
+                            <th class="min-w-100px">Fecha de Cierre</th>
+                            <th class="min-w-100px">Fecha Reversion</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($cierres as $cuenta)
                             <tr>
                                 <td>
-                                    <a href="/contabilidad/cierre-mensual/revertir/{{ $cuenta->id_cuenta }}"
-                                        class="btn btn-danger btn-sm w-30">
-                                        <i class="ki-outline ki-trash fs-4"></i>
-                                    Revertir
-                                    </a>
+                                    @if ($cuenta->estado == 1)
+                                        <a href="javascript:alertDelete({{ $cuenta->id }})"
+                                            class="btn btn-danger btn-sm w-30">
+                                            <i class="ki-outline ki-trash fs-4"></i>
+                                            Revertir
+                                        </a>
 
-                                    <a href="/contabilidad/cierre-mensual/imprimir/{{ $cuenta->id_cuenta }}"
-                                        class="btn btn-info btn-sm w-30"><i class="ki-outline ki-pencil fs-4"></i>
-                                    Imprimir</a>
+                                        <a href="/contabilidad/cierre-mensual/imprimir/{{ $cuenta->id }}" target="_blank"
+                                            class="btn btn-info btn-sm w-30"><i class="ki-outline ki-pencil fs-4"></i>
+                                            Imprimir</a>
+                                    @else
+                                        <a href="javascript:showMessageRevertido({{ $cuenta->id }})"
+                                            class="btn btn-danger btn-sm w-30">
+                                            <i class="ki-outline ki-trash fs-4"></i>
+                                            Revertir
+                                        </a>
 
+                                        <a href="/contabilidad/cierre-mensual/imprimir/{{ $cuenta->id }}" target="_blank"
+                                            class="btn btn-info btn-sm w-30"><i class="ki-outline ki-pencil fs-4"></i>
+                                            Imprimir</a>
+                                    @endif
                                 </td>
-                                <td>{{ $cuenta->mes }}</td>
+                                <td style="text-align: center">
+                                    @if ($cuenta->estado == 1)
+                                        <span class="badge badge-light-success fs-5">Cerrado</span>
+                                    @else
+                                        <span class="badge badge-light-danger">Revertido</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @foreach ($meses as $numero_mes => $nombre_mes)
+                                        @if ($numero_mes == $cuenta->mes)
+                                            {{ $nombre_mes }}
+                                        @endif
+                                    @endforeach
+                                </td>
                                 <td>{{ $cuenta->year }}</td>
-                                <td>{{ $cuenta->fecha_cierre }}</td>
+                                <td>{{ date('m-d-Y h:m:s A', strtotime($cuenta->fecha_cierre)) }}</td>
+                                <td>{{ $cuenta->fecha_reversion != null ? date('m-d-Y h:m:s A', strtotime($cuenta->fecha_reversion)) : '' }}
+                                </td>
+
                             </tr>
                         @empty
                             <tr>
@@ -92,77 +122,71 @@
         </div>
     </div>
 
-    <form method="post" id="deleteForm" action="/contabilidad/catalogo/delete">
+    <form method="post" id="deleteForm" action="/contabilidad/cierre-mensual/revertir">
         @csrf
         @method('DELETE')
         <input type="hidden" name="id" id="id">
+        <input type="hidden" name="password_user" id="password_user">
+
     </form>
 @endsection
 
 @section('scripts')
     <script>
         function alertDelete(id) {
-            Swal.fire({
-                text: "Deseas Eliminar este registro",
-                icon: "warning",
-                buttonsStyling: false,
-                showCancelButton: true,
-                confirmButtonText: "Si",
-                cancelButtonText: 'No',
-                customClass: {
-                    confirmButton: "btn btn-danger",
-                    cancelButton: "btn btn-secondary"
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $("#id").val(id)
-                    $("#deleteForm").submit();
-                }
-            });
-        }
 
-        function historicoCuenta(id) {
             Swal.fire({
-                text: "Ingresa las fechas para ver el histórico de la cuenta",
+                title: "Revertir Cierre mensual",
+                html: `
+                    <div>
+                        <p>Deseas eliminar este registro. Por favor, ingresa tu contraseña para confirmar:</p>
+                        <input type="password" id="password_validate" class="swal2-input" placeholder="Contraseña">
+                    </div>
+                `,
                 icon: "question",
                 buttonsStyling: false,
                 showCancelButton: true,
-                allowOutsideClick: false,
-                confirmButtonText: "Generar Historial",
-                html: `
-                    <div class="form-group mb-2">
-                        <label for="fecha_inicio">Desde</label>
-                        <input class="form-control" type="date" id="fecha_inicio" name="fecha_inicio" value="{{ date('Y-m-d') }}" required>
-                    </div>
-                    <div class="form-group mb-2">
-                        <label for="fecha_fin">Hasta</label>
-                        <input class="form-control" type="date" id="fecha_fin" name="fecha_fin" value="{{ date('Y-m-d') }}" required>
-                    </div>
-                    `,
-                    customClass: {
+                confirmButtonText: "Revertir Cierrre",
+                cancelButtonText: "Cancelar",
+                customClass: {
                     confirmButton: "btn btn-danger",
                     cancelButton: "btn btn-secondary"
+                },
+                preConfirm: () => {
+                    const password = document.getElementById('password_validate').value;
+                    if (!password) {
+                        Swal.showValidationMessage('Por favor, ingresa tu contraseña');
+                    }
+                    return password;
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    let desde = $("#fecha_inicio").val();
-                    let hasta = $("#fecha_fin").val();
-                    if (desde && hasta) {
-                        // Aquí puedes realizar la acción de generación de historial
-                        alert("Generando historial desde " + desde + " hasta " + hasta);
-                    } else {
-                        Swal.fire({
-                            text: "Por favor, selecciona ambas fechas para generar el historial.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            customClass: {
-                                confirmButton: "btn btn-danger"
-                            }
-                        });
-                    }
+                    let password = result.value;
+                    $("#id").val(id)
+                    $("#password_user").val(password)
+                    $("#deleteForm").submit();
                 }
             });
 
+        }
+
+        function showMessageRevertido() {
+            Swal.fire({
+                title: "Cierre mensual",
+                html: `
+                        <div>
+                            <p>El cierre mensual ya ha sido revertido.</p>
+                        </div>
+                    `,
+                icon: "error",
+                buttonsStyling: false,
+                showCancelButton: false,
+                showConfirmButton: true,
+                confirmButtonText: "Volver",
+                customClass: {
+                    confirmButton: "btn btn-info"
+                }
+            });
 
         }
     </script>

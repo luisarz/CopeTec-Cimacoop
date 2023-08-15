@@ -456,7 +456,7 @@ Route::post('/contabilidad/cierre-mensual/cierre', [CierreMensualController::cla
 Route::get('/contabilidad/cierre-mensual/revertir/{id}', [CierreMensualController::class, 'revertir'])->middleware(['auth', 'bitacora']);
 Route::get('/contabilidad/cierre-mensual/imprimir/{id}', [CierreMensualController::class, 'imprimir'])->middleware(['auth', 'bitacora']);
 
-Route::delete('/contabilidad/cierre-mensual/revertir/{id}', [CierreMensualController::class, 'delete'])->middleware(['auth', 'bitacora']);
+Route::delete('/contabilidad/cierre-mensual/revertir', [CierreMensualController::class, 'revertirCierre'])->middleware(['auth', 'bitacora']);
 
 
 

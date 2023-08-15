@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catalogo;
+use App\Models\PartidaContableDetalleModel;
 use App\Models\PartidasContablesModel;
 use App\Models\TiposPartidasContablesModel;
 use Illuminate\Http\Request;
@@ -67,6 +68,10 @@ class PartidasContablesController extends Controller
         $partidaContable->concepto = $request->concepto;
         $partidaContable->estado = 2;
         $partidaContable->save();
+
+        // $detallesPartida=PartidaContableDetalleModel::where('id_partida','=',$request->id_partida)->get();
+        // $detallesPartida->each->update(['fecha_procesamiento'=> $request->fecha_partida]);
+
         return response()->json([
             'estado' => "success",
             'message' => 'Partida guardada correctamente'
