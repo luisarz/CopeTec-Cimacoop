@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CierreMensualModel extends Model
 {
+    protected $table = 'cierre_mensual';
+    protected $primaryKey = 'id';
     use HasFactory;
 }

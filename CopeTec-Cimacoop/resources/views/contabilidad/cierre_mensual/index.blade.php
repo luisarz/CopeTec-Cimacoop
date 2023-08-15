@@ -35,14 +35,11 @@
                     </form>
 
                 </div>
-                <a href="/contabilidad/catalogo/add" class="btn btn-success me-5 btn-sm">
+                <a href="/contabilidad/cierre-mensual/cierre" class="btn btn-danger me-5 btn-sm">
                     <i class="ki-outline ki-abstract-27 fs-2x"></i>
-                    Nueva Cuenta
+                    Nuevo Cierre
                 </a>
-                <a href="/contabilidad/catalogo/reporte" class="btn btn-info me-5" target="_blank">
-                    <i class="ki-outline ki-cheque fs-2"></i>
-                    Reporte Catalogo
-                </a>
+             
             </div>
 
             <div class="ribbon-label fs-3">
@@ -57,53 +54,33 @@
                     <thead>
                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-250px">Acciones</th>
-                            <th class="min-w-50px">CODIGO</th>
-                            <th class="min-w-100px">TIPO CUENTA</th>
-                            <th class="min-w-80px">NOMBRE CUENTA</th>
-                            <th class="min-w-50px text-center">MOVIMIENTO</th>
-                            <th class="min-w-50px text-center">IVA</th>
-                            <th class="min-w-50px text-center">ESTADO</th>
-                            <th class="min-w-100px text-center">SALDO</th>
+                            <th class="min-w-100px">Mes</th>
+                            <th class="min-w-100px">Año</th>
+                            <th class="min-w-500px">Fecha de Cierre</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($cuentas as $cuenta)
+                        @forelse ($cierres as $cuenta)
                             <tr>
                                 <td>
-                                    <a href="/contabilidad/catalogo/edit/{{ $cuenta->id_cuenta }}"
-                                        class="btn btn-info btn-sm w-30"><i class="ki-outline ki-pencil fs-4"></i></a>
+                                    <a href="/contabilidad/cierre-mensual/revertir/{{ $cuenta->id_cuenta }}"
+                                        class="btn btn-danger btn-sm w-30">
+                                        <i class="ki-outline ki-trash fs-4"></i>
+                                    Revertir
+                                    </a>
 
-                                    <a href="javascript:historicoCuenta({{ $cuenta->id_cuenta }})"
-                                        class="btn btn-success btn-sm w-30"><i
-                                            class="ki-outline ki-security-user fs-4"></i></a>
+                                    <a href="/contabilidad/cierre-mensual/imprimir/{{ $cuenta->id_cuenta }}"
+                                        class="btn btn-info btn-sm w-30"><i class="ki-outline ki-pencil fs-4"></i>
+                                    Imprimir</a>
 
-                                    <a href="javascript:alertDelete({{ $cuenta->id_cuenta }})"
-                                        class="btn btn-danger btn-sm w-30"><i
-                                            class="ki-outline ki-cross-circle fs-4"></i></a>
                                 </td>
-                                <td>{{ $cuenta->numero }}</td>
-                                <td>{{ $cuenta->catalogo }}</td>
-                                <td>{{ $cuenta->descripcion }}</td>
-                                <td style="text-align: center">
-                                    <span class="badge badge-light-{{ $cuenta->movimiento ? 'danger' : 'info' }} fs-5">
-                                        {{ $cuenta->movimiento ? 'Si' : 'No' }}
-                                    </span>
-                                </td>
-                                <td style="text-align: center">
-                                    <span class="badge badge-light-{{ $cuenta->iva ? 'danger' : 'success' }} fs-5">
-                                        {{ $cuenta->iva ? 'Si' : 'No' }}
-                                    </span>
-                                </td>
-                                <td style="text-align: center">
-                                    <span class="badge badge-light-{{ $cuenta->estado ? 'success' : 'danger' }} fs-5">
-                                        {{ $cuenta->estado ? 'Activa' : 'Inactiva' }}
-                                    </span>
-                                </td>
-                                <td>$ {{ number_format($cuenta->saldo, 2) }}</td>
+                                <td>{{ $cuenta->mes }}</td>
+                                <td>{{ $cuenta->year }}</td>
+                                <td>{{ $cuenta->fecha_cierre }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center">No se encontraron cuentas.</td>
+                                <td colspan="4" class="text-center text-danger">No se encontraron Cierres.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -111,7 +88,7 @@
             </div>
         </div>
         <div class="card-footer">
-            {{ $cuentas->appends(['filtro' => $filtro])->links('vendor.pagination.bootstrap-5') }}
+            {{ $cierres->appends(['filtro' => $filtro])->links('vendor.pagination.bootstrap-5') }}
         </div>
     </div>
 
