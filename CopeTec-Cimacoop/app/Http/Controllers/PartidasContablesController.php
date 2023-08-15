@@ -28,6 +28,7 @@ class PartidasContablesController extends Controller
             ->when(isset($fecha_partida), function ($query) use ($fecha_partida) {
                 $query->where('partidas_contables.fecha_partida', '=', $fecha_partida);
             })
+            ->select('partidas_contables.*', 'tipos_partidas_contables.descripcion')
             ->orderBy('partidas_contables.num_partida', 'desc')
             ->paginate(10);
 
@@ -46,20 +47,7 @@ class PartidasContablesController extends Controller
     }
 
 
-    public function post(Request $request)
-    {
-        $cuenta = new PartidasContablesModel();
-        $cuenta->numero = $request->numero;
-        $cuenta->descripcion = $request->descripcion;
-        $cuenta->tipo_catalogo = $request->tipo_catalogo;
-        $cuenta->estado = $request->estado;
-        $cuenta->movimiento = $request->movimiento;
-
-        $cuenta->saldo = $request->saldo;
-        $cuenta->iva = $request->iva;
-        $cuenta->save();
-        return redirect("/contabilidad/catalogo");
-    }
+   
     public function edit($id)
     {
         Session::put("estadoMenuminimizado", "1");
@@ -71,13 +59,12 @@ class PartidasContablesController extends Controller
     }
     public function put(Request $request)
     {
-        // dd($request->all());
         $partidaContable = PartidasContablesModel::find($request->id_partida);
         $partidaContable->num_partida = $request->num_partida;
-        $partidaContable->year_contable = $request->yearContable;
+        // $partidaContable->year_contable = $request->yearContable;
+        $partidaContable->tipo_partida = $request->tipo_partida;
         $partidaContable->fecha_partida = $request->fecha_partida;
         $partidaContable->concepto = $request->concepto;
-        $partidaContable->monto = $request->monto;
         $partidaContable->estado = 2;
         $partidaContable->save();
         return response()->json([

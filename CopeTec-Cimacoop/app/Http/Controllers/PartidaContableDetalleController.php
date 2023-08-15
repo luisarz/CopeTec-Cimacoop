@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catalogo;
+use App\Models\Configuracion;
 use App\Models\PartidaContable;
 use App\Models\PartidaContableDetalleModel;
 use Illuminate\Http\Request;
@@ -15,15 +16,21 @@ class PartidaContableDetalleController extends Controller
     {
 
         //verificar si existe la partida
-        $existe = PartidaContable::where('id_partida_contable', '=', $request->id_partida)->first();
-        if (!$existe) {
+        $existePartidaContable = PartidaContable::where('id_partida_contable', '=', $request->id_partida)->first();
+        if (!$existePartidaContable) {
             //creamos la partida contable
+            $configuracion=Configuracion::first();
+            $year_contable=$configuracion->year_contable;
+
             $partidaContable = new PartidaContable;
             $partidaContable->id_partida_contable = $request->id_partida;
-            $numero_cuenta = PartidaContable::where('year_contable', '=', date('Y'))->max('num_partida');
-            $partidaContable->num_partida = $numero_cuenta + 1;
-            $partidaContable->year_contable = date('Y');
-            $partidaContable->fecha_partida = today();
+            $partidaContable->tipo_partida=$request->tipo_partida;
+            $numero_partida = PartidaContable::where('year_contable', '=', $year_contable)->max('num_partida');
+            $numero_partida= $numero_partida+1;
+            $partidaContable->num_partida = $numero_partida ;
+            $partidaContable->year_contable = $year_contable;
+            $partidaContable->fecha_partida = now();
+            $partidaContable->estado = 1; //Pendiente de procesar la partida
             $partidaContable->save();
         }
 
@@ -45,7 +52,7 @@ class PartidaContableDetalleController extends Controller
             $detallePartida->id_cuenta = $request->id_cuenta;
             $detallePartida->id_partida = $request->id_partida;
             if ($request->cargos > 0) {
-                $detallePartida->parcial = $request->cargos; 
+                $detallePartida->parcial = $request->cargos;
             }
             if ($request->abonos > 0) {
                 $detallePartida->parcial = $request->abonos;
@@ -58,7 +65,8 @@ class PartidaContableDetalleController extends Controller
 
             return response()->json([
                 'estado' => true,
-                'message' => 'Partida guardada correctamente'
+                'message' => 'Partida guardada correctamente',
+                'numero_partida' => (!$existePartidaContable) ? $numero_partida : null
             ], 200);
             //
         }

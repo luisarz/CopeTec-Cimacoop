@@ -22,340 +22,344 @@
 
         <!--begin::Body-->
         <div class="card-body">
-            <!--begin::Nav-->
-            <ul class="nav nav-pills d-flex text-active-info  justify-content-left nav-pills-custom  mb-6 mt-5">
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Balance General</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+            <div class="row">
+                <div class="col-md-4 border-gray-300 border-end-dashed ">
+                    <!--begin::Nav-->
+                    <ul class="nav nav-pills d-block text-active-info  justify-content-left nav-pills-custom  mb-6">
+                        <!--begin::Item-->
+                        <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                    <span class="fw-bold ">Balance General</span>
+                                </div>
+                                <!--end::Info-->
+                                <!--end::Icon-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Estado de Resultado</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                    <span class="fw-bold ">Estado de Resultado</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Icon-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
 
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Cambios en Patrimonio</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+                        <!--begin::Item-->
+                        <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                    <span class="fw-bold ">Cambios en Patrimonio</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Icon-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
 
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">
-                                    Flujo de efectivo</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+                        <!--begin::Item-->
+                        <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                    <span class="fw-bold ">
+                                        Flujo de efectivo</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Icon-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
 
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">
-                                    Balance de Comprobación</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+                        <!--begin::Item-->
+                        <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                    <span class="fw-bold ">
+                                        Balance de Comprobación</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Icon-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
-            </ul>
-            <hr>
-            <ul class="nav nav-pills d-flex text-active-info  justify-content-left nav-pills-custom  mb-6 mt-5">
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 180px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Anexo a estados
-                                    financieros</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
+                    </ul>
+                </div>
+                <div class="col-md-4  border-gray-300 border-end-dashed ">
+                      <ul class="nav nav-pills d-block text-active-info  justify-content-left nav-pills-custom  mb-6">
+                        <!--begin::Item-->
+                        <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                    <span class=" fw-bold ">Anexo a estados financieros</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Icon-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
 
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Estado de Resultado</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+                        <!--begin::Item-->
+                        <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                    <span class="fw-bold ">Libro Mayor</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Icon-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
 
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Estado de Resultado</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+                        <!--begin::Item-->
+                        <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                    <span class="fw-bold ">Libro Auxiliar</span>
+                                </div>
+                                <!--end::Info-->
+                                <!--end::Icon-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
 
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Estado de Resultado</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+                        <!--begin::Item-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                    <span class="fw-bold ">Saldo por periodos
+                                        mensuales</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Icon-->
 
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Estado de Resultado</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
 
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Estado de Resultado</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
 
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Estado de Resultado</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Estado de Resultado</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="nav nav-pills d-block text-active-info  justify-content-left nav-pills-custom  mb-6 ">
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
 
-                <!--begin::Item-->
-                <li class="nav-item mb-3 me-3 ">
-                    <!--begin::Nav link-->
-                    <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  flex-stack pt-3 pb-3 text-active-danger "
-                        href="/contabilidad/reporte/balancegeneral/" target="_blank" style="width: 130px;height: 120px">
-                        <!--begin::Icon-->
-                        <div class="nav-icon mb-3">
-                            <!--begin::report icon-->
-                            <i class="ki-outline ki-search-list fs-3x"></i>
-                            <!--end::report icon-->
-                            <!--begin::Info-->
-                            <div class="">
-                                <span class="text-gray-800 fw-bold  text-active-info ">Estado de Resultado</span>
-                            </div>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Icon-->
+                        <!--begin::Item-->
+                        <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                    <span class="fw-bold ">Partidas de Diario</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Icon-->
 
-                    </a>
-                    <!--end::Nav link-->
-                </li>
-                <!--end::Item-->
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                    <span class="fw-bold ">Libro Diario General</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Icon-->
 
-            </ul>
-            <!--end::Nav-->
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
+
+                        <!--begin::Item-->
+                         <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                        <span class="fw-bold ">Movimientos Histórico de
+                                            Cuenta</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Icon-->
+
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                          <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                        <span class="fw-bold ">Catalogo de Cuentas</span>
+                                    </div>
+                                    <!--end::Info-->
+                                <!--end::Icon-->
+
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
+
+                        <!--begin::Item-->
+                          <li class="nav-item mb-3 me-3 ">
+                            <!--begin::Nav link-->
+                            <a class=" btn-border-solid btn btn-outline btn-flex btn-active-color-info  text-active-danger "
+                                href="/contabilidad/reporte/balancegeneral/" target="_blank"
+                                 style="width: 100%;height: 40px">
+                                <!--begin::Icon-->
+                                <div class="nav-icon d-flex  ">
+                                    <!--begin::report icon-->
+                                    <i class="ki-outline ki-search-list fs-2x"></i>
+                                    <!--end::report icon-->
+                                    <!--begin::Info-->
+                                        <span class="fw-bold ">Indice Financiero</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Icon-->
+
+                            </a>
+                            <!--end::Nav link-->
+                        </li>
+                        <!--end::Item-->
+                    </ul>
+                    <!--end::Nav-->
+                </div>
+            </div>
+
+
         </div>
         <!--end: Card Body-->
 
     </div>
-    
+
 
 
     </div>

@@ -447,7 +447,8 @@ Route::get('/contabilidad/partidas-detalle/getPartidaDetalles/{id}', [PartidaCon
 Route::get('/contabilidad/partidas-detalle/delete/{id}', [PartidaContableDetalleController::class, 'delete'])->middleware(['auth', 'bitacora']);
 
 
-
+/**Cierre contables - Mensual */
+Route::get('/contabilidad/cierre-mensual', [PartidaContableDetalleController::class, 'delete'])->middleware(['auth', 'bitacora']);
 
 
 

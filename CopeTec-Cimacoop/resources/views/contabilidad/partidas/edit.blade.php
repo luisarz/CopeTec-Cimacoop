@@ -11,7 +11,6 @@
     <input type="hidden" name="id_partida" id="id_partida" value="{{ $partida->id_partida_contable }}">
     <input type="hidden" name="totalCargo" id="totalCargo">
     <input type="hidden" name="totalAbono" id="totalAbono">
-    <input type="hidden" name="yearContable" id="yearContable" value="{{ $partida->year_contable }}">
 
 
     <input type="hidden" id="token" value="{{ csrf_token() }}">
@@ -56,7 +55,7 @@
                         <label>Fecha de Partida:</label>
                     </div>
                     <div class="form-floating col-lg-2">
-                        <select class="form-select form-select-solid" name="tipo_catalogo" id="tipo_catalogo"
+                        <select class="form-select form-select-solid" name="tipo_partida" id="tipo_partida"
                             data-control="">
                             @foreach ($tipoPartida as $tipo)
                                 @if ($tipo->id_tipo_partida == $partida->tipo_partida)
