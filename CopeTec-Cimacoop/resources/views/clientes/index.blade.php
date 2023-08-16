@@ -11,7 +11,7 @@
             <div class="card-toolbar">
                 <a href="/clientes/add" class="btn btn-info"><i class="fa-solid fa-plus"></i>Nuevo Cliente</a>
                 &nbsp;
-                <a href="/alerts/clients" target="_blank"  class="btn btn-success"> <span>
+                <a href="/alerts/clients" target="_blank" class="btn btn-success"> <span>
                         <i class="fa fa-upload fa-2x"></i>
                     </span>Exportar Clientes a PDF</a>
             </div>
@@ -44,6 +44,9 @@
                                     </a>
                                     <a href="/clientes/{{ $cliente->id_cliente }}" class="btn btn-sm btn-info"><i
                                             class="fa-solid fa-pencil text-white"></i>
+                                    </a>
+                                    <a href="/alerts/client/{{ $cliente->id_cliente }}" target="_blank" class="btn btn-sm btn-success"><i
+                                            class="fa-solid fa-print text-white"></i>
                                     </a>
                                 </td>
                                 <td>{{ $cliente->nombre }}</td>

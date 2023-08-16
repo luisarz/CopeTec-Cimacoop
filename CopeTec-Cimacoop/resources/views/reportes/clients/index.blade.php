@@ -49,7 +49,8 @@
                                     @foreach ($clients as $cliente)
                                         <tr>
                                             <td class="text-left" style="text-align: start">{{ $cliente->nombre }}</td>
-                                            <td class="text-left">{{ $cliente->genero == '1' ? 'Masculino' : 'Femenino' }}</td>
+                                            <td class="text-left">
+                                                {{ $cliente->genero == '1' ? 'Masculino' : 'Femenino' }}</td>
                                             <td class="text-left">{{ $cliente->dui_cliente }}</td>
                                             <td class="text-left">{{ $cliente->direccion_personal }}</td>
                                             <td class="text-left">{{ $cliente->telefono }}</td>
@@ -61,7 +62,7 @@
                         </div>
                         <div class="col-12">
                             <div class="d-flex">
-                                <label for="date" class="mr-2">Lugar y Fecha:</label>
+                                <label for="date" class="mr-2">Lugar y Fecha reporte:</label>
                                 <p class="mx-1">San Miguel,
                                     {{ \Carbon\Carbon::now()->format('d/m/Y') }}
                                 </p>

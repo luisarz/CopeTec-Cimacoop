@@ -100,4 +100,19 @@ class MoneylaunderingController extends Controller
         return $pdf->setOrientation('portrait')->inline();
         // return view('reportes.clients.index', compact('clients'));
     }
+    public function clientReport(string $id)
+    {
+        $client =   Clientes::find($id);
+        $pdf = \App::make('snappy.pdf');
+
+        $pdf->setOptions([
+            'enable-local-file-access' => true
+        ]);
+        $pdf = PDF::loadView('reportes.clients.client', [
+            'client' => $client
+        ]);
+
+        return $pdf->setOrientation('portrait')->inline();
+        // return view('reportes.clients.index', compact('clients'));
+    }
 }
