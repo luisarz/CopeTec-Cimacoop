@@ -20,4 +20,8 @@ class Cuentas extends Model
     {
         return $this->belongsTo(Asociados::class,'id_asociado');
     }
+    public function tipo_cuenta()
+    {
+        return $this->belongsTo(TipoCuenta::class,'id_tipo_cuenta');
+    }
 }

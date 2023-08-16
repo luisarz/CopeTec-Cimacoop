@@ -15,4 +15,12 @@ class Clientes extends Model
     {
         return $this->hasOne(Asociados::class,'id_cliente');
     }
+    public function cuentas()
+    {
+        return $this->hasMany(Cuentas::class,'id_asociado');
+    }
+    public function creditos()
+    {
+        return $this->hasMany(Credito::class,'id_cliente');
+    }
 }

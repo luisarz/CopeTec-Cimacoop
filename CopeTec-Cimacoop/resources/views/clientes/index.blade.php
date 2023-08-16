@@ -10,7 +10,10 @@
         <div class="card-header ribbon ribbon-end ribbon-clip">
             <div class="card-toolbar">
                 <a href="/clientes/add" class="btn btn-info"><i class="fa-solid fa-plus"></i>Nuevo Cliente</a>
-
+                &nbsp;
+                <a href="/alerts/clients" target="_blank" class="btn btn-success"> <span>
+                        <i class="fa fa-upload fa-2x"></i>
+                    </span>Exportar Clientes a PDF</a>
             </div>
             <div class="ribbon-label fs-3">
                 <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
@@ -41,6 +44,9 @@
                                     </a>
                                     <a href="/clientes/{{ $cliente->id_cliente }}" class="btn btn-sm btn-info"><i
                                             class="fa-solid fa-pencil text-white"></i>
+                                    </a>
+                                    <a href="/alerts/client/{{ $cliente->id_cliente }}" target="_blank" class="btn btn-sm btn-success"><i
+                                            class="fa-solid fa-print text-white"></i>
                                     </a>
                                 </td>
                                 <td>{{ $cliente->nombre }}</td>
