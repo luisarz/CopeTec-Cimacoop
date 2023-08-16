@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cajas;
+use App\Models\Clientes;
 use App\Models\Credito;
 use App\Models\Empleados;
 use App\Notifications\MoneylaunderingNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Notification;
+use \PDF;
 
 class MoneylaunderingController extends Controller
 {
@@ -82,5 +84,20 @@ class MoneylaunderingController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function clientsReport()
+    {
+        $clients =   Clientes::all();
+        $pdf = \App::make('snappy.pdf');
+
+        $pdf->setOptions([
+            'enable-local-file-access' => true
+        ]);
+        $pdf = PDF::loadView('reportes.clients.index', [
+            'clients' => $clients
+        ]);
+
+        return $pdf->setOrientation('portrait')->inline();
+        // return view('reportes.clients.index', compact('clients'));
     }
 }
