@@ -53,7 +53,6 @@ $(document).ready(function () {
 
                     if ($("#num_partida").val() == "") {
                         let num_partida = response.numero_partida;
-                        alert(num_partida);
                         $("#num_partida").val((response.numero_partida != null) ? response.numero_partida : "");
                     }
 

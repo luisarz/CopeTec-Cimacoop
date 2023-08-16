@@ -63,8 +63,9 @@
                             <th class="min-w-50px text-center">Procesada</th>
                             <th class="min-w-50px text-center">PARTIDA</th>
                             <th class="min-w-50px text-center">TIPO PARTIDA</th>
-                            <th class="min-w-50px">FECHA</th>
-                            <th class="min-w-600px text-left">CONCEPTO</th>
+                            <th class="min-w-50px text-center">GENERADA</th>
+                            <th class="min-w-100px">FECHA</th>
+                            <th class="min-w-500px text-left">CONCEPTO</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,37 +77,20 @@
                                         Acciones
                                         <i class="ki-outline ki-dots-vertical fs-2"></i>
                                     </a>
+
                                     <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-175px py-3"
                                         data-kt-menu="true" style="">
-                                        @if($partida->estado==2)
-                                         <div class="menu-item px-3">
-                                                    <a href="/reportes/partidaContable/{{ $partida->id_partida_contable }}"
-                                                        target="_blank" class="menu-link px-3">
-                                                        <i class="ki-outline ki-printer fs-3"></i>
-                                                        <span class="px-2"> Imprimir partida</span>
-                                                    </a>
-                                                </div>
-                                           @else
-                                               
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-2">
-                                                    <a href="/contabilidad/partidas/edit/{{ $partida->id_partida_contable }}"
-                                                        class="menu-link px-3">
-                                                        <i class="ki-outline ki-pencil fs-3"></i>
-                                                        <span class="px-2"> Editar</span>
-                                                    </a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="/reportes/partidaContable/{{ $partida->id_partida_contable }}"
-                                                        target="_blank" class="menu-link px-3">
-                                                        <i class="ki-outline ki-printer fs-3"></i>
-                                                        <span class="px-2"> Imprimir partida</span>
-                                                    </a>
-                                                </div>
-                                                <!--end::Menu item-->
+                                        @if ($partida->estado == 2)
+                                            <div class="menu-item px-3">
+                                                <a href="/reportes/partidaContable/{{ $partida->id_partida_contable }}"
+                                                    target="_blank" class="menu-link px-3">
+                                                    <i class="ki-outline ki-printer fs-3"></i>
+                                                    <span class="px-2"> Imprimir partida</span>
+                                                </a>
+                                            </div>
+
+                                            @if ($partida->delete_allowed == 1)
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
                                                     <a href="javascript:alertDelete('{{ $partida->id_partida_contable }}')"
@@ -115,16 +99,45 @@
                                                         <span class="px-2 badge badge-light-danger"> Eliminar partida</span>
                                                     </a>
                                                 </div>
-                                                <!--end::Menu item--> 
-                                          @endif
+                                                <!--end::Menu item-->
+                                            @endif
+                                        @else
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-2">
+                                                <a href="/contabilidad/partidas/edit/{{ $partida->id_partida_contable }}"
+                                                    class="menu-link px-3">
+                                                    <i class="ki-outline ki-pencil fs-3"></i>
+                                                    <span class="px-2"> Editar</span>
+                                                </a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="/reportes/partidaContable/{{ $partida->id_partida_contable }}"
+                                                    target="_blank" class="menu-link px-3">
+                                                    <i class="ki-outline ki-printer fs-3"></i>
+                                                    <span class="px-2"> Imprimir partida</span>
+                                                </a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="javascript:alertDelete('{{ $partida->id_partida_contable }}')"
+                                                    class="menu-link px-3">
+                                                    <i class="ki-outline ki-cross-circle fs-3"></i>
+                                                    <span class="px-2 badge badge-light-danger"> Eliminar partida</span>
+                                                </a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                        @endif
                                     </div>
                                     <!-- ... Rest of the code ... -->
                                 </td>
                                 <td>
                                     @if ($partida->estado == 2)
-                                    <span class="badge badge-light-success">Procesada</span>
+                                        <span class="badge badge-light-success">Procesada</span>
                                     @else
-                                    <span class="badge badge-light-danger">Pendiente</span>
+                                        <span class="badge badge-light-danger">Pendiente</span>
                                     @endif
 
                                 </td>
@@ -139,6 +152,13 @@
                                 <td class="text-center">
                                     {{ $partida->descripcion }}
                                 </td>
+                                <td class="text-center">
+                                    @if ($partida->delete_allowed == 1)
+                                        <span class="badge badge-light-danger fs-7">Usuario</span>
+                                    @else
+                                        <span class="badge badge-light-success fs-7">Sistema</span>
+                                    @endif
+                                </td>
                                 <td>{{ date('d-m-Y', strtotime($partida->fecha_partida)) }}</td>
                                 <td>
                                     {{ $partida->concepto }}
@@ -147,31 +167,31 @@
                                 </td>
 
                             </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center">No se encontraron partidas.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="card-footer">
-                {{ $cuentas->appends(['filtro' => $filtro, 'fecha_partida' => $fecha_partida])->links('vendor.pagination.bootstrap-5') }}
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">No se encontraron partidas.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
+        <div class="card-footer">
+            {{ $cuentas->appends(['filtro' => $filtro, 'fecha_partida' => $fecha_partida])->links('vendor.pagination.bootstrap-5') }}
+        </div>
+    </div>
 
-        <form method="post" id="deleteForm" action="/contabilidad/partidas/delete">
-            {!! csrf_field() !!}
-            {{ method_field('DELETE') }}
-            <input type="hidden" name="id" id="id">
-        </form>
-    @endsection
+    <form method="post" id="deleteForm" action="/contabilidad/partidas/delete">
+        {!! csrf_field() !!}
+        {{ method_field('DELETE') }}
+        <input type="hidden" name="id" id="id">
+    </form>
+@endsection
 
-    @section('scripts')
-        <script>
-            function alertDelete(id) {
-                // ... Rest of the code ...
-            }
-        </script>
-    @endsection
+@section('scripts')
+    <script>
+        function alertDelete(id) {
+            // ... Rest of the code ...
+        }
+    </script>
+@endsection

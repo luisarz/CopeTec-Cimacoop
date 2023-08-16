@@ -417,7 +417,6 @@ Route::post('/contabilidad/catalogo/add', [CatalogoController::class, 'post'])->
 Route::get('/contabilidad/catalogo/edit/{id}', [CatalogoController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/contabilidad/catalogo/put', [CatalogoController::class, 'put'])->middleware(['auth', 'bitacora']);
 Route::delete('/contabilidad/catalogo/delete', [CatalogoController::class, 'delete'])->middleware(['auth', 'bitacora']);
-Route::get('/contabilidad/catalogo/reporte', [ReportesController::class, 'catalogoCuentas'])->middleware(['auth', 'bitacora']);
 
 
 /*Tipos Partidas Contables */
@@ -455,9 +454,15 @@ Route::get('/contabilidad/cierre-mensual/cierre', [CierreMensualController::clas
 Route::post('/contabilidad/cierre-mensual/cierre', [CierreMensualController::class, 'post'])->middleware(['auth', 'bitacora']);
 Route::get('/contabilidad/cierre-mensual/revertir/{id}', [CierreMensualController::class, 'revertir'])->middleware(['auth', 'bitacora']);
 Route::get('/contabilidad/cierre-mensual/imprimir/{id}', [CierreMensualController::class, 'imprimir'])->middleware(['auth', 'bitacora']);
-
 Route::delete('/contabilidad/cierre-mensual/revertir', [CierreMensualController::class, 'revertirCierre'])->middleware(['auth', 'bitacora']);
+/* /Cierre Contable*/
 
+
+
+/*Reportes Contables*/
+Route::get('/contabilidad/Reportes/catalogodecuentas', [ReportesController::class, 'catalogoCuentas'])->middleware(['auth', 'bitacora']);
+
+Route::get('/contabilidad/reportes/historicoCuenta/{id}', [ReporteContabilidad::class, 'historicoCuenta'])->middleware(['auth', 'bitacora']);
 
 
 /** rutas de declaraciones*/

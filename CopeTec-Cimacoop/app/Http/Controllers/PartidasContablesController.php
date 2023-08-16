@@ -67,6 +67,7 @@ class PartidasContablesController extends Controller
         $partidaContable->fecha_partida = $request->fecha_partida;
         $partidaContable->concepto = $request->concepto;
         $partidaContable->estado = 2;
+        $partidaContable->delete_allowed = 1;
         $partidaContable->save();
 
         // $detallesPartida=PartidaContableDetalleModel::where('id_partida','=',$request->id_partida)->get();
