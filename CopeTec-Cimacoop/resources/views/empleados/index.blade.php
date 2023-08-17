@@ -51,10 +51,6 @@
             </table>
            </div>
         </div>
-        <div class="card-footer">
-
-            {{ $empleados->links('vendor.pagination.bootstrap-5') }}
-        </div>
     </div>
 
     <form method="post" id="deleteForm" action="/empleados/delete">
