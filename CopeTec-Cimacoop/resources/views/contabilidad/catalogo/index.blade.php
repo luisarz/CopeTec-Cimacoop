@@ -39,10 +39,10 @@
                     <i class="ki-outline ki-abstract-27 fs-2x"></i>
                     Nueva Cuenta
                 </a>
-                <a href="/contabilidad/catalogo/reporte" class="btn btn-info me-5" target="_blank">
+                {{-- <a href="/contabilidad/catalogo/reporte" class="btn btn-info me-5" target="_blank">
                     <i class="ki-outline ki-cheque fs-2"></i>
                     Reporte Catalogo
-                </a>
+                </a> --}}
             </div>
 
             <div class="ribbon-label fs-3">

@@ -72,7 +72,6 @@ class LoginController extends Controller
 
         $user = User::where("email", $username)->first();
         if (!empty($user->id)) {
-            $id_empleado_usuario = $user->id_empleado_usuario;
             if (!Hash::check($password, $user->password)){
                 if($user->is_recovery==false){
                     return Redirect("/login");
