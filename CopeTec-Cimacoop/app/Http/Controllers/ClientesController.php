@@ -49,10 +49,10 @@ class ClientesController extends Controller
             $cliente->tipo_vivienda = $request->tipo_vivienda;
             $cliente->observaciones = $request->observaciones;
             $cliente->estado = 1;
+            $cliente->id_empleado = auth()->user()->id_empleado_usuario;
             $cliente->save();
             return redirect("/clientes");
         }
-
     }
     public function getClienteData($id)
     {
@@ -68,7 +68,6 @@ class ClientesController extends Controller
                 "mensaje" => "No se encontró el cliente"
             ]);
         }
-
     }
     public function delete(Request $request)
     {
@@ -104,6 +103,5 @@ class ClientesController extends Controller
             $cliente->save();
             return redirect("/clientes");
         }
-
     }
 }

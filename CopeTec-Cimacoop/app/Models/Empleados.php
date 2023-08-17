@@ -15,4 +15,8 @@ class Empleados extends Model
     {
         return $this->hasOne(User::class, 'id_empleado_usuario');
     }
+    public function clientes()
+    {
+        return $this->hasMany(Clientes::class, 'id_empleado');
+    }
 }
