@@ -9,7 +9,7 @@ class EmpleadoController extends Controller
     //
     public function index()
     {
-        $empleados = Empleados::paginate(10);
+        $empleados = Empleados::all();
         return view("empleados.index", compact("empleados"));
     }
 

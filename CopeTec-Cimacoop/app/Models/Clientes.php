@@ -23,4 +23,8 @@ class Clientes extends Model
     {
         return $this->hasMany(Credito::class,'id_cliente');
     }
+    public function empleado()
+    {
+        return $this->belongsTo(Empleados::class,'id_empleado');
+    }
 }
