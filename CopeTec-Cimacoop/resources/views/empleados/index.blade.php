@@ -9,7 +9,10 @@
         <div class="card-header ribbon ribbon-end ribbon-clip">
             <div class="card-toolbar">
                 <a href="/empleados/add" class="btn btn-info"><i class="fa-solid fa-plus"></i> Agregar Nuevo empleado</a>
-
+                &nbsp;
+                <a href="/alerts/emp" target="_blank" class="btn btn-secondary"><i class="fa-solid fa-file"></i>
+                    Reporte Empleado/Cliente
+                </a>
             </div>
             <div class="ribbon-label fs-3">
                <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
