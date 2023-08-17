@@ -115,4 +115,19 @@ class MoneylaunderingController extends Controller
         return $pdf->setOrientation('portrait')->inline();
         // return view('reportes.clients.index', compact('clients'));
     }
+    public function activeReport()
+    {
+        $clients =   DB::table('clientes')->get();
+        $pdf = \App::make('snappy.pdf');
+
+        $pdf->setOptions([
+            'enable-local-file-access' => true
+        ]);
+        $pdf = PDF::loadView('reportes.clients.active', [
+            'clients' => $clients
+        ]);
+
+        return $pdf->setOrientation('portrait')->inline();
+        // return view('reportes.clients.index', compact('clients'));
+    }
 }
