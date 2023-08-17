@@ -461,8 +461,8 @@ Route::delete('/contabilidad/cierre-mensual/revertir', [CierreMensualController:
 
 /*Reportes Contables*/
 Route::get('/contabilidad/Reportes/catalogodecuentas', [ReportesController::class, 'catalogoCuentas'])->middleware(['auth', 'bitacora']);
-
-Route::get('/contabilidad/reportes/historicoCuenta/{id}', [ReporteContabilidad::class, 'historicoCuenta'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/Reportes/historicodecuenta', [ReporteContabilidad::class, 'historicoCuenta'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/Reportes/historicodecuenta', [ReporteContabilidad::class, 'historicoCuenta_reporte'])->middleware(['auth', 'bitacora']);
 
 
 /** rutas de declaraciones*/
