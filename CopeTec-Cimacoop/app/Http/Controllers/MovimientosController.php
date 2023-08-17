@@ -251,6 +251,15 @@ class MovimientosController extends Controller
                 $cuenta = Catalogo::find($item['cuenta']);
                 $cuenta->saldo = $cuenta->saldo + $item['debe'];
                 $cuenta->save();
+                //actualizar saldo cuenta padre
+                $padreActual = $cuenta->id_cuenta_padre;
+                while ($padreActual !== null) {
+                    $cuentaPadre = Catalogo::find($padreActual);
+                    $cuentaPadre->saldo = $cuentaPadre->saldo + $item['debe'];
+                    $cuentaPadre->save();
+                    $padreActual = $cuentaPadre->id_cuenta_padre;
+                }
+
 
             }
             if ($item['haber'] > 0) {
@@ -259,6 +268,16 @@ class MovimientosController extends Controller
                 $cuenta = Catalogo::find($item['cuenta']);
                 $cuenta->saldo = $cuenta->saldo - $item['haber'];
                 $cuenta->save();
+                //actualizar saldo cuenta padre
+                $padreActual = $cuenta->id_cuenta_padre;
+                while ($padreActual !== null) {
+                    $cuentaPadre = Catalogo::find($padreActual);
+                    $cuentaPadre->saldo = $cuentaPadre->saldo - $item['haber'];
+                    $cuentaPadre->save();
+                    $padreActual = $cuentaPadre->id_cuenta_padre;
+                }
+
+
             }
             $detallePartida->cargos = $item['debe'];
             $detallePartida->abonos = $item['haber'];
@@ -313,9 +332,9 @@ class MovimientosController extends Controller
             ->select('cuentas.*', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
             ->first();
 
-        $descripcionPartida=$cuentaDatos->tipo_cuenta.' '.$cuentaDatos->nombre_cliente;
+        $descripcionPartida = $cuentaDatos->tipo_cuenta . ' ' . $cuentaDatos->nombre_cliente;
 
-        $partidaContable->concepto = 'RETIRO DE LA CUENTA DE '.$descripcionPartida;
+        $partidaContable->concepto = 'RETIRO DE LA CUENTA DE ' . $descripcionPartida;
         $partidaContable->tipo_partida = 1; //Partida Diaria
         $partidaContable->id_partida_contable = $id_partida;
         $yearContableMax = $configuracion->max('year_contable');
@@ -343,6 +362,13 @@ class MovimientosController extends Controller
                 $cuenta = Catalogo::find($item['cuenta']);
                 $cuenta->saldo = $cuenta->saldo + $item['debe'];
                 $cuenta->save();
+                $padreActual = $cuenta->id_cuenta_padre;
+                while ($padreActual !== null) {
+                    $cuentaPadre = Catalogo::find($padreActual);
+                    $cuentaPadre->saldo = $cuentaPadre->saldo + $item['debe'];
+                    $cuentaPadre->save();
+                    $padreActual = $cuentaPadre->id_cuenta_padre;
+                }
 
             }
             if ($item['haber'] > 0) {
@@ -351,6 +377,13 @@ class MovimientosController extends Controller
                 $cuenta = Catalogo::find($item['cuenta']);
                 $cuenta->saldo = $cuenta->saldo - $item['haber'];
                 $cuenta->save();
+                $padreActual = $cuenta->id_cuenta_padre;
+                while ($padreActual !== null) {
+                    $cuentaPadre = Catalogo::find($padreActual);
+                    $cuentaPadre->saldo = $cuentaPadre->saldo - $item['haber'];
+                    $cuentaPadre->save();
+                    $padreActual = $cuentaPadre->id_cuenta_padre;
+                }
             }
             $detallePartida->cargos = $item['debe'];
             $detallePartida->abonos = $item['haber'];

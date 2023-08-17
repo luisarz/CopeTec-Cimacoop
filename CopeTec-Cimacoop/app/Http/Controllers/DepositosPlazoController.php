@@ -200,6 +200,13 @@ class DepositosPlazoController extends Controller
                 $cuenta = Catalogo::find($item['cuenta']);
                 $cuenta->saldo = $cuenta->saldo + $item['debe'];
                 $cuenta->save();
+                $padreActual = $cuenta->id_cuenta_padre;
+                while ($padreActual !== null) {
+                    $cuentaPadre = Catalogo::find($padreActual);
+                    $cuentaPadre->saldo = $cuentaPadre->saldo + $item['debe'];
+                    $cuentaPadre->save();
+                    $padreActual = $cuentaPadre->id_cuenta_padre;
+                }
 
             }
             if ($item['haber'] > 0) {
@@ -208,6 +215,13 @@ class DepositosPlazoController extends Controller
                 $cuenta = Catalogo::find($item['cuenta']);
                 $cuenta->saldo = $cuenta->saldo - $item['haber'];
                 $cuenta->save();
+                $padreActual = $cuenta->id_cuenta_padre;
+                while ($padreActual !== null) {
+                    $cuentaPadre = Catalogo::find($padreActual);
+                    $cuentaPadre->saldo = $cuentaPadre->saldo - $item['haber'];
+                    $cuentaPadre->save();
+                    $padreActual = $cuentaPadre->id_cuenta_padre;
+                }
             }
             $detallePartida->cargos = $item['debe'];
             $detallePartida->abonos = $item['haber'];

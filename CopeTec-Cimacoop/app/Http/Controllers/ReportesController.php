@@ -41,7 +41,7 @@ class ReportesController extends Controller
 
 
 
-   
+
     public function RepMovimientosBobeda($id)
     {
 
@@ -60,7 +60,7 @@ class ReportesController extends Controller
             ->whereDate('fecha_operacion', '>=', $currentDateTime)
             ->select('monto', 'fecha_operacion')
             ->first();
-   
+
 
 
 
@@ -155,7 +155,7 @@ class ReportesController extends Controller
             ->where('cuentas.id_cuenta', '=', $idCuenta)
             ->get();
         if ($movimientosCuenta->count() == 0) {
-         return redirect("/cuentas")->withErrors('La cuenta no tiene movimientos aun 😵‍💫, Asegurate realizar una operación antes de generarlo');
+            return redirect("/cuentas")->withErrors('La cuenta no tiene movimientos aun 😵‍💫, Asegurate realizar una operación antes de generarlo');
 
 
         }
@@ -242,7 +242,7 @@ class ReportesController extends Controller
 
         $solicitud = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
             ->orderBy('solicitud_credito.fecha_solicitud')
-           ->where('solicitud_credito.id_solicitud', '=', $idSolicitud)->first();
+            ->where('solicitud_credito.id_solicitud', '=', $idSolicitud)->first();
 
         $conyugue = Clientes::where('id_cliente', '=', $solicitud->id_conyugue)->first();
 
@@ -258,12 +258,12 @@ class ReportesController extends Controller
         $hoy = new DateTime();
         $nacimiento = new DateTime($solicitud->fecha_nacimiento);
         $edad = $hoy->diff($nacimiento);
-        $edadCliente= $edad->y;
-     
+        $edadCliente = $edad->y;
+
         $edadConyugue = null;
-        if ($conyugue==null) {
-           $conyugue= new Clientes();
-        }else{
+        if ($conyugue == null) {
+            $conyugue = new Clientes();
+        } else {
             $nacimientoConyugue = new DateTime($conyugue->fecha_nacimiento);
             $edadConyugue = $hoy->diff($nacimientoConyugue);
             $edadConyugue = $edadConyugue->y;
@@ -275,12 +275,12 @@ class ReportesController extends Controller
             'stilosBundle' => $this->stilosBundle,
             'solicitud' => $solicitud,
             'referencias' => $referencias,
-            'bienes'=>$bienes,
-            'edadCliente'=>$edadCliente,
-            'conyugue'=>$conyugue,
+            'bienes' => $bienes,
+            'edadCliente' => $edadCliente,
+            'conyugue' => $conyugue,
             'cuotaEnLetras' => $cuotaEnLetras,
-            'edadConyugue'=>$edadConyugue,
-            'montoSolicitadoEnLetras'=>$montoSolicitadoEnLetras
+            'edadConyugue' => $edadConyugue,
+            'montoSolicitadoEnLetras' => $montoSolicitadoEnLetras
         ]);
         return $pdf->setOrientation('portrait')->inline();
 
@@ -292,18 +292,18 @@ class ReportesController extends Controller
             ->orderBy('solicitud_credito.fecha_solicitud')
             ->where('solicitud_credito.id_solicitud', '=', $idSolicitud)->first();
 
-     
+
 
         $formatter = new NumeroALetras();
         $cuotaEnLetras = $formatter->toInvoice($solicitud->cuota, 2, 'DÓLARES  ');
         $montoSolicitadoEnLetras = $formatter->toInvoice($solicitud->monto_solicitado, 2, 'DÓLARES  ');
-        $tasaEnletras= $formatter->toWords($solicitud->tasa);
-        $plazoEnLetras= $formatter->toWords($solicitud->plazo);
+        $tasaEnletras = $formatter->toWords($solicitud->tasa);
+        $plazoEnLetras = $formatter->toWords($solicitud->plazo);
         $hoy = new DateTime();
         $nacimiento = new DateTime($solicitud->fecha_nacimiento);
         $edad = $hoy->diff($nacimiento);
         $edadCliente = $edad->y;
-        
+
 
 
         $pdf = \App::make('snappy.pdf');
@@ -311,8 +311,8 @@ class ReportesController extends Controller
             'estilos' => $this->estilos,
             'solicitud' => $solicitud,
             'edadCliente' => $edadCliente,
-            'tasaEnletras'=>$tasaEnletras,
-            'plazoEnLetras'=>$plazoEnLetras,
+            'tasaEnletras' => $tasaEnletras,
+            'plazoEnLetras' => $plazoEnLetras,
             'cuotaEnLetras' => $cuotaEnLetras,
             'montoSolicitadoEnLetras' => $montoSolicitadoEnLetras
         ]);
@@ -322,16 +322,16 @@ class ReportesController extends Controller
     public function liquidacionPrint($idCredito)
     {
 
-        $credito = Credito::where('id_credito',$idCredito)->
+        $credito = Credito::where('id_credito', $idCredito)->
             join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
 
-        $id_solicitud=$credito->id_solicitud;
+        $id_solicitud = $credito->id_solicitud;
 
         $solicitud = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
             ->orderBy('solicitud_credito.fecha_solicitud')
             ->where('solicitud_credito.id_solicitud', '=', $id_solicitud)->first();
 
-       
+
         $lineaCredito = Catalogo::find($solicitud->destino);
         $destino = $lineaCredito->descripcion;
 
@@ -346,17 +346,17 @@ class ReportesController extends Controller
         $empleadoLiquido = $empleado->nombre_empleado;
 
 
-        $cuentaAhorrro= Cuentas::find($credito->id_cuenta_ahorro);
-        $cuentaAportacion= Cuentas::find($credito->id_cuenta_aportacion);
+        $cuentaAhorrro = Cuentas::find($credito->id_cuenta_ahorro);
+        $cuentaAportacion = Cuentas::find($credito->id_cuenta_aportacion);
         $numero_cuenta_ahorro = "";
-        if($cuentaAhorrro){
-            $numero_cuenta_ahorro= $cuentaAhorrro->numero_cuenta;
+        if ($cuentaAhorrro) {
+            $numero_cuenta_ahorro = $cuentaAhorrro->numero_cuenta;
 
         }
         $numero_cuenta_aportacion = "";
-        if($cuentaAportacion){
+        if ($cuentaAportacion) {
 
-            $numero_cuenta_aportacion= $cuentaAportacion->numero_cuenta;
+            $numero_cuenta_aportacion = $cuentaAportacion->numero_cuenta;
         }
 
         $liquido = LiquidacionModel::where(function ($query) {
@@ -379,25 +379,26 @@ class ReportesController extends Controller
             'stilosBundle' => $this->stilosBundle,
             'solicitud' => $solicitud,
             'credito' => $credito,
-            'destino'=>$destino,
-            'garantiaTipo'=>$garantiaTipo,
-            'liquidaciones'=>$liquidaciones,
-            'sumMontoDebe'=>$sumMontoDebe,
-            'sumMontoHaber'=>$sumMontoHaber,
-            'liquido'=>$liquido,
-            'empleadoLiquido'=>$empleadoLiquido,
-            'numero_cuenta_ahorro'=>$numero_cuenta_ahorro,
-            'numero_cuenta_aportacion'=>$numero_cuenta_aportacion
+            'destino' => $destino,
+            'garantiaTipo' => $garantiaTipo,
+            'liquidaciones' => $liquidaciones,
+            'sumMontoDebe' => $sumMontoDebe,
+            'sumMontoHaber' => $sumMontoHaber,
+            'liquido' => $liquido,
+            'empleadoLiquido' => $empleadoLiquido,
+            'numero_cuenta_ahorro' => $numero_cuenta_ahorro,
+            'numero_cuenta_aportacion' => $numero_cuenta_aportacion
 
         ]);
         return $pdf->setOrientation('portrait')->inline();
 
     }
-    public function comprobanteAbono($id_pago_credito){
+    public function comprobanteAbono($id_pago_credito)
+    {
 
-        $abonoCredito=PagosCredito::join('creditos','creditos.id_credito','=','pagos_credito.id_credito')
-            ->join('clientes','clientes.id_cliente','=','creditos.id_cliente')
-            ->where('pagos_credito.id_pago_credito','=',$id_pago_credito)
+        $abonoCredito = PagosCredito::join('creditos', 'creditos.id_credito', '=', 'pagos_credito.id_credito')
+            ->join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
+            ->where('pagos_credito.id_pago_credito', '=', $id_pago_credito)
             ->first();
         $formatter = new NumeroALetras();
         $TOTALPAGOENLETRAS = $formatter->toInvoice($abonoCredito->total_pago, 2, 'DÓLARES');
@@ -408,14 +409,14 @@ class ReportesController extends Controller
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
             'abonoCredito' => $abonoCredito,
-            'numeroEnLetras'=>$TOTALPAGOENLETRAS
+            'numeroEnLetras' => $TOTALPAGOENLETRAS
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
     public function partidaContable($id_partida)
     {
-        $partida = PartidasContablesModel::join('tipos_partidas_contables','tipos_partidas_contables.id_tipo_partida','=','partidas_contables.tipo_partida')
-        ->where('partidas_contables.id_partida_contable','=',$id_partida)->first();
+        $partida = PartidasContablesModel::join('tipos_partidas_contables', 'tipos_partidas_contables.id_tipo_partida', '=', 'partidas_contables.tipo_partida')
+            ->where('partidas_contables.id_partida_contable', '=', $id_partida)->first();
 
         $results = DB::table('catalogo AS c')
             ->select(
@@ -481,41 +482,21 @@ class ReportesController extends Controller
             'partida' => $partida,
             'totalCargos' => $totalCargos,
             'totalAbonos' => $totalAbonos,
-            'formattedResults'=> $formattedResults
+            'formattedResults' => $formattedResults
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
     public function catalogoCuentas()
     {
 
-        // Obtener el catálogo con la información de las cuentas y sus tipos
+
         $catalogo = Catalogo::join('catalogo_tipo', 'catalogo_tipo.id_tipo_catalogo', '=', 'catalogo.tipo_catalogo')
             ->select('catalogo_tipo.descripcion as tipoCuenta', 'catalogo.*')
             ->orderBy('catalogo.id_cuenta', 'asc')
             ->get();
 
-        // Crear un arreglo para almacenar las sumas de las cuentas hijas
-        $sumasHijas = [];
 
-        // Recorrer el catálogo para obtener las sumas de las cuentas hijas
-        foreach ($catalogo as $cuenta) {
-            $sumasHijas[$cuenta->id_cuenta] = Catalogo::where('id_cuenta_padre', $cuenta->id_cuenta)
-                ->sum('saldo');
-        }
-        //unir el catálogo con las sumas de las cuentas hijas
-        $catalogo = $catalogo->map(function ($cuenta) use ($sumasHijas) {
-            $cuenta->saldoHijas = $sumasHijas[$cuenta->id_cuenta];
-            return $cuenta;
-        });
 
-        //msotrar el resultado de toda la consulta
-      
-        
-
-        // $catalogo = Catalogo::join('catalogo_tipo', 'catalogo_tipo.id_tipo_catalogo', '=', 'catalogo.tipo_catalogo')
-        //     ->select('catalogo_tipo.descripcion as tipoCuenta', 'catalogo.*')
-        //     ->orderBy('catalogo.id_cuenta', 'asc')
-        //     ->get();
 
         $pdf = \App::make('snappy.pdf');
         $pdf = PDF::loadView('reportes.contabilidad.catalogo.catalogo', [

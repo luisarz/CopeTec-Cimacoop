@@ -62,7 +62,6 @@ class PartidasContablesController extends Controller
     {
         $partidaContable = PartidasContablesModel::find($request->id_partida);
         $partidaContable->num_partida = $request->num_partida;
-        // $partidaContable->year_contable = $request->yearContable;
         $partidaContable->tipo_partida = $request->tipo_partida;
         $partidaContable->fecha_partida = $request->fecha_partida;
         $partidaContable->concepto = $request->concepto;
@@ -70,8 +69,7 @@ class PartidasContablesController extends Controller
         $partidaContable->delete_allowed = 1;
         $partidaContable->save();
 
-        // $detallesPartida=PartidaContableDetalleModel::where('id_partida','=',$request->id_partida)->get();
-        // $detallesPartida->each->update(['fecha_procesamiento'=> $request->fecha_partida]);
+
 
         return response()->json([
             'estado' => "success",
