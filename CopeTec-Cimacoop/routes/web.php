@@ -468,6 +468,8 @@ Route::post('/contabilidad/Reportes/historicodecuenta', [ReporteContabilidad::cl
 /*Bitacora */
 Route::get('/bitacora', [BitacoraController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::post('/bitacora', [BitacoraController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/bitacora/reporte/{desde}/{hasta}', [BitacoraController::class, 'reporte'])->middleware(['auth', 'bitacora']);
+
 
 
 

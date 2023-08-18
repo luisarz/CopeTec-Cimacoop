@@ -25,13 +25,13 @@
                         <div class="position-relative w-md-250px me-md-2">
                             <i
                                 class="ki-outline ki-magnifier fs-3 text-gray-500 position-absolute top-50 translate-middle ms-6"></i>
-                            <input type="date" class="form-control form-control-solid ps-10" name="desde"
+                            <input type="date" class="form-control form-control-solid ps-10" name="desde" id="desde"
                                 value="{{ date('Y-m-d') }}" placeholder="Nombre accion o código">
                         </div>
-                          <div class="position-relative w-md-250px me-md-2">
+                        <div class="position-relative w-md-250px me-md-2">
                             <i
                                 class="ki-outline ki-magnifier fs-3 text-gray-500 position-absolute top-50 translate-middle ms-6"></i>
-                            <input type="date" class="form-control form-control-solid ps-10" name="hasta"
+                            <input type="date" class="form-control form-control-solid ps-10" name="hasta" id="hasta"
                                 value="{{ date('Y-m-d') }}" placeholder="Nombre accion o código">
                         </div>
                         <div class="d-flex align-items-center">
@@ -41,11 +41,11 @@
                     </form>
 
                 </div>
-                <a href="/contabilidad/catalogo/add" class="btn btn-danger me-5 btn-sm">
-                    <i class="ki-outline ki-abstract-27 fs-2x"></i>
-                   Descargar Reporte
+                <a href="javascript:generarReporte();" class="btn btn-danger me-5 btn-sm fs-3">
+                    <i class="ki-outline ki-printer fs-2x "></i>
+                    Reporte
                 </a>
-              
+
             </div>
 
             <div class="ribbon-label fs-3">
@@ -56,14 +56,14 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover table-row-dashed fs-6 gy-2 gs-5">
+                <table class="table table-hover table-row-dashed fs-6 gy-1 gs-1">
                     <thead>
                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-50px text-center">#</th>
-                            <th class="min-w-50px text-center">fecha</th>
+                            <th class="min-w-60px text-center">fecha</th>
                             <th class="min-w-80px">Usuario</th>
                             <th class="min-w-50px">Ruta</th>
-                            <th class="min-w-150px">Metodo</th>
+                            <th class="min-w-250px">Metodo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,10 +71,8 @@
                             <tr>
 
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $accion->fecha }}</td>
+                                <td>{{ date('d-m-Y h:i:s A', strtotime($accion->fecha))  }}</td>
                                 <td>{{ $accion->nombre }}</td>
-
-
                                 <td>{{ $accion->route }}</td>
                                 <td style="text-align: left;">
                                     @if (is_string($accion->request))
@@ -82,14 +80,18 @@
                                             $decodedData = json_decode($accion->request, true);
                                         @endphp
                                         @if ($decodedData !== null && json_last_error() === JSON_ERROR_NONE)
-                                              @if (array_key_exists('_token', $decodedData))
+                                            @if (array_key_exists('_token', $decodedData))
+                                                @php
+                                                    unset($decodedData['_token']);
+                                                    unset($decodedData['password_user']);
+
+                                                @endphp
                                                 <pre>
                                                     {{ print_r($decodedData, true) }}
                                                 </pre>
                                             @else
-                                               Consulta
+                                                Consulta
                                             @endif
-
                                         @endif
                                     @endif
                                 </td>
@@ -100,7 +102,7 @@
             </div>
         </div>
         <div class="card-footer">
-            {{ $bitacora->appends(['desde' => $desde,'hasta'=>$hasta])->links('vendor.pagination.bootstrap-5') }}
+            {{ $bitacora->appends(['desde' => $desde, 'hasta' => $hasta])->links('vendor.pagination.bootstrap-5') }}
         </div>
     </div>
 
@@ -113,69 +115,12 @@
 
 @section('scripts')
     <script>
-        function alertDelete(id) {
-            Swal.fire({
-                text: "Deseas Eliminar este registro",
-                icon: "warning",
-                buttonsStyling: false,
-                showCancelButton: true,
-                confirmButtonText: "Si",
-                cancelButtonText: 'No',
-                customClass: {
-                    confirmButton: "btn btn-danger",
-                    cancelButton: "btn btn-secondary"
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $("#id").val(id)
-                    $("#deleteForm").submit();
-                }
-            });
+        function generarReporte() {
+         
+            let desde =$("#desde").val();
+            let hasta =$("#hasta").val();
+            window.open('/bitacora/reporte/'+desde+'/'+hasta, '_blank');
         }
 
-        function historicoaccion(id) {
-            Swal.fire({
-                text: "Ingresa las fechas para ver el histórico de la accion",
-                icon: "question",
-                buttonsStyling: false,
-                showCancelButton: true,
-                allowOutsideClick: false,
-                confirmButtonText: "Generar Historial",
-                html: `
-                    <div class="form-group mb-2">
-                        <label for="fecha_inicio">Desde</label>
-                        <input class="form-control" type="date" id="fecha_inicio" name="fecha_inicio" value="{{ date('Y-m-d') }}" required>
-                    </div>
-                    <div class="form-group mb-2">
-                        <label for="fecha_fin">Hasta</label>
-                        <input class="form-control" type="date" id="fecha_fin" name="fecha_fin" value="{{ date('Y-m-d') }}" required>
-                    </div>
-                    `,
-                customClass: {
-                    confirmButton: "btn btn-danger",
-                    cancelButton: "btn btn-secondary"
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    let desde = $("#fecha_inicio").val();
-                    let hasta = $("#fecha_fin").val();
-                    if (desde && hasta) {
-                        // Aquí puedes realizar la acción de generación de historial
-                        alert("Generando historial desde " + desde + " hasta " + hasta);
-                    } else {
-                        Swal.fire({
-                            text: "Por favor, selecciona ambas fechas para generar el historial.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            customClass: {
-                                confirmButton: "btn btn-danger"
-                            }
-                        });
-                    }
-                }
-            });
-
-
-        }
     </script>
 @endsection
