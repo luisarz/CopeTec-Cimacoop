@@ -10,4 +10,8 @@ class PartidaContableDetalleModel extends Model
     protected $table = "partida_contables_detalle";
     protected $primaryKey = "id_detalle_partida_contable";
     use HasFactory;
+   
 }
+
+
+

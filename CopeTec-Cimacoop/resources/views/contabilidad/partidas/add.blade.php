@@ -40,18 +40,18 @@
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
                     <div class="form-floating col-lg-2">
-                        <input type="text" name="descripcion" id="descripcion" class="form-control form-control-solid-bg"
+                        <input type="text" name="num_partida" id="num_partida" class="form-control form-control-solid-bg"
                             required placeholder="Des">
                         <label>Nùmero de Partida:</label>
                     </div>
 
                     <div class="form-floating col-lg-2">
-                        <input type="date" name="numero" id="numero" class="form-control form-control-solid-bg"
-                            required placeholder="Codigo">
+                        <input type="date" name="fecha_partida" id="fecha_partida" class="form-control form-control-solid-bg"
+                            required placeholder="Codigo" value="{{ date('Y-m-d') }}">
                         <label>Fecha de Partida:</label>
                     </div>
                     <div class="form-floating col-lg-2">
-                        <select class="form-select form-select-solid" name="tipo_catalogo" id="tipo_catalogo"
+                        <select class="form-select form-select-solid" name="tipo_partida" id="tipo_partida"
                             data-control="select2">
                             @foreach ($tipoPartida as $tipo)
                                 <option value="{{ $tipo->id_tipo_partida }}">{{ $tipo->descripcion }}</option>
@@ -60,8 +60,8 @@
                         <label>Tipo de Partida:</label>
                     </div>
                     <div class="form-floating col-lg-6">
-                        <input type="text" name="descripcion" id="descripcion" class="form-control form-control-solid-bg"
-                            required placeholder="Des">
+                        <input type="text" name="concepto" id="concepto" class="form-control form-control-solid-bg"
+                            required placeholder="concepto">
                         <label>Concepto</label>
                     </div>
 
@@ -98,7 +98,7 @@
                                     </select>
                                     <label>CATALOGO</label>
                                 </div>
-                                <div class="form-floating col-lg-2">
+                                <div class="form-floating col-lg-2" style="display: none;">
                                     <input type="number" id="parcial" name="parcial"
                                         class="form-control form-control-solid-bg  fw-bold fs-3 text-info"
                                         placeholder="Movimiento 1" />
@@ -183,7 +183,7 @@
                             Cancelar
                         </button>
                     </a>
-                    <button type="submit" class="btn btn-bg-info btn-text-white">
+                    <button type="submit" id="btnProcesarPartida" class="btn btn-bg-info btn-text-white">
                         <i class="fa-solid fa-save fs-2 text-white"></i>
                         Generar Partida Contable
                     </button>

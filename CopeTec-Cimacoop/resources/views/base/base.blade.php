@@ -372,7 +372,7 @@ License: For each use you must have a valid license purchased only from above li
                                                                 $activemenulink = $sub_access->id_modulo == Session::get('active_menu') ? 'active' : '';
                                                             @endphp
                                                             <a class="menu-link {{ $activemenulink }}"
-                                                                href="{{ $sub_access->ruta }}">
+                                                                href="{{ $sub_access->ruta }}" target="{{ $sub_access->target  }}">
                                                                 <span class="menu-icon">
                                                                     <i
                                                                         class="ki-outline {{ $sub_access->icono }} fs-2"></i>

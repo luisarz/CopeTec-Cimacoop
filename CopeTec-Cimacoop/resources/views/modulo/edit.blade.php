@@ -111,7 +111,7 @@
                     </div>
                 </div>
                 <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
-                    <div class="col">
+                    <div class="col-md-6">
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
                             <label class="fs-6 fw-semibold form-label mt-3">
@@ -125,6 +125,29 @@
                                 <select id="is_minimazed" class="form-control form-control-solid" name="is_minimazed">
                                     <option value="1" {{ $modulo->is_minimazed == '1' ? 'selected' : '' }}>Si</option>
                                     <option value="0" {{ $modulo->is_minimazed == '0' ? 'selected' : '' }}>No
+                                    </option>
+                                </select>
+                                <!--end::Input-->
+                            </div>
+
+                            <!--end::Input-->
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <div class="fv-row mb-6">
+                            <!--begin::Label-->
+                            <label class="fs-6 fw-semibold form-label mt-3">
+                                <span>Abrir en nueva ventana</span>
+                            </label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <div class="form-check form-switch form-check-custom form-check-solid me-10" style="margin:4px">
+
+                                <!--begin::Input-->
+                                <select id="target" class="form-control form-control-solid" name="target">
+                                    <option value="1" {{ $modulo->target == '1' ? 'selected' : '' }}>Si</option>
+                                    <option value="0" {{ $modulo->target == '0' ? 'selected' : '' }}>No
+                                    </option>
                                     </option>
                                 </select>
                                 <!--end::Input-->

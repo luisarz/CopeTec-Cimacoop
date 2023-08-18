@@ -18,8 +18,8 @@
                         <th>Acciones</th>
                         <th>Modulo</th>
                         <th>Icono</th>
-                        <th>M. Minizado</th>
-
+                        <th>Minizado</th>
+                        <th>Target</th>
                         <th>Ruta</th>
                         <th>Es Padre</th>
                     </tr>
@@ -33,13 +33,15 @@
                                         class="fa-solid fa-pencil text-white"></i> &nbsp;
                                     Modificar</a></td>
                             <td>{{ $modulo->nombre }}</td>
-                            <td>
+                            <td style="text-align: center">
                                 <i class="ki-outline {{ $modulo->icono }} fs-2"></i>
 
 
                             </td>
-                            <td>{{ $modulo->is_minimazed == 1 ? 'Si' : 'No' }}</td>
-
+                              <td style="text-align: center">
+                                {{ $modulo->is_minimazed == 1 ? 'Si' : 'No' }}</td>
+                            <td style="text-align: center">
+                                {{ $modulo->target == 1 ? 'Nueva' : 'Misma' }}</td>
                             <td>{{ $modulo->ruta }}</td>
                             <td>{{ $modulo->is_padre == true ? 'Si' : 'No' }}</td>
                         </tr>

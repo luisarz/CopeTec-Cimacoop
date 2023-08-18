@@ -40,8 +40,8 @@
                         <td style="text-align: center;">{{ $cuenta->movimiento == 1 ? 'SI' : 'NO' }}</td>
 
                         <td style="text-align: right;">
-                            @if ($cuenta->saldoHijas > 0)
-                                <b>${{ number_format($cuenta->saldoHijas, 2) }}</b>
+                            @if ($cuenta->id_cuenta_padre !=null)
+                                <b>${{ number_format($cuenta->saldo, 2) }}</b>
                             @else
                                 ${{ number_format($cuenta->saldo, 2) }}
                             @endif

@@ -17,7 +17,7 @@ $(document).ready(function () {
         let abonos = $("#abonos").val();
 
 
-        if ( cargos == 0 && abonos == 0) {
+        if (cargos == 0 && abonos == 0) {
             Swal.fire({
                 icon: 'info',
                 title: 'Oops...',
@@ -37,6 +37,7 @@ $(document).ready(function () {
             "cargos": cargos,
             "abonos": abonos,
             "id_partida": $("#id_partida").val(),
+            "tipo_partida": $("#tipo_partida").val(),
             "_token": $("#token").val()
         };
 
@@ -49,6 +50,12 @@ $(document).ready(function () {
                 let message = response.message;
                 if (response.estado == true) {
                     swalSuccess("Cuenta agregada", message, "Ok");
+
+                    if ($("#num_partida").val() == "") {
+                        let num_partida = response.numero_partida;
+                        $("#num_partida").val((response.numero_partida != null) ? response.numero_partida : "");
+                    }
+
                     getPartidaDetalles();
                     $("#cargos").val(0);
                     $("#abonos").val(0);
@@ -76,7 +83,7 @@ $(document).ready(function () {
     $("#btnProcesarPartida").on("click", function (e) {
 
         e.preventDefault();
-   
+
         let montoDebeText = $("#montoDebe").text();
         let montoHaberText = $("#montoHaber").text();
 
@@ -87,21 +94,21 @@ $(document).ready(function () {
         let montoDebe = parseFloat(montoDebeText);
         let montoHaber = parseFloat(montoHaberText);
 
-
-      
-        if (montoDebe != montoHaber) {
-            swalError('Oops...', 'Los Saldos no coinciden', "Corregir datos");
-            return false;
-        }
-
-
         let fecha_partida = $("#fecha_partida").val();
-        let tipo_catalogo = $("#tipo_catalogo").val();
-        if ( fecha_partida =="" || tipo_catalogo=="") {
+        let tipo_partida = $("#tipo_partida").val();
+        let concepto = $("#concepto").val();
+
+        if (fecha_partida == "" || tipo_partida == "" || concepto == "") {
             Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
-                html: 'La cuenta de <b>La Fecha </b> y <b>Tipo de Cuenta</b> Son obligatorios',
+                title: 'Oops...  ',
+                html: `Los siguientes datos son obligatorios
+                         <ul style="list-style-type: none; text-align: left;">
+                            <li><i class='fa fa-check fs-4 text-danger'></i> <b>Fecha</b></li>
+                            <li><i class='fa fa-check fs-4 text-danger'></i><b>Tipo de Cuenta</b></li>
+                            <li><i class='fa fa-check fs-4 text-danger'></i><b>Concepto</b></li>
+                        </ul>
+                    `,
                 confirmButton: false,
                 cancelButton: true,
                 confirmButtonText: 'Volver y seleccionar datos correctos',
@@ -116,6 +123,16 @@ $(document).ready(function () {
 
 
 
+        if (montoDebe != montoHaber) {
+            swalError('Oops...', 'Los Saldos no coinciden', "Corregir datos");
+            return false;
+        }
+
+
+
+
+
+
 
         Swal.fire({
             icon: 'question',
@@ -124,8 +141,8 @@ $(document).ready(function () {
             showCancelButton: true,
             confirmButtonText: 'Sí, procesar Partida',
             cancelButtonText: 'Cancelar',
-            allowEscapeKey: false,     
-            allowOutsideClick: false, 
+            allowEscapeKey: false,
+            allowOutsideClick: false,
             customClass: {
                 confirmButton: "btn btn-danger",
                 cancelButton: "btn btn-info"
@@ -133,7 +150,7 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 generarPartidaContable();
-            } 
+            }
         });
 
 
@@ -169,7 +186,7 @@ $(document).ready(function () {
 
 
                 if (response.estado == "success") {
-                    
+
                     Swal.fire({
                         icon: 'success',
                         title: 'Partida',
@@ -217,9 +234,9 @@ $(document).ready(function () {
                     `<a href="javascript:void(0);" onclick="quitarDescuento(${id_detalle_partida_contable})"><span class='btn btn-sm btn-danger'>Quitar</span></a>`
                 ));
                 row.append($("<td>").text(element.numero));
-                row.append($("<td>").html(element.descripcion ));
-        
-                row.append($("<td style='text-align:right;' >").html(" $ " + parseFloat(element.cargos).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') ));
+                row.append($("<td>").html(element.descripcion));
+
+                row.append($("<td style='text-align:right;' >").html(" $ " + parseFloat(element.cargos).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
 
                 row.append($("<td style='text-align:right;'>").text('$ ' + parseFloat(element.abonos).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')));
                 tablePartidaDetalles.append(row);

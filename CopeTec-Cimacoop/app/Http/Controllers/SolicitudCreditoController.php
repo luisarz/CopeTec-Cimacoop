@@ -401,13 +401,29 @@ class SolicitudCreditoController extends Controller
                 $cuenta = Catalogo::find($liquidacion->id_cuenta);
                 $cuenta->saldo = $cuenta->saldo + $liquidacion->monto_debe;
                 $cuenta->save();
+                $padreActual = $cuenta->id_cuenta_padre;
+                while ($padreActual !== null) {
+                    $cuentaPadre = Catalogo::find($padreActual);
+                    $cuentaPadre->saldo = $cuentaPadre->saldo + $liquidacion->monto_debe;
+                    $cuentaPadre->save();
+                    $padreActual = $cuentaPadre->id_cuenta_padre;
+                }
+
             }
             if ($liquidacion->monto_haber > 0) {
                 $detallePartida->parcial = $liquidacion->monto_haber;
                 //Resta al saldo de la cuenta
                 $cuenta = Catalogo::find($liquidacion->id_cuenta);
-                $cuenta->saldo = $cuenta->saldo + $liquidacion->monto_haber;
+                $cuenta->saldo = $cuenta->saldo - $liquidacion->monto_haber;
                 $cuenta->save();
+                $padreActual = $cuenta->id_cuenta_padre;
+                while ($padreActual !== null) {
+                    $cuentaPadre = Catalogo::find($padreActual);
+                    $cuentaPadre->saldo = $cuentaPadre->saldo - $liquidacion->monto_debe;
+                    $cuentaPadre->save();
+                    $padreActual = $cuentaPadre->id_cuenta_padre;
+                }
+
             }
             $detallePartida->cargos = $liquidacion->monto_debe;
             $detallePartida->abonos = $liquidacion->monto_haber;

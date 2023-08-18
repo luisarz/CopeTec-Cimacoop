@@ -35,10 +35,17 @@ class CatalogoController extends Controller
         return view("contabilidad.catalogo.add", compact('tipoCatalogo','cuentaPadre'));
     }
 
-    public function delete(Request $request)
+    public function delete(Request $cuenta)
     {
-        $id = $request->id;
-        Catalogo::destroy($id);
+        $cuenta = Catalogo::find($cuenta->id);
+        $padreActual = $cuenta->id_cuenta_padre;
+        while ($padreActual !== null) {
+            $cuentaPadre = Catalogo::find($padreActual);
+            $cuentaPadre->saldo = $cuentaPadre->saldo - $cuenta->saldo;
+            $cuentaPadre->save();
+            $padreActual = $cuentaPadre->id_cuenta_padre;
+        }
+        $cuenta->delete();
         return redirect("/contabilidad/catalogo");
 
     }
@@ -55,6 +62,13 @@ class CatalogoController extends Controller
         $cuenta->saldo = $request->saldo;
         $cuenta->iva = $request->iva;
         $cuenta->save();
+        $padreActual = $cuenta->id_cuenta_padre;
+        while ($padreActual !== null) {
+            $cuentaPadre = Catalogo::find($padreActual);
+            $cuentaPadre->saldo = $cuentaPadre->saldo + $request->saldo;
+            $cuentaPadre->save();
+            $padreActual = $cuentaPadre->id_cuenta_padre;
+        }
         return redirect("/contabilidad/catalogo");
     }
     public function edit($id)

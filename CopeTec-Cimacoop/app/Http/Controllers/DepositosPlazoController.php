@@ -144,69 +144,90 @@ class DepositosPlazoController extends Controller
 
         //registrar las partidas contables
 
-        // //Generar la partida contable 
-        // $id_partida = Str::uuid()->toString();
-        // $partidaContable = new PartidaContable;
-        // $cliente = Clientes::find($solicitud->id_cliente);
+        //Generar la partida contable 
+        $id_partida = Str::uuid()->toString();
+        $partidaContable = new PartidaContable;
+        $cliente =Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+        ->where('asociados.id_asociado', '=', $request->id_asociado)->first();
 
 
 
-        // $partidaContable->concepto = 'POR PAGO DE CUOTA A PRESTAMO ' . $cliente->nombre;
-        // $partidaContable->tipo_partida = 1; //Partida Diaria
-        // $partidaContable->id_partida_contable = $id_partida;
-        // $numero_cuenta = PartidaContable::where('year_contable', '=', date('Y'))->max('num_partida');
-        // $partidaContable->num_partida = $numero_cuenta + 1;
-        // $partidaContable->year_contable = date('Y');
-        // $partidaContable->fecha_partida = today();
-        // $partidaContable->save();
+
+        $partidaContable->concepto = 'POR DEPOSITO A PLAZO - ' . $cliente->nombre;
+        $partidaContable->tipo_partida = 1; //Partida Diaria
+        $partidaContable->id_partida_contable = $id_partida;
+        $numero_cuenta = PartidaContable::where('year_contable', '=', date('Y'))->max('num_partida');
+        $partidaContable->num_partida = $numero_cuenta + 1;
+        $partidaContable->year_contable = date('Y');
+        $partidaContable->fecha_partida = today();
+        $partidaContable->save();
 
 
-        // $arrayDatos = [];
-        // $arrayDatos[] = ['cuenta' => '11010101', 'debe' => $TOTAL_PAGAR, 'haber' => 0];
+        $arrayDatos = [];
+        //Caja general - deposito total
+        //11010101
+        $arrayDatos[] = ['cuenta' => '5', 'debe' => $request->monto_total, 'haber' => 0];
+       
+        // DEPÓSITOS DE ASOCIADOS apertura de cuenta $5
+        if ($request->monto_apertura_cuenta > 0) {
+            //21010101
+            $arrayDatos[] = ['cuenta' => '288', 'debe' => 0, 'haber' => $request->monto_apertura_cuenta];
+        }
+
+        //Deposito a plazo Asociado (deposito total-descuentos) = liquido
+        $arrayDatos[] = ['cuenta' => $request->id_cuenta_tipodeposito, 'debe' => 0, 'haber' => $request->monto_deposito];
 
 
-        // if ($CAPITAL > 0) {
-        //     $arrayDatos[] = ['cuenta' => $solicitud->destino, 'debe' => 0, 'haber' => $CAPITAL];
-        // }
+        //APORTACIONES PAGADAS  $10
+        if ($request->monto_aportacion_cuenta > 0) {
+            //310101
+            $arrayDatos[] = ['cuenta' => '460', 'debe' => 0, 'haber' => $request->monto_aportacion_cuenta];
+        }
 
-        // if ($APORTACION > 0) {
-        //     $arrayDatos[] = ['cuenta' => $configuracion->cuenta_aportacion, 'debe' => 0, 'haber' => $APORTACION];
-        // }
+        //OTRAS comision $10
+        if ($request->monto_comision > 0) {
+            //41010206
+            $arrayDatos[] = ['cuenta' => '501', 'debe' => 0, 'haber' => $request->monto_comision];
+        }
+            
+        foreach ($arrayDatos as $item) {
+            $detallePartida = new PartidaContableDetalleModel();
+            $detallePartida->id_cuenta = $item['cuenta'];
+            $detallePartida->id_partida = $id_partida;
+            if ($item['debe'] > 0) {
+                $detallePartida->parcial = $item['debe'];
+                //Sumar al saldo de la cuenta
+                $cuenta = Catalogo::find($item['cuenta']);
+                $cuenta->saldo = $cuenta->saldo + $item['debe'];
+                $cuenta->save();
+                $padreActual = $cuenta->id_cuenta_padre;
+                while ($padreActual !== null) {
+                    $cuentaPadre = Catalogo::find($padreActual);
+                    $cuentaPadre->saldo = $cuentaPadre->saldo + $item['debe'];
+                    $cuentaPadre->save();
+                    $padreActual = $cuentaPadre->id_cuenta_padre;
+                }
 
-        // if ($INTERESES > 0) {
-        //     $arrayDatos[] = ['cuenta' => $configuracion->cuenta_interes_credito, 'debe' => 0, 'haber' => $INTERESES];
-        // }
-        // // if ($SEGURO_DEUDA > 0) {
-        // //    $arrayDatos[] = ['cuenta' => $configuracion->cuenta_seguro_deuda, 'debe' => 0, 'haber' => $SEGURO_DEUDA];
-        // // }
-        // if ($MORA > 0) {
-        //     $arrayDatos[] = ['cuenta' => $configuracion->cuenta_interes_credito_moratorio, 'debe' => 0, 'haber' => $MORA];
-        // }
-
-        // foreach ($arrayDatos as $item) {
-        //     $detallePartida = new PartidaContableDetalleModel();
-        //     $detallePartida->id_cuenta = $item['cuenta'];
-        //     $detallePartida->id_partida = $id_partida;
-        //     if ($item['debe'] > 0) {
-        //         $detallePartida->parcial = $item['debe'];
-        //         //Sumar al saldo de la cuenta
-        //         $cuenta = Catalogo::find($item['cuenta']);
-        //         $cuenta->saldo = $cuenta->saldo + $item['debe'];
-        //         $cuenta->save();
-
-        //     }
-        //     if ($item['haber'] > 0) {
-        //         $detallePartida->parcial = $item['haber'];
-        //         //Restar al saldo de la cuenta
-        //         $cuenta = Catalogo::find($item['cuenta']);
-        //         $cuenta->saldo = $cuenta->saldo - $item['haber'];
-        //         $cuenta->save();
-        //     }
-        //     $detallePartida->cargos = $item['debe'];
-        //     $detallePartida->abonos = $item['haber'];
-        //     $detallePartida->estado = 0; //Pendiente de procesar la partida
-        //     $detallePartida->save();
-        // }
+            }
+            if ($item['haber'] > 0) {
+                $detallePartida->parcial = $item['haber'];
+                //Restar al saldo de la cuenta
+                $cuenta = Catalogo::find($item['cuenta']);
+                $cuenta->saldo = $cuenta->saldo - $item['haber'];
+                $cuenta->save();
+                $padreActual = $cuenta->id_cuenta_padre;
+                while ($padreActual !== null) {
+                    $cuentaPadre = Catalogo::find($padreActual);
+                    $cuentaPadre->saldo = $cuentaPadre->saldo - $item['haber'];
+                    $cuentaPadre->save();
+                    $padreActual = $cuentaPadre->id_cuenta_padre;
+                }
+            }
+            $detallePartida->cargos = $item['debe'];
+            $detallePartida->abonos = $item['haber'];
+            $detallePartida->estado = 0; //Pendiente de procesar la partida
+            $detallePartida->save();
+        }
 
 
 
