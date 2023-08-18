@@ -132,7 +132,7 @@ class MoneylaunderingController extends Controller
     }
     public function empReport()
     {
-        $clients =   Clientes::orderBy('nombre', 'asc')->get();
+        $clients =   Clientes::orderBy('id_empleado', 'asc')->get();
         $pdf = \App::make('snappy.pdf');
 
         $pdf->setOptions([
