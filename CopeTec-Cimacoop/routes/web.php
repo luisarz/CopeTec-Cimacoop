@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AperturaCajaController;
 use App\Http\Controllers\BeneficiarosDepositosController;
+use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\BobedaController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\CierreMensualController;
@@ -463,6 +464,16 @@ Route::delete('/contabilidad/cierre-mensual/revertir', [CierreMensualController:
 Route::get('/contabilidad/Reportes/catalogodecuentas', [ReportesController::class, 'catalogoCuentas'])->middleware(['auth', 'bitacora']);
 Route::get('/contabilidad/Reportes/historicodecuenta', [ReporteContabilidad::class, 'historicoCuenta'])->middleware(['auth', 'bitacora']);
 Route::post('/contabilidad/Reportes/historicodecuenta', [ReporteContabilidad::class, 'historicoCuenta_reporte'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/Reportes/libroauxiliar', [ReporteContabilidad::class, 'libroAuxiliar'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/Reportes/libroauxiliar', [ReporteContabilidad::class, 'libroAuxiliarRep'])->middleware(['auth', 'bitacora']);
+
+
+/*Bitacora */
+Route::get('/bitacora', [BitacoraController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::post('/bitacora', [BitacoraController::class, 'index'])->middleware(['auth', 'bitacora']);
+Route::get('/bitacora/reporte/{desde}/{hasta}', [BitacoraController::class, 'reporte'])->middleware(['auth', 'bitacora']);
+
+
 
 
 /** rutas de declaraciones*/

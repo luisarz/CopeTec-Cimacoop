@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-    <form action="/contabilidad/Reportes/historicodecuenta" target="_blank" method="post" autocomplete="off">
+    <form action="/contabilidad/Reportes/libroauxiliar" method="post" autocomplete="off">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
     <div class="card shadow-lg mt-3">
@@ -31,28 +31,23 @@
                         placeholder="Ingrese el encabezado del reporte">
                     <label>ENCABEZADO:</label>
                 </div>
-                <div class="form-floating col-lg-6">
-                    <select class="form-select " name="id_cuenta" id="id_cuenta" data-control="select2" required>
-                            <option value="">Seleccione la cuenta a generar reporte</option>
-                    
-                        @foreach ($cuentas as $cuenta)
-                            <option value="{{ $cuenta->id_cuenta }}">{{ $cuenta->numero }}-->{{ $cuenta->descripcion }}
-                            </option>
-                        @endforeach
+                  <div class="form-floating col-lg-6">
+                    <select name="tipo_reporte" id="tipo_reporte" class="form-select" required>
+                        <option value="1">Reporte Detallado</option>
+                        <option value="2">Reporte Consolidado</option>
                     </select>
-                    <label>TIPO CUENTA:</label>
+                    <label>TIPO REPORTE:</label>
                 </div>
+              
             </div>
             <div class="form-group row mb-5">
                 <div class="form-floating col-lg-6">
                     <input type="date" id="desde" name="desde" class="form-control" required value="{{ date('Y-m-01') }}">
 
-
                     <label>Periodo Inicial:</label>
                 </div>
                 <div class="form-floating col-lg-6">
                     <input type="date" id="hasta" name="hasta" class="form-control" required value="{{ date('Y-m-d') }}">
-
 
                     <label>Periodo Inicial:</label>
                 </div>

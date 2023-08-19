@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ModuloController extends Model
+class PartidasContablesDetalles extends Model
 {
+    protected $table = 'partidascontables';
     use HasFactory;
 }

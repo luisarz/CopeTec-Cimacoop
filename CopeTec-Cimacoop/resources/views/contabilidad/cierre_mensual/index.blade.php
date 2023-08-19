@@ -78,7 +78,7 @@
                                             Imprimir</a>
                                     @else
                                         <a href="javascript:showMessageRevertido({{ $cuenta->id }})"
-                                            class="btn btn-danger btn-sm w-30">
+                                            class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger btn-sm w-30">
                                             <i class="ki-outline ki-trash fs-4"></i>
                                             Revertir
                                         </a>
