@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">
+            <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-1 gs-1">
                 <thead class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
                     <tr>
                         <th>Acciones</th>
@@ -28,8 +28,9 @@
                     @foreach ($modulos as $modulo)
                         <tr>
                             <td><a href="javascript:void(0);" onclick="alertDelete({{ $modulo->id_modulo }})"
-                                    class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
-                                    Eliminar</a> <a href="/modulo/{{ $modulo->id_modulo }}" class="badge badge-primary"><i
+                                    class="btn btn-danger btn-sm"><i class="fa-solid fa-trash text-white"></i> &nbsp;
+                                    Eliminar</a>
+                                     <a href="/modulo/{{ $modulo->id_modulo }}" class="btn btn-info btn-sm"><i
                                         class="fa-solid fa-pencil text-white"></i> &nbsp;
                                     Modificar</a></td>
                             <td>{{ $modulo->nombre }}</td>

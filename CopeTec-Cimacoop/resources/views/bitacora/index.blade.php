@@ -119,6 +119,14 @@
          
             let desde =$("#desde").val();
             let hasta =$("#hasta").val();
+            if(desde=='' || hasta==''){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Debe seleccionar un rango de fechas',
+                })
+                return false;
+            }
             window.open('/bitacora/reporte/'+desde+'/'+hasta, '_blank');
         }
 
