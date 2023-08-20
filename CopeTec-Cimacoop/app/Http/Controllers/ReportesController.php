@@ -36,7 +36,6 @@ class ReportesController extends Controller
     {
         $this->estilos = file_get_contents(public_path('assets/css/css.css'));
         $this->stilosBundle = file_get_contents(public_path('assets/css/style.bundle.css'));
-
     }
 
 
@@ -94,7 +93,6 @@ class ReportesController extends Controller
         ]);
 
         return $pdf->setOrientation('portrait')->inline();
-
     }
     public function ComprobanteMovimiento($id)
     {
@@ -156,8 +154,6 @@ class ReportesController extends Controller
             ->get();
         if ($movimientosCuenta->count() == 0) {
             return redirect("/cuentas")->withErrors('La cuenta no tiene movimientos aun 😵‍💫, Asegurate realizar una operación antes de generarlo');
-
-
         }
 
         $clienteData = Clientes::find($movimientosCuenta[0]->id_cliente);
@@ -234,7 +230,6 @@ class ReportesController extends Controller
             'fondo' => $img
         ]);
         return $pdf->setOrientation('landscape')->inline();
-
     }
 
     public function solicitudCredito($idSolicitud)
@@ -283,7 +278,6 @@ class ReportesController extends Controller
             'montoSolicitadoEnLetras' => $montoSolicitadoEnLetras
         ]);
         return $pdf->setOrientation('portrait')->inline();
-
     }
     public function pagareCredito($idSolicitud)
     {
@@ -317,13 +311,11 @@ class ReportesController extends Controller
             'montoSolicitadoEnLetras' => $montoSolicitadoEnLetras
         ]);
         return $pdf->setOrientation('portrait')->inline();
-
     }
     public function liquidacionPrint($idCredito)
     {
 
-        $credito = Credito::where('id_credito', $idCredito)->
-            join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
+        $credito = Credito::where('id_credito', $idCredito)->join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
 
         $id_solicitud = $credito->id_solicitud;
 
@@ -351,7 +343,6 @@ class ReportesController extends Controller
         $numero_cuenta_ahorro = "";
         if ($cuentaAhorrro) {
             $numero_cuenta_ahorro = $cuentaAhorrro->numero_cuenta;
-
         }
         $numero_cuenta_aportacion = "";
         if ($cuentaAportacion) {
@@ -391,7 +382,6 @@ class ReportesController extends Controller
 
         ]);
         return $pdf->setOrientation('portrait')->inline();
-
     }
     public function comprobanteAbono($id_pago_credito)
     {
@@ -467,7 +457,6 @@ class ReportesController extends Controller
             $formattedResults[$result->descripcion_cuenta_padre]['total_parcial'] += $result->parcial;
             $formattedResults[$result->descripcion_cuenta_padre]['total_cargos'] += $result->cargos;
             $formattedResults[$result->descripcion_cuenta_padre]['total_abonos'] += $result->abonos;
-
         }
 
 
@@ -505,5 +494,14 @@ class ReportesController extends Controller
             'catalogo' => $catalogo,
         ]);
         return $pdf->setOrientation('portrait')->inline();
+    }
+    public function repDiario()
+    {
+
+        $cuentas = PartidasContablesModel::join('tipos_partidas_contables', 'tipos_partidas_contables.id_tipo_partida', '=', 'partidas_contables.tipo_partida')
+            ->select('partidas_contables.*', 'tipos_partidas_contables.descripcion')
+            ->orderBy('partidas_contables.num_partida', 'desc');
+
+        dd($cuentas);
     }
 }
