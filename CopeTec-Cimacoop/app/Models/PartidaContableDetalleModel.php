@@ -10,7 +10,10 @@ class PartidaContableDetalleModel extends Model
     protected $table = "partida_contables_detalle";
     protected $primaryKey = "id_detalle_partida_contable";
     use HasFactory;
-   
+    public function partidaContable()
+    {
+        return $this->belongsTo(PartidaContable::class, 'id_partida');
+    }
 }
 
 

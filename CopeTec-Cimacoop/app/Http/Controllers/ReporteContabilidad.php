@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Catalogo;
 use App\Models\CierreMensualModel;
 use App\Models\CierreMensualPartidaModel;
+use App\Models\LibroMayorModel;
+use App\Models\PartidaContable;
 use App\Models\PartidasContablesDetalles;
 use App\Models\PartidasContablesModel;
 use Illuminate\Http\Request;
@@ -136,9 +138,9 @@ class ReporteContabilidad extends Controller
         $fechaHasta = $request->hasta;
         $encabezado = $request->encabezado;
 
- 
-        $vista =($request->tipo_reporte==1)?"contabilidad.reportes.libroauxiliar-detallado":"contabilidad.reportes.libroauxiliar-consolidado";
-       
+
+        $vista = ($request->tipo_reporte == 1) ? "contabilidad.reportes.libroauxiliar-detallado" : "contabilidad.reportes.libroauxiliar-consolidado";
+
 
 
         $fech = $this->mesesEnLetras;
@@ -152,12 +154,12 @@ class ReporteContabilidad extends Controller
         } else {
             $mesCierreAnterior = $mesCierre - 1;
         }
-        
-        
+
+
         $data = [];
         $catalogo = Catalogo::all();
         foreach ($catalogo as $cuenta) {
-          
+
             $idCuenta = $cuenta->id_cuenta;
 
             $operacionesRealizadas = PartidasContablesDetalles::whereBetween('fecha_partida', [$fechaDesde, $fechaHasta])
@@ -192,7 +194,7 @@ class ReporteContabilidad extends Controller
             $data[] = [
                 'id' => $cuenta->id_cuenta,
                 'numero_cuenta' => $cuenta->numero,
-                'descripcion'=> $cuenta->descripcion,
+                'descripcion' => $cuenta->descripcion,
                 'cuenta' => $cuenta->descripcion,
                 'saldo_anterior' => $saldoAnterior,
                 'cargos' => $totalCargos,
@@ -210,10 +212,161 @@ class ReporteContabilidad extends Controller
         $pdf = PDF::loadView($vista, [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
-            'catalogo' =>$data,
+            'catalogo' => $data,
             'encabezado' => $encabezado,
             'hasta' => $request->hasta,
-      
+
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
+
+
+
+    public function libroMayor()
+    {
+        return view('contabilidad.reportes.libromayor');
+
+    }
+
+    public function obtenerCuentasConMovimientosYPartidas($idCuentaPadre, $fechaInicio, $fechaFin)
+    {
+
+
+        $cuentasHijas = Catalogo::where('id_cuenta_padre', $idCuentaPadre)
+            ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
+            ->get();
+
+        if ($cuentasHijas->isEmpty()) {
+            return [];
+        }
+
+        $result = [];
+
+        // Crear un arreglo para almacenar la suma de cargos y abonos por fecha
+        $totalCargosPorFecha = [];
+        $totalAbonosPorFecha = [];
+        $mesCierre = date('n', strtotime($fechaInicio));
+        $anioCierre = date('Y', strtotime($fechaInicio));
+        foreach ($cuentasHijas as $cuentaHija) {
+            $id_cuenta_hija = $cuentaHija->id_cuenta;
+            $cuentaHijaArray = $cuentaHija->toArray();
+
+            //Bucar el saldo Anterior
+          
+            $saldo_anterior = 0;
+
+            $movimientos = PartidasContablesDetalles::where('id_cuenta', $id_cuenta_hija)
+                ->whereBetween('fecha_partida', [$fechaInicio, $fechaFin])
+                ->select(
+                    DB::raw('DATE(fecha_partida) as fecha_dia'),
+                    DB::raw('SUM(cargos) as total_cargos'),
+                    DB::raw('SUM(abonos) as total_abonos')
+                )
+                ->groupBy('fecha_dia')
+                ->get();
+
+            foreach ($movimientos as $operacion) {
+                $libroMayor = new LibroMayorModel;
+                $libroMayor->id_cuenta_padre = $idCuentaPadre;
+                $libroMayor->id_cuenta = $id_cuenta_hija;
+                $libroMayor->numero_cuenta = $cuentaHija->numero;
+                $libroMayor->fecha_operacion =$operacion->fecha_dia;
+                $libroMayor->saldo_anterior = $saldo_anterior;
+                $libroMayor->cargos = $operacion->total_cargos;
+                $libroMayor->abonos = $operacion->total_abonos;
+                $libroMayor->save();
+            }
+
+
+
+
+
+
+            // Sumar los cargos y abonos de la cuenta hija por fecha
+            foreach ($movimientos as $movimiento) {
+                $fechaDia = $movimiento->fecha_dia;
+                $totalCargosPorFecha[$fechaDia] = ($totalCargosPorFecha[$fechaDia] ?? 0) + $movimiento->total_cargos;
+                $totalAbonosPorFecha[$fechaDia] = ($totalAbonosPorFecha[$fechaDia] ?? 0) + $movimiento->total_abonos;
+            }
+
+            $cuentaHijaArray['movimientos'] = $movimientos;
+
+            // Llamar recursivamente para cuentas hijas
+            $cuentaHijaArray['cuentas_hijas'] = $this->obtenerCuentasConMovimientosYPartidas(
+                $cuentaHija->id_cuenta,
+                $fechaInicio,
+                $fechaFin
+            );
+
+            $result[] = $cuentaHijaArray;
+        }
+
+        // Agregar la suma total de cargos y abonos por fecha al resultado
+        $result['total_cargos_por_fecha'] = $totalCargosPorFecha;
+        $result['total_abonos_por_fecha'] = $totalAbonosPorFecha;
+
+
+
+        return $result;
+    }
+
+
+
+    public function libroMayorRep(Request $request)
+    {
+        LibroMayorModel::truncate();
+
+        $fechaDesde = $request->desde;
+        $fechaHasta = $request->hasta;
+        $encabezado = $request->encabezado;
+
+        $cuentasPadres = Catalogo::whereRaw('LENGTH(numero) = 4')
+            ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
+            ->get();
+
+        $mesCierre = date('n', strtotime($fechaDesde));
+        $anioCierre = date('Y', strtotime($fechaHasta));
+
+        if ($mesCierre == 1) {
+            $mesCierreAnterior = 12;
+            $anioCierre = $anioCierre - 1;
+        } else {
+            $mesCierreAnterior = $mesCierre - 1;
+        }
+        $saldoAnterior = 0;
+        $cuentasConMovimientos = [];
+
+        foreach ($cuentasPadres as $cuentaPadre) {
+            // Obtén los datos de la cuenta padre
+            $cuentaPadreArray = $cuentaPadre->toArray();
+
+            // Llama a la función con el ID de la cuenta padre deseada y las fechas deseadas
+            $idCuentaPadre = $cuentaPadre->id_cuenta;
+            $cuentasConMovimientos[] = array_merge(
+                $cuentaPadreArray, // Agrega los datos de la cuenta padre
+                $this->obtenerCuentasConMovimientosYPartidas($idCuentaPadre, $fechaDesde, $fechaHasta)
+            );
+
+
+
+
+        }
+
+        echo "<pre>";
+        echo json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
+
+        echo "</pre>";
+        die();
+        $vista = "contabilidad.reportes.libromayor_rep";
+
+
+        $pdf = PDF::loadView($vista, [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'catalogo' => $datosJson,
+            'encabezado' => $encabezado,
+            'hasta' => $request->hasta,
+
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
