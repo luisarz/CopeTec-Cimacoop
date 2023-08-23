@@ -471,8 +471,10 @@ Route::post('/contabilidad/Reportes/libroauxiliar', [ReporteContabilidad::class,
 
 Route::get('/contabilidad/Reportes/libromayor', [ReporteContabilidad::class, 'libroMayor'])->middleware(['auth', 'bitacora']);
 Route::post('/contabilidad/Reportes/libromayor', [ReporteContabilidad::class, 'libroMayorRep'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/Reportes/librodiario', [ReporteContabilidad::class, 'libroDiario'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/Reporte/librodiario', [ReporteContabilidad::class, 'libroMayorRept'])->middleware(['auth', 'bitacora']);
 
-
+// Route::get('/contabilidad/Reportes/libromayor-rep', [ReporteContabilidad::class, 'libroMayorRept'])->middleware(['auth', 'bitacora']);
 
 /*Bitacora */
 Route::get('/bitacora', [BitacoraController::class, 'index'])->middleware(['auth', 'bitacora']);
