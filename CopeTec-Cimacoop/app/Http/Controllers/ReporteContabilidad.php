@@ -410,18 +410,18 @@ class ReporteContabilidad extends Controller
 
         // echo "</pre>";
         // die();
-        // return view('reportes.contabilidad.partidas.libromayor', compact('estilos', 'stilosBundle', 'arrFormatted'));
-        $vista = "reportes.contabilidad.partidas.libromayor";
+        return view('reportes.contabilidad.partidas.libromayor', compact('estilos', 'stilosBundle', 'arrFormatted'));
+        // $vista = "reportes.contabilidad.partidas.libromayor";
 
 
-        $pdf = PDF::loadView($vista, [
-            'estilos' => $this->estilos,
-            'stilosBundle' => $this->stilosBundle,
-            'arrFormatted' => $arrFormatted,
-            'encabezado' => $encabezado,
-            'hasta' => $request->hasta,
+        // $pdf = PDF::loadView($vista, [
+        //     'estilos' => $this->estilos,
+        //     'stilosBundle' => $this->stilosBundle,
+        //     'arrFormatted' => $arrFormatted,
+        //     'encabezado' => $encabezado,
+        //     'hasta' => $request->hasta,
 
-        ]);
-        return $pdf->setOrientation('portrait')->inline();
+        // ]);
+        // return $pdf->setOrientation('portrait')->inline();
     }
 }
