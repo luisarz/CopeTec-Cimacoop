@@ -223,6 +223,10 @@ class ReporteContabilidad extends Controller
     {
         return view('contabilidad.reportes.libromayor');
     }
+    public function libroDiario()
+    {
+        return view('contabilidad.reportes.librodiario');
+    }
 
     public function obtenerCuentasConMovimientosYPartidas($idCuentaPadre, $fechaInicio, $fechaFin)
     {
