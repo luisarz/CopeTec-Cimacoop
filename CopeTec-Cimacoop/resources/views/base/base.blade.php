@@ -151,12 +151,15 @@ License: For each use you must have a valid license purchased only from above li
                             <!--begin::Theme mode-->
                             <div class="app-navbar-item ms-1 ms-md-3">
                                 <!--begin::Menu toggle-->
-                               <a href="#" class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-										<i class="ki-outline ki-night-day theme-light-show fs-2 fs-lg-1">
-										</i>
-										<i class="ki-outline ki-moon theme-dark-show fs-2 fs-lg-1">
-										</i>
-									</a>
+                                <a href="#"
+                                    class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
+                                    data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent"
+                                    data-kt-menu-placement="bottom-end">
+                                    <i class="ki-outline ki-night-day theme-light-show fs-2 fs-lg-1">
+                                    </i>
+                                    <i class="ki-outline ki-moon theme-dark-show fs-2 fs-lg-1">
+                                    </i>
+                                </a>
                                 <!--begin::Menu toggle-->
 
                                 <!--begin::Menu-->
@@ -226,8 +229,8 @@ License: For each use you must have a valid license purchased only from above li
                                         {{-- <i class="ki-outline ki-profile-circle fs-2 "></i> --}}
                                         <i class="ki-outline ki-profile-circle theme-light-show fs-2 fs-lg-1"></i>
                                         <i class="ki-outline ki-profile-circle theme-dark-show fs-2 fs-lg-1">
-											
-										</i>
+
+                                        </i>
                                     </span>
                                 </div>
 
@@ -372,7 +375,8 @@ License: For each use you must have a valid license purchased only from above li
                                                                 $activemenulink = $sub_access->id_modulo == Session::get('active_menu') ? 'active' : '';
                                                             @endphp
                                                             <a class="menu-link {{ $activemenulink }}"
-                                                                href="{{ $sub_access->ruta }}" target="{{ $sub_access->target  }}">
+                                                                href="{{ $sub_access->ruta }}"
+                                                                target="{{ $sub_access->target == 0 ? '_self' : '_blank' }}">
                                                                 <span class="menu-icon">
                                                                     <i
                                                                         class="ki-outline {{ $sub_access->icono }} fs-2"></i>

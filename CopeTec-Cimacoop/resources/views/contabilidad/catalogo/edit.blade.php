@@ -50,12 +50,12 @@
                                 @endif
                             @endforeach
                         </select>
-                           <label>TIPO CUENTA:</label>
+                        <label>TIPO CUENTA:</label>
                     </div>
-                       <div class="form-floating col-lg-4">
+                    <div class="form-floating col-lg-4">
                         <select class="form-select form-select-solid" name="id_cuenta_padre" id="id_cuenta_padre"
                             data-control="select2">
-                          
+
                         </select>
                         <label>CUENTA PADRE:</label>
                     </div>
@@ -67,7 +67,7 @@
                     <div class="form-floating col-lg-3">
                         <input type="text" name="descripcion" id="descripcion" value="{{ $cuenta->descripcion }}"
                             class="form-control" required>
-                         <label>NOMBRE CUENTA:</label>
+                        <label>NOMBRE CUENTA:</label>
                     </div>
 
 
@@ -77,7 +77,7 @@
                     <div class="form-floating col-lg-4">
                         <input type="number" name="saldo" id="saldo" value="{{ $cuenta->saldo }}"
                             class="form-control" required>
-                       <label>SALDO CUENTA:</label>
+                        <label>SALDO CUENTA:</label>
                     </div>
                     <div class="form-floating col-lg-2">
 
@@ -91,13 +91,11 @@
                                 <option value="0" selected>Sin IVA</option>
                             @endif
                         </select>
-                         <label>IVA:</label>
+                        <label>IVA:</label>
                     </div>
 
-                     <div class="form-floating col-lg-2">
-
+                    <div class="form-floating col-lg-2">
                         <select class="form-select form-select-solid" name="movimiento" id="movimiento" data-control="">
-
                             @if ($cuenta->movimiento == 1)
                                 <option value="1" selected>SI</option>
                                 <option value="0">NO</option>
@@ -106,13 +104,9 @@
                                 <option value="0" selected>NO</option>
                             @endif
                         </select>
-                         <label>MOVIMIENTO:</label>
+                        <label>MOVIMIENTO:</label>
                     </div>
-                    
-
-
                     <div class="form-floating col-lg-4">
-
                         <select class="form-select form-select-solid" name="estado" id="estado">
                             @if ($cuenta->estado == 1)
                                 <option value="1" selected>Activo</option>
@@ -122,12 +116,52 @@
                                 <option value="0" selected>Inactivo</option>
                             @endif
                         </select>
-
-                       <label>ESTADO:</label>
+                        <label>ESTADO:</label>
                     </div>
                 </div>
+                <!--begin::row group-->
+                <div class="form-group row mb-5">
+                    <div class="form-floating col-lg-4">
+                        <select class="form-select form-select-solid" name="tipo_reporte" id="tipo_reporte" data-control="" required>
+                                <option value="">Seleccione el tipo de reporte</option>
+                            @if ($cuenta->tipo_reporte == 'B')
+                                <option value="B" selected>Balance de Situación</option>
+                                <option value="E">Estado de Resultado</option>
+                                <option value="O">Cuenta de Orden</option>
+                            @elseif($cuenta->tipo_reporte == 'E')
+                                <option value="B">Balance de Situación</option>
+                                <option value="E" selected>Estado de Resultado</option>
+                                <option value="O">Cuenta de Orden</option>
+                            @else
+                                <option value="B">Balance de Situación</option>
+                                <option value="E">Estado de Resultado</option>
+                                <option value="O" selected>Cuenta de Orden</option>
+                            @endif
+                        </select>
+                        <label>TIPO REPORTE:</label>
+                    </div>
+                    <div class="form-floating col-lg-2">
 
+                        <select class="form-select form-select-solid" name="tipo_saldo_normal" id="tipo_saldo_normal" 
+                            data-control="">
 
+                            @if ($cuenta->tipo_saldo_normal == 'D')
+                                <option value="D" selected>Deudor</option>
+                                <option value="A">Acreedor</option>
+                            @else
+                                <option value="D">Deudor</option>
+                                <option value="A" selected>Acreedor</option>
+                            @endif
+                        </select>
+                        <label>TIPO SALDO NORMAL:</label>
+                    </div>
+
+                    <div class="form-floating col-lg-2">
+                        <input type="text" name="codigo_agrupador" id="codigo_agrupador" disabled
+                            value="{{ $cuenta->codigo_agrupador }}" class="form-control" required>
+                        <label>CODIGO AGRUPADOR:</label>
+                    </div>
+                </div>
             </div>
 
         </div>

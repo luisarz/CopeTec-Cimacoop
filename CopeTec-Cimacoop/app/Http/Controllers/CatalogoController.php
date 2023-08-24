@@ -32,7 +32,7 @@ class CatalogoController extends Controller
     {
         $cuentaPadre = Catalogo::all();
         $tipoCatalogo = TipoCuentaCotableModel::all();
-        return view("contabilidad.catalogo.add", compact('tipoCatalogo','cuentaPadre'));
+        return view("contabilidad.catalogo.add", compact('tipoCatalogo', 'cuentaPadre'));
     }
 
     public function delete(Request $cuenta)
@@ -52,23 +52,33 @@ class CatalogoController extends Controller
     public function post(Request $request)
     {
         $cuenta = new Catalogo();
-        $cuenta->id_cuenta_padre= $request->id_cuenta_padre;
+        $cuenta->id_cuenta_padre = $request->id_cuenta_padre;
         $cuenta->numero = $request->numero;
         $cuenta->descripcion = $request->descripcion;
         $cuenta->tipo_catalogo = $request->tipo_catalogo;
-        $cuenta->estado = $request->estado;
-        $cuenta->movimiento = $request->movimiento;
-
         $cuenta->saldo = $request->saldo;
+        $cuenta->movimiento = $request->movimiento;
         $cuenta->iva = $request->iva;
-        $cuenta->save();
-        $padreActual = $cuenta->id_cuenta_padre;
-        while ($padreActual !== null) {
-            $cuentaPadre = Catalogo::find($padreActual);
-            $cuentaPadre->saldo = $cuentaPadre->saldo + $request->saldo;
-            $cuentaPadre->save();
-            $padreActual = $cuentaPadre->id_cuenta_padre;
+
+        $cuenta->tipo_reporte = $request->tipo_reporte;
+        $cuenta->tipo_saldo_normal = $request->tipo_saldo_normal;
+        $codigo_agrupador = null;
+        if ($request->id_cuenta_padre != null) {
+            $cuentaPadre = Catalogo::find($request->id_cuenta_padre);
+            if ($cuentaPadre) {
+                $codigo_agrupador = substr($cuentaPadre->numero, 0, 4); //obtener el codigo agrupador los primeros cuatro digitos del codigo de cuenta padre
+            }
         }
+        $cuenta->codigo_agrupador = $codigo_agrupador;
+        $cuenta->estado = $request->estado;
+        $cuenta->save();
+
+        // while ($padreActual !== null) {
+        //     $cuentaPadre = Catalogo::find($padreActual);
+        //     $cuentaPadre->saldo = $cuentaPadre->saldo + $request->saldo;
+        //     $cuentaPadre->save();
+        //     $padreActual = $cuentaPadre->id_cuenta_padre;
+        // }
         return redirect("/contabilidad/catalogo");
     }
     public function edit($id)
@@ -77,7 +87,7 @@ class CatalogoController extends Controller
         // $cuentaPadre = Catalogo::select('numero as numCuentaPadre', 'descripcion as descripcionPadre')->paginate(5);
 
         $tipoCatalogo = TipoCuentaCotableModel::all();
-        
+
         return view('contabilidad.catalogo.edit', compact('cuenta', 'tipoCatalogo'));
     }
     public function put(Request $request)
@@ -87,17 +97,26 @@ class CatalogoController extends Controller
         $cuenta->numero = $request->numero;
         $cuenta->descripcion = $request->descripcion;
         $cuenta->tipo_catalogo = $request->tipo_catalogo;
-
-        $cuenta->movimiento = $request->movimiento;
-        $cuenta->estado = $request->estado;
         $cuenta->saldo = $request->saldo;
+        $cuenta->movimiento = $request->movimiento;
         $cuenta->iva = $request->iva;
+        $cuenta->tipo_reporte = $request->tipo_reporte;
+        $cuenta->tipo_saldo_normal = $request->tipo_saldo_normal;
+        $codigo_agrupador = null;
+        if ($request->id_cuenta_padre != null) {
+            $cuentaPadre = Catalogo::find($request->id_cuenta_padre);
+            if ($cuentaPadre) {
+                $codigo_agrupador = substr($cuentaPadre->numero, 0, 4); //obtener el codigo agrupador los primeros cuatro digitos del codigo de cuenta padre
+            }
+        }
+        $cuenta->codigo_agrupador = $codigo_agrupador;
+        $cuenta->estado = $request->estado;
         $cuenta->save();
         return redirect("/contabilidad/catalogo");
     }
     public function getCuentasById($tipo_catalogo)
     {
-        $cuentaPadre = Catalogo::where('tipo_catalogo','=',$tipo_catalogo)->get();
+        $cuentaPadre = Catalogo::where('tipo_catalogo', '=', $tipo_catalogo)->get();
         return response()->json([
             "cuentaPadre" => $cuentaPadre
         ]);

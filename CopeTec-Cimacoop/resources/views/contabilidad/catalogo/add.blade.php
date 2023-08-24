@@ -102,6 +102,37 @@
 
 
                 </div>
+                 <!--begin::row group-->
+                <div class="form-group row mb-5">
+                    <div class="form-floating col-lg-4">
+                        <select class="form-select form-select-solid" name="tipo_reporte" id="tipo_reporte" data-control="" required>
+                                <option value="">Seleccione el tipo de reporte</option>
+                                <option value="B" >Balance de Situación</option>
+                                <option value="E">Estado de Resultado</option>
+                                <option value="O">Cuenta de Orden</option>
+                          
+                        </select>
+                        <label>TIPO REPORTE:</label>
+                    </div>
+                    <div class="form-floating col-lg-2">
+
+                        <select class="form-select form-select-solid" name="tipo_saldo_normal" id="tipo_saldo_normal" 
+                            data-control="">
+
+                       
+                                <option value="D" selected>Deudor</option>
+                                <option value="A">Acreedor</option>
+                         
+                        </select>
+                        <label>TIPO SALDO NORMAL:</label>
+                    </div>
+
+                    <div class="form-floating col-lg-2">
+                        <input type="text" name="codigo_agrupador" id="codigo_agrupador" disabled
+                            value="{{ $cuenta->codigo_agrupador }}" class="form-control" required>
+                        <label>CODIGO AGRUPADOR:</label>
+                    </div>
+                </div>
 
             </div>
             <div class="card-footer d-flex justify-content-center py-6">
