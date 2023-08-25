@@ -25,7 +25,7 @@
 
     @php
         $total_cargos = 0;
-        $total_abonos = 0;    
+        $total_abonos = 0;
     @endphp
 
     <br>
@@ -54,7 +54,7 @@
                     <td>{{ $cuenta['numero'] }}</td>
                     <td>{{ $cuenta['descripcion'] }}</td>
                     <td style="text-align: right;">
-                       @if (isset($cuenta['sumas']))
+                        @if (isset($cuenta['sumas']))
                             $ {{ number_format($cuenta['sumas']->saldo_anterior, 2) }}
                         @else
                             $0.00
@@ -90,7 +90,7 @@
 
                 @if (isset($cuenta['movimientos']))
                     @foreach ($cuenta['movimientos'] as $operacion)
-                        <tr  class="fs-5 mb-1 ">
+                        <tr class="fs-5 mb-1 ">
                             <td>
                             </td>
                             <td style="text-align: right; ">
@@ -129,18 +129,18 @@
                 @endif
             @endforeach
             <tr class="fs-5 border-top py-6 font-bold">
-                                <td></td>
-                                <td>TOTALES</td>
-                                <td></td>
-                                <td style="text-align: right; border-bottom: 2px double rgb(0, 0, 0) !important;">
-                                        $ {{ number_format($total_cargos, 2) }}
-                                       
-                                </td>
-                              <td style="text-align: right; border-bottom: 2px double rgb(0, 0, 0) !important;">
-                                                                            $ {{ number_format($total_abonos, 2) }}
+                <td></td>
+                <td>TOTALES</td>
+                <td></td>
+                <td style="text-align: right; border-bottom: 2px double rgb(0, 0, 0) !important;">
+                    $ {{ number_format($total_cargos, 2) }}
 
-                                </td>
-                            </tr>
+                </td>
+                <td style="text-align: right; border-bottom: 2px double rgb(0, 0, 0) !important;">
+                    $ {{ number_format($total_abonos, 2) }}
+
+                </td>
+            </tr>
 
         </tbody>
     </table>
