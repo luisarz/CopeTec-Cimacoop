@@ -58,6 +58,7 @@
                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-250px">Acciones</th>
                             <th class="min-w-50px">CODIGO</th>
+                            <th class="min-w-50px">AGRUPADOR</th>
                             <th class="min-w-100px">TIPO CUENTA</th>
                             <th class="min-w-80px">NOMBRE CUENTA</th>
                             <th class="min-w-50px text-center">MOVIMIENTO</th>
@@ -82,6 +83,8 @@
                                             class="ki-outline ki-cross-circle fs-4"></i></a>
                                 </td>
                                 <td>{{ $cuenta->numero }}</td>
+                                <td>{{ $cuenta->codigo_agrupador }}</td>
+
                                 <td>{{ $cuenta->catalogo }}</td>
                                 <td>{{ $cuenta->descripcion }}</td>
                                 <td style="text-align: center">

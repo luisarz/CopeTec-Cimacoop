@@ -20,7 +20,7 @@
     </div>
 
     <div class="double-strikethrough">
-        {{ $encabezado }}
+        {{-- {{ $encabezado }} --}}
     </div>
 
 
@@ -31,7 +31,7 @@
 
             <tr
                 style="font-family: 'Courier New', Courier, monospace; border-top: 1px solid rgb(3, 3, 3);  border-bottom: 1px solid rgb(3, 3, 3); font-weight:bold;">
-                <th style="width: 130px;  border-left: 1px solid rgb(255, 255, 255);">CUENTA CONTABLE </th>
+                <th style="width: 100px;  border-left: 1px solid rgb(255, 255, 255);">CUENTA CONTABLE </th>
                 <th style="width: 220px; border-left: 1px solid rgb(255, 255, 255);"> </th>
                 <th style="width: 100px; text-align: center; border-left: 1px solid rgb(255, 255, 255);">SALDO ANTERIOR
                 </th>
@@ -49,86 +49,66 @@
 
             @foreach ($catalogo as $cuenta)
                 <tr style="border: 1px solid rgb(255, 255, 255); height: 10px !important;">
-                    <td>{{ $cuenta['numero_cuenta'] }}</td>
+                    <td>{{ $cuenta['numero'] }}</td>
                     <td>{{ $cuenta['descripcion'] }}</td>
-                    <td style="text-align: right;">${{ number_format($cuenta['saldo_anterior'], 2) }}</td>
-                    <td style="text-align: right;  }}">
-                        ${{ number_format($cuenta['cargos'], 2) }}
+                    <td style="text-align: right;">
+                        0.00
                     </td>
                     <td style="text-align: right;  }}">
-                        ${{ number_format($cuenta['abonos'], 2) }}
+                        ----------------------
+
+                        @if (isset($cuenta['sumas']))
+                            ${{ number_format($cuenta['sumas']->total_cargos, 2) }}
+                            @else
+                            $0.00
+
+                        @endif
+                    </td>
+                    <td style="text-align: right;  border: 1px solid rgb(255, 255, 255);">
+                        ----------------------
+                        @if (isset($cuenta['sumas']))
+                            ${{ number_format($cuenta['sumas']->total_abonos, 2) }}
+                            @else
+                            $0.00
+                        @endif
+                    </td>
+                     <td style="text-align: right;">
+                       @if (isset($cuenta['sumas']))
+                            ${{ number_format($cuenta['sumas']->saldo, 2) }}
+                            @else
+                            $0.00
+                        @endif
                     </td>
 
-                    <td style="text-align: right;">${{ number_format($cuenta['saldo'], 2) }}</td>
                 </tr>
 
-                @if ($cuenta['movimientosPorDia'])
-                    @foreach ($cuenta['movimientosPorDia'] as $operacion)
-                        @foreach ($operacion as $op)
-
-                            <tr
-                                style="border: 1px solid rgb(255, 255, 255);font-family: 'Courier New', Courier, monospace';">
-                                <td>
-                                </td>
-                                <td style="text-align: right;">
-                                    MOVIMIENTOS DEL DIA {{ date('d-m-Y', strtotime($op['fecha'])) }}
-
-
-                                </td>
-                                <td></td>
-                                <td style="text-align: right;">
-                                    {{ $op['total_cargos'] > 0 ? '$' . number_format($op['total_cargos'], 2) : '' }}
-                                </td>
-                                <td style="text-align: right;">
-                                    {{ $op['total_abonos'] > 0 ? '$' . number_format($op['total_abonos'], 2) : '' }}
-                                </td>
-                                <td></td>
-                            </tr>
-                        @endforeach
+                @if (isset($cuenta['movimientos']))
+                    @foreach ($cuenta['movimientos'] as $operacion)
                         <tr
-                            style="border: 1px solid rgb(255, 255, 255);font-family: 'Courier New', Courier, monospace';">
+                            style="border: 1px solid rgb(255, 255, 255);">
                             <td>
                             </td>
-                            <td style="text-align: right;">
-
+                            <td style="text-align: right; font-family: 'Courier New', Courier, monospace';">
+                                MOVIMIENTOS DEL DIA {{ date('d-m-Y', strtotime($operacion['fecha_partida'])) }}
                             </td>
                             <td></td>
                             <td
                                 style="text-align: right;border-top: 1px solid rgb(0, 0, 0);font-family: 'Courier New', Courier, monospace';">
-                                ----------------- <br>
-                                ${{ number_format($cuenta['cargos'], 2) }}
+
+                                ${{ number_format($operacion['total_cargos'], 2) }}
                             </td>
                             <td
                                 style="text-align: right;border-top: 1px solid rgb(0, 0, 0);font-family: 'Courier New', Courier, monospace';">
-                                ----------------- <br>
-                                ${{ number_format($cuenta['abonos'], 2) }}
+
+                                ${{ number_format($operacion['total_abonos'], 2) }}
 
                             </td>
-                            <td></td>
+                          
                         </tr>
                     @endforeach
                 @endif
             @endforeach
-            <tr style="border: 1px solid rgb(255, 255, 255);font-family: 'Courier New', Courier, monospace';">
-                <td>
-                </td>
-                <td style="text-align: right;">
 
-                </td>
-                <td></td>
-                <td
-                    style="text-align: right;border-top: 1px solid rgb(0, 0, 0);font-family: 'Courier New', Courier, monospace';">
-                    ----------------- <br>
-                    ${{ number_format($cuenta['cargos'], 2) }}
-                </td>
-                <td
-                    style="text-align: right;border-top: 1px solid rgb(0, 0, 0);font-family: 'Courier New', Courier, monospace';">
-                    ----------------- <br>
-                    ${{ number_format($cuenta['abonos'], 2) }}
-
-                </td>
-                <td></td>
-            </tr>
         </tbody>
     </table>
 
