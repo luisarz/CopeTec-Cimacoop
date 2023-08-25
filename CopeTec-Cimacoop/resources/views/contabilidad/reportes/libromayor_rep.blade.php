@@ -23,23 +23,24 @@
         {{-- {{ $encabezado }} --}}
     </div>
 
+    @php
+        $total_cargos = 0;
+        $total_abonos = 0;    
+    @endphp
 
     <br>
 
-    <table class="table table-sm fs-7 mb-1 pb-1" style="border: 1px solid rgb(255, 255, 255);">
+    <table class="table table-sm fs-7 mb-1 " style="border: 1px solid rgb(255, 255, 255);">
         <thead style="border-top: 1px solid black; border-bottom: 1px solid black; font-size:18px; "
             class="font-bold fs-4">
-
-
-            <tr>
-
-                <th style="width: 100px; ">CUENTA DE MAYOR </th>
-                <th style="width: 220px; "> </th>
+            <tr style="font-weight:bold">
+                <th style="width: 80px; text-align:rigth;" style="text-align: right;">CUENTA</th>
+                <th style="width: 220px; text-align:left;">DE MAYOR </th>
                 <th style="width: 100px; ">SALDO ANTERIOR
                 </th>
                 <th style="width: 125px; ">CARGOS</th>
                 <th style="width: 125px; ">ABONOS</th>
-                <th style="width: 105px; ">
+                <th style="width: 125px; text-align:right; ">
                     SALDO ACTUAL</th>
 
             </tr>
@@ -64,6 +65,7 @@
 
                         @if (isset($cuenta['sumas']))
                             $ {{ number_format($cuenta['sumas']->total_cargos, 2) }}
+                            <?php $total_cargos += $cuenta['sumas']->total_cargos; ?>
                         @else
                             $0.00
                         @endif
@@ -71,6 +73,7 @@
                     <td style="text-align: right;  ">
                         @if (isset($cuenta['sumas']))
                             $ {{ number_format($cuenta['sumas']->total_abonos, 2) }}
+                            <?php $total_abonos += $cuenta['sumas']->total_abonos; ?>
                         @else
                             $ 0.00
                         @endif
@@ -125,6 +128,19 @@
                     @endforeach
                 @endif
             @endforeach
+            <tr class="fs-5 border-top py-6 font-bold">
+                                <td></td>
+                                <td>TOTALES</td>
+                                <td></td>
+                                <td style="text-align: right; border-bottom: 2px double rgb(0, 0, 0) !important;">
+                                        $ {{ number_format($total_cargos, 2) }}
+                                       
+                                </td>
+                              <td style="text-align: right; border-bottom: 2px double rgb(0, 0, 0) !important;">
+                                                                            $ {{ number_format($total_abonos, 2) }}
+
+                                </td>
+                            </tr>
 
         </tbody>
     </table>
