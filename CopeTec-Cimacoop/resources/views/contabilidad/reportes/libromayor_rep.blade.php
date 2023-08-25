@@ -54,8 +54,8 @@
                     <td style="text-align: right;">
                         0.00
                     </td>
-                    <td style="text-align: right;  }}">
-                        ----------------------
+                    <td style="text-align: right;  border-top: 1px solid rgb(0, 0, 0);">
+                     
 
                         @if (isset($cuenta['sumas']))
                             ${{ number_format($cuenta['sumas']->total_cargos, 2) }}
@@ -64,8 +64,7 @@
 
                         @endif
                     </td>
-                    <td style="text-align: right;  border: 1px solid rgb(255, 255, 255);">
-                        ----------------------
+                   <td style="text-align: right;  border-top: 1px solid rgb(0, 0, 0);">
                         @if (isset($cuenta['sumas']))
                             ${{ number_format($cuenta['sumas']->total_abonos, 2) }}
                             @else
