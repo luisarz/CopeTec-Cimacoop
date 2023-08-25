@@ -9,10 +9,10 @@ use App\Models\LibroMayorModel;
 use App\Models\PartidaContable;
 use App\Models\PartidasContablesDetalles;
 use App\Models\PartidasContablesModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use \PDF;
-use stdClass;
 
 class ReporteContabilidad extends Controller
 {
@@ -344,76 +344,289 @@ class ReporteContabilidad extends Controller
             $cuentaPadreArray = $cuentaPadre->toArray();
 
             // Llama a la función con el ID de la cuenta padre deseada y las fechas deseadas
-            $codigo_agrupador = $cuentaPadre->numero;
+            $idCuentaPadre = $cuentaPadre->id_cuenta;
             $cuentasConMovimientos[] = array_merge(
                 $cuentaPadreArray, // Agrega los datos de la cuenta padre
-                $this->sumarMovimientosPorCodigoAgrupadorYFecha($codigo_agrupador, $fechaDesde, $fechaHasta)
+                $this->obtenerCuentasConMovimientosYPartidas($idCuentaPadre, $fechaDesde, $fechaHasta)
             );
-
         }
-        // $arrFormatted = json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
+        $arrFormatted = json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
+        dd($arrFormatted);
+        echo "<pre>";
+        echo json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
 
-        // echo "<pre>";
-        // echo json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
-
-        // echo "</pre>";
-
-
+        echo "</pre>";
+        die();
+        return view('reportes.contabilidad.partidas.libromayor', compact('estilos', 'stilosBundle', 'arrFormatted'));
+        // $vista = "contabilidad.reportes.libromayor_rep";
 
 
-        $pdf = PDF::loadView("contabilidad.reportes.libromayor_rep", [
-            'estilos' => $this->estilos,
-            'stilosBundle' => $this->stilosBundle,
-            'catalogo' => $cuentasConMovimientos,
-            'encabezado' => $encabezado,
-            'hasta' => $request->hasta,
+        // $pdf = PDF::loadView($vista, [
+        //     'estilos' => $this->estilos,
+        //     'stilosBundle' => $this->stilosBundle,
+        //     'catalogo' => $datosJson,
+        //     'encabezado' => $encabezado,
+        //     'hasta' => $request->hasta,
 
-        ]);
-        return $pdf->setOrientation('portrait')->inline();
+        // ]);
+        // return $pdf->setOrientation('portrait')->inline();
     }
-
-
-    public function sumarMovimientosPorCodigoAgrupadorYFecha($codigoAgrupador, $fechaInicio, $fechaFin)
+    public function libroMayorRept(Request $request)
     {
+        LibroMayorModel::truncate();
+        $estilos = $this->estilos;
+        $stilosBundle = $this->stilosBundle;
+        $fechaDesde = $request->desde;
+        $fechaHasta = $request->hasta;
+        $encabezado = $request->encabezado;
 
-        $movimientosPorCuenta = [];
-
-        $results = PartidasContablesDetalles::select('codigo_agrupador', 'fecha_partida')
-            ->selectRaw('SUM(cargos) as total_cargos, SUM(abonos) as total_abonos')
-            ->whereBetween('fecha_partida', [$fechaInicio, $fechaFin])
-            ->where('codigo_agrupador', '=', $codigoAgrupador)
-            ->groupBy('fecha_partida', 'codigo_agrupador')
-            ->orderBy('fecha_partida', 'asc')
+        $cuentasPadres = Catalogo::whereRaw('LENGTH(numero) = 4')
+            ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
             ->get();
 
-        //cargamos el saldo anterior
-        $mesCierre = date('n', strtotime($fechaInicio));
-        $anioCierre = date('Y', strtotime($fechaInicio));
+        $mesCierre = date('n', strtotime($fechaDesde));
+        $anioCierre = date('Y', strtotime($fechaHasta));
+
         if ($mesCierre == 1) {
             $mesCierreAnterior = 12;
             $anioCierre = $anioCierre - 1;
         } else {
             $mesCierreAnterior = $mesCierre - 1;
         }
+        $saldoAnterior = 0;
+        $cuentasConMovimientos = [];
+
+        foreach ($cuentasPadres as $cuentaPadre) {
+            // Obtén los datos de la cuenta padre
+            $cuentaPadreArray = $cuentaPadre->toArray();
 
 
-        $sumTotalCargos = $results->sum('total_cargos');
-        $sumTotalAbonos = $results->sum('total_abonos');
+            // Llama a la función con el ID de la cuenta padre deseada y las fechas deseadas
+            $idCuentaPadre = $cuentaPadre->id_cuenta;
+            $cuentaPadreArray['sub_array'] =  $this->obtenerCuentasConMovimientosYPartidas($idCuentaPadre, $fechaDesde, $fechaHasta);
+            $cuentasConMovimientos[] = array_merge(
+                $cuentaPadreArray, // Agrega los datos de la cuenta padre
 
-        if ($results->count() > 0) {
-            $totals = new stdClass();
-            $totals->total_cargos = $sumTotalCargos;
-            $totals->total_abonos = $sumTotalAbonos;
+            );
+        }
+        $arrFormatted = json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
+        // dd($arrFormatted);
+        // echo "<pre>";
+        // echo json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
 
-            $saldoTotals = $sumTotalCargos - $sumTotalAbonos;
-            $totals->saldo = $saldoTotals;
+        // echo "</pre>";
+        // die();
+        // return view('reportes.contabilidad.partidas.libromayor', compact('estilos', 'stilosBundle', 'arrFormatted'));
+        $vista = "reportes.contabilidad.partidas.libromayor";
 
-            $movimientosPorCuenta['movimientos'] = $results->toArray();
-            $movimientosPorCuenta['sumas'] = $totals;
+
+        $pdf = PDF::loadView($vista, [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'arrFormatted' => $arrFormatted,
+            'encabezado' => $encabezado,
+            'hasta' => $request->hasta,
+
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
+    public function libroDiarioGeneral()
+    {
+        return view('contabilidad.reportes.librodiariogeneral');
+    }
+    public function libroDiarioUni()
+    {
+        return view('contabilidad.reportes.librodiario');
+    }
+    public function libroDiarioGeneralRep(Request $request)
+    {
+        $filter = Carbon::parse($request->desde);
+        $partidas = PartidasContablesModel::whereYear('fecha_partida', $filter->format('Y'))->whereMonth('fecha_partida', $filter->format('m'))->orderBy('num_partida', 'asc')->get();
+        // dd($partidas);
+        $resPartidas = [];
+        $resultSet = [];
+        foreach ($partidas as $part => $p) {
+            $partida = PartidasContablesModel::join('tipos_partidas_contables', 'tipos_partidas_contables.id_tipo_partida', '=', 'partidas_contables.tipo_partida')
+                ->where('partidas_contables.id_partida_contable', '=', $p->id_partida_contable)->first();
+
+            $results = DB::table('catalogo AS c')
+                ->select(
+                    'c.descripcion AS descripcion_cuenta_padre',
+                    'c.numero AS cuentaPadre',
+                    'b.numero AS cuentaHija',
+                    'b.descripcion AS descripcion_cuenta_hija',
+                    'a.parcial',
+                    'a.cargos',
+                    'a.abonos'
+                )
+                ->join('catalogo AS b', 'c.id_cuenta', '=', 'b.id_cuenta_padre')
+                ->leftJoin('partida_contables_detalle AS a', 'b.id_cuenta', '=', 'a.id_cuenta')
+                ->where('a.id_partida', $p->id_partida_contable)
+                ->orderBy('a.cargos', 'desc')
+                ->get();
+
+
+            $totalCargos = 0;
+            $totalAbonos = 0;
+
+            foreach ($results as $row) {
+                $totalCargos += $row->cargos;
+                $totalAbonos += $row->abonos;
+            }
+
+
+            $formattedResults = [];
+            foreach ($results as $result) {
+                if (!array_key_exists($result->descripcion_cuenta_padre, $formattedResults)) {
+                    $formattedResults[$result->descripcion_cuenta_padre] = [
+                        'descripcion_cuenta_hija' => [],
+                        'total_parcial' => 0,
+                        'total_cargos' => 0,
+                        'total_abonos' => 0,
+                    ];
+                }
+
+
+                $formattedResults[$result->descripcion_cuenta_padre]['descripcion_cuenta_hija'][] = [
+                    'cuenta' => $result->cuentaHija,
+                    'descripcion_cuenta_hija' => $result->descripcion_cuenta_hija,
+                    'parcial' => $result->parcial,
+                    'cargos' => $result->cargos,
+                    'abonos' => $result->abonos,
+                ];
+                $formattedResults[$result->descripcion_cuenta_padre]['cuenta_padre'] = $result->cuentaPadre;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_parcial'] += $result->parcial;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_cargos'] += $result->cargos;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_abonos'] += $result->abonos;
+            }
+            $resPartidas['partida'] = $partida;
+            $resPartidas['totalCargos'] = $totalCargos;
+            $resPartidas['totalAbonos'] = $totalAbonos;
+            $resPartidas['formattedResults'] = $formattedResults;
+            array_push($resultSet, $resPartidas);
         }
 
-        return $movimientosPorCuenta;
+        //  dd($resultSet);
 
+        $estilos = $this->estilos;
+        $stilosBundle = $this->stilosBundle;
+        $fechaDesde = $request->desde;
+        $fechaHasta = $request->hasta;
+        $encabezado = $request->encabezado;
+        // dd($arrFormatted);
+        // echo "<pre>";
+        // echo json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
+
+        // echo "</pre>";
+        // die();
+        // return view('reportes.contabilidad.partidas.librodiario', compact('estilos', 'stilosBundle', 'resultSet'));
+        $vista = "reportes.contabilidad.partidas.librodiariogeneral";
+
+
+        $pdf = PDF::loadView($vista, [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'resultSet' => $resultSet,
+            'encabezado' => $encabezado,
+            'hasta' => $request->hasta,
+
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
     }
+    public function libroDiarioUniRep(Request $request)
+    {
 
+        $filter = Carbon::parse($request->desde);
+        $partidas = PartidasContablesModel::whereYear('fecha_partida', $filter->format('Y'))->whereMonth('fecha_partida', $filter->format('m'))->orderBy('num_partida', 'asc')->get();
+        // dd($partidas);
+        $resPartidas = [];
+        $resultSet = [];
+        foreach ($partidas as $part => $p) {
+            $partida = PartidasContablesModel::join('tipos_partidas_contables', 'tipos_partidas_contables.id_tipo_partida', '=', 'partidas_contables.tipo_partida')
+                ->where('partidas_contables.id_partida_contable', '=', $p->id_partida_contable)->first();
+
+            $results = DB::table('catalogo AS c')
+                ->select(
+                    'c.descripcion AS descripcion_cuenta_padre',
+                    'c.numero AS cuentaPadre',
+                    'b.numero AS cuentaHija',
+                    'b.descripcion AS descripcion_cuenta_hija',
+                    'a.parcial',
+                    'a.cargos',
+                    'a.abonos'
+                )
+                ->join('catalogo AS b', 'c.id_cuenta', '=', 'b.id_cuenta_padre')
+                ->leftJoin('partida_contables_detalle AS a', 'b.id_cuenta', '=', 'a.id_cuenta')
+                ->where('a.id_partida', $p->id_partida_contable)
+                ->orderBy('a.cargos', 'desc')
+                ->get();
+
+
+            $totalCargos = 0;
+            $totalAbonos = 0;
+
+            foreach ($results as $row) {
+                $totalCargos += $row->cargos;
+                $totalAbonos += $row->abonos;
+            }
+
+
+            $formattedResults = [];
+            foreach ($results as $result) {
+                if (!array_key_exists($result->descripcion_cuenta_padre, $formattedResults)) {
+                    $formattedResults[$result->descripcion_cuenta_padre] = [
+                        'descripcion_cuenta_hija' => [],
+                        'total_parcial' => 0,
+                        'total_cargos' => 0,
+                        'total_abonos' => 0,
+                    ];
+                }
+
+
+                $formattedResults[$result->descripcion_cuenta_padre]['descripcion_cuenta_hija'][] = [
+                    'cuenta' => $result->cuentaHija,
+                    'descripcion_cuenta_hija' => $result->descripcion_cuenta_hija,
+                    'parcial' => $result->parcial,
+                    'cargos' => $result->cargos,
+                    'abonos' => $result->abonos,
+                ];
+                $formattedResults[$result->descripcion_cuenta_padre]['cuenta_padre'] = $result->cuentaPadre;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_parcial'] += $result->parcial;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_cargos'] += $result->cargos;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_abonos'] += $result->abonos;
+            }
+            $resPartidas['partida'] = $partida;
+            $resPartidas['totalCargos'] = $totalCargos;
+            $resPartidas['totalAbonos'] = $totalAbonos;
+            $resPartidas['formattedResults'] = $formattedResults;
+            array_push($resultSet, $resPartidas);
+        }
+
+        //  dd($resultSet);
+
+        $estilos = $this->estilos;
+        $stilosBundle = $this->stilosBundle;
+        $fechaDesde = $request->desde;
+        $fechaHasta = $request->hasta;
+        $encabezado = $request->encabezado;
+        // dd($arrFormatted);
+        // echo "<pre>";
+        // echo json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
+
+        // echo "</pre>";
+        // die();
+        // return view('reportes.contabilidad.partidas.librodiario', compact('estilos', 'stilosBundle', 'resultSet'));
+        $vista = "reportes.contabilidad.partidas.librodiario";
+
+
+        $pdf = PDF::loadView($vista, [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'resultSet' => $resultSet,
+            'encabezado' => $encabezado,
+            'hasta' => $request->hasta,
+
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
 }

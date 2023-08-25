@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-    <form action="/contabilidad/Reporte/partidasdediario" method="post" autocomplete="off">
+    <form action="/contabilidad/Reporte/librodiario" method="post" autocomplete="off">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <div class="card shadow-lg mt-3">
