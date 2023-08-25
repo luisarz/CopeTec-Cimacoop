@@ -9,6 +9,7 @@ use App\Models\LibroMayorModel;
 use App\Models\PartidaContable;
 use App\Models\PartidasContablesDetalles;
 use App\Models\PartidasContablesModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use \PDF;
@@ -227,8 +228,19 @@ class ReporteContabilidad extends Controller
     {
         return view('contabilidad.reportes.librodiario');
     }
+<<<<<<< HEAD
 
 
+=======
+    public function libroDiarioGeneral()
+    {
+        return view('contabilidad.reportes.librodiariogeneral');
+    }
+    public function libroDiarioUni()
+    {
+        return view('contabilidad.reportes.librodiario');
+    }
+>>>>>>> 0928e6d (feat: diary reports done)
     public function obtenerCuentasConMovimientosYPartidas($idCuentaPadre, $fechaInicio, $fechaFin)
     {
 
@@ -370,9 +382,176 @@ class ReporteContabilidad extends Controller
         // ]);
         // return $pdf->setOrientation('portrait')->inline();
     }
-    public function libroMayorRept(Request $request)
+    public function libroDiarioGeneralRep(Request $request)
     {
+<<<<<<< HEAD
         LibroMayorModel::truncate();
+=======
+        $filter = Carbon::parse($request->desde);
+        $partidas = PartidasContablesModel::whereYear('fecha_partida', $filter->format('Y'))->whereMonth('fecha_partida', $filter->format('m'))->orderBy('num_partida', 'asc')->get();
+        // dd($partidas);
+        $resPartidas = [];
+        $resultSet = [];
+        foreach ($partidas as $part => $p) {
+            $partida = PartidasContablesModel::join('tipos_partidas_contables', 'tipos_partidas_contables.id_tipo_partida', '=', 'partidas_contables.tipo_partida')
+                ->where('partidas_contables.id_partida_contable', '=', $p->id_partida_contable)->first();
+
+            $results = DB::table('catalogo AS c')
+                ->select(
+                    'c.descripcion AS descripcion_cuenta_padre',
+                    'c.numero AS cuentaPadre',
+                    'b.numero AS cuentaHija',
+                    'b.descripcion AS descripcion_cuenta_hija',
+                    'a.parcial',
+                    'a.cargos',
+                    'a.abonos'
+                )
+                ->join('catalogo AS b', 'c.id_cuenta', '=', 'b.id_cuenta_padre')
+                ->leftJoin('partida_contables_detalle AS a', 'b.id_cuenta', '=', 'a.id_cuenta')
+                ->where('a.id_partida', $p->id_partida_contable)
+                ->orderBy('a.cargos', 'desc')
+                ->get();
+
+
+            $totalCargos = 0;
+            $totalAbonos = 0;
+
+            foreach ($results as $row) {
+                $totalCargos += $row->cargos;
+                $totalAbonos += $row->abonos;
+            }
+
+
+            $formattedResults = [];
+            foreach ($results as $result) {
+                if (!array_key_exists($result->descripcion_cuenta_padre, $formattedResults)) {
+                    $formattedResults[$result->descripcion_cuenta_padre] = [
+                        'descripcion_cuenta_hija' => [],
+                        'total_parcial' => 0,
+                        'total_cargos' => 0,
+                        'total_abonos' => 0,
+                    ];
+                }
+
+
+                $formattedResults[$result->descripcion_cuenta_padre]['descripcion_cuenta_hija'][] = [
+                    'cuenta' => $result->cuentaHija,
+                    'descripcion_cuenta_hija' => $result->descripcion_cuenta_hija,
+                    'parcial' => $result->parcial,
+                    'cargos' => $result->cargos,
+                    'abonos' => $result->abonos,
+                ];
+                $formattedResults[$result->descripcion_cuenta_padre]['cuenta_padre'] = $result->cuentaPadre;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_parcial'] += $result->parcial;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_cargos'] += $result->cargos;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_abonos'] += $result->abonos;
+            }
+            $resPartidas['partida'] = $partida;
+            $resPartidas['totalCargos'] = $totalCargos;
+            $resPartidas['totalAbonos'] = $totalAbonos;
+            $resPartidas['formattedResults'] = $formattedResults;
+            array_push($resultSet, $resPartidas);
+        }
+
+        //  dd($resultSet);
+
+        $estilos = $this->estilos;
+        $stilosBundle = $this->stilosBundle;
+        $fechaDesde = $request->desde;
+        $fechaHasta = $request->hasta;
+        $encabezado = $request->encabezado;
+        // dd($arrFormatted);
+        // echo "<pre>";
+        // echo json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
+
+        // echo "</pre>";
+        // die();
+        // return view('reportes.contabilidad.partidas.librodiario', compact('estilos', 'stilosBundle', 'resultSet'));
+        $vista = "reportes.contabilidad.partidas.librodiariogeneral";
+
+
+        $pdf = PDF::loadView($vista, [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'resultSet' => $resultSet,
+            'encabezado' => $encabezado,
+            'hasta' => $request->hasta,
+
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
+    public function libroDiarioUniRep(Request $request)
+    {
+
+        $filter = Carbon::parse($request->desde);
+        $partidas = PartidasContablesModel::whereYear('fecha_partida', $filter->format('Y'))->whereMonth('fecha_partida', $filter->format('m'))->orderBy('num_partida', 'asc')->get();
+        // dd($partidas);
+        $resPartidas = [];
+        $resultSet = [];
+        foreach ($partidas as $part => $p) {
+            $partida = PartidasContablesModel::join('tipos_partidas_contables', 'tipos_partidas_contables.id_tipo_partida', '=', 'partidas_contables.tipo_partida')
+                ->where('partidas_contables.id_partida_contable', '=', $p->id_partida_contable)->first();
+
+            $results = DB::table('catalogo AS c')
+                ->select(
+                    'c.descripcion AS descripcion_cuenta_padre',
+                    'c.numero AS cuentaPadre',
+                    'b.numero AS cuentaHija',
+                    'b.descripcion AS descripcion_cuenta_hija',
+                    'a.parcial',
+                    'a.cargos',
+                    'a.abonos'
+                )
+                ->join('catalogo AS b', 'c.id_cuenta', '=', 'b.id_cuenta_padre')
+                ->leftJoin('partida_contables_detalle AS a', 'b.id_cuenta', '=', 'a.id_cuenta')
+                ->where('a.id_partida', $p->id_partida_contable)
+                ->orderBy('a.cargos', 'desc')
+                ->get();
+
+
+            $totalCargos = 0;
+            $totalAbonos = 0;
+
+            foreach ($results as $row) {
+                $totalCargos += $row->cargos;
+                $totalAbonos += $row->abonos;
+            }
+
+
+            $formattedResults = [];
+            foreach ($results as $result) {
+                if (!array_key_exists($result->descripcion_cuenta_padre, $formattedResults)) {
+                    $formattedResults[$result->descripcion_cuenta_padre] = [
+                        'descripcion_cuenta_hija' => [],
+                        'total_parcial' => 0,
+                        'total_cargos' => 0,
+                        'total_abonos' => 0,
+                    ];
+                }
+
+
+                $formattedResults[$result->descripcion_cuenta_padre]['descripcion_cuenta_hija'][] = [
+                    'cuenta' => $result->cuentaHija,
+                    'descripcion_cuenta_hija' => $result->descripcion_cuenta_hija,
+                    'parcial' => $result->parcial,
+                    'cargos' => $result->cargos,
+                    'abonos' => $result->abonos,
+                ];
+                $formattedResults[$result->descripcion_cuenta_padre]['cuenta_padre'] = $result->cuentaPadre;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_parcial'] += $result->parcial;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_cargos'] += $result->cargos;
+                $formattedResults[$result->descripcion_cuenta_padre]['total_abonos'] += $result->abonos;
+            }
+            $resPartidas['partida'] = $partida;
+            $resPartidas['totalCargos'] = $totalCargos;
+            $resPartidas['totalAbonos'] = $totalAbonos;
+            $resPartidas['formattedResults'] = $formattedResults;
+            array_push($resultSet, $resPartidas);
+        }
+
+        //  dd($resultSet);
+
+>>>>>>> 0928e6d (feat: diary reports done)
         $estilos = $this->estilos;
         $stilosBundle = $this->stilosBundle;
         $fechaDesde = $request->desde;
