@@ -417,10 +417,10 @@ class ReporteContabilidad extends Controller
         $fechaHasta = $request->hasta;
         $encabezado = $request->encabezado;
         // dd($arrFormatted);
-        // echo "<pre>";
-        // echo json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
+        echo "<pre>";
+        echo json_encode($resultSet, JSON_PRETTY_PRINT);
 
-        // echo "</pre>";
+        echo "</pre>";
         // die();
         // return view('reportes.contabilidad.partidas.librodiario', compact('estilos', 'stilosBundle', 'resultSet'));
         $vista = "reportes.contabilidad.partidas.librodiariogeneral";

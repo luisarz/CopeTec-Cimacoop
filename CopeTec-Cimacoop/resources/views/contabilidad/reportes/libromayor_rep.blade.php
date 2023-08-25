@@ -26,7 +26,7 @@
 
     <br>
 
-    <table class="table">
+    <table class="table table-sm fs-5 mb-4 pb-5">
         <thead>
 
             <tr
