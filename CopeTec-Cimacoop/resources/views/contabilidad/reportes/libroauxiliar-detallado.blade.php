@@ -26,19 +26,19 @@
 
     <br>
 
-    <table class="table">
-        <thead>
+  <table class="table table-sm fs-7 mb-1 pb-1" style="border: 1px solid rgb(255, 255, 255);">
+        <thead style="border-top: 1px solid black; border-bottom: 1px solid black; font-size:18px; "
+                class="font-bold fs-4">
 
-            <tr
-                style="font-family: 'Courier New', Courier, monospace; border-top: 1px solid rgb(3, 3, 3);  border-bottom: 1px solid rgb(3, 3, 3); font-weight:bold;">
-                <th style="width: 130px;  border-left: 1px solid rgb(255, 255, 255);">CUENTA CONTABLE </th>
-                <th style="width: 210px; border-left: 1px solid rgb(255, 255, 255);"> </th>
-                <th style="width: 150px; text-align: center; border-left: 1px solid rgb(255, 255, 255);">SALDO ANTERIOR
+          <tr>
+                <th style="width: 130px;  ">CUENTA CONTABLE </th>
+                <th > </th>
+                <th style="width: 100px; text-align: center;">SALDO ANTERIOR
                 </th>
-                <th style="width: 125px; text-align: right; border-left: 1px solid rgb(255, 255, 255);">CARGOS</th>
-                <th style="width: 125px; text-align: right; border-left: 1px solid rgb(255, 255, 255);">ABONOS</th>
+                <th style="width: 125px; text-align: right; ">CARGOS</th>
+                <th style="width: 125px; text-align: right;">ABONOS</th>
                 <th
-                    style="width: 125px; text-align: right; border-left: 1px solid rgb(255, 255, 255); border-right: 1px solid rgb(255, 255, 255);">
+                    style="width: 125px; text-align: right;">
                     SALDO ACTUAL</th>
 
             </tr>
@@ -49,22 +49,23 @@
 
 
             @foreach ($catalogo as $cuenta)
-                <tr style="border: 1px solid rgb(255, 255, 255);font-family: 'Courier New', Courier, monospace';">
+                <tr style="border: 1px solid rgb(255, 255, 255);" class="fs-5 mb-1 ">
                     <td>{{ $cuenta['numero_cuenta'] }}</td>
                     <td>{{ $cuenta['descripcion'] }}</td>
                     <td style="text-align: right;">${{ number_format($cuenta['saldo_anterior'], 2) }}</td>
-                    <td
-                        style="text-align: right; {{ isset($cuenta['operaciones']) ? 'border-bottom: 1px solid black;' : '' }}">
+                   <td style="text-align: right; {{ (isset($cuenta['operaciones']) && count($cuenta['operaciones']) > 0) ? 'border-bottom: 1px solid black;' : '' }}">
+
                         ${{ number_format($cuenta['cargos'], 2) }}
                     </td>
-                    <td
-                        style="text-align: right; {{ isset($cuenta['operaciones']) ? 'border-bottom: 1px solid blackVa;' : '' }}">
+                 <td style="text-align: right; {{ (isset($cuenta['operaciones']) && count($cuenta['operaciones']) > 0) ? 'border-bottom: 1px solid black;' : '' }}">
+
                         ${{ number_format($cuenta['abonos'], 2) }}
                     </td>
 
                     <td style="text-align: right;">${{ number_format($cuenta['saldo'], 2) }}</td>
                 </tr>
                 @if ($cuenta['operaciones'])
+               
                     @foreach ($cuenta['operaciones'] as $operacion)
                         <tr
                             style="border: 1px solid rgb(255, 255, 255);font-family: 'Courier New', Courier, monospace';">

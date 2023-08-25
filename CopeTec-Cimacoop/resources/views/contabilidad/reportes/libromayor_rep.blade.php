@@ -26,19 +26,20 @@
 
     <br>
 
-    <table class="table table-sm fs-5 mb-4 pb-5">
-        <thead>
+    <table class="table table-sm fs-7 mb-1 pb-1" style="border: 1px solid rgb(255, 255, 255);">
+        <thead style="border-top: 1px solid black; border-bottom: 1px solid black; font-size:18px; "
+            class="font-bold fs-4">
 
-            <tr
-                style="font-family: 'Courier New', Courier, monospace; border-top: 1px solid rgb(3, 3, 3);  border-bottom: 1px solid rgb(3, 3, 3); font-weight:bold;">
-                <th style="width: 100px;  border-left: 1px solid rgb(255, 255, 255);">CUENTA CONTABLE </th>
-                <th style="width: 220px; border-left: 1px solid rgb(255, 255, 255);"> </th>
-                <th style="width: 100px; text-align: center; border-left: 1px solid rgb(255, 255, 255);">SALDO ANTERIOR
+
+            <tr>
+
+                <th style="width: 100px; ">CUENTA DE MAYOR </th>
+                <th style="width: 220px; "> </th>
+                <th style="width: 100px; ">SALDO ANTERIOR
                 </th>
-                <th style="width: 125px; text-align: right; border-left: 1px solid rgb(255, 255, 255);">CARGOS</th>
-                <th style="width: 125px; text-align: right; border-left: 1px solid rgb(255, 255, 255);">ABONOS</th>
-                <th
-                    style="width: 125px; text-align: right; border-left: 1px solid rgb(255, 255, 255); border-right: 1px solid rgb(255, 255, 255);">
+                <th style="width: 125px; ">CARGOS</th>
+                <th style="width: 125px; ">ABONOS</th>
+                <th style="width: 105px; ">
                     SALDO ACTUAL</th>
 
             </tr>
@@ -48,34 +49,37 @@
 
 
             @foreach ($catalogo as $cuenta)
-                <tr style="border: 1px solid rgb(255, 255, 255); height: 10px !important;">
+                <tr class="fs-5 font-bold">
                     <td>{{ $cuenta['numero'] }}</td>
                     <td>{{ $cuenta['descripcion'] }}</td>
                     <td style="text-align: right;">
-                        0.00
-                    </td>
-                    <td style="text-align: right;  border-top: 1px solid rgb(0, 0, 0);">
-                     
-
-                        @if (isset($cuenta['sumas']))
-                            ${{ number_format($cuenta['sumas']->total_cargos, 2) }}
-                            @else
-                            $0.00
-
-                        @endif
-                    </td>
-                   <td style="text-align: right;  border-top: 1px solid rgb(0, 0, 0);">
-                        @if (isset($cuenta['sumas']))
-                            ${{ number_format($cuenta['sumas']->total_abonos, 2) }}
-                            @else
-                            $0.00
-                        @endif
-                    </td>
-                     <td style="text-align: right;">
                        @if (isset($cuenta['sumas']))
-                            ${{ number_format($cuenta['sumas']->saldo, 2) }}
-                            @else
+                            $ {{ number_format($cuenta['sumas']->saldo_anterior, 2) }}
+                        @else
                             $0.00
+                        @endif
+                    </td>
+                    <td style="text-align: right; ">
+
+
+                        @if (isset($cuenta['sumas']))
+                            $ {{ number_format($cuenta['sumas']->total_cargos, 2) }}
+                        @else
+                            $0.00
+                        @endif
+                    </td>
+                    <td style="text-align: right;  ">
+                        @if (isset($cuenta['sumas']))
+                            $ {{ number_format($cuenta['sumas']->total_abonos, 2) }}
+                        @else
+                            $ 0.00
+                        @endif
+                    </td>
+                    <td style="text-align: right;">
+                        @if (isset($cuenta['sumas']))
+                            $ {{ number_format($cuenta['sumas']->saldo, 2) }}
+                        @else
+                            $ 0.00
                         @endif
                     </td>
 
@@ -83,27 +87,41 @@
 
                 @if (isset($cuenta['movimientos']))
                     @foreach ($cuenta['movimientos'] as $operacion)
-                        <tr
-                            style="border: 1px solid rgb(255, 255, 255);">
+                        <tr  class="fs-5 mb-1 ">
                             <td>
                             </td>
-                            <td style="text-align: right; font-family: 'Courier New', Courier, monospace';">
+                            <td style="text-align: right; ">
                                 MOVIMIENTOS DEL DIA {{ date('d-m-Y', strtotime($operacion['fecha_partida'])) }}
                             </td>
                             <td></td>
-                            <td
-                                style="text-align: right;border-top: 1px solid rgb(0, 0, 0);font-family: 'Courier New', Courier, monospace';">
+                            <td style="text-align: right;">
 
-                                ${{ number_format($operacion['total_cargos'], 2) }}
+                                $ {{ number_format($operacion['total_cargos'], 2) }}
                             </td>
-                            <td
-                                style="text-align: right;border-top: 1px solid rgb(0, 0, 0);font-family: 'Courier New', Courier, monospace';">
+                            <td style="text-align: right;">
 
-                                ${{ number_format($operacion['total_abonos'], 2) }}
+                                $ {{ number_format($operacion['total_abonos'], 2) }}
 
                             </td>
-                          
+
                         </tr>
+                        @if ($loop->last)
+                            <tr class="fs-5 border-top">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align: right; border-top: 1px solid rgb(0, 0, 0) !important;">
+                                    @if (isset($cuenta['sumas']))
+                                        $ {{ number_format($cuenta['sumas']->total_cargos, 2) }}
+                                    @endif
+                                </td>
+                                <td style="text-align: right; border-top: 1px solid rgb(0, 0, 0);">
+                                    @if (isset($cuenta['sumas']))
+                                        $ {{ number_format($cuenta['sumas']->total_abonos, 2) }}
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                 @endif
             @endforeach

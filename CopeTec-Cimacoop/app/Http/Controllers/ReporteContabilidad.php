@@ -256,17 +256,34 @@ class ReporteContabilidad extends Controller
             $mesCierreAnterior = $mesCierre - 1;
         }
 
+        //Buscar si existe el cierre anterior
+        $cierreAnterior = CierreMensualModel::where('year', $anioCierre)
+            ->where('mes', $mesCierreAnterior)
+            ->where('estado', 1)->first();
+        $saldoAnterior = 0;
+        if ($cierreAnterior) {
+            //buscar el saldo del cierre anterior
+            $id_cierre_anterior = $cierreAnterior->id;
+            $saldoAnterior = DB::table('cierre_mensual_detalle')
+                ->where('cierre_mensual_id', $id_cierre_anterior)
+                ->where('codigo_agrupador', $codigoAgrupador)
+                ->sum('saldo_cierre');
+
+        }
+
 
         $sumTotalCargos = $results->sum('total_cargos');
         $sumTotalAbonos = $results->sum('total_abonos');
+
 
         if ($results->count() > 0) {
             $totals = new stdClass();
             $totals->total_cargos = $sumTotalCargos;
             $totals->total_abonos = $sumTotalAbonos;
+            $totals->saldo_anterior = $saldoAnterior;
 
-            $saldoTotals = $sumTotalCargos - $sumTotalAbonos;
-            $totals->saldo = $saldoTotals;
+            $nuevoSaldo = ($saldoAnterior + $sumTotalCargos) - $sumTotalAbonos;
+            $totals->saldo = $nuevoSaldo;
 
             $movimientosPorCuenta['movimientos'] = $results->toArray();
             $movimientosPorCuenta['sumas'] = $totals;
@@ -278,7 +295,7 @@ class ReporteContabilidad extends Controller
     public function libroMayorRep(Request $request)
     {
         LibroMayorModel::truncate();
- 
+
         $fechaDesde = $request->desde;
         $fechaHasta = $request->hasta;
         $encabezado = $request->encabezado;
