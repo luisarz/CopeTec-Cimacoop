@@ -26,19 +26,19 @@
 
     <br>
 
-    <table class="table">
-        <thead>
+        <table class="table table-sm fs-6 mb-4 pb-5" style="border: 1px solid rgb(255, 255, 255);">
+        <thead style="border-top: 1px solid black; border-bottom: 1px solid black; font-size:18px; "
+                class="font-bold fs-4">
 
-            <tr
-                style="font-family: 'Courier New', Courier, monospace; border-top: 1px solid rgb(3, 3, 3);  border-bottom: 1px solid rgb(3, 3, 3); font-weight:bold;">
-                <th style="width: 130px;  border-left: 1px solid rgb(255, 255, 255);">CUENTA CONTABLE </th>
-                <th style="width: 220px; border-left: 1px solid rgb(255, 255, 255);"> </th>
-                <th style="width: 100px; text-align: center; border-left: 1px solid rgb(255, 255, 255);">SALDO ANTERIOR
+            <tr>
+                <th style="width: 100px;">CUENTA CONTABLE </th>
+                <th > </th>
+                <th style=" text-align: center; ">SALDO ANTERIOR
                 </th>
-                <th style="width: 125px; text-align: right; border-left: 1px solid rgb(255, 255, 255);">CARGOS</th>
-                <th style="width: 125px; text-align: right; border-left: 1px solid rgb(255, 255, 255);">ABONOS</th>
+                <th style="width: 125px; text-align: right;">CARGOS</th>
+                <th style="width: 125px; text-align: right; ">ABONOS</th>
                 <th
-                    style="width: 125px; text-align: right; border-left: 1px solid rgb(255, 255, 255); border-right: 1px solid rgb(255, 255, 255);">
+                    style="width: 125px; text-align: right;">
                     SALDO ACTUAL</th>
 
             </tr>
