@@ -17,7 +17,7 @@ class CatalogoController extends Controller
         $cuentas = Catalogo::join('catalogo_tipo', 'catalogo_tipo.id_tipo_catalogo', '=', 'catalogo.tipo_catalogo')
             ->when(isset($request->filtro), function ($query) use ($filtro) {
                 $query->where('catalogo.descripcion', 'LIKE', '%' . $filtro . '%')
-                    ->orWhere('catalogo.numero', 'LIKE', '%' . $filtro . '%');
+                    ->orWhere('catalogo.numero', 'LIKE',  $filtro . '%');
 
             })
             ->select('catalogo_tipo.descripcion as catalogo', 'catalogo.*')

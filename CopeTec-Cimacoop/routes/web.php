@@ -474,7 +474,14 @@ Route::post('/contabilidad/Reportes/libromayor', [ReporteContabilidad::class, 'l
 Route::get('/contabilidad/Reportes/librodiario', [ReporteContabilidad::class, 'libroDiario'])->middleware(['auth', 'bitacora']);
 Route::post('/contabilidad/Reporte/librodiario', [ReporteContabilidad::class, 'libroMayorRept'])->middleware(['auth', 'bitacora']);
 
-// Route::get('/contabilidad/Reportes/libromayor-rep', [ReporteContabilidad::class, 'libroMayorRept'])->middleware(['auth', 'bitacora']);
+/**ESTADO DE RESULTADO */
+
+Route::get('/contabilidad/Reportes/estadoresultado', [ReporteContabilidad::class, 'estadoResultado'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/Reporte/estadoresultado', [ReporteContabilidad::class, 'estadoResultadoRep'])->middleware(['auth', 'bitacora']);
+
+Route::get('/contabilidad/Reportes/estadoresultadoMetodo/{fechaInicio}/{fechaFin}', [ReporteContabilidad::class, 'estadoResultadoMetodo'])->middleware(['auth', 'bitacora']);
+
+
 
 Route::get('/contabilidad/Reportes/partidasdediario', [ReporteContabilidad::class, 'libroDiarioUni'])->middleware(['auth', 'bitacora']);
 Route::post('/contabilidad/Reporte/partidasdediario', [ReporteContabilidad::class, 'libroDiarioUniRep'])->middleware(['auth', 'bitacora']);

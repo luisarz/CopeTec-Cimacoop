@@ -549,4 +549,155 @@ class ReporteContabilidad extends Controller
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
+
+    public function estadoResultado()
+    {
+        return view('contabilidad.reportes.estadoResultado');
+    }
+
+    public function estadoResultadoRep(Request $request)
+    {
+
+        $fechaInicio = $request->desde;
+        $fechaFin = $request->hasta;
+
+        $catalogos = Catalogo::whereIn('numero', ['4', '5'])
+            ->select('id_cuenta', 'numero', 'descripcion')
+            ->get();
+
+
+
+        $json = [];
+
+        $movimientosCostos = [];
+
+        foreach ($catalogos as $catalogo) {
+            $codigoAgrupador = $catalogo->numero . '%';
+            $cuentasHijas = Catalogo::whereRaw('LENGTH(numero) = 2 AND numero LIKE ?', [$codigoAgrupador])
+                ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
+                ->get();
+
+            $movimientosCostos = []; // Array para almacenar datos únicos
+
+            foreach ($cuentasHijas as $cuentaHija) {
+                $codigo_agrupador = $cuentaHija->numero;
+
+                $movimientos = PartidasContablesDetalles::select('descripcion', 'numero')
+                    ->selectRaw('SUM(cargos) as sum_cargos, SUM(abonos) as sum_abonos')
+                    ->whereBetween('fecha_partida', [$fechaInicio, $fechaFin])
+                    ->where('codigo_agrupador', 'like', $codigo_agrupador . '%')
+                    ->groupBy('descripcion', 'numero')
+                    ->get();
+
+                $totalCargos = $movimientos->sum('sum_cargos');
+                $totalAbonos = $movimientos->sum('sum_abonos');
+
+                if ($movimientos->count() > 0) {
+                    // Utiliza el id_cuenta como clave única
+                    $claveUnica = $cuentaHija->id_cuenta;
+
+                    // Verifica si la clave única ya existe en el array
+                    if (!isset($movimientosCostos[$claveUnica])) {
+                        $movimientosCostos[$claveUnica] = [
+                            'cuenta' => $cuentaHija->toArray(),
+                            'movimientos' => $movimientos->toArray(),
+                            'totalCargos' => $totalCargos,
+                            'totalAbonos' => $totalAbonos,
+                        ];
+                    }
+                }
+            }
+
+
+            // Agregamos tanto los datos del catálogo como los resultados al arreglo JSON
+            $json[] = [
+                'cuenta_padre' => $catalogo->toArray(),
+                'cuenta_hija' => $movimientosCostos
+            ];
+        }
+        // $arrFormatted = json_encode($json, JSON_PRETTY_PRINT);
+
+        // echo "<pre>";
+        // print_r($arrFormatted);
+        // echo "</pre>";
+        // dd($json);
+
+        $pdf = PDF::loadView("contabilidad.reportes.estadResultado_rep", [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'catalogo' => $json,
+            'hasta' => $request->hasta,
+
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
+
+    public function estadoResultadoMetodo($fechaInicio, $fechaFin)
+    {
+
+        $catalogos = Catalogo::whereIn('numero', ['4', '5'])
+            ->select('id_cuenta', 'numero', 'descripcion')
+            ->get();
+
+
+        $json = [];
+        $movimientosCostos = [];
+        foreach ($catalogos as $catalogo) {
+            $codigoAgrupador = $catalogo->numero . '%';
+            $cuentasHijas = Catalogo::whereRaw('LENGTH(numero) = 2 AND numero LIKE ?', [$codigoAgrupador])
+                ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
+                ->get();
+
+            $movimientosCostos = []; // Array para almacenar datos únicos
+
+            foreach ($cuentasHijas as $value2) {
+                $codigo_agrupador = $value2->numero;
+
+                $movimientos = PartidasContablesDetalles::selectRaw('SUM(cargos) as sum_cargos, SUM(abonos) as sum_abonos')
+                    ->whereBetween('fecha_partida', [$fechaInicio, $fechaFin])
+                    ->where('codigo_agrupador', 'like', $codigo_agrupador . '%')
+                    ->groupBy('descripcion', 'numero')
+                    ->get();
+
+                $totalCargos = $movimientos->sum('sum_cargos');
+                $totalAbonos = $movimientos->sum('sum_abonos');
+
+                if ($movimientos->count() > 0) {
+                    // Utiliza el id_cuenta como clave única
+                    $claveUnica = $value2->id_cuenta;
+
+                    // Verifica si la clave única ya existe en el array
+                    if (!isset($movimientosCostos[$claveUnica])) {
+                        $movimientosCostos[$claveUnica] = [
+                            'totalCargos' => $totalCargos,
+                            'totalAbonos' => $totalAbonos,
+                        ];
+                    }
+                }
+            }
+
+
+            // Agregamos tanto los datos del catálogo como los resultados al arreglo JSON
+           $json[] = [
+                // 'cuenta_padre' => $catalogo->toArray(),
+                'cuenta_hija' => $movimientosCostos
+            ];
+        }
+
+        $estadoResultado = 0;
+        $sumIngresos = 0;
+        $sumCostos = 0;
+
+        foreach($json as $key => $value){
+            foreach($value['cuenta_hija'] as $key2 => $value2){
+                $sumIngresos += $value2['totalAbonos'];
+                $sumCostos += $value2['totalCargos'];
+            }
+        }
+        // dd($sumIngresos, $sumCostos, $sumIngresos - $sumCostos);
+        $estadoResultado = $sumIngresos - $sumCostos;
+        return response()->json($estadoResultado);
+
+      
+    }
 }
