@@ -550,6 +550,68 @@ class ReporteContabilidad extends Controller
         return $pdf->setOrientation('portrait')->inline();
     }
 
+    public function balancecomprobacion()
+    {
+        return view('contabilidad.reportes.balanceComprobacion');
+    }
+
+    public function balancecomprobacionRep(Request $request)
+    {
+
+        LibroMayorModel::truncate();
+
+        $fechaDesde = $request->desde;
+        $fechaHasta = $request->hasta;
+        $encabezado = $request->encabezado;
+
+        $cuentasPadres = Catalogo::select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')->where('saldo', '!=', 0)
+            ->get();
+
+        $mesCierre = date('n', strtotime($fechaDesde));
+        $anioCierre = date('Y', strtotime($fechaHasta));
+
+        if ($mesCierre == 1) {
+            $mesCierreAnterior = 12;
+            $anioCierre = $anioCierre - 1;
+        } else {
+            $mesCierreAnterior = $mesCierre - 1;
+        }
+        $saldoAnterior = 0;
+        $cuentasConMovimientos = [];
+
+        foreach ($cuentasPadres as $cuentaPadre) {
+            // Obtén los datos de la cuenta padre
+            $cuentaPadreArray = $cuentaPadre->toArray();
+
+            // Llama a la función con el ID de la cuenta padre deseada y las fechas deseadas
+            $codigo_agrupador = $cuentaPadre->numero;
+            $cuentasConMovimientos[] = array_merge(
+                $cuentaPadreArray, // Agrega los datos de la cuenta padre
+                $this->sumarMovimientosPorCodigoAgrupadorYFecha($codigo_agrupador, $fechaDesde, $fechaHasta)
+            );
+        }
+        // $arrFormatted = json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
+
+        // echo "<pre>";
+        // echo json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
+
+        // echo "</pre>";
+
+
+        // return view('reportes.contabilidad.partidas.libromayor', compact('estilos', 'stilosBundle', 'arrFormatted'));
+
+
+        $pdf = PDF::loadView("contabilidad.reportes.balanceComprobacion_rep", [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'catalogo' => $cuentasConMovimientos,
+            'encabezado' => $encabezado,
+            'hasta' => $request->hasta,
+
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+    }
+
     public function estadoResultado()
     {
         return view('contabilidad.reportes.estadoResultado');
@@ -829,4 +891,6 @@ class ReporteContabilidad extends Controller
         }
         return $json;
     }
+
+
 }
