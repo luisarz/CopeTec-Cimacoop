@@ -481,6 +481,9 @@ Route::post('/contabilidad/Reporte/estadoresultado', [ReporteContabilidad::class
 
 Route::get('/contabilidad/Reportes/estadoresultadoMetodo/{fechaInicio}/{fechaFin}', [ReporteContabilidad::class, 'estadoResultadoMetodo'])->middleware(['auth', 'bitacora']);
 
+/**BALACNE GENERAL */
+Route::get('/contabilidad/Reportes/balancegeneral', [ReporteContabilidad::class, 'balanceGeneral'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/Reporte/balancegeneral', [ReporteContabilidad::class, 'balanceGeneralRep'])->middleware(['auth', 'bitacora']);
 
 
 Route::get('/contabilidad/Reportes/partidasdediario', [ReporteContabilidad::class, 'libroDiarioUni'])->middleware(['auth', 'bitacora']);
