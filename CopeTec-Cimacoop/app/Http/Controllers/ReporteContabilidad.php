@@ -679,6 +679,7 @@ class ReporteContabilidad extends Controller
 
             // Agregamos tanto los datos del catálogo como los resultados al arreglo JSON
             $json[] = [
+                // 'cuenta_padre' => $catalogo->toArray(),
                 'cuenta_hija' => $movimientosCostos
             ];
         }
@@ -711,11 +712,16 @@ class ReporteContabilidad extends Controller
         $CODIGO_PATRIMONIO = 3;
 
         $datosActivo["datosActivos"] = $this->cargarDatosPorCuentaPadreBalanceGeneral($CODIGO_ACTIVO, $fechaInicio, $fechaFin);
+
+
+
+
+
         $datosPasivo['datosPasivos'] = $this->cargarDatosPorCuentaPadreBalanceGeneral($CODIGO_PASIVO, $fechaInicio, $fechaFin);
         $datosPatrimonio['datosPatrimonio'] = $this->cargarDatosPorCuentaPadreBalanceGeneral($CODIGO_PATRIMONIO, $fechaInicio, $fechaFin);
 
         $estadoResultado = $this->estadoResultadoMetodo($fechaInicio, $fechaFin);
-        
+
 
         $json = [$datosActivo, $datosPasivo, $datosPatrimonio];
 
