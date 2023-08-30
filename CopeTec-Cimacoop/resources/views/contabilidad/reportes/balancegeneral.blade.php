@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-    <form action="/contabilidad/Reporte/balancecomprobacion" method="post" autocomplete="off">
+    <form action="/contabilidad/Reporte/balancegeneral" method="post" autocomplete="off">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
     <div class="card shadow-lg mt-3">
@@ -23,24 +23,16 @@
 
         <!--begin::Body-->
         <div class="card-body">
-            <h3>Complete los siguientes parametros del informe</h3>
+            <h3>Complete los siguientes parametros del BALANCE GENERAL</h3>
             <hr>
+          
             <div class="form-group row mb-5">
-                <div class="form-floating col-lg-12">
-                    <input type="text" name="encabezado" id="encabezado" class="form-control text-info" 
-                        placeholder="Ingrese el encabezado del reporte" value="Libro Mayor a fecha {{ date('d-m-Y') }}">
-                    <label>ENCABEZADO:</label>
-                </div>
-                  
-              
-            </div>
-            <div class="form-group row mb-5">
-                <div class="form-floating col-lg-6">
+                <div class="form-floating col-lg-6 mb-5">
                     <input type="date" id="desde" name="desde" class="form-control" required value="{{ date('Y-m-01') }}">
 
                     <label>Periodo Inicial:</label>
                 </div>
-                <div class="form-floating col-lg-6">
+                <div class="form-floating col-lg-6  mb-5">
                     <input type="date" id="hasta" name="hasta" class="form-control" required value="{{ date('Y-m-d') }}">
 
                     <label>Periodo Inicial:</label>
