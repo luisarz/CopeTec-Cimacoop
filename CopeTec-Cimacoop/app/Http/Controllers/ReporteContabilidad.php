@@ -268,7 +268,6 @@ class ReporteContabilidad extends Controller
                 ->where('cierre_mensual_id', $id_cierre_anterior)
                 ->where('codigo_agrupador', $codigoAgrupador)
                 ->sum('saldo_cierre');
-
         }
 
 
@@ -290,7 +289,6 @@ class ReporteContabilidad extends Controller
         }
 
         return $movimientosPorCuenta;
-
     }
     public function libroMayorRep(Request $request)
     {
@@ -326,7 +324,6 @@ class ReporteContabilidad extends Controller
                 $cuentaPadreArray, // Agrega los datos de la cuenta padre
                 $this->sumarMovimientosPorCodigoAgrupadorYFecha($codigo_agrupador, $fechaDesde, $fechaHasta)
             );
-
         }
         // $arrFormatted = json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
 
@@ -564,7 +561,7 @@ class ReporteContabilidad extends Controller
         $fechaHasta = $request->hasta;
         $encabezado = $request->encabezado;
 
-        $cuentasPadres = Catalogo::select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')->where('saldo', '!=', 0)
+        $cuentasPadres = Catalogo::whereRaw('LENGTH(numero) = 4')->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')->where('saldo', '!=', 0)
             ->get();
 
         $mesCierre = date('n', strtotime($fechaDesde));
@@ -874,12 +871,7 @@ class ReporteContabilidad extends Controller
                             }
                         }
                     }
-
-
-
                 }
-
-
             }
 
 
@@ -891,6 +883,4 @@ class ReporteContabilidad extends Controller
         }
         return $json;
     }
-
-
 }
