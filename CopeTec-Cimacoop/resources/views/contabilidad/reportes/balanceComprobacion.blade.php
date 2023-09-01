@@ -27,9 +27,8 @@
             <hr>
             <div class="form-group row mb-5">
                 <div class="form-floating col-lg-12">
-                    <input type="text" name="encabezado" id="encabezado" class="form-control text-info" 
-                        placeholder="Ingrese el encabezado del reporte" value="Libro Mayor a fecha {{ date('d-m-Y') }}">
-                    <label>ENCABEZADO:</label>
+                    <input type="hidden" name="encabezado" id="encabezado" class="form-control text-info" 
+                        placeholder="Ingrese el encabezado del reporte" value="BALANCE DE COMPROBACION a fecha {{ date('d-m-Y') }}">
                 </div>
                   
               
