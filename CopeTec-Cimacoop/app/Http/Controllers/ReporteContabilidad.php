@@ -767,7 +767,7 @@ class ReporteContabilidad extends Controller
     }
     public function balanceGeneralRep(Request $request)
     {
-        $fechaFin = $request->hasta;
+        $fechaHasta = $request->hasta;
         $CODIGO_ACTIVO = 1;
         $CODIGO_PASIVO = 2;
         $CODIGO_PATRIMONIO = 3;
@@ -779,8 +779,8 @@ class ReporteContabilidad extends Controller
         $datosPasivo = $this->procesarBalanceGeneral(2, $fechaDesde, $fechaHasta);
         $datosPatrimonio= $this->procesarBalanceGeneral(3, $fechaDesde, $fechaHasta);
 
-        dd($datosActivo, $datosPasivo, $datosPatrimonio);
-
+   
+        $estadoResultado= $this-> estadoResultadoMetodo($fechaDesde, $fechaHasta);
         // $datosActivo = $cuentasConMovimientos;
 
 
@@ -793,17 +793,17 @@ class ReporteContabilidad extends Controller
         // echo "</pre>";
 
 
-        // $pdf = PDF::loadView("contabilidad.reportes.balancegeneral_rep", [
-        //     'estilos' => $this->estilos,
-        //     'stilosBundle' => $this->stilosBundle,
-        //     'datosActivo' => $datosActivo,
-        //     'datosPasivo' => $datosPasivo,
-        //     'datosPatrimonio' => $datosPatrimonio,
-        //     'estadoResultado' => $estadoResultado,
-        //     'hasta' => $request->hasta,
+        $pdf = PDF::loadView("contabilidad.reportes.balancegeneral_rep", [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'datosActivo' => $datosActivo,
+            'datosPasivo' => $datosPasivo,
+            'datosPatrimonio' => $datosPatrimonio,
+            'estadoResultado' => $estadoResultado,
+            'hasta' => $request->hasta,
 
-        // ]);
-        // return $pdf->setOrientation('portrait')->inline();
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
     }
 
     public function procesarBalanceGeneral($codigoProceso, $fechaDesde, $fechaHasta)
@@ -825,13 +825,14 @@ class ReporteContabilidad extends Controller
 
             $cuentasConMovimientos = ['cuenta_padre' => $aDataCuentaNivelUno];
             foreach ($cuentasNivelDos as $cuentaNivelDos) {
-                $cuentaPadreArray = $cuentaNivelDos->toArray();
+                $cuentaPadreArray['asdasd'] = $cuentaNivelDos->toArray();
+
                 $codig_agrupado_nivel_dos = $cuentaNivelDos->numero;
                 $datosCuenta = $this->cargarDatosPorCuentaPadreBalanceGeneral($codig_agrupado_nivel_dos, $fechaDesde, $fechaHasta);
                 if ($datosCuenta) {
                 $cuentasConMovimientos[] = [
                     'cuenta_hija' => $cuentaNivelDos->toArray(),
-                    'datos_cuenta' => $datosCuenta
+                    'movimientos' => $datosCuenta
                 ];
 
                 }
