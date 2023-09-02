@@ -38,84 +38,66 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
-            @foreach ($catalogo as $item)
-                @if ($item['cuenta_padre']['descripcion'] == 'ACTIVO')
-                    <tr class="fs-5">
-                        <td><b> {{ $item['cuenta_padre']['descripcion'] }}</b></td>
-                        <td></td>
-                    </tr>
-                    @foreach ($item['cuenta_hija'] as $cuentaHija)
-                    <tr class="fs-4">
-                            
-                            <td><b> {{ $cuentaHija['sub_cuenta']['descripcion'] }}</b></td>
-                            <td></td>
-                        </tr>
-                        {{-- {{ $cuentaHija['cuentasHijas']['movimientosCuenta'] }} --}}
-                        @foreach ($cuentaHija['cuentasHijas']['movimientosCuenta'] as $movimiento)
-                            <tr class="fs-4">
-                                <td style="padding-left: 20px"> &nbsp;{{ $movimiento['descripcion'] }}</td>
-                                <td style="text-align: right">${{ number_format($movimiento['saldo'], 2) }}</td>
-                            </tr>
-                        @endforeach
-                        <tr class="fs-4">
-                            <td style="padding-left: 20px"> </td>
-                            <td style="text-align: right; border-top:1px solid black;">
-                                ${{ $cuentaHija['totalAbonos'] }}
-                                @php
-                                    // $sumIngresos += $cuentaHija['totalAbonos'];
-                                    $sumIngresos += $cuentaHija['saldo'];
+        <tbody class="fs-6">
 
-                                @endphp
-                            </td>
-                        </tr>
-                    @endforeach
-                    <tr class="fs-4 font-bold">
-                        <td style="padding-left: 20px"> <b> TOTAL DEL ACTIVO</b></td>
-                        <td style="text-align: right; border-top:1px solid black;">
-                            <b>${{ number_format($sumIngresos, 2) }}</b>
-                        </td>
-                    </tr>
-                @else
-                    <tr class="fs-5">
-                       <td><b> {{ $item['cuenta_padre']['descripcion'] }}</b></td>
-                        <td></td>
-                    </tr>
-                    @foreach ($item['cuenta_hija'] as $cuentaHija)
-                        <tr class="fs-4" style="height: 10px;">
-                            <td><b> {{ $cuentaHija['sub_cuenta']['descripcion'] }}</b></td>
-                            <td></td>
-                        </tr>
-                         @foreach ($cuentaHija['cuentasHijas']['movimientosCuenta'] as $movimiento)
-                            <tr class="fs-4"  style="height: 10px;">
-                                <td style="padding-left: 20px"> &nbsp;{{ $movimiento['descripcion'] }}</td>
-                                <td style="text-align: right">${{ number_format($movimiento['sum_cargos'], 2) }}</td>
-                            </tr>
-                        @endforeach
-                        <tr class="fs-4"  style="height: 10px;">
-                            <td style="padding-left: 20px"> </td>
-                            <td style="text-align: right; border-top:1px solid black;">
-                                ${{ number_format($cuentaHija['totalCargos'], 2) }}
-                                @php
-                                    $sumCostos += $cuentaHija['totalCargos'];
-                                @endphp
-                            </td>
-                        </tr>
-                    @endforeach
-                    <tr class="fs-4 font-bold"  style="height: 10px;">
-                        <td> <b>TOTAL DE COSTOS</b></td>
-                        <td style="text-align: right; border-top:1px solid black;">
-                            <b> ${{ number_format($sumCostos, 2) }} </b>
-                        </td>
-                    </tr>
-                @endif
+            @php
+                $sumActivos = 0;
+                $sumPasivos = 0;
+                $sumPatrimonio = 0;
+                $estado;
+            @endphp
+
+            @foreach ($datosActivo as $cuentaPadre)
+                <tr>
+                    <td>
+                        {{ $cuentaPadre['descripcion'] }}
+                    </td>
+                    <td>
+                            @php
+                                echo '<pre>';
+                                print_r($cuentaPadre['movimientos']);
+                                // print_r($cuentaPadre[']);
+// 
+                                echo '</pre>';
+                            @endphp
+                            @if(isset($movimiento['movimientos']))
+                               {{ "si esta"}}
+                            @else
+                            {{ "No esta" }}
+                            @endif
+                    </td>
+
+                </tr>
+
+                {{-- <h3>{{ $cuentaPadre['cuenta_padre']['descripcion'] }}</h3> --}}
+                {{-- {{-- @foreach ($cuentaPadre['cuentas_hijas_principal']['cuentasDeMayor']['datosCuenta']['movimientos_cuentas_de_mayor_hijas'] as $cuentaMayor) --}}
+                {{-- // <tr> --}}
+                {{-- // <td><b> {{ $cuentaMayor['numero'] }}</b></td> --}}
+                {{-- // <td><b> {{ $cuentaMayor['descripcion'] }}</b></td> --}}
+
+                {{-- // </tr> --}}
+                {{-- //     @foreach ($cuentaMayor['movimientos_cuentas_de_mayor_hijas'] as $movimientos) --}}
+                {{-- //         @if (isset($movimientos['cuentasDeMayor'])) --}}
+                {{-- //             <tr> --}}
+                {{-- //                 <td>
+                //                     {{ $movimientos['cuentasDeMayor']['datosCuenta']['numero'] }}
+
+                //                 </td>
+                //                 <td class="px-6"> 
+                //                     {{ $movimientos['cuentasDeMayor']['datosCuenta']['descripcion'] }}
+                //                 </td>
+                //                 <td>
+                //                     {{ $movimientos['saldos']['saldo'] }}
+                //                 </td>
+                //             </tr>
+                  
+                //         @endif
+                //     @endforeach --}}
+
+                {{-- // @endforeach --}}
             @endforeach
-            <tr class="fs-4 font-bold">
-                <td><b> MARGEN BRUTO</b></td>
-                <td style="text-align: right; border-top:1px doble black;">
-                    <b> ${{ number_format($sumIngresos - $sumCostos, 2) }} </b>
-                </td>
-            </tr>
+
+
         </tbody>
     </table>
 

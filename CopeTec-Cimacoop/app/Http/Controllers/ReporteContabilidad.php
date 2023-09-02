@@ -758,7 +758,7 @@ class ReporteContabilidad extends Controller
         }
         // dd($sumIngresos, $sumCostos, $sumIngresos - $sumCostos);
         $estadoResultado = $sumIngresos - $sumCostos;
-        return response()->json($estadoResultado);
+        return $estadoResultado;
     }
 
     public function balanceGeneral()
@@ -767,129 +767,144 @@ class ReporteContabilidad extends Controller
     }
     public function balanceGeneralRep(Request $request)
     {
-        $fechaInicio = $request->desde;
         $fechaFin = $request->hasta;
         $CODIGO_ACTIVO = 1;
         $CODIGO_PASIVO = 2;
         $CODIGO_PATRIMONIO = 3;
+        $fechaDesde = $request->desde;
+        $fechaHasta = $request->hasta;
+        $encabezado = $request->encabezado;
 
-        $datosActivo["datosActivos"] = $this->cargarDatosPorCuentaPadreBalanceGeneral($CODIGO_ACTIVO, $fechaInicio, $fechaFin);
+        $datosActivo = $this->procesarBalanceGeneral(1, $fechaDesde, $fechaHasta);
+        $datosPasivo = $this->procesarBalanceGeneral(2, $fechaDesde, $fechaHasta);
+        $datosPatrimonio= $this->procesarBalanceGeneral(3, $fechaDesde, $fechaHasta);
+
+        dd($datosActivo, $datosPasivo, $datosPatrimonio);
+
+        // $datosActivo = $cuentasConMovimientos;
 
 
+        // // $json = [$datosActivo];
 
+        // dd($json);
+        // $arrFormatted = json_encode($datosActivo, JSON_PRETTY_PRINT);
+        // echo "<pre>";
+        // print_r($arrFormatted);
+        // echo "</pre>";
 
-
-        $datosPasivo['datosPasivos'] = $this->cargarDatosPorCuentaPadreBalanceGeneral($CODIGO_PASIVO, $fechaInicio, $fechaFin);
-        $datosPatrimonio['datosPatrimonio'] = $this->cargarDatosPorCuentaPadreBalanceGeneral($CODIGO_PATRIMONIO, $fechaInicio, $fechaFin);
-
-        $estadoResultado = $this->estadoResultadoMetodo($fechaInicio, $fechaFin);
-
-
-        $json = [$datosActivo, $datosPasivo, $datosPatrimonio];
-
-        $arrFormatted = json_encode($json, JSON_PRETTY_PRINT);
-        echo "<pre>";
-        print_r($arrFormatted);
-        echo "</pre>";
-        dd();
 
         // $pdf = PDF::loadView("contabilidad.reportes.balancegeneral_rep", [
         //     'estilos' => $this->estilos,
         //     'stilosBundle' => $this->stilosBundle,
-        //     'catalogo' => ,
+        //     'datosActivo' => $datosActivo,
+        //     'datosPasivo' => $datosPasivo,
+        //     'datosPatrimonio' => $datosPatrimonio,
+        //     'estadoResultado' => $estadoResultado,
         //     'hasta' => $request->hasta,
 
         // ]);
         // return $pdf->setOrientation('portrait')->inline();
     }
-    public function cargarDatosPorCuentaPadreBalanceGeneral($idCuenta_padre, $fechaInicio, $fechaFin)
-    {
-        $cuentasPadres = Catalogo::where('numero', '=', $idCuenta_padre)
-            ->select('id_cuenta', 'numero', 'descripcion')
 
+    public function procesarBalanceGeneral($codigoProceso, $fechaDesde, $fechaHasta)
+    {
+        $codigoProceso = $codigoProceso . '%';
+        $cuentasNivelUno = Catalogo::whereRaw('LENGTH(numero) = 2')
+            ->where('numero', 'like', $codigoProceso)
+            ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
             ->get();
-        $json = [];
-        $movimientosCostos = [];
-        foreach ($cuentasPadres as $cuentasHijasNivelUno) {
-            $codigoAgrupador = $cuentasHijasNivelUno->numero . '%';
-            //Busca las cuentas de principales es decir las que tienen 2 digitos
-            $cuentasHijasNivelDos = Catalogo::whereRaw('LENGTH(numero) = 2 AND numero LIKE ?', [$codigoAgrupador])
-                ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'codigo_agrupador', 'descripcion', 'saldo')
+
+        $reponse = [];
+        foreach ($cuentasNivelUno as $cuentaNivelUno) {
+            $aDataCuentaNivelUno = $cuentaNivelUno->toArray();
+            $codigoAgrupadorNivelUno = $cuentaNivelUno->numero . '%';
+            $cuentasNivelDos = Catalogo::whereRaw('LENGTH(numero) = 4')
+                ->where('numero', 'like', $codigoAgrupadorNivelUno)
+                ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
                 ->get();
 
-
-            foreach ($cuentasHijasNivelDos as $cuentaHija_nivel_dos) {
-                $codigo_agrupador_cuenta_hija = $cuentaHija_nivel_dos->numero . '%';
-
-                $catalogoCuentaNivelDos = Catalogo::select('id_cuenta', 'numero', 'descripcion', 'codigo_agrupador', 'id_cuenta_padre')
-                    ->whereRaw('LENGTH(numero) =2 AND numero LIKE ?', [$codigo_agrupador_cuenta_hija])->get();
-
-                foreach ($catalogoCuentaNivelDos as $cuentaNivelDos) {
-                    $codigo_agrupadorCuentaNivelDos = $cuentaNivelDos->numero . '%';
-
-
-                    $catalogoCuentaNiveltres = Catalogo::select('id_cuenta', 'numero', 'descripcion', 'codigo_agrupador', 'id_cuenta_padre')
-                        ->whereRaw('LENGTH(numero) = 4 AND codigo_agrupador LIKE ?', [$codigo_agrupadorCuentaNivelDos])
-                        ->orderBy('numero', 'asc')
-                        ->get();
-
-
-
-
-                    foreach ($catalogoCuentaNiveltres as $cuentaNivelTres) {
-                        $codigo_agrupadorCuentaNivelTres = $cuentaNivelTres->numero;
-
-                        $movimientos = PartidasContablesDetalles::select('descripcion', 'numero', 'codigo_agrupador')
-                            ->selectRaw('SUM(cargos) as sum_cargos, SUM(abonos) as sum_abonos,SUM(cargos) - SUM(abonos) as saldo')
-                            ->whereBetween('fecha_partida', [$fechaInicio, $fechaFin])
-                            ->where('codigo_agrupador', 'like', $codigo_agrupadorCuentaNivelTres . '%')
-                            ->groupBy('codigo_agrupador', 'numero')
-                            ->get();
-                        //ssumar los saldos y agregarlos a la cuuenta de CatalogoNivelDos
-                        $totalCargos = $movimientos->sum('sum_cargos');
-                        $totalAbonos = $movimientos->sum('sum_abonos');
-                        $saldo = $totalCargos - $totalAbonos;
-
-
-
-                        if ($movimientos->count() > 0) {
-                            // Utiliza el id_cuenta como clave única
-                            $claveUnica = $cuentaNivelTres->numero;
-
-                            // Verifica si la clave única ya existe en el array
-                            if (!isset($movimientosCostos[$claveUnica])) {
-                                // $movimientosCostos[$claveUnica] = [
-                                $movimientosCostos[] = [
-
-                                    'cuentasDeMayor' => [
-                                        'datosCuenta' => $cuentaNivelTres->toArray(),
-                                        'movimientos_cuentas_de_mayor_hijas' => $movimientos->toArray()
-                                    ],
-                                    'saldos' => [
-                                        'total_cargos' => $totalCargos,
-                                        'totalAbonos' => $totalAbonos,
-                                        'saldo' => $saldo
-                                    ]
-                                ];
-                            }
-                        }
-                    }
-
-
+            $cuentasConMovimientos = ['cuenta_padre' => $aDataCuentaNivelUno];
+            foreach ($cuentasNivelDos as $cuentaNivelDos) {
+                $cuentaPadreArray = $cuentaNivelDos->toArray();
+                $codig_agrupado_nivel_dos = $cuentaNivelDos->numero;
+                $datosCuenta = $this->cargarDatosPorCuentaPadreBalanceGeneral($codig_agrupado_nivel_dos, $fechaDesde, $fechaHasta);
+                if ($datosCuenta) {
+                $cuentasConMovimientos[] = [
+                    'cuenta_hija' => $cuentaNivelDos->toArray(),
+                    'datos_cuenta' => $datosCuenta
+                ];
 
                 }
 
-
             }
+            //verifica si  $cuentasConMovimientos[]  tiene datos_cuenta
+            
 
+            $reponse[] = $cuentasConMovimientos;
 
-            // Agregamos tanto los datos del catálogo como los resultados al arreglo JSON
-            $json[] = [
-                'cuenta_padre' => $cuentasHijasNivelUno->toArray(),
-                'cuentas_hijas_principal' => $movimientosCostos
-            ];
         }
-        return $json;
+
+       return $reponse;
+    }
+
+    public function cargarDatosPorCuentaPadreBalanceGeneral($codigoAgrupador, $fechaInicio, $fechaFin)
+    {
+        $movimientosPorCuenta = [];
+
+        $results = PartidasContablesDetalles::select('codigo_agrupador', 'fecha_partida')
+            ->selectRaw('SUM(cargos) as total_cargos, SUM(abonos) as total_abonos')
+            ->whereBetween('fecha_partida', [$fechaInicio, $fechaFin])
+            ->where('codigo_agrupador', '=', $codigoAgrupador)
+            ->groupBy('fecha_partida', 'codigo_agrupador')
+            ->orderBy('fecha_partida', 'asc')
+            ->get();
+
+
+
+        //cargamos el saldo anterior
+        $mesCierre = date('n', strtotime($fechaInicio));
+        $anioCierre = date('Y', strtotime($fechaInicio));
+        if ($mesCierre == 1) {
+            $mesCierreAnterior = 12;
+            $anioCierre = $anioCierre - 1;
+        } else {
+            $mesCierreAnterior = $mesCierre - 1;
+        }
+
+        //Buscar si existe el cierre anterior
+        $cierreAnterior = CierreMensualModel::where('year', $anioCierre)
+            ->where('mes', $mesCierreAnterior)
+            ->where('estado', 1)->first();
+        $saldoAnterior = 0;
+        if ($cierreAnterior) {
+            //buscar el saldo del cierre anterior
+            $id_cierre_anterior = $cierreAnterior->id;
+            $saldoAnterior = DB::table('cierre_mensual_detalle')
+                ->where('cierre_mensual_id', $id_cierre_anterior)
+                ->where('codigo_agrupador', $codigoAgrupador)
+                ->sum('saldo_cierre');
+
+        }
+
+
+        $sumTotalCargos = $results->sum('total_cargos');
+        $sumTotalAbonos = $results->sum('total_abonos');
+
+
+        if ($results->count() > 0) {
+            $totals = new stdClass();
+            $totals->total_cargos = $sumTotalCargos;
+            $totals->total_abonos = $sumTotalAbonos;
+            $totals->saldo_anterior = $saldoAnterior;
+
+            $nuevoSaldo = ($saldoAnterior + $sumTotalCargos) - $sumTotalAbonos;
+            $totals->saldo = $nuevoSaldo;
+
+            // $movimientosPorCuenta['movimientos'] = $results->toArray();
+            $movimientosPorCuenta['sumas'] = $totals;
+        }
+
+        return $movimientosPorCuenta;
     }
 
 
