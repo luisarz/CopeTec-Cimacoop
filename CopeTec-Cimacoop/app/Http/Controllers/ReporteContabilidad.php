@@ -564,7 +564,7 @@ class ReporteContabilidad extends Controller
         $fechaHasta = $request->hasta;
         $encabezado = $request->encabezado;
 
-        $cuentasPadres = Catalogo::select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')->where('saldo', '!=', 0)
+        $cuentasPadres = Catalogo::whereRaw('LENGTH(numero) = 4')->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')->where('saldo', '!=', 0)
             ->get();
 
         $mesCierre = date('n', strtotime($fechaDesde));
@@ -777,10 +777,10 @@ class ReporteContabilidad extends Controller
 
         $datosActivo = $this->procesarBalanceGeneral(1, $fechaDesde, $fechaHasta);
         $datosPasivo = $this->procesarBalanceGeneral(2, $fechaDesde, $fechaHasta);
-        $datosPatrimonio= $this->procesarBalanceGeneral(3, $fechaDesde, $fechaHasta);
+        $datosPatrimonio = $this->procesarBalanceGeneral(3, $fechaDesde, $fechaHasta);
 
-   
-        $estadoResultado= $this-> estadoResultadoMetodo($fechaDesde, $fechaHasta);
+
+        $estadoResultado = $this->estadoResultadoMetodo($fechaDesde, $fechaHasta);
         // $datosActivo = $cuentasConMovimientos;
 
 
@@ -830,22 +830,22 @@ class ReporteContabilidad extends Controller
                 $codig_agrupado_nivel_dos = $cuentaNivelDos->numero;
                 $datosCuenta = $this->cargarDatosPorCuentaPadreBalanceGeneral($codig_agrupado_nivel_dos, $fechaDesde, $fechaHasta);
                 if ($datosCuenta) {
-                $cuentasConMovimientos[] = [
-                    'cuenta_hija' => $cuentaNivelDos->toArray(),
-                    'movimientos' => $datosCuenta
-                ];
+                    $cuentasConMovimientos[] = [
+                        'cuenta_hija' => $cuentaNivelDos->toArray(),
+                        'movimientos' => $datosCuenta
+                    ];
 
                 }
 
             }
             //verifica si  $cuentasConMovimientos[]  tiene datos_cuenta
-            
+
 
             $reponse[] = $cuentasConMovimientos;
 
         }
 
-       return $reponse;
+        return $reponse;
     }
 
     public function cargarDatosPorCuentaPadreBalanceGeneral($codigoAgrupador, $fechaInicio, $fechaFin)

@@ -13,8 +13,7 @@
 
 </head>
 <?php
-$totalC = 0;
-$totalA = 0;
+$totalG = 0;
 $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 if (isset($hasta) > 0) {
     $mes = $meses[\Carbon\Carbon::parse($hasta)->format('n') - 1];
@@ -90,6 +89,7 @@ if (isset($hasta) > 0) {
                     <td style="text-align: right;">
                         @if (isset($cuenta['sumas']))
                             $ {{ number_format($cuenta['sumas']->saldo, 2) }}
+                            <?php $totalG += $cuenta['sumas']->saldo; ?>
                         @else
                             $ 0.00
                         @endif
@@ -99,14 +99,15 @@ if (isset($hasta) > 0) {
             @endforeach
             <tr class="fs-5 border-top py-6 font-bold">
                 <td></td>
-                <td>TOTALES</td>
-                <td></td>
-                <td style="text-align: right; border-bottom: 2px double rgb(0, 0, 0) !important;">
-                    $ {{ number_format($total_cargos, 2) }}
-
+                <td colspan="2" class="text-center"><b>TOTAL PASIVOS E INGRESOS</b></td>
+                <td>
                 </td>
-                <td style="text-align: right; border-bottom: 2px double rgb(0, 0, 0) !important;">
-                    $ {{ number_format($total_abonos, 2) }}
+                <td>
+                </td>
+                <td
+                    style="text-align: right; border-bottom: 2px solid rgb(0, 0, 0) !important; border-top: 2px solid rgb(0, 0, 0) !important;
+                border-style: double;">
+                    $ {{ number_format($totalG, 2) }}
 
                 </td>
             </tr>
