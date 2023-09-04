@@ -62,7 +62,14 @@
                         ${{ number_format($cuenta['abonos'], 2) }}
                     </td>
 
-                    <td style="text-align: right;">${{ number_format($cuenta['saldo'], 2) }}</td>
+                    <td style="text-align: right;">
+                         @if($cuenta['saldo']>0)
+                        <b>${{ number_format($cuenta['saldo'], 2) }}</b>
+                        @else
+                        $${{ number_format($cuenta['saldo'], 2) }}
+                        @endif
+                        
+                    </td>
                 </tr>
                
             @endforeach
