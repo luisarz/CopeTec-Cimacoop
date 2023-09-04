@@ -810,7 +810,7 @@ class ReporteContabilidad extends Controller
     {
         $codigoProceso = $codigoProceso . '%';
         $cuentasNivelUno = Catalogo::whereRaw('LENGTH(numero) = 2')
-            ->where('numero', 'like', $codigoProceso)
+            ->where('numero', 'like', '$codigoProceso')
             ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
             ->get();
 
@@ -819,7 +819,7 @@ class ReporteContabilidad extends Controller
             $aDataCuentaNivelUno = $cuentaNivelUno->toArray();
             $codigoAgrupadorNivelUno = $cuentaNivelUno->numero . '%';
             $cuentasNivelDos = Catalogo::whereRaw('LENGTH(numero) = 4')
-                ->where('numero', 'like', $codigoAgrupadorNivelUno)
+                ->where('numero', 'like', '$codigoAgrupadorNivelUno')
                 ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
                 ->get();
 
@@ -854,8 +854,8 @@ class ReporteContabilidad extends Controller
 
         $results = PartidasContablesDetalles::select('codigo_agrupador', 'fecha_partida')
             ->selectRaw('SUM(cargos) as total_cargos, SUM(abonos) as total_abonos')
-            ->whereBetween('fecha_partida', [$fechaInicio, $fechaFin])
-            ->where('codigo_agrupador', '=', $codigoAgrupador)
+            ->whereBetween('fecha_partida', ['$fechaInicio', '$fechaFin'])
+            ->where('codigo_agrupador', '=', '$codigoAgrupador')
             ->groupBy('fecha_partida', 'codigo_agrupador')
             ->orderBy('fecha_partida', 'asc')
             ->get();
@@ -873,16 +873,16 @@ class ReporteContabilidad extends Controller
         }
 
         //Buscar si existe el cierre anterior
-        $cierreAnterior = CierreMensualModel::where('year', $anioCierre)
-            ->where('mes', $mesCierreAnterior)
-            ->where('estado', 1)->first();
+        $cierreAnterior = CierreMensualModel::where('year', '$anioCierre')
+            ->where('mes', '$mesCierreAnterior')
+            ->where('estado', '1')->first();
         $saldoAnterior = 0;
         if ($cierreAnterior) {
             //buscar el saldo del cierre anterior
             $id_cierre_anterior = $cierreAnterior->id;
             $saldoAnterior = DB::table('cierre_mensual_detalle')
-                ->where('cierre_mensual_id', $id_cierre_anterior)
-                ->where('codigo_agrupador', $codigoAgrupador)
+                ->where('cierre_mensual_id', '$id_cierre_anterior')
+                ->where('codigo_agrupador', '$codigoAgrupador')
                 ->sum('saldo_cierre');
 
         }
