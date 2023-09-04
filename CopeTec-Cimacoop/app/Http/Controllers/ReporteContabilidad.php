@@ -559,12 +559,12 @@ class ReporteContabilidad extends Controller
     {
 
         LibroMayorModel::truncate();
-
+        // dd($request->hasta);
         $fechaDesde = $request->desde;
-        $fechaHasta = $request->hasta;
+        $fechaHasta = '2023-09-10';
         $encabezado = $request->encabezado;
 
-        $cuentasPadres = Catalogo::whereRaw('LENGTH(numero) = 4')->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')->where('saldo', '!=', 0)
+        $cuentasPadres = Catalogo::whereRaw('LENGTH(numero) = 4')->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
             ->get();
 
         $mesCierre = date('n', strtotime($fechaDesde));
