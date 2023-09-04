@@ -53,21 +53,21 @@ class BobedaController extends Controller
         $bobeda = Bobeda::findOrFail($id);
         $cajas = Cajas::where('id_caja', '!=', 0)->get();
         $id_empleado = session('id_empleado_usuario');
-        $empleados = Empleados::where('id_empleado', '=', $id_empleado)->get();
+        $empleados = Empleados::where('id_empleado', '=', '$id_empleado')->get();
         return view("boveda.transferir", compact("bobeda", "cajas", 'empleados'));
     }
     public function aperturarBobeda($id)
     {
         $bobeda = Bobeda::find($id);
         $id_empleado = session('id_empleado_usuario');
-        $empleados= Empleados::where('id_empleado','=',$id_empleado)->get();
+        $empleados= Empleados::where('id_empleado','=','$id_empleado')->get();
         return view("boveda.aperturar", compact("bobeda",'empleados'));
     }
   public function cerrarBobeda($id)
     {
         $bobeda = Bobeda::find($id);
         $id_empleado = session('id_empleado_usuario');
-        $empleados= Empleados::where('id_empleado','=',$id_empleado)->get();
+        $empleados= Empleados::where('id_empleado','=','$id_empleado')->get();
         return view("boveda.cerrar", compact("bobeda",'empleados'));
     }
     public function realizarCierreBobeda(Request $requet)
@@ -172,7 +172,7 @@ class BobedaController extends Controller
     {
         $cliente = Cuentas::findOrFail($request->id);
         if ($cliente->dui_cliente != $request->dui_cliente) {
-            $cliente = Cuentas::where("dui_cliente", $request->dui_cliente)->first();
+            $cliente = Cuentas::where("dui_cliente", '$request->dui_cliente')->first();
             if ($cliente && $cliente->count() > 0) {
                 return redirect("/movimientos/" . $request->id)->withInput()->withErrors(["dui_cliente" => "Cambió el DUI y el ingresado ya existe en otro cliente!!"]);
             }
@@ -208,7 +208,7 @@ class BobedaController extends Controller
         return redirect("/boveda");
     }
     public function getTrasladoPendienteCajaABobeda($id){
-        $movimientos = Movimientos::where('id_caja','=',$id)
+        $movimientos = Movimientos::where('id_caja','=','$id')
         ->where('tipo_operacion','=',4)
         ->where('id_cuenta','=',0)
         ->where('estado','=',0)

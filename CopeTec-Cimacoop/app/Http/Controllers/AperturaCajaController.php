@@ -35,9 +35,9 @@ class AperturaCajaController extends Controller
     {
         $id_empleado_usuario = session()->get('id_empleado_usuario');
         $cajas = Cajas::where("estado_caja", '=', '0')
-            ->where('id_usuario_asignado', '=', $id_empleado_usuario)
+            ->where('id_usuario_asignado', '=', '$id_empleado_usuario')
             ->get();
-        $empleados = Empleados::where('id_empleado', '=', $id_empleado_usuario)->get();
+        $empleados = Empleados::where('id_empleado', '=', '$id_empleado_usuario')->get();
         return view("apertura.aperturarcaja", compact('cajas', 'empleados'));
     }
     public function gettraslado($id)

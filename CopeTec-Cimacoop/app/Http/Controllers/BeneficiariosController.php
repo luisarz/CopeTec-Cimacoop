@@ -12,21 +12,21 @@ class BeneficiariosController extends Controller
 {
     public function index($id_asociado = null)
     {
-        $beneficiarios = Beneficiarios::where('id_asociado', '=', $id_asociado)
+        $beneficiarios = Beneficiarios::where('id_asociado', '=', '$id_asociado')
             ->join('parentesco', 'id_parentesco', '=', 'beneficiarios.parentesco')->get();
 
         $asociado = Asociados::join('clientes', 'asociados.id_cliente', '=', 'clientes.id_cliente')
-            ->where('asociados.id_asociado', '=', $id_asociado)
+            ->where('asociados.id_asociado', '=', '$id_asociado')
             ->first();
 
-        $totalAsignado = Beneficiarios::where('id_asociado', '=', $id_asociado)
+        $totalAsignado = Beneficiarios::where('id_asociado', '=', '$id_asociado')
             ->sum('porcentaje');
             
-        $saldoDisponible = Cuentas::where('id_asociado', '=', $id_asociado)
+        $saldoDisponible = Cuentas::where('id_asociado', '=','$id_asociado')
             ->where('id_tipo_cuenta', '!=', '9')
             ->sum('saldo_cuenta');
 
-        $saldoAportaciones = Cuentas::where('id_asociado', '=', $id_asociado)
+        $saldoAportaciones = Cuentas::where('id_asociado', '=', '$id_asociado')
             ->where('id_tipo_cuenta', '=', '9')
             ->sum('saldo_cuenta');
 
@@ -40,9 +40,10 @@ class BeneficiariosController extends Controller
     public function add($id_asociado)
     {
 
-        $totalAsignado = Beneficiarios::where('id_asociado', '=', $id_asociado)->sum('porcentaje');
-        $cuentas = Cuentas::where('id_asociado', '=', $id_asociado)
-            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')->get();
+        $totalAsignado = Beneficiarios::where('id_asociado', '=', '$id_asociado')->sum('porcentaje');
+        $cuentas = Cuentas::where('id_asociado', '=', '$id_asociado')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->get();
         $parentescos = Parentesco::all();
 
         return view("beneficiarios.add", compact("id_asociado", "totalAsignado", 'cuentas', 'parentescos'));

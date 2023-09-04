@@ -71,8 +71,8 @@ class ReporteContabilidad extends Controller
         $encabezado = $request->encabezado;
 
         $partidas = PartidasContablesModel::join('partida_contables_detalle', 'partidas_contables.id_partida_contable', '=', 'partida_contables_detalle.id_partida')
-            ->whereBetween('partidas_contables.fecha_partida', [$mesDesde, $anoDesde]) // Filtrar por rango de fechas
-            ->where('partida_contables_detalle.id_cuenta', $id_cuenta)
+            ->whereBetween('partidas_contables.fecha_partida', ['$mesDesde', '$anoDesde']) // Filtrar por rango de fechas
+            ->where('partida_contables_detalle.id_cuenta','=', '$id_cuenta')
             ->orderBy('partidas_contables.num_partida', 'asc')
             ->get();
 
@@ -93,15 +93,15 @@ class ReporteContabilidad extends Controller
             $mes_cierre_anterior = $mes_cierre - 1;
         }
 
-        $cierreAnterior = CierreMensualModel::where('year', $anio_cierre)
-            ->where('mes', $mes_cierre_anterior)
+        $cierreAnterior = CierreMensualModel::where('year', '$anio_cierre')
+            ->where('mes', '$mes_cierre_anterior')
             ->where('estado', 1)->first();
         $saldo_anterior = 0;
         if ($cierreAnterior) {
             //buscar el saldo del cierre anterior
             $id_cierre_anterior = $cierreAnterior->id;
             $cierreAnteriorCuenta = CierreMensualPartidaModel::where('cierre_mensual_id', $id_cierre_anterior)
-                ->where('id_cuenta', $id_cuenta)->first();
+                ->where('id_cuenta', '$id_cuenta')->first();
             if ($cierreAnteriorCuenta) {
                 $saldo_anterior = $cierreAnteriorCuenta->saldo_cierre;
             }
@@ -161,15 +161,15 @@ class ReporteContabilidad extends Controller
 
             $idCuenta = $cuenta->id_cuenta;
 
-            $operacionesRealizadas = PartidasContablesDetalles::whereBetween('fecha_partida', [$fechaDesde, $fechaHasta])
-                ->where('id_cuenta', $idCuenta)
+            $operacionesRealizadas = PartidasContablesDetalles::whereBetween('fecha_partida', ['$fechaDesde', '$fechaHasta'])
+                ->where('id_cuenta','=', '$idCuenta')
                 ->get();
 
             $totalCargos = $operacionesRealizadas->sum('cargos');
             $totalAbonos = $operacionesRealizadas->sum('abonos');
 
-            $cierreAnterior = CierreMensualModel::where('year', $anioCierre)
-                ->where('mes', $mesCierreAnterior)
+            $cierreAnterior = CierreMensualModel::where('year','=', '$anioCierre')
+                ->where('mes','=', '$mesCierreAnterior')
                 ->where('estado', 1)->first();
 
             $saldoAnterior = 0;
@@ -177,8 +177,8 @@ class ReporteContabilidad extends Controller
             if ($cierreAnterior) {
                 // Buscar el saldo del cierre anterior
                 $idCierreAnterior = $cierreAnterior->id;
-                $cierreAnteriorCuenta = CierreMensualPartidaModel::where('cierre_mensual_id', $idCierreAnterior)
-                    ->where('id_cuenta', $idCuenta)->first();
+                $cierreAnteriorCuenta = CierreMensualPartidaModel::where('cierre_mensual_id', '$idCierreAnterior')
+                    ->where('id_cuenta','=', '$idCuenta')->first();
 
                 if ($cierreAnteriorCuenta) {
                     $saldoAnterior = $cierreAnteriorCuenta->saldo_cierre;
@@ -240,8 +240,8 @@ class ReporteContabilidad extends Controller
 
         $results = PartidasContablesDetalles::select('codigo_agrupador', 'fecha_partida')
             ->selectRaw('SUM(cargos) as total_cargos, SUM(abonos) as total_abonos')
-            ->whereBetween('fecha_partida', [$fechaInicio, $fechaFin])
-            ->where('codigo_agrupador', '=', $codigoAgrupador)
+            ->whereBetween('fecha_partida', ['$fechaInicio', '$fechaFin'])
+            ->where('codigo_agrupador', '=', '$codigoAgrupador')
             ->groupBy('fecha_partida', 'codigo_agrupador')
             ->orderBy('fecha_partida', 'asc')
             ->get();
@@ -257,16 +257,16 @@ class ReporteContabilidad extends Controller
         }
 
         //Buscar si existe el cierre anterior
-        $cierreAnterior = CierreMensualModel::where('year', $anioCierre)
-            ->where('mes', $mesCierreAnterior)
-            ->where('estado', 1)->first();
+        $cierreAnterior = CierreMensualModel::where('year', '$anioCierre')
+            ->where('mes','$mesCierreAnterior')
+            ->where('estado','=', '1')->first();
         $saldoAnterior = 0;
         if ($cierreAnterior) {
             //buscar el saldo del cierre anterior
             $id_cierre_anterior = $cierreAnterior->id;
             $saldoAnterior = DB::table('cierre_mensual_detalle')
-                ->where('cierre_mensual_id', $id_cierre_anterior)
-                ->where('codigo_agrupador', $codigoAgrupador)
+                ->where('cierre_mensual_id','=', '$id_cierre_anterior')
+                ->where('codigo_agrupador', '=', '$codigoAgrupador')
                 ->sum('saldo_cierre');
 
         }
@@ -381,7 +381,7 @@ class ReporteContabilidad extends Controller
                 )
                 ->join('catalogo AS b', 'c.id_cuenta', '=', 'b.id_cuenta_padre')
                 ->leftJoin('partida_contables_detalle AS a', 'b.id_cuenta', '=', 'a.id_cuenta')
-                ->where('a.id_partida', $p->id_partida_contable)
+                ->where('a.id_partida', '$p->id_partida_contable')
                 ->orderBy('a.cargos', 'desc')
                 ->get();
 
@@ -635,19 +635,19 @@ class ReporteContabilidad extends Controller
 
         foreach ($catalogos as $catalogo) {
             $codigoAgrupador = $catalogo->numero . '%';
-            $cuentasHijas = Catalogo::whereRaw('LENGTH(numero) = 2 AND numero LIKE ?', [$codigoAgrupador])
+            $cuentasHijas = Catalogo::whereRaw('LENGTH(numero) = 2 AND numero LIKE ?', ['$codigoAgrupador'])
                 ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
                 ->get();
 
             $movimientosCostos = []; // Array para almacenar datos únicos
 
             foreach ($cuentasHijas as $cuentaHija) {
-                $codigo_agrupador = $cuentaHija->numero;
+                $codigo_agrupador = $cuentaHija->numero . '%';
 
                 $movimientos = PartidasContablesDetalles::select('descripcion', 'numero')
                     ->selectRaw('SUM(cargos) as sum_cargos, SUM(abonos) as sum_abonos')
-                    ->whereBetween('fecha_partida', [$fechaInicio, $fechaFin])
-                    ->where('codigo_agrupador', 'like', $codigo_agrupador . '%')
+                    ->whereBetween('fecha_partida', ['$fechaInicio', '$fechaFin'])
+                    ->where('codigo_agrupador', 'like','$codigo_agrupador')
                     ->groupBy('descripcion', 'numero')
                     ->get();
 
@@ -706,18 +706,18 @@ class ReporteContabilidad extends Controller
         $movimientosCostos = [];
         foreach ($catalogos as $catalogo) {
             $codigoAgrupador = $catalogo->numero . '%';
-            $cuentasHijas = Catalogo::whereRaw('LENGTH(numero) = 2 AND numero LIKE ?', [$codigoAgrupador])
+            $cuentasHijas = Catalogo::whereRaw('LENGTH(numero) = 2 AND numero LIKE ?', ['$codigoAgrupador'])
                 ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
                 ->get();
 
             $movimientosCostos = []; // Array para almacenar datos únicos
 
             foreach ($cuentasHijas as $value2) {
-                $codigo_agrupador = $value2->numero;
+                $codigo_agrupador = $value2->numero.'%';
 
                 $movimientos = PartidasContablesDetalles::selectRaw('SUM(cargos) as sum_cargos, SUM(abonos) as sum_abonos')
-                    ->whereBetween('fecha_partida', [$fechaInicio, $fechaFin])
-                    ->where('codigo_agrupador', 'like', $codigo_agrupador . '%')
+                    ->whereBetween('fecha_partida', ['$fechaInicio', '$fechaFin'])
+                    ->where('codigo_agrupador', 'like','$codigo_agrupador')
                     ->groupBy('descripcion', 'numero')
                     ->get();
 

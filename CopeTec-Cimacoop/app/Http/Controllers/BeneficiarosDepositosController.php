@@ -12,7 +12,7 @@ class BeneficiarosDepositosController extends Controller
     //
     public function indexBeneficiarios($id)
     {
-        $beneficiarios = BeneficiarosDepositos::where('id_deposito', '=', $id)
+        $beneficiarios = BeneficiarosDepositos::where('id_deposito', '=', '$id')
         ->join('parentesco','parentesco.id_parentesco','=','beneficiarios_depositos.parentesco')->get();
 
         $tieneBeneficiarios = true;
@@ -22,14 +22,14 @@ class BeneficiarosDepositosController extends Controller
         }
 
 
-        $totalAsignado = BeneficiarosDepositos::where('id_deposito', '=', $id)
+        $totalAsignado = BeneficiarosDepositos::where('id_deposito', '=', '$id')
             ->sum('porcentaje');
 
         $depositoPlazo = DepositosPlazo::join('asociados', 'depositos_plazo.id_asociado', '=', 'asociados.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('plazos_tasas', 'plazos_tasas.id_tasa', '=', 'depositos_plazo.interes_deposito')
             ->join('cuentas', 'cuentas.id_cuenta', '=', 'depositos_plazo.id_cuenta_depositar')
-            ->where('depositos_plazo.id_deposito_plazo_fijo', "=", $id)
+            ->where('depositos_plazo.id_deposito_plazo_fijo', "=", '$id')
             ->select('depositos_plazo.id_deposito_plazo_fijo', 'depositos_plazo.monto_deposito', 'depositos_plazo.fecha_deposito', 'depositos_plazo.fecha_vencimiento', 'depositos_plazo.plazo_deposito', 'depositos_plazo.numero_cheque', 'depositos_plazo.forma_deposito', 'asociados.id_asociado', 'clientes.nombre', 'plazos_tasas.valor', 'cuentas.numero_cuenta')
             ->orderBy('depositos_plazo.numero_certificado', 'desc')
             ->first();
@@ -43,7 +43,7 @@ class BeneficiarosDepositosController extends Controller
     }
     public function add($id_deposito){
 
-        $totalAsignado = BeneficiarosDepositos::where('id_deposito', '=', $id_deposito)
+        $totalAsignado = BeneficiarosDepositos::where('id_deposito', '=', '$id_deposito')
             ->sum('porcentaje');
         $parentescos = Parentesco::all();
 
@@ -71,7 +71,7 @@ class BeneficiarosDepositosController extends Controller
         $id_deposito = $beneficiario->id_deposito;
         $parentescos = Parentesco::all();
 
-        $totalAsignado = BeneficiarosDepositos::where('id_deposito', '=', $id_deposito)
+        $totalAsignado = BeneficiarosDepositos::where('id_deposito', '=', '$id_deposito')
             ->sum('porcentaje');
         return view("/captaciones/beneficiarios/edit", compact("beneficiario", "totalAsignado",'id_deposito', 'parentescos'));
     }

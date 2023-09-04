@@ -23,7 +23,7 @@ class BitacoraController extends Controller
         $hasta = $request->input('hasta') . ' 23:59:59';
 
         $bitacora = Bitacora::when(isset($desde) && isset($hasta), function ($query) use ($desde, $hasta) {
-            $query->whereBetween('fecha', [$desde, $hasta]);
+            $query->whereBetween('fecha', ['$desde', '$hasta']);
         })
             ->when(!isset($desde) || !isset($hasta), function ($query) {
                 $query->orderBy('fecha', 'desc');
@@ -42,9 +42,10 @@ class BitacoraController extends Controller
     }
     public function reporte($desde, $hasta)
     {
+        $hasta = $hasta . ' 23:59:59';
 
         $bitacora = Bitacora::when(isset($desde) && isset($hasta), function ($query) use ($desde, $hasta) {
-            $query->whereBetween('fecha', [$desde, $hasta . ' 23:59:59']);
+            $query->whereBetween('fecha', ['$desde', '$hasta' ]);
         })
             ->when(!isset($desde) || !isset($hasta), function ($query) {
                 $query->orderBy('fecha', 'desc');
@@ -58,7 +59,7 @@ class BitacoraController extends Controller
             'stilosBundle' => $this->stilosBundle,
             'bitacora' => $bitacora,
             'desde'=>$desde,
-            'hasta'=>$hasta
+            'hasta'=> $hasta,
         ]);
         return $pdf->setOrientation('portrait')->inline();
 
