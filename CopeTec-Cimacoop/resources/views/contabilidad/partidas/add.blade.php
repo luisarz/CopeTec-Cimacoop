@@ -41,7 +41,7 @@
                 <div class="form-group row mb-5">
                     <div class="form-floating col-lg-2">
                         <input type="text" name="num_partida" id="num_partida" class="form-control form-control-solid-bg"
-                            required placeholder="Des">
+                            required placeholder="Des" disabled>
                         <label>Nùmero de Partida:</label>
                     </div>
 

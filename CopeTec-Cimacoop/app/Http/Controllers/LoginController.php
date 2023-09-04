@@ -107,6 +107,7 @@ class LoginController extends Controller
         $session->put('id_empleado_usuario', $user->id_empleado_usuario);
         $session->put('email', $user->email);
         $session->put('name', $empleados->nombre_empleado);
+        $session->put('id_rol', $user->id_rol);
 
 
 

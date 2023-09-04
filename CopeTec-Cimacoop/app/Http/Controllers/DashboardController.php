@@ -20,6 +20,8 @@ class DashboardController extends Controller
         //ultimos 10 creditos
         //ultimos 10 abonos
 
+        $id_rol=Session::get('id_rol');
+
         $depositos = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
@@ -60,7 +62,8 @@ class DashboardController extends Controller
             'creditos',
             'desembolsosPendientes',
             'abonos',
-            'bitacora'
+            'bitacora',
+            'id_rol'
         )
         );
     }

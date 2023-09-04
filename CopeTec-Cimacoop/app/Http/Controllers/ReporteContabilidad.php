@@ -161,14 +161,15 @@ class ReporteContabilidad extends Controller
 
             $idCuenta = $cuenta->id_cuenta;
 
-            $operacionesRealizadas = PartidasContablesDetalles::whereBetween('fecha_partida', ['$fechaDesde', '$fechaHasta'])
-                ->where('id_cuenta','=', '$idCuenta')
+            $operacionesRealizadas = PartidasContablesDetalles::whereRaw('fecha_partida BETWEEN ? AND ?', [$fechaDesde, $fechaHasta])
+                ->where('id_cuenta','=', $idCuenta)
                 ->get();
+
 
             $totalCargos = $operacionesRealizadas->sum('cargos');
             $totalAbonos = $operacionesRealizadas->sum('abonos');
 
-            $cierreAnterior = CierreMensualModel::where('year','=', '$anioCierre')
+            $cierreAnterior = CierreMensualModel::where('year','=', $anioCierre)
                 ->where('mes','=', '$mesCierreAnterior')
                 ->where('estado', 1)->first();
 
@@ -177,8 +178,8 @@ class ReporteContabilidad extends Controller
             if ($cierreAnterior) {
                 // Buscar el saldo del cierre anterior
                 $idCierreAnterior = $cierreAnterior->id;
-                $cierreAnteriorCuenta = CierreMensualPartidaModel::where('cierre_mensual_id', '$idCierreAnterior')
-                    ->where('id_cuenta','=', '$idCuenta')->first();
+                $cierreAnteriorCuenta = CierreMensualPartidaModel::where('cierre_mensual_id', $idCierreAnterior)
+                    ->where('id_cuenta','=', $idCuenta)->first();
 
                 if ($cierreAnteriorCuenta) {
                     $saldoAnterior = $cierreAnteriorCuenta->saldo_cierre;
@@ -204,6 +205,7 @@ class ReporteContabilidad extends Controller
 
             // Agregar los datos de la cuenta al arreglo principal
         }
+
 
         $pdf = \App::make('snappy.pdf');
 
@@ -240,8 +242,8 @@ class ReporteContabilidad extends Controller
 
         $results = PartidasContablesDetalles::select('codigo_agrupador', 'fecha_partida')
             ->selectRaw('SUM(cargos) as total_cargos, SUM(abonos) as total_abonos')
-            ->whereBetween('fecha_partida', ['$fechaInicio', '$fechaFin'])
-            ->where('codigo_agrupador', '=', '$codigoAgrupador')
+            ->whereRaw('fecha_partida BETWEEN ? AND ?', [$fechaInicio, $fechaFin])
+            ->where('codigo_agrupador', '=', $codigoAgrupador) // Remove the single quotes here
             ->groupBy('fecha_partida', 'codigo_agrupador')
             ->orderBy('fecha_partida', 'asc')
             ->get();
@@ -549,7 +551,6 @@ class ReporteContabilidad extends Controller
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
-
     public function balancecomprobacion()
     {
         return view('contabilidad.reportes.balanceComprobacion');
@@ -564,7 +565,7 @@ class ReporteContabilidad extends Controller
         $fechaHasta = $request->hasta;
         $encabezado = $request->encabezado;
 
-        $cuentasPadres = Catalogo::whereRaw('LENGTH(numero) = 4')->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')->where('saldo', '!=', 0)
+        $cuentasPadres = Catalogo::select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')->where('saldo', '!=', 0)
             ->get();
 
         $mesCierre = date('n', strtotime($fechaDesde));
@@ -646,7 +647,7 @@ class ReporteContabilidad extends Controller
 
                 $movimientos = PartidasContablesDetalles::select('descripcion', 'numero')
                     ->selectRaw('SUM(cargos) as sum_cargos, SUM(abonos) as sum_abonos')
-                    ->whereBetween('fecha_partida', ['$fechaInicio', '$fechaFin'])
+                    ->whereRaw('fecha_partida between ? and ?', [$fechaInicio, $fechaFin])
                     ->where('codigo_agrupador', 'like','$codigo_agrupador')
                     ->groupBy('descripcion', 'numero')
                     ->get();
@@ -716,7 +717,7 @@ class ReporteContabilidad extends Controller
                 $codigo_agrupador = $value2->numero.'%';
 
                 $movimientos = PartidasContablesDetalles::selectRaw('SUM(cargos) as sum_cargos, SUM(abonos) as sum_abonos')
-                    ->whereBetween('fecha_partida', ['$fechaInicio', '$fechaFin'])
+                    ->whereRaw('fecha_partida between ? and ?', [$fechaInicio, $fechaFin])
                     ->where('codigo_agrupador', 'like','$codigo_agrupador')
                     ->groupBy('descripcion', 'numero')
                     ->get();
