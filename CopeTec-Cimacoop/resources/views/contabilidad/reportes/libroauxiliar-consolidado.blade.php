@@ -66,7 +66,7 @@
                          @if($cuenta['saldo']>0)
                         <b>${{ number_format($cuenta['saldo'], 2) }}</b>
                         @else
-                        $${{ number_format($cuenta['saldo'], 2) }}
+                        ${{ number_format($cuenta['saldo'], 2) }}
                         @endif
                         
                     </td>

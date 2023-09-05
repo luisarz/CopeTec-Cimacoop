@@ -322,16 +322,6 @@ class ReporteContabilidad extends Controller
                 $this->sumarMovimientosPorCodigoAgrupadorYFecha($codigo_agrupador, $fechaDesde, $fechaHasta)
             );
         }
-        // $arrFormatted = json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
-
-        // echo "<pre>";
-        // echo json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
-
-        // echo "</pre>";
-
-
-        // return view('reportes.contabilidad.partidas.libromayor', compact('estilos', 'stilosBundle', 'arrFormatted'));
-
 
         $pdf = PDF::loadView("contabilidad.reportes.balanceComprobacion_rep", [
             'estilos' => $this->estilos,
@@ -355,7 +345,7 @@ class ReporteContabilidad extends Controller
         $fechaInicio = $request->desde;
         $fechaFin = $request->hasta;
 
-        $catalogos = Catalogo::whereIn('numero', ['4', '5'])
+        $catalogos = Catalogo::whereIn('numero', [4, 5])
             ->select('id_cuenta', 'numero', 'descripcion')
             ->get();
 
@@ -367,7 +357,7 @@ class ReporteContabilidad extends Controller
 
         foreach ($catalogos as $catalogo) {
             $codigoAgrupador = $catalogo->numero . '%';
-            $cuentasHijas = Catalogo::whereRaw('LENGTH(numero) = 2 AND numero LIKE ?', ['$codigoAgrupador'])
+            $cuentasHijas = Catalogo::whereRaw('LENGTH(numero) = 2 AND numero LIKE ?', [$codigoAgrupador])
                 ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
                 ->get();
 
@@ -379,7 +369,7 @@ class ReporteContabilidad extends Controller
                 $movimientos = PartidasContablesDetalles::select('descripcion', 'numero')
                     ->selectRaw('SUM(cargos) as sum_cargos, SUM(abonos) as sum_abonos')
                     ->whereRaw('fecha_partida between ? and ?', [$fechaInicio, $fechaFin])
-                    ->where('codigo_agrupador', 'like','$codigo_agrupador')
+                    ->where('codigo_agrupador', 'like',$codigo_agrupador)
                     ->groupBy('descripcion', 'numero')
                     ->get();
 
@@ -429,7 +419,7 @@ class ReporteContabilidad extends Controller
     public function estadoResultadoMetodo($fechaInicio, $fechaFin)
     {
 
-        $catalogos = Catalogo::whereIn('numero', ['4', '5'])
+        $catalogos = Catalogo::whereIn('numero', [4, 5])
             ->select('id_cuenta', 'numero', 'descripcion')
             ->get();
 
@@ -438,7 +428,7 @@ class ReporteContabilidad extends Controller
         $movimientosCostos = [];
         foreach ($catalogos as $catalogo) {
             $codigoAgrupador = $catalogo->numero . '%';
-            $cuentasHijas = Catalogo::whereRaw('LENGTH(numero) = 2 AND numero LIKE ?', ['$codigoAgrupador'])
+            $cuentasHijas = Catalogo::whereRaw('LENGTH(numero) = 2 AND numero LIKE ?', [$codigoAgrupador])
                 ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
                 ->get();
 
@@ -449,7 +439,7 @@ class ReporteContabilidad extends Controller
 
                 $movimientos = PartidasContablesDetalles::selectRaw('SUM(cargos) as sum_cargos, SUM(abonos) as sum_abonos')
                     ->whereRaw('fecha_partida between ? and ?', [$fechaInicio, $fechaFin])
-                    ->where('codigo_agrupador', 'like','$codigo_agrupador')
+                    ->where('codigo_agrupador', 'like',$codigo_agrupador)
                     ->groupBy('descripcion', 'numero')
                     ->get();
 
@@ -507,23 +497,13 @@ class ReporteContabilidad extends Controller
         $fechaHasta = $request->hasta;
         $encabezado = $request->encabezado;
 
-        $datosActivo = $this->procesarBalanceGeneral(1, $fechaDesde, $fechaHasta);
-        $datosPasivo = $this->procesarBalanceGeneral(2, $fechaDesde, $fechaHasta);
-        $datosPatrimonio = $this->procesarBalanceGeneral(3, $fechaDesde, $fechaHasta);
+        $datosActivo = $this->procesarBalanceGeneral($CODIGO_ACTIVO, $fechaDesde, $fechaHasta);
+        $datosPasivo = $this->procesarBalanceGeneral($CODIGO_PASIVO, $fechaDesde, $fechaHasta);
+        $datosPatrimonio = $this->procesarBalanceGeneral($CODIGO_PATRIMONIO, $fechaDesde, $fechaHasta);
 
 
         $estadoResultado = $this->estadoResultadoMetodo($fechaDesde, $fechaHasta);
-        // $datosActivo = $cuentasConMovimientos;
-
-
-        // // $json = [$datosActivo];
-
-        // dd($json);
-        // $arrFormatted = json_encode($datosActivo, JSON_PRETTY_PRINT);
-        // echo "<pre>";
-        // print_r($arrFormatted);
-        // echo "</pre>";
-
+    
 
         $pdf = PDF::loadView("contabilidad.reportes.balancegeneral_rep", [
             'estilos' => $this->estilos,
@@ -541,19 +521,22 @@ class ReporteContabilidad extends Controller
     public function procesarBalanceGeneral($codigoProceso, $fechaDesde, $fechaHasta)
     {
         $codigoProceso = $codigoProceso . '%';
-        $cuentasNivelUno = Catalogo::whereRaw('LENGTH(numero) = 2')
-            ->where('numero', 'like', '$codigoProceso')
+        $cuentasNivelUno = Catalogo::whereRaw("numero LIKE '$codigoProceso'")
+            ->whereRaw('LENGTH(numero) = 2')
             ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
             ->get();
+
 
         $reponse = [];
         foreach ($cuentasNivelUno as $cuentaNivelUno) {
             $aDataCuentaNivelUno = $cuentaNivelUno->toArray();
-            $codigoAgrupadorNivelUno = $cuentaNivelUno->numero . '%';
-            $cuentasNivelDos = Catalogo::whereRaw('LENGTH(numero) = 4')
-                ->where('numero', 'like', '$codigoAgrupadorNivelUno')
+            $codigoAgrupadorNivelUno = $cuentaNivelUno->numero;
+            $cuentasNivelDos = Catalogo::where('numero', 'like', $codigoAgrupadorNivelUno . '%')
+                ->whereRaw('LENGTH(numero) = 4')
                 ->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
                 ->get();
+
+
 
             $cuentasConMovimientos = ['cuenta_padre' => $aDataCuentaNivelUno];
             foreach ($cuentasNivelDos as $cuentaNivelDos) {
@@ -576,7 +559,6 @@ class ReporteContabilidad extends Controller
             $reponse[] = $cuentasConMovimientos;
 
         }
-
         return $reponse;
     }
 
@@ -586,8 +568,8 @@ class ReporteContabilidad extends Controller
 
         $results = PartidasContablesDetalles::select('codigo_agrupador', 'fecha_partida')
             ->selectRaw('SUM(cargos) as total_cargos, SUM(abonos) as total_abonos')
-            ->whereBetween('fecha_partida', ['$fechaInicio', '$fechaFin'])
-            ->where('codigo_agrupador', '=', '$codigoAgrupador')
+            ->whereRaw('fecha_partida between  ? and ?', [$fechaInicio, $fechaFin])
+            ->whereRaw('codigo_agrupador = ?',[ $codigoAgrupador])
             ->groupBy('fecha_partida', 'codigo_agrupador')
             ->orderBy('fecha_partida', 'asc')
             ->get();
@@ -605,16 +587,16 @@ class ReporteContabilidad extends Controller
         }
 
         //Buscar si existe el cierre anterior
-        $cierreAnterior = CierreMensualModel::where('year', '$anioCierre')
-            ->where('mes', '$mesCierreAnterior')
+        $cierreAnterior = CierreMensualModel::where('year', $anioCierre)
+            ->where('mes', $mesCierreAnterior)
             ->where('estado', '1')->first();
         $saldoAnterior = 0;
         if ($cierreAnterior) {
             //buscar el saldo del cierre anterior
             $id_cierre_anterior = $cierreAnterior->id;
             $saldoAnterior = DB::table('cierre_mensual_detalle')
-                ->where('cierre_mensual_id', '$id_cierre_anterior')
-                ->where('codigo_agrupador', '$codigoAgrupador')
+                ->where('cierre_mensual_id', $id_cierre_anterior)
+                ->where('codigo_agrupador', $codigoAgrupador)
                 ->sum('saldo_cierre');
 
         }
