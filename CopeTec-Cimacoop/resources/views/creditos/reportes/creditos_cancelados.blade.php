@@ -26,15 +26,6 @@
                 <h3>Complete los rangos de fechas para generar reporte</h3>
                 <hr>
                 <div class="form-group row mb-5">
-                    <div class="form-floating col-lg-12">
-                        <input type="hidden" name="encabezado" id="encabezado" class="form-control text-info"
-                            placeholder="Ingrese el encabezado del reporte"
-                            value="Creditos Cancelados a fecha {{ date('d-m-Y') }}">
-                    </div>
-
-
-                </div>
-                <div class="form-group row mb-5">
                     <div class="form-floating col-lg-6">
                         <input type="date" id="desde" name="desde" class="form-control" required
                             value="{{ date('Y-m-01') }}">
