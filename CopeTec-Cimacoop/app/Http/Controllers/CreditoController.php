@@ -18,9 +18,33 @@ use App\Models\Credito;
 use App\Models\PagosCredito;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use \PDF;
 
 class CreditoController extends Controller
 {
+
+   private $estilos;
+   private $stilosBundle;
+   private $mesesEnLetras = [];
+   public function __construct()
+   {
+      $this->estilos = file_get_contents(public_path('assets/css/css.css'));
+      $this->stilosBundle = file_get_contents(public_path('assets/css/style.bundle.css'));
+      $this->mesesEnLetras = [
+         1 => 'Enero',
+         2 => 'Febrero',
+         3 => 'Marzo',
+         4 => 'Abril',
+         5 => 'Mayo',
+         6 => 'Junio',
+         7 => 'Julio',
+         8 => 'Agosto',
+         9 => 'Septiembre',
+         10 => 'Octubre',
+         11 => 'Noviembre',
+         12 => 'Diciembre'
+      ];
+   }
    function index(Request $request)
    {
       $creditosQuery = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
@@ -406,8 +430,17 @@ class CreditoController extends Controller
    {
       $fechaDesde = $request->desde;
       $fechaHasta = $request->hasta;
-      $encabezado = $request->encabezado;
+      
       $creditos = Credito::whereBetween('updated_at', [$fechaDesde, $fechaHasta])->where('saldo_capital', '=', 0)->get();
-      dd($creditos);
+      // dd($creditos);
+      $pdf = PDF::loadView("creditos.reportes.cred_canc_rep", [
+         'estilos' => $this->estilos,
+         'stilosBundle' => $this->stilosBundle,
+         'creditos' => $creditos,
+         'desde' => $request->desde,         
+         'hasta' => $request->hasta,
+
+      ]);
+      return $pdf->setOrientation('portrait')->inline();
    }
 }
