@@ -64,12 +64,10 @@ class CreditoController extends Controller
 
       if (is_null($cajaAperturada)) {
          return redirect("/creditos/abonos")->withErrors('No tienes caja aperturada 😵‍💫, Asegurate de aperturar caja antes de intentar cobrar un crédito.');
-
       }
 
 
-      $credito = Credito::where('id_credito', $id)->
-         join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
+      $credito = Credito::where('id_credito', $id)->join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
       $configuracion = Configuracion::first();
 
 
@@ -306,7 +304,6 @@ class CreditoController extends Controller
                $cuentaPadre->save();
                $padreActual = $cuentaPadre->id_cuenta_padre;
             }
-
          }
          if ($item['haber'] > 0) {
             $detallePartida->parcial = $item['haber'];
@@ -361,12 +358,10 @@ class CreditoController extends Controller
 
       if (is_null($cajaAperturada)) {
          return redirect("/creditos/abonos")->withErrors('No tienes caja aperturada 😵‍💫, Asegurate de aperturar caja antes de intentar cobrar un crédito.');
-
       }
 
 
-      $credito = Credito::where('id_credito', $credito)->
-         join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
+      $credito = Credito::where('id_credito', $credito)->join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')->first();
       $configuracion = Configuracion::first();
       $catalogo = Catalogo::where('estado', '=', 1)->get();
 
@@ -401,5 +396,18 @@ class CreditoController extends Controller
             'costoConsultaCrediticia',
          )
       );
+   }
+   // cred_canc func
+   public function cred_canc()
+   {
+      return view('creditos.reportes.creditos_cancelados');
+   }
+   public function cred_canc_rep(Request $request)
+   {
+      $fechaDesde = $request->desde;
+      $fechaHasta = $request->hasta;
+      $encabezado = $request->encabezado;
+      $creditos = Credito::whereBetween('updated_at', [$fechaDesde, $fechaHasta])->where('saldo_capital', '=', 0)->get();
+      dd($creditos);
    }
 }
