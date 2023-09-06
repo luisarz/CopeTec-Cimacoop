@@ -324,21 +324,10 @@ class CreditoController extends Controller
          }
          $detallePartida->cargos = $item['debe'];
          $detallePartida->abonos = $item['haber'];
-         $detallePartida->estado = 0; //Pendiente de procesar la partida
+         $detallePartida->estado = 2; //Pendiente de procesar la partida
          $detallePartida->save();
       }
-
-
-
-
-
-
-
-
       return redirect("/reportes/comprobanteAbono/" . $pago->id_pago_credito);
-
-      // return redirect('/creditos/payment/' . $credito->id_credito);
-
 
    }
 
@@ -401,5 +390,23 @@ class CreditoController extends Controller
             'costoConsultaCrediticia',
          )
       );
+   }
+
+   public function desembolsosReporte(Request $request)
+   {
+      $desde=$request->desde;
+      $hasta=$request->hasta;
+      //cargar los creditos desembolsados
+      $creditosQuery = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
+         ->where('creditos.estado', 2);
+         
+      if (isset($request->desde, $request->hasta)) {
+         $creditosQuery->whereRaw(' fecha_desembolso between ? and ?',[$desde, $hasta]);
+      }
+      
+      $creditos = $creditosQuery->orderBy('fecha_desembolso','desc')->paginate(10);
+
+      return view('creditos.desembolsos.index', compact('creditos'));
+
    }
 }

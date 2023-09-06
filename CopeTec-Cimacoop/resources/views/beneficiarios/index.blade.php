@@ -9,19 +9,12 @@
 
 @section('content')
 
-    <div class="card mb-5 mb-xl-10">
-        <div class="card-body pt-9 pb-0 mb-5">
+    <div class="card mb-5 mb-xl-10 my-3">
+        <div class="card-body pt-9 pb-0 mb-5 m">
             <!--begin::Details-->
             <div class="d-flex flex-wrap flex-sm-nowrap">
                 <!--begin: Pic-->
-                <div class="me-7 mb-4">
-                    <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
-                        <img src="/assets/media/avatars/usericon.svg" alt="user">
-                        <div
-                            class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
-                        </div>
-                    </div>
-                </div>
+            
                 <!--end::Pic-->
 
                 <!--begin::Info-->
@@ -63,7 +56,7 @@
                                         class="path2"></span></i>
                                 <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
-                                    {{ $totalAsignado}}%
+                                    {{ number_format( $totalAsignado,2) }}%
                                 </div>
                             </div>
                             <!--end::Number-->
@@ -80,7 +73,7 @@
                                         class="path2"></span></i>
                                 <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500"
                                     data-kt-countup-prefix="$" data-kt-initialized="1">
-                                 ${{ number_format($saldoDisponible, 2, '.', ',') }}
+                                 ${{ number_format($saldoDisponible, 2) }}
                                 </div>
                             </div>
                             <!--end::Number-->
@@ -143,7 +136,7 @@
     </div>
 
     <div class="table-responsive">
-        <table id="table_asociados" class="table table-hover table-row-dashed fs-6 gy-5 my-0 dataTable  gy-4 gs-7">
+        <table id="table_asociados" class="table table-hover table-row-dashed fs-6 gy-1  dataTable  gy-1 gs-1">
             <thead class="thead-dark">
                 <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                     <th class="min-w-90px">Acciones</th>
@@ -163,11 +156,9 @@
                     @foreach ($beneficiarios as $beneficiario)
                         <tr>
                             <td><a href="javascript:void(0);" onclick="alertDelete({{ $beneficiario->id_beneficiario }})"
-                                    class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
-                                    Eliminar</a>
+                                    class="btn btn-danger btn-sm"><i class="fa-solid fa-trash text-white"></i></a>
                                 <a href="/beneficiarios/edit/{{ $beneficiario->id_beneficiario }}"
-                                    class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp;
-                                    Modificar</a>
+                                    class="btn btn-info btn-sm"><i class="fa-solid fa-pencil text-white"></i> </a>
 
 
 

@@ -351,6 +351,7 @@ Route::get('/creditos/solicitudes/edit/{id}', [SolicitudCreditoController::class
 Route::put('/creditos/solicitudes/put', [SolicitudCreditoController::class, 'put'])->middleware(['auth', 'bitacora']);
 Route::delete('/creditos/solicitudes/delete', [SolicitudCreditoController::class, 'delete'])->middleware(['auth', 'bitacora']);
 
+
 /*
 Referencias Solicitud Creditos
 
@@ -377,6 +378,9 @@ Route::get('/creditos/aprobado/liquidacion/{id}', [ReportesController::class, 'l
 Route::get('/creditos/solicitudes/desembolso/{id}', [SolicitudCreditoController::class, 'desembolso'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/solicitudes/create-credit', [SolicitudCreditoController::class, 'createCredit'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/solicitudes/liquidar', [SolicitudCreditoController::class, 'liquidar'])->middleware(['auth', 'bitacora']);
+
+Route::get('/creditos/desembolsos/reportes', [CreditoController::class, 'desembolsosReporte'])->middleware(['auth', 'bitacora']);
+Route::post('/creditos/desembolsos/reportes', [CreditoController::class, 'desembolsosReporte'])->middleware(['auth', 'bitacora']);
 
 /*
 Bienes Solicitud Credito
