@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-    <form action="/contabilidad/Reporte/balancecomprobacion" method="post" autocomplete="off">
+    <form action="/creditos/cred_canc" method="post" autocomplete="off">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <div class="card shadow-lg mt-3">
@@ -23,13 +23,13 @@
 
             <!--begin::Body-->
             <div class="card-body">
-                <h3>Complete los siguientes parametros del informe</h3>
+                <h3>Complete los rangos de fechas para generar reporte</h3>
                 <hr>
                 <div class="form-group row mb-5">
                     <div class="form-floating col-lg-12">
                         <input type="hidden" name="encabezado" id="encabezado" class="form-control text-info"
                             placeholder="Ingrese el encabezado del reporte"
-                            value="BALANCE DE COMPROBACION a fecha {{ date('d-m-Y') }}">
+                            value="Creditos Cancelados a fecha {{ date('d-m-Y') }}">
                     </div>
 
 

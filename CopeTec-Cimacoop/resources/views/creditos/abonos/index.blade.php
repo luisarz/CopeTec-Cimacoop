@@ -40,15 +40,11 @@
         </div>
         <div class="card-body">
             <div class="card-toolbar">
-                <a href="/captaciones/depositosplazo/add" class="btn btn-info">
+                <a href="/creditos/cred_canc" class="btn btn-info">
                     <i class="ki-outline ki-calendar-add fs-2x"></i>
                     Generar Reporte de Créditos Cancelados
                 </a>
-                &nbsp;
-                <a href="/captaciones/depositosplazo/add" class="btn btn-danger">
-                    <i class="ki-outline ki-calendar-add fs-2x"></i>
-                    Depositar Intereses
-                </a>
+                &nbsp;               
             </div>
             @if ($errors->any())
                 <div class="alert alert-danger">
