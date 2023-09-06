@@ -40,7 +40,8 @@ class PartidasContablesController extends Controller
     public function add()
     {
         Session::put("estadoMenuminimizado", "1");
-        $catalogo = Catalogo::where('estado', '=', 1)->get();
+        $catalogo = Catalogo::where('estado', '=', 1)
+        ->where('movimiento','=',1)->get();
         $tipoPartida = TiposPartidasContablesModel::all();
         $idPartida = Str::uuid()->toString();
         return view("contabilidad.partidas.add", compact('catalogo', 'tipoPartida', 'idPartida'));
@@ -53,7 +54,8 @@ class PartidasContablesController extends Controller
     {
         Session::put("estadoMenuminimizado", "1");
 
-        $catalogo = Catalogo::where('estado', '=', 1)->get();
+        $catalogo = Catalogo::where('estado', '=', 1)
+            ->where('movimiento', '=', 1)->get();
         $tipoPartida = TiposPartidasContablesModel::all();
         $partida = PartidasContablesModel::find($id);
         return view('contabilidad.partidas.edit', compact('catalogo', 'tipoPartida', 'partida'));

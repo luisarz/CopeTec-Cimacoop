@@ -14,7 +14,7 @@ class CajasController extends Controller
         $cajas = Cajas::join('users', 'cajas.id_usuario_asignado', '=', 'users.id_empleado_usuario')
             ->join('empleados', 'users.id_empleado_usuario', 'empleados.id_empleado')
             ->select('cajas.*', 'users.id_empleado_usuario', 'empleados.nombre_empleado', 'empleados.dui')
-            ->where('cajas.id_caja', '!=',0)
+            ->where('cajas.id_caja', '!=','0')
             ->distinct()
             ->paginate(10);
         return view("cajas.index", compact("cajas"));

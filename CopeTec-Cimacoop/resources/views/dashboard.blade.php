@@ -1,13 +1,15 @@
 @extends('base.base')
 @section('title')
-    Dashboard
+    Home
 @endsection
 
 
 @section('content')
     <div class="row mt-5">
 
-        <div class="col-xl-8 ">
+
+        @if($id_rol == 1)
+        <div class="col-xl-12 ">
 
             <!--begin::Tables widget 16-->
             <div class="card card-flush h-xl-100">
@@ -478,67 +480,13 @@
             </div>
             <!--end::Tables widget 16-->
         </div>
-
-        <div class="col-xl-4 mb-5 mb-xl-10">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        Ultimos accessos al sistema
-                    </h3>
+        @else
+                <!--begin::Content-->
+                <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">
+                    <img alt="Logo" src="assets/media/logos/cimacoop.png" class="h-550px">
                 </div>
-                <div class="card-body">
-                    @foreach ($bitacora as $evento)
-                        <!--begin::Alert-->
-                        <div class="alert alert-danger d-flex align-items-center p-5">
-                            <!--begin::Icon-->
-                            <i class="ki-outline ki-shield-tick fs-2hx text-success me-1">
-                            </i>
-                            <!--end::Icon-->
+                <!--end::Content-->
 
-                            <!--begin::Wrapper-->
-                            <div class="d-flex flex-column">
-                                <!--begin::Title-->
-                                <h6 class="mb-1 text-dark">
-                                    {{ $evento->fecha }}
-                                </h6>
-                                <!--end::Title-->
-                                <!--begin::Content-->
-                                <span>{{ $evento->route }}</span>
-                                <div>
-                                  {{ $evento->nombre }}
-                                </div>
-
-                                {{-- {{ $evento->request }} --}}
-
-                                <!--end::Content-->
-                            </div>
-                            <!--end::Wrapper-->
-                        </div>
-                        <!--end::Alert-->
-                    @endforeach
-
-                </div>
-                <div class="card-footer">
-                    {{-- {{ $bitacora->links('vendor.pagination.bootstrap-5') }} --}}
-
-                    <div class="pagination">
-                        @if ($bitacora->currentPage() > 1)
-                            <a href="{{ $bitacora->previousPageUrl() }}" class="page-link" aria-label="Previous">‹</a>
-                        @endif
-
-                        @for ($i = max(1, $bitacora->currentPage() - 1); $i <= min($bitacora->lastPage(), $bitacora->currentPage() + 1); $i++)
-                            <a href="{{ $bitacora->url($i) }}"
-                                class="page-link{{ $i === $bitacora->currentPage() ? ' active' : '' }}">{{ $i }}</a>
-                        @endfor
-
-                        @if ($bitacora->currentPage() < $bitacora->lastPage())
-                            <a href="{{ $bitacora->nextPageUrl() }}" class="page-link" aria-label="Next">›</a>
-                        @endif
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
 @endsection

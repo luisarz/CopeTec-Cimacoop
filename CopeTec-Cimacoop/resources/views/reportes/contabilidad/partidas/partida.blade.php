@@ -22,12 +22,12 @@ PARTIDAS DE {{ $partida->descripcion }}
     <table class="" style="border: 0px solid white;">
         <tr class="parent-row">
             <td>Número de Partida</td>
-            <td>{{ date('d-m-Y', strtotime($partida->num_partida)) }}</td>
+            <td>{{ $partida->num_partida }}</td>
         </tr>
         <tr class="parent-row">
 
             <td>Fecha</td>
-            <td>{{ $partida->fecha_partida }}</td>
+            <td>{{ date('d-m-Y', strtotime( $partida->fecha_partida)) }}</td>
         </tr>
         <tr class="parent-row">
 

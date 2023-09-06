@@ -19,37 +19,25 @@ class BitacoraController extends Controller
     }
     public function index(Request $request)
     {
-        $desde = $request->input('desde');
-        $hasta = $request->input('hasta') . ' 23:59:59';
+        $desde = $request->desde;
+        $hasta = $request->hasta . ' 23:59:59';
 
-        $bitacora = Bitacora::when(isset($desde) && isset($hasta), function ($query) use ($desde, $hasta) {
-            $query->whereBetween('fecha', [$desde, $hasta]);
-        })
-            ->when(!isset($desde) || !isset($hasta), function ($query) {
-                $query->orderBy('fecha', 'desc');
-            })
-            ->paginate(10);
-
-
+        if (isset($desde) && isset($hasta)) {
+            $bitacora = Bitacora::whereRaw('fecha BETWEEN ? AND ?', [$desde, $hasta])->orderBy('fecha','desc')->paginate(10);
+        } else {
+            $bitacora = Bitacora::orderBy('fecha', 'desc')->paginate(10);
+        }
 
 
 
         return view('bitacora.index', compact('bitacora', 'desde', 'hasta'));
-
-
-
-
     }
     public function reporte($desde, $hasta)
     {
+        $fecha_desde = $desde . ' 00:00:00';
+        $fecha_hasta = $hasta . ' 23:59:59';
+        $bitacora = Bitacora::whereRaw('fecha BETWEEN ? AND ?', [$fecha_desde, $fecha_hasta])->get();
 
-        $bitacora = Bitacora::when(isset($desde) && isset($hasta), function ($query) use ($desde, $hasta) {
-            $query->whereBetween('fecha', [$desde, $hasta . ' 23:59:59']);
-        })
-            ->when(!isset($desde) || !isset($hasta), function ($query) {
-                $query->orderBy('fecha', 'desc');
-            })
-            ->get();
 
 
         $pdf = \App::make('snappy.pdf');
@@ -57,8 +45,8 @@ class BitacoraController extends Controller
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
             'bitacora' => $bitacora,
-            'desde'=>$desde,
-            'hasta'=>$hasta
+            'desde' => $desde,
+            'hasta' => $fecha_hasta,
         ]);
         return $pdf->setOrientation('portrait')->inline();
 

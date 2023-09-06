@@ -8,6 +8,7 @@ use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\CierreMensualController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\DepositosPlazoController;
+use App\Http\Controllers\librosContableController;
 use App\Http\Controllers\LiquidacionController;
 use App\Http\Controllers\PartidaContableDetalleController;
 use App\Http\Controllers\PartidasContablesController;
@@ -466,13 +467,13 @@ Route::get('/contabilidad/Reportes/catalogodecuentas', [ReportesController::clas
 Route::get('/contabilidad/Reportes/historicodecuenta', [ReporteContabilidad::class, 'historicoCuenta'])->middleware(['auth', 'bitacora']);
 Route::post('/contabilidad/Reportes/historicodecuenta', [ReporteContabilidad::class, 'historicoCuenta_reporte'])->middleware(['auth', 'bitacora']);
 
-Route::get('/contabilidad/Reportes/libroauxiliar', [ReporteContabilidad::class, 'libroAuxiliar'])->middleware(['auth', 'bitacora']);
-Route::post('/contabilidad/Reportes/libroauxiliar', [ReporteContabilidad::class, 'libroAuxiliarRep'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/Reportes/libroauxiliar', [librosContableController::class, 'libroAuxiliar'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/Reportes/libroauxiliar', [librosContableController::class, 'libroAuxiliarRep'])->middleware(['auth', 'bitacora']);
 
-Route::get('/contabilidad/Reportes/libromayor', [ReporteContabilidad::class, 'libroMayor'])->middleware(['auth', 'bitacora']);
-Route::post('/contabilidad/Reportes/libromayor', [ReporteContabilidad::class, 'libroMayorRep'])->middleware(['auth', 'bitacora']);
-Route::get('/contabilidad/Reportes/librodiario', [ReporteContabilidad::class, 'libroDiario'])->middleware(['auth', 'bitacora']);
-Route::post('/contabilidad/Reporte/librodiario', [ReporteContabilidad::class, 'libroMayorRept'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/Reportes/libromayor', [librosContableController::class, 'libroMayor'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/Reportes/libromayor', [librosContableController::class, 'libroMayorRep'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/Reportes/librodiario', [librosContableController::class, 'libroDiario'])->middleware(['auth', 'bitacora']);
+Route::post('/contabilidad/Reporte/librodiario', [librosContableController::class, 'libroMayorRept'])->middleware(['auth', 'bitacora']);
 
 /**ESTADO DE RESULTADO */
 

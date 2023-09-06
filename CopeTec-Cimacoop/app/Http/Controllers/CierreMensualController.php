@@ -67,9 +67,9 @@ class CierreMensualController extends Controller
 
 
         // buscamos si el cierre ya existe
-        $VerificarCierreMes = CierreMensualModel::where('mes', $mes_cierre)
-            ->where('year', $anio_cierre)
-            ->where('estado', 1)->first();
+        $VerificarCierreMes = CierreMensualModel::where('mes', '$mes_cierre')
+            ->where('year', '$anio_cierre')
+            ->where('estado', '=', '1')->first();
         if ($VerificarCierreMes) {
             return response()->json(['estado' => 'faild', 'mensaje' => 'El mes que intenta cerrar ya se encuentra cerrado']);
         }
@@ -168,7 +168,7 @@ class CierreMensualController extends Controller
 
         $pasword = $request->password_user;
         //validar si la contraseña corresponde al usuario que ha iniciado sesion
-        
+
         $usuario = auth()->user();
         $passwordValido = password_verify($pasword, $usuario->password);
         if (!$passwordValido) {
@@ -177,7 +177,7 @@ class CierreMensualController extends Controller
 
         $id_cierre = $request->id;
         $cierreMensual = CierreMensualModel::find($id_cierre);
-        $cierreMensual->estado = 2;//Revertido
+        $cierreMensual->estado = 2; //Revertido
         $cierreMensual->fecha_reversion = now();
         $cierreMensual->save();
 
