@@ -34,11 +34,22 @@
             <div class="ribbon-label fs-3">
                 <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i>
                 Caja - Abono de Crédito
-                
+
                 <span class="ribbon-inner bg-info"></span>
             </div>
         </div>
         <div class="card-body">
+            <div class="card-toolbar">
+                <a href="/captaciones/depositosplazo/add" class="btn btn-info">
+                    <i class="ki-outline ki-calendar-add fs-2x"></i>
+                    Generar Reporte de Créditos Cancelados
+                </a>
+                &nbsp;
+                <a href="/captaciones/depositosplazo/add" class="btn btn-danger">
+                    <i class="ki-outline ki-calendar-add fs-2x"></i>
+                    Depositar Intereses
+                </a>
+            </div>
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -89,7 +100,7 @@
                                 <td>{{ $credito->plazo }}</td>
                                 <td>${{ number_format($credito->cuota, 2) }}</td>
                                 <td>
-                                    ${{ ($credito->saldo_capital<=0)?number_format(0, 2):number_format($credito->saldo_capital, 2)}}
+                                    ${{ $credito->saldo_capital <= 0 ? number_format(0, 2) : number_format($credito->saldo_capital, 2) }}
                                 </td>
                                 <td>${{ number_format($credito->monto_solicitado, 2) }}</td>
                             </tr>
