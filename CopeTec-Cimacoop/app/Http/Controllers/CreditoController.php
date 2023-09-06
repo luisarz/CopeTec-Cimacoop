@@ -18,9 +18,19 @@ use App\Models\Credito;
 use App\Models\PagosCredito;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use \PDF;
 
 class CreditoController extends Controller
 {
+   private $estilos;
+   private $stilosBundle;
+
+   public function __construct()
+   {
+      $this->estilos = file_get_contents(public_path('assets/css/css.css'));
+      $this->stilosBundle = file_get_contents(public_path('assets/css/style.bundle.css'));
+
+   }
    function index(Request $request)
    {
       $creditosQuery = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
@@ -324,21 +334,10 @@ class CreditoController extends Controller
          }
          $detallePartida->cargos = $item['debe'];
          $detallePartida->abonos = $item['haber'];
-         $detallePartida->estado = 0; //Pendiente de procesar la partida
+         $detallePartida->estado = 2; //Pendiente de procesar la partida
          $detallePartida->save();
       }
-
-
-
-
-
-
-
-
       return redirect("/reportes/comprobanteAbono/" . $pago->id_pago_credito);
-
-      // return redirect('/creditos/payment/' . $credito->id_credito);
-
 
    }
 
@@ -401,5 +400,44 @@ class CreditoController extends Controller
             'costoConsultaCrediticia',
          )
       );
+   }
+
+   public function desembolsosReporte(Request $request)
+   {
+      $desde=$request->desde;
+      $hasta=$request->hasta;
+      //cargar los creditos desembolsados
+      $creditosQuery = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
+         ->where('creditos.estado', 2);
+         
+      if (isset($request->desde, $request->hasta)) {
+         $creditosQuery->whereRaw(' fecha_desembolso between ? and ?',[$desde, $hasta]);
+      }
+      
+      $creditos = $creditosQuery->orderBy('fecha_desembolso','desc')->paginate(10);
+
+      return view('creditos.desembolsos.index', compact('creditos'));
+
+   }
+
+   public function desembolsosRep($desde,$hasta){
+      
+
+      $desembolsos = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
+         ->where('creditos.estado', 2)
+         ->whereRaw('fecha_desembolso between ? and ?', [$desde, $hasta])
+         ->orderBy('fecha_desembolso', 'desc')
+         ->get();
+
+
+      $pdf = PDF::loadView('creditos.desembolsos.desembolsos_rep', [
+         'estilos' => $this->estilos,
+         'stilosBundle' => $this->stilosBundle,
+         'desembolsos' => $desembolsos,
+         'desde' => $desde,
+         'hasta' => $hasta,
+      ]);
+      return $pdf->setOrientation('portrait')->inline();
+    
    }
 }
