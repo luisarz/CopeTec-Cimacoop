@@ -39,13 +39,15 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="card-toolbar">
-                <a href="/creditos/cred_canc" class="btn btn-info">
-                    <i class="ki-outline ki-calendar-add fs-2x"></i>
-                    Generar Reporte de Créditos Cancelados
-                </a>
-                &nbsp;               
-            </div>
+            @if (Auth::user()->id_rol == 1)
+                <div class="card-toolbar">
+                    <a href="/creditos/cred_canc" class="btn btn-info">
+                        <i class="ki-outline ki-calendar-add fs-2x"></i>
+                        Generar Reporte de Créditos Cancelados
+                    </a>
+                    &nbsp;
+                </div>
+            @endif
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
