@@ -10,14 +10,14 @@
                     {{ method_field('POST') }}
                     <!--begin::Input group-->
                     <div class="row">
-                        <div class="form-group row mb-5">
+                        <div class="form-group row ">
 
-                            <div class="form-floating col-lg-5">
+                            <div class="form-floating col-lg-4">
                                 <input type="date" value="{{ date('Y-m-d') }}" name="desde" id="desde"
                                     class="form-control">
                                 <label>Fecha Inicio:</label>
                             </div>
-                            <div class="form-floating col-lg-5">
+                            <div class="form-floating col-lg-4">
                                 <input type="date" value="{{ date('Y-m-d') }}" name="hasta" id="hasta"
                                     class="form-control">
                                 <label>Fecha Inicio:</label>
@@ -26,6 +26,9 @@
                                 <button type="submit" class="btn btn-info my-1">
                                     Buscar
                                 </button>
+                            </div>
+                            <div class="form-floating col-lg-2">
+                                <a href="javascript:generarReporte()" class="btn btn-primary my-1"> Imprimir</a>
                             </div>
                         </div>
                     </div>
@@ -63,7 +66,7 @@
                             <th class="min-w-80px">Codigo</th>
                             <th class="min-w-20px">Cliente</th>
                             <th class="min-w-30px">Plazo</th>
-                            <th class="min-w-30px">Saldo</th>
+                            <th class="min-w-30px">Monto</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,4 +88,51 @@
             {{ $creditos->links() }}
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#desde').change(function() {
+                var desde = $('#desde').val();
+                var hasta = $('#hasta').val();
+                if (desde > hasta) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'La fecha de inicio no puede ser mayor a la fecha final',
+                    })
+                    $('#desde').val(hasta);
+                }
+            });
+            $('#hasta').change(function() {
+                var desde = $('#desde').val();
+                var hasta = $('#hasta').val();
+                if (desde > hasta) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'La fecha de inicio no puede ser mayor a la fecha final',
+                    })
+                    $('#hasta').val(desde);
+                }
+            });
+        });
+
+        function generarReporte() {
+         
+            let desde =$("#desde").val();
+            let hasta =$("#hasta").val();
+            if(desde=='' || hasta==''){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Debe seleccionar un rango de fechas',
+                })
+                return false;
+            }
+            window.open('/creditos/desembolsos/reportes/'+desde+'/'+hasta, '_blank');
+        }
+
+
+    </script>
 @endsection

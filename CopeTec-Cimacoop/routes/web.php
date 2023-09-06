@@ -381,6 +381,7 @@ Route::post('/creditos/solicitudes/liquidar', [SolicitudCreditoController::class
 
 Route::get('/creditos/desembolsos/reportes', [CreditoController::class, 'desembolsosReporte'])->middleware(['auth', 'bitacora']);
 Route::post('/creditos/desembolsos/reportes', [CreditoController::class, 'desembolsosReporte'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/desembolsos/reportes/{desde}/{hasta}', [CreditoController::class, 'desembolsosRep'])->middleware(['auth', 'bitacora']);
 
 /*
 Bienes Solicitud Credito

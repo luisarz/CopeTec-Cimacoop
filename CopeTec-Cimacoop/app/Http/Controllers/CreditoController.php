@@ -18,9 +18,19 @@ use App\Models\Credito;
 use App\Models\PagosCredito;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use \PDF;
 
 class CreditoController extends Controller
 {
+   private $estilos;
+   private $stilosBundle;
+
+   public function __construct()
+   {
+      $this->estilos = file_get_contents(public_path('assets/css/css.css'));
+      $this->stilosBundle = file_get_contents(public_path('assets/css/style.bundle.css'));
+
+   }
    function index(Request $request)
    {
       $creditosQuery = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
@@ -408,5 +418,26 @@ class CreditoController extends Controller
 
       return view('creditos.desembolsos.index', compact('creditos'));
 
+   }
+
+   public function desembolsosRep($desde,$hasta){
+      
+
+      $desembolsos = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
+         ->where('creditos.estado', 2)
+         ->whereRaw('fecha_desembolso between ? and ?', [$desde, $hasta])
+         ->orderBy('fecha_desembolso', 'desc')
+         ->get();
+
+
+      $pdf = PDF::loadView('creditos.desembolsos.desembolsos_rep', [
+         'estilos' => $this->estilos,
+         'stilosBundle' => $this->stilosBundle,
+         'desembolsos' => $desembolsos,
+         'desde' => $desde,
+         'hasta' => $hasta,
+      ]);
+      return $pdf->setOrientation('portrait')->inline();
+    
    }
 }
