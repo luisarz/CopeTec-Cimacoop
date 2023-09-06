@@ -22,38 +22,14 @@ use \PDF;
 
 class CreditoController extends Controller
 {
-<<<<<<< HEAD
 
    private $estilos;
    private $stilosBundle;
-   private $mesesEnLetras = [];
-=======
-   private $estilos;
-   private $stilosBundle;
 
->>>>>>> ed152f65fb1cbf7ef9208385b33f218331120b65
    public function __construct()
    {
       $this->estilos = file_get_contents(public_path('assets/css/css.css'));
       $this->stilosBundle = file_get_contents(public_path('assets/css/style.bundle.css'));
-<<<<<<< HEAD
-      $this->mesesEnLetras = [
-         1 => 'Enero',
-         2 => 'Febrero',
-         3 => 'Marzo',
-         4 => 'Abril',
-         5 => 'Mayo',
-         6 => 'Junio',
-         7 => 'Julio',
-         8 => 'Agosto',
-         9 => 'Septiembre',
-         10 => 'Octubre',
-         11 => 'Noviembre',
-         12 => 'Diciembre'
-      ];
-=======
-
->>>>>>> ed152f65fb1cbf7ef9208385b33f218331120b65
    }
    function index(Request $request)
    {
@@ -359,7 +335,6 @@ class CreditoController extends Controller
          $detallePartida->save();
       }
       return redirect("/reportes/comprobanteAbono/" . $pago->id_pago_credito);
-
    }
 
 
@@ -420,57 +395,34 @@ class CreditoController extends Controller
          )
       );
    }
-<<<<<<< HEAD
-   // cred_canc func
-   public function cred_canc()
-   {
-      return view('creditos.reportes.creditos_cancelados');
-   }
-   public function cred_canc_rep(Request $request)
-   {
-      $fechaDesde = $request->desde;
-      $fechaHasta = $request->hasta;
-      
-      $creditos = Credito::whereBetween('updated_at', [$fechaDesde, $fechaHasta])->where('saldo_capital', '=', 0)->get();
-      // dd($creditos);
-      $pdf = PDF::loadView("creditos.reportes.cred_canc_rep", [
-         'estilos' => $this->estilos,
-         'stilosBundle' => $this->stilosBundle,
-         'creditos' => $creditos,
-         'desde' => $request->desde,         
-         'hasta' => $request->hasta,
 
-      ]);
-      return $pdf->setOrientation('portrait')->inline();
-=======
 
    public function desembolsosReporte(Request $request)
    {
-      $desde=$request->desde;
-      $hasta=$request->hasta;
+      $desde = $request->desde;
+      $hasta = $request->hasta;
       //cargar los creditos desembolsados
       $creditosQuery = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
          ->where('creditos.estado', 2);
-         
+
       if (isset($request->desde, $request->hasta)) {
-         $creditosQuery->whereRaw(' fecha_desembolso between ? and ?',[$desde, $hasta]);
+         $creditosQuery->whereRaw(' fecha_desembolso between ? and ?', [$desde, $hasta]);
       }
-      
-      $creditos = $creditosQuery->orderBy('fecha_desembolso','desc')->paginate(10);
+
+      $creditos = $creditosQuery->orderBy('fecha_desembolso', 'desc')->paginate(10);
 
       return view('creditos.desembolsos.index', compact('creditos'));
-
    }
 
-   public function desembolsosRep($desde,$hasta){
-      
+   public function desembolsosRep($desde, $hasta)
+   {
+
 
       $desembolsos = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
          ->where('creditos.estado', 2)
          ->whereRaw('fecha_desembolso between ? and ?', [$desde, $hasta])
          ->orderBy('fecha_desembolso', 'desc')
          ->get();
-
 
       $pdf = PDF::loadView('creditos.desembolsos.desembolsos_rep', [
          'estilos' => $this->estilos,
@@ -480,7 +432,27 @@ class CreditoController extends Controller
          'hasta' => $hasta,
       ]);
       return $pdf->setOrientation('portrait')->inline();
-    
->>>>>>> ed152f65fb1cbf7ef9208385b33f218331120b65
+   }
+   // cred_canc func
+   public function cred_canc()
+   {
+      return view('creditos.reportes.creditos_cancelados');
+   }
+   public function cred_canc_rep(Request $request)
+   {
+      $fechaDesde = $request->desde;
+      $fechaHasta = $request->hasta;
+
+      $creditos = Credito::whereBetween('updated_at', [$fechaDesde, $fechaHasta])->where('saldo_capital', '=', 0)->get();
+      // dd($creditos);
+      $pdf = PDF::loadView("creditos.reportes.cred_canc_rep", [
+         'estilos' => $this->estilos,
+         'stilosBundle' => $this->stilosBundle,
+         'creditos' => $creditos,
+         'desde' => $request->desde,
+         'hasta' => $request->hasta,
+
+      ]);
+      return $pdf->setOrientation('portrait')->inline();
    }
 }
