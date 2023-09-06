@@ -72,7 +72,7 @@ class ReporteContabilidad extends Controller
 
         $partidas = PartidasContablesModel::join('partida_contables_detalle', 'partidas_contables.id_partida_contable', '=', 'partida_contables_detalle.id_partida')
             ->whereBetween('partidas_contables.fecha_partida', ['$mesDesde', '$anoDesde']) // Filtrar por rango de fechas
-            ->where('partida_contables_detalle.id_cuenta','=', '$id_cuenta')
+            ->where('partida_contables_detalle.id_cuenta', '=', '$id_cuenta')
             ->orderBy('partidas_contables.num_partida', 'asc')
             ->get();
 
@@ -151,17 +151,16 @@ class ReporteContabilidad extends Controller
 
         //Buscar si existe el cierre anterior
         $cierreAnterior = CierreMensualModel::where('year', '$anioCierre')
-            ->where('mes','$mesCierreAnterior')
-            ->where('estado','=', '1')->first();
+            ->where('mes', '$mesCierreAnterior')
+            ->where('estado', '=', '1')->first();
         $saldoAnterior = 0;
         if ($cierreAnterior) {
             //buscar el saldo del cierre anterior
             $id_cierre_anterior = $cierreAnterior->id;
             $saldoAnterior = DB::table('cierre_mensual_detalle')
-                ->where('cierre_mensual_id','=', '$id_cierre_anterior')
+                ->where('cierre_mensual_id', '=', '$id_cierre_anterior')
                 ->where('codigo_agrupador', '=', '$codigoAgrupador')
                 ->sum('saldo_cierre');
-
         }
 
 
@@ -183,7 +182,6 @@ class ReporteContabilidad extends Controller
         }
 
         return $movimientosPorCuenta;
-
     }
 
     public function libroDiarioUniRep(Request $request)
@@ -291,7 +289,7 @@ class ReporteContabilidad extends Controller
     {
 
         LibroMayorModel::truncate();
-
+        // dd($request->hasta);
         $fechaDesde = $request->desde;
         $fechaHasta = $request->hasta;
         $encabezado = $request->encabezado;
@@ -369,7 +367,7 @@ class ReporteContabilidad extends Controller
                 $movimientos = PartidasContablesDetalles::select('descripcion', 'numero')
                     ->selectRaw('SUM(cargos) as sum_cargos, SUM(abonos) as sum_abonos')
                     ->whereRaw('fecha_partida between ? and ?', [$fechaInicio, $fechaFin])
-                    ->where('codigo_agrupador', 'like',$codigo_agrupador)
+                    ->where('codigo_agrupador', 'like', $codigo_agrupador)
                     ->groupBy('descripcion', 'numero')
                     ->get();
 
@@ -435,11 +433,11 @@ class ReporteContabilidad extends Controller
             $movimientosCostos = []; // Array para almacenar datos únicos
 
             foreach ($cuentasHijas as $value2) {
-                $codigo_agrupador = $value2->numero.'%';
+                $codigo_agrupador = $value2->numero . '%';
 
                 $movimientos = PartidasContablesDetalles::selectRaw('SUM(cargos) as sum_cargos, SUM(abonos) as sum_abonos')
                     ->whereRaw('fecha_partida between ? and ?', [$fechaInicio, $fechaFin])
-                    ->where('codigo_agrupador', 'like',$codigo_agrupador)
+                    ->where('codigo_agrupador', 'like', $codigo_agrupador)
                     ->groupBy('descripcion', 'numero')
                     ->get();
 
@@ -503,7 +501,7 @@ class ReporteContabilidad extends Controller
 
 
         $estadoResultado = $this->estadoResultadoMetodo($fechaDesde, $fechaHasta);
-    
+
 
         $pdf = PDF::loadView("contabilidad.reportes.balancegeneral_rep", [
             'estilos' => $this->estilos,
@@ -549,15 +547,12 @@ class ReporteContabilidad extends Controller
                         'cuenta_hija' => $cuentaNivelDos->toArray(),
                         'movimientos' => $datosCuenta
                     ];
-
                 }
-
             }
             //verifica si  $cuentasConMovimientos[]  tiene datos_cuenta
 
 
             $reponse[] = $cuentasConMovimientos;
-
         }
         return $reponse;
     }
@@ -569,7 +564,7 @@ class ReporteContabilidad extends Controller
         $results = PartidasContablesDetalles::select('codigo_agrupador', 'fecha_partida')
             ->selectRaw('SUM(cargos) as total_cargos, SUM(abonos) as total_abonos')
             ->whereRaw('fecha_partida between  ? and ?', [$fechaInicio, $fechaFin])
-            ->whereRaw('codigo_agrupador = ?',[ $codigoAgrupador])
+            ->whereRaw('codigo_agrupador = ?', [$codigoAgrupador])
             ->groupBy('fecha_partida', 'codigo_agrupador')
             ->orderBy('fecha_partida', 'asc')
             ->get();
@@ -598,7 +593,6 @@ class ReporteContabilidad extends Controller
                 ->where('cierre_mensual_id', $id_cierre_anterior)
                 ->where('codigo_agrupador', $codigoAgrupador)
                 ->sum('saldo_cierre');
-
         }
 
 
@@ -728,6 +722,4 @@ class ReporteContabilidad extends Controller
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
-
-
 }
