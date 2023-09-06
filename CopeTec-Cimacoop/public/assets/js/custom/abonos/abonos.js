@@ -33,9 +33,9 @@ var KTAuthNewPassword = (function () {
                             message: "El Monto Debe es obligatorio",
                         },
                         callback: {
-                            message: "El Orden del modulo debe ser mayor a 0",
+                            message: "El monto debe ser mayor a 0",
                             callback: function (input) {
-                                return parseInt(input.value) > 0;
+                                return parseDouble(input.value) > 0;
                             },
                         },
                     },
