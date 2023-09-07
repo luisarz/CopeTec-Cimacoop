@@ -537,6 +537,5 @@ Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
     Route::get('/creditos/{desde}/{hasta}', [CreditoController::class, 'cred_canc_rep']);
     // reportes cartera en mora
     Route::get('/cartera-mora', [CreditoController::class, 'cartera_mora']);
-    Route::post('/cartera-mora', [CreditoController::class, 'cred_canc_search']);
-    Route::get('/creditos/{desde}/{hasta}', [CreditoController::class, 'cred_canc_rep']);
+    Route::get('/cartera-mora-rep', [CreditoController::class, 'cartera_mora_rep']);
 });
