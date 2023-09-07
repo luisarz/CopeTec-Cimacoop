@@ -436,7 +436,19 @@ class CreditoController extends Controller
    // cred_canc func
    public function cred_canc()
    {
-      return view('creditos.reportes.creditos_cancelados');
+
+      $desde = \Carbon\Carbon::now()->format('Y-m-01');
+      $hasta = \Carbon\Carbon::now()->format('Y-m-d');
+      $creditos = Credito::whereBetween('updated_at', [$desde, $hasta])->where('saldo_capital', '=', 0)->get();
+      return view('creditos.reportes.creditos_cancelados', compact('creditos', 'hasta', 'desde'));
+   }
+   public function cred_canc_search(Request $request)
+   {
+      $desde = $request->desde;
+      $hasta = $request->hasta;
+
+      $creditos = Credito::whereBetween('updated_at', [$desde, $hasta])->where('saldo_capital', '=', 0)->get();
+      return view('creditos.reportes.creditos_cancelados', compact('creditos', 'hasta', 'desde'));
    }
    public function cred_canc_rep(Request $request)
    {
