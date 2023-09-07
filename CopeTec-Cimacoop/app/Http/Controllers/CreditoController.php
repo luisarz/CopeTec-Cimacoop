@@ -467,4 +467,13 @@ class CreditoController extends Controller
       ]);
       return $pdf->setOrientation('portrait')->inline();
    }
+   // cartera mora
+   public function cartera_mora()
+   {
+
+
+      $creditos = Credito::whereRaw("DATEDIFF(creditos.ultima_fecha_pago, creditos.proxima_fecha_pago) >= 33 AND creditos.saldo_capital<>0")->get();
+      // $creditos = Credito::where('DATEDIFF(creditos.ultima_fecha_pago, creditos.proxima_fecha_pago)', '<', 1)->get();
+      return view('creditos.reportes.cartera_mora', compact('creditos'));
+   }
 }
