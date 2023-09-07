@@ -436,7 +436,19 @@ class CreditoController extends Controller
    // cred_canc func
    public function cred_canc()
    {
-      return view('creditos.reportes.creditos_cancelados');
+
+      $desde = \Carbon\Carbon::now()->format('Y-m-01');
+      $hasta = \Carbon\Carbon::now()->format('Y-m-d');
+      $creditos = Credito::whereBetween('updated_at', [$desde, $hasta])->where('saldo_capital', '=', 0)->get();
+      return view('creditos.reportes.creditos_cancelados', compact('creditos', 'hasta', 'desde'));
+   }
+   public function cred_canc_search(Request $request)
+   {
+      $desde = $request->desde;
+      $hasta = $request->hasta;
+
+      $creditos = Credito::whereBetween('updated_at', [$desde, $hasta])->where('saldo_capital', '=', 0)->get();
+      return view('creditos.reportes.creditos_cancelados', compact('creditos', 'hasta', 'desde'));
    }
    public function cred_canc_rep(Request $request)
    {
@@ -453,6 +465,30 @@ class CreditoController extends Controller
          'hasta' => $request->hasta,
 
       ]);
+      return $pdf->setOrientation('portrait')->inline();
+   }
+   // cartera mora
+   public function cartera_mora()
+   {
+
+
+      $creditos = Credito::whereRaw("DATEDIFF(creditos.ultima_fecha_pago, creditos.proxima_fecha_pago) >= 33 AND creditos.saldo_capital<>0")->get();
+      return view('creditos.reportes.cartera_mora', compact('creditos'));
+   }
+   public function cartera_mora_rep()
+   {
+
+
+      $creditos = Credito::whereRaw("DATEDIFF(creditos.ultima_fecha_pago, creditos.proxima_fecha_pago) >= 33 AND creditos.saldo_capital<>0")->get();
+
+      // return view('creditos.reportes.cartera_mora', compact('creditos'));
+      $pdf = PDF::loadView("creditos.reportes.cartera_mora_rep", [
+         'estilos' => $this->estilos,
+         'stilosBundle' => $this->stilosBundle,
+         'creditos' => $creditos
+
+      ]);
+
       return $pdf->setOrientation('portrait')->inline();
    }
 }

@@ -530,8 +530,12 @@ Route::middleware(['auth', 'bitacora'])->prefix('params')->group(function () {
     Route::post('/update', [ParameterController::class, 'update']);
 });
 // reportes de creditos
-Route::middleware(['auth', 'bitacora'])->prefix('creditos')->group(function () {
-    Route::get('/cred_canc', [CreditoController::class, 'cred_canc']);
-    Route::post('/cred_canc', [CreditoController::class, 'cred_canc_rep']);
-    Route::post('/update', [ParameterController::class, 'update']);
+Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
+    // reported creditos pagados
+    Route::get('/creditos', [CreditoController::class, 'cred_canc']);
+    Route::post('/creditos', [CreditoController::class, 'cred_canc_search']);
+    Route::get('/creditos/{desde}/{hasta}', [CreditoController::class, 'cred_canc_rep']);
+    // reportes cartera en mora
+    Route::get('/cartera-mora', [CreditoController::class, 'cartera_mora']);
+    Route::get('/cartera-mora-rep', [CreditoController::class, 'cartera_mora_rep']);
 });
