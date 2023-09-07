@@ -87,9 +87,51 @@
             </div>
         </div>
         <!--end: Card Body-->
-
-
     </div>
-    </form>
-    </div>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#desde').change(function() {
+                var desde = $('#desde').val();
+                var hasta = $('#hasta').val();
+                console.log(desde);
+                if (desde > hasta) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'La fecha de inicio no puede ser mayor a la fecha final',
+                    })
+                    $('#desde').val(hasta);
+                }
+            });
+            $('#hasta').change(function() {
+                var desde = $('#desde').val();
+                var hasta = $('#hasta').val();
+                if (desde > hasta) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'La fecha de inicio no puede ser mayor a la fecha final',
+                    })
+                    $('#hasta').val(desde);
+                }
+            });
+        });
+
+        function generarReporte() {
+
+            let desde = $("#desde").val();
+            let hasta = $("#hasta").val();
+            if (desde == '' || hasta == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Debe seleccionar un rango de fechas',
+                })
+                return false;
+            }
+            window.open('/reportes/creditos/' + desde + '/' + hasta, '_blank');
+        }
+    </script>
 @endsection

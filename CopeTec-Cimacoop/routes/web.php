@@ -533,5 +533,5 @@ Route::middleware(['auth', 'bitacora'])->prefix('params')->group(function () {
 Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
     Route::get('/creditos', [CreditoController::class, 'cred_canc']);
     Route::post('/creditos', [CreditoController::class, 'cred_canc_search']);
-    Route::post('/update', [ParameterController::class, 'update']);
+    Route::get('/creditos/{desde}/{hasta}', [CreditoController::class, 'cred_canc_rep']);
 });
