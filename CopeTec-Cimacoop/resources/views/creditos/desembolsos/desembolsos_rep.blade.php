@@ -21,28 +21,34 @@
 
     <br>
 
-    <table class="table  fs-5     gy-2 gs-5">
+    <table class="table fs-5 gy-2 gs-5 ">
         <thead>
-            <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
-                <th class="min-w-20px">No</th>
-                <th class="min-w-20px">Desembolso</th>
-                <th class="min-w-80px">Codigo</th>
-                <th class="min-w-20px">Cliente</th>
-                <th class="min-w-30px">Plazo</th>
-                <th class="min-w-30px">Monto</th>
+            <tr class="fw-bold fs-5 text-gray-800 border-bottom-2 border-gray-200">
+                <th class="min-w-20px">NO</th>
+                <th class="min-w-20px">DESEMBOLSO</th>
+                <th class="min-w-80px">CODIGO</th>
+                <th class="min-w-20px">CLIENTE</th>
+                <th class="min-w-30px">PLAZO</th>
+                <th class="min-w-30px">MONTO</th>
             </tr>
         </thead>
         <tbody>
+            @if($desembolsos->count() == 0)
+                <tr>
+                    <td colspan="6" style="text-align: center;">No hay desembolsos en el rango de fechas seleccionado</td>
+                </tr>
+                @endif
             @foreach ($desembolsos as $desembolso)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ date('d/m/Y h:i:s a', strtotime($desembolso->fecha_desembolso)) }}</td>
                     <td>{{ $desembolso->codigo_credito }}</td>
                     <td>{{ $desembolso->nombre }}</td>
-                    <td>{{ $desembolso->plazo }}</td>
+                    <td>{{ $desembolso->plazo }} Meses</td>
                     <td style="text-align: right;">${{ number_format($desembolso->monto_solicitado, 2) }}</td>
                 </tr>
             @endforeach
+            
         </tbody>
     </table>
 
