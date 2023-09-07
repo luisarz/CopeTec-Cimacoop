@@ -56,6 +56,7 @@
                             <th class="min-w-20px">Fecha Pago</th>
                             <th class="min-w-30px">Plazo</th>
                             <th class="min-w-30px">Cuota</th>
+                            <th class="min-w-30px">Saldo</th>
                             <th class="min-w-30px">Monto</th>
                         </tr>
                     </thead>
