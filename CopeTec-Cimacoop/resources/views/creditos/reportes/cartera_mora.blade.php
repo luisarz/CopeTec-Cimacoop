@@ -53,7 +53,7 @@
                         @else
                             <tr>
                                 <td colspan="7" class="text-center">
-                                    <h5>No hay resultados en el rango de fechas seleccionado</h5>
+                                    <h5>No hay cuentas en mora</h5>
                                 </td>
                             </tr>
                         @endif
@@ -67,47 +67,8 @@
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function() {
-            $('#desde').change(function() {
-                var desde = $('#desde').val();
-                var hasta = $('#hasta').val();
-                console.log(desde);
-                if (desde > hasta) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'La fecha de inicio no puede ser mayor a la fecha final',
-                    })
-                    $('#desde').val(hasta);
-                }
-            });
-            $('#hasta').change(function() {
-                var desde = $('#desde').val();
-                var hasta = $('#hasta').val();
-                if (desde > hasta) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'La fecha de inicio no puede ser mayor a la fecha final',
-                    })
-                    $('#hasta').val(desde);
-                }
-            });
-        });
-
         function generarReporte() {
-
-            let desde = $("#desde").val();
-            let hasta = $("#hasta").val();
-            if (desde == '' || hasta == '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Debe seleccionar un rango de fechas',
-                })
-                return false;
-            }
-            window.open('/reportes/creditos/' + desde + '/' + hasta, '_blank');
+            window.open('/reportes/cartera-mora-rep', '_blank');
         }
     </script>
 @endsection
