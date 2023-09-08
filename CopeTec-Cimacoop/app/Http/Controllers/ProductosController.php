@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductosModel;
 use Illuminate\Http\Request;
-
+use PDF;
 class ProductosController extends Controller
 {
     //
@@ -47,6 +47,26 @@ class ProductosController extends Controller
         $producto = ProductosModel::find($id);
         $producto->delete();
         return redirect('productos/list');
+    }
+
+    public function reporte($filtro)
+    {
+      
+        if ($filtro!='all') {
+            $productos = ProductosModel::where('nombre', 'like', '%' . $filtro . '%')
+                ->orWhere('cod_barra', '=', $filtro)->paginate(10);
+        } else {
+            $productos = ProductosModel::all();
+        }
+
+
+        $pdf = PDF::loadView('reportes.productos.productos_rep', [
+            'estilos' =>  file_get_contents(public_path('assets/css/css.css')),
+            'stilosBundle' =>  file_get_contents(public_path('assets/css/style.bundle.css')),
+            'productos' => $productos
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
+
     }
 
 }

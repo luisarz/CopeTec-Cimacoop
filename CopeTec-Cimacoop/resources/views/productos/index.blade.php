@@ -66,7 +66,7 @@
                             <th class="min-w-250px">Costo</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="fs-4">
                         @foreach ($productos as $producto)
                             <tr>
                                 <td>
@@ -122,6 +122,14 @@
                     $("#deleteForm").submit();
                 }
             });
+        }
+
+        function generarReporte(){
+            let filtro =$("#filtro").val();
+            if(filtro == ""){
+                filtro = "all";
+            }
+            window.open('/productos/reporte/'+filtro, '_blank');
         }
     </script>
 @endsection

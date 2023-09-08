@@ -550,6 +550,7 @@ Route::middleware(['auth', 'bitacora'])->prefix('productos')->group(function () 
     Route::get('/add', [ProductosController::class, 'add']);
     Route::post('/add', [ProductosController::class, 'post']);
     Route::get('/edit/{id}', [ProductosController::class, 'edit']);
+    Route::get('/reporte/{filtro}', [ProductosController::class, 'reporte']);
 
     Route::delete('/delete', [ProductosController::class, 'delete']);
 
