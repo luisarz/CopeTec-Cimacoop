@@ -612,6 +612,8 @@ class ReporteContabilidad extends Controller
             // $movimientosPorCuenta['movimientos'] = $results->toArray();
             $movimientosPorCuenta['sumas'] = $totals;
         }
+        //liberar memoria de la base
+        
 
         return $movimientosPorCuenta;
     }

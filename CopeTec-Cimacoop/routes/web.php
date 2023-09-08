@@ -13,6 +13,7 @@ use App\Http\Controllers\LiquidacionController;
 use App\Http\Controllers\PartidaContableDetalleController;
 use App\Http\Controllers\PartidasContablesController;
 use App\Http\Controllers\PlazosController;
+use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ReferenciaSolicitudController;
 use App\Http\Controllers\ReporteContabilidad;
 use App\Http\Controllers\SolicitudCreditoBienesController;
@@ -539,4 +540,18 @@ Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
     // reportes cartera en mora
     Route::get('/cartera-mora', [CreditoController::class, 'cartera_mora']);
     Route::get('/cartera-mora-rep', [CreditoController::class, 'cartera_mora_rep']);
+});
+
+
+Route::middleware(['auth', 'bitacora'])->prefix('productos')->group(function () {
+
+    Route::get('/list', [ProductosController::class, 'index']);
+    Route::post('/list', [ProductosController::class, 'index']);
+    Route::get('/add', [ProductosController::class, 'add']);
+    Route::post('/add', [ProductosController::class, 'post']);
+    Route::get('/edit/{id}', [ProductosController::class, 'edit']);
+
+    Route::delete('/delete', [ProductosController::class, 'delete']);
+
+
 });
