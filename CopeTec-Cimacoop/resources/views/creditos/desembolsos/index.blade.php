@@ -5,7 +5,7 @@
 
 
             <div class="card-toolbar">
-                <form action="/creditos/desembolsos/reportes" method="post" autocomplete="off">
+                <form action="/reportes/desembolsos" method="post" autocomplete="off">
                     {!! csrf_field() !!}
                     {{ method_field('POST') }}
                     <!--begin::Input group-->

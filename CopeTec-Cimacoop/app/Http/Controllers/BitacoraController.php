@@ -40,7 +40,6 @@ class BitacoraController extends Controller
 
 
 
-        $pdf = \App::make('snappy.pdf');
         $pdf = PDF::loadView('bitacora.bitacora', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
