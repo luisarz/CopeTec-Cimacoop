@@ -60,8 +60,7 @@ if (isset($desde) > 0) {
                         <td>{{ \Carbon\Carbon::parse($cr->ultima_fecha_pago)->format('d/m/Y') }}</td>
                         <td>@money($cr->saldo_capital)</td>
                         <td>@money($cr->monto_solicitado)</td>
-                        <td>{{ \Carbon\Carbon::parse($cr->ultima_fecha_pago)->diffInDays($cr->proxima_fecha_pago) }}
-                        </td>
+                        <td>{{ \Carbon\Carbon::now()->diffInDays($cr->ultima_fecha_pago) }}
                     </tr>
                 @endforeach
             @else
