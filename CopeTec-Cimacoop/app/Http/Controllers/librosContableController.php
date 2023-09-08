@@ -6,6 +6,7 @@ use App\Models\Catalogo;
 use App\Models\CierreMensualModel;
 use App\Models\LibroMayorModel;
 use App\Models\PartidasContablesDetalles;
+use App\Models\PartidasContablesModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -139,7 +140,7 @@ class librosContableController extends Controller
     }
     public function libroDiario()
     {
-        return view('contabilidad.reportes.librodiario');
+        return view('contabilidad.reportes.libroDiarioGeneral');
     }
 
     public function libroMayorRep(Request $request)
@@ -176,7 +177,6 @@ class librosContableController extends Controller
                 $cuentaPadreArray, // Agrega los datos de la cuenta padre
                 $this->sumarMovimientosPorCodigoAgrupadorYFecha($codigo_agrupador, $fechaDesde, $fechaHasta)
             );
-
         }
         // $arrFormatted = json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
 
@@ -233,7 +233,7 @@ class librosContableController extends Controller
                 )
                 ->join('catalogo AS b', 'c.id_cuenta', '=', 'b.id_cuenta_padre')
                 ->leftJoin('partida_contables_detalle AS a', 'b.id_cuenta', '=', 'a.id_cuenta')
-                ->where('a.id_partida', '$p->id_partida_contable')
+                ->where('a.id_partida', $p->id_partida_contable)
                 ->orderBy('a.cargos', 'desc')
                 ->get();
 
@@ -286,12 +286,12 @@ class librosContableController extends Controller
         $fechaHasta = $request->hasta;
         $encabezado = $request->encabezado;
         // dd($arrFormatted);
-        echo "<pre>";
-        echo json_encode($resultSet, JSON_PRETTY_PRINT);
+        // echo "<pre>";
+        // echo json_encode($cuentasConMovimientos, JSON_PRETTY_PRINT);
 
-        echo "</pre>";
+        // echo "</pre>";
         // die();
-        // return view('reportes.contabilidad.partidas.librodiario', compact('estilos', 'stilosBundle', 'resultSet'));
+        // return view('reportes.contabilidad.partidas.librodiariogeneral', compact('estilos', 'stilosBundle', 'resultSet'));
         $vista = "reportes.contabilidad.partidas.librodiariogeneral";
 
 
@@ -341,7 +341,6 @@ class librosContableController extends Controller
                 ->where('cierre_mensual_id', '=', '$id_cierre_anterior')
                 ->where('codigo_agrupador', '=', '$codigoAgrupador')
                 ->sum('saldo_cierre');
-
         }
 
 
@@ -363,7 +362,5 @@ class librosContableController extends Controller
         }
 
         return $movimientosPorCuenta;
-
     }
-
 }
