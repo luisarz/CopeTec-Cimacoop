@@ -16,6 +16,7 @@ use App\Models\SolicitudCredito;
 use Illuminate\Http\Request;
 use App\Models\Credito;
 use App\Models\PagosCredito;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use \PDF;
@@ -470,16 +471,20 @@ class CreditoController extends Controller
    // cartera mora
    public function cartera_mora()
    {
+      $configuracion = Configuracion::first();
+      $days = $configuracion->dias_gracia + 30;
 
-
-      $creditos = Credito::whereRaw("DATEDIFF(creditos.ultima_fecha_pago, creditos.proxima_fecha_pago) >= 33 AND creditos.saldo_capital<>0")->get();
+      $creditos = Credito::whereRaw("DATEDIFF('".Carbon::now()->format('Y-m-d')."', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital<>0")->get();
       return view('creditos.reportes.cartera_mora', compact('creditos'));
    }
    public function cartera_mora_rep()
    {
 
 
-      $creditos = Credito::whereRaw("DATEDIFF(creditos.ultima_fecha_pago, creditos.proxima_fecha_pago) >= 33 AND creditos.saldo_capital<>0")->get();
+      $configuracion = Configuracion::first();
+      $days = $configuracion->dias_gracia + 30;
+
+      $creditos = Credito::whereRaw("DATEDIFF('".Carbon::now()->format('Y-m-d')."', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital<>0")->get();
 
       // return view('creditos.reportes.cartera_mora', compact('creditos'));
       $pdf = PDF::loadView("creditos.reportes.cartera_mora_rep", [
