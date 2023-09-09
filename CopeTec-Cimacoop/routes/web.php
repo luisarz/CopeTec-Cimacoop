@@ -14,6 +14,7 @@ use App\Http\Controllers\PartidaContableDetalleController;
 use App\Http\Controllers\PartidasContablesController;
 use App\Http\Controllers\PlazosController;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\ReferenciaSolicitudController;
 use App\Http\Controllers\ReporteContabilidad;
 use App\Http\Controllers\SolicitudCreditoBienesController;
@@ -540,6 +541,18 @@ Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
     // reportes cartera en mora
     Route::get('/cartera-mora', [CreditoController::class, 'cartera_mora']);
     Route::get('/cartera-mora-rep', [CreditoController::class, 'cartera_mora_rep']);
+});
+
+Route::middleware(['auth', 'bitacora'])->prefix('proveedores')->group(function () {
+
+    Route::get('/list', [ProveedoresController::class, 'index']);
+    Route::post('/list', [ProveedoresController::class, 'index']);
+    Route::get('/add', [ProveedoresController::class, 'add']);
+    Route::post('/add', [ProveedoresController::class, 'post']);
+    Route::get('/edit/{id}', [ProveedoresController::class, 'edit']);
+    Route::put('/put', [ProveedoresController::class, 'put']);
+    Route::delete('/delete', [ProveedoresController::class, 'delete']);
+
 });
 
 
