@@ -41,20 +41,20 @@
         </thead>
         <tbody>
 
-            <tr style="font-family: 'Courier New', Courier, monospace; font-size:12px; border: 1px solid white;">
+            <tr style="font-family: 'Courier New', Courier, monospace; font-size:14px; border: 1px solid white; ">
                 <td colspan="3" style="border-top: 1px solid rgb(0, 0, 0);">
                     PERIODO: {{ $desde }} - {{ $hasta }}
                 </td>
-                <td style="border-top: 1px solid rgb(0, 0, 0);">
+                <td style="border-top: 1px solid rgb(0, 0, 0);text-align: right;">
                     $ {{ number_format($saldo_anterior, 2) }}
                 </td>
-                  <td style="border-top: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0);">
+                <td style="border-top: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); text-align: right;">
                     $ {{ number_format($totalCargos, 2) }}
                 </td>
-                <td style="border-top: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0);">
+                <td style="border-top: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); text-align: right;">
                     $ {{ number_format($totalAbonos, 2) }}
                 </td>
-                <td style="border-top: 1px solid rgb(0, 0, 0);">
+                <td style="border-top: 1px solid rgb(0, 0, 0); text-align: right;">
                     $ {{ number_format($nuevoSaldo, 2) }}
                 </td>
             </tr>
@@ -64,7 +64,9 @@
                     <td>{{ date('d-m-Y', strtotime($partida->fecha_partida)) }}</td>
                     <td style="text-align: center;">
                     </td>
-                    <td style="text-align: center;"></td>
+                    <td style="text-align: center;">
+                
+                    </td>
 
                     <td style="text-align: right;">
                         @if ($partida->cargos > 0)

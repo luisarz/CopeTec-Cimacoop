@@ -237,7 +237,11 @@
            <tbody class="fs-4">
             <tr>
                 <td style="width: 80%;">
-                    UTILIDAD/PERDIDA DEL PERIODO
+                    @if($estadoResultado < 0)
+                       PERDIDA DEL EJERCICIO
+                    @else
+                       UTILIDAD DEL EJERCICIO
+                    @endif
                 </td>
                 <td style="text-align: right;">
                     $ {{ number_format($estadoResultado, 2) }}
@@ -248,7 +252,11 @@
                     <b>TOTAL DEL PASIVO Y PATRIMONIO</b>
                 </td>
                 <td style="text-align: right; border-top:1px double black !important;">
-                    <b>$ {{ number_format($totalPatrimonio +$estadoResultado + $totalPasivos, 2) }}</b>
+                    {{-- {{ $totalPatrimonio }} <br>
+                    {{ $estadoResultado }} <br>
+                    {{ $totalPasivos }} <br> --}}
+
+                    <b>$ {{ number_format($totalPatrimonio + $estadoResultado + $totalPasivos, 2) }}</b>
                 </td>
             </tr>
         </tbody>

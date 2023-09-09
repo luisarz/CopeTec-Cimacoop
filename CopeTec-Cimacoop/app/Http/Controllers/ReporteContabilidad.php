@@ -61,6 +61,7 @@ class ReporteContabilidad extends Controller
     public function historicoCuenta_reporte(Request $request)
     {
 
+        
         $catalogo = Catalogo::find($request->id_cuenta)->first();
         if (!$catalogo) {
             return redirect()->back()->with('error', 'No se encontro la cuenta');
@@ -71,10 +72,11 @@ class ReporteContabilidad extends Controller
         $encabezado = $request->encabezado;
 
         $partidas = PartidasContablesModel::join('partida_contables_detalle', 'partidas_contables.id_partida_contable', '=', 'partida_contables_detalle.id_partida')
-            ->whereBetween('partidas_contables.fecha_partida', ['$mesDesde', '$anoDesde']) // Filtrar por rango de fechas
-            ->where('partida_contables_detalle.id_cuenta', '=', '$id_cuenta')
+            ->whereRaw('partidas_contables.fecha_partida between ? and ?', [$mesDesde, $anoDesde]) // Filtrar por rango de fechas
+            ->where('partida_contables_detalle.id_cuenta', '=', $id_cuenta)
             ->orderBy('partidas_contables.num_partida', 'asc')
             ->get();
+
 
         $totalCargos = $partidas->sum('cargos');
         $totalAbonos = $partidas->sum('abonos');
@@ -174,7 +176,7 @@ class ReporteContabilidad extends Controller
             $totals->total_abonos = $sumTotalAbonos;
             $totals->saldo_anterior = $saldoAnterior;
 
-            $nuevoSaldo = ($saldoAnterior + $sumTotalCargos) - $sumTotalAbonos;
+            $nuevoSaldo = ($saldoAnterior + $sumTotalAbonos) -$sumTotalCargos;
             $totals->saldo = $nuevoSaldo;
 
             $movimientosPorCuenta['movimientos'] = $results->toArray();
@@ -606,7 +608,14 @@ class ReporteContabilidad extends Controller
             $totals->total_abonos = $sumTotalAbonos;
             $totals->saldo_anterior = $saldoAnterior;
 
-            $nuevoSaldo = ($saldoAnterior + $sumTotalCargos) - $sumTotalAbonos;
+
+            if($codigoAgrupador == "3101"){
+                $nuevoSaldo = ($saldoAnterior + $sumTotalAbonos) - $sumTotalCargos;
+            }else{
+                
+                $nuevoSaldo = ($saldoAnterior + $sumTotalCargos) - $sumTotalAbonos;
+            }
+
             $totals->saldo = $nuevoSaldo;
 
             // $movimientosPorCuenta['movimientos'] = $results->toArray();

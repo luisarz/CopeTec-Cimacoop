@@ -107,7 +107,17 @@
                 @endif
             @endforeach
             <tr class="fs-4 font-bold">
-                <td><b> MARGEN BRUTO</b></td>
+                @php
+                    $margenBruto = $sumIngresos - $sumCostos;
+                @endphp
+                <td>
+                     @if($margenBruto > 0)
+                        
+                    <b> GANANCIA DEL EJERCICIO</b>
+                    @else
+                    <b> PERDIDA DEL EJERCICIO</b>
+                    @endif
+                </td>
                 <td style="text-align: right; border-top:1px doble black;">
                     <b> ${{ number_format($sumIngresos - $sumCostos, 2) }} </b>
                 </td>
