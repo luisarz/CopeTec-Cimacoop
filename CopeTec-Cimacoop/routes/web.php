@@ -552,6 +552,7 @@ Route::middleware(['auth', 'bitacora'])->prefix('proveedores')->group(function (
     Route::get('/edit/{id}', [ProveedoresController::class, 'edit']);
     Route::put('/put', [ProveedoresController::class, 'put']);
     Route::delete('/delete', [ProveedoresController::class, 'delete']);
+    Route::get('/reporte/{filtro}', [ProveedoresController::class, 'reporte']);
 
 });
 

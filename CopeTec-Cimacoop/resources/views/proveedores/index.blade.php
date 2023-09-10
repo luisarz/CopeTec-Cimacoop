@@ -59,11 +59,13 @@
                     <thead class="fw-bold">
                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-30px text-center">Acciones</th>
-                            <th class="min-w-160px ">Proveedor</th>
+                            <th class="min-w-200px ">Proveedor</th>
                             <th class="min-w-80px">DUI</th>
                             <th class="min-w-80px">NRC</th>
                             <th class="min-w-50px">NIT</th>
                             <th class="min-w-250px">TELEFONO</th>
+                            <th class="min-w-50px">DECIMALES</th>
+
                         </tr>
                     </thead>
                     <tbody class="fs-4">
@@ -82,6 +84,8 @@
                                 <td>{{ $producto->nrc }}</td>
                                 <td>{{ $producto->nit }}</td>
                                 <td>{{ $producto->telefono }}</td>
+                                <td>{{ $producto->decimales }}</td>
+
 
 
 
@@ -130,7 +134,7 @@
             if(filtro == ""){
                 filtro = "all";
             }
-            window.open('/productos/reporte/'+filtro, '_blank');
+            window.open('/proveedores/reporte/'+filtro, '_blank');
         }
     </script>
 @endsection
