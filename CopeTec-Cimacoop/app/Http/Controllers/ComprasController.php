@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ComprasModel;
+use App\Models\ProductosModel;
+use App\Models\ProveedoresModel;
 use Illuminate\Http\Request;
 
 class ComprasController extends Controller
@@ -23,7 +25,9 @@ class ComprasController extends Controller
     }
     public function add()
     {
-        return view('compras.add');
+        $productos=ProductosModel::all();
+        $proveedores=ProveedoresModel::all();
+        return view('compras.add',compact('productos','proveedores'));
     }
 
     public function post(Request $request)

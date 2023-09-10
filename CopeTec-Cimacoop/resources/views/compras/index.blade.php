@@ -14,21 +14,13 @@
 
 @section('content')
     <div class="card shadow-lg mt-3 mb-5">
-        <div class="card-body">
-            asd
-        </div>
-    </div>
-    <div class="card shadow-lg mt-3">
-        <div class="card-header ribbon ribbon-end ribbon-clip">
-            <div class="card-toolbar">
+         <div class="card-header ribbon ribbon-end ribbon-clip">
+           <div class="card-toolbar">
                 <a href="/compras/add" class="btn btn-success me-5 btn-sm fs-3">
                     <i class="ki-outline ki-plus fs-2x "></i>
-                    Nuevo
+                    Nueva Compra
                 </a>
-                <a href="javascript:generarReporte();" class="btn btn-danger me-5 btn-sm fs-3">
-                    <i class="ki-outline ki-printer fs-2x "></i>
-                    Reporte
-                </a>
+             
 
                 <div class="d-flex align-items-center border-radius">
                     <form action="/compras/list" method="post" autocomplete="off" class="d-flex align-items-center">
@@ -49,6 +41,10 @@
                     </form>
 
                 </div>
+                   <a href="javascript:generarReporte();" class="btn btn-danger me-5 btn-sm fs-3">
+                    <i class="ki-outline ki-printer fs-2x "></i>
+                    Reporte
+                </a>
 
 
             </div>
@@ -59,6 +55,9 @@
                 <span class="ribbon-inner bg-info"></span>
             </div>
         </div>
+      
+    </div>
+    <div class="card shadow-lg mt-3">
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover table-row-dashed fs-6 gy-1 gs-1">
@@ -67,8 +66,8 @@
                             <th class="min-w-30px text-center">Acciones</th>
                             <th class="min-w-100px ">CCF</th>
                             <th class="min-w-180px">Proveedor</th>
-                            <th class="min-w-50px">NRC</th>
                             <th class="min-w-50px">Fecha</th>
+                            <th class="min-w-50px">NRC</th>
                             <th class="min-w-50px">Neto</th>
                             <th class="min-w-50px">IVA</th>
                             <th class="min-w-50px">Total</th>
