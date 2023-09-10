@@ -6,6 +6,7 @@ use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\BobedaController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\CierreMensualController;
+use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\DepositosPlazoController;
 use App\Http\Controllers\librosContableController;
@@ -558,15 +559,21 @@ Route::middleware(['auth', 'bitacora'])->prefix('proveedores')->group(function (
 
 
 Route::middleware(['auth', 'bitacora'])->prefix('productos')->group(function () {
-
     Route::get('/list', [ProductosController::class, 'index']);
     Route::post('/list', [ProductosController::class, 'index']);
     Route::get('/add', [ProductosController::class, 'add']);
     Route::post('/add', [ProductosController::class, 'post']);
     Route::get('/edit/{id}', [ProductosController::class, 'edit']);
     Route::get('/reporte/{filtro}', [ProductosController::class, 'reporte']);
-
     Route::delete('/delete', [ProductosController::class, 'delete']);
+});
 
-
+Route::middleware(['auth', 'bitacora'])->prefix('compras')->group(function () {
+    Route::get('/list', [ComprasController::class, 'index']);
+    Route::post('/list', [ComprasController::class, 'index']);
+    Route::get('/add', [ComprasController::class, 'add']);
+    Route::post('/add', [ComprasController::class, 'post']);
+    Route::get('/edit/{id}', [ComprasController::class, 'edit']);
+    Route::get('/reporte/{filtro}', [ComprasController::class, 'reporte']);
+    Route::delete('/delete', [ComprasController::class, 'delete']);
 });
