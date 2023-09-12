@@ -4,6 +4,11 @@ $(document).ready(function () {
     const id_compra = $("#id_compra").val();
 
 
+    $("#chkPercepcion").on("change", function () {
+        let persepcion = (this.checked ? 1 : 0);
+        alert(persepcion);
+    });
+
 
     $("#btnRegistrarProducto").on("click", function (e) {
 
@@ -11,6 +16,7 @@ $(document).ready(function () {
         let numero_fcc = $("#numero_fcc").val();
         let fecha_compra = $("#fecha_compra").val();
         let id_proveedor = $("#id_proveedor").val();
+        let percepcion = ($("#chkPercepcion").prop('checked') ? 1 : 0);
 
 
         if (numero_fcc == "" || fecha_compra == "" || id_proveedor == "") {
@@ -30,10 +36,9 @@ $(document).ready(function () {
         let id_producto = $("#id_producto").val();
         let cantidad = $("#cantidad").val();
         let precio = $("#precio").val();
-        let total = $("#total").val();
 
 
-        if (id_producto == "" || cantidad == "" || precio == "" || total == "") {
+        if (id_producto == "" || cantidad == "" || precio == "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -55,10 +60,10 @@ $(document).ready(function () {
             "id_producto": id_producto,
             "cantidad": cantidad,
             "precio": precio,
-            "total": total,
             "numero_fcc": numero_fcc,
             "fecha_compra": fecha_compra,
             "id_proveedor": id_proveedor,
+            "percepcion": percepcion,
             "_token": $("#token").val()
         };
 
@@ -69,9 +74,6 @@ $(document).ready(function () {
             success: function (response) {
                 swal.close();
                 getDetallesCompra();
-                $("#id_cuenta").val("").change();
-                $("#monto_debe").val(0);
-                $("#monto_haber").val(0);
             },
             error: function (xhr, status, error) {
                 swal.close();
@@ -88,52 +90,37 @@ $(document).ready(function () {
     });
 
 
-    $("#btnLiquidar").on("click", function (e) {
+    $("#btnFinalizarCompra").on("click", function (e) {
         e.preventDefault();
-        let liquido = $("#liquido").val();
-        if (liquido == 0) {
+        
+        let id_compra = $("#id_compra").val();
+        let numero_fcc = $("#numero_fcc").val();
+        let fecha_compra = $("#fecha_compra").val();
+        let id_proveedor = $("#id_proveedor").val();
+        let percepcion = ($("#chkPercepcion").prop('checked') ? 1 : 0);
+
+
+        if (id_compra == "" || numero_fcc == "" || fecha_compra == "" || id_proveedor == "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Debes detalles, la liquidación del credito',
+                text: 'Seleccione los datos de la cabecera de la compra',
                 customClass: {
                     confirmButton: "btn btn-danger"
                 }
             });
             return false;
         }
-
-
-        let id_cuenta_ahorro_destino = $("#id_cuenta_ahorro_destino").val();
-        let id_cuenta_aportacion_destino = $("#id_cuenta_aportacion_destino").val();
-        if (id_cuenta_ahorro_destino == id_cuenta_aportacion_destino) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                html: 'La cuenta de <b>ahorro</b> y <b>aportaciones</b> deben ser diferentes',
-                confirmButton: false,
-                cancelButton: true,
-                confirmButtonText: 'Volver y seleccionar datos correctos',
-                customClass: {
-                    confirmButton: "btn btn-danger"
-                }
-
-            });
-            return false;
-        }
-
 
 
 
 
         Swal.fire({
             icon: 'question',
-            title: 'Liquidar crédito',
-            html: '¿Estás seguro de que deseas liquidar y desembolsar este crédito? <br> Liquido a depositar <span class=\" badge badge-danger fs-4\">  $' + liquido + '</span>',
+            title: 'Finalizar Compra',
+            html: '¿Estás seguro de que deseas finalizar la compra? <br> <br> <strong>Nota:</strong> Una vez finalizada la compra, no se podrá modificar.',
             showCancelButton: true,
-            // confirmButtonColor: '#3085d6',
-            // cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, liquidar crédito ',
+            confirmButtonText: 'Sí, Finalizar Compra',
             cancelButtonText: 'Cancelar',
             allowEscapeKey: false,     // Evita que se cierre con la tecla "Escape"
             allowOutsideClick: false,  // Evita que se cierre al hacer clic fuera del cuadro
@@ -144,13 +131,8 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Aquí puedes agregar la lógica para liquidar y desembolsar el crédito
-                liquidarCredito();
-
-
-            } else {
-                // Aquí puedes agregar la lógica para manejar la cancelación
-                // realizarOtraAccion();
-            }
+                finalizarCompra();
+            } 
         });
 
 
@@ -164,46 +146,36 @@ $(document).ready(function () {
 
     });
 
-    window.liquidarCredito = function (id) {
+    window.finalizarCompra = function (id) {
         let id_compra = $("#id_compra").val();
-
+        let numero_fcc = $("#numero_fcc").val();
+        let fecha_compra = $("#fecha_compra").val();
+        let id_proveedor = $("#id_proveedor").val();
+        let percepcion = ($("#chkPercepcion").prop('checked') ? 1 : 0);
         let data = {
-            "id_compra": $("#id_compra").val(),
-            "liquido": $("#liquido").val(),
-            "id_cuenta_ahorro_destino": $("#id_cuenta_ahorro_destino").val(),
-            "id_cuenta_aportacion_destino": $("#id_cuenta_aportacion_destino").val(),
-            "aportacionMonto": $("#aportacionMonto").val(),
-            "id_caja_aperturada": $("#id_caja_aperturada").val(),
+            "id_compra": id_compra,
+            "numero_fcc": numero_fcc,
+            "fecha_compra": fecha_compra,
+            "id_proveedor": id_proveedor,
+            "percepcion": percepcion,
             "_token": $("#token").val()
         };
 
         $.ajax({
             type: "POST",
-            url: "/creditos/solicitudes/liquidar",
+            url: "/compras/finalizar",
             data: data, // No es necesario convertir a JSON.stringify
             success: function (response) {
 
-
-                if (response.estado == "success") {
+                if (response.status == "ok") {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Crédito liquidado',
-                        text: 'El crédito ha sido liquidado exitosamente.',
+                        title: 'Compra Finalizada',
+                        text: 'La compra fue registrada de manera exitoso!',
                         willClose: () => {
-                            // Redirige a la nueva página en una pestaña nueva
-                            window.open('/creditos/aprobado/liquidacion/' + id_compra, '_blank');
-
-                            // Después de 1 segundo, redirige a otra página en la pestaña actual
-                            setTimeout(() => {
-                                window.location.href = '/creditos/solicitudes/estudios';
-                            }, 1000);
+                                window.location.href = '/compras/list';
                         }
                     });
-
-
-                    // setTimeout(() => {
-                    // }, 1000);
-                    //mandar a imprimir la hoja de liquidacion
                 }
 
 
@@ -238,18 +210,18 @@ $(document).ready(function () {
                 row.append($("<td style='text-align:center;'>").html(
                     `<a href="javascript:void(0);" onclick="quitarDescuento(${id_detalle_compra})"><span class='btn btn-sm btn-danger'>Quitar</span></a>`
                 ));
-                row.append($("<td>").text(element.nombre + ' -> ' + element.marca));
+                row.append($("<td>").text(element.nombre + ' (' + element.marca + ')'));
                 row.append($("<td style='text-align: right'>").html(element.cantidad));
                 row.append($("<td style='text-align: right'>").html('$' + element.precio));
-                row.append($("<td style='text-align: right'>").html('$' + element.total));
+                row.append($("<td style='text-align: right'>").html('$' + element.subtotal));
                 tableDetallesCompra.append(row);
 
             });
 
             $("#subtotal").text('$' + data.subtotal);
             $("#iva").text('$' + data.iva);
-            $("#percepcion").text(data.percepcion);
-            $("#totalCompra").text(data.total);
+            $("#percepcion").text('$' + data.percepcion);
+            $("#totalCompra").text('$' + data.total);
 
         });
 
@@ -270,7 +242,7 @@ $(document).ready(function () {
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                $.get("/creditos/preaprobado/liquidar/quitarDescuento/" + id, function (data) {
+                $.get("/compras/delete-product/" + id, function (data) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Eliminado exitoso',

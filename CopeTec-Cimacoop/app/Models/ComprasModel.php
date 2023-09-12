@@ -9,8 +9,9 @@ class ComprasModel extends Model
 {
     use HasFactory;
     protected $table = 'compras';
-    protected $primayKey = 'id_compra';
+    protected $primaryKey = 'id_compra';
     protected $keyType = 'string';
+
     public $incrementing = false;
 
 }

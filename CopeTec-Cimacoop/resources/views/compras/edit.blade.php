@@ -1,113 +1,214 @@
 @extends('base.base')
-@section('title')
-    Modificar Proveedor
+@section('formName')
+    <a href="/compras/list">
+
+        <button type="button" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
+            <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
+                <i class="path1"></i>
+                <i class="path2"></i>
+            </i>
+            Cancelar
+        </button>
+    </a>
+    <span class="badge badge-info mx-2 fs-3">Modificar Compra
+        <span class="badge badge-danger fs-2">
+            {{ $compra->id_compra }}
+        </span>
+    </span>
 @endsection
 @section('content')
-    <form action="/proveedores/put" method="post" autocomplete="off">
-        <input hidden name="id_proveedor" value="{{ $proveedor->id_proveedor }}">
-        {!! csrf_field() !!}
-         {{ method_field('PUT') }}
-        <div class="input-group mb-5"></div>
+    <input type="hidden" id="token" value="{{ csrf_token() }}">
+    <input type="hidden" id="id_compra" value="{{ $compra->id_compra }}">
 
-        <div class="card shadow-lg">
-            <div class="card-header ribbon ribbon-end ribbon-clip">
-                <div class="card-toolbar">
-                    <a href="/proveedores/list">
-
-                        <button type="button"
-                            class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
-                            <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
-                                <i class="path1"></i>
-                                <i class="path2"></i>
-                            </i>
-                        </button>
-                    </a>
-
+    <div class="card shadow-lg mt-3">
+        <div class="card-body">
+            <div class="form-group row mb-2">
+                <div class="form-floating  col-lg-2">
+                    <input type="number" class="form-control input-lg" id="numero_fcc" name="numero_fcc"
+                        value="{{ $compra->numero_fcc }}">
+                    <label class="required ">Comprobante:</label>
                 </div>
-                <div class="ribbon-label fs-3">
-                    <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
-                            class="path2"></span><span class="path3"></span></i>
-                 Modificar Proveedor
-                    <span class="ribbon-inner bg-danger"></span>
+                <div class="form-floating  col-lg-2">
+                    <input type="date" class="form-control input-lg" id="fecha_compra" name="fecha_compra"
+                        value="{{ $compra->fecha_compra }}">
+                    <label class="required ">Fecha Compra:</label>
                 </div>
-            </div>
-            <div class="card-body">
+                <div class="form-floating  col-lg-6">
+                    <select class="form-select fs-4" name="id_proveedor" id="id_proveedor" data-control="select2">
+                        <option value="">Seleccione una cuenta</option>
+                        @foreach ($proveedores as $proveedor)
+                            @if ($proveedor->id_proveedor == $compra->id_proveedor)
+                                <option value="{{ $proveedor->id_proveedor }}" selected>
+                                    {{ $proveedor->razon_social }} ->
+                                    {{ $proveedor->dui }}
+                                </option>
+                            @else
+                                <option value="{{ $proveedor->id_proveedor }}">
+                                    {{ $proveedor->razon_social }} ->
+                                    {{ $proveedor->dui }}
+                                </option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <label class="required ">Proveedor</label>
+                </div>
+                <div class=" col-lg-2">
+                    <label class="form-check form-switch form-check-custom form-check-solid">
+                        <input class="form-check-input" type="checkbox" value="1" id="chkPercepcion"
+                            {{ $compra->percepcion > 0 ? 'checked' : '' }}>
+                        <span class="form-check-label fw-semibold text-muted">
+                            Percepción 
+                        </span>
 
-                <!--begin::row group-->
-                <div class="form-group row mb-5">
-                    <div class="form-floating col-lg-6">
-                        <input type="text" name="razon_social" class="form-control" required value="{{ $proveedor->razon_social }}">
-                        <label for="floatingPassword">Razon Social</label>
-                    </div>
-                    <div class="form-floating col-lg-2">
-                        <input type="text" name="dui" class="form-control" value="{{ $proveedor->dui }}">
-                        <label>DUI</label>
-                    </div>
-                    <div class="form-floating col-lg-2">
-                        <input type="text" name="nit" class="form-control" value="{{ $proveedor->nit }}">
-                        <label>NIT</label>
-                    </div>
-                    <div class="form-floating col-lg-2">
-                        <input type="text" name="nrc" class="form-control" value="{{ $proveedor->nrc }}">
-                        <label>NRC</label>
-                    </div>
+                    </label>
                 </div>
-                 <!--begin::row group-->
-                <div class="form-group row mb-5">
-                    <div class="form-floating col-lg-4">
-                        <input type="text" name="direccion" class="form-control"  value="{{ $proveedor->direccion }}">
-                        <label for="floatingPassword">Direccion</label>
-                    </div>
-                    <div class="form-floating col-lg-4">
-                        <input type="text" name="telefono" class="form-control"  value="{{ $proveedor->telefono }}">
-                        <label>Telefono</label>
-                    </div>
-                     <div class="form-floating col-lg-4">
-                        <input type="number"  min="2" name="decimales" class="form-control"  value="0.00" value="{{ $proveedor->decimales }}">
-                        <label>Decimales</label>
-                    </div>
-                </div>
-              
-                
-
-            </div>
-            <div class="card-footer d-flex justify-content-center py-6">
-                <button type="submit" class="btn btn-bg-primary btn-text-white">Modificar</button>
             </div>
         </div>
+    </div>
 
-    </form>
+
+    <div class="card shadow-lg mt-3">
+
+        <div class="card-body">
+
+
+            <!--begin::Layout-->
+            <div class="d-flex flex-column flex-xl-row">
+                <!--begin::Content-->
+                <div class="d-flex flex-row-fluid me-xl-10 mb-0 mb-xl-0">
+                    <!--begin::Pos food-->
+
+                    <!--begin::Tab Content-->
+                    <div class="card  shadow-sm p-1">
+                        <div class="card-body  mt-1 mb-1">
+                            <div class="form-group row mb-1">
+                                <div class="form-floating col-lg-5">
+                                    <select class="form-select fs-4" name="id_producto" id="id_producto"
+                                        data-control="select2">
+                                        <option value="">Seleccione un prodúcto</option>
+                                        @foreach ($productos as $producto)
+                                            <option value="{{ $producto->id_producto }}">
+                                                {{ $producto->nombre }} ->
+                                                {{ $producto->presentacion }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <label>Productos</label>
+                                </div>
+                                <div class="form-floating col-lg-2">
+                                    <input type="number" id="cantidad" name="cantidad"
+                                        class="form-control input-lg fw-bold fs-3 text-info" placeholder="Movimiento 1" />
+                                    <label>Cantidad:</label>
+                                </div>
+                                <div class="form-floating col-lg-2">
+                                    <input type="number" id="precio" name="precio"
+                                        class="form-control fw-bold fs-3 text-info" placeholder="Movimiento 2" />
+                                    <label>Precio:</label>
+                                </div>
+
+                                <div class="form-floating col-lg-3">
+                                    <button class="btn btn-danger btn-sm btn w-100 fw-bold" id="btnRegistrarProducto"
+                                        name="btnRegistrarProducto">
+                                        <i class="ki-outline ki-brifecase-tick text-white fs-2x"></i>
+                                        Agregar
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div class="table-responsive">
+                                <hr>
+                                <table class="table table-hover table-rounded table-striped border gy-1 fs-2 ">
+
+                                    <thead>
+                                        <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                                            <th class="min-w-30px">Acciones</th>
+                                            <th class="min-w-150px">Producto</th>
+                                            <th clcass="min-w-140px " style="text-align: right">Cantidad</th>
+                                            <th class="min-w-140px" style="text-align: right">Precio</th>
+                                            <th class="min-w-140px" style="text-align: right">Total</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableDetallesCompra">
+                                        <tr>
+                                            <td colspan="5">
+                                                No data
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <!--end::Pos food-->
+                </div>
+                <!--end::Content-->
+                <!--begin::Sidebar-->
+                <div class="flex-row-auto w-xl-320px">
+                    <!--begin::Pos order-->
+                    <div class="card card-flush bg-body" id="kt_pos_form">
+                        <!--begin::Body-->
+                        <div class="card-body pt-0">
+                            <!--begin::Summary-->
+                            <div class="d-flex flex-stack bg-success rounded-3 p-3 mb-11">
+                                <!--begin::Content-->
+                                <div class="fs-6 fw-bold text-white">
+
+
+                                    <span class="d-block lh-1 mb-2">Subtotal</span>
+                                    <span class="d-block mb-2">IVA(13%)</span>
+                                    <span class="d-block mb-2">Percepción(1%)</span>
+                                    <span class="d-block fs-1">Total</span>
+                                </div>
+                                <!--end::Content-->
+                                <!--begin::Content-->
+                                <div class="fs-6 fw-bold text-white text-end p-3">
+                                    <span class="d-block lh-1 mb-2" id='subtotal'>$0.00</span>
+                                    <span class="d-block mb-2"id='iva'>$0.00</span>
+                                    <span class="d-block mb-2" id='percepcion'>$0.00</span>
+                                    <span class="badge badge-danger d-block fs-1 " id='totalCompra'>$0.00</span>
+                                </div>
+                                <!--end::Content-->
+                            </div>
+                            <!--end::Summary-->
+                            <!--begin::Payment Method-->
+                            <div class="m-0">
+                                <!--begin::Actions-->
+                                <button class="btn btn-primary fs-1 w-100 py-4" id="btnFinalizarCompra">Finalizar Compra</button>
+                                <!--end::Actions-->
+                            </div>
+                            <!--end::Payment Method-->
+                        </div>
+                        <!--end: Card Body-->
+                    </div>
+                    <!--end::Pos order-->
+                </div>
+                <!--end::Sidebar-->
+            </div>
+            <!--end::Layout-->
+
+
+
+
+
+        </div>
+
+    </div>
 @endsection
-@section('scripts')
-    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <script src=" {{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+<script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
+<script src="{{ asset('assets/js/app/compras.js') }}"></script>
 
+@section('scripts')
     <script>
         $(document).ready(function() {
 
-            $('#id_tipo_cuenta').on('change', function() {
-                let id_tipo_cuenta = $(this).val();
-                let url = '/intereses/getIntereses/' + id_tipo_cuenta;
-                $.ajax({
-                    url: url,
-                    method: 'GET',
-                    data: {
-                        opcion_seleccionada: id_tipo_cuenta
-                    },
-                    success: function(response) {
-                        $('#id_interes_tipo_cuenta').empty();
-                        $.each(response, function(index, interes) {
-                            $('#id_interes_tipo_cuenta').append($('<option>', {
-                                value: interes.id_intereses_tipo_cuenta,
-                                text: interes.interes
-                            }));
-                        });
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(error);
-                    }
-                });
-            });
         });
     </script>
+@endsection

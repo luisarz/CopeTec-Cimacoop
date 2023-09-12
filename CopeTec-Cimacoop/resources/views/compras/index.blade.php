@@ -64,12 +64,13 @@
                     <thead class="fw-bold">
                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-30px text-center">Acciones</th>
+                            <th class="min-w-100px ">Estado</th>
                             <th class="min-w-100px ">CCF</th>
                             <th class="min-w-180px">Proveedor</th>
                             <th class="min-w-50px">Fecha</th>
-                            <th class="min-w-50px">NRC</th>
                             <th class="min-w-50px">Neto</th>
                             <th class="min-w-50px">IVA</th>
+                            <th class="min-w-50px">Percepción</th>
                             <th class="min-w-50px">Total</th>
 
                         </tr>
@@ -78,19 +79,29 @@
                         @foreach ($compras as $compra)
                             <tr>
                                 <td>
-                                    <a href='/proveedores/edit/{{ $compra->id_compra }}' class="btn btn-sm btn-success">
+                                       
+                                    <a href='/compras/edit/{{ $compra->id_compra }}' class="btn btn-sm btn-success">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="alertDelete({{ $compra->id_compra }})"
+                                    <a href="javascript:void(0);" onclick="alertDelete('{{ $compra->id_compra }}')"
                                         class="btn btn-danger btn-sm"><i class="fa-solid fa-trash text-white"></i></a>
                                 </td>
 
+                                <td>
+                                    @if($compra->estado == '2')
+                                        <span class="badge badge-light-success">Procesada</span>
+                                    @else
+                                        <span class="badge badge-light-info">Pendiente</span>
+                                    @endif
+                                </td>
                                 <td>{{ $compra->numero_fcc }}</td>
+
                                 <td>{{ $compra->razon_social }}</td>
-                                <td>{{ $compra->nrc }}</td>
                                 <td>{{ $compra->fecha_compra }}</td>
                                 <td>${{ number_format($compra->neto,2) }}</td>
                                 <td>${{ number_format($compra->iva,2) }}</td>
+                                <td>${{ number_format($compra->percepcion,2) }}</td>
+
                                 <td>${{ number_format($compra->total,2) }}</td>
 
                             </tr>
@@ -138,7 +149,7 @@
             if (filtro == "") {
                 filtro = "all";
             }
-            window.open('/proveedores/reporte/' + filtro, '_blank');
+            window.open('/compras/reporte/' + filtro, '_blank');
         }
     </script>
 @endsection

@@ -16,45 +16,50 @@
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
     <div class="double-strikethrough">
         ASOCIACION COOPERATIVA DE AHORRO Y CREDITO LA CIMA - "CIMACOOP, DE R.L." <br>
-        PROVEEDORES
+        COMPRAS
     </div>
 
     <br>
 
-     <table class="table table-bordered fs-6 gy-1 gs-1">
-                    <thead class="fw-bold">
-                        <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                            <th>#</th>
-                            <th class="min-w-200px ">Proveedor</th>
-                            <th class="min-w-80px">DUI</th>
-                            <th class="min-w-80px">NRC</th>
-                            <th class="min-w-50px">NIT</th>
-                            <th class="min-w-250px">TELEFONO</th>
-                            <th class="min-w-50px">DECIMALES</th>
+    <table class="table  fs-6 gy-1 gs-1">
+        <thead class="fw-bold">
+            <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                <th class="min-w-100px ">Estado</th>
+                <th class="min-w-50px ">CCF</th>
+                <th class="min-w-250px">Proveedor</th>
+                <th class="min-w-50px">Fecha</th>
+                <th class="min-w-50px">Neto</th>
+                <th class="min-w-50px">IVA</th>
+                <th class="min-w-50px">Percepción</th>
+                <th class="min-w-50px">Total</th>
 
-                        </tr>
-                    </thead>
-                    <tbody class="fs-4">
-                        @foreach ($proveedores as $producto)
-                            <tr>
-                                <td>
-                                    {{ $loop->iteration }}
-                                </td>
+            </tr>
+        </thead>
+        <tbody class="fs-4">
+            @foreach ($compras as $compra)
+                <tr>
 
-                                <td>{{ $producto->razon_social }}</td>
-                                <td>{{ $producto->dui }}</td>
-                                <td>{{ $producto->nrc }}</td>
-                                <td>{{ $producto->nit }}</td>
-                                <td>{{ $producto->telefono }}</td>
-                                <td>{{ $producto->decimales }}</td>
+                    <td>
+                        @if ($compra->estado == '2')
+                            <span class="badge badge-light-success">Procesada</span>
+                        @else
+                            <span class="badge badge-light-danger">Pendiente</span>
+                        @endif
+                    </td>
+                    <td>{{ $compra->numero_fcc }}</td>
 
+                    <td>{{ $compra->razon_social }}</td>
+                    <td>{{ date('d-m-Y',strtotime($compra->fecha_compra)) }}</td>
+                    <td>${{ number_format($compra->neto, 2) }}</td>
+                    <td>${{ number_format($compra->iva, 2) }}</td>
+                    <td>${{ number_format($compra->percepcion, 2) }}</td>
 
+                    <td>${{ number_format($compra->total, 2) }}</td>
 
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
 
 </body>
