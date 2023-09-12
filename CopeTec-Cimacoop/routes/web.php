@@ -581,4 +581,5 @@ Route::middleware(['auth', 'bitacora'])->prefix('compras')->group(function () {
     Route::get('/detalles/{id_compra}', [ComprasController::class, 'getDetalles']);
     Route::post('/finalizar', [ComprasController::class, 'finalizar']);
     Route::get('/reporte/{filtro}', [ComprasController::class, 'reporte']);
+    Route::post('/percepcion', [ComprasController::class, 'percepcion']);
 });

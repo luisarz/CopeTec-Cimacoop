@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use \PDF;
+
 class ComprasController extends Controller
 {
     public function index(Request $request)
@@ -119,14 +120,15 @@ class ComprasController extends Controller
 
 
     }
-    public function deleteProduct($id){
-        $compraDetalle=CompraDetalles::where('id_detalle_compra','=',$id)->first();
-        $id_compra=$compraDetalle->id_compra;
-        $compra=ComprasModel::where('id_compra','=',$id_compra)->first();
-        $compra->neto=$compra->neto-$compraDetalle->subtotal;
-        $compra->iva=$compra->iva-$compraDetalle->iva;
-        $compra->percepcion=$compra->percepcion-$compraDetalle->percepcion;
-        $compra->total=$compra->total-$compraDetalle->total;
+    public function deleteProduct($id)
+    {
+        $compraDetalle = CompraDetalles::where('id_detalle_compra', '=', $id)->first();
+        $id_compra = $compraDetalle->id_compra;
+        $compra = ComprasModel::where('id_compra', '=', $id_compra)->first();
+        $compra->neto = $compra->neto - $compraDetalle->subtotal;
+        $compra->iva = $compra->iva - $compraDetalle->iva;
+        $compra->percepcion = $compra->percepcion - $compraDetalle->percepcion;
+        $compra->total = $compra->total - $compraDetalle->total;
         $compra->save();
         $compraDetalle->delete();
         return response()->json([
@@ -142,10 +144,10 @@ class ComprasController extends Controller
         $detalles = CompraDetalles::join('productos', 'compras_detalle.id_producto', '=', 'productos.id_producto')
             ->where('compras_detalle.id_compra', '=', $id_compra)->get();
 
-        $subtotal = number_format($detalles->sum('subtotal'),2);
-        $iva = number_format( $detalles->sum('iva'),2);
-        $percepcion = number_format( $detalles->sum('percepcion'),2);
-        $total = number_format( $detalles->sum('total'),2);
+        $subtotal = number_format($detalles->sum('subtotal'), 2);
+        $iva = number_format($detalles->sum('iva'), 2);
+        $percepcion = number_format($detalles->sum('percepcion'), 2);
+        $total = number_format($detalles->sum('total'), 2);
 
 
 
@@ -178,14 +180,14 @@ class ComprasController extends Controller
         $percepcion = $request->percepcion;
 
 
-        $compra = ComprasModel::where('id_compra', '=',$id_compra)->first();
+        $compra = ComprasModel::where('id_compra', '=', $id_compra)->first();
         $detalles = CompraDetalles::join('productos', 'compras_detalle.id_producto', '=', 'productos.id_producto')
             ->where('compras_detalle.id_compra', '=', $id_compra)->get();
 
-        $subtotal = number_format($detalles->sum('subtotal'), 2,'.', '');
-        $iva = number_format($detalles->sum('iva'), 2,'.', '');
-        $percepcion = number_format($detalles->sum('percepcion'), 2,'.', '');
-        $total = number_format($detalles->sum('total'), 2,'.', '');
+        $subtotal = number_format($detalles->sum('subtotal'), 2, '.', '');
+        $iva = number_format($detalles->sum('iva'), 2, '.', '');
+        $percepcion = number_format($detalles->sum('percepcion'), 2, '.', '');
+        $total = number_format($detalles->sum('total'), 2, '.', '');
 
         $compra->numero_fcc = $numero_fcc;
         $compra->id_proveedor = $id_proveedor;
@@ -198,7 +200,7 @@ class ComprasController extends Controller
         $compra->usuario = Session::get('id');
         $compra->estado = '2'; //Finalizado
         $compra->save();
-        
+
 
 
 
@@ -211,10 +213,7 @@ class ComprasController extends Controller
             'percepcion' => $percepcion,
             'total' => $total,
         ]);
-        $compra->estado = '2'; //Finalizado
-        $compra->save();
-        dd($compra);
-        // return redirect('compras/list');
+
     }
 
 
@@ -228,7 +227,7 @@ class ComprasController extends Controller
 
     public function reporte($filtro)
     {
-;
+        ;
         if ($filtro != 'all') {
             $compras = ComprasModel::join('proveedores', 'compras.id_proveedor', '=', 'proveedores.id_proveedor')
                 ->where('razon_social', 'like', '%' . $filtro . '%')
@@ -248,5 +247,66 @@ class ComprasController extends Controller
 
     }
 
+
+    public function percepcion(Request $request)
+    {
+        $id_compra = $request->id_compra;
+        $percepcion = $request->percepcion;
+
+        $detallesCompra = CompraDetalles::where('id_compra', '=', $id_compra)->get();
+        foreach ($detallesCompra as $detalle) {
+            if ($percepcion == 1) { //agregar Percepcion
+                $id_detalle_compra = $detalle->id_detalle_compra;
+                $ItemCompra = CompraDetalles::find($id_detalle_compra);
+                if($ItemCompra->percepcion == 0){
+                    $ItemCompra->percepcion = $ItemCompra->subtotal * 0.01;
+                    $ItemCompra->total = $ItemCompra->total + $ItemCompra->percepcion;
+                    $ItemCompra->save();
+                }
+
+            } else { //QuitarPercepcion
+                $id_detalle_compra = $detalle->id_detalle_compra;
+                $ItemCompra = CompraDetalles::find($id_detalle_compra);
+                if($ItemCompra->percepcion >0){
+                    $ItemCompra->total = $ItemCompra->total - $ItemCompra->percepcion;
+                    $ItemCompra->percepcion = 0;
+                    $ItemCompra->save();
+                }
+            }
+
+        }
+        $mensaje = "Percepcion Agregada correctamente";
+        if ($percepcion != 1) {
+            $mensaje = "Percepcion Quitada correctamente";
+        }
+
+        $compra = ComprasModel::where('id_compra', '=', $id_compra)->first();
+        $detalles = CompraDetalles::join('productos', 'compras_detalle.id_producto', '=', 'productos.id_producto')
+            ->where('compras_detalle.id_compra', '=', $id_compra)->get();
+
+        $subtotal = number_format($detalles->sum('subtotal'), 2, '.', '');
+        $iva = number_format($detalles->sum('iva'), 2, '.', '');
+        $percepcion = number_format($detalles->sum('percepcion'), 2, '.', '');
+        $total = number_format($detalles->sum('total'), 2, '.', '');
+
+        $compra->neto = $subtotal;
+        $compra->iva = $iva;
+        $compra->percepcion = $percepcion;
+        $compra->total = $total;
+        $compra->fecha_registro = now();
+        $compra->usuario = Session::get('id');
+        $compra->estado = '2'; //Finalizado
+        $compra->save();
+
+
+        return response()->json([
+            'status' => 'ok',
+            'message' => $mensaje,
+            'data' => $detallesCompra
+        ]);
+
+
+
+    }
 
 }

@@ -5,8 +5,27 @@ $(document).ready(function () {
 
 
     $("#chkPercepcion").on("change", function () {
-        let persepcion = (this.checked ? 1 : 0);
-        alert(persepcion);
+        let percepcion = ($("#chkPercepcion").prop('checked') ? 1 : 0);
+        let data = {
+            "id_compra": id_compra,
+            "percepcion": percepcion,
+            "_token": $("#token").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/compras/percepcion",
+            data: data, // No es necesario convertir a JSON.stringify
+            success: function (response) {
+                getDetallesCompra();
+            },
+            error: function (xhr, status, error) {
+                swal.close();
+                console.log(error);
+            },
+            dataType: "json" // Especifica el tipo de datos esperados en la respuesta
+        });
+
     });
 
 
