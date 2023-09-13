@@ -5,27 +5,27 @@
     Administracion de Usuarios
 @endsection
 @section('content')
-    <div class="card shadow-lg">
+    <div class="card shadow-lg mt-3">
         <div class="card-header ribbon ribbon-end ribbon-clip">
             <div class="card-toolbar">
                 <a href="/cajas/add" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar Caja</a>
 
             </div>
             <div class="ribbon-label fs-3">
-             <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
+                <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
                 Administración | {{ Session::get('name_module') }}
 
                 <span class="ribbon-inner bg-info"></span>
             </div>
         </div>
         <div class="card-body">
-               <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-2 gs-5">
+            <table class="table table-hover table-row-dashed fs-6     gy-2 gs-5">
                 <thead>
-                     <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                        <th >Acciones</th>
-                        <th ># Caja</th>
-                        <th >Saldo Disponible</th>
-                        <th >Cajero Asignado</th>
+                    <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
+                        <th>Acciones</th>
+                        <th># Caja</th>
+                        <th>Saldo Disponible</th>
+                        <th>Cajero Asignado</th>
                         <th>Estado</th>
                     </tr>
                 </thead>
@@ -33,19 +33,25 @@
                     @foreach ($cajas as $caja)
                         <tr>
                             <td>
+                                {{-- Caja Aperturada --}}
                                 @if ($caja->estado_caja == 1)
                                     <a href="javascript:void(0);" onclick="alertCajaAperturada()"
-                                        class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
-                                        Eliminar</a>
+                                        class="btn btn-sm btn-danger"><i class="fa-solid fa-trash text-white"></i></a>
                                     <a href="javascript:void(0);" onclick="alertCajaAperturada()"
-                                        class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp;
-                                        Modificar</a>
+                                        class="btn btn-sm btn-warning"><i class="fa-solid fa-pencil text-white"></i></a>
+
+                                    <a href="javascript:void(0);" onclick="alertCajaAperturada()"
+                                        class="btn btn-sm btn-info"><i class="ki-outline ki-rocket"></i>
+                                        Correlativos</a>
                                 @else
                                     <a href="javascript:void(0);" onclick="alertDelete({{ $caja->id_caja }})"
-                                        class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
-                                        Eliminar</a>
-                                    <a href="/cajas/{{ $caja->id_caja }}" class="badge badge-primary"><i
-                                            class="fa-solid fa-pencil text-white"></i> &nbsp; Modificar</a>
+                                        class="btn btn-sm btn-danger"><i class="fa-solid fa-trash text-white"></i></a>
+
+                                    <a href="/cajas/edit/{{ $caja->id_caja }}" class="btn btn-sm btn-info"><i
+                                            class="fa-solid fa-pencil text-white"></i></a>
+
+                                    <a href="/correlativos/caja/{{ $caja->id_caja }}/list" class="btn btn-sm btn-info"><i
+                                            class="ki-outline ki-rocket"></i>Correlativos</a>
                                 @endif
                             </td>
 

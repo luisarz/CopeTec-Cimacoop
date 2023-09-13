@@ -8,6 +8,7 @@ use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\CierreMensualController;
 use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\CorrelativosController;
 use App\Http\Controllers\DepositosPlazoController;
 use App\Http\Controllers\librosContableController;
 use App\Http\Controllers\LiquidacionController;
@@ -195,13 +196,26 @@ Route::get('cuentas/getcuenta/{id}', [CuentasController::class, 'getCuenta'])->m
 /*
 Cajas Route
  */
-Route::get('/cajas', [CajasController::class, 'index'])->middleware(['auth', 'bitacora']);
-Route::get('/cajas/add', [CajasController::class, 'add'])->middleware(['auth', 'bitacora']);
-Route::post('/cajas/add', [CajasController::class, 'post'])->middleware(['auth', 'bitacora']);
-Route::delete('/cajas/delete', [CajasController::class, 'delete'])->middleware(['auth', 'bitacora']);
-Route::get('/cajas/{id}', [CajasController::class, 'edit'])->middleware(['auth', 'bitacora']);
-Route::put('/cajas/put', [CajasController::class, 'put'])->middleware(['auth', 'bitacora']);
-Route::get('/cajas/buscar/{criterio}', [CajasController::class, 'buscar'])->middleware(['auth', 'bitacora']);
+Route::middleware(['auth', 'bitacora'])->prefix('cajas')->group(function () {
+    Route::get('/', [CajasController::class, 'index']);
+    Route::get('/add', [CajasController::class, 'add']);
+    Route::post('/add', [CajasController::class, 'post']);
+    Route::delete('/delete', [CajasController::class, 'delete']);
+    Route::get('/edit/{id}', [CajasController::class, 'edit']);
+    Route::put('/put', [CajasController::class, 'put']);
+    Route::get('/buscar/{criterio}', [CajasController::class, 'buscar']);
+});
+
+Route::middleware(['auth', 'bitacora'])->prefix('correlativos')->group(function () {
+    Route::get('/caja/{id}/list', [CorrelativosController::class, 'index']);
+    
+    Route::get('/caja/{id}/add', [CorrelativosController::class, 'add']);
+    Route::post('/caja/add', [CorrelativosController::class, 'post']);
+    Route::get('/caja/edit-correlativo/{id_correlativo}', [CorrelativosController::class, 'edit']);
+    Route::put('/caja/edit-correlativo/put', [CorrelativosController::class, 'put']);
+
+});
+
 
 
 /*
@@ -582,4 +596,8 @@ Route::middleware(['auth', 'bitacora'])->prefix('compras')->group(function () {
     Route::post('/finalizar', [ComprasController::class, 'finalizar']);
     Route::get('/reporte/{filtro}', [ComprasController::class, 'reporte']);
     Route::post('/percepcion', [ComprasController::class, 'percepcion']);
+});
+
+Route::middleware(['auth','bitacora'])->prefix('cartera')->group(function(){
+
 });
