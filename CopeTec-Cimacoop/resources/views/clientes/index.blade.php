@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
             <div class="table table-responsive">
-                <table class="data-table-coop table table-hover table-row-dashed fs-5     gy-2 gs-5">
+                <table class="data-table-coop-serve-side table table-hover table-row-dashed fs-5     gy-2 gs-5">
                     <thead>
                         <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-150px">Acciones</th>
@@ -40,34 +40,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($clientes as $cliente)
-                            <tr>
-                                <td><a href="javascript:void(0);" onclick="alertDelete({{ $cliente->id_cliente }})"
-                                        class="btn btn-sm btn-danger">
-                                        <i class="fa-solid fa-trash text-white"></i>
-                                    </a>
-                                    <a href="/clientes/{{ $cliente->id_cliente }}" class="btn btn-sm btn-info"><i
-                                            class="fa-solid fa-pencil text-white"></i>
-                                    </a>
-                                    <a href="/alerts/client/{{ $cliente->id_cliente }}" target="_blank"
-                                        class="btn btn-sm btn-success"><i class="fa-solid fa-print text-white"></i>
-                                    </a>
-                                </td>
-                                <td>{{ $cliente->nombre }}</td>
-                                <td>{{ $cliente->genero == '1' ? 'Masculino' : 'Femenino' }}</td>
-                                <td>{{ $cliente->dui_cliente }}</td>
-                                <td>{{ $cliente->direccion_personal }}</td>
-                                <td>{{ $cliente->telefono }}</td>
-
-                            </tr>
-                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="card-footer">
-
-            {{ $clientes->links('vendor.pagination.bootstrap-5') }}
         </div>
     </div>
 
@@ -82,6 +59,48 @@
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script>
+        $(function() {
+            let table = new DataTable('.data-table-coop-serve-side', {
+                "dom": 'frtip',
+                "searching": true,
+                "processing": true,
+                "serverSide": true,
+                "ajax": "{{ route('clientes.list') }}",
+                "language": {
+                    "search": "Buscar",
+                    "searchPlaceholder": "Escribe Aqui ...",
+                },
+                columns: [
+                    {
+                        data: 'action', 
+                        name: 'action', 
+                        orderable: true, 
+                        searchable: true
+                    },
+                    {
+                        data:'nombre',
+                        name:'nombre'
+                    },
+                    {
+                        data:'genero_row',
+                        name:'genero_row'
+                    },
+                    {
+                        data:'dui_cliente',
+                        name:'dui_cliente'
+                    },
+                    {
+                        data:'direccion_personal',
+                        name:'direccion_personal'
+                    },
+                    {
+                        data:'telefono',
+                        name:'telefono'
+                    }
+                ]
+            });
+        })
+
         function alertDelete(id) {
             Swal.fire({
                 text: "Deseas Eliminar este registro",

@@ -5,14 +5,41 @@ namespace App\Http\Controllers;
 use App\Models\Clientes;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-
+use DataTables;
 
 class ClientesController extends Controller
 {
     public function index()
     {
-        $clientes = Clientes::whereNotIn('estado', [0, 7])->paginate(10); // 1-Para los anulados 2-Para la Bobeda
-        return view("clientes.index", compact("clientes"));
+        return view("clientes.index");
+    }
+
+    public function getClientes(Request $request)
+    {
+        //dd(1);
+        if ($request->ajax()) {
+            $data = Clientes::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="javascript:void(0);" onclick="alertDelete('.$row->id_cliente.')"
+                    class="btn btn-sm btn-danger">
+                    <i class="fa-solid fa-trash text-white"></i>
+                </a>
+                <a href="/clientes/'.$row->id_cliente.'" class="btn btn-sm btn-info"><i
+                        class="fa-solid fa-pencil text-white"></i>
+                </a>
+                <a href="/alerts/client/'.$row->id_cliente.'" target="_blank"
+                    class="btn btn-sm btn-success"><i class="fa-solid fa-print text-white"></i>
+                </a>';
+                    return $actionBtn;
+                })
+                ->addColumn('genero_row', function($row){
+                    return $row->genero==1?"Masculino":"Femenino";
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     public function add()

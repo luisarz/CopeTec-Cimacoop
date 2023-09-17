@@ -123,6 +123,7 @@ Route::put('/empleados/put', [EmpleadoController::class, 'put'])->middleware(['a
 /*
 Clientes Route
  */
+Route::get('/clientes/list', [ClientesController::class, 'getClientes'])->middleware(['auth'])->name('clientes.list');
 Route::get('/clientes', [ClientesController::class, 'index'])->middleware(['auth', 'bitacora']);
 Route::get('/clientes/add', [ClientesController::class, 'add'])->middleware(['auth', 'bitacora']);
 Route::post('/clientes/add', [ClientesController::class, 'post'])->middleware(['auth', 'bitacora']);
