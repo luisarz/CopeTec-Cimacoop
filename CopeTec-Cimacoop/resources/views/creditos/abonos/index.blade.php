@@ -1,6 +1,6 @@
 @extends('base.base')
 @section('content')
-    <div class="card shadow-lg">
+    <div class="card shadow-lg mt-5">
         <div class="card-header ribbon ribbon-end ribbon-clip">
             <div class="d-flex align-items-center">
                 <form action="/creditos/abonos" method="post" autocomplete="off" class="d-flex align-items-center">
@@ -88,27 +88,28 @@
 
                                 <td>{{ $credito->codigo_credito }}</td>
                                 <td>{{ $credito->nombre }}</td>
-                                <td><span class="badge badge-info">{{ $credito->proxima_fecha_pago }}</span></td>
+                                <td><span class="badge badge-light-success">{{ date('d',strtotime($credito->fecha_desembolso)) }} / mes</span></td>
                                 <td>{{ $credito->plazo }}</td>
                                 <td>${{ number_format($credito->cuota, 2) }}</td>
                                 <td>
                                     ${{ $credito->saldo_capital <= 0 ? number_format(0, 2) : number_format($credito->saldo_capital, 2) }}
                                 </td>
                                 <td>${{ number_format($credito->monto_solicitado, 2) }}</td>
+                                  <td>
+                                    {{ date('d-m-Y',strtotime($credito->ultima_fecha_pago)) }}
+                                </td>
                                 <td>
                                     @php
                                         $diasMora = (strtotime(date('Y-m-d')) - strtotime($credito->ultima_fecha_pago)) / 86400;
                                     @endphp
                                     @if (($diasMora-30) > 0)
-                                        <span class="badge badge-danger">{{ $diasMora-30 }} Mora</span>
+                                        <span class="badge badge-light-danger">{{ $diasMora-30 }} Mora</span>
                                     @else
-                                        <span class="badge badge-success">Al día</span>
+                                        <span class="badge badge-light-success">En tiempo</span>
                                     @endif
 
                                 </td>
-                                <td>
-                                    {{ date('d-m-Y',strtotime($credito->ultima_fecha_pago)) }}
-                                </td>
+                              
                             </tr>
                         @endforeach
                     </tbody>

@@ -92,7 +92,7 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
       $proxima_fecha_pago = date("Y-m-d");
       $ultima_proxima_fecha_pago = $credito->ultima_fecha_pago;
 
-      $CUOTA = $credito->cuota;
+      $CUOTA = number_format($credito->cuota,2,'.','');
       $APORTACION = $credito->aportaciones;
       $SEGURO_DEUDA = $credito->seguro_deuda;
 
@@ -132,7 +132,7 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
          $MORA = ($CAPITAL_VENCIDO * $TASA_MORA * $DIAS_MORA) / 365;
       }
 
-      $TOTAL_PAGAR = $CAPITAL + $MORA + $APORTACION + $SEGURO_DEUDA + $INTERESES;
+      $TOTAL_PAGAR =  sprintf("%.2f", $CAPITAL + $MORA + $APORTACION + $SEGURO_DEUDA + $INTERESES);
 
       return view(
          'creditos.abonos.pago',
@@ -509,14 +509,32 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
 
          ->orderBy('creditos.fecha_desembolso')->get();
 
+      // $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+      //    ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+      //    ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+      //    ->whereNotIn('clientes.estado', [0, 7])
+      //    ->where('cuentas.estado', 1)
+      //    ->where('cuentas.saldo_cuenta','>', 5)
+      //    ->distinct()
+      //    ->orderby('cuentas.created_at', 'desc')
+      //    ->select('cuentas.*', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+      //    ->get();
       $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
          ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
          ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
          ->whereNotIn('clientes.estado', [0, 7])
          ->where('cuentas.estado', 1)
-         ->where('cuentas.saldo_cuenta','>', 5)
+         ->where(function ($query) {
+            $query->where(function ($subquery) {
+               $subquery->where('cuentas.saldo_cuenta', '>', 5)
+                  ->where('tipos_cuentas.descripcion_cuenta', '!=', 'Aportaciones');
+            })->orWhere(function ($subquery) {
+               $subquery->where('cuentas.saldo_cuenta', '>', 10)
+                  ->where('tipos_cuentas.descripcion_cuenta', 'Aportaciones');
+            });
+         })
          ->distinct()
-         ->orderby('cuentas.created_at', 'desc')
+         ->orderBy('cuentas.created_at', 'desc')
          ->select('cuentas.*', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
          ->get();
 
