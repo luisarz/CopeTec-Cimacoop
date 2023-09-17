@@ -21,6 +21,10 @@
 
     <br>
 
+    @php
+        $total = 0;
+        $totalAportaciones = 0;
+    @endphp
     <table class="table fs-6     gy-2 gs-5">
         <thead class="thead-dark">
             <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
@@ -38,7 +42,8 @@
                     <td>{{ $loop->iteration }}</td>
 
                     <td>
-                        <span class="badge badge-success fs-6">{{ str_pad($cuenta->numero_cuenta, 10, '0', STR_PAD_LEFT) }}</span>
+                        <span
+                            class="badge badge-success fs-6">{{ str_pad($cuenta->numero_cuenta, 10, '0', STR_PAD_LEFT) }}</span>
                     </td>
                     <td>{{ $cuenta->nombre_cliente }} ({{ $cuenta->dui_cliente }})</td>
                     <td>{{ date('d-m-Y', strtotime($cuenta->fecha_apertura)) }}</td>
@@ -51,14 +56,42 @@
                         {{ $cuenta->tipo_cuenta }}
                     </td>
 
-
+                    @if ($cuenta->tipo_cuenta == 'Aportaciones')
+                        @php
+                            $totalAportaciones += $cuenta->saldo_cuenta;
+                        @endphp
+                    @else
+                        @php
+                            $total += $cuenta->saldo_cuenta;
+                        @endphp
+                    @endif
 
                 </tr>
             @endforeach
         </tbody>
     </table>
+    <table>
+        <tr>
+            <td>
+                <div class="double-strikethrough">
+                    Total en cuentas de Ahorro: ${{ number_format($total, 2) }}
+                </div>
+            </td>
+            <td>
+                <div class="double-strikethrough">
+                    Total en cuentas Aportaciones: ${{ number_format($totalAportaciones, 2) }}
+                </div>
+            </td>
+                
+                <td>
+                    <div class="double-strikethrough">
+                        Total En Cuentas: ${{ number_format($totalAportaciones + $total, 2) }}
+                    </div>
+                </td>
+        </tr>
+    </table>
 
-
+  
 </body>
 
 </html>
