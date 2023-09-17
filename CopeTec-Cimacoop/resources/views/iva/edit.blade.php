@@ -10,46 +10,56 @@
             Cancelar
         </button>
     </a>
-    <span class="badge badge-info mx-2 fs-3">Nueva Compra
+    <span class="badge badge-info mx-2 fs-3">Modificar Compra
         <span class="badge badge-danger fs-2">
-            {{ $id_compra }}
+            {{ $compra->id_compra }}
         </span>
     </span>
 @endsection
 @section('content')
     <input type="hidden" id="token" value="{{ csrf_token() }}">
-    <input type="hidden" id="id_compra" value="{{ $id_compra }}">
+    <input type="hidden" id="id_compra" value="{{ $compra->id_compra }}">
 
     <div class="card shadow-lg mt-3">
         <div class="card-body">
             <div class="form-group row mb-2">
                 <div class="form-floating  col-lg-2">
-                    <input type="number" class="form-control input-lg" id="numero_fcc" name="numero_fcc">
+                    <input type="number" class="form-control input-lg" id="numero_fcc" name="numero_fcc"
+                        value="{{ $compra->numero_fcc }}">
                     <label class="required ">Comprobante:</label>
                 </div>
                 <div class="form-floating  col-lg-2">
                     <input type="date" class="form-control input-lg" id="fecha_compra" name="fecha_compra"
-                        value="{{ date('Y-d-m') }}">
+                        value="{{ $compra->fecha_compra }}">
                     <label class="required ">Fecha Compra:</label>
                 </div>
                 <div class="form-floating  col-lg-6">
                     <select class="form-select fs-4" name="id_proveedor" id="id_proveedor" data-control="select2">
                         <option value="">Seleccione una cuenta</option>
-                        @foreach ($proveedores as $producto)
-                            <option value="{{ $producto->id_proveedor }}">
-                                {{ $producto->razon_social }} ->
-                                {{ $producto->dui }}
-                            </option>
+                        @foreach ($proveedores as $proveedor)
+                            @if ($proveedor->id_proveedor == $compra->id_proveedor)
+                                <option value="{{ $proveedor->id_proveedor }}" selected>
+                                    {{ $proveedor->razon_social }} ->
+                                    {{ $proveedor->dui }}
+                                </option>
+                            @else
+                                <option value="{{ $proveedor->id_proveedor }}">
+                                    {{ $proveedor->razon_social }} ->
+                                    {{ $proveedor->dui }}
+                                </option>
+                            @endif
                         @endforeach
                     </select>
                     <label class="required ">Proveedor</label>
                 </div>
                 <div class=" col-lg-2">
                     <label class="form-check form-switch form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value="1" id="chkPercepcion" />
+                        <input class="form-check-input" type="checkbox" value="1" id="chkPercepcion"
+                            {{ $compra->percepcion > 0 ? 'checked' : '' }}>
                         <span class="form-check-label fw-semibold text-muted">
-                            Percepción
+                            Percepción 
                         </span>
+
                     </label>
                 </div>
             </div>
@@ -140,7 +150,7 @@
                 </div>
                 <!--end::Content-->
                 <!--begin::Sidebar-->
-                <div class="flex-row-auto w-xl-300px">
+                <div class="flex-row-auto w-xl-320px">
                     <!--begin::Pos order-->
                     <div class="card card-flush bg-body" id="kt_pos_form">
                         <!--begin::Body-->
@@ -154,15 +164,15 @@
                                     <span class="d-block lh-1 mb-2">Subtotal</span>
                                     <span class="d-block mb-2">IVA(13%)</span>
                                     <span class="d-block mb-2">Percepción(1%)</span>
-                                    <span class="d-block fs-2qx lh-1">Total</span>
+                                    <span class="d-block fs-1">Total</span>
                                 </div>
                                 <!--end::Content-->
                                 <!--begin::Content-->
-                                <div class="fs-6 fw-bold text-white text-end">
+                                <div class="fs-6 fw-bold text-white text-end p-3">
                                     <span class="d-block lh-1 mb-2" id='subtotal'>$0.00</span>
                                     <span class="d-block mb-2"id='iva'>$0.00</span>
                                     <span class="d-block mb-2" id='percepcion'>$0.00</span>
-                                    <span class="d-block fs-2qx lh-1" id='totalCompra'>$0.00</span>
+                                    <span class="badge badge-danger d-block fs-1 " id='totalCompra'>$0.00</span>
                                 </div>
                                 <!--end::Content-->
                             </div>
@@ -170,7 +180,7 @@
                             <!--begin::Payment Method-->
                             <div class="m-0">
                                 <!--begin::Actions-->
-                                <button class="btn btn-primary fs-1 w-100 py-4" id="btnFinalizarCompra" name="btnFinalizarCompra">Finalizar Compra</button>
+                                <button class="btn btn-primary fs-1 w-100 py-4" id="btnFinalizarCompra">Finalizar Compra</button>
                                 <!--end::Actions-->
                             </div>
                             <!--end::Payment Method-->

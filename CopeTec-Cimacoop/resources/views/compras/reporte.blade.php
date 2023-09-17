@@ -18,7 +18,6 @@
         ASOCIACION COOPERATIVA DE AHORRO Y CREDITO LA CIMA - "CIMACOOP, DE R.L." <br>
         COMPRAS
     </div>
-
     <br>
 
     <table class="table  fs-6 gy-1 gs-1">
@@ -32,13 +31,11 @@
                 <th class="min-w-50px">IVA</th>
                 <th class="min-w-50px">Percepción</th>
                 <th class="min-w-50px">Total</th>
-
             </tr>
         </thead>
         <tbody class="fs-4">
             @foreach ($compras as $compra)
                 <tr>
-
                     <td>
                         @if ($compra->estado == '2')
                             <span class="badge badge-light-success">Procesada</span>
@@ -47,21 +44,15 @@
                         @endif
                     </td>
                     <td>{{ $compra->numero_fcc }}</td>
-
                     <td>{{ $compra->razon_social }}</td>
                     <td>{{ date('d-m-Y',strtotime($compra->fecha_compra)) }}</td>
                     <td>${{ number_format($compra->neto, 2) }}</td>
                     <td>${{ number_format($compra->iva, 2) }}</td>
                     <td>${{ number_format($compra->percepcion, 2) }}</td>
-
                     <td>${{ number_format($compra->total, 2) }}</td>
-
                 </tr>
             @endforeach
         </tbody>
     </table>
-
-
 </body>
-
 </html>

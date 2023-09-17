@@ -19,9 +19,13 @@ class ComprasController extends Controller
         if (isset($filtro)) {
             $compras = ComprasModel::join('proveedores', 'compras.id_proveedor', '=', 'proveedores.id_proveedor')
                 ->where('razon_social', 'like', '%' . $filtro . '%')
-                ->orWhere('proveedores.dui', '=', $filtro)->paginate(10);
+                ->orWhere('proveedores.dui', '=', $filtro)
+                ->orderby('compras.fecha_compra', 'desc')
+                ->paginate(10);
         } else {
-            $compras = ComprasModel::join('proveedores', 'compras.id_proveedor', '=', 'proveedores.id_proveedor')->paginate(10);
+            $compras = ComprasModel::join('proveedores', 'compras.id_proveedor', '=', 'proveedores.id_proveedor')
+                ->orderby('compras.fecha_compra', 'desc')
+                ->paginate(10);
         }
 
         // dd($compras);
@@ -258,7 +262,7 @@ class ComprasController extends Controller
             if ($percepcion == 1) { //agregar Percepcion
                 $id_detalle_compra = $detalle->id_detalle_compra;
                 $ItemCompra = CompraDetalles::find($id_detalle_compra);
-                if($ItemCompra->percepcion == 0){
+                if ($ItemCompra->percepcion == 0) {
                     $ItemCompra->percepcion = $ItemCompra->subtotal * 0.01;
                     $ItemCompra->total = $ItemCompra->total + $ItemCompra->percepcion;
                     $ItemCompra->save();
@@ -267,7 +271,7 @@ class ComprasController extends Controller
             } else { //QuitarPercepcion
                 $id_detalle_compra = $detalle->id_detalle_compra;
                 $ItemCompra = CompraDetalles::find($id_detalle_compra);
-                if($ItemCompra->percepcion >0){
+                if ($ItemCompra->percepcion > 0) {
                     $ItemCompra->total = $ItemCompra->total - $ItemCompra->percepcion;
                     $ItemCompra->percepcion = 0;
                     $ItemCompra->save();

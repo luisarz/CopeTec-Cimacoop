@@ -10,6 +10,7 @@ use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\CorrelativosController;
 use App\Http\Controllers\DepositosPlazoController;
+use App\Http\Controllers\IvaController;
 use App\Http\Controllers\librosContableController;
 use App\Http\Controllers\LiquidacionController;
 use App\Http\Controllers\PartidaContableDetalleController;
@@ -600,4 +601,9 @@ Route::middleware(['auth', 'bitacora'])->prefix('compras')->group(function () {
 
 Route::middleware(['auth','bitacora'])->prefix('cartera')->group(function(){
 
+});
+
+Route::middleware(['auth', 'bitacora'])->prefix('iva')->group(function () {
+    Route::get('/compras', [IvaController::class, 'libroCompra']);
+    Route::post('/compras', [IvaController::class, 'libroCompra_rep']);
 });

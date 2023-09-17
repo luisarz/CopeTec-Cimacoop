@@ -97,7 +97,7 @@
                                 <td>{{ $compra->numero_fcc }}</td>
 
                                 <td>{{ $compra->razon_social }}</td>
-                                <td>{{ $compra->fecha_compra }}</td>
+                                <td>{{ date('d-m-Y',strtotime($compra->fecha_compra))  }}</td>
                                 <td>${{ number_format($compra->neto,2) }}</td>
                                 <td>${{ number_format($compra->iva,2) }}</td>
                                 <td>${{ number_format($compra->percepcion,2) }}</td>
