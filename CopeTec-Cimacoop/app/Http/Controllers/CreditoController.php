@@ -438,8 +438,8 @@ class CreditoController extends Controller
    public function cred_canc()
    {
 
-      $desde = \Carbon\Carbon::now()->format('Y-m-01');
-      $hasta = \Carbon\Carbon::now()->format('Y-m-d');
+      $desde = Carbon::now()->format('Y-m-01');
+      $hasta = Carbon::now()->format('Y-m-d');
       $creditos = Credito::whereBetween('updated_at', [$desde, $hasta])->where('saldo_capital', '=', 0)->get();
       return view('creditos.reportes.creditos_cancelados', compact('creditos', 'hasta', 'desde'));
    }
@@ -491,6 +491,69 @@ class CreditoController extends Controller
          'estilos' => $this->estilos,
          'stilosBundle' => $this->stilosBundle,
          'creditos' => $creditos
+
+      ]);
+
+      return $pdf->setOrientation('portrait')->inline();
+   }
+
+   public function cartera_activa()
+   {
+
+
+
+      $creditos = Credito::join('clientes','clientes.id_cliente','creditos.id_cliente')
+      ->where('creditos.estado', '=', 2)
+         ->where('creditos.saldo_capital', '>',0)
+
+         ->orderBy('creditos.fecha_desembolso')->get();
+
+      $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+         ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+         ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+         ->whereNotIn('clientes.estado', [0, 7])
+         ->where('cuentas.estado', 1)
+         ->where('cuentas.saldo_cuenta','>', 5)
+         ->distinct()
+         ->orderby('cuentas.created_at', 'desc')
+         ->select('cuentas.*', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+         ->get();
+
+      return view('reportes.cartera.index', compact('creditos', 'cuentas'));
+   }
+
+   public function cartera_activa_rep(){
+      $creditos = Credito::join('clientes', 'clientes.id_cliente', 'creditos.id_cliente')
+         ->where('creditos.estado', '=', 2)
+         ->where('creditos.saldo_capital', '>', 0)
+         ->orderBy('creditos.fecha_desembolso')->get();
+
+      $pdf = PDF::loadView("reportes.cartera.credito_rep", [
+         'estilos' => $this->estilos,
+         'stilosBundle' => $this->stilosBundle,
+         'creditos' => $creditos
+
+      ]);
+
+      return $pdf->setOrientation('portrait')->inline();
+   }
+
+   
+    public function cuenta_activa_rep(){
+      $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+         ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+         ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+         ->whereNotIn('clientes.estado', [0, 7])
+         ->where('cuentas.estado', 1)
+         ->where('cuentas.saldo_cuenta', '>', 5)
+         ->distinct()
+         ->orderby('cuentas.created_at', 'desc')
+         ->select('cuentas.*', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+         ->get();
+      $pdf = PDF::loadView("reportes.cartera.cuentas_rep", [
+         'estilos' => $this->estilos,
+         'stilosBundle' => $this->stilosBundle,
+         'cuentas' => $cuentas
 
       ]);
 

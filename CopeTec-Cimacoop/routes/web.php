@@ -557,6 +557,13 @@ Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
     // reportes cartera en mora
     Route::get('/cartera-mora', [CreditoController::class, 'cartera_mora']);
     Route::get('/cartera-mora-rep', [CreditoController::class, 'cartera_mora_rep']);
+    //Cartera activa
+    Route::get('/cartera', [CreditoController::class, 'cartera_activa']);
+    Route::post('/cartera', [CreditoController::class, 'cartera_activa']);
+    Route::get('/cartera-activa', [CreditoController::class, 'cartera_activa_rep']);
+    Route::get('/cuentas-activa', [CreditoController::class, 'cuenta_activa_rep']);
+
+
 });
 
 Route::middleware(['auth', 'bitacora'])->prefix('proveedores')->group(function () {
