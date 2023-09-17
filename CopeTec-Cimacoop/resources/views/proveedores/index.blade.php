@@ -16,7 +16,7 @@
     <div class="card shadow-lg mt-3">
         <div class="card-header ribbon ribbon-end ribbon-clip">
             <div class="card-toolbar">
-   <a href="/proveedores/add" class="btn btn-success me-5 btn-sm fs-3">
+                <a href="/proveedores/add" class="btn btn-success me-5 btn-sm fs-3">
                     <i class="ki-outline ki-plus fs-2x "></i>
                     Nuevo
                 </a>
@@ -32,8 +32,9 @@
                         <div class="position-relative w-md-450px me-md-2">
                             <i
                                 class="ki-outline ki-magnifier fs-3 text-gray-500 position-absolute top-50 translate-middle ms-6"></i>
-                            <input type="text" class="form-control form-control-lg form-control-solid ps-10" name="filtro"
-                                id="filtro" value="{{ $filtro }}" placeholder="Nombre ó código de barra">
+                            <input type="text" class="form-control form-control-lg form-control-solid ps-10"
+                                name="filtro" id="filtro" value="{{ $filtro }}"
+                                placeholder="Nombre ó código de barra">
                         </div>
 
                         <div class="d-flex align-items-center">
@@ -43,7 +44,7 @@
                     </form>
 
                 </div>
-               
+
 
             </div>
 
@@ -72,14 +73,16 @@
                         @foreach ($proveedores as $producto)
                             <tr>
                                 <td>
-                                    <a href='/proveedores/edit/{{ $producto->id_proveedor }}' class="btn btn-sm btn-success">
+                                    <a href='/proveedores/edit/{{ $producto->id_proveedor }}'
+                                        class="btn btn-sm btn-success">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                   <a href="javascript:void(0);" onclick="alertDelete({{ $producto->id_proveedor }})"
-                                    class="btn btn-danger btn-sm"><i class="fa-solid fa-trash text-white"></i></a>
+                                    <a href="javascript:void(0);" onclick="alertDelete({{ $producto->id_proveedor }})"
+                                        class="btn btn-danger btn-sm"><i class="fa-solid fa-trash text-white"></i></a>
                                 </td>
 
-                                <td>{{ $producto->razon_social }}</td>
+                                <td>{{ Str::limit($producto->razon_social, 30) }}</td>
+
                                 <td>{{ $producto->dui }}</td>
                                 <td>{{ $producto->nrc }}</td>
                                 <td>{{ $producto->nit }}</td>
@@ -109,7 +112,7 @@
 
 @section('scripts')
     <script>
-      function alertDelete(id) {
+        function alertDelete(id) {
             Swal.fire({
                 text: "Deseas Eliminar este registro",
                 icon: "question",
@@ -129,12 +132,12 @@
             });
         }
 
-        function generarReporte(){
-            let filtro =$("#filtro").val();
-            if(filtro == ""){
+        function generarReporte() {
+            let filtro = $("#filtro").val();
+            if (filtro == "") {
                 filtro = "all";
             }
-            window.open('/proveedores/reporte/'+filtro, '_blank');
+            window.open('/proveedores/reporte/' + filtro, '_blank');
         }
     </script>
 @endsection

@@ -126,7 +126,7 @@
 
         <tbody class="fs-4">
             <tr class="fs-6 fw-bold">
-                <td colspan="4" style="width: 525px;">TOTALES</td>
+                <td colspan="4" style="width: 525px; text-align:center;">TOTALES</td>
                 <td style="text-align: right; width: 50px;">${{ number_format(0, 2) }}</td>
                 <td style="text-align: right; width: 60px; ">${{ number_format(0, 2) }}</td>
                 <td style="text-align: right; width:80px !important; ">${{ number_format($neto, 2) }}</td>
