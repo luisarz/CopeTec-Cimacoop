@@ -559,9 +559,9 @@ Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
     Route::get('/cartera-mora-rep', [CreditoController::class, 'cartera_mora_rep']);
     //Cartera activa
     Route::get('/cartera', [CreditoController::class, 'cartera_activa']);
-    Route::post('/cartera', [CreditoController::class, 'cartera_activa']);
     Route::get('/cartera-activa', [CreditoController::class, 'cartera_activa_rep']);
     Route::get('/cuentas-activa', [CreditoController::class, 'cuenta_activa_rep']);
+    //Ingresos
 
 
 });
@@ -606,9 +606,6 @@ Route::middleware(['auth', 'bitacora'])->prefix('compras')->group(function () {
     Route::post('/percepcion', [ComprasController::class, 'percepcion']);
 });
 
-Route::middleware(['auth','bitacora'])->prefix('cartera')->group(function(){
-
-});
 
 Route::middleware(['auth', 'bitacora'])->prefix('iva')->group(function () {
     Route::get('/compras', [IvaController::class, 'libroCompra']);

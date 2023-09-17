@@ -50,7 +50,7 @@
             @endif
 
             <div class="table-responsive">
-                <table class="table table-hover data-table-coop table-row-dashed fs-5     gy-2 gs-5">
+                <table class="table table-hover  table-row-dashed fs-5     gy-2 gs-5">
                     <thead>
                         <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-150"></th>
@@ -62,6 +62,9 @@
                             <th class="min-w-30px">Cuota</th>
                             <th class="min-w-30px">Saldo</th>
                             <th class="min-w-30px">Prestamo</th>
+                            <th class="min-w-30px">Ultimo Pago</th>
+
+                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,6 +95,20 @@
                                     ${{ $credito->saldo_capital <= 0 ? number_format(0, 2) : number_format($credito->saldo_capital, 2) }}
                                 </td>
                                 <td>${{ number_format($credito->monto_solicitado, 2) }}</td>
+                                <td>
+                                    @php
+                                        $diasMora = (strtotime(date('Y-m-d')) - strtotime($credito->ultima_fecha_pago)) / 86400;
+                                    @endphp
+                                    @if (($diasMora-30) > 0)
+                                        <span class="badge badge-danger">{{ $diasMora-30 }} Mora</span>
+                                    @else
+                                        <span class="badge badge-success">Al día</span>
+                                    @endif
+
+                                </td>
+                                <td>
+                                    {{ date('d-m-Y',strtotime($credito->ultima_fecha_pago)) }}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

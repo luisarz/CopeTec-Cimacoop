@@ -34,6 +34,7 @@ class CreditoController extends Controller
    }
    function index(Request $request)
    {
+      session()->put("estadoMenuminimizado", "1");
       $creditosQuery = Credito::join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
          ->where('creditos.estado', 2);
       if (isset($request->codigo_credito)) {
@@ -42,7 +43,7 @@ class CreditoController extends Controller
       if (isset($request->nombre_cliente)) {
          $creditosQuery->where('clientes.nombre', 'LIKE', '%' . $request->nombre_cliente . '%');
       }
-
+$creditosQuery->where('creditos.saldo_capital','>',0);
       $creditos = $creditosQuery->paginate(10);
 
       return view('creditos.abonos.index', compact('creditos'));
@@ -484,7 +485,7 @@ class CreditoController extends Controller
       $configuracion = Configuracion::first();
       $days = $configuracion->dias_gracia + 30;
 
-      $creditos = Credito::whereRaw("DATEDIFF('".Carbon::now()->format('Y-m-d')."', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital<>0")->get();
+      $creditos = Credito::whereRaw("DATEDIFF('".Carbon::now()->format('Y-m-d')."', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital>0")->get();
 
       // return view('creditos.reportes.cartera_mora', compact('creditos'));
       $pdf = PDF::loadView("creditos.reportes.cartera_mora_rep", [
