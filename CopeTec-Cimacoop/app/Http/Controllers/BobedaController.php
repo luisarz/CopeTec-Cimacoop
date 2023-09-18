@@ -51,23 +51,23 @@ class BobedaController extends Controller
     public function transferir($id)
     {
         $bobeda = Bobeda::findOrFail($id);
-        $cajas = Cajas::where('id_caja', '!=', 0)->get();
+        $cajas = Cajas::where('numero_caja', '!=', '0')->get();
         $id_empleado = session('id_empleado_usuario');
-        $empleados = Empleados::where('id_empleado', '=', '$id_empleado')->get();
+        $empleados = Empleados::where('id_empleado', '=', $id_empleado)->get();
         return view("boveda.transferir", compact("bobeda", "cajas", 'empleados'));
     }
     public function aperturarBobeda($id)
     {
         $bobeda = Bobeda::find($id);
         $id_empleado = session('id_empleado_usuario');
-        $empleados= Empleados::where('id_empleado','=','$id_empleado')->get();
+        $empleados= Empleados::where('id_empleado','=',$id_empleado)->get();
         return view("boveda.aperturar", compact("bobeda",'empleados'));
     }
   public function cerrarBobeda($id)
     {
         $bobeda = Bobeda::find($id);
         $id_empleado = session('id_empleado_usuario');
-        $empleados= Empleados::where('id_empleado','=','$id_empleado')->get();
+        $empleados= Empleados::where('id_empleado','=',$id_empleado)->get();
         return view("boveda.cerrar", compact("bobeda",'empleados'));
     }
     public function realizarCierreBobeda(Request $requet)

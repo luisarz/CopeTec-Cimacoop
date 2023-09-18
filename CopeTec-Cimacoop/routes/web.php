@@ -565,6 +565,7 @@ Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
     //Ingresos
     Route::get('/ingresos', [MovimientosController::class, 'ingresos']);
     Route::post('/ingresos', [MovimientosController::class, 'ingresos']);
+    Route::get('/ingresos/{desde}/{hasta}', [MovimientosController::class, 'ingresos_rep']);
 
 
 

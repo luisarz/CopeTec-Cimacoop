@@ -86,6 +86,12 @@ class DepositosPlazoController extends Controller
     {
         // dd($request->all());
 
+        //Obtener los datos del asociado y cliente
+        $asociado = Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->where('asociados.id_asociado', '=', $request->id_asociado)->first();
+
+
+// dd($asociado);
 
         $deposito = new DepositosPlazo();
         $deposito->numero_certificado = $request->numero_certificado;
@@ -119,24 +125,30 @@ class DepositosPlazoController extends Controller
         $movimiento = new Movimientos();
         $movimiento->id_cuenta = 0;// $request->id_cuenta_depositar;
         $movimiento->tipo_operacion = 10;
-        $movimiento->monto = $request->monto_total;
+        // $movimiento->monto = $request->monto_total; --Monto Total
+        $movimiento->monto = $request->monto_deposito; //Monto  real depositado QUitando Comisiones y aportaciones
+
         $movimiento->fecha_operacion = now();
         $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
         $movimiento->id_caja = $request->id_caja;
         $movimiento->observacion = 'DEPOSITO A PLAZO FIJO # ' . $request->numero_certificado;
+        $movimiento->dui_transaccion =$asociado->dui_cliente; //Obtener los datos del cliente
+        $movimiento->cliente_transaccion= $asociado->nombre;
         $movimiento->estado = 1;
         $movimiento->save();
 
         //registrar el movimiento de aportacion
-        if ($request->id_cuenta_aportacion) {
+        if ($request->id_cuenta_depositar_aportaciones) {
             $movimiento = new Movimientos();
-            $movimiento->id_cuenta = $request->id_cuenta_aportacion;
+            $movimiento->id_cuenta = $request->id_cuenta_depositar_aportaciones;
             $movimiento->tipo_operacion = 1;
             $movimiento->monto = $request->monto_aportacion_cuenta;
             $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
             $movimiento->id_caja = $request->id_caja;
             $movimiento->fecha_operacion = now();
-            $movimiento->observacion = 'APORTACION A CUENTA DE AHORRO';
+            $movimiento->dui_transaccion = $asociado->dui_cliente; //Obtener los datos del cliente
+            $movimiento->cliente_transaccion = $asociado->nombre;
+            $movimiento->observacion = 'Deposito A CUENTA DE Aportaciones';
             $movimiento->estado = 1;
 
             $movimiento->save();
@@ -225,7 +237,7 @@ class DepositosPlazoController extends Controller
             }
             $detallePartida->cargos = $item['debe'];
             $detallePartida->abonos = $item['haber'];
-            $detallePartida->estado = 0; //Pendiente de procesar la partida
+            $detallePartida->estado = 1; // 0- Pendiente de procesar la partida 1-partida Procesada
             $detallePartida->save();
         }
 

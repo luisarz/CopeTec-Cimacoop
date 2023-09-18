@@ -498,7 +498,6 @@ class ReportesController extends Controller
 
 
 
-        $pdf = \App::make('snappy.pdf');
         $pdf = PDF::loadView('reportes.contabilidad.catalogo.catalogo', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,

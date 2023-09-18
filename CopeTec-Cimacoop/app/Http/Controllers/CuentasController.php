@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Asociados;
 use App\Models\Cuentas;
+use App\Models\Movimientos;
 use App\Models\TipoCuenta;
 use Illuminate\Http\Request;
 
@@ -68,6 +69,28 @@ class CuentasController extends Controller
             $cuenta->id_interes = $request->id_interes_tipo_cuenta;
             $cuenta->estado = 1;
             $cuenta->save();
+
+
+            $asociado = Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+                ->where('asociados.id_asociado', '=', $request->id_asociado)->first();
+
+
+            $movimiento = new Movimientos();
+            $movimiento->id_cuenta = $cuenta->id_cuenta;
+            $movimiento->tipo_operacion = 1; //Deposito por apertura de cuenta
+            $movimiento->monto = $request->monto_apertura;
+            $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
+            $movimiento->id_caja = $request->id_caja;
+            $movimiento->fecha_operacion = now();
+            $movimiento->dui_transaccion = $asociado->dui_cliente; //Obtener los datos del cliente
+            $movimiento->cliente_transaccion = $asociado->nombre;
+            $movimiento->observacion = 'Deposito por apertura de cuenta';
+            $movimiento->estado = 1;
+            $movimiento->save();
+
+
+            //
+
             return redirect("/cuentas");
         }
 

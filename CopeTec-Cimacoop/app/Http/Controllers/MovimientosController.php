@@ -6,7 +6,6 @@ use App\Models\Asociados;
 use App\Models\BobedaMovimientos;
 use App\Models\Cajas;
 use App\Models\Catalogo;
-use App\Models\Clientes;
 use App\Models\Configuracion;
 use App\Models\Cuentas;
 use App\Models\Empleados;
@@ -16,9 +15,19 @@ use App\Models\PartidaContableDetalleModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use PDF;
 
 class MovimientosController extends Controller
 {
+    private $estilos;
+    private $stilosBundle;
+
+    public function __construct()
+    {
+        $this->estilos = file_get_contents(public_path('assets/css/css.css'));
+        $this->stilosBundle = file_get_contents(public_path('assets/css/style.bundle.css'));
+
+    }
 
     public function index()
     {
@@ -518,11 +527,32 @@ class MovimientosController extends Controller
             ->whereIn('movimientos.tipo_operacion', [1, 7, 9, 10]) // Corregido aquí
             ->whereRaw("DATE(movimientos.fecha_operacion) BETWEEN ? AND ?", [$desde, $hasta])
             ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
-            ->orderBy('movimientos.id_movimiento', 'desc') // Corregido aquí
+            ->orderBy('movimientos.fecha_operacion', 'desc') // Corregido aquí
             ->paginate(10);
        
             return view("reportes.ingresos.index", compact('movimientos','hasta', 'desde'));
 
 
+    }
+
+    public function ingresos_rep($desde, $hasta){
+
+
+        $movimientos = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
+            ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->whereIn('movimientos.tipo_operacion', [1, 7, 9, 10]) // Corregido aquí
+            ->whereRaw("DATE(movimientos.fecha_operacion) BETWEEN ? AND ?", [$desde, $hasta])
+            ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
+            ->orderBy('movimientos.fecha_operacion', 'asc') // Corregido aquí
+            ->get();
+
+        $pdf = PDF::loadView('reportes.ingresos.ingresos_rep', [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'movimientos' => $movimientos,
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
     }
 }

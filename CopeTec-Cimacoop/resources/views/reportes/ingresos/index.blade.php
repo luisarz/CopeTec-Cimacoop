@@ -39,7 +39,7 @@
                                 </button>
                             </div>
                             <div class="form-floating col-lg-2">
-                                <a href="javascript:generarReporte()" class="btn btn-primary my-1"> Imprimir</a>
+                                <a href="javascript:generarReporte()" class="btn btn-primary my-1">Reporte</a>
                             </div>
                         </div>
                     </div>
@@ -165,4 +165,24 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        function generarReporte() {
+         
+            let desde =$("#desde").val();
+            let hasta =$("#hasta").val();
+            if(desde=='' || hasta==''){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Debe seleccionar un rango de fechas',
+                })
+                return false;
+            }
+            window.open('/reportes/ingresos/'+desde+'/'+hasta, '_blank');
+        }
+
+    </script>
 @endsection
