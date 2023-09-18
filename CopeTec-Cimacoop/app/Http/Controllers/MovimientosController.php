@@ -14,6 +14,7 @@ use App\Models\Movimientos;
 use App\Models\PartidaContable;
 use App\Models\PartidaContableDetalleModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class MovimientosController extends Controller
@@ -499,6 +500,28 @@ class MovimientosController extends Controller
 
         }
 
+
+
+    }
+
+    public function ingresos(Request $request){
+        $desde = $request->desde;
+        $hasta = $request->hasta;
+        if(!isset($desde,$hasta)){
+            $desde = Carbon::now()->format('Y-m-01');
+            $hasta = Carbon::now()->format('Y-m-d');
+        }
+        $movimientos = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
+            ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->whereIn('movimientos.tipo_operacion', [1, 7, 9, 10]) // Corregido aquí
+            ->whereRaw("DATE(movimientos.fecha_operacion) BETWEEN ? AND ?", [$desde, $hasta])
+            ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
+            ->orderBy('movimientos.id_movimiento', 'desc') // Corregido aquí
+            ->paginate(10);
+       
+            return view("reportes.ingresos.index", compact('movimientos','hasta', 'desde'));
 
 
     }

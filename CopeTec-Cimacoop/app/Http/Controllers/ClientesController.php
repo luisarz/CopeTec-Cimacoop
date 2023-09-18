@@ -16,10 +16,9 @@ class ClientesController extends Controller
 
     public function getClientes(Request $request)
     {
-        //dd(1);
         if ($request->ajax()) {
             $data = Clientes::latest()->get();
-            return Datatables::of($data)
+            return \Yajra\DataTables\DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="javascript:void(0);" onclick="alertDelete('.$row->id_cliente.')"
@@ -37,6 +36,7 @@ class ClientesController extends Controller
                 ->addColumn('genero_row', function($row){
                     return $row->genero==1?"Masculino":"Femenino";
                 })
+                
                 ->rawColumns(['action'])
                 ->make(true);
         }

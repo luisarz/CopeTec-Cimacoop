@@ -31,7 +31,7 @@
                 <table class="data-table-coop-serve-side table table-hover table-row-dashed fs-5     gy-2 gs-5">
                     <thead>
                         <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                            <th class="min-w-150px">Acciones</th>
+                            <th class="min-w-200px">Acciones</th>
                             <th class="min-w-200px">Nombre</th>
                             <th class="min-w-90px">Género</th>
                             <th class="min-w-90px">DUI</th>
@@ -61,7 +61,21 @@
     <script>
         $(function() {
             let table = new DataTable('.data-table-coop-serve-side', {
-                "dom": 'frtip',
+                // "dom": 'frtip',
+                select: true,
+                "dom": "<'row'" +
+                    "<'col-sm-6 d-flex align-items-center text-info input-solid justify-conten-start'f>" +
+                    "<'col-sm-6 d-flex align-items-center justify-content-end'lB>" +
+
+
+                    ">" +
+
+                    "<'table-responsive'tr>" +
+
+                    "<'row'" +
+                    "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
+                    "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
+                    ">",
                 "searching": true,
                 "processing": true,
                 "serverSide": true,
@@ -70,32 +84,60 @@
                     "search": "Buscar",
                     "searchPlaceholder": "Escribe Aqui ...",
                 },
-                columns: [
+                lengthMenu: [
+                    [5, 10, 25, 50, -1],
+                    ['5 registros', '10 registros', '25 registros', '50 registros', 'Todos']
+                ],
+                buttons: [{
+                        extend: 'csv',
+                        className: 'btn btn-info',
+                        columns: [1, 2, 3, 4, 5],
+
+                    },
                     {
-                        data: 'action', 
-                        name: 'action', 
-                        orderable: true, 
+                        extend: 'excel',
+                        className: 'btn btn-info',
+                        columns: [1, 2, 3, 4, 5],
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn btn-info',
+                        columns: [1, 2, 3, 4, 5],
+
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-info',
+                        columns: [1, 2, 3, 4, 5],
+
+                    }
+                ],
+
+                columns: [{
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
                         searchable: true
                     },
                     {
-                        data:'nombre',
-                        name:'nombre'
+                        data: 'nombre',
+                        name: 'nombre'
                     },
                     {
-                        data:'genero_row',
-                        name:'genero_row'
+                        data: 'genero_row',
+                        name: 'genero_row'
                     },
                     {
-                        data:'dui_cliente',
-                        name:'dui_cliente'
+                        data: 'dui_cliente',
+                        name: 'dui_cliente'
                     },
                     {
-                        data:'direccion_personal',
-                        name:'direccion_personal'
+                        data: 'direccion_personal',
+                        name: 'direccion_personal'
                     },
                     {
-                        data:'telefono',
-                        name:'telefono'
+                        data: 'telefono',
+                        name: 'telefono'
                     }
                 ]
             });

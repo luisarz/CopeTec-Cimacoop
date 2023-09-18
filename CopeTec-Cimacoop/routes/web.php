@@ -563,6 +563,9 @@ Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
     Route::get('/cartera-activa', [CreditoController::class, 'cartera_activa_rep']);
     Route::get('/cuentas-activa', [CreditoController::class, 'cuenta_activa_rep']);
     //Ingresos
+    Route::get('/ingresos', [MovimientosController::class, 'ingresos']);
+    Route::post('/ingresos', [MovimientosController::class, 'ingresos']);
+
 
 
 });
