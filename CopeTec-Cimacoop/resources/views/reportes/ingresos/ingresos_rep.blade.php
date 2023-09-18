@@ -16,7 +16,7 @@
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
     <div class="double-strikethrough">
         ASOCIACION COOPERATIVA DE AHORRO Y CREDITO LA CIMA - "CIMACOOP, DE R.L." <br>
-      Ingresos del {{ date('d-m-Y',strtotime($desde)) }} al {{ date('d-m-Y',strtotime($hasta)) }}
+      REPORTE DE INGRESOS DEL <span class="badge badge-success"> <b> {{ date('d-m-Y h:i A',strtotime($desde)) }} </b><span> AL {{ date('d-m-Y h:i A',strtotime($hasta)) }}
     </div>
 
     <br>
@@ -35,7 +35,7 @@
             </div>
               <div class="item" style="width: 19%; height:10%">
                 <div class="price"  style="text-align: right">${{ number_format($sumaAbonoCredito, 2, '.', ',') }}</div>
-                <div class="description">Abonos Creditos</div>
+                <div class="description">Abonos Créditos</div>
             </div>
               <div class="item" style="width: 20%; height:10%">
                 <div class="price"  style="text-align: right">${{ number_format($sumaDepositoAportaciones, 2, '.', ',') }}</div>
@@ -121,7 +121,7 @@
                         DUI:{{ $movimiento->dui_transaccion }}
 
                     </td>
-                    <td>{{ $movimiento->fecha_operacion }}</td>
+                    <td>{{ date('m-d-Y h:i a',strtotime($movimiento->fecha_operacion )) }}</td>
                 </tr>
             @endforeach
         </tbody>
