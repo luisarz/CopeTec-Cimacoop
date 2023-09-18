@@ -10,6 +10,7 @@ use App\Models\PartidaContable;
 use App\Models\PartidasContablesDetalles;
 use App\Models\PartidasContablesModel;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use \PDF;
@@ -288,17 +289,19 @@ class ReporteContabilidad extends Controller
     public function balancecomprobacionRep(Request $request)
     {
 
-        LibroMayorModel::truncate();
-        // dd($request->hasta);
         $fechaDesde = $request->desde;
         $fechaHasta = $request->hasta;
         $encabezado = $request->encabezado;
 
-        $cuentasPadres = Catalogo::whereRaw('LENGTH(numero) = 4')->select('id_cuenta', 'id_cuenta_padre', 'numero', 'descripcion', 'saldo')
-            ->get();
 
+        $vista = ($request->tipo_reporte == 1) ? "contabilidad.reportes.libroauxiliar-detallado" : "contabilidad.reportes.libroauxiliar-consolidado";
+
+
+
+        $fech = $this->mesesEnLetras;
+        $fech = $fech[date('n', strtotime($fechaDesde))];
         $mesCierre = date('n', strtotime($fechaDesde));
-        $anioCierre = date('Y', strtotime($fechaHasta));
+        $anioCierre = date('Y', strtotime($fechaDesde));
 
         if ($mesCierre == 1) {
             $mesCierreAnterior = 12;
@@ -306,30 +309,111 @@ class ReporteContabilidad extends Controller
         } else {
             $mesCierreAnterior = $mesCierre - 1;
         }
-        $saldoAnterior = 0;
-        $cuentasConMovimientos = [];
 
-        foreach ($cuentasPadres as $cuentaPadre) {
-            // Obtén los datos de la cuenta padre
-            $cuentaPadreArray = $cuentaPadre->toArray();
 
-            // Llama a la función con el ID de la cuenta padre deseada y las fechas deseadas
-            $codigo_agrupador = $cuentaPadre->numero;
-            $cuentasConMovimientos[] = array_merge(
-                $cuentaPadreArray, // Agrega los datos de la cuenta padre
-                $this->sumarMovimientosPorCodigoAgrupadorYFecha($codigo_agrupador, $fechaDesde, $fechaHasta)
-            );
+        $data = [];
+        $catalogo = Catalogo::all();
+        $accs = new Collection();
+        foreach ($catalogo as $cuenta) {
+
+            $idCuenta = $cuenta->id_cuenta;
+
+            $operacionesRealizadas = PartidasContablesDetalles::whereRaw('fecha_partida BETWEEN ? AND ?', [$fechaDesde, $fechaHasta])
+                ->where('id_cuenta', '=', $idCuenta)
+                ->get();
+
+
+            $totalCargos = $operacionesRealizadas->sum('cargos');
+            $totalAbonos = $operacionesRealizadas->sum('abonos');
+
+            $cierreAnterior = CierreMensualModel::where('year', '=', $anioCierre)
+                ->where('mes', '=', '$mesCierreAnterior')
+                ->where('estado', 1)->first();
+
+            $saldoAnterior = 0;
+
+            if ($cierreAnterior) {
+                // Buscar el saldo del cierre anterior
+                $idCierreAnterior = $cierreAnterior->id;
+                $cierreAnteriorCuenta = CierreMensualPartidaModel::where('cierre_mensual_id', $idCierreAnterior)
+                    ->where('id_cuenta', '=', $idCuenta)->first();
+
+                if ($cierreAnteriorCuenta) {
+                    $saldoAnterior = $cierreAnteriorCuenta->saldo_cierre;
+                }
+            }
+
+            $nuevoSaldo = ($saldoAnterior + $totalCargos) - $totalAbonos;
+
+            // Actualizar el saldo de la cuenta en el catálogo
+            $cuenta->saldo = $nuevoSaldo;
+            $cuenta->operaciones = $operacionesRealizadas; // Agregar los detalles de las operaciones a la cuenta
+            if (count($cuenta->operaciones) > 0) {
+                $accs->push([
+                    'id' => $cuenta->id_cuenta,
+                    'numero_cuenta' => $cuenta->numero,
+                    'descripcion' => $cuenta->descripcion,
+                    'cuenta' => $cuenta->descripcion,
+                    'saldo_anterior' => $saldoAnterior,
+                    'cargos' => $totalCargos,
+                    'abonos' => $totalAbonos,
+                    'saldo' => $cuenta->saldo,
+                ]);
+                $data[] = [
+                    'id' => $cuenta->id_cuenta,
+                    'numero_cuenta' => $cuenta->numero,
+                    'descripcion' => $cuenta->descripcion,
+                    'cuenta' => $cuenta->descripcion,
+                    'saldo_anterior' => $saldoAnterior,
+                    'cargos' => $totalCargos,
+                    'abonos' => $totalAbonos,
+                    'saldo' => $cuenta->saldo,
+                    'operaciones' => $cuenta->operaciones
+                ];
+            }
+            // Agregar los datos de la cuenta al arreglo principal
         }
+        $estilos = $this->estilos;
+        $stilosBundle = $this->stilosBundle;
+        $catalogo = $data;
+        $hasta = $request->hasta;
 
-        $pdf = PDF::loadView("contabilidad.reportes.balanceComprobacion_rep", [
-            'estilos' => $this->estilos,
-            'stilosBundle' => $this->stilosBundle,
-            'catalogo' => $cuentasConMovimientos,
-            'encabezado' => $encabezado,
-            'hasta' => $request->hasta,
+        $CuentasContables = Catalogo::findMany($accs->pluck('id'));
+        $accResult = new Collection();
+        $parentsAccs = new Collection();
+        foreach ($CuentasContables as $acc) {
+            $accResult = $acc;
+            while ($accResult->parent != null) {
+                $accResult = $accResult->parent;
+            }
+            $parentsAccs->push($accResult);
+        }
+        $CuentasContablesPadres = Catalogo::findMany($parentsAccs->pluck('id_cuenta'));
+        echo "<pre>";
+        echo json_encode($CuentasContablesPadres[0]->children, JSON_PRETTY_PRINT);
+        echo "</pre>";
+        die();
+        //  dd($arrFormatted);
+        // echo "<pre>";
+        // echo json_encode($catalogo, JSON_PRETTY_PRINT);
 
-        ]);
-        return $pdf->setOrientation('portrait')->inline();
+        // echo "</pre>";
+        // die();
+
+        return view('contabilidad.reportes.libroauxiliar-consolidado', compact('estilos', 'stilosBundle', 'catalogo', 'hasta', 'encabezado'));
+
+        // $pdf = \App::make('snappy.pdf');
+
+
+        // $pdf = PDF::loadView($vista, [
+        //     'estilos' => $this->estilos,
+        //     'stilosBundle' => $this->stilosBundle,
+        //     'catalogo' => $data,
+        //     'encabezado' => $encabezado,
+        //     'hasta' => $request->hasta,
+
+        // ]);
+        // return $pdf->setOrientation('portrait')->inline();
     }
 
     public function estadoResultado()
@@ -613,7 +697,7 @@ class ReporteContabilidad extends Controller
             $movimientosPorCuenta['sumas'] = $totals;
         }
         //liberar memoria de la base
-        
+
 
         return $movimientosPorCuenta;
     }
