@@ -16,7 +16,7 @@
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
     <div class="double-strikethrough">
         ASOCIACION COOPERATIVA DE AHORRO Y CREDITO LA CIMA - "CIMACOOP, DE R.L." <br>
-        Creditos Activos
+      Ingresos del {{ date('d-m-Y',strtotime($desde)) }} al {{ date('d-m-Y',strtotime($hasta)) }}
     </div>
 
     <br>
@@ -27,7 +27,30 @@
         $total = 0;
     @endphp
 
-
+     <div class="container">
+        <div class="alinea">
+             <div class="item" style="width: 19%; height:10%">
+                <div class="price" style="text-align: right">${{ number_format($sumaIngresos, 2, '.', ',') }}</div>
+                <div class="description">Depositos</div>
+            </div>
+              <div class="item" style="width: 19%; height:10%">
+                <div class="price"  style="text-align: right">${{ number_format($sumaAbonoCredito, 2, '.', ',') }}</div>
+                <div class="description">Abonos Creditos</div>
+            </div>
+              <div class="item" style="width: 20%; height:10%">
+                <div class="price"  style="text-align: right">${{ number_format($sumaDepositoAportaciones, 2, '.', ',') }}</div>
+                <div class="description">Aportaciones</div>
+            </div>
+             <div class="item" style="width: 20%; height:10%">
+                <div class="price"  style="text-align: right">${{ number_format($sumaDepositoPlazoFijo, 2, '.', ',') }}</div>
+                <div class="description">Dep.Plazo</div>
+            </div>
+            <div class="item" style="width: 20%; height:10%">
+                <div class="price"  style="text-align: right">  ${{ number_format($sumaIngresos + $sumaAbonoCredito + $sumaDepositoAportaciones + $sumaDepositoPlazoFijo, 2) }}</div>
+                <div class="description">Total Ingresos</div>
+            </div>
+        </div>
+    </div>
     <table class="fs-6 gy-2 gs-5 table">
         <thead class="thead-dark">
             <tr class="fw-semibold fs-3 border-bottom-2 border-gray-200 text-gray-800">
@@ -104,6 +127,8 @@
         </tbody>
     </table>
 
+   
+  
 
 </body>
 

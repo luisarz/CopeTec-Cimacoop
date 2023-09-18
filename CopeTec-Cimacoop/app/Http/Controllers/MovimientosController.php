@@ -12,6 +12,7 @@ use App\Models\Empleados;
 use App\Models\Movimientos;
 use App\Models\PartidaContable;
 use App\Models\PartidaContableDetalleModel;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -513,10 +514,11 @@ class MovimientosController extends Controller
 
     }
 
-    public function ingresos(Request $request){
+    public function ingresos(Request $request)
+    {
         $desde = $request->desde;
         $hasta = $request->hasta;
-        if(!isset($desde,$hasta)){
+        if (!isset($desde, $hasta)) {
             $desde = Carbon::now()->format('Y-m-01');
             $hasta = Carbon::now()->format('Y-m-d');
         }
@@ -529,16 +531,19 @@ class MovimientosController extends Controller
             ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
             ->orderBy('movimientos.fecha_operacion', 'desc') // Corregido aquí
             ->paginate(10);
-       
-            return view("reportes.ingresos.index", compact('movimientos','hasta', 'desde'));
+
+        return view("reportes.ingresos.index", compact('movimientos', 'hasta', 'desde'));
 
 
     }
 
-    public function ingresos_rep($desde, $hasta){
+    public function ingresos_rep($desde, $hasta)
+    {
 
+        $desde = $desde . ' 00:00:00';
+        $hasta = $hasta . ' 23:59:59';
 
-        $movimientos = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
+        $saldosPorTi = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
@@ -548,10 +553,40 @@ class MovimientosController extends Controller
             ->orderBy('movimientos.fecha_operacion', 'asc') // Corregido aquí
             ->get();
 
+
+        $saldosPorTipo = [];
+
+        foreach ($saldosPorTi as $movimiento) {
+            $tipoOperacion = $movimiento->tipo_operacion;
+            $saldo = $movimiento->monto; // Asegúrate de ajustar el nombre de la columna según tu estructura de base de datos
+
+            if (!isset($saldosPorTipo[$tipoOperacion])) {
+                $saldosPorTipo[$tipoOperacion] = 0;
+            }
+
+            $saldosPorTipo[$tipoOperacion] += $saldo;
+        }
+
+            // dd($movimientos);
+        $sumaIngresos = $saldosPorTipo[1];
+        $sumaAbonoCredito = $saldosPorTipo[7];
+        $sumaDepositoAportaciones = $saldosPorTipo[9];
+        $sumaDepositoPlazoFijo = $saldosPorTipo[10];
+
+        $total_ingresos = $sumaIngresos + $sumaAbonoCredito + $sumaDepositoAportaciones + $sumaDepositoPlazoFijo;
+
+
         $pdf = PDF::loadView('reportes.ingresos.ingresos_rep', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
-            'movimientos' => $movimientos,
+            'movimientos' => $saldosPorTi,
+            'sumaIngresos' => $sumaIngresos,
+            'sumaAbonoCredito' => $sumaAbonoCredito,
+            'sumaDepositoAportaciones' => $sumaDepositoAportaciones,
+            'sumaDepositoPlazoFijo' => $sumaDepositoPlazoFijo,
+            'total_ingresos' => $total_ingresos,
+            'desde' => $desde,
+            'hasta' => $hasta
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
