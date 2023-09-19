@@ -43,7 +43,7 @@ class CreditoController extends Controller
       if (isset($request->nombre_cliente)) {
          $creditosQuery->where('clientes.nombre', 'LIKE', '%' . $request->nombre_cliente . '%');
       }
-$creditosQuery->where('creditos.saldo_capital','>',0);
+      $creditosQuery->where('creditos.saldo_capital', '>', 0);
       $creditos = $creditosQuery->paginate(10);
 
       return view('creditos.abonos.index', compact('creditos'));
@@ -92,7 +92,7 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
       $proxima_fecha_pago = date("Y-m-d");
       $ultima_proxima_fecha_pago = $credito->ultima_fecha_pago;
 
-      $CUOTA = number_format($credito->cuota,2,'.','');
+      $CUOTA = number_format($credito->cuota, 2, '.', '');
       $APORTACION = $credito->aportaciones;
       $SEGURO_DEUDA = $credito->seguro_deuda;
 
@@ -132,7 +132,7 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
          $MORA = ($CAPITAL_VENCIDO * $TASA_MORA * $DIAS_MORA) / 365;
       }
 
-      $TOTAL_PAGAR =  sprintf("%.2f", $CAPITAL + $MORA + $APORTACION + $SEGURO_DEUDA + $INTERESES);
+      $TOTAL_PAGAR = sprintf("%.2f", $CAPITAL + $MORA + $APORTACION + $SEGURO_DEUDA + $INTERESES);
 
       return view(
          'creditos.abonos.pago',
@@ -154,18 +154,11 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
    function payCredit(Request $request)
    {
       $configuracion = Configuracion::first();
-
-
-
-
       $credito = Credito::where('id_credito', $request->id_credito)->first();
-
       $MORA = 0.000 * 0;
-
       // $proxima_fecha_pago = $credito->proxima_fecha_pago;
       $proxima_fecha_pago = date("Y-m-d");
       $ultima_proxima_fecha_pago = $credito->ultima_fecha_pago;
-
       $CUOTA = $credito->cuota;
       $APORTACION = $credito->aportaciones;
       // dd($credito);
@@ -240,19 +233,21 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
       $cajaRecibe->save();
 
       //Registrando el movimiento en la cuenta de APortaciones del cliente
-      $aportacion = new Movimientos();
-      $aportacion->id_cuenta = $credito->id_cuenta_aportacion;
-      $aportacion->tipo_operacion = 9;
-      $aportacion->monto = $APORTACION;
-      $aportacion->fecha_operacion = now();
-      $aportacion->cajero_operacion = session()->get('id_empleado_usuario');
-      $aportacion->id_caja = $request->id_caja;
-      $aportacion->observacion = "Aportación crédito";
-      $aportacion->cliente_transaccion = $request->cliente_operacion;
-      $aportacion->dui_transaccion = $request->dui_operacion;
-      $aportacion->estado = 1;
-      $aportacion->id_pago_credito = $pago->id_pago_credito;
-      $aportacion->save();
+      if ($APORTACION > 0) {
+         $aportacion = new Movimientos();
+         $aportacion->id_cuenta = $credito->id_cuenta_aportacion;
+         $aportacion->tipo_operacion = 9;
+         $aportacion->monto = $APORTACION;
+         $aportacion->fecha_operacion = now();
+         $aportacion->cajero_operacion = session()->get('id_empleado_usuario');
+         $aportacion->id_caja = $request->id_caja;
+         $aportacion->observacion = "Aportación crédito";
+         $aportacion->cliente_transaccion = $request->cliente_operacion;
+         $aportacion->dui_transaccion = $request->dui_operacion;
+         $aportacion->estado = 1;
+         $aportacion->id_pago_credito = $pago->id_pago_credito;
+         $aportacion->save();
+      }
 
       //generar la partida contable del Deposito del credito
       $id_solicitud = $credito->id_solicitud;
@@ -475,7 +470,7 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
       $configuracion = Configuracion::first();
       $days = $configuracion->dias_gracia + 30;
 
-      $creditos = Credito::whereRaw("DATEDIFF('".Carbon::now()->format('Y-m-d')."', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital<>0")->get();
+      $creditos = Credito::whereRaw("DATEDIFF('" . Carbon::now()->format('Y-m-d') . "', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital<>0")->get();
       return view('creditos.reportes.cartera_mora', compact('creditos'));
    }
    public function cartera_mora_rep()
@@ -485,7 +480,7 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
       $configuracion = Configuracion::first();
       $days = $configuracion->dias_gracia + 30;
 
-      $creditos = Credito::whereRaw("DATEDIFF('".Carbon::now()->format('Y-m-d')."', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital>0")->get();
+      $creditos = Credito::whereRaw("DATEDIFF('" . Carbon::now()->format('Y-m-d') . "', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital>0")->get();
 
       // return view('creditos.reportes.cartera_mora', compact('creditos'));
       $pdf = PDF::loadView("creditos.reportes.cartera_mora_rep", [
@@ -503,9 +498,9 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
 
 
 
-      $creditos = Credito::join('clientes','clientes.id_cliente','creditos.id_cliente')
-      ->where('creditos.estado', '=', 2)
-         ->where('creditos.saldo_capital', '>',0)
+      $creditos = Credito::join('clientes', 'clientes.id_cliente', 'creditos.id_cliente')
+         ->where('creditos.estado', '=', 2)
+         ->where('creditos.saldo_capital', '>', 0)
 
          ->orderBy('creditos.fecha_desembolso')->get();
 
@@ -541,7 +536,8 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
       return view('reportes.cartera.index', compact('creditos', 'cuentas'));
    }
 
-   public function cartera_activa_rep(){
+   public function cartera_activa_rep()
+   {
       $creditos = Credito::join('clientes', 'clientes.id_cliente', 'creditos.id_cliente')
          ->where('creditos.estado', '=', 2)
          ->where('creditos.saldo_capital', '>', 0)
@@ -557,8 +553,9 @@ $creditosQuery->where('creditos.saldo_capital','>',0);
       return $pdf->setOrientation('portrait')->inline();
    }
 
-   
-    public function cuenta_activa_rep(){
+
+   public function cuenta_activa_rep()
+   {
       $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
          ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
          ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
