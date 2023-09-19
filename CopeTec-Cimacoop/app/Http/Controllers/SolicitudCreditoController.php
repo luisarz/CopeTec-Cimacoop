@@ -385,6 +385,7 @@ class SolicitudCreditoController extends Controller
         $partidaContable->year_contable = date('Y');
         $partidaContable->fecha_partida = today();
         $partidaContable->monto= $request->liquido;
+        $partidaContable->estado = 2; //Partida Procesada
         $partidaContable->save();
 
         //recorremos los detalles de la liquidaacion para asignarlos a la partida contable

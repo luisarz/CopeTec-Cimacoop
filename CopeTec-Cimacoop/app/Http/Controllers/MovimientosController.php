@@ -51,6 +51,7 @@ class MovimientosController extends Controller
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
             ->whereDate('movimientos.fecha_operacion', '>=', now()->subDays(5))
             ->where('movimientos.id_caja', '=', $idCajaAperturada)
+            ->where('movimientos.monto', '>', 0)
             ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
             ->orderby('movimientos.id_movimiento', 'desc')
             ->paginate(10);
@@ -243,6 +244,7 @@ class MovimientosController extends Controller
         $partidaContable->num_partida = $numero_cuenta + 1;
         $partidaContable->year_contable = date('Y');
         $partidaContable->fecha_partida = today();
+        $partidaContable->estado = 2; //Procesada la partida
         $partidaContable->save();
 
 
@@ -350,7 +352,7 @@ class MovimientosController extends Controller
         $partidaContable->id_partida_contable = $id_partida;
         $yearContableMax = $configuracion->max('year_contable');
         $numero_cuenta = PartidaContable::where('year_contable', $yearContableMax)->max('num_partida');
-
+        $partidaContable->estado = 2; //Procesada la partida
         $partidaContable->num_partida = $numero_cuenta + 1;
         $partidaContable->year_contable = date('Y');
         $partidaContable->fecha_partida = today();
@@ -547,6 +549,7 @@ class MovimientosController extends Controller
             ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            // ->where('movimientos.monto', '>', 0)
             ->whereIn('movimientos.tipo_operacion', [1, 7, 9, 10]) // Corregido aquí
             ->whereRaw("DATE(movimientos.fecha_operacion) BETWEEN ? AND ?", [$desde, $hasta])
             ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')

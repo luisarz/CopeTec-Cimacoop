@@ -269,6 +269,7 @@ class CreditoController extends Controller
       $partidaContable->num_partida = $numero_cuenta + 1;
       $partidaContable->year_contable = date('Y');
       $partidaContable->fecha_partida = today();
+      $partidaContable->estado = 2; //Procesada la partida
       $partidaContable->save();
 
 

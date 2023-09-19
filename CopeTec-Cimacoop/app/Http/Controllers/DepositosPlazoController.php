@@ -172,6 +172,7 @@ class DepositosPlazoController extends Controller
         $partidaContable->num_partida = $numero_cuenta + 1;
         $partidaContable->year_contable = date('Y');
         $partidaContable->fecha_partida = today();
+        $partidaContable->estado = 2;//Partida Procesada
         $partidaContable->save();
 
 
