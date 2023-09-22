@@ -389,10 +389,10 @@ class ReporteContabilidad extends Controller
             $parentsAccs->push($accResult);
         }
         $CuentasContablesPadres = Catalogo::findMany($parentsAccs->pluck('id_cuenta'));
-        echo "<pre>";
-        echo json_encode($CuentasContablesPadres[0]->children, JSON_PRETTY_PRINT);
-        echo "</pre>";
-        die();
+        // echo "<pre>";
+        // echo json_encode($CuentasContablesPadres[0]->children, JSON_PRETTY_PRINT);
+        // echo "</pre>";
+        // die();
         //  dd($arrFormatted);
         // echo "<pre>";
         // echo json_encode($catalogo, JSON_PRETTY_PRINT);
@@ -400,7 +400,7 @@ class ReporteContabilidad extends Controller
         // echo "</pre>";
         // die();
 
-        return view('contabilidad.reportes.libroauxiliar-consolidado', compact('estilos', 'stilosBundle', 'catalogo', 'hasta', 'encabezado'));
+        return view('contabilidad.reportes.balanceComprobacion_rep', compact('estilos', 'stilosBundle', 'catalogo', 'hasta', 'encabezado','CuentasContablesPadres'));
 
         // $pdf = \App::make('snappy.pdf');
 
