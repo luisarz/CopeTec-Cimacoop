@@ -294,7 +294,7 @@ class ReporteContabilidad extends Controller
         $encabezado = $request->encabezado;
 
 
-        $vista = ($request->tipo_reporte == 1) ? "contabilidad.reportes.libroauxiliar-detallado" : "contabilidad.reportes.libroauxiliar-consolidado";
+        $vista = 'contabilidad.reportes.balanceComprobacion_rep';
 
 
 
@@ -313,6 +313,8 @@ class ReporteContabilidad extends Controller
 
         $data = [];
         $catalogo = Catalogo::all();
+
+
         $accs = new Collection();
         foreach ($catalogo as $cuenta) {
 
@@ -381,6 +383,7 @@ class ReporteContabilidad extends Controller
         $CuentasContables = Catalogo::findMany($accs->pluck('id'));
         $accResult = new Collection();
         $parentsAccs = new Collection();
+        $formattedParents = new Collection();
         foreach ($CuentasContables as $acc) {
             $accResult = $acc;
             while ($accResult->parent != null) {
@@ -389,8 +392,46 @@ class ReporteContabilidad extends Controller
             $parentsAccs->push($accResult);
         }
         $CuentasContablesPadres = Catalogo::findMany($parentsAccs->pluck('id_cuenta'));
+        foreach ($CuentasContablesPadres as $padre) {
+
+            $formattedParents->push($padre);
+            if (count($padre->children) > 0) {
+                $child = $padre->children;
+                foreach ($child as $ch1) {
+                    $formattedParents->push($ch1);
+                    if (count($ch1->children) > 0) {
+                        $child2 = $ch1->children;
+                        foreach ($child2 as $ch2) {
+                            $formattedParents->push($ch2);
+                            if (count($ch2->children) > 0) {
+                                $child3 = $ch2->children;
+                                foreach ($child3 as $ch3) {
+                                    $formattedParents->push($ch3);
+                                    if (count($ch3->children) > 0) {
+                                        $child4 = $ch3->children;
+                                        foreach ($child4 as $ch4) {
+                                            $formattedParents->push($ch4);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        $resultWithMoves = new Collection();
+        foreach ($formattedParents as $cuenta) {
+
+            $cuenta = $this->getMovimientosCuenta($cuenta, $fechaDesde, $fechaHasta, $anioCierre);
+            // Agregar los datos de la cuenta al arreglo principal
+        }
+        foreach ($formattedParents as $cuenta) {
+
+            $cuenta = $this->SumMovimientos($cuenta);
+        }
         // echo "<pre>";
-        // echo json_encode($CuentasContablesPadres[0]->children, JSON_PRETTY_PRINT);
+        // echo json_encode($formattedParents, JSON_PRETTY_PRINT);
         // echo "</pre>";
         // die();
         //  dd($arrFormatted);
@@ -400,22 +441,123 @@ class ReporteContabilidad extends Controller
         // echo "</pre>";
         // die();
 
-        return view('contabilidad.reportes.balanceComprobacion_rep', compact('estilos', 'stilosBundle', 'catalogo', 'hasta', 'encabezado','CuentasContablesPadres'));
+        // return view('contabilidad.reportes.balanceComprobacion_rep', compact('estilos', 'stilosBundle', 'catalogo', 'hasta', 'encabezado', 'formattedParents'));
 
-        // $pdf = \App::make('snappy.pdf');
+        $pdf = \App::make('snappy.pdf');
 
 
-        // $pdf = PDF::loadView($vista, [
-        //     'estilos' => $this->estilos,
-        //     'stilosBundle' => $this->stilosBundle,
-        //     'catalogo' => $data,
-        //     'encabezado' => $encabezado,
-        //     'hasta' => $request->hasta,
+        $pdf = PDF::loadView($vista, [
+            'estilos' => $estilos,
+            'stilosBundle' => $stilosBundle,
+            'catalogo' => $catalogo,
+            'encabezado' => $encabezado,
+            'hasta' => $request->hasta,
+            'formattedParents' => $formattedParents
 
-        // ]);
-        // return $pdf->setOrientation('portrait')->inline();
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
     }
 
+    public function getMovimientosCuenta($cuenta, $fechaDesde, $fechaHasta, $anioCierre)
+    {
+        $idCuenta = $cuenta->id_cuenta;
+
+        $operacionesRealizadas = PartidasContablesDetalles::whereRaw('fecha_partida BETWEEN ? AND ?', [$fechaDesde, $fechaHasta])
+            ->where('id_cuenta', '=', $idCuenta)
+            ->get();
+
+
+        $totalCargos = $operacionesRealizadas->sum('cargos');
+        $totalAbonos = $operacionesRealizadas->sum('abonos');
+
+        $cierreAnterior = CierreMensualModel::where('year', '=', $anioCierre)
+            ->where('mes', '=', '$mesCierreAnterior')
+            ->where('estado', 1)->first();
+
+        $saldoAnterior = 0;
+
+        if ($cierreAnterior) {
+            // Buscar el saldo del cierre anterior
+            $idCierreAnterior = $cierreAnterior->id;
+            $cierreAnteriorCuenta = CierreMensualPartidaModel::where('cierre_mensual_id', $idCierreAnterior)
+                ->where('id_cuenta', '=', $idCuenta)->first();
+
+            if ($cierreAnteriorCuenta) {
+                $saldoAnterior = $cierreAnteriorCuenta->saldo_cierre;
+            }
+        }
+
+        $nuevoSaldo = ($saldoAnterior + $totalCargos) - $totalAbonos;
+
+        // Actualizar el saldo de la cuenta en el catálogo
+        $cuenta->saldo = $nuevoSaldo;
+        $cuenta->saldo_anterior = $saldoAnterior;
+        $cuenta->totalCargos = $totalCargos;
+        $cuenta->totalAbonos = $totalAbonos;
+        $cuenta->saldo = $cuenta->saldo;
+        return $cuenta;
+    }
+    public function SumMovimientos($cuenta)
+    {
+        $sumTotalCargos = 0;
+        $sumTotalAbonos = 0;
+        $sumTotalSaldo = 0;
+        $sumTotalSaldoAnterior = 0;
+        $sumTotalCargos += $cuenta->totalCargos;
+        $sumTotalAbonos += $cuenta->totalAbonos;
+        $sumTotalSaldo += $cuenta->saldo;
+        $sumTotalSaldoAnterior += $cuenta->saldo_anterior;
+        if (count($cuenta->children) > 0) {
+            $child1 = $cuenta->children;
+            foreach ($child1 as $ch1) {
+                $sumTotalCargos += $ch1->totalCargos;
+                $sumTotalAbonos += $ch1->totalAbonos;
+                $sumTotalSaldo += $ch1->saldo;
+                $sumTotalSaldoAnterior += $ch1->saldo_anterior;
+                if (count($ch1->children) > 0) {
+                    $child2 = $ch1->children;
+                    foreach ($child2 as $ch2) {
+                        $sumTotalCargos += $ch2->totalCargos;
+                        $sumTotalAbonos += $ch2->totalAbonos;
+                        $sumTotalSaldo += $ch2->saldo;
+                        $sumTotalSaldoAnterior += $ch2->saldo_anterior;
+                        if (count($ch2->children) > 0) {
+                            $child3 = $ch2->children;
+                            foreach ($child3 as $ch3) {
+                                $sumTotalCargos += $ch3->totalCargos;
+                                $sumTotalAbonos += $ch3->totalAbonos;
+                                $sumTotalSaldo += $ch3->saldo;
+                                $sumTotalSaldoAnterior += $ch3->saldo_anterior;
+                                if (count($ch3->children) > 0) {
+                                    $child4 = $ch3->children;
+                                    foreach ($child4 as $ch4) {
+                                        $sumTotalCargos += $ch4->totalCargos;
+                                        $sumTotalAbonos += $ch4->totalAbonos;
+                                        $sumTotalSaldo += $ch4->saldo;
+                                        $sumTotalSaldoAnterior += $ch4->saldo_anterior;
+                                        if (count($ch4->children) > 0) {
+                                            $child5 = $ch4->children;
+                                            foreach ($child5 as $ch5) {
+                                                $sumTotalCargos += $ch5->totalCargos;
+                                                $sumTotalAbonos += $ch5->totalAbonos;
+                                                $sumTotalSaldo += $ch5->saldo;
+                                                $sumTotalSaldoAnterior += $ch5->saldo_anterior;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        $cuenta->saldo_anterior = $sumTotalSaldoAnterior;
+        $cuenta->totalCargos = $sumTotalCargos;
+        $cuenta->totalAbonos = $sumTotalAbonos;
+        $cuenta->saldo = $sumTotalSaldo;
+        return $cuenta;
+    }
     public function estadoResultado()
     {
         return view('contabilidad.reportes.estadoResultado');

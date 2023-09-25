@@ -56,113 +56,22 @@ if (isset($hasta) > 0) {
         <tbody>
 
             {{-- @dd($CuentasContablesPadres); --}}
-            @foreach ($CuentasContablesPadres as $item)
+            @foreach ($formattedParents as $item)
                 <?php
                 $accResult = $item;
                 ?>
-                <tr>
-                    <td>{{ $item->numero }}</td>
-                    <td>{{ $item->descripcion }}</td>
-                    <td>{{ $item->saldo }}</td>
-                    <td>{{ $item->tipo_saldo_normal }}</td>
-                    <td></td>
-
-                </tr>
-                @if ($item->children != null)
-                    @foreach ($item->children as $ch)
-                        <tr>
-                            <td>{{ $ch->numero }}</td>
-                            <td>{{ $ch->descripcion }}</td>
-                            <td>{{ $ch->saldo }}</td>
-                            <td>{{ $ch->tipo_saldo_normal }}</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        @foreach ($ch->children as $ch2)
-                            <tr>
-                                <td>{{ $ch2->numero }}</td>
-                                <td>{{ $ch2->descripcion }}</td>
-                                <td>{{ $ch2->saldo }}</td>
-                                <td>{{ $ch2->tipo_saldo_normal }}</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            @foreach ($ch2->children as $ch3)
-                                <tr>
-                                    <td>{{ $ch3->numero }}</td>
-                                    <td>{{ $ch3->descripcion }}</td>
-                                    <td>{{ $ch3->saldo }}</td>
-                                    <td>{{ $ch3->tipo_saldo_normal }}</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                @foreach ($ch3->children as $ch4)
-                                    <tr>
-                                        <td>{{ $ch4->numero }}</td>
-                                        <td>{{ $ch4->descripcion }}</td>
-                                        <td>{{ $ch4->saldo }}</td>
-                                        <td>{{ $ch4->tipo_saldo_normal }}</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    @foreach ($ch4->children as $ch5)
-                                    <tr>
-                                        <td>{{ $ch5->numero }}</td>
-                                        <td>{{ $ch5->descripcion }}</td>
-                                        <td>{{ $ch5->saldo }}</td>
-                                        <td>{{ $ch5->tipo_saldo_normal }}</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                @endforeach
-                                @endforeach
-                            @endforeach
-                        @endforeach
-                    @endforeach
-                @endif
-            @endforeach
-            {{-- @foreach ($catalogo as $cuenta)
-                @if (isset($cuenta['sumas']))
-                    <tr class="fs-5 font-bold">
-                        <td>{{ $cuenta['numero'] }}</td>
-                        <td>{{ $cuenta['descripcion'] }}</td>
-                        <td style="text-align: right;">
-                            @if (isset($cuenta['sumas']))
-                                $ {{ number_format($cuenta['sumas']->saldo_anterior, 2) }}
-                            @else
-                                $0.00
-                            @endif
-                        </td>
-                        <td style="text-align: right; ">
-
-
-                            @if (isset($cuenta['sumas']))
-                                $ {{ number_format($cuenta['sumas']->total_cargos, 2) }}
-                                <?php $total_cargos += $cuenta['sumas']->total_cargos; ?>
-                            @else
-                                $0.00
-                            @endif
-                        </td>
-                        <td style="text-align: right;  ">
-                            @if (isset($cuenta['sumas']))
-                                $ {{ number_format($cuenta['sumas']->total_abonos, 2) }}
-                                <?php $total_abonos += $cuenta['sumas']->total_abonos; ?>
-                            @else
-                                $ 0.00
-                            @endif
-                        </td>
-                        <td style="text-align: right;">
-                            @if (isset($cuenta['sumas']))
-                                $ {{ number_format($cuenta['sumas']->saldo, 2) }}
-                                <?php $totalG += $cuenta['sumas']->saldo; ?>
-                            @else
-                                $ 0.00
-                            @endif
-                        </td>
-
+                @if ($item->totalCargos != 0 || $item->totalAbonos != 0 || $item->saldo != 0)
+                    <tr>
+                        <td>{{ $item->numero }}</td>
+                        <td>{{ $item->descripcion }}</td>
+                        <td> @money($item->saldo_anterior) </td>
+                        <td>@money($item->totalCargos)</td>
+                        <td> @money($item->totalAbonos)</td>
+                        <td> @money($item->saldo)</td>
                     </tr>
+                    
                 @endif
-            @endforeach --}}
+            @endforeach           
             <tr class="fs-5 border-top py-6 font-bold">
                 <td></td>
                 <td colspan="2" class="text-center"><b>TOTAL PASIVOS E INGRESOS</b></td>
