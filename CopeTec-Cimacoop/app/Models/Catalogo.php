@@ -18,4 +18,13 @@ class Catalogo extends Model
     {
         return $this->hasMany(PartidaContableDetalleModel::class, 'id_cuenta'); // Suponiendo que 'id_cuenta' sea la clave foránea en 'partida_contable_detalle' que relaciona las cuentas con los movimientos.
     }
+    
+    public function parent()
+    {
+        return $this->hasOne(Catalogo::class, 'id_cuenta', 'id_cuenta_padre')->with('parent');
+    }
+    public function children()
+    {
+        return $this->hasMany(Catalogo::class, 'id_cuenta_padre')->with('children');
+    }
 }
