@@ -379,7 +379,6 @@ class ReporteContabilidad extends Controller
         $stilosBundle = $this->stilosBundle;
         $catalogo = $data;
         $hasta = $request->hasta;
-
         $CuentasContables = Catalogo::findMany($accs->pluck('id'));
         $accResult = new Collection();
         $parentsAccs = new Collection();
@@ -393,7 +392,6 @@ class ReporteContabilidad extends Controller
         }
         $CuentasContablesPadres = Catalogo::findMany($parentsAccs->pluck('id_cuenta'));
         foreach ($CuentasContablesPadres as $padre) {
-
             $formattedParents->push($padre);
             if (count($padre->children) > 0) {
                 $child = $padre->children;
@@ -411,6 +409,18 @@ class ReporteContabilidad extends Controller
                                         $child4 = $ch3->children;
                                         foreach ($child4 as $ch4) {
                                             $formattedParents->push($ch4);
+                                            if (count($ch4->children) > 0) {
+                                                $child5 = $ch4->children;
+                                                foreach ($child5 as $ch5) {
+                                                    $formattedParents->push($ch5);
+                                                    if (count($ch5->children) > 0) {
+                                                        $child6 = $ch5->children;
+                                                        foreach ($child6 as $ch6) {
+                                                            $formattedParents->push($ch6);
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -420,18 +430,17 @@ class ReporteContabilidad extends Controller
                 }
             }
         }
-        $resultWithMoves = new Collection();
         foreach ($formattedParents as $cuenta) {
 
             $cuenta = $this->getMovimientosCuenta($cuenta, $fechaDesde, $fechaHasta, $anioCierre);
-            // Agregar los datos de la cuenta al arreglo principal
-        }
+        } 
         foreach ($formattedParents as $cuenta) {
 
             $cuenta = $this->SumMovimientos($cuenta);
         }
+       
         // echo "<pre>";
-        // echo json_encode($formattedParents, JSON_PRETTY_PRINT);
+        // echo json_encode($formattedParents->where('id_cuenta',485), JSON_PRETTY_PRINT);
         // echo "</pre>";
         // die();
         //  dd($arrFormatted);
@@ -542,6 +551,15 @@ class ReporteContabilidad extends Controller
                                                 $sumTotalAbonos += $ch5->totalAbonos;
                                                 $sumTotalSaldo += $ch5->saldo;
                                                 $sumTotalSaldoAnterior += $ch5->saldo_anterior;
+                                                if (count($ch5->children) > 0) {
+                                                    $child6 = $ch5->children;
+                                                    foreach ($child6 as $ch6) {
+                                                        $sumTotalCargos += $ch6->totalCargos;
+                                                        $sumTotalAbonos += $ch6->totalAbonos;
+                                                        $sumTotalSaldo += $ch6->saldo;
+                                                        $sumTotalSaldoAnterior += $ch6->saldo_anterior;
+                                                    }
+                                                }
                                             }
                                         }
                                     }
