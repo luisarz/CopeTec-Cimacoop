@@ -210,12 +210,11 @@ Route::middleware(['auth', 'bitacora'])->prefix('cajas')->group(function () {
 
 Route::middleware(['auth', 'bitacora'])->prefix('correlativos')->group(function () {
     Route::get('/caja/{id}/list', [CorrelativosController::class, 'index']);
-    
+
     Route::get('/caja/{id}/add', [CorrelativosController::class, 'add']);
     Route::post('/caja/add', [CorrelativosController::class, 'post']);
     Route::get('/caja/edit-correlativo/{id_correlativo}', [CorrelativosController::class, 'edit']);
     Route::put('/caja/edit-correlativo/put', [CorrelativosController::class, 'put']);
-
 });
 
 
@@ -566,9 +565,6 @@ Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
     Route::get('/ingresos', [MovimientosController::class, 'ingresos']);
     Route::post('/ingresos', [MovimientosController::class, 'ingresos']);
     Route::get('/ingresos/{desde}/{hasta}', [MovimientosController::class, 'ingresos_rep']);
-
-
-
 });
 
 Route::middleware(['auth', 'bitacora'])->prefix('proveedores')->group(function () {
@@ -581,7 +577,6 @@ Route::middleware(['auth', 'bitacora'])->prefix('proveedores')->group(function (
     Route::put('/put', [ProveedoresController::class, 'put']);
     Route::delete('/delete', [ProveedoresController::class, 'delete']);
     Route::get('/reporte/{filtro}', [ProveedoresController::class, 'reporte']);
-
 });
 
 
@@ -616,3 +611,5 @@ Route::middleware(['auth', 'bitacora'])->prefix('iva')->group(function () {
     Route::get('/compras', [IvaController::class, 'libroCompra']);
     Route::post('/compras', [IvaController::class, 'libroCompra_rep']);
 });
+
+Route::get('/contabilidad/Reportes/infored', [ReportesController::class, 'infored'])->middleware(['auth', 'bitacora']);
