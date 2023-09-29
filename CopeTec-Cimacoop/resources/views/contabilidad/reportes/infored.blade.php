@@ -70,7 +70,6 @@
                             <th class="min-w-80px">calif_act</th>
                             <th class="min-w-80px">Actividad Economica</th>
                             <th class="min-w-80px">Sexo</th>
-                            <th class="min-w-30px">Prestamo</th>
 
                             <th>Estado</th>
                         </tr>
@@ -124,9 +123,7 @@
                                 </td>
                                 <td>Pendiente Confirmar</td>
                                 <td>Comerciante</td>
-                                <td><span
-                                        class="badge badge-light-success">{{ date('d', strtotime($credito->fecha_desembolso)) }}
-                                        / mes</span></td>
+                                
 
                                 <td>{{ $credito->cliente->genero==0?'Masculino':'Femenino' }}</td>
                                 <td>
