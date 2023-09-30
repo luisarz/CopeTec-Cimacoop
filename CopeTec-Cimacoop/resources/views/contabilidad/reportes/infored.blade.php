@@ -121,9 +121,9 @@
                                 <td>
                                     {{ $credito->plazo }}
                                 </td>
-                                <td>Pendiente Confirmar</td>
+                                <td> {{ $credito->cliente->score->score }}</td>
                                 <td>Comerciante</td>
-                                
+
 
                                 <td>{{ $credito->cliente->genero==0?'Masculino':'Femenino' }}</td>
                                 <td>

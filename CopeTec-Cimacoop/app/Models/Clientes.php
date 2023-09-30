@@ -27,4 +27,8 @@ class Clientes extends Model
     {
         return $this->belongsTo(Empleados::class,'id_empleado');
     }
+    public function score()
+    {
+        return $this->hasOne(ClientCreditScore::class,'id_cliente');
+    }
 }
