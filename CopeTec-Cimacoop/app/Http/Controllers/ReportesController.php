@@ -6,7 +6,9 @@ use App\Models\BeneficiarosDepositos;
 use App\Models\Bobeda;
 use App\Models\BobedaMovimientos;
 use App\Models\Catalogo;
+use App\Models\ClientCreditScore;
 use App\Models\Clientes;
+use App\Models\Configuracion;
 use App\Models\Credito;
 use App\Models\Cuentas;
 use App\Models\DepositosPlazo;
@@ -21,6 +23,7 @@ use App\Models\SolicitudCreditoBienes;
 use App\Models\TipoGarantia;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Luecano\NumeroALetras\NumeroALetras;
 use \PDF;
@@ -499,4 +502,72 @@ class ReportesController extends Controller
         $creditos = Credito::all();
         return view('contabilidad.reportes.infored', compact('creditos'));
     }
-}
+    public function generate_score()
+    {
+        $configuracion = Configuracion::first();
+        $days = $configuracion->dias_gracia + 30;
+        $creditos = Credito::whereRaw("DATEDIFF('" . Carbon::now()->format('Y-m-d') . "', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital<>0")->get();
+
+        $lateAccs = new Collection();
+
+        foreach ($creditos as $cr) {
+            $found = false;
+
+            foreach ($lateAccs as &$lt) {
+                if ($lt['id_cliente'] == $cr->id_cliente) {
+                    if ($lt['delincuent_days'] < Carbon::now()->diffInDays($cr->ultima_fecha_pago)) {
+                        $lt['delincuent_days'] = Carbon::now()->diffInDays($cr->ultima_fecha_pago);
+                    }
+                    $found = true;
+                    break;
+                }
+            }
+
+            if (!$found) {
+                $lateAccs[] = [
+                    'id_cliente' => $cr->id_cliente,
+                    'ultima_fecha_pago' => $cr->ultima_fecha_pago,
+                    'delincuent_days' => Carbon::now()->diffInDays($cr->ultima_fecha_pago)
+                ];
+            }
+        }
+
+        $lateAccs = new Collection($lateAccs);
+
+        foreach ($lateAccs as $lta) {
+            $record = ClientCreditScore::where('id_cliente',$lta['id_cliente'])->first();
+            if($record!=null){
+                if($lta['delincuent_days']<=3){
+                    $record->score="A2";
+                }else if($lta['delincuent_days']>3 &&$lta['delincuent_days']<=90){
+                    $record->score="B";
+                }else if($lta['delincuent_days']>90){
+                    $record->score="C";
+                }else{
+                    $record->score="A1";
+                }
+                $record->save();
+            }else{
+                $newrec = new ClientCreditScore();
+                $newrec->id_cliente=$lta['id_cliente'];
+                if($lta['delincuent_days']<=3){
+                    $newrec->score="A2";
+                }else if($lta['delincuent_days']>3&&$lta['delincuent_days']<=90){
+                    $newrec->score="B";
+                }else if($lta['delincuent_days']>90){
+                    $newrec->score="C";
+                }else{
+                    $newrec->score="A1";
+                }
+                $newrec->save();
+            }
+        }
+        echo "<pre>";
+        echo json_encode($lateAccs, JSON_PRETTY_PRINT);
+
+        echo "</pre>";
+        die();
+        return view('contabilidad.reportes.infored', compact('creditos'));
+    }
+
+   }

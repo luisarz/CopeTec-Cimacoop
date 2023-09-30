@@ -6,24 +6,17 @@
                 <form action="/creditos/abonos" method="post" autocomplete="off" class="d-flex align-items-center">
                     {!! csrf_field() !!}
                     {{ method_field('POST') }}
-                    <div class="position-relative w-md-400px me-md-2">
-                        <i class="ki-duotone ki-user fs-3 text-gray-500 position-absolute top-50 translate-middle ms-6">
-                            <i class="path1"></i>
-                            <i class="path2"></i>
-                        </i>
-                        <input type="text" class="form-control form-control-solid ps-10" name="nombre_cliente"
-                            value="" placeholder="Nombre Cliente">
-                    </div>
+
                     <!--begin:Action-->
                     <div class="d-flex align-items-center">
-                        <button type="submit" class="btn btn-primary me-5">Buscar</button>
+                        <button type="button" class="btn btn-success me-5">Exportar a EXCEL</button>
                     </div>
                     <!--end:Action-->
                 </form>
             </div>
             <div class="ribbon-label fs-3">
                 <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i>
-                Caja - INFORED
+                Reportes - INFORED
 
                 <span class="ribbon-inner bg-info"></span>
             </div>
@@ -121,9 +114,9 @@
                                 <td>
                                     {{ $credito->plazo }}
                                 </td>
-                                <td>Pendiente Confirmar</td>
+                                <td> {{ $credito->cliente->score->score }}</td>
                                 <td>Comerciante</td>
-                                
+
 
                                 <td>{{ $credito->cliente->genero==0?'Masculino':'Femenino' }}</td>
                                 <td>
@@ -147,3 +140,4 @@
         </div>
     </div>
 @endsection
+
