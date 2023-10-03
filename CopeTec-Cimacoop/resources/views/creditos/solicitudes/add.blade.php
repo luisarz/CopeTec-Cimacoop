@@ -40,9 +40,7 @@
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#tabBienes">Bienes</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#tabResolucion">Resolución</a>
-                        </li>
+                       
 
                     </ul>
                 </div>

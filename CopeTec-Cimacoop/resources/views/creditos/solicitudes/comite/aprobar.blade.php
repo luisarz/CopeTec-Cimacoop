@@ -5,8 +5,8 @@
 @endsection
 @section('content')
     <input type="hidden" id="token" value="{{ csrf_token() }}">
-    {{-- <form action="/creditos/solicitudes/create-credit" method="post" autocomplete="off"> --}}
-    <form action="/creditos/solicitudes/send_comite" method="post" autocomplete="off">
+    <form action="/creditos/solicitudes/create-credit" method="post" autocomplete="off">
+        {{-- <form action="/creditos/solicitudes/send_comite" method="post" autocomplete="off"> --}}
 
         {!! csrf_field() !!}
         {{ method_field('POST') }}
@@ -84,11 +84,7 @@
                                 <label>Dui:</label>
                             </div>
 
-
-
-
                         </div>
-
                         <hr>
 
                     </div>
@@ -197,7 +193,7 @@
             </div>
             <div class="card-footer d-flex justify-content-center py-6">
                 <div class="form-floating col-lg-6">
-                    <a href="/creditos/solicitudes">
+                    <a href="/comite">
                         <button type="button"
                             class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
                             <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
@@ -207,9 +203,9 @@
                             Cancelar
                         </button>
                     </a>
-                    <button type="submit" class="btn btn-bg-danger btn-text-white">
+                    <button type="submit" class="btn btn-bg-info btn-text-white">
                         <i class="fa-solid fa-save fs-2 text-white"></i>
-                       Enviar a Comite
+                        Enviar a Liquidación / Desembolso
                     </button>
                 </div>
             </div>

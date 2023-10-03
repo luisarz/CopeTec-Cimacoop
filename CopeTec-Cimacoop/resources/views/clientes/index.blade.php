@@ -61,11 +61,10 @@
     <script>
         $(function() {
             let table = new DataTable('.data-table-coop-serve-side', {
-                // "dom": 'frtip',
-                select: true,
+                // select: true,
                 "dom": "<'row'" +
                     "<'col-sm-6 d-flex align-items-center text-info input-solid justify-conten-start'f>" +
-                    "<'col-sm-6 d-flex align-items-center justify-content-end'lB>" +
+                    "<'col-sm-6 d-flex align-items-center justify-content-end'l>" +
 
 
                     ">" +
@@ -88,30 +87,30 @@
                     [5, 10, 25, 50, -1],
                     ['5 registros', '10 registros', '25 registros', '50 registros', 'Todos']
                 ],
-                buttons: [{
-                        extend: 'csv',
-                        className: 'btn btn-info',
-                        columns: [1, 2, 3, 4, 5],
+                // buttons: [{
+                //         extend: 'csv',
+                //         className: 'btn btn-info',
+                //         columns: [1, 2, 3, 4, 5],
 
-                    },
-                    {
-                        extend: 'excel',
-                        className: 'btn btn-info',
-                        columns: [1, 2, 3, 4, 5],
-                    },
-                    {
-                        extend: 'pdf',
-                        className: 'btn btn-info',
-                        columns: [1, 2, 3, 4, 5],
+                //     },
+                //     {
+                //         extend: 'excel',
+                //         className: 'btn btn-info',
+                //         columns: [1, 2, 3, 4, 5],
+                //     },
+                //     {
+                //         extend: 'pdf',
+                //         className: 'btn btn-info',
+                //         columns: [1, 2, 3, 4, 5],
 
-                    },
-                    {
-                        extend: 'print',
-                        className: 'btn btn-info',
-                        columns: [1, 2, 3, 4, 5],
+                //     },
+                //     {
+                //         extend: 'print',
+                //         className: 'btn btn-info',
+                //         columns: [1, 2, 3, 4, 5],
 
-                    }
-                ],
+                //     }
+                // ],
 
                 columns: [{
                         data: 'action',

@@ -34,7 +34,28 @@ class SolicitudCreditoController extends Controller
 
         return view('creditos.solicitudes.index', compact('solicitudes'));
     }
+    public function solicitud_comite()
+    {
+        $solicitudes = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
+            ->where('solicitud_credito.estado', '=', 4)
+            ->orderBy('solicitud_credito.fecha_solicitud')
+            ->select(
+                'solicitud_credito.*',
+                'clientes.nombre'
+            )->paginate(10);
 
+
+        return view('creditos.solicitudes.comite.index', compact('solicitudes'));
+    }
+
+    public function comite(Request $request)
+    {
+        $id_solicitud = $request->id_solicitud;
+        $solicitud = SolicitudCredito::where('id_solicitud', $id_solicitud)->first();
+        $solicitud->estado = 4;
+        $solicitud->save();
+        return redirect('/creditos/solicitudes');
+    }
     public function add()
     {
         Session::put("estadoMenuminimizado", "1");
@@ -196,6 +217,18 @@ class SolicitudCreditoController extends Controller
 
     }
 
+    public function rechazar(Request $request)
+    {
+
+        $solicitud = SolicitudCredito::where('id_solicitud', $request->id)->first();
+        $solicitud->estado = 3;
+        $solicitud->save();
+        return redirect('/comite');
+
+
+
+    }
+
 
 
 
@@ -214,6 +247,61 @@ class SolicitudCreditoController extends Controller
     }
 
     public function desembolso($id)
+    {
+        $solicitud = SolicitudCredito::where('id_solicitud', $id)->first();
+        $clientes = Clientes::whereNotIn('estado', [0, 7])->get();
+        $cliente = Clientes::where('id_cliente', $solicitud->id_cliente)->first();
+        $referencias = Referencias::select(
+            'id_referencia',
+            'nombre',
+            'parentesco',
+            'dui',
+            'lugar_trabajo'
+        )->get();
+        $destinoCredito = Catalogo::where('tipo_catalogo', '=', 1)->get();
+        $tiposCuenta = Catalogo::where('tipo_catalogo', '=', 2)->get();
+        $ingresosPorAplicar = Catalogo::where('tipo_catalogo', '=', 3)->get();
+        $seguroDescuentos = Catalogo::where('tipo_catalogo', '=', 4)->get();
+        $desceuntosIVA = Catalogo::where('tipo_catalogo', '=', 5)->get();
+        $descuentoDeAportaciones = Catalogo::where('tipo_catalogo', '=', 6)->get();
+        $descuentoComisiones = Catalogo::where('tipo_catalogo', '=', 7)->get();
+        $otrosDescuentos = Catalogo::where('tipo_catalogo', '=', 8)->get();
+
+
+
+
+        $tiposGarantia = TipoGarantia::all();
+
+        $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
+            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
+            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->select('cuentas.id_cuenta', 'cuentas.numero_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta')
+            ->where('clientes.id_cliente', '=', $solicitud->id_cliente)
+            ->get();
+        // dd($cuentas);
+
+        return view(
+            "creditos.solicitudes.comite.aprobar",
+            compact(
+                "solicitud",
+                "clientes",
+                "referencias",
+                "cliente",
+                'destinoCredito',
+                'tiposGarantia',
+                'cuentas',
+                'tiposCuenta',
+                'ingresosPorAplicar',
+                'seguroDescuentos',
+                'desceuntosIVA',
+                'descuentoDeAportaciones',
+                'descuentoComisiones',
+                'otrosDescuentos'
+            )
+        );
+    }
+
+    public function enviar_comite($id)
     {
         $solicitud = SolicitudCredito::where('id_solicitud', $id)->first();
         $clientes = Clientes::whereNotIn('estado', [0, 7])->get();
@@ -267,7 +355,6 @@ class SolicitudCreditoController extends Controller
             )
         );
     }
-
 
 
     public function createCredit(Request $request)
@@ -384,7 +471,7 @@ class SolicitudCreditoController extends Controller
         $partidaContable->num_partida = $numero_cuenta + 1;
         $partidaContable->year_contable = date('Y');
         $partidaContable->fecha_partida = today();
-        $partidaContable->monto= $request->liquido;
+        $partidaContable->monto = $request->liquido;
         $partidaContable->estado = 2; //Partida Procesada
         $partidaContable->save();
 
@@ -444,7 +531,7 @@ class SolicitudCreditoController extends Controller
 
     }
 
- 
-   
+
+
 
 }

@@ -7,7 +7,30 @@ Editar Cliente
         {!! csrf_field() !!}
         {{ method_field('PUT') }}
         <input type="hidden" name="id" value="{{$cliente->id_cliente}}">
-        <div class="input-group mb-5"></div>
+        <div class="card shadow-lg mt-5">
+
+            <div class="card-header ribbon ribbon-end ribbon-clip">
+                <div class="card-toolbar">
+                    <a href="/clientes">
+
+                        <button type="button"
+                            class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
+                            <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
+                                <i class="path1"></i>
+                                <i class="path2"></i>
+                            </i>
+                        </button>
+                    </a>
+
+                </div>
+                <div class="ribbon-label fs-3">
+                    <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
+                            class="path2"></span><span class="path3"></span></i>
+                Clientes | Modificar
+
+                    <span class="ribbon-inner bg-info"></span>
+                </div>
+            </div>
         <div class="card-body">
 
             <!--begin::row group-->
@@ -131,6 +154,7 @@ Editar Cliente
 
         <div class="card-footer d-flex justify-content-end py-6">
             <button type="submit" class="btn btn-bg-primary btn-text-white">Modificar</button>
+        </div>
         </div>
     </form>
 @endsection
