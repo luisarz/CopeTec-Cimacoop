@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\DB;
 use Luecano\NumeroALetras\NumeroALetras;
 use \PDF;
 use App\Helpers\ConversionHelper;
+use App\Exports\CreditScoreExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class ReportesController extends Controller
@@ -502,6 +504,10 @@ class ReportesController extends Controller
         $creditos = Credito::all();
         return view('contabilidad.reportes.infored', compact('creditos'));
     }
+    public function inforedExport()
+    {
+        return Excel::download(new CreditScoreExport, 'creditos.xlsx');
+    }
     public function generate_score()
     {
         $configuracion = Configuracion::first();
@@ -535,29 +541,29 @@ class ReportesController extends Controller
         $lateAccs = new Collection($lateAccs);
 
         foreach ($lateAccs as $lta) {
-            $record = ClientCreditScore::where('id_cliente',$lta['id_cliente'])->first();
-            if($record!=null){
-                if($lta['delincuent_days']<=3){
-                    $record->score="A2";
-                }else if($lta['delincuent_days']>3 &&$lta['delincuent_days']<=90){
-                    $record->score="B";
-                }else if($lta['delincuent_days']>90){
-                    $record->score="C";
-                }else{
-                    $record->score="A1";
+            $record = ClientCreditScore::where('id_cliente', $lta['id_cliente'])->first();
+            if ($record != null) {
+                if ($lta['delincuent_days'] <= 3) {
+                    $record->score = "A2";
+                } else if ($lta['delincuent_days'] > 3 && $lta['delincuent_days'] <= 90) {
+                    $record->score = "B";
+                } else if ($lta['delincuent_days'] > 90) {
+                    $record->score = "C";
+                } else {
+                    $record->score = "A1";
                 }
                 $record->save();
-            }else{
+            } else {
                 $newrec = new ClientCreditScore();
-                $newrec->id_cliente=$lta['id_cliente'];
-                if($lta['delincuent_days']<=3){
-                    $newrec->score="A2";
-                }else if($lta['delincuent_days']>3&&$lta['delincuent_days']<=90){
-                    $newrec->score="B";
-                }else if($lta['delincuent_days']>90){
-                    $newrec->score="C";
-                }else{
-                    $newrec->score="A1";
+                $newrec->id_cliente = $lta['id_cliente'];
+                if ($lta['delincuent_days'] <= 3) {
+                    $newrec->score = "A2";
+                } else if ($lta['delincuent_days'] > 3 && $lta['delincuent_days'] <= 90) {
+                    $newrec->score = "B";
+                } else if ($lta['delincuent_days'] > 90) {
+                    $newrec->score = "C";
+                } else {
+                    $newrec->score = "A1";
                 }
                 $newrec->save();
             }
@@ -569,5 +575,4 @@ class ReportesController extends Controller
         die();
         return view('contabilidad.reportes.infored', compact('creditos'));
     }
-
-   }
+}

@@ -573,6 +573,9 @@ Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
     Route::get('/ingresos', [MovimientosController::class, 'ingresos']);
     Route::post('/ingresos', [MovimientosController::class, 'ingresos']);
     Route::get('/ingresos/{desde}/{hasta}', [MovimientosController::class, 'ingresos_rep']);
+    // reports creditos prox a vencer
+    Route::get('creditos/proximos-vencer', [CreditoController::class, 'prox_vencer']);
+    Route::get('/cartera-mora-rep', [CreditoController::class, 'cartera_mora_rep']);
 });
 
 Route::middleware(['auth', 'bitacora'])->prefix('proveedores')->group(function () {
@@ -621,3 +624,4 @@ Route::middleware(['auth', 'bitacora'])->prefix('iva')->group(function () {
 });
 
 Route::get('/contabilidad/Reportes/infored', [ReportesController::class, 'infored'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/Reportes/infored_rep', [ReportesController::class, 'inforedExport'])->middleware(['auth', 'bitacora']);

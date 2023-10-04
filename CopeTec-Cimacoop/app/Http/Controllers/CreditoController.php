@@ -576,4 +576,13 @@ class CreditoController extends Controller
 
       return $pdf->setOrientation('portrait')->inline();
    }
+   // creditos por vencer
+    public function prox_vencer()
+    {
+       $configuracion = Configuracion::first();
+       $days = $configuracion->dias_gracia + 30;
+ 
+       $creditos = Credito::whereRaw("creditos.cuota >= creditos.saldo_capital*2")->get();
+       return view('creditos.reportes.cartera_mora', compact('creditos'));
+    }
 }
