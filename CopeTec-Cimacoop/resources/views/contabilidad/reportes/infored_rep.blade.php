@@ -51,7 +51,7 @@
         @foreach ($creditos as $credito)
             <tr>
                 <td>{{ date('Y') }}</td>
-                <td>{{date('m') }}</td>
+                <td>{{ date('m') }}</td>
                 <td>{{ $credito->cliente->nombre }}</td>
                 <td>1</td>
                 <td>{{ $credito->codigo_credito }}</td>
@@ -101,7 +101,11 @@
                 <td>
                     {{ $credito->plazo }}
                 </td>
-                <td> {{ $credito->cliente->score->score }}</td>
+                <td>
+                    @if ($credito->cliente->score)
+                        {{ $credito->cliente->score->score }}
+                    @endif
+                </td>
                 <td>COM</td>
 
 
