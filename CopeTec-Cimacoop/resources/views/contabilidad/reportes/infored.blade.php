@@ -115,7 +115,11 @@
                                 <td>
                                     {{ $credito->plazo }}
                                 </td>
-                                <td> {{ $credito->cliente->score->score }}</td>
+                                <td>
+                                    @if ($credito->cliente->score)
+                                        {{ $credito->cliente->score->score }}
+                                    @endif
+                                </td>
                                 <td>Comerciante</td>
 
 

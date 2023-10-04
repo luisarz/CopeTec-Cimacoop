@@ -583,6 +583,25 @@ class CreditoController extends Controller
        $days = $configuracion->dias_gracia + 30;
  
        $creditos = Credito::whereRaw("creditos.cuota >= creditos.saldo_capital*2")->get();
-       return view('creditos.reportes.cartera_mora', compact('creditos'));
+       return view('creditos.reportes.creditos_por_vencer', compact('creditos'));
+    }
+    public function prox_vencer_rep()
+    {
+ 
+ 
+       $configuracion = Configuracion::first();
+       $days = $configuracion->dias_gracia + 30;
+ 
+       $creditos = Credito::whereRaw("creditos.cuota >= creditos.saldo_capital*2")->get();
+ 
+       // return view('creditos.reportes.cartera_mora', compact('creditos'));
+       $pdf = PDF::loadView("creditos.reportes.creditos_por_vencer_rep", [
+          'estilos' => $this->estilos,
+          'stilosBundle' => $this->stilosBundle,
+          'creditos' => $creditos
+ 
+       ]);
+ 
+       return $pdf->setOrientation('portrait')->inline();
     }
 }

@@ -31,6 +31,7 @@
                             <th class="min-w-20px">Ultimo Pago Recivido</th>
                             <th class="min-w-30px">Saldo</th>
                             <th class="min-w-30px">Monto</th>
+                            <th class="min-w-30px">Cuota</th>
                             <th class="min-w-30px">Días en mora</th>
                         </tr>
                     </thead>
@@ -46,6 +47,7 @@
                                     <td>{{ \Carbon\Carbon::parse($cr->ultima_fecha_pago)->format('d/m/Y') }}</td>
                                     <td>@money($cr->saldo_capital)</td>
                                     <td>@money($cr->monto_solicitado)</td>
+                                    <td>@money($cr->cuota)</td>
                                     <td>{{ \Carbon\Carbon::now()->diffInDays($cr->ultima_fecha_pago) }}
                                     </td>
                                 </tr>
@@ -68,7 +70,7 @@
 @section('scripts')
     <script>
         function generarReporte() {
-            window.open('/reportes/cartera-mora-rep', '_blank');
+            window.open('/reportes/creditos/proximos-vencer-rep', '_blank');
         }
     </script>
 @endsection
