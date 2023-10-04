@@ -621,3 +621,4 @@ Route::middleware(['auth', 'bitacora'])->prefix('iva')->group(function () {
 });
 
 Route::get('/contabilidad/Reportes/infored', [ReportesController::class, 'infored'])->middleware(['auth', 'bitacora']);
+Route::get('/contabilidad/Reportes/infored_rep', [ReportesController::class, 'inforedExport'])->middleware(['auth', 'bitacora']);

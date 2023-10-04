@@ -9,7 +9,8 @@
 
                     <!--begin:Action-->
                     <div class="d-flex align-items-center">
-                        <button type="button" class="btn btn-success me-5">Exportar a EXCEL</button>
+                        <button onclick="downloadExcel()" type="button" class="btn btn-success me-5">Exportar a
+                            EXCEL</button>
                     </div>
                     <!--end:Action-->
                 </form>
@@ -118,7 +119,7 @@
                                 <td>Comerciante</td>
 
 
-                                <td>{{ $credito->cliente->genero==0?'Masculino':'Femenino' }}</td>
+                                <td>{{ $credito->cliente->genero == 0 ? 'Masculino' : 'Femenino' }}</td>
                                 <td>
                                     @if ($credito->saldo_capital <= 0)
                                         Crédito Cancelado
@@ -140,4 +141,36 @@
         </div>
     </div>
 @endsection
+@section('scripts')
+    <script>
+        function downloadExcel() {
+            $.ajax({
+                xhrFields: {
+                    responseType: 'blob',
+                },
+                type: 'get',
+                url: '/contabilidad/Reportes/infored_rep',
+                success: function(result, status, xhr) {
 
+                    var disposition = xhr.getResponseHeader('content-disposition');
+                    var matches = /"([^"]*)"/.exec(disposition);
+                    var filename = (matches != null && matches[1] ? matches[1] : 'CARTERA_COMPLETA_INFORED ' +
+                        {{ date('Y') }} + '-' + {{ date('m') }} + '.xlsx');
+
+                    // The actual download
+                    var blob = new Blob([result], {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = filename;
+
+                    document.body.appendChild(link);
+
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            });
+        }
+    </script>
+@endsection
