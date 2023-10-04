@@ -575,7 +575,7 @@ Route::middleware(['auth', 'bitacora'])->prefix('reportes')->group(function () {
     Route::get('/ingresos/{desde}/{hasta}', [MovimientosController::class, 'ingresos_rep']);
     // reports creditos prox a vencer
     Route::get('creditos/proximos-vencer', [CreditoController::class, 'prox_vencer']);
-    Route::get('/cartera-mora-rep', [CreditoController::class, 'cartera_mora_rep']);
+    Route::get('creditos/proximos-vencer-rep', [CreditoController::class, 'prox_vencer_rep']);
 });
 
 Route::middleware(['auth', 'bitacora'])->prefix('proveedores')->group(function () {
