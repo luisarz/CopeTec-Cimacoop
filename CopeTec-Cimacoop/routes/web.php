@@ -368,6 +368,8 @@ Route::post('/creditos/solicitudes/add', [SolicitudCreditoController::class, 'po
 Route::get('/creditos/solicitudes/edit/{id}', [SolicitudCreditoController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/creditos/solicitudes/put', [SolicitudCreditoController::class, 'put'])->middleware(['auth', 'bitacora']);
 Route::delete('/creditos/solicitudes/delete', [SolicitudCreditoController::class, 'delete'])->middleware(['auth', 'bitacora']);
+Route::put('/creditos/solicitudes/rechazar', [SolicitudCreditoController::class, 'rechazar'])->middleware(['auth', 'bitacora']);
+
 
 
 /*
@@ -393,8 +395,14 @@ Route::get('/creditos/aprobado/liquidacion/{id}', [ReportesController::class, 'l
 
 
 
+Route::get('/creditos/solicitudes/send_comite/{id}', [SolicitudCreditoController::class, 'enviar_comite'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/solicitudes/desembolso/{id}', [SolicitudCreditoController::class, 'desembolso'])->middleware(['auth', 'bitacora']);
+
+Route::get('/comite', [SolicitudCreditoController::class, 'solicitud_comite'])->middleware(['auth', 'bitacora']);
+
 Route::post('/creditos/solicitudes/create-credit', [SolicitudCreditoController::class, 'createCredit'])->middleware(['auth', 'bitacora']);
+Route::post('/creditos/solicitudes/send_comite', [SolicitudCreditoController::class, 'comite'])->middleware(['auth', 'bitacora']);
+
 Route::post('/creditos/solicitudes/liquidar', [SolicitudCreditoController::class, 'liquidar'])->middleware(['auth', 'bitacora']);
 
 Route::get('/reportes/desembolsos', [CreditoController::class, 'desembolsosReporte'])->middleware(['auth', 'bitacora']);

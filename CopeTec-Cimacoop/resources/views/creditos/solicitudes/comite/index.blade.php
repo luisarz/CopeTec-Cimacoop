@@ -21,10 +21,7 @@
     <div class="card shadow-lg pt-4">
         <div class="card-header ribbon ribbon-end ribbon-clip">
             <div class="card-toolbar">
-                <a href="/creditos/solicitudes/add" class="btn btn-info">
-                    <i class="ki-outline ki-electricity fs-2x"></i>
-                    Nueva solicitud
-                </a>
+           
 
             </div>
             <div class="ribbon-label fs-3">
@@ -64,7 +61,7 @@
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded  menu-state-bg-light-primary fw-semibold fs-7 w-250px py-3"
                                         data-kt-menu="true" style="">
                                         @switch($solicitud->estado)
-                                            @case(1)
+                                            @case(4)
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-2">
                                                     <a href="/creditos/solicitudes/edit/{{ $solicitud->id_solicitud }}"
@@ -99,16 +96,16 @@
                                                     <a href="javascript:alertDelete('{{ $solicitud->id_solicitud }}')"
                                                         class="menu-link px-3">
                                                         <i class="ki-outline ki-cross-circle   fs-3"></i>
-                                                        <span class="px-2 badge badge-light-danger "> Eliminar Solicitud</span>
+                                                        <span class="px-2 badge badge-light-danger "> Rechazar Solicitud</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="/creditos/solicitudes/send_comite/{{ $solicitud->id_solicitud }}"
+                                                    <a href="/creditos/solicitudes/desembolso/{{ $solicitud->id_solicitud }}"
                                                         class="menu-link px-3">
                                                         <i class="ki-outline ki-crown  fs-3"></i>
-                                                        <span class="px-2 badge badge-light-info"> Enviar a Comite</span>
+                                                        <span class="px-2 badge badge-light-success"> Enviar A Desembolso</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Menu item-->
@@ -190,82 +187,27 @@
         </div>
     </div>
 
-    <form method="post" id="deleteForm" action="/creditos/solicitudes/delete">
+    <form method="post" id="deleteForm" action="/creditos/solicitudes/rechazar">
         {!! csrf_field() !!}
-        {{ method_field('DELETE') }}
+        {{ method_field('PUT') }}
         <input type="hidden" name="id" id="id">
     </form>
 @endsection
 
 @section('scripts')
     <script>
-        function optionsMenu(id) {
-            Swal.fire({
-                title: 'Que deseas realizar a la solicitud?',
-                // icon: 'question',
-                html: `
-                
-      <ul style="list-style-type: none; padding: 0;">
-        <li class='py-0'>
-            <a href="/creditos/solicitudes/edit/{{ $solicitud->id_solicitud }}"
-                class="btn btn-warning btn-sm  w-75">
-                <i class="ki-outline ki-pencil fs-5"></i> 
-                Modidicar 
-            </a>
-        </li>
-        <li>
-             <a href="/creditos/solicitud/{{ $solicitud->id_solicitud }}"
-                class="btn btn-info btn-sm w-75">
-                <i class="ki-outline ki-printer    fs-3"></i>
-                Imprimir Solicitud
-            </a>
-        </li>
-        <li>
-            <a href="/creditos/pagare/{{ $solicitud->id_solicitud }}"
-                class="btn btn-info btn-sm w-75">
-                <i class="ki-outline ki-printer   fs-3"></i>
-                imprimir Pagaré
-            </a>
-        </li>
-         <li>
-             <a href="javascript:alertDelete('{{ $solicitud->id_solicitud }}')"
-                class="btn btn-outline btn-danger btn-sm w-75">
-                <i class="ki-outline ki-cross-circle   fs-3"></i>
-                Rechazar 
-            </a>
-        </li>
-        <li>
-            <a href="/creditos/solicitudes/desembolso/{{ $solicitud->id_solicitud }}"
-                class="btn btn-outline btn-success btn-sm w-75 text-align-left">
-                <i class="ki-outline ki-folder-added fs-3">
-                   
-                </i>
-                Aprobar Desembolso
-            </a>
-        </li>
-
-      </ul>
-    `,
-                showCancelButton: true,
-                cancelButtonText: 'Cancelar y Salir',
-                showConfirmButton: false,
-                focusCancel: true,
-                customClass: {
-                    content: 'custom-swal-content'
-                }
-            });
-        }
+      
 
         function alertDelete(id) {
             Swal.fire({
-                text: "Deseas Eliminar este registro",
-                icon: "warning",
+                text: "Deseas Rechazar esta Solciitud?",
+                icon: "question",
                 buttonsStyling: false,
                 showCancelButton: true,
-                confirmButtonText: "Si",
+                confirmButtonText: "Si, rechazar",
                 cancelButtonText: 'No',
                 customClass: {
-                    confirmButton: "btn btn-warning",
+                    confirmButton: "btn btn-danger",
                     cancelButton: "btn btn-secondary"
                 }
             }).then((result) => {

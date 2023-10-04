@@ -17,7 +17,8 @@ class ClientesController extends Controller
     public function getClientes(Request $request)
     {
         if ($request->ajax()) {
-            $data = Clientes::latest()->get();
+            $data = Clientes::where('nombre','!=','Bobeda General')
+            ->latest()->get();
             return \Yajra\DataTables\DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
