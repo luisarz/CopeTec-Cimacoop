@@ -31,6 +31,7 @@ class ProductosController extends Controller
         $producto->marca= $request->marca;
         $producto->cod_barra = $request->cod_barra;
         $producto->costo = $request->costo;
+        $producto->tipo_facturacion= $request->tipo_facturacion;
         $producto->save();
         return redirect('productos/list');
     }
@@ -41,6 +42,20 @@ class ProductosController extends Controller
         $producto = ProductosModel::find($id);
         return view('productos.edit', compact('producto'));
     }
+
+    public function put(Request $request)
+    {
+        $producto =  ProductosModel::find($request->id_producto);
+        $producto->nombre = $request->nombre;
+        $producto->presentacion = $request->presentacion;
+        $producto->marca = $request->marca;
+        $producto->cod_barra = $request->cod_barra;
+        $producto->costo = $request->costo;
+        $producto->tipo_facturacion = $request->tipo_facturacion;
+        $producto->save();
+        return redirect('productos/list');
+    }
+
     public function delete(Request $request)
     {
         $id = $request->id;

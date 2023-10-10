@@ -65,4 +65,23 @@ class CorrelativosController extends Controller
             return redirect("/cajas");
         }
     }
+
+    public function getNumFactura($tipo_documento){
+        $correlativo = CorrelativosModel::where("tipo_documento", $tipo_documento)->first();
+        if($correlativo){
+            $ultimo_emitido = $correlativo->ultimo_emitido;
+            $ultimo_emitido = $ultimo_emitido + 1;
+            // $correlativo->ultimo_emitido = $ultimo_emitido;
+            // $correlativo->save();
+            return response()->json([
+                'ultimo_emitido' => $ultimo_emitido
+            ]);
+        }else{
+            $ultimo_emitido = 0;
+            return response()->json([
+                'ultimo_emitido' => $ultimo_emitido
+            ]);
+        }
+
+    }
 }

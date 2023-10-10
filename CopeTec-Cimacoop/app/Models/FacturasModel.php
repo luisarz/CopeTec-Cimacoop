@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ComprasModel extends Model
+class FacturasModel extends Model
 {
     use HasFactory;
-    protected $table = 'compras';
-    protected $primaryKey = 'id_compra';
+    protected $table = 'facturas';
+    protected $primaryKey = 'id_factura';
     protected $keyType = 'string';
-    public $incrementing = false;
 
+    public $incrementing = false;
 }

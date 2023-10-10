@@ -49,7 +49,7 @@ use App\Http\Controllers\CreditoController;
 use App\Http\Controllers\DeclaracionJuradaController;
 use App\Http\Controllers\MoneylaunderingController;
 use App\Http\Controllers\ParameterController;
-
+use App\Http\Controllers\FacturasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -210,11 +210,14 @@ Route::middleware(['auth', 'bitacora'])->prefix('cajas')->group(function () {
 
 Route::middleware(['auth', 'bitacora'])->prefix('correlativos')->group(function () {
     Route::get('/caja/{id}/list', [CorrelativosController::class, 'index']);
-
     Route::get('/caja/{id}/add', [CorrelativosController::class, 'add']);
     Route::post('/caja/add', [CorrelativosController::class, 'post']);
     Route::get('/caja/edit-correlativo/{id_correlativo}', [CorrelativosController::class, 'edit']);
     Route::put('/caja/edit-correlativo/put', [CorrelativosController::class, 'put']);
+
+    Route::get('/getNumDocumento/{tipoDocumento}', [CorrelativosController::class, 'getNumFactura']);
+
+
 });
 
 
@@ -597,6 +600,7 @@ Route::middleware(['auth', 'bitacora'])->prefix('productos')->group(function () 
     Route::get('/add', [ProductosController::class, 'add']);
     Route::post('/add', [ProductosController::class, 'post']);
     Route::get('/edit/{id}', [ProductosController::class, 'edit']);
+    Route::put('/put', [ProductosController::class, 'put']);
     Route::get('/reporte/{filtro}', [ProductosController::class, 'reporte']);
     Route::delete('/delete', [ProductosController::class, 'delete']);
 });
@@ -617,6 +621,19 @@ Route::middleware(['auth', 'bitacora'])->prefix('compras')->group(function () {
     Route::post('/percepcion', [ComprasController::class, 'percepcion']);
 });
 
+Route::middleware(['auth', 'bitacora'])->prefix('facturas')->group(function () {
+    Route::get('/list', [FacturasController::class, 'index']);
+    Route::post('/list', [FacturasController::class, 'index']);
+    Route::get('/add', [FacturasController::class, 'add']);
+    Route::post('/add-product', [FacturasController::class, 'addProduct']);
+    Route::get('/edit/{id}', [FacturasController::class, 'edit']);
+    Route::get('/delete-product/{id}', [FacturasController::class, 'deleteProduct']);
+    Route::delete('/delete', [FacturasController::class, 'delete']);
+    Route::get('/detalles/{id_compra}', [FacturasController::class, 'getDetalles']);
+    Route::post('/finalizar', [FacturasController::class, 'finalizar']);
+    Route::get('/reporte/{filtro}', [FacturasController::class, 'reporte']);
+    Route::post('/percepcion', [FacturasController::class, 'percepcion']);
+});
 
 Route::middleware(['auth', 'bitacora'])->prefix('iva')->group(function () {
     Route::get('/compras', [IvaController::class, 'libroCompra']);

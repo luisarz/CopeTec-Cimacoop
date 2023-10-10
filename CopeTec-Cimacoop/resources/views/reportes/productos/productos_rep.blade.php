@@ -30,6 +30,8 @@
                             <th class="min-w-80px">Presentación</th>
                             <th class="min-w-50px">Marca</th>
                             <th class="min-w-50px">Costo</th>
+                            <th class="min-w-100px">Facturacion</th>
+
                         </tr>
                     </thead>
                     <tbody class="fs-4">
@@ -42,6 +44,13 @@
                                 <td>{{ $producto->presentacion }}</td>
                                 <td>{{ $producto->marca }}</td>
                                 <td>${{ number_format($producto->costo, 2) }}</td>
+                                    <td>
+                                @if($producto->tipo_facturacion == 1)
+                                    <span class="badge badge-light-danger">Compras</span>
+                                @else
+                                    <span class="badge badge-light-success">Facturacion</span>
+                                @endif    
+                                </td>
 
 
                             </tr>

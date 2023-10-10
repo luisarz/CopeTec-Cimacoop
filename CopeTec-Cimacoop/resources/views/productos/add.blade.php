@@ -25,7 +25,7 @@
                 <div class="ribbon-label fs-3">
                     <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
                             class="path2"></span><span class="path3"></span></i>
-                  Nuevo Prodúcto
+                    Nuevo Prodúcto
 
                     <span class="ribbon-inner bg-danger"></span>
                 </div>
@@ -35,7 +35,7 @@
 
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
-                    <div class="form-floating col-lg-8">
+                    <div class="form-floating col-lg-6">
                         <input type="text" name="nombre" class="form-control" required>
                         <label for="floatingPassword">Producto</label>
                     </div>
@@ -44,8 +44,17 @@
 
                         <label>Código de Barra</label>
                     </div>
+                    <div class="form-floating col-lg-2">
+
+                        <select name="tipo_facturacion" id="tipo_facturacion" class="form-control">
+                            <option value="1">Compras/Proveedor</option>
+                            <option value="2">Facturacion/Cliente</option>
+                        </select>
+
+                        <label>Facturacion</label>
+                    </div>
                 </div>
-                 <!--begin::row group-->
+                <!--begin::row group-->
                 <div class="form-group row mb-5">
                     <div class="form-floating col-lg-4">
                         <input type="text" name="presentacion" class="form-control" required>
@@ -55,13 +64,14 @@
                         <input type="text" name="marca" class="form-control" required>
                         <label>Marca</label>
                     </div>
-                     <div class="form-floating col-lg-4">
-                        <input type="number" step="any" min="0" name="costo" class="form-control" required value="0.00">
+                    <div class="form-floating col-lg-4">
+                        <input type="number" step="any" min="0" name="costo" class="form-control" required
+                            value="0.00">
                         <label>Costo</label>
                     </div>
                 </div>
-              
-                
+
+
 
             </div>
             <div class="card-footer d-flex justify-content-center py-6">

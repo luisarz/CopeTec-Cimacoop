@@ -35,7 +35,7 @@
             <div class="ribbon-label fs-5">
                                <i class="ki-outline  {{ Session::get('icon_menu') }}  text-white fs-2x"></i> &nbsp;
 
-                Créditos | Pre aprobados
+                Créditos | Aprobados 
                 <span class="ribbon-inner bg-info"></span>
             </div>
         </div>
@@ -70,10 +70,7 @@
                                 <td>
                                     <a href="/creditos/preaprobado/liquidar/{{ $credito->id_credito }}"
                                         class="btn btn-danger btn-sm w-30">
-                                        <i class="ki-duotone ki-dollar">
-                                            <i class="path1"></i>
-                                            <i class="path2"></i>
-                                            <i class="path3"></i>
+                                        <i class="ki-outline ki-dollar fs-1 text-white">
                                         </i> Liquidar
                                     </a>
                                 </td>

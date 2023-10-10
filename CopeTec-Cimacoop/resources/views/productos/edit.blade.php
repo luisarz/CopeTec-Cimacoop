@@ -1,11 +1,12 @@
 @extends('base.base')
 @section('title')
-    Agregar Cliente
+  Modificar Producto
 @endsection
 @section('content')
-    <form action="/productos/add" method="post" autocomplete="off">
+    <form action="/productos/put" method="post" autocomplete="off">
         <input hidden name="id_producto" value="{{ $producto->id_producto }}">
         {!! csrf_field() !!}
+        {{ method_field('PUT')  }}
         <div class="input-group mb-5"></div>
 
         <div class="card shadow-lg">
@@ -26,7 +27,7 @@
                 <div class="ribbon-label fs-3">
                     <i class="ki-duotone ki-shield-tick text-white fs-2x"><span class="path1"></span><span
                             class="path2"></span><span class="path3"></span></i>
-                  Nuevo Prodúcto
+                  Modificar Prodúcto
 
                     <span class="ribbon-inner bg-danger"></span>
                 </div>
@@ -35,7 +36,7 @@
 
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
-                    <div class="form-floating col-lg-8">
+                    <div class="form-floating col-lg-6">
                         <input type="text" name="nombre" class="form-control" required value="{{ $producto->nombre }}">
                         <label for="floatingPassword">Producto</label>
                     </div>
@@ -43,6 +44,20 @@
                         <input type="text" name="cod_barra" class="form-control">
 
                         <label>Código de Barra</label>
+                    </div>
+                     <div class="form-floating col-lg-2">
+
+                        <select name="tipo_facturacion" id="tipo_facturacion" class="form-control" required>
+                            @if ($producto->tipo_facturacion == 1)
+                                <option value="1" selected>Compras/Proveedor</option>
+                                <option value="2">Facturacion/Cliente</option>
+                            @else
+                                <option value="1">Compras/Proveedor</option>
+                                <option value="2" selected>Facturacion/Cliente</option>
+                            @endif
+                        </select>
+
+                        <label>Facturacion</label>
                     </div>
                 </div>
                  <!--begin::row group-->

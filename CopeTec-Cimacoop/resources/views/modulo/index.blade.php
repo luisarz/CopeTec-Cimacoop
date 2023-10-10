@@ -15,7 +15,7 @@
             <table class="data-table-coop table table-hover table-row-dashed fs-6     gy-1 gs-1">
                 <thead class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
                     <tr>
-                        <th>Acciones</th>
+                        <th class="min-wiht-200">Acciones</th>
                         <th>Modulo</th>
                         <th>Icono</th>
                         <th>Minizado</th>
@@ -29,10 +29,10 @@
                         <tr>
                             <td><a href="javascript:void(0);" onclick="alertDelete({{ $modulo->id_modulo }})"
                                     class="btn btn-danger btn-sm"><i class="fa-solid fa-trash text-white"></i> &nbsp;
-                                    Eliminar</a>
+                                    </a>
                                      <a href="/modulo/{{ $modulo->id_modulo }}" class="btn btn-info btn-sm"><i
                                         class="fa-solid fa-pencil text-white"></i> &nbsp;
-                                    Modificar</a></td>
+                                    </a></td>
                             <td>{{ $modulo->nombre }}</td>
                             <td style="text-align: center">
                                 <i class="ki-outline {{ $modulo->icono }} fs-2"></i>
