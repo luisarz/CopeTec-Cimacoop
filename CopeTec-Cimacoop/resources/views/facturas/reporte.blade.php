@@ -16,7 +16,7 @@
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
     <div class="double-strikethrough">
         ASOCIACION COOPERATIVA DE AHORRO Y CREDITO LA CIMA - "CIMACOOP, DE R.L." <br>
-        COMPRAS
+        FACTURAS
     </div>
     <br>
 
@@ -24,35 +24,46 @@
         <thead class="fw-bold">
             <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                 <th class="min-w-100px ">Estado</th>
-                <th class="min-w-50px ">CCF</th>
-                <th class="min-w-250px">Proveedor</th>
+                <th class="min-w-100px ">Numero</th>
+                <th class="min-w-180px">Cliente</th>
                 <th class="min-w-50px">Fecha</th>
                 <th class="min-w-50px">Neto</th>
                 <th class="min-w-50px">IVA</th>
-                <th class="min-w-50px">Percepción</th>
                 <th class="min-w-50px">Total</th>
+
             </tr>
         </thead>
         <tbody class="fs-4">
-            @foreach ($compras as $compra)
+            @foreach ($facturas as $factura)
                 <tr>
+
                     <td>
-                        @if ($compra->estado == '2')
+                        @if ($factura->estado == 2)
                             <span class="badge badge-light-success">Procesada</span>
                         @else
-                            <span class="badge badge-light-danger">Pendiente</span>
+                            <span class="badge badge-light-info">Pendiente</span>
                         @endif
                     </td>
-                    <td>{{ $compra->numero_fcc }}</td>
-                    <td>{{ $compra->razon_social }}</td>
-                    <td>{{ date('d-m-Y',strtotime($compra->fecha_compra)) }}</td>
-                    <td>${{ number_format($compra->neto, 2) }}</td>
-                    <td>${{ number_format($compra->iva, 2) }}</td>
-                    <td>${{ number_format($compra->percepcion, 2) }}</td>
-                    <td>${{ number_format($compra->total, 2) }}</td>
+                    <td>
+                        <span class="badge badge-light-success">
+                            <span class="badge badge-light-info">{{ $factura->tipo_documento }}
+                            </span>
+                            {{ $factura->numero_factura }}
+                        </span>
+
+                    </td>
+
+                    <td>{{ $factura->nombre }}</td>
+                    <td>{{ date('d-m-Y', strtotime($factura->fecha_factura)) }}</td>
+                    <td>${{ number_format($factura->neto, 2) }}</td>
+                    <td>{{ ($factura->iva>0?'$'.number_format($factura->iva, 2):'-') }}</td>
+
+                    <td>${{ number_format($factura->total, 2) }}</td>
+
                 </tr>
             @endforeach
         </tbody>
     </table>
 </body>
+
 </html>

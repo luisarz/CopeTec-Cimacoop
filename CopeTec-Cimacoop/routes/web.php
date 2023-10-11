@@ -638,6 +638,14 @@ Route::middleware(['auth', 'bitacora'])->prefix('facturas')->group(function () {
 Route::middleware(['auth', 'bitacora'])->prefix('iva')->group(function () {
     Route::get('/compras', [IvaController::class, 'libroCompra']);
     Route::post('/compras', [IvaController::class, 'libroCompra_rep']);
+    //ventas al consumidor
+    Route::get('/facturas-consumidor', [IvaController::class, 'libroFacturasConsumidor']);
+    Route::post('/facturas-consumidor', [IvaController::class, 'libroFacturasConsumidor_rep']);
+    //ventas al CCF
+    Route::get('/facturas-contribuyente', [IvaController::class, 'libroFacturasCCF']);
+    Route::post('/facturas-contribuyente', [IvaController::class, 'libroFacturasCCF_rep']);
+
+
 });
 
 Route::get('/contabilidad/Reportes/infored', [ReportesController::class, 'infored'])->middleware(['auth', 'bitacora']);

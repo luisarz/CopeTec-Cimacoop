@@ -87,44 +87,18 @@
                                 </td>
 
                                 <td>
-                                    @if ($factura->estado == '2')
+                                    @if ($factura->estado == 2)
                                         <span class="badge badge-light-success">Procesada</span>
                                     @else
                                         <span class="badge badge-light-info">Pendiente</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @php
-                                        $tipo = '';
-                                    @endphp
-                                    @switch($factura->tipo_documento)
-                                        @case(1)
-                                            <span class="badge badge-light-success">
-                                                <span
-                                                    class="badge badge-light-info">Fact.
-                                                </span>
-                                                {{ $factura->numero_factura }}
-                                            </span>
-                                        @break
-
-                                        @case(2)
-                                              <span class="badge badge-light-success">
-                                                <span
-                                                    class="badge badge-light-info">CCF
-                                                </span>
-                                                {{ $factura->numero_factura }}
-                                            </span>
-                                        @break
-
-                                        @case(3)
-                                             <span class="badge badge-light-info">
-                                                <span
-                                                    class="badge badge-light-success">Ticket
-                                                </span>
-                                                {{ $factura->numero_factura }}
-                                            </span>
-                                        @break
-                                    @endswitch
+                                    <span class="badge badge-light-success">
+                                        <span class="badge badge-light-info">{{ $factura->tipo_documento }}
+                                        </span>
+                                        {{ $factura->numero_factura }}
+                                    </span>
 
                                 </td>
 

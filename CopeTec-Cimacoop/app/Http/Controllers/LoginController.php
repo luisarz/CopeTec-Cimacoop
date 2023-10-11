@@ -11,14 +11,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Session;
 
 class LoginController extends Controller
 {
     public function logout()
     {
-        Auth::logout();
-        Session::flush();
+        \Illuminate\Support\Facades\Auth::logout();
+        \Illuminate\Support\Facades\Session::flush();
         return redirect("/login");
     }
 
@@ -40,7 +39,7 @@ class LoginController extends Controller
 
     public function setPassword(Request $request)
     {
-        $id = Session::get("id");
+        $id = \Illuminate\Support\Facades\Session::get("id");
         $user = User::where("id", $id)->first();
         $user->temp_password = "";
         $user->is_recovery = 0;
@@ -117,6 +116,6 @@ class LoginController extends Controller
         
         $session->put("access",$Access);
 
-        Auth::login($user, true);
+        \Illuminate\Support\Facades\Auth::login($user, true);
     }
 }

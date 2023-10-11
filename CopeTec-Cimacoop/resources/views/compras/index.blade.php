@@ -95,8 +95,10 @@
                                     @endif
                                 </td>
                                 <td>{{ $compra->numero_fcc }}</td>
+                                <td>
+{{ Str::limit($compra->razon_social, 20) }}
 
-                                <td>{{ $compra->razon_social }}</td>
+                                </td>
                                 <td>{{ date('d-m-Y',strtotime($compra->fecha_compra))  }}</td>
                                 <td>${{ number_format($compra->neto,2) }}</td>
                                 <td>${{ number_format($compra->iva,2) }}</td>

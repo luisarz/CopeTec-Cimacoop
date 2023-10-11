@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Clientes;
+use App\Models\CorrelativosModel;
 use App\Models\FacturasDetalleModel;
 use App\Models\FacturasModel;
 use App\Models\ProductosModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use \PDF;
 
 class FacturasController extends Controller
 {
@@ -17,6 +19,7 @@ class FacturasController extends Controller
         $filtro = $request->filtro;
         if (isset($filtro)) {
             $facturas = FacturasModel::join('clientes', 'facturas.id_cliente', '=', 'clientes.id_cliente')
+                ->select('facturas.*', 'clientes.nombre', 'clientes.dui_cliente')
                 ->where('clientes.nombre', 'like', '%' . $filtro . '%')
                 ->orWhere('clientes.dui_cliente', '=', $filtro)
                 ->orWhere('clientes.dui_cliente', '=', $filtro)
@@ -25,6 +28,7 @@ class FacturasController extends Controller
                 ->paginate(10);
         } else {
             $facturas = FacturasModel::join('clientes', 'facturas.id_cliente', '=', 'clientes.id_cliente')
+                ->select('facturas.*', 'clientes.nombre', 'clientes.dui_cliente')
                 ->orderby('facturas.fecha_factura', 'desc')
                 ->paginate(10);
         }
@@ -193,6 +197,14 @@ class FacturasController extends Controller
         $detalles = FacturasDetalleModel::join('productos', 'facturas_detalle.id_producto', '=', 'productos.id_producto')
             ->where('facturas_detalle.id_factura', '=', $id_factura)->get();
 
+        if ($factura->estado != 2) {
+            $correlativo = CorrelativosModel::where("tipo_documento", $request->tipo_documento)->first();
+            $ultimo_emitido = $correlativo->ultimo_emitido;
+            $ultimo_emitido = $ultimo_emitido + 1;
+            $correlativo->ultimo_emitido = $ultimo_emitido;
+            $correlativo->save();
+        }
+
         $subtotal = number_format($detalles->sum('subtotal'), 2, '.', '');
         $iva = number_format($detalles->sum('iva'), 2, '.', '');
         $retencion = number_format($detalles->sum('retencion'), 2, '.', '');
@@ -210,6 +222,14 @@ class FacturasController extends Controller
         $factura->usuario = Session::get('id');
         $factura->estado = '2'; //Finalizado
         $factura->save();
+
+
+
+
+
+
+        //actualizar los correlativos
+
 
 
 
@@ -237,13 +257,15 @@ class FacturasController extends Controller
 
     public function reporte($filtro)
     {
-        ;
         if ($filtro != 'all') {
             $facturas = facturasModel::join('clientes', 'facturas.id_cliente', '=', 'clientes.id_cliente')
+            ->select('facturas.*', 'clientes.nombre', 'clientes.dui_cliente')
                 ->where('razon_social', 'like', '%' . $filtro . '%')
                 ->orWhere('clientes.dui', '=', $filtro)->get();
         } else {
-            $facturas = facturasModel::join('clientes', 'facturas.id_cliente', '=', 'clientes.id_cliente')->get();
+            
+            $facturas = facturasModel::join('clientes', 'facturas.id_cliente', '=', 'clientes.id_cliente')
+            ->select('facturas.*', 'clientes.nombre', 'clientes.dui')->get();
         }
 
 
@@ -263,11 +285,11 @@ class FacturasController extends Controller
         $id_factura = $request->id_factura;
         $retencion = $request->retencion;
 
-        $detallesCompra = CompraDetalles::where('id_factura', '=', $id_factura)->get();
+        $detallesCompra = FacturasDetalleModel::where('id_factura', '=', $id_factura)->get();
         foreach ($detallesCompra as $detalle) {
             if ($retencion == 1) { //agregar retencion
                 $id_detalle_factura = $detalle->id_detalle_factura;
-                $ItemCompra = CompraDetalles::find($id_detalle_factura);
+                $ItemCompra = FacturasDetalleModel::find($id_detalle_factura);
                 if ($ItemCompra->retencion == 0) {
                     $ItemCompra->retencion = $ItemCompra->subtotal * 0.01;
                     $ItemCompra->total = $ItemCompra->total + $ItemCompra->retencion;
@@ -276,7 +298,7 @@ class FacturasController extends Controller
 
             } else { //QuitarPercepcion
                 $id_detalle_factura = $detalle->id_detalle_factura;
-                $ItemCompra = CompraDetalles::find($id_detalle_factura);
+                $ItemCompra = FacturasDetalleModel::find($id_detalle_factura);
                 if ($ItemCompra->retencion > 0) {
                     $ItemCompra->total = $ItemCompra->total - $ItemCompra->retencion;
                     $ItemCompra->retencion = 0;
@@ -291,7 +313,7 @@ class FacturasController extends Controller
         }
 
         $factura = facturasModel::where('id_factura', '=', $id_factura)->first();
-        $detalles = CompraDetalles::join('productos', 'facturas_detalle.id_producto', '=', 'productos.id_producto')
+        $detalles = FacturasDetalleModel::join('productos', 'facturas_detalle.id_producto', '=', 'productos.id_producto')
             ->where('facturas_detalle.id_factura', '=', $id_factura)->get();
 
         $subtotal = number_format($detalles->sum('subtotal'), 2, '.', '');

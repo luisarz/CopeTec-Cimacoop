@@ -187,7 +187,7 @@
                             <!--begin::Payment Method-->
                             <div class="m-0">
                                 <!--begin::Actions-->
-                                <button class="btn btn-primary fs-1 w-100 py-4" id="btnFinalizarCompra">Finalizar factura</button>
+                                <button class="btn btn-primary fs-1 w-100 py-4" id="btnFinalizarFactura">Finalizar</button>
                                 <!--end::Actions-->
                             </div>
                             <!--end::Payment Method-->

@@ -47,7 +47,7 @@
                                     Asociado: <b> <i> {{ $solicitud->nombre }} </i><br> </b>
                                 </td>
                                 <td>
-                                    Codigo: <b>{{ $credito->id_credito }} </b>
+                                Codigo: <b>{{ $credito->id_credito }} </b>
                                 </td>
                             </tr>
                             <tr>
@@ -60,7 +60,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Linea de Credito: &nbsp;<b>{{ $destino }}</b>
+                                    Linea de Credito: <b>{{ $destino }}</b>
                                 </td>
                                 <td>
                                     Tipo garantia: <b>{{ $garantiaTipo }}</b>

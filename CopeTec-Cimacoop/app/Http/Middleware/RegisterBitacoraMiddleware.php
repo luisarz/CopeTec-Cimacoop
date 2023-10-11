@@ -5,8 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use \App\Models\Bitacora;
-use Session;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Session;
 
 class RegisterBitacoraMiddleware
 {
@@ -17,7 +17,7 @@ class RegisterBitacoraMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(session::get("access")==null){
+        if(Session::get("access")==null){
             return redirect("/logout");
         }
         $bitacora = new Bitacora();

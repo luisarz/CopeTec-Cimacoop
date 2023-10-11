@@ -81,7 +81,7 @@
                                         class="btn btn-danger btn-sm"><i class="fa-solid fa-trash text-white"></i></a>
                                 </td>
 
-                                <td>{{ Str::limit($producto->razon_social, 30) }}</td>
+                                <td>{{ Str::limit($producto->razon_social, 20) }}</td>
 
                                 <td>{{ $producto->dui }}</td>
                                 <td>{{ $producto->nrc }}</td>
