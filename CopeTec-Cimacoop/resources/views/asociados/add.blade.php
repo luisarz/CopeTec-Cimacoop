@@ -5,16 +5,44 @@
     Registro nuevo Asociado
 @endsection
 @section('content')
-    <form action="/asociados/add" method="post" autocomplete="nope" class="form">
+    <form action="/asociados/add" method="post" autocomplete="off" class="form">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
+        <div class="card shadow-lg mt-5">
+            <div class="card-header ribbon ribbon-top ribbon-vertical">
+                <div class="card-toolbar">
+                    <a href="/asociados">
+
+                        <button type="button"
+                            class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
+                            <i class="ki-outline ki-black-left-line  text-dark   fs-2x">
+                            </i>
+                        </button>
+                    </a>
+                   &nbsp;<span class="badge badge-success fs-3">Asociado #
+                        <span class="badge badge-info fs-2 text-white">{{ str_pad($nuevoAsociadoNumero, 10, '0', STR_PAD_LEFT) }}</span>
+                   </span>
+                </div>
+                <div class="ribbon-label bg-danger fw-bold">
+                    Nuevo | Asociado
+                </div>
+            </div>
         <div class="card-body">
 
+            <div class="form-group row mb-5 d-none">
+                <div class="col-lg-3">
+                    <label class="text-danger fw-bold"># Asociado:</label>
+                    <input type="text" class="text-info fw-bold form-control form-control-solid-bg"
+                        name="numero_asociado" id="numero_asociado" placeholder="Numero asociado" readonly
+                        value="{{ $nuevoAsociadoNumero }}" />
+                </div>
+            </div>
             <!--begin::row group-->
             <div class="form-group row mb-5">
+
                 <div class="col-lg-8">
                     <label>Cliente:</label>
-                    <select  required name="id_cliente" data-control="select2" class="form-select">
+                    <select required name="id_cliente" data-control="select2" class="form-select">
                         <option value="">Seleccione</option>
 
                         @foreach ($clientes as $cliente)
@@ -25,8 +53,8 @@
                 </div>
                 <div class="col-lg-4">
                     <label>Fecha Registro:</label>
-                    <input type="date" max="{{date('Y-m-d')}}" class="form-control" name="fecha_ingreso" placeholder="fecha_ingreso"
-                        aria-label="fecha_ingreso" aria-describedby="basic-addon1" />
+                    <input type="date" max="{{ date('Y-m-d') }}" class="form-control" name="fecha_ingreso"
+                        placeholder="fecha_ingreso" aria-label="fecha_ingreso" aria-describedby="basic-addon1" />
                 </div>
 
             </div>
@@ -73,7 +101,7 @@
                 <div class="col-lg-6">
                     <label>Referencia Asociado:</label>
 
-                    <select  name="referencia_asociado_uno" data-control="select2" class="form-select">
+                    <select name="referencia_asociado_uno" data-control="select2" class="form-select">
                         <option value="">Seleccione</option>
 
                         @foreach ($asociados as $asociado)
@@ -85,7 +113,7 @@
                 </div>
                 <div class="col-lg-6">
                     <label>Referencia Asociado :</label>
-                    <select  name="referencia_asociado_dos" data-control="select2" class="form-select">
+                    <select name="referencia_asociado_dos" data-control="select2" class="form-select">
                         <option value="">Seleccione</option>
 
                         @foreach ($asociados as $asociado)
@@ -103,7 +131,9 @@
 
 
         <div class="card-footer d-flex justify-content-end py-6">
-            <button type="submit" class="btn btn-bg-primary btn-text-white">Agregar</button>
+            <button type="submit" class="btn btn-bg-primary w-100 btn-text-white">Agregar</button>
         </div>
+        </div>
+
     </form>
 @endsection

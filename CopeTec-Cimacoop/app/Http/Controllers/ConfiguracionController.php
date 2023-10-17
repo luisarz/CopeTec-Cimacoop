@@ -54,8 +54,8 @@ class ConfiguracionController extends Controller
         $configuracion->retiro_cuenta_debe = $request->retiro_cuenta_debe;
         $configuracion->retiro_cuenta_haber = $request->retiro_cuenta_haber;
 
-
-
+        $configuracion->porcentaje_capitalizacion = $request->porcentaje_capitalizacion;
+        $configuracion->cuenta_capitalizacion=$request->cuenta_capitalizacion;
 
         $configuracion->save();
         return redirect('/configuracion');

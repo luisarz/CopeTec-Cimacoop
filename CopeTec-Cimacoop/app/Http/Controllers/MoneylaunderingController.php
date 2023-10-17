@@ -9,7 +9,7 @@ use App\Models\Empleados;
 use App\Notifications\MoneylaunderingNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Notification;
+use Illuminate\Support\Facades\Notification;
 use \PDF;
 
 class MoneylaunderingController extends Controller
@@ -47,9 +47,9 @@ class MoneylaunderingController extends Controller
     public function clientsReport()
     {
         $clients =   Clientes::all();
-        $pdf->setOptions([
-            'enable-local-file-access' => true
-        ]);
+        // $pdf->setOptions([
+        //     'enable-local-file-access' => true
+        // ]);
         $pdf = PDF::loadView('reportes.clients.index', [
             'clients' => $clients
         ]);
@@ -60,11 +60,11 @@ class MoneylaunderingController extends Controller
     public function clientReport(string $id)
     {
         $client =   Clientes::find($id);
-        $pdf = \App::make('snappy.pdf');
+        // $pdf = \App::make('snappy.pdf');
 
-        $pdf->setOptions([
-            'enable-local-file-access' => true
-        ]);
+        // $pdf->setOptions([
+        //     'enable-local-file-access' => true
+        // ]);
         $pdf = PDF::loadView('reportes.clients.client', [
             'client' => $client
         ]);
@@ -75,11 +75,11 @@ class MoneylaunderingController extends Controller
     public function activeReport()
     {
         $clients =   DB::table('clientes')->get();
-        $pdf = \App::make('snappy.pdf');
+        // $pdf = \App::make('snappy.pdf');
 
-        $pdf->setOptions([
-            'enable-local-file-access' => true
-        ]);
+        // $pdf->setOptions([
+        //     'enable-local-file-access' => true
+        // ]);
         $pdf = PDF::loadView('reportes.clients.active', [
             'clients' => $clients
         ]);
@@ -90,11 +90,11 @@ class MoneylaunderingController extends Controller
     public function empReport()
     {
         $clients =   Clientes::orderBy('nombre', 'asc')->get();
-        $pdf = \App::make('snappy.pdf');
+        // $pdf = \App::make('snappy.pdf');
 
-        $pdf->setOptions([
-            'enable-local-file-access' => true
-        ]);
+        // $pdf->setOptions([
+        //     'enable-local-file-access' => true
+        // ]);
         $pdf = PDF::loadView('reportes.clients.empleados', [
             'clients' => $clients
         ]);

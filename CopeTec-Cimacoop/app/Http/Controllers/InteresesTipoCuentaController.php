@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cuentas;
 use App\Models\InteresesTipoCuenta;
 use App\Models\TipoCuenta;
 use Illuminate\Http\Request;
@@ -21,10 +22,18 @@ class InteresesTipoCuentaController extends Controller
     public function getIntereses($id_tipo_cuenta)
     {
         $intereses=  InteresesTipoCuenta::where('id_tipo_cuenta', '=',$id_tipo_cuenta)->get();
+        //seleccionar el numero de cuenta apartir del tipo de cuenta
+        $cuenta = Cuentas::where('id_tipo_cuenta', $id_tipo_cuenta)->max('numero_cuenta');
+        $nextNumber = $cuenta + 1;
+        $numeroCuentaAPlicar = str_pad($nextNumber, 10, '0', STR_PAD_LEFT);
+
+
+        // dd($nextNumber);
         if (is_null($intereses)) {
             $intereses = null;
         }
-        return response()->json($intereses);
+        $respomse=[$intereses,'numero_cuenta'=> $numeroCuentaAPlicar];
+        return response()->json($respomse);
     }
 
     public function add($id_tipo_cuenta)

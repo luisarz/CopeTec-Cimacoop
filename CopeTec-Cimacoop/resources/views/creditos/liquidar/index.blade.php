@@ -5,6 +5,9 @@
 @endsection
 @section('content')
     <input type="hidden" id="id_credito" name="id_credito" value="{{ $credito->id_credito }}">
+    <input type="hidden" id="porcentaje_capitalizacion" name="porcentaje_capitalizacion" value="{{ $configuracion->porcentaje_capitalizacion }}">
+    <input type="hidden" id="cuenta_capitalizacion" name="cuenta_capitalizacion" value="{{ $configuracion->cuenta_capitalizacion }}">
+
     <input type="hidden" id="monto_cuota" name="monto_cuota" value="{{ $credito->cuota }}">
     <input type="hidden" id="monto_credito" name="monto_credito" value="{{ $credito->monto_solicitado }}">
     <input type="hidden" id="costoConsultaCrediticia" name="costoConsultaCrediticia"

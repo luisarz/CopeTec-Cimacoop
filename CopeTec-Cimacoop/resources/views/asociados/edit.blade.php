@@ -10,141 +10,165 @@
         {{ method_field('PUT') }}
         <input type="hidden" name="id" value="{{ $asociado->id_asociado }}">
         <div class="input-group mb-5"></div>
+        <div class="card shadow-lg mt-5">
+            <div class="card-header ribbon ribbon-top ribbon-vertical">
+                <div class="card-toolbar">
+                    <a href="/asociados">
 
-        <div class="card-body">
+                        <button type="button"
+                            class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
+                            <i class="ki-outline ki-black-left-line  text-dark   fs-2x">
+                            </i>
+                        </button>
+                    </a>
+                   &nbsp;<span class="badge badge-success fs-3">Asociado #
+                        <span class="badge badge-info fs-2 text-white">{{ str_pad($asociado->numero_asociado, 10, '0', STR_PAD_LEFT) }}</span>
+                   </span>
+                </div>
+                <div class="ribbon-label bg-danger">
+                    Modificar | Asociado
+                </div>
+            </div>
 
-            <!--begin::row group-->
-            <div class="form-group row mb-5">
-                <div class="col-lg-8">
-                    <label>Cliente:</label>
-                    <select required name="id_cliente" data-control="select2" class="form-select">
-                        <option value="">Seleccione</option>
 
-                        @foreach ($clientes as $cliente)
-                            @if ($asociado->id_cliente == $cliente->id_cliente)
-                                {
-                                <option selected value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
-                                    {{ $cliente->dui_cliente }}
+            <div class="card-body">
+               
+                <!--begin::row group-->
+                <div class="form-group row mb-5">
+                    <div class="col-lg-8">
+                        <label>Cliente:</label>
+                        <select required name="id_cliente" data-control="select2" class="form-select">
+                            <option value="">Seleccione</option>
+
+                            @foreach ($clientes as $cliente)
+                                @if ($asociado->id_cliente == $cliente->id_cliente)
+                                    {
+                                    <option selected value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
+                                        {{ $cliente->dui_cliente }}
+                                    </option>
+                                }@else{
+                                    <option value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
+                                        {{ $cliente->dui_cliente }}
+                                        }
+                                @endif
                                 </option>
-                            }@else{
-                                <option value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
-                                    {{ $cliente->dui_cliente }}
-                                    }
-                            @endif
-                            </option>
-                        @endforeach
-                    </select>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Fecha Registro:</label>
+                        <input type="date" value="{{ $asociado->fecha_ingreso }}" class="form-control"
+                            name="fecha_ingreso" placeholder="fecha_ingreso" aria-label="fecha_ingreso"
+                            aria-describedby="basic-addon1" />
+                    </div>
+
                 </div>
-                <div class="col-lg-4">
-                    <label>Fecha Registro:</label>
-                    <input type="date" value="{{ $asociado->fecha_ingreso }}" class="form-control" name="fecha_ingreso"
-                        placeholder="fecha_ingreso" aria-label="fecha_ingreso" aria-describedby="basic-addon1" />
+                <!--begin::row group-->
+                <div class="form-group row mb-5">
+                    <div class="col-lg-4">
+                        <label>Sueldo Quincenal:</label>
+                        <input type="number" value="{{ $asociado->sueldo_quincenal }}" required class="form-control"
+                            placeholder="Sueldo quincena" name="sueldo_quincenal" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Sueldo mensual:</label>
+                        <input type="number" value="{{ $asociado->sueldo_mensual }}" required class="form-control"
+                            placeholder="Sueldo mensual" name="sueldo_mensual" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Otros ingresosl:</label>
+                        <input type="number" value="{{ $asociado->otros_ingresos }}" required class="form-control"
+                            placeholder="otros_ingresos mensual" name="otros_ingresos" />
+                    </div>
+
                 </div>
 
-            </div>
-            <!--begin::row group-->
-            <div class="form-group row mb-5">
-                <div class="col-lg-4">
-                    <label>Sueldo Quincenal:</label>
-                    <input type="number" value="{{ $asociado->sueldo_quincenal }}" required class="form-control"
-                        placeholder="Sueldo quincena" name="sueldo_quincenal" />
-                </div>
-                <div class="col-lg-4">
-                    <label>Sueldo mensual:</label>
-                    <input type="number" value="{{ $asociado->sueldo_mensual }}" required class="form-control"
-                        placeholder="Sueldo mensual" name="sueldo_mensual" />
-                </div>
-                <div class="col-lg-4">
-                    <label>Otros ingresosl:</label>
-                    <input type="number" value="{{ $asociado->otros_ingresos }}" required class="form-control"
-                        placeholder="otros_ingresos mensual" name="otros_ingresos" />
+                <!--begin::row group-->
+                <div class="form-group row mb-5">
+                    <div class="col-lg-4">
+                        <label>Dependientes economicamente de cliente:</label>
+                        <input type="number" value="{{ $asociado->dependientes_economicamente }}" step="1" required
+                            class="form-control" placeholder="Personas que dependen econmicamente"
+                            name="dependientes_economicamente" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Cuota de ingreso:</label>
+                        <input type="number" value="{{ $asociado->couta_ingreso }}" required class="form-control"
+                            placeholder="Cuota Ingreso" name="couta_ingreso" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Monto aportacion:</label>
+                        <input type="number" value="{{ $asociado->monto_aportacion }}" required class="form-control"
+                            placeholder="Monto aportacion" name="monto_aportacion" />
+                    </div>
                 </div>
 
-            </div>
+                <!--begin::row group-->
+                <div class="form-group row mb-5">
+                    <div class="col-lg-4">
+                        <label>Referencia Asociado:</label>
 
-            <!--begin::row group-->
-            <div class="form-group row mb-5">
-                <div class="col-lg-4">
-                    <label>Dependientes economicamente de cliente:</label>
-                    <input type="number" value="{{ $asociado->dependientes_economicamente }}" step="1" required
-                        class="form-control" placeholder="Personas que dependen econmicamente"
-                        name="dependientes_economicamente" />
-                </div>
-                <div class="col-lg-4">
-                    <label>Cuota de ingreso:</label>
-                    <input type="number" value="{{ $asociado->couta_ingreso }}" required class="form-control"
-                        placeholder="Cuota Ingreso" name="couta_ingreso" />
-                </div>
-                <div class="col-lg-4">
-                    <label>Monto aportacion:</label>
-                    <input type="number" value="{{ $asociado->monto_aportacion }}" required class="form-control"
-                        placeholder="Monto aportacion" name="monto_aportacion" />
-                </div>
-            </div>
+                        <select name="referencia_asociado_uno" data-control="select2" class="form-select">
+                            <option value="">Seleccione</option>
 
-            <!--begin::row group-->
-            <div class="form-group row mb-5">
-                <div class="col-lg-4">
-                    <label>Referencia Asociado:</label>
-
-                    <select  name="referencia_asociado_uno" data-control="select2" class="form-select">
-                        <option value="">Seleccione</option>
-
-                        @foreach ($clientes as $cliente)
-                            @if ($asociado->referencia_asociado_uno == $cliente->id_cliente)
-                                {
-                                <option selected value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
-                                    {{ $cliente->dui_cliente }}
+                            @foreach ($clientes as $cliente)
+                                @if ($asociado->referencia_asociado_uno == $cliente->id_cliente)
+                                    {
+                                    <option selected value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
+                                        {{ $cliente->dui_cliente }}
+                                    </option>
+                                }@else{
+                                    <option value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
+                                        {{ $cliente->dui_cliente }}
+                                        }
+                                @endif
                                 </option>
-                            }@else{
-                                <option value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
-                                    {{ $cliente->dui_cliente }}
-                                    }
-                            @endif
-                            </option>
-                        @endforeach
-                    </select>
+                            @endforeach
+                        </select>
 
 
-                </div>
-                <div class="col-lg-4">
-                    <label>Referencia Asociado :</label>
-                    <select  name="referencia_asociado_dos" data-control="select2" class="form-select">
-                        <option value="">Seleccione</option>
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Referencia Asociado :</label>
+                        <select name="referencia_asociado_dos" data-control="select2" class="form-select">
+                            <option value="">Seleccione</option>
 
-                        @foreach ($clientes as $cliente)
-                            @if ($asociado->referencia_asociado_dos == $cliente->id_cliente)
-                                {
-                                <option selected value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
-                                    {{ $cliente->dui_cliente }}
+                            @foreach ($clientes as $cliente)
+                                @if ($asociado->referencia_asociado_dos == $cliente->id_cliente)
+                                    {
+                                    <option selected value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
+                                        {{ $cliente->dui_cliente }}
+                                    </option>
+                                }@else{
+                                    <option value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
+                                        {{ $cliente->dui_cliente }}
+                                        }
+                                @endif
                                 </option>
-                            }@else{
-                                <option value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} -
-                                    {{ $cliente->dui_cliente }}
-                                    }
-                            @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Estado Solicitud:</label>
+                        <select name="estado_solicitud" data-control="select2" class="form-select">
+                            <option value="1" {{ $asociado->estado_solicitud == '1' ? 'selected' : '' }}>Presentar
                             </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-lg-4">
-                    <label>Estado Solicitud:</label>
-                    <select  name="estado_solicitud" data-control="select2" class="form-select">
-                        <option value="1" {{ $asociado->estado_solicitud == '1' ? 'selected' : '' }}>Presentar
-                        </option>
-                        <option value="2" {{ $asociado->estado_solicitud == '2' ? 'selected' : '' }}>Aceptado</option>
-                        <option value="3" {{ $asociado->estado_solicitud == '3' ? 'selected' : '' }}>Rechazado
-                        </option>
-                    </select>
+                            <option value="2" {{ $asociado->estado_solicitud == '2' ? 'selected' : '' }}>Aceptado
+                            </option>
+                            <option value="3" {{ $asociado->estado_solicitud == '3' ? 'selected' : '' }}>Rechazado
+                            </option>
+                        </select>
 
+                    </div>
                 </div>
+
             </div>
 
+
+            <div class="card-footer d-flex justify-content-end py-6">
+                <button type="submit" class="btn btn-bg-primary w-100 btn-text-white">Modificar</button>
+            </div>
         </div>
 
-
-        <div class="card-footer d-flex justify-content-end py-6">
-            <button type="submit" class="btn btn-bg-primary btn-text-white">Modificar</button>
-        </div>
     </form>
 @endsection

@@ -36,14 +36,14 @@
                         <div class="form-floating col-lg-8">
                             <input type="text" required
                                 value="${{ number_format($bobeda->saldo_bobeda, '1', '.', ',') }}" readonly
-                                class="form-control text-success fs-1" name="monto" placeholder="Monto a depositar"
+                                class="form-control text-success fs-1" name="monto" placeholder="Monto a depositar" step="any"
                                 aria-label="monto" aria-describedby="basic-addon1" />
                             <label>Saldo Anterior:</label>
                         </div>
 
                         <div class="form-floating col-lg-4">
                             <input type="number" required value="{{ $bobeda->saldo_bobeda }}"
-                                class="form-control text-danger" name="monto" placeholder="Monto a depositar"
+                                class="form-control text-danger" name="monto" placeholder="Monto a depositar" step="any"
                                 aria-label="monto" aria-describedby="basic-addon1" />
                             <label class="text-danger">Monto Apertura:</label>
                         </div>

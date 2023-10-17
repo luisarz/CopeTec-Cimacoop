@@ -5,6 +5,8 @@ $(document).ready(function () {
 
     $('#id_cuenta').on('change', function () {
         let destinoCredito = $('#destino_credito').val();
+        let cuenta_capitalizacion = $('#cuenta_capitalizacion').val();
+
         let id_cuenta = $(this).val();
         if (destinoCredito == id_cuenta) {
             let cuota = $('#monto_credito').val();
@@ -20,7 +22,25 @@ $(document).ready(function () {
         } else {
             $("#monto_debe").val(0);
         }
-        $("#monto_haber").val(0);
+
+        if (cuenta_capitalizacion == id_cuenta) {
+            let porcentaje_capitalizacion = $("#porcentaje_capitalizacion").val();
+            let cuota = $('#monto_credito').val();
+            cuota = parseFloat(cuota).toFixed(2);
+            let capitalizacion = (cuota * porcentaje_capitalizacion) / 100;
+            capitalizacion = parseFloat(capitalizacion).toFixed(2);
+            $("#monto_haber").val(capitalizacion);
+            Swal.fire({
+                icon: 'success',
+                title: 'Aplicacion Capitalizacion de credito',
+                text: 'Has seleccionado la cuenta destino de la credito.',
+                timer: 1000,
+            });
+        }
+
+
+
+        // $("#monto_haber").val(0);
     });
 
 
@@ -93,6 +113,7 @@ $(document).ready(function () {
             });
             return false;
         }
+
 
 
         let id_cuenta_ahorro_destino = $("#id_cuenta_ahorro_destino").val();

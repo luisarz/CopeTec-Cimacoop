@@ -17,28 +17,33 @@ class ClientesController extends Controller
     public function getClientes(Request $request)
     {
         if ($request->ajax()) {
-            $data = Clientes::where('nombre','!=','Bobeda General')
-            ->latest()->get();
+            $data = Clientes::where('nombre', '!=', 'Bobeda General')
+                ->latest()->get();
             return \Yajra\DataTables\DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0);" onclick="alertDelete('.$row->id_cliente.')"
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<a href="javascript:void(0);" onclick="alertDelete(' . $row->id_cliente . ',' . $row->estado . ')"
                     class="btn btn-sm btn-danger">
-                    <i class="fa-solid fa-trash text-white"></i>
+                    <i class="ki-outline ki-lock-3 fs-1 text-white"></i>
                 </a>
-                <a href="/clientes/'.$row->id_cliente.'" class="btn btn-sm btn-info"><i
+                <a href="/clientes/' . $row->id_cliente . '" class="btn btn-sm btn-info"><i
                         class="fa-solid fa-pencil text-white"></i>
                 </a>
-                <a href="/alerts/client/'.$row->id_cliente.'" target="_blank"
+                <a href="/alerts/client/' . $row->id_cliente . '" target="_blank"
                     class="btn btn-sm btn-success"><i class="fa-solid fa-print text-white"></i>
                 </a>';
                     return $actionBtn;
                 })
-                ->addColumn('genero_row', function($row){
-                    return $row->genero==1?"Masculino":"Femenino";
+                ->addColumn('genero_row', function ($row) {
+                    return $row->genero == 1 ? "Masculino" : "Femenino";
                 })
+                ->addColumn('estado_row', function ($row) {
+                    return $row->estado == 1 ? '<span class="badge badge-success">Activo</span>' : '<span class="badge badge-danger">Inactivo</span>';
+                }
                 
-                ->rawColumns(['action'])
+                )
+
+                ->rawColumns(['action', 'genero_row', 'estado_row'])
                 ->make(true);
         }
     }
@@ -99,7 +104,12 @@ class ClientesController extends Controller
     }
     public function delete(Request $request)
     {
-        Clientes::destroy($request->id);
+        $cliente = Clientes::findOrFail($request->id);
+        if ($cliente) {
+            $cliente->estado = ($cliente->estado == 1) ? 0 : 1;
+            $cliente->save();
+        }
+
         return redirect("/clientes");
     }
 

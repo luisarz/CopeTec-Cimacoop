@@ -12,7 +12,6 @@ class LiquidacionController extends Controller
     {
 
         // dd($request->all());
-
         $liquidacion = new LiquidacionModel();
         $liquidacion->id_credito = $request->id_credito;
         $liquidacion->id_cuenta = $request->id_cuenta;
@@ -20,13 +19,10 @@ class LiquidacionController extends Controller
         $liquidacion->monto_debe = $request->monto_debe > 0 ? $request->monto_debe : 0.00;
         $liquidacion->monto_haber = $request->filled('monto_haber') ? $request->monto_haber : 0.00;
 
-
         // Assume you have a 'Catalogo' model and a field named 'tiene_iva' indicating whether it has IVA or not.
         $actualizarLiquido = Catalogo::find($request->id_cuenta);
 
-
         if ($actualizarLiquido->iva != null) {
-
             // Calculate the IVA if the 'catalogo' has IVA.
             $iva =number_format($request->monto_haber * 0.13,2); // Assuming 16% IVA, adjust the percentage accordingly.
 
@@ -93,10 +89,6 @@ class LiquidacionController extends Controller
             }
 
         }
-
-
-
-
 
 
         return response()->json([

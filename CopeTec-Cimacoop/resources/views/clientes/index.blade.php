@@ -31,8 +31,9 @@
                 <table class="data-table-coop-serve-side table table-hover table-row-dashed fs-5     gy-2 gs-5">
                     <thead>
                         <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                            <th class="min-w-200px">Acciones</th>
-                            <th class="min-w-200px">Nombre</th>
+                            <th class="min-w-150px">Acciones</th>
+                            <th class="min-w-100px">Estado</th>
+                            <th class="min-w-250px">Nombre</th>
                             <th class="min-w-90px">Género</th>
                             <th class="min-w-90px">DUI</th>
                             <th class="min-w-200px">Domicilio</th>
@@ -87,36 +88,17 @@
                     [5, 10, 25, 50, -1],
                     ['5 registros', '10 registros', '25 registros', '50 registros', 'Todos']
                 ],
-                // buttons: [{
-                //         extend: 'csv',
-                //         className: 'btn btn-info',
-                //         columns: [1, 2, 3, 4, 5],
-
-                //     },
-                //     {
-                //         extend: 'excel',
-                //         className: 'btn btn-info',
-                //         columns: [1, 2, 3, 4, 5],
-                //     },
-                //     {
-                //         extend: 'pdf',
-                //         className: 'btn btn-info',
-                //         columns: [1, 2, 3, 4, 5],
-
-                //     },
-                //     {
-                //         extend: 'print',
-                //         className: 'btn btn-info',
-                //         columns: [1, 2, 3, 4, 5],
-
-                //     }
-                // ],
+               
 
                 columns: [{
                         data: 'action',
                         name: 'action',
                         orderable: true,
                         searchable: true
+                    },
+                     {
+                        data: 'estado_row',
+                        name: 'estado_row'
                     },
                     {
                         data: 'nombre',
@@ -142,9 +124,9 @@
             });
         })
 
-        function alertDelete(id) {
+        function alertDelete(id,estado) {
             Swal.fire({
-                text: "Deseas Eliminar este registro",
+                text: "Deseas Desactivar este registro",
                 icon: "question",
                 buttonsStyling: false,
                 showCancelButton: true,

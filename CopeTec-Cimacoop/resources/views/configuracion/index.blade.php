@@ -109,6 +109,39 @@
                     </div>
 
                     <div class="tab-pane fade" id="tabCredito" role="tabpanel">
+                          <div class="form-group row mb-5 ">
+                            <span class="badge badge-light-success fs-4">Capitalizacion de Aportaciones</span>
+                            <hr>
+                            <div class="form-floating col-lg-4">
+                                <input type="number" step="any" min="0" required value="{{ $configuracion->porcentaje_capitalizacion }}"
+                                    class="form-control text-info" name="porcentaje_capitalizacion" id="porcentaje_capitalizacion"
+                                    placeholder="Interes Moratorio" aria-label="saldo" aria-describedby="basic-addon1" />
+                                <label for="floatingPassword">Porcentaje Capitalizacion %</label>
+                            </div>
+                             <div class="form-floating col-lg-6">
+                                <select name="cuenta_capitalizacion" id="cuenta_capitalizacion" class="form-select form-select-solid form-select-dark"
+                                    data-control="select2">
+                                    @foreach ($catalogo as $cuenta)
+                                        @if ($cuenta->movimiento == 0)
+                                            <optgroup label="{{ $cuenta->descripcion }}">
+                                        @endif
+
+                                        <option value="{{ $cuenta->id_cuenta }}"
+                                            {{ $cuenta->id_cuenta == $configuracion->cuenta_capitalizacion ? 'selected' : '' }}>
+                                            {{ $cuenta->numero }}->
+                                            {{ $cuenta->descripcion }}
+
+                                        </option>
+                                        @if ($cuenta->movimiento == 0)
+                                            </optgroup>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingPassword">Cuenta Capitalizacion</label>
+                            </div>
+                       
+
+                        </div>
                         <!--begin::row group-->
                         <div class="form-group row mb-5 ">
                             <span class="badge badge-light-danger fs-4">Parametros Moratorios</span>
@@ -141,7 +174,7 @@
 
                             <hr>
                             <div class="form-floating col-lg-6">
-                                <select name="monto_deposito_credito" id="monto_deposito_credito" class="form-select"
+                                <select name="monto_deposito_credito" id="monto_deposito_credito" class="form-select form-select-solid form-select-dark"
                                     data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
@@ -162,7 +195,7 @@
                                 <label for="floatingPassword">Cuenta Deposito</label>
                             </div>
                             <div class="form-floating col-lg-6">
-                                <select name="cuenta_tipo_credito" id="cuenta_tipo_credito" class="form-select"
+                                <select name="cuenta_tipo_credito" id="cuenta_tipo_credito" class="form-select form-select-solid form-select-dark"
                                      data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
@@ -186,7 +219,7 @@
                         </div>
                         <div class="form-group row mb-5 ">
                             <div class="form-floating col-lg-6">
-                                <select name="cuenta_aportacion" id="cuenta_aportacion" class="form-select"
+                                <select name="cuenta_aportacion" id="cuenta_aportacion" class="form-select form-select-solid form-select-dark"
                                    data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
@@ -209,7 +242,7 @@
 
 
                             <div class="form-floating col-lg-6">
-                                <select name="cuenta_interes_credito" id="cuenta_interes_credito" class="form-select"
+                                <select name="cuenta_interes_credito" id="cuenta_interes_credito" class="form-select form-select-solid form-select-dark"
                                    data-control="select2">
                                    @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
@@ -234,7 +267,7 @@
                         </div>
                         <div class="form-group row mb-5 ">
                             <div class="form-floating col-lg-6">
-                                <select name="cuenta_interes_credito_moratorio" id="cuenta_interes_credito_moratorio" class="form-select"
+                                <select name="cuenta_interes_credito_moratorio" id="cuenta_interes_credito_moratorio" class="form-select form-select-solid form-select-dark"
                                    data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
@@ -262,7 +295,7 @@
                             <span class="badge badge-light-success fs-4 mb-5">Parametros Depositos</span>
 
                             <div class="form-floating col-lg-6">
-                                <select name="deposito_cuenta_debe" id="deposito_cuenta_debe" class="form-select"
+                                <select name="deposito_cuenta_debe" id="deposito_cuenta_debe" class="form-select form-select-solid form-select-dark"
                                     data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
@@ -283,7 +316,7 @@
                                 <label for="floatingPassword">Cuenta DEBE Depositos</label>
                             </div>
                             <div class="form-floating col-lg-6">
-                                <select name="deposito_cuenta_haber" id="deposito_cuenta_haber" class="form-select"
+                                <select name="deposito_cuenta_haber" id="deposito_cuenta_haber" class="form-select form-select-solid form-select-dark"
                                      data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
@@ -310,7 +343,7 @@
                             <span class="badge badge-light-danger fs-4 mb-5">Parametros Retiros</span>
 
                             <div class="form-floating col-lg-6">
-                                <select name="retiro_cuenta_debe" id="retiro_cuenta_debe" class="form-select"
+                                <select name="retiro_cuenta_debe" id="retiro_cuenta_debe" class="form-select form-select-solid form-select-dark"
                                     data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
@@ -331,7 +364,7 @@
                                 <label for="floatingPassword">Cuenta DEBE Depositos</label>
                             </div>
                             <div class="form-floating col-lg-6">
-                                <select name="retiro_cuenta_haber" id="retiro_cuenta_haber" class="form-select"
+                                <select name="retiro_cuenta_haber" id="retiro_cuenta_haber" class="form-select form-select-solid form-select-dark"
                                      data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)

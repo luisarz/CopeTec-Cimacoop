@@ -55,17 +55,11 @@
                 </div>
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
-                    <div class="form-floating col-lg-4">
-
-                        <input type="number" required value="{{ old('numero_cuenta') }}" class="form-control text-danger"
-                            name="numero_cuenta" placeholder="Numero de cuenta" aria-label="numero_cuenta"
-                            aria-describedby="basic-addon1" is-valid />
-                        <label for="floatingPassword">Numero cuenta:</label>
-                    </div>
-                    <div class="form-floating col-lg-4">
+                   
+                    <div class="form-floating col-lg-3">
                         <select name="id_tipo_cuenta" id="id_tipo_cuenta" required data-control="select2"
                             class="form-select">
-                            <option value="">Seleccione El Interes </option>
+                            <option value="">Seleccione el tipo de producto </option>
                             @foreach ($tiposcuentas as $tipoCuenta)
                                 <option value="{{ $tipoCuenta->id_tipo_cuenta }}">
                                     {{ $tipoCuenta->descripcion_cuenta }}
@@ -74,18 +68,25 @@
                         </select>
                         <label>Tipo de Cuenta:</label>
                     </div>
-                    <div class="form-floating col-lg-4">
+                     <div class="form-floating col-lg-3">
                         <select name="id_interes_tipo_cuenta" id="id_interes_tipo_cuenta" required data-control="select2"
                             class="form-select">
                         </select>
                         <label>Interes aplicar:</label>
                     </div>
+                   
+                   
 
-                </div>
-                <!--begin::row group-->
-                <div class=" form-group row mb-5">
+            
+                      <div class="form-floating col-lg-3">
+
+                        <input type="text" required value="{{ old('numero_cuenta') }}" class="form-control text-danger form-control-solid"
+                            name="numero_cuenta" id="numero_cuenta" placeholder="Numero de cuenta" aria-label="numero_cuenta"
+                            aria-describedby="basic-addon1" is-valid />
+                        <label for="floatingPassword">Numero cuenta:</label>
+                    </div>
                     <div class="form-floating col-lg-3">
-                        <input type="number" required value="{{ old('monto_apertura') }}" class="form-control text-danger"
+                        <input type="number" step="any" required value="{{ old('monto_apertura') }}" class="form-control text-danger"
                             name="monto_apertura" placeholder="monto_apertura" aria-label="dui"
                             aria-describedby="basic-addon1" />
                         <label>Monto Apertura:</label>
@@ -124,7 +125,9 @@
                     },
                     success: function(response) {
                         $('#id_interes_tipo_cuenta').empty();
-                        $.each(response, function(index, interes) {
+                        let numeroCuenta=response.numero_cuenta;
+                        $('#numero_cuenta').val(numeroCuenta);
+                        $.each(response[0], function(index, interes) {
                             $('#id_interes_tipo_cuenta').append($('<option>', {
                                 value: interes.id_intereses_tipo_cuenta,
                                 text: interes.interes

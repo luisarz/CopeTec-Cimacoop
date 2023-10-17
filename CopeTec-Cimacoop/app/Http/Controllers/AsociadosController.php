@@ -20,15 +20,16 @@ class AsociadosController extends Controller
     public function add()
     {
         $clientes = Clientes::whereDoesntHave('asociado')->get();
-
+        $asociadoNumero=Asociados::max('numero_asociado');
+        $nuevoAsociadoNumero=str_pad($asociadoNumero+1,10,'0',STR_PAD_LEFT);
         $asociados = Asociados::join('clientes', 'asociados.id_cliente', '=', 'clientes.id_cliente')->get();
-        return view("asociados.add", compact("clientes", "asociados"));
+        return view("asociados.add", compact("clientes", "asociados","nuevoAsociadoNumero"));
     }
 
     public function edit($id)
     {
         $asociado = Asociados::findOrFail($id);
-        $clientes = Clientes::All();
+        $clientes = Clientes::where('nombre','!=','Bobeda General')->get();
         $asociados = Asociados::join('clientes', 'asociados.id_cliente', '=', 'clientes.id_cliente')
         ->get();
         return view("asociados.edit", compact("asociado", "asociados","clientes"));
@@ -50,6 +51,7 @@ class AsociadosController extends Controller
         $asociado->monto_aportacion = $request->monto_aportacion;
         $asociado->fecha_ingreso=$request->fecha_ingreso;
         $asociado->estado_solicitud = 1;
+        $asociado->numero_asociado=$request->numero_asociado;
         $asociado->save();
         return redirect("/asociados");
     }
