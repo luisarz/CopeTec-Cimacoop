@@ -81,7 +81,7 @@ class ReportesController extends Controller
             ->sum('monto');
 
 
-        $pdf = \App::make('snappy.pdf');
+        
 
         $pdf->setOptions([
             'enable-local-file-access' => true
@@ -112,11 +112,12 @@ class ReportesController extends Controller
             ->where('movimientos.id_movimiento', '=', $idMovimiento)
             ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente', 'clientes.direccion_personal', 'empleados.nombre_empleado')
             ->first();
+            // dd($movimiento);
 
 
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimiento->monto, 2, 'DoLARES');
-        $pdf = \App::make('snappy.pdf');
+        
         $pdf = PDF::loadView('reportes.caja.comprobante', [
             'movimiento' => $movimiento,
             'estilos' => $this->estilos,
@@ -137,7 +138,7 @@ class ReportesController extends Controller
 
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimientoBobeda->monto, 2, 'DoLARES');
-        $pdf = \App::make('snappy.pdf');
+        
         $pdf = PDF::loadView('reportes.bobeda.comprobante', [
             'movimiento' => $movimientoBobeda,
             'estilos' => $this->estilos,
@@ -165,7 +166,7 @@ class ReportesController extends Controller
 
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimientosCuenta[0]->saldo_cuenta, 2, 'DOLARES');
-        $pdf = \App::make('snappy.pdf');
+        
         $pdf = PDF::loadView('reportes.cuentas.estadoCuenta', [
             'movimientos' => $movimientosCuenta,
             'estilos' => $this->estilos,
@@ -190,13 +191,15 @@ class ReportesController extends Controller
         $fechaNacimiento = new DateTime($datosContrato->fecha_nacimiento);
         $fechaActual = new DateTime();
         $edad = $fechaNacimiento->diff($fechaActual)->y;
-        $beneficiarios = Cuentas::join('beneficiarios', 'beneficiarios.id_cuenta', '=', 'cuentas.id_cuenta')->get();
+        $beneficiarios = Cuentas::join('beneficiarios', 'beneficiarios.id_cuenta', '=', 'cuentas.id_cuenta')
+        ->where('cuentas.id_cuenta',$id)->get();
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_apertura, 2, 'DoLARES');
 
-        $pdf = \App::make('snappy.pdf');
+        
         $pdf = PDF::loadView('reportes.cuentas.contrato', [
             'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
             'datosContrato' => $datosContrato,
             'beneficiarios' => $beneficiarios,
             'edad' => $edad,
@@ -225,7 +228,7 @@ class ReportesController extends Controller
         $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_deposito, 2, 'DLARES');
         $img = public_path('assets/media/logos/certificado_fondo.jpg');
 
-        $pdf = \App::make('snappy.pdf');
+        
         $pdf = PDF::loadView('reportes.depositoplazo.certificado', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
@@ -269,7 +272,7 @@ class ReportesController extends Controller
             $edadConyugue = $edadConyugue->y;
         }
 
-        $pdf = \App::make('snappy.pdf');
+        
         $pdf = PDF::loadView('reportes.creditos.solicitud', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
@@ -305,7 +308,7 @@ class ReportesController extends Controller
 
 
 
-        $pdf = \App::make('snappy.pdf');
+        
         $pdf = PDF::loadView('reportes.creditos.pagare', [
             'estilos' => $this->estilos,
             'solicitud' => $solicitud,
@@ -369,7 +372,7 @@ class ReportesController extends Controller
 
 
 
-        $pdf = \App::make('snappy.pdf');
+        
         $pdf = PDF::loadView('reportes.creditos.liquidacion', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
@@ -399,7 +402,7 @@ class ReportesController extends Controller
         $TOTALPAGOENLETRAS = $formatter->toInvoice($abonoCredito->total_pago, 2, 'DÓLARES');
 
 
-        $pdf = \App::make('snappy.pdf');
+        
         $pdf = PDF::loadView('reportes.creditos.abonocomprobante', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
@@ -469,7 +472,7 @@ class ReportesController extends Controller
         // $TOTALPAGOENLETRAS = $formatter->toInvoice($abonoCredito->total_pago, 2, 'DÓLARES');
 
 
-        $pdf = \App::make('snappy.pdf');
+        
         $pdf = PDF::loadView('reportes.contabilidad.partidas.partida', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,

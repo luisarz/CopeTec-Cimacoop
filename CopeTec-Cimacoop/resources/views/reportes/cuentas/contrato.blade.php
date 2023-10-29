@@ -2,19 +2,20 @@
 <html lang="es">
 
 <head>
-    <title>CoopeTec-Administracion de cooperativas CompuTec Consultores</title>
+    <title>CoopeTec-Administracion Contrato - {{ strtoupper($datosContrato->nombre) }}</title>
     <meta charset="utf-8" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-        {!! $estilos !!}
+        {!! $estilos !!} 
+        
+        {!! $stilosBundle !!}
     </style>
 
 </head>
 
 <body>
-
 
 
 
@@ -45,9 +46,9 @@
             </li>
             <li>2. El (los) ahorrante(s) podra(n) retirar total o parcialmente sus Deóositos prestando el documento de
                 retiro de sere proporcionado por la Cooperativa.</li>
-            <li>3. CIMACOOP, de R.L. reconocera y pagara por saldo diario de Deposito en Cuenta de  &nbsp;
+            <li>3. CIMACOOP, de R.L. reconocera y pagara por saldo diario de Deposito en Cuenta de &nbsp;
                 {{ $datosContrato->tipo_cuenta }} un
-                interes del  &nbsp; &nbsp;{{ $datosContrato->interes }} &nbsp; % anual y capitalizado mensualmente.</li>
+                interes del &nbsp; &nbsp;{{ $datosContrato->interes }} &nbsp; % anual y capitalizado mensualmente.</li>
             <li>4. Los DepOsitos en Cuenta de Ahorro se recibiran en efectivo o cheque adjuntando el documento de
                 depósito que sere proporcionado por la Cooperativa, cuando el depositó sea por cheque este se reconocera
                 como ahorro al momento que el banco librador acredite la cantidad en efectivo.</li>
@@ -88,37 +89,26 @@
         <br>
         <br>
         <br>
-<b>
-        <table class="table">
-            <thead >
-                <th style="border-bottom: 1px solid rgb(0, 0, 0) !important;"></th>
-                <th style="border-bottom: 0px solid red !important;"></th>
-                <th style="border-bottom: 1px solid rgb(0, 0, 0) !important;"></th>
+        <b>
+            <table class="table table-borderless" style="border: 1px solid rgb(255, 255, 255) !important;">
+                <thead style="">
+                    <th style="border-bottom: 1px solid rgb(2, 2, 2) !important;"></th>
+                    <th style="border-bottom: 0px solid rgb(255, 255, 255) !important;"></th>
+                    <th style="border-bottom: 1px solid rgb(0, 0, 0) !important;"></th>
 
 
-            </thead>
-            <tbody>
-                <tr>
-                    <td>CIMACOOP DE R.L. <br>FIMRA Y SELLO</td>
-                    <td style="border: 0px solid red; width:50px;"></td>
-                    <td> FIRMA(S) DE (LOS) AHORRANTE(S)</td>
-                </tr>
-            </tbody>
-        </table>
-</b>
+                </thead>
+                <tbody style="border: 1px solid rgb(255, 255, 255);">
+                    <tr style="border: 1px solid rgb(255, 255, 255);">
+                        <td style="border: 1px solid rgb(255, 255, 255);">CIMACOOP DE R.L. <br>FIMRA Y SELLO</td>
+                        <td style="border: 1px solid rgb(255, 255, 255); width:50px;"></td>
+                        <td style="border: 1px solid rgb(255, 255, 255);"> FIRMA(S) DE (LOS) AHORRANTE(S)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </b>
 
     </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 </body>

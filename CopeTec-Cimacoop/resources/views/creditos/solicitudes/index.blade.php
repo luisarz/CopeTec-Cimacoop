@@ -199,62 +199,7 @@
 
 @section('scripts')
     <script>
-        function optionsMenu(id) {
-            Swal.fire({
-                title: 'Que deseas realizar a la solicitud?',
-                // icon: 'question',
-                html: `
-                
-      <ul style="list-style-type: none; padding: 0;">
-        <li class='py-0'>
-            <a href="/creditos/solicitudes/edit/{{ $solicitud->id_solicitud }}"
-                class="btn btn-warning btn-sm  w-75">
-                <i class="ki-outline ki-pencil fs-5"></i> 
-                Modidicar 
-            </a>
-        </li>
-        <li>
-             <a href="/creditos/solicitud/{{ $solicitud->id_solicitud }}"
-                class="btn btn-info btn-sm w-75">
-                <i class="ki-outline ki-printer    fs-3"></i>
-                Imprimir Solicitud
-            </a>
-        </li>
-        <li>
-            <a href="/creditos/pagare/{{ $solicitud->id_solicitud }}"
-                class="btn btn-info btn-sm w-75">
-                <i class="ki-outline ki-printer   fs-3"></i>
-                imprimir Pagaré
-            </a>
-        </li>
-         <li>
-             <a href="javascript:alertDelete('{{ $solicitud->id_solicitud }}')"
-                class="btn btn-outline btn-danger btn-sm w-75">
-                <i class="ki-outline ki-cross-circle   fs-3"></i>
-                Rechazar 
-            </a>
-        </li>
-        <li>
-            <a href="/creditos/solicitudes/desembolso/{{ $solicitud->id_solicitud }}"
-                class="btn btn-outline btn-success btn-sm w-75 text-align-left">
-                <i class="ki-outline ki-folder-added fs-3">
-                   
-                </i>
-                Aprobar Desembolso
-            </a>
-        </li>
-
-      </ul>
-    `,
-                showCancelButton: true,
-                cancelButtonText: 'Cancelar y Salir',
-                showConfirmButton: false,
-                focusCancel: true,
-                customClass: {
-                    content: 'custom-swal-content'
-                }
-            });
-        }
+      
 
         function alertDelete(id) {
             Swal.fire({

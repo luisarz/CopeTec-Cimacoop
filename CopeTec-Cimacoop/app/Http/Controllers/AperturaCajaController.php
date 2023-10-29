@@ -77,28 +77,32 @@ class AperturaCajaController extends Controller
                 $apertuarCaja->estado = 1;
                 $apertuarCaja->id_usuario = auth()->user()->id;
                 $apertuarCaja->save();
+
+                Session()->put("id_caja_aperturada", $request->id_caja);
+
+
                 /** actualzar el estado de la caja*/
                 $cajaAperturada = Cajas::findOrFail($request->id_caja);
                 $cajaAperturada->estado_caja = 1;
+                $cajaAperturada->saldo = $request->monto_apertura;
                 $cajaAperturada->save();
+                // $caja->saldo = $request->monto_apertura;
                 //Pasamos a recibido el traslado
                 $trasladoBobeda->estado = 2;
                 $trasladoBobeda->save();
                 //actualizamos el saldo de la caja
-                $caja = Cajas::findOrFail($request->id_caja);
-                $caja->saldo = $request->monto_apertura;
-                $caja->save();
+                // $caja = Cajas::findOrFail($request->id_caja);
+                // $caja->save();
                 //insertar el movimiento
                 $cajaReibe = Cajas::findOrFail($request->id_caja);
                 $movimiento = new Movimientos();
                 $movimiento->id_cuenta = 0;
                 $movimiento->tipo_operacion = 3;
-                $movimiento->monto = $request->monto_apertura;
-                ;
+                $movimiento->monto = $request->monto_apertura;;
                 $movimiento->fecha_operacion = now();
                 $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
                 $movimiento->id_caja = $request->id_caja;
-                $movimiento->cliente_transaccion=$request->id_empleado;
+                $movimiento->cliente_transaccion = $request->id_empleado;
                 $movimiento->estado = 1;
                 $movimiento->save();
                 // $cajaReibe->saldo = $cajaReibe->saldo + $request->monto;
@@ -106,14 +110,7 @@ class AperturaCajaController extends Controller
 
                 return redirect("/apertura");
             }
-
-
-
         }
-
-
-
-
     }
 
 

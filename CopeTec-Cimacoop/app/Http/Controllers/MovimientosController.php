@@ -201,7 +201,7 @@ class MovimientosController extends Controller
         $id_cuenta_destino = $request->id_cuenta;
         $cuentaDestinoDatos = Cuentas::findOrFail($id_cuenta_destino);
         $movimiento = new Movimientos();
-        $movimiento->id_cuenta = $request->id_cuenta;
+        $movimiento->id_cuenta = $id_cuenta_destino;
         $movimiento->tipo_operacion = 1;
         $movimiento->monto = $request->monto;
         $movimiento->fecha_operacion = now();
@@ -210,6 +210,10 @@ class MovimientosController extends Controller
         $movimiento->dui_transaccion = $request->dui_transaccion;
         $movimiento->cliente_transaccion = $request->cliente_transaccion;
         $movimiento->estado = 1;
+        $movimiento->saldo= $cuentaDestinoDatos->saldo_cuenta + $request->monto;
+        $movimiento->id_libreta = $request->id_libreta;
+        $movimiento->num_movimiento_libreta=$request->num_movimiento_libreta;
+        $movimiento->impreso = 0;
         $movimiento->save();
         $cuentaDestinoDatos->saldo_cuenta = $cuentaDestinoDatos->saldo_cuenta + $request->monto;
         $cuentaDestinoDatos->save();
@@ -318,6 +322,7 @@ class MovimientosController extends Controller
         $movimiento->fecha_operacion = now();
         $movimiento->cajero_operacion = session()->get('id_empleado_usuario');
         $movimiento->id_caja = $request->id_caja;
+        $movimiento->saldo = $cuentaOrigenDatos->saldo_cuenta - $request->monto;
         $movimiento->estado = 1;
         $movimiento->dui_transaccion = $request->dui_transaccion;
         $movimiento->cliente_transaccion = $request->cliente_transaccion;
@@ -417,10 +422,10 @@ class MovimientosController extends Controller
     {
         $movimiento = Movimientos::findOrFail($request->id);
         $movimiento->estado = 0;
-        $movimiento->save();
         $id_cuenta = $movimiento->id_cuenta;
         $id_caja = $movimiento->id_caja;
         $caja = Cajas::findOrFail($movimiento->id_caja);
+        $movimiento->save();
 
         $cuenta = Cuentas::findOrFail($id_cuenta);
         if ($movimiento->tipo_operacion == 1) {
@@ -483,6 +488,7 @@ class MovimientosController extends Controller
             $movimientoOrigen->estado = 1;
             $movimientoOrigen->dui_transaccion = $request->dui_transaccion;
             $movimientoOrigen->cliente_transaccion = $request->cliente_transaccion;
+            $movimientoOrigen->saldo= $cuentaOrigen->saldo_cuenta - $request->monto;
             $movimientoOrigen->save();
 
             //actualizar el saldo de la cuenta origen
@@ -500,6 +506,7 @@ class MovimientosController extends Controller
             $movimientoDestino->dui_transaccion = $request->dui_transaccion;
             $movimientoDestino->cliente_transaccion = $request->cliente_transaccion;
             $movimientoDestino->id_cuenta_destino = $request->id_cuenta_origen;
+            $movimientoDestino->saldo= $cuentaDestino->saldo_cuenta + $request->monto;
             $movimientoDestino->save();
             //actualizar el saldo de la cuenta destino
             $cuentaDestino->saldo_cuenta = $cuentaDestino->saldo_cuenta + $request->monto;

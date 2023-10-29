@@ -6,7 +6,6 @@
     <form action="/cuentas/add" method="post" autocomplete="off">
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
-        <input type="hidden" name="id_caja" value="{{ $id_caja }}">
 
         <div class="card shadow-lg">
             <div class="card-header ribbon ribbon-end ribbon-clip">

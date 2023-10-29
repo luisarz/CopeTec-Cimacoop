@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asociados;
+use App\Models\Cajas;
 use App\Models\Cuentas;
+use App\Models\LibretasModel;
 use App\Models\Movimientos;
 use App\Models\TipoCuenta;
 use Illuminate\Http\Request;
@@ -18,19 +20,55 @@ class CuentasController extends Controller
             ->whereNotIn('clientes.estado', [0, 7])
             ->distinct()
             ->orderby('cuentas.created_at', 'desc')
-            ->select('cuentas.*', 'clientes.nombre as nombre_cliente','clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+            ->select('cuentas.*', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
             ->get();
 
-        return view("cuentas.index",compact("cuentas"));
+        return view("cuentas.index", compact("cuentas"));
     }
 
+    public function getLibreta($id_cuenta)
+    {
+        $libreta = LibretasModel::where("id_cuenta", "=", $id_cuenta)->where('estado','1')->first();
+        if ($libreta) {
+            $numMovimiento= Movimientos::where("id_libreta", "=", $libreta->id_libreta)->max('num_movimiento_libreta');
+            $proximoMovimiento = $numMovimiento + 1;
+            return response()->json([
+                "response" => "ok",
+                "libreta" => $libreta->id_libreta,
+                "num_movimiento_libreta"=>$proximoMovimiento,
 
+            ]);
+        } else {
+            return response()->json([
+                "response" => "error",
+                "libreta" => ""
+
+            ]);
+        }
+    }
     public function add()
     {
+
+
+        $id_empleado_usuario = session()->get('id_empleado_usuario');
+        $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
+            ->where("estado_caja", '=', '1')
+            ->where('id_usuario_asignado', '=', $id_empleado_usuario)
+            ->select('cajas.id_caja', 'cajas.saldo', 'cajas.numero_caja', 'cajas.id_usuario_asignado', 'apertura_caja.monto_apertura', 'apertura_caja.fecha_apertura')
+            ->first();
+        if (is_null($cajaAperturada)) {
+            return redirect("/apertura")->withErrors('No tienes caja aperturada, te redirigimos aqui, para que puedas aperturala y poder realizar movimientos.');
+        }
+        $id_caja = $cajaAperturada->id_caja;
+
         $asociados = Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->whereNotIn('clientes.estado', [0, 7])->get(); //El cliente no este desactivado ni sea la bobeda
         $tiposcuentas = TipoCuenta::all();
-        return view("cuentas.add", compact("asociados", "tiposcuentas"));
+
+
+
+
+        return view("cuentas.add", compact("asociados", "tiposcuentas", 'id_caja'));
     }
     public function addcuentacompartida()
     {
@@ -70,6 +108,16 @@ class CuentasController extends Controller
             $cuenta->estado = 1;
             $cuenta->save();
 
+            //Crear la libreta
+
+            $libreta = new LibretasModel();
+            $numLibreta = LibretasModel::max('numero');
+            $libreta->numero = $numLibreta + 1;
+            $libreta->id_cuenta = $cuenta->id_cuenta;
+            $libreta->fecha_apertura = now();
+            $libreta->estado = 1;
+            $libreta->save();
+
 
             $asociado = Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
                 ->where('asociados.id_asociado', '=', $request->id_asociado)->first();
@@ -86,14 +134,19 @@ class CuentasController extends Controller
             $movimiento->cliente_transaccion = $asociado->nombre;
             $movimiento->observacion = 'Deposito por apertura de cuenta';
             $movimiento->estado = 1;
+            $movimiento->saldo = $request->monto_apertura;
+            $movimiento->impreso = 0;
+            $movimiento->num_movimiento_libreta = 1;
+            $movimiento->id_libreta = $libreta->id_libreta;
             $movimiento->save();
+
+
 
 
             //
 
             return redirect("/cuentas");
         }
-
     }
 
 
@@ -125,7 +178,6 @@ class CuentasController extends Controller
             $cliente->save();
             return redirect("/cuentas");
         }
-
     }
 
     public function getCuenta($id)
@@ -147,7 +199,8 @@ class CuentasController extends Controller
         $cuenta->save();
         return redirect("/cuentas");
     }
-    public function getCuentasDisponibles($id){
+    public function getCuentasDisponibles($id)
+    {
         $cuenta_origen = Cuentas::find($id);
         $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
@@ -156,11 +209,11 @@ class CuentasController extends Controller
             ->where('cuentas.id_cuenta', '!=', $id)
             ->distinct()
             ->orderby('clientes.nombre', 'asc')
-            ->select('cuentas.*', 'clientes.nombre as nombre_cliente','clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+            ->select('cuentas.*', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
             ->get();
         return response()->json([
             'cuentas' => $cuentas,
-            'saldo_disponible'=>$cuenta_origen->saldo_cuenta
+            'saldo_disponible' => $cuenta_origen->saldo_cuenta
         ]);
     }
     public function getCuentasByAsociado($id)
@@ -179,5 +232,28 @@ class CuentasController extends Controller
         ]);
     }
 
+    public function getMovimientosSinImprimir($id)
+    {
 
+        $movimientos = Movimientos::join('cajas', 'movimientos.id_caja', '=', 'cajas.id_caja')
+            ->where('impreso', '!=', [1, null])->where('id_cuenta', $id)
+            ->select(
+                'movimientos.id_movimiento',
+                'movimientos.id_cuenta',
+                'movimientos.tipo_operacion',
+                'movimientos.monto',
+                'movimientos.saldo',
+                'movimientos.fecha_operacion',
+                'movimientos.id_caja',
+                'cajas.numero_caja'
+            )->get();
+        $movimientosPendientes = 0;
+        if ($movimientos) {
+            $movimientosPendientes = $movimientos->count();
+        }
+        return response()->json([
+            'movimientos' => $movimientos,
+            'movimientosPendientes' => $movimientosPendientes,
+        ]);
+    }
 }

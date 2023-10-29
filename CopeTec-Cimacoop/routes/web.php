@@ -50,6 +50,8 @@ use App\Http\Controllers\DeclaracionJuradaController;
 use App\Http\Controllers\MoneylaunderingController;
 use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\FacturasController;
+use App\Http\Controllers\LibretasController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -180,15 +182,29 @@ Route::get('intereses/getIntereses/{id}', [InteresesTipoCuentaController::class,
 /*
 Cuentas Route
  */
-Route::get('/cuentas', [CuentasController::class, 'index'])->middleware(['auth', 'bitacora']);
-Route::get('/cuentas/add', [CuentasController::class, 'add'])->middleware(['auth', 'bitacora']);
-Route::get('/cuentas/addcuentacompartida', [CuentasController::class, 'addcuentacompartida'])->middleware(['auth', 'bitacora']);
-Route::post('/cuentas/add', [CuentasController::class, 'post'])->middleware(['auth', 'bitacora']);
-Route::post('/cuentas/anularCuenta', [CuentasController::class, 'anularCuenta'])->middleware(['auth', 'bitacora']);
-Route::get('/cuentas/{id}', [CuentasController::class, 'edit'])->middleware(['auth', 'bitacora']);
-Route::put('/cuentas/put', [CuentasController::class, 'put'])->middleware(['auth', 'bitacora']);
-Route::get('/cuentas/getCuentasDisponibles/{id}', [CuentasController::class, 'getCuentasDisponibles'])->middleware(['auth', 'bitacora']);
-Route::get('/cuentas/getCuentasByAsociado/{id}', [CuentasController::class, 'getCuentasByAsociado'])->middleware(['auth', 'bitacora']);
+
+Route::middleware(['auth', 'bitacora'])->prefix('cuentas')->group(function () {
+    Route::get('/', [CuentasController::class, 'index']);
+    Route::get('/add', [CuentasController::class, 'add']);
+    Route::get('/addcuentacompartida', [CuentasController::class, 'addcuentacompartida']);
+    Route::post('/add', [CuentasController::class, 'post']);
+    Route::post('/anularCuenta', [CuentasController::class, 'anularCuenta']);
+    Route::get('/{id}', [CuentasController::class, 'edit']);
+    Route::put('/put', [CuentasController::class, 'put']);
+    Route::get('/getCuentasDisponibles/{id}', [CuentasController::class, 'getCuentasDisponibles']);
+    Route::get('/getCuentasByAsociado/{id}', [CuentasController::class, 'getCuentasByAsociado']);
+    Route::get('/listarMovimientosSinImprirmir/{id_cuenta}', [CuentasController::class, 'getMovimientosSinImprimir']);
+    Route::get('/getLibreta/{id_cuenta}', [CuentasController::class,'getLibreta']);
+});
+
+/*Libretas */
+
+Route::post('/libretas/imprimirLibretaItems',[LibretasController::class,'imprimirMovimientos']);
+
+Route::middleware(['auth','bitacora'])->prefix('libretas')->group(function () {
+    Route::get('/', [LibretasController::class,'index']);
+
+});
 
 
 //Consultar el saldo de la cuenta
@@ -214,10 +230,7 @@ Route::middleware(['auth', 'bitacora'])->prefix('correlativos')->group(function 
     Route::post('/caja/add', [CorrelativosController::class, 'post']);
     Route::get('/caja/edit-correlativo/{id_correlativo}', [CorrelativosController::class, 'edit']);
     Route::put('/caja/edit-correlativo/put', [CorrelativosController::class, 'put']);
-
     Route::get('/getNumDocumento/{tipoDocumento}', [CorrelativosController::class, 'getNumFactura']);
-
-
 });
 
 
@@ -299,6 +312,8 @@ Contraseña temporal para anular operaciones
 */
 Route::get('/temp/generateTempPassword', [TempPasswordController::class, 'generateTempPassword'])->middleware(['auth', 'bitacora']);
 Route::get('/temp/validatePassword/{password}', [TempPasswordController::class, 'validatePassword'])->middleware(['auth', 'bitacora']);
+
+
 
 /*
 Modulo

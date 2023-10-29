@@ -199,12 +199,12 @@
                                             <i class="fa fa-cloud-upload text-success fs-1x"></i>
                                             Hacer Transferencia
                                         </a>
-                                        <div class="separator border-gray-200"></div>
+                                        {{-- <div class="separator border-gray-200"></div>
                                         <a href="movimientos/solicitartransferencia/{{ $cajaAperturada->id_caja }}"
                                             class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info w-200px mb-2">
                                             <i class="fa fa-reply-all text-info fs-1x"></i>
                                             Solicitar Transferencia
-                                        </a>
+                                        </a> --}}
 
                                     </div>
                                     <!--end::Form-->

@@ -17,12 +17,14 @@
             <div class="modal-content">
                 <input type="hidden" id="id_cuenta">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Movimientos sin imprimir</h5>
+                    <h5 class="check-title" id="exampleModalLabel">Movimientos sin imprimir</h5>
                 </div>
                 <div class="modal-body" style="height: 300px;">
+
+
                     <div class="row table-responsive">
                         <table class="table table-bordered">
-                            <th>Imprimir</th>
+                            <th><input type="checkbox" id="check-todos" class="checkbox"></th>
                             <th>Fecha</th>
                             <th>Retiros</th>
                             <th>Depositos</th>
@@ -59,24 +61,13 @@
                 <!--begin: buttons actions-->
                 <div class="flex-grow-1 me-1 mb-4">
                     <div class="symbol symbol-100px symbol-lg-100px symbol-fixed position-relative">
-                        <a href="/cuentas/add" class="btn btn-success">
+                        {{-- <a href="/cuentas/add" class="btn btn-success">
                             <span>
                                 <i class="fa fa-upload fa-2x"></i>
                             </span>
-                            Aperturar Cuenta
-                        </a>
-                        <a href="/cuentas/addcompartida" class="btn btn-info">
-                            <span>
-                                <i class="fa fa-download fa-2x"></i>
-                            </span>
-                            Aperturar Cuenta Compartida
-                        </a>
-                        <a href="/cuentas/addcompartida" class="btn btn-outline btn-outline-dashed btn-outline-info">
-                            <span>
-                                <i class="fa fa-print fa-2x"></i>
-                            </span>
-                            Reporte de Cuentas
-                        </a>
+                            Renovar Libreta
+                        </a> --}}
+
                     </div>
                 </div>
             </div>
@@ -102,12 +93,10 @@
                             <th>Asociado</th>
                             <th>Saldo</th>
                             <th>Tipo Cuenta</th>
-                            <th>Compartida</th>
-                            <th>Declaración</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($cuentas as $cuenta)
+                        @foreach ($libretas as $cuenta)
                             <tr>
                                 <td>
                                     <a href="#" class="btn btn-sm btn-info btn-flex btn-center "
@@ -118,46 +107,21 @@
                                         data-kt-menu="true" style="">
 
                                         <div class="menu-item px-2">
-                                            @if ($cuenta->estado != '0')
-                                                <a href="javascript:void(0);" tol-tip="Cuenta Congelada"
-                                                    onclick="alertCongelar({{ $cuenta->id_cuenta }})"
-                                                    class="menu-link px-3">
-
-                                                    <i class="ki-outline ki-shield-cross text-danger fs-3">
-                                                    </i>
-                                                    <span class="text-danger"> Congelar</span>
-
-                                                </a>
-                                            @else
-                                                <a class="btn btn-outline btn-outline-dashed btn-outline-danger btn-sm"
-                                                    class="menu-link px-3">
-                                                    <i class="fa fa-ban text-danger"></i>
-                                                </a>
-                                            @endif
-                                        </div>
-                                        <div class="menu-item px-2">
-                                            <a href="/reportes/contrato/{{ $cuenta->id_cuenta }}" class="menu-link px-3">
-                                                <i class="ki-outline ki-printer text-primary fs-2">
+                                            <a href="javascript:void(0);"
+                                                onclick="movimientosSinImprimir({{ $cuenta->id_cuenta }})"
+                                                class="menu-link px-3">
+                                                <i class="ki-outline ki-printer text-success fs-2">
                                                 </i>
-                                                <span class=""> Contrato</span>
+                                                <span class="text-success fs-5">Postear</span>
                                             </a>
+
                                         </div>
                                         <div class="menu-item px-2">
                                             <a href="/reportes/RepEstadoCuenta/{{ $cuenta->id_cuenta }}"
                                                 class="menu-link px-3">
-                                                <i class="ki-outline ki-printer text-primary fs-2">
+                                                <i class="ki-outline ki-book-square text-danger fs-2">
                                                 </i>
-                                                <span class=""> Estado Cuenta</span>
-                                            </a>
-
-                                        </div>
-                                        <div class="menu-item px-2">
-                                            <a href="javascript:void(0);"
-                                                onclick="movimientosSinImprimir({{ $cuenta->id_cuenta }})"
-                                                class="menu-link px-3">
-                                                <i class="ki-outline ki-printer text-primary fs-2">
-                                                </i>
-                                                <span class="text-success ">Postear</span>
+                                                <span class="fs-5 text-danger"> Renovar</span>
                                             </a>
 
                                         </div>
@@ -188,30 +152,8 @@
                                 <td>
                                     {{ $cuenta->tipo_cuenta }}
                                 </td>
-                                <td style="text-align: center">
-                                    @if ($cuenta->id_asociado_comparte != null)
-                                        <a href="/cuentas/{{ $cuenta->id_cuenta }}/compartida"
-                                            class="btn btn-info btn-sm "><i class="fa-solid fa-pencil text-white "></i>
-                                            &nbsp; Ver Asociado</a>
-                                    @else
-                                        <span class="bagde bagde-info "> &nbsp; -</span>
-                                    @endif
-                                </td>
 
-                                <td>
-                                    @if ($cuenta->declarado)
-                                        <div class="d-flex">
-                                            <a href="/declare/{{ $cuenta->id_cuenta }}" class="btn btn-info btn-sm">
-                                                Editar</a>
-                                            <a href="/declare/{{ $cuenta->id_cuenta }}/pdf"
-                                                class="btn btn-secondary btn-sm" target="_blank">
-                                                Imprimir</a>
-                                        </div>
-                                    @else
-                                        <a href="/declare/{{ $cuenta->id_cuenta }}/new" class="btn btn-success btn-sm">
-                                            Crear</a>
-                                    @endif
-                                </td>
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -231,78 +173,6 @@
 <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
 @section('scripts')
     <script>
-        $(document).ready(function() {
-
-
-        });
-
-        function alertCongelar(id) {
-
-            Swal.fire({
-
-                html: `¿Deseas Congelar esta cuenta? <br/><span class="badge badge-danger fs-3">No Podras usarla</span><br/> Ingresa contraseña para confirmar`,
-                input: 'text',
-                icon: "question",
-                buttonsStyling: false,
-                showCancelButton: true,
-                confirmButtonText: "Si, Continuar Proceso",
-                cancelButtonText: 'No',
-                inputValidator: (value) => {
-                    if (!value) {
-                        return 'Debe ingresar una contraseña';
-                    }
-                },
-                customClass: {
-                    confirmButton: "btn btn-danger",
-                    cancelButton: "btn btn-secondary"
-                },
-                inputAttributes: {
-                    class: 'form-control text-bold',
-                    style: 'color: red; font-size: 16px;',
-                },
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const password = result.value;
-                    $.ajax({
-                        url: '/temp/validatePassword/' + password,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(data) {
-                            if (data.status == 'success') {
-
-                                $("#id_cuenta_anular").val(id)
-                                $("#anularForm").submit();
-
-                                Swal.fire({
-                                    title: 'Proceso Realizado con exito',
-                                    icon: 'success',
-                                    showConfirmButton: true,
-                                    customClass: {
-                                        confirmButton: "btn btn-info",
-                                    },
-                                    timerProgressBar: true,
-                                    timer: 5000, // 5000 milisegundos = 5 segundos
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: 'Errro al Realizar proceso',
-                                    text: 'El estado de la contraseña es: ' + data.status,
-                                    icon: 'error',
-                                    showConfirmButton: true,
-                                    customClass: {
-                                        confirmButton: "btn btn-info",
-                                    },
-                                    timerProgressBar: true,
-                                    timer: 5000, // 5000 milisegundos = 5 segundos
-                                });
-                            }
-                        }
-                    });
-                } else if (result.isDenied) {}
-            });
-
-        }
-
         $("#btnCancelar").on('click', function() {
             $("#transaccionesPendientes").modal('hide');
         });
@@ -326,30 +196,30 @@
                             keyboard: false
                         }).modal('show');
                         const movimientos = data.movimientos;
-
+                        $('#elementosBody').html("");
                         $.each(movimientos, function(index, element) {
                             let tipo_operacion = index.tipo_operacion
                             let retiros = 0;
                             let depositos = 0;
                             let saldo = 0;
-                            if(tipo_operacion=='2')
-                            {
+                            if (tipo_operacion == '2') {
                                 retiros = element.monto;
                                 depositos = '0.00';
-                            }
-                            else
-                            {
-                              depositos = element.monto;
+                            } else {
+                                depositos = element.monto;
                                 retiros = '0.00';
                             }
+
+                            let id = element.id_movimiento;
                             $('#elementosBody').append(
                                 '<tr>' +
-                                '<td><input type="checkbox" checked> </td>' +
+                                '<td><input type="checkbox" checked class="check-imprimir" id="' +
+                                id + '"> </td>' +
                                 '<td>' + element.fecha_operacion + '</td>' +
                                 '<td>' + retiros + '</td>' +
                                 '<td>' + depositos + '</td>' +
                                 '<td>' + element.saldo + '</td>' +
-                                '<td>' + element.id_caja + '</td>' +
+                                '<td>' + element.numero_caja + '</td>' +
                                 '</tr>');
                         });
 
@@ -376,5 +246,60 @@
                 }
             });
         }
+
+
+
+        $('#check-todos').change(function() {
+            var isChecked = $(this).is(':checked'); // Verifica si la casilla está marcada
+            $('.check-imprimir').prop('checked',
+                isChecked
+            ); // Marca o desmarca todas las casillas secundarias según el estado de la casilla principal
+        });
+
+        $("#btnImprimir").on('click', function() {
+                swalProcessing();
+
+            let elementosMarcados = [];
+            $('.check-imprimir').each(function() {
+                if ($(this).is(":checked")) {
+                    var idMarcado = $(this).attr('id'); // Obtén el ID de los elementos marcados
+                    elementosMarcados.push(idMarcado); // Agrega el ID a la lista de elementos marcados
+                }
+            });
+            console.log(elementosMarcados);
+            let imprimirCant = elementosMarcados.length;
+            if (imprimirCant > 0) {
+                let url="/libretas/imprimirLibretaItems"
+                let id_cuenta = $("#id_cuenta").val();
+                let _token = "{{ csrf_token() }}";
+                let data = {
+                    "elementosMarcados": elementosMarcados,
+                    "id_cuenta": id_cuenta,
+                    "_token": _token,
+                };
+                $.post(url,data,function(response){
+                    alert(response);
+                    Swal.close();
+                    $("#transaccionesPendientes").modal('hide');
+                    window.open('/libretas/imprimirLibretaItems/'+id_cuenta, '_blank');
+                },'json');
+               
+
+
+            } else {
+                Swal.fire({
+                    title: 'Debe seleccionar al menos un movimiento',
+                    icon: 'error',
+                    showConfirmButton: true,
+                    customClass: {
+                        confirmButton: "btn btn-info",
+                    },
+                    allowscapeKey: false,
+                    timerProgressBar: true,
+                    allowOutsideClick: false,
+                    timer: 5000, // 5000 milisegundos = 5 segundos
+                });
+            }
+        });
     </script>
 @endsection
