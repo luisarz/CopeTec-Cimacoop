@@ -8,55 +8,91 @@
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-        {{ $estilos }} {{ $stilosBundle }}
+        {{ $stilosBundle }} {{ $estilos }}
     </style>
 
 </head>
 
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
-    <div class="double-strikethrough">
-        ASOCIACION COOPERATIVA DE AHORRO Y CREDITO LA CIMA - "CIMACOOP, DE R.L." <br>
-        PRODUCTOS
-    </div>
+    @php
+        $fecha_operacion = '';
+        $retiro = 0;
+        $deposito = 0;
+        $saldo = 0;
+        $cajero = '';
+        $numMovimiento = "";
+    @endphp
 
     <br>
 
-     <table class="table  fs-6 gy-1 gs-1">
-                    <thead class="fw-bold">
-                        <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                            <th>#</th>
-                            <th class="min-w-250px ">Producto</th>
-                            <th class="min-w-80px">Cod Barra</th>
-                            <th class="min-w-80px">Presentación</th>
-                            <th class="min-w-50px">Marca</th>
-                            <th class="min-w-50px">Costo</th>
-                            <th class="min-w-100px">Facturacion</th>
-
-                        </tr>
-                    </thead>
-                    <tbody class="fs-4">
-                        @foreach ($movimientos as $producto)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-
-                                <td>{{ $producto->nombre }}</td>
-                                <td>{{ $producto->cod_barra }}</td>
-                                <td>{{ $producto->presentacion }}</td>
-                                <td>{{ $producto->marca }}</td>
-                                <td>${{ number_format($producto->costo, 2) }}</td>
-                                    <td>
-                                @if($producto->tipo_facturacion == 1)
-                                    <span class="badge badge-light-danger">Compras</span>
-                                @else
-                                    <span class="badge badge-light-success">Facturacion</span>
-                                @endif    
-                                </td>
+    <table class="table  ga-3 " style="border: 1px solid rgb(255, 255, 255);">
+        <thead>
+            <th style="width: 200px;"></th>
+            <th style="width: 180px;"></th>
+            <th style="width: 180px;"></th>
+            <th style="width: 180px;"></th>
+            <th style="width: 100px;"></th>
 
 
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+        </thead>
+
+        <tbody class="fs-4">
+
+            @for ($i = 0; $i <= $rows - 1; $i++)
+
+
+                @foreach ($movimientos as $producto)
+                    @if ($i == $producto->num_movimiento_libreta)
+                        @php
+                            $numMovimiento = $producto->num_movimiento_libreta;
+                            $fecha_operacion = $producto->fecha_operacion;
+                            $tipo_operacion = $producto->tipo_operacion;
+                            $cajero= $producto->numero_caja;
+                            $saldo = $producto->saldo;
+                            if ($tipo_operacion == '2') {
+                                $retiro = $producto->monto;
+                                $deposito = '0.00';
+                            } else {
+                                $deposito = $producto->monto;
+                                $retiro = '0.00';
+                            }
+                        @endphp
+                    @break
+                @endif
+            @endforeach
+
+
+            <tr class="gs-2 p-2">
+                @if ($i == $numMovimiento)
+                    <td>{{date('d-m-y H:s:i',strtotime( $fecha_operacion ))}}</td>
+                    <td>{{ $retiro }}</td>
+                    <td>{{ $deposito }}</td>
+                    <td>{{ $saldo }}</td>
+                    <td>{{ $cajero }}</td>
+                @else
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                @endif
+            </tr>
+        @endfor
+
+        @foreach ($movimientos as $producto)
+            {{-- <tr>
+                    <td>{{ $loop->iteration }}</td>
+
+                    <td>{{ $producto->nombre }}</td>
+                    <td>{{ $producto->cod_barra }}</td>
+                    <td>{{ $producto->presentacion }}</td>
+                    <td>{{ $producto->marca }}</td>
+
+
+                </tr> --}}
+        @endforeach
+    </tbody>
+</table>
 
 
 </body>

@@ -15,33 +15,40 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
-                <input type="hidden" id="id_cuenta">
-                <div class="modal-header">
-                    <h5 class="check-title" id="exampleModalLabel">Movimientos sin imprimir</h5>
-                </div>
-                <div class="modal-body" style="height: 300px;">
+                <form action="/libretas/imprimirLibretaItems" id="frmPrint" method="POST" target="_blank"
+                    autocomplete="off">
+                    {!! csrf_field() !!}
+                    {{ method_field('POST') }}
 
-
-                    <div class="row table-responsive">
-                        <table class="table table-bordered">
-                            <th><input type="checkbox" id="check-todos" class="checkbox"></th>
-                            <th>Fecha</th>
-                            <th>Retiros</th>
-                            <th>Depositos</th>
-                            <th>Saldo</th>
-                            <th>Cajero</th>
-                            <tbody id="elementosBody">
-
-                            </tbody>
-                        </table>
-
+                    <input type="hidden" id="id_cuenta">
+                    <div class="modal-header">
+                        <h5 class="check-title" id="exampleModalLabel">Movimientos sin imprimir</h5>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal"
-                        id="btnCancelar">Cancelar</button>
-                    <button type="button" id="btnImprimir" class="btn btn-danger font-weight-bold">Imprimir</button>
-                </div>
+                    <div class="modal-body" style="height: 300px;">
+
+
+                        <div class="row table-responsive">
+                            <table class="table table-bordered">
+                                <th><input type="checkbox" id="check-todos" class="checkbox"></th>
+                                <th>Fecha</th>
+                                <th>Retiros</th>
+                                <th>Depositos</th>
+                                <th>Saldo</th>
+                                <th>Cajero</th>
+                                <tbody id="elementosBody">
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal"
+                            id="btnCancelar">Cancelar</button>
+                        <button type="submit" id="btnImprimir" class="btn btn-danger font-weight-bold">Imprimir</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -256,9 +263,9 @@
             ); // Marca o desmarca todas las casillas secundarias según el estado de la casilla principal
         });
 
-        $("#btnImprimir").on('click', function() {
-                swalProcessing();
-
+        $("#frmPrint").on('submit', function(ev) {
+            ev.preventDefault();
+            // swalProcessing();
             let elementosMarcados = [];
             $('.check-imprimir').each(function() {
                 if ($(this).is(":checked")) {
@@ -266,24 +273,28 @@
                     elementosMarcados.push(idMarcado); // Agrega el ID a la lista de elementos marcados
                 }
             });
-            console.log(elementosMarcados);
+
             let imprimirCant = elementosMarcados.length;
             if (imprimirCant > 0) {
-                let url="/libretas/imprimirLibretaItems"
+                let url = "/libretas/imprimirLibretaItems"
                 let id_cuenta = $("#id_cuenta").val();
                 let _token = "{{ csrf_token() }}";
                 let data = {
                     "elementosMarcados": elementosMarcados,
-                    "id_cuenta": id_cuenta,
-                    "_token": _token,
                 };
-                $.post(url,data,function(response){
-                    alert(response);
-                    Swal.close();
-                    $("#transaccionesPendientes").modal('hide');
-                    window.open('/libretas/imprimirLibretaItems/'+id_cuenta, '_blank');
-                },'json');
-               
+
+                if (elementosMarcados && elementosMarcados.length > 0) {
+                    elementosMarcados.forEach((element, index) => {
+                        $("#frmPrint").append('<input type="hidden" name="elementosMarcados[]" value="' +
+                            element +
+                            '">');
+                    });
+                    this.submit();
+
+                    setTimeout(() => {
+                        $("#transaccionesPendientes").modal('hide');
+                    }, 1000);
+                }
 
 
             } else {

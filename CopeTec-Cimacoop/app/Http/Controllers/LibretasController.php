@@ -7,6 +7,8 @@ use App\Models\Movimientos;
 use Illuminate\Http\Request;
 use \PDF;
 
+use function PHPUnit\Framework\isEmpty;
+
 class LibretasController extends Controller
 {
     private $estilos;
@@ -36,6 +38,7 @@ class LibretasController extends Controller
     }
     public function imprimirMovimientos(Request $request)
     {
+        // dd($request->all());
         $elementosMarcados = $request->elementosMarcados;
         $movimientos = Movimientos::join('cajas', 'movimientos.id_caja', '=', 'cajas.id_caja')
             ->whereIn('id_movimiento', $elementosMarcados)
@@ -47,16 +50,30 @@ class LibretasController extends Controller
                 'movimientos.saldo',
                 'movimientos.fecha_operacion',
                 'movimientos.id_caja',
-                'cajas.numero_caja'
+                'cajas.numero_caja',
+                'movimientos.num_movimiento_libreta'
             )->get();
+
+        if (empty($movimientos)) {
+            return redirect()->back()->with('error', 'No se ha seleccionado ningún movimiento');
+        }
+        Movimientos::whereIn('id_movimiento', $elementosMarcados)
+            ->update([
+                'impreso' => 1,
+            ]);
+
 
         $pdf = PDF::loadView('libretas.imprimir.movimientos', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
             'movimientos' => $movimientos,
+            'rows'=>50,
 
         ]);
-        return $pdf->setOrientation('portrait')->stream('movimientos.pdf');
+        $pdf->setOption('page-width', '150mm'); // Set the width to 210mm or any desired value
+        $pdf->setOption('page-height', '500mm');
+        return $pdf->inline();
+        // return $pdf->setOrientation('portrait')->inline();
         
 
     }
