@@ -259,13 +259,25 @@
                                                 '9' => ['anulados' => [], 'activos' => ['1' => 'Finalizado']],
                                             ];
                                         @endphp
-
+ @if ($cuenta->tipo_operacion == 7)
+                                            <a href="/reportes/comprobanteAbono/{{ $cuenta->id_pago_credito }}"
+                                                target="_blank" class="btn btn-success btn-sm w-40"><i
+                                                    class="fa fa-print text-white"></i>
+                                                </i>
+                                            </a>
+                                        @else
+                                            <a href="/reportes/comprobanteMovimiento/{{ $cuenta->id_movimiento }}"
+                                                target="_blank" class="btn btn-info btn-sm w-40"><i
+                                                    class="fa fa-print text-white"></i>
+                                                </i>
+                                            </a>
+                                        @endif
                                         @switch($cuenta->tipo_operacion)
                                             @case('1')
                                             @case('2')
                                                 {{-- Deposito y retiro --}}
                                                 @if (array_key_exists($cuenta->estado, $operationStates[$cuenta->tipo_operacion]['anulados']))
-                                                    <a class="btn btn-sm w-50 fs-6 btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"
+                                                    <a class="btn btn-sm w-30 fs-6 btn-outline btn-outline-dashed btn-outline-danger btn-active-light-dange"
                                                         style="pointer-events: none; text-decoration: line-through">
                                                         <i class="fa-solid fa-trash text-danger"></i>
                                                         &nbsp;{{ $operationStates[$cuenta->tipo_operacion]['anulados'][$cuenta->estado] }}
@@ -299,19 +311,7 @@
 
 
 
-                                        @if ($cuenta->tipo_operacion == 7)
-                                            <a href="/reportes/comprobanteAbono/{{ $cuenta->id_pago_credito }}"
-                                                target="_blank" class="btn btn-success btn-sm w-40"><i
-                                                    class="fa fa-print text-white"></i>
-                                                </i> &nbsp;Imprimir
-                                            </a>
-                                        @else
-                                            <a href="/reportes/comprobanteMovimiento/{{ $cuenta->id_movimiento }}"
-                                                target="_blank" class="btn btn-info btn-sm w-40"><i
-                                                    class="fa fa-print text-white"></i>
-                                                </i> &nbsp;Imprimir
-                                            </a>
-                                        @endif
+                                       
 
 
                                     </td>
