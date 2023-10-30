@@ -11,7 +11,7 @@
  Target Server Version : 100428 (10.4.28-MariaDB)
  File Encoding         : 65001
 
- Date: 12/06/2023 22:48:23
+ Date: 30/10/2023 13:18:57
 */
 
 SET NAMES utf8mb4;
@@ -29,19 +29,19 @@ CREATE TABLE `apertura_caja`  (
   `id_usuario` int NULL DEFAULT NULL,
   `fecha_apertura` datetime NULL DEFAULT NULL,
   `hora_cierre` varchar(15) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
+  `hora_aceptado` varchar(15) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
   `estado` int NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_apertura_caja`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 975 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of apertura_caja
 -- ----------------------------
-INSERT INTO `apertura_caja` VALUES (971, 45, 1580.00, 50.00, 11, '2023-06-12 22:19:22', '09', 1, '2023-06-12 22:19:22', '2023-06-12 22:19:22');
-INSERT INTO `apertura_caja` VALUES (972, 45, 1580.00, NULL, 11, '2023-06-12 22:19:55', NULL, 1, '2023-06-12 22:19:55', '2023-06-12 22:19:55');
-INSERT INTO `apertura_caja` VALUES (973, 45, 500.00, NULL, 11, '2023-06-12 00:00:00', NULL, 1, '2023-06-12 22:21:15', '2023-06-12 22:21:15');
-INSERT INTO `apertura_caja` VALUES (974, 45, 150.00, NULL, 11, '2023-06-12 00:00:00', NULL, 1, '2023-06-12 22:21:44', '2023-06-12 22:21:44');
+INSERT INTO `apertura_caja` VALUES (1, 1, 100.00, 45.00, 11, '2023-10-27 06:58:46', '09:28:39', NULL, 3, '2023-10-27 06:58:46', '2023-10-29 09:28:39');
+INSERT INTO `apertura_caja` VALUES (2, 1, 45.00, 45.00, 11, '2023-10-29 09:28:46', '09:30:36', NULL, 3, '2023-10-29 09:28:46', '2023-10-29 09:30:36');
+INSERT INTO `apertura_caja` VALUES (3, 1, 45.00, NULL, 11, '2023-10-29 10:11:40', NULL, NULL, 1, '2023-10-29 10:11:40', '2023-10-29 10:11:40');
 
 -- ----------------------------
 -- Table structure for asociados
@@ -49,6 +49,7 @@ INSERT INTO `apertura_caja` VALUES (974, 45, 150.00, NULL, 11, '2023-06-12 00:00
 DROP TABLE IF EXISTS `asociados`;
 CREATE TABLE `asociados`  (
   `id_asociado` int NOT NULL AUTO_INCREMENT,
+  `numero_asociado` int NULL DEFAULT NULL,
   `id_cliente` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `sueldo_quincenal` decimal(10, 2) NULL DEFAULT NULL,
   `sueldo_mensual` decimal(10, 2) NULL DEFAULT NULL,
@@ -63,113 +64,13 @@ CREATE TABLE `asociados`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_asociado`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of asociados
 -- ----------------------------
-INSERT INTO `asociados` VALUES (10, '6', 5.00, 5.00, 5.00, 5, NULL, NULL, 5.00, 5.00, 2, '2023-06-15', '2023-06-08 19:54:34', '2023-06-08 19:55:37');
-INSERT INTO `asociados` VALUES (11, '19', 26037.49, 59344.95, 566.30, 5, NULL, NULL, 20.00, 39.17, 1, '2019-07-13', '2011-11-06 23:14:33', '2023-06-09 19:16:44');
-INSERT INTO `asociados` VALUES (12, '83', 72532.27, 17303.68, 352.03, 7, 0, 0, 20.00, 54.27, 2, '2020-04-09', '2010-08-05 08:16:07', '2010-10-02 04:08:53');
-INSERT INTO `asociados` VALUES (13, '22', 15435.77, 96213.51, 474.42, 5, 0, 0, 20.00, 68.37, 2, '2006-02-21', '2016-02-21 04:34:47', '2012-08-17 02:21:23');
-INSERT INTO `asociados` VALUES (14, '132', 45843.07, 58583.77, 725.96, 6, 0, 0, 20.00, 32.39, 1, '2006-09-08', '2005-05-15 11:17:44', '2020-10-05 16:09:41');
-INSERT INTO `asociados` VALUES (15, '36', 96368.59, 64690.84, 676.47, 8, 0, 0, 20.00, 93.43, 3, '2006-09-09', '2012-07-11 19:22:59', '2017-12-29 07:12:59');
-INSERT INTO `asociados` VALUES (16, '18', 57944.28, 18791.72, 111.61, 8, 0, 0, 20.00, 67.46, 2, '2013-10-28', '2012-10-07 02:59:29', '2008-01-11 15:14:57');
-INSERT INTO `asociados` VALUES (17, '110', 18744.96, 14891.92, 654.02, 5, 0, 0, 20.00, 22.71, 2, '2005-04-27', '2002-04-25 09:55:44', '2003-03-17 02:20:36');
-INSERT INTO `asociados` VALUES (18, '100', 65103.38, 70586.20, 662.68, 5, 0, 0, 20.00, 72.52, 1, '2007-10-13', '2002-04-13 19:33:53', '2006-07-26 07:01:37');
-INSERT INTO `asociados` VALUES (19, '96', 98122.51, 91341.60, 283.93, 3, 0, 0, 20.00, 54.20, 3, '2014-01-20', '2001-11-19 20:22:34', '2006-07-01 19:03:23');
-INSERT INTO `asociados` VALUES (20, '15', 44880.48, 70948.17, 486.01, 7, 0, 0, 20.00, 71.05, 2, '2013-02-17', '2018-09-02 20:01:30', '2006-03-05 12:42:58');
-INSERT INTO `asociados` VALUES (21, '94', 19431.48, 66256.59, 28.51, 6, 0, 0, 20.00, 34.91, 3, '2020-10-31', '2001-04-23 03:19:53', '2019-12-01 00:21:15');
-INSERT INTO `asociados` VALUES (22, '133', 98730.08, 41298.36, 38.36, 4, 0, 0, 20.00, 72.54, 1, '2008-11-07', '2019-04-04 22:17:55', '2004-02-07 16:07:42');
-INSERT INTO `asociados` VALUES (23, '48', 97640.86, 88233.96, 637.10, 9, 0, 0, 20.00, 61.21, 3, '2019-12-26', '2011-10-27 09:22:56', '2018-12-04 13:19:32');
-INSERT INTO `asociados` VALUES (24, '50', 43567.35, 52713.90, 401.53, 3, 0, 0, 20.00, 55.13, 2, '2014-07-30', '2019-06-08 18:28:33', '2011-07-14 07:33:09');
-INSERT INTO `asociados` VALUES (25, '14', 94091.66, 8400.52, 579.65, 8, 0, 0, 20.00, 43.16, 3, '2015-07-23', '2022-12-14 14:05:25', '2020-12-24 07:00:54');
-INSERT INTO `asociados` VALUES (26, '17', 37336.47, 79164.11, 877.72, 8, 0, 0, 20.00, 42.62, 1, '2004-10-08', '2019-08-06 20:28:29', '2017-09-08 07:26:39');
-INSERT INTO `asociados` VALUES (27, '119', 37024.19, 66326.76, 446.30, 1, 0, 0, 20.00, 98.10, 1, '2016-05-10', '2021-05-28 21:27:23', '2022-01-06 08:48:08');
-INSERT INTO `asociados` VALUES (28, '124', 30631.48, 31341.36, 480.18, 9, 0, 0, 20.00, 47.05, 1, '2008-07-14', '2005-01-06 13:42:04', '2006-12-05 04:26:51');
-INSERT INTO `asociados` VALUES (29, '69', 99280.58, 11393.58, 140.74, 1, 0, 0, 20.00, 38.01, 2, '2005-11-03', '2008-11-08 21:26:12', '2003-03-18 04:22:16');
-INSERT INTO `asociados` VALUES (30, '83', 62524.56, 174.50, 565.60, 7, 0, 0, 20.00, 30.28, 2, '2002-10-07', '2001-10-12 11:59:27', '2021-10-05 06:52:25');
-INSERT INTO `asociados` VALUES (31, '73', 98539.61, 70118.20, 456.21, 4, 0, 0, 20.00, 96.29, 3, '2001-05-02', '2021-10-21 20:50:29', '2017-12-26 14:45:54');
-INSERT INTO `asociados` VALUES (32, '36', 94712.14, 78670.59, 448.43, 10, 0, 0, 20.00, 33.90, 3, '2005-08-29', '2001-12-07 21:52:33', '2003-01-17 16:42:33');
-INSERT INTO `asociados` VALUES (33, '120', 18686.11, 98813.74, 129.21, 8, 0, 0, 20.00, 91.14, 2, '2020-06-16', '2013-06-12 05:31:08', '2014-04-18 07:24:03');
-INSERT INTO `asociados` VALUES (34, '43', 6001.45, 44629.89, 421.25, 5, 0, 0, 20.00, 70.82, 1, '2016-09-20', '2021-07-18 20:34:38', '2010-03-18 05:23:15');
-INSERT INTO `asociados` VALUES (35, '24', 34195.04, 86619.98, 485.89, 3, 0, 0, 20.00, 96.46, 2, '2013-01-25', '2008-03-08 20:24:12', '2020-03-05 01:48:25');
-INSERT INTO `asociados` VALUES (36, '78', 63125.02, 89913.48, 984.93, 9, 0, 0, 20.00, 70.82, 1, '2010-01-31', '2005-10-23 22:00:19', '2012-03-23 08:11:14');
-INSERT INTO `asociados` VALUES (37, '17', 72145.36, 3314.96, 208.54, 4, 0, 0, 20.00, 35.07, 1, '2016-10-04', '2001-04-25 23:53:33', '2012-03-02 15:08:10');
-INSERT INTO `asociados` VALUES (38, '134', 81774.85, 49268.59, 87.50, 2, 0, 0, 20.00, 66.60, 2, '2018-06-27', '2004-05-10 06:24:21', '2020-04-29 07:42:47');
-INSERT INTO `asociados` VALUES (39, '119', 75097.49, 43728.90, 227.47, 7, 0, 0, 20.00, 45.56, 3, '2017-08-07', '2022-02-09 10:48:52', '2018-08-25 01:20:10');
-INSERT INTO `asociados` VALUES (40, '71', 76451.38, 19654.87, 666.61, 4, 0, 0, 20.00, 96.16, 2, '2014-05-20', '2018-09-17 22:49:35', '2016-03-05 22:33:59');
-INSERT INTO `asociados` VALUES (41, '12', 95073.82, 66070.06, 188.95, 6, 0, 0, 20.00, 74.23, 1, '2017-10-31', '2007-02-16 06:14:30', '2007-03-18 09:16:34');
-INSERT INTO `asociados` VALUES (42, '51', 31656.44, 18732.36, 384.76, 4, 0, 0, 20.00, 66.53, 2, '2001-10-09', '2006-02-09 21:23:51', '2022-12-19 03:44:30');
-INSERT INTO `asociados` VALUES (43, '49', 34591.66, 32907.80, 608.05, 3, 0, 0, 20.00, 36.74, 2, '2006-04-30', '2008-08-07 05:31:04', '2005-01-13 00:34:43');
-INSERT INTO `asociados` VALUES (44, '31', 10983.80, 78071.94, 407.86, 10, 0, 0, 20.00, 82.74, 2, '2009-01-08', '2001-04-30 04:30:37', '2016-12-07 02:12:02');
-INSERT INTO `asociados` VALUES (45, '39', 96521.69, 95447.96, 800.29, 4, 0, 0, 20.00, 26.71, 1, '2022-12-09', '2006-01-24 21:57:25', '2002-03-14 22:53:31');
-INSERT INTO `asociados` VALUES (46, '50', 89254.38, 94287.59, 221.28, 6, 0, 0, 20.00, 20.47, 1, '2017-05-24', '2014-03-29 21:58:53', '2003-09-05 13:07:29');
-INSERT INTO `asociados` VALUES (47, '140', 16724.14, 82682.09, 788.27, 3, 0, 0, 20.00, 54.38, 3, '2006-03-09', '2004-07-27 17:11:32', '2016-04-17 02:52:23');
-INSERT INTO `asociados` VALUES (48, '117', 31880.81, 93015.39, 998.44, 5, 0, 0, 20.00, 28.78, 3, '2006-07-21', '2000-05-01 13:09:41', '2015-06-18 09:08:16');
-INSERT INTO `asociados` VALUES (49, '88', 52237.94, 98428.02, 771.59, 3, 0, 0, 20.00, 40.12, 3, '2019-02-01', '2022-08-17 12:59:39', '2013-03-27 01:27:39');
-INSERT INTO `asociados` VALUES (50, '38', 5675.46, 24364.67, 308.06, 2, 0, 0, 20.00, 32.11, 2, '2006-08-04', '2017-06-30 22:48:34', '2014-05-13 08:39:56');
-INSERT INTO `asociados` VALUES (51, '123', 40025.07, 71761.47, 500.90, 5, 0, 0, 20.00, 88.14, 2, '2012-03-05', '2005-04-12 21:37:59', '2002-03-03 07:38:46');
-INSERT INTO `asociados` VALUES (52, '80', 44327.63, 75887.88, 807.70, 3, 0, 0, 20.00, 80.64, 1, '2001-08-14', '2010-09-21 17:24:12', '2013-11-19 21:09:44');
-INSERT INTO `asociados` VALUES (53, '130', 1257.81, 61680.98, 390.90, 7, 0, 0, 20.00, 54.30, 2, '2022-06-30', '2008-05-30 23:30:14', '2015-08-18 03:36:25');
-INSERT INTO `asociados` VALUES (54, '150', 45420.28, 62470.33, 582.19, 9, 0, 0, 20.00, 32.45, 1, '2017-01-20', '2008-01-08 09:01:30', '2015-02-11 07:29:51');
-INSERT INTO `asociados` VALUES (55, '121', 23472.27, 36561.88, 858.95, 9, 0, 0, 20.00, 27.63, 3, '2021-02-24', '2014-04-30 18:39:25', '2016-11-11 18:16:33');
-INSERT INTO `asociados` VALUES (56, '138', 2708.99, 46397.71, 479.12, 5, 0, 0, 20.00, 25.52, 1, '2020-12-29', '2012-01-07 08:14:04', '2012-10-30 18:40:09');
-INSERT INTO `asociados` VALUES (57, '75', 20665.80, 7583.55, 146.30, 8, 0, 0, 20.00, 77.40, 2, '2022-08-01', '2014-01-17 10:24:24', '2004-02-05 16:41:30');
-INSERT INTO `asociados` VALUES (58, '108', 77371.43, 88649.61, 738.17, 2, 0, 0, 20.00, 38.98, 2, '2000-03-26', '2022-11-18 14:39:50', '2018-10-27 00:04:54');
-INSERT INTO `asociados` VALUES (59, '123', 7208.00, 3188.39, 696.01, 4, 0, 0, 20.00, 36.04, 1, '2005-11-19', '2022-12-19 23:14:52', '2010-03-04 22:37:02');
-INSERT INTO `asociados` VALUES (60, '62', 64403.19, 38246.14, 768.52, 3, 0, 0, 20.00, 58.01, 3, '2012-12-25', '2017-05-06 14:49:08', '2000-08-17 03:02:09');
-INSERT INTO `asociados` VALUES (61, '63', 73123.62, 14350.22, 710.16, 4, 0, 0, 20.00, 33.38, 3, '2006-04-15', '2000-12-29 15:04:57', '2012-06-12 04:19:40');
-INSERT INTO `asociados` VALUES (62, '67', 84683.17, 12716.41, 608.96, 2, 0, 0, 20.00, 39.65, 1, '2021-12-31', '2010-01-20 19:14:48', '2020-03-13 11:26:22');
-INSERT INTO `asociados` VALUES (63, '57', 17474.63, 14519.94, 102.41, 10, 0, 0, 20.00, 49.03, 1, '2014-05-10', '2022-03-28 17:53:01', '2015-10-12 15:17:16');
-INSERT INTO `asociados` VALUES (64, '28', 35784.50, 15412.73, 22.98, 1, 0, 0, 20.00, 91.40, 2, '2010-11-04', '2014-12-02 06:44:20', '2022-03-23 21:35:08');
-INSERT INTO `asociados` VALUES (65, '67', 26982.91, 51250.40, 459.61, 10, 0, 0, 20.00, 51.53, 1, '2000-06-02', '2007-12-11 09:25:50', '2015-05-19 14:18:31');
-INSERT INTO `asociados` VALUES (66, '117', 45658.26, 78023.70, 709.91, 3, 0, 0, 20.00, 82.97, 2, '2001-01-03', '2014-08-20 15:34:24', '2001-03-31 13:33:12');
-INSERT INTO `asociados` VALUES (67, '30', 82161.18, 50208.33, 546.77, 9, 0, 0, 20.00, 23.47, 1, '2018-11-24', '2019-06-28 12:55:32', '2006-02-14 09:36:28');
-INSERT INTO `asociados` VALUES (68, '21', 68936.66, 39822.43, 941.51, 8, 0, 0, 20.00, 77.70, 1, '2007-09-28', '2019-08-16 13:14:50', '2022-02-07 18:19:52');
-INSERT INTO `asociados` VALUES (69, '16', 19357.55, 10962.58, 419.82, 4, 0, 0, 20.00, 74.68, 3, '2021-11-01', '2010-06-07 22:00:03', '2021-08-20 12:57:29');
-INSERT INTO `asociados` VALUES (70, '28', 70174.11, 54070.66, 613.02, 7, 0, 0, 20.00, 67.84, 2, '2001-06-02', '2005-01-05 15:39:28', '2005-04-05 22:46:18');
-INSERT INTO `asociados` VALUES (71, '43', 41140.47, 9318.66, 184.33, 10, 0, 0, 20.00, 56.12, 2, '2006-05-11', '2017-12-02 18:26:42', '2002-09-04 16:55:07');
-INSERT INTO `asociados` VALUES (72, '118', 27260.71, 45741.19, 900.09, 3, 0, 0, 20.00, 51.31, 3, '2017-01-14', '2023-05-17 09:20:52', '2008-02-24 07:11:30');
-INSERT INTO `asociados` VALUES (73, '117', 49853.35, 57552.14, 681.43, 10, 0, 0, 20.00, 40.50, 3, '2007-06-12', '2004-12-24 23:33:58', '2006-12-25 21:19:05');
-INSERT INTO `asociados` VALUES (74, '37', 47711.74, 10314.31, 17.71, 2, 0, 0, 20.00, 71.33, 1, '2013-08-12', '2001-03-24 18:22:19', '2003-08-08 09:42:59');
-INSERT INTO `asociados` VALUES (75, '86', 27032.88, 79507.91, 425.28, 4, 0, 0, 20.00, 49.30, 1, '2017-10-27', '2020-05-25 11:47:46', '2014-06-23 07:33:44');
-INSERT INTO `asociados` VALUES (76, '83', 79716.37, 65457.50, 708.63, 2, 0, 0, 20.00, 37.91, 1, '2006-03-27', '2011-01-10 01:19:16', '2020-01-15 14:38:50');
-INSERT INTO `asociados` VALUES (77, '83', 46776.75, 30496.76, 611.25, 8, 0, 0, 20.00, 70.94, 2, '2013-11-09', '2002-10-11 01:04:22', '2012-04-16 09:03:19');
-INSERT INTO `asociados` VALUES (78, '46', 59548.43, 38777.79, 758.83, 7, 0, 0, 20.00, 99.25, 3, '2007-04-22', '2017-03-14 06:10:01', '2010-08-23 00:55:40');
-INSERT INTO `asociados` VALUES (79, '107', 45991.20, 24288.86, 880.97, 4, 0, 0, 20.00, 37.79, 2, '2004-03-26', '2021-03-28 19:05:03', '2013-04-17 14:36:44');
-INSERT INTO `asociados` VALUES (80, '64', 10736.24, 26850.60, 442.58, 8, 0, 0, 20.00, 29.02, 1, '2017-10-05', '2021-09-10 09:56:42', '2013-06-02 15:37:46');
-INSERT INTO `asociados` VALUES (81, '107', 94071.70, 73625.82, 135.38, 2, 0, 0, 20.00, 89.82, 3, '2021-03-03', '2013-09-21 13:02:24', '2001-06-20 23:09:29');
-INSERT INTO `asociados` VALUES (82, '14', 40061.98, 12270.60, 487.58, 4, 0, 0, 20.00, 77.32, 1, '2010-05-08', '2000-05-11 03:50:52', '2017-02-04 02:29:53');
-INSERT INTO `asociados` VALUES (83, '59', 77350.97, 36476.35, 565.68, 6, 0, 0, 20.00, 65.40, 1, '2001-06-25', '2006-07-12 16:54:02', '2022-10-10 06:16:03');
-INSERT INTO `asociados` VALUES (84, '56', 76727.62, 65361.24, 837.86, 5, 0, 0, 20.00, 67.44, 3, '2011-09-01', '2020-03-09 02:51:53', '2002-11-23 22:51:19');
-INSERT INTO `asociados` VALUES (85, '88', 58681.62, 55393.30, 472.25, 5, 0, 0, 20.00, 60.75, 1, '2021-05-17', '2018-08-22 16:06:59', '2000-10-24 15:49:05');
-INSERT INTO `asociados` VALUES (86, '24', 7113.08, 57753.73, 221.22, 4, 0, 0, 20.00, 21.37, 2, '2006-11-17', '2021-12-05 21:15:16', '2004-11-04 00:30:52');
-INSERT INTO `asociados` VALUES (87, '19', 8409.74, 16422.08, 553.65, 8, 0, 0, 20.00, 24.89, 3, '2018-06-11', '2002-11-30 18:30:19', '2022-07-05 08:04:52');
-INSERT INTO `asociados` VALUES (88, '132', 67204.12, 98564.16, 976.67, 8, 0, 0, 20.00, 22.43, 2, '2023-05-15', '2014-01-30 13:17:51', '2001-07-11 14:33:31');
-INSERT INTO `asociados` VALUES (89, '114', 40000.87, 53804.43, 288.66, 1, 0, 0, 20.00, 84.93, 2, '2015-10-06', '2023-05-09 03:09:49', '2014-05-18 09:25:12');
-INSERT INTO `asociados` VALUES (90, '20', 48108.98, 32773.89, 808.05, 7, 0, 0, 20.00, 66.24, 2, '2021-02-14', '2002-02-14 01:00:56', '2007-06-25 14:50:12');
-INSERT INTO `asociados` VALUES (91, '47', 54920.00, 49648.71, 584.51, 10, 0, 0, 20.00, 59.95, 2, '2015-09-16', '2018-07-28 15:00:57', '2003-10-07 05:43:22');
-INSERT INTO `asociados` VALUES (92, '22', 41564.75, 13921.13, 968.81, 6, 0, 0, 20.00, 47.86, 2, '2016-05-19', '2007-09-04 18:52:59', '2022-10-13 10:04:10');
-INSERT INTO `asociados` VALUES (93, '142', 84983.57, 17801.13, 801.86, 4, 0, 0, 20.00, 30.43, 2, '2000-09-19', '2010-11-01 11:10:50', '2006-12-06 11:11:47');
-INSERT INTO `asociados` VALUES (94, '49', 18873.92, 46802.27, 382.04, 6, 0, 0, 20.00, 46.72, 2, '2004-01-18', '2008-05-25 21:44:01', '2018-09-17 08:34:21');
-INSERT INTO `asociados` VALUES (95, '88', 82914.19, 33399.41, 812.72, 8, 0, 0, 20.00, 42.58, 2, '2012-07-12', '2006-03-13 10:07:13', '2002-08-22 03:33:09');
-INSERT INTO `asociados` VALUES (96, '107', 46842.49, 11612.74, 471.10, 2, 0, 0, 20.00, 73.24, 2, '2008-05-29', '2006-07-14 19:53:39', '2008-03-09 21:01:23');
-INSERT INTO `asociados` VALUES (97, '119', 60194.73, 30275.82, 838.43, 5, 0, 0, 20.00, 24.03, 3, '2010-04-27', '2020-10-03 01:54:45', '2013-02-03 11:02:32');
-INSERT INTO `asociados` VALUES (98, '111', 3003.66, 29824.18, 7.58, 3, 0, 0, 20.00, 25.00, 3, '2022-12-19', '2002-04-24 04:09:05', '2015-04-14 05:25:54');
-INSERT INTO `asociados` VALUES (99, '58', 24483.00, 58986.61, 388.09, 6, 0, 0, 20.00, 20.89, 2, '2002-10-02', '2018-11-20 23:36:06', '2000-08-07 18:26:33');
-INSERT INTO `asociados` VALUES (100, '140', 28818.81, 47800.87, 536.81, 7, 0, 0, 20.00, 59.92, 3, '2007-10-11', '2006-10-14 18:41:28', '2007-06-04 20:54:34');
-INSERT INTO `asociados` VALUES (101, '18', 12845.54, 84030.51, 544.09, 7, 0, 0, 20.00, 86.82, 3, '2003-06-14', '2000-12-31 01:35:26', '2016-12-31 05:43:29');
-INSERT INTO `asociados` VALUES (102, '122', 18135.57, 8982.72, 786.90, 5, 0, 0, 20.00, 42.71, 2, '2017-03-13', '2003-11-09 19:25:43', '2011-12-14 03:10:26');
-INSERT INTO `asociados` VALUES (103, '31', 58501.06, 23290.14, 444.81, 8, 0, 0, 20.00, 72.67, 1, '2000-11-09', '2012-02-18 00:38:49', '2017-05-30 01:58:01');
-INSERT INTO `asociados` VALUES (104, '97', 56644.32, 5046.35, 601.72, 6, 0, 0, 20.00, 21.42, 2, '2009-04-13', '2008-10-09 02:39:55', '2019-07-26 23:09:20');
-INSERT INTO `asociados` VALUES (105, '104', 82732.77, 23493.28, 829.84, 5, 0, 0, 20.00, 72.21, 2, '2005-04-24', '2020-03-13 06:06:38', '2009-06-08 09:00:14');
-INSERT INTO `asociados` VALUES (106, '48', 11446.15, 48689.90, 883.60, 8, 0, 0, 20.00, 71.47, 2, '2010-06-03', '2008-10-21 20:18:49', '2019-12-28 11:16:49');
-INSERT INTO `asociados` VALUES (107, '60', 72726.82, 450.04, 362.10, 1, 0, 0, 20.00, 40.52, 2, '2004-07-18', '2011-04-10 09:05:28', '2008-12-26 18:51:32');
-INSERT INTO `asociados` VALUES (108, '120', 24677.71, 24843.19, 434.79, 6, 0, 0, 20.00, 65.66, 1, '2006-04-18', '2020-11-20 03:17:44', '2018-05-01 03:14:54');
-INSERT INTO `asociados` VALUES (109, '31', 82460.65, 87342.40, 849.91, 8, 0, 0, 20.00, 50.66, 1, '2017-07-27', '2020-03-13 09:40:15', '2015-08-10 21:18:38');
-INSERT INTO `asociados` VALUES (110, '123', 30645.31, 75948.66, 282.56, 1, 0, 0, 20.00, 85.59, 3, '2003-03-07', '2022-07-28 22:54:17', '2012-05-13 11:11:18');
-INSERT INTO `asociados` VALUES (111, '46', 2.00, 5.00, 5.00, 5, 83, NULL, 5.00, 5.00, 1, '2023-06-08', '2023-06-09 00:43:29', '2023-06-09 00:43:29');
+INSERT INTO `asociados` VALUES (0, 0, '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `asociados` VALUES (2, 1, '63', 12.00, 12.00, 1.00, 21, NULL, NULL, 21.00, 21.00, 2, '2023-10-17', '2023-10-17 13:06:12', '2023-10-17 13:06:52');
 
 -- ----------------------------
 -- Table structure for beneficiarios
@@ -178,128 +79,63 @@ DROP TABLE IF EXISTS `beneficiarios`;
 CREATE TABLE `beneficiarios`  (
   `id_beneficiario` int NOT NULL AUTO_INCREMENT,
   `id_asociado` int NULL DEFAULT NULL,
+  `id_cuenta` int NULL DEFAULT NULL,
   `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `parentesco` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `porcentaje` decimal(10, 2) NULL DEFAULT NULL,
   `direccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `telefono` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_beneficiario`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 130 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of beneficiarios
 -- ----------------------------
-INSERT INTO `beneficiarios` VALUES (19, NULL, '4', 's', 4.00, 's', '2023-06-08 02:00:51', '2023-06-08 02:01:02');
-INSERT INTO `beneficiarios` VALUES (20, 5, 'Luis', 'hermano', 5.00, 'Direccion', '2023-06-08 02:01:42', '2023-06-08 02:03:34');
-INSERT INTO `beneficiarios` VALUES (21, 5, 'asd', 'as', 25.00, '50', '2023-06-08 02:03:53', '2023-06-08 02:03:53');
-INSERT INTO `beneficiarios` VALUES (22, 1, 'sas', 'as', 6.00, 'r', '2023-06-08 02:33:42', '2023-06-08 02:33:42');
-INSERT INTO `beneficiarios` VALUES (23, 5, 'prueba', 'asd', 5.00, '5', '2023-06-08 02:43:43', '2023-06-08 02:43:43');
-INSERT INTO `beneficiarios` VALUES (24, 6, 'Luis Marquez', 'Primo', 25.00, 'meanguera', '2023-06-08 03:14:50', '2023-06-08 03:14:50');
-INSERT INTO `beneficiarios` VALUES (25, 6, 'kennyl', 'Hijo', 25.00, 'Meanguera', '2023-06-08 03:16:08', '2023-06-08 03:16:08');
-INSERT INTO `beneficiarios` VALUES (27, 7, 'Luis', 'asd', 2.00, 'meanguera', '2023-06-08 14:33:49', '2023-06-08 14:33:49');
-INSERT INTO `beneficiarios` VALUES (28, 92, 'Sean Black', 'Mrs.', 99.92, '744 S Broadway', '2012-04-05 01:47:23', '2009-05-28 15:10:27');
-INSERT INTO `beneficiarios` VALUES (29, 47, 'Gerald Holmes', 'Mr.', 29.08, '229 Figueroa Street', '2007-07-13 19:59:42', '2019-07-14 05:40:03');
-INSERT INTO `beneficiarios` VALUES (30, 14, 'Albert Fisher', 'Prof.', 24.23, '527 Bank Street', '2020-05-09 07:14:04', '2015-09-15 10:51:01');
-INSERT INTO `beneficiarios` VALUES (31, 45, 'Steven Guzman', 'Ms.', 84.68, '525 Grape Street', '2013-08-23 02:33:34', '2007-02-14 15:13:00');
-INSERT INTO `beneficiarios` VALUES (32, 92, 'Kathleen Thomas', 'Prof.', 6.37, '587 Central Avenue', '2014-07-17 20:46:41', '2006-03-31 06:49:17');
-INSERT INTO `beneficiarios` VALUES (33, 35, 'Craig Kennedy', 'Mr.', 29.39, '204 S Broadway', '2014-08-05 20:57:26', '2019-04-04 01:11:26');
-INSERT INTO `beneficiarios` VALUES (34, 91, 'Ashley Mendoza', 'Miss.', 83.89, '194 Wooster Street', '2010-10-15 06:45:36', '2010-10-30 00:54:25');
-INSERT INTO `beneficiarios` VALUES (35, 100, 'Margaret Tucker', 'Prof.', 36.78, '48 Collier Road', '2009-08-26 22:05:43', '2011-05-06 17:27:41');
-INSERT INTO `beneficiarios` VALUES (36, 85, 'Judith Porter', 'Miss.', 17.68, '522 Collier Road', '2012-05-17 19:15:23', '2022-10-09 09:38:09');
-INSERT INTO `beneficiarios` VALUES (37, 34, 'Barry Baker', 'Prof.', 45.40, '415 Riverview Road', '2021-09-10 12:19:47', '2023-02-02 06:28:50');
-INSERT INTO `beneficiarios` VALUES (38, 17, 'Jacob Robinson', 'Ms.', 29.31, '338 Ridgewood Road', '2011-10-21 15:33:25', '2010-10-05 08:54:36');
-INSERT INTO `beneficiarios` VALUES (39, 68, 'Charles Edwards', 'Prof.', 96.46, '293 State Street', '2020-03-31 20:11:34', '2000-10-30 11:32:45');
-INSERT INTO `beneficiarios` VALUES (40, 20, 'Phyllis Ruiz', 'Mrs.', 72.84, '770 Ridgewood Road', '2013-02-27 00:38:46', '2002-12-23 01:20:35');
-INSERT INTO `beneficiarios` VALUES (41, 41, 'Johnny Davis', 'Mr.', 35.76, '124 Diplomacy Drive', '2007-08-18 19:40:46', '2001-01-29 10:07:18');
-INSERT INTO `beneficiarios` VALUES (42, 87, 'Andrew Robertson', 'Mr.', 3.62, '165 Pedway', '2008-06-21 01:15:47', '2020-01-03 02:18:50');
-INSERT INTO `beneficiarios` VALUES (43, 86, 'Nancy Burns', 'Ms.', 2.27, '624 Wall Street', '2015-12-01 06:42:56', '2021-07-10 12:51:08');
-INSERT INTO `beneficiarios` VALUES (44, 54, 'Ethel Campbell', 'Mrs.', 36.27, '745 Ridgewood Road', '2019-10-29 15:46:49', '2016-12-03 01:09:47');
-INSERT INTO `beneficiarios` VALUES (45, 80, 'Allen Garza', 'Mr.', 73.24, '106 East Cooke Road', '2017-04-21 12:54:27', '2017-09-21 11:23:36');
-INSERT INTO `beneficiarios` VALUES (46, 68, 'Albert Edwards', 'Mrs.', 81.90, '957 Canal Street', '2008-09-15 23:34:19', '2001-01-04 08:28:19');
-INSERT INTO `beneficiarios` VALUES (47, 21, 'Daniel Russell', 'Ms.', 93.29, '728 Wall Street', '2009-04-09 11:37:10', '2011-01-06 18:44:06');
-INSERT INTO `beneficiarios` VALUES (48, 59, 'Edna Reed', 'Mrs.', 56.67, '661 Canal Street', '2005-10-10 08:22:54', '2007-08-27 10:28:37');
-INSERT INTO `beneficiarios` VALUES (49, 23, 'Luis Scott', 'Prof.', 47.59, '614 Flatbush Ave', '2006-10-05 06:24:17', '2017-01-10 18:52:58');
-INSERT INTO `beneficiarios` VALUES (50, 37, 'Manuel Nguyen', 'Prof.', 84.06, '497 West Houston Street', '2005-04-22 15:40:42', '2021-09-21 12:23:03');
-INSERT INTO `beneficiarios` VALUES (51, 35, 'Laura Hawkins', 'Mrs.', 41.50, '450 Fifth Avenue', '2000-11-22 20:58:54', '2022-08-10 19:23:12');
-INSERT INTO `beneficiarios` VALUES (52, 15, 'Michael Nguyen', 'Mr.', 60.95, '818 Riverview Road', '2010-01-13 12:59:55', '2018-03-03 10:40:37');
-INSERT INTO `beneficiarios` VALUES (53, 26, 'Victoria Henry', 'Mr.', 75.27, '970 Figueroa Street', '2012-10-26 12:30:47', '2019-04-07 21:05:10');
-INSERT INTO `beneficiarios` VALUES (54, 65, 'Peggy Hunter', 'Prof.', 64.33, '767 1st Ave', '2006-01-05 05:00:27', '2000-09-20 05:29:44');
-INSERT INTO `beneficiarios` VALUES (55, 36, 'Ray White', 'Prof.', 38.92, '97 East Alley', '2017-05-17 00:41:51', '2010-01-18 20:58:58');
-INSERT INTO `beneficiarios` VALUES (56, 46, 'Julie Castillo', 'Prof.', 69.08, '691 Tremont Road', '2017-02-10 08:31:54', '2013-08-05 23:38:21');
-INSERT INTO `beneficiarios` VALUES (57, 11, 'Dorothy Shaw', 'hermano', 87.72, '768 East Alley', '2019-01-15 06:28:30', '2023-06-09 00:04:36');
-INSERT INTO `beneficiarios` VALUES (58, 15, 'Dale Alexander', 'Mr.', 98.99, '928 State Street', '2005-07-26 08:21:48', '2013-07-15 20:03:13');
-INSERT INTO `beneficiarios` VALUES (59, 59, 'Glenn Harrison', 'Prof.', 91.31, '842 Sky Way', '2008-05-26 18:06:58', '2014-03-19 09:05:31');
-INSERT INTO `beneficiarios` VALUES (60, 29, 'Amber Olson', 'Miss.', 44.30, '858 Alameda Street', '2001-04-14 20:03:04', '2017-09-24 13:32:18');
-INSERT INTO `beneficiarios` VALUES (61, 85, 'Judy Mendoza', 'Mr.', 42.85, '360 Rush Street', '2017-05-15 12:50:30', '2020-11-18 18:12:56');
-INSERT INTO `beneficiarios` VALUES (62, 23, 'Amanda Owens', 'Mrs.', 7.14, '512 Riverview Road', '2008-06-18 16:03:12', '2021-06-22 02:16:35');
-INSERT INTO `beneficiarios` VALUES (63, 60, 'Edward Ramos', 'Prof.', 2.99, '810 S Broadway', '2004-07-14 05:40:48', '2017-09-13 00:44:01');
-INSERT INTO `beneficiarios` VALUES (64, 97, 'Miguel Hawkins', 'Ms.', 8.90, '399 Wicklow Road', '2013-05-13 21:43:39', '2001-06-14 19:37:47');
-INSERT INTO `beneficiarios` VALUES (65, 48, 'Alexander Gonzales', 'Mrs.', 90.76, '256 State Street', '2021-02-09 20:33:25', '2013-02-02 16:52:56');
-INSERT INTO `beneficiarios` VALUES (66, 32, 'Nicholas Graham', 'Mrs.', 45.36, '82 Fern Street', '2004-05-18 03:11:55', '2013-05-15 23:27:48');
-INSERT INTO `beneficiarios` VALUES (67, 76, 'Scott Patel', 'Prof.', 67.86, '415 Bergen St', '2010-07-26 19:56:48', '2014-09-12 16:48:47');
-INSERT INTO `beneficiarios` VALUES (68, 63, 'Terry Harrison', 'Prof.', 96.56, '596 Central Avenue', '2021-09-07 12:01:21', '2016-04-01 15:50:51');
-INSERT INTO `beneficiarios` VALUES (69, 32, 'Emma Reed', 'Mr.', 51.23, '859 North Michigan Ave', '2017-10-05 13:14:37', '2016-10-15 13:55:21');
-INSERT INTO `beneficiarios` VALUES (70, 18, 'Jeremy West', 'Miss.', 30.48, '406 Fifth Avenue', '2023-01-09 20:21:45', '2016-08-11 15:24:33');
-INSERT INTO `beneficiarios` VALUES (71, 83, 'Patrick Sanders', 'Prof.', 76.87, '121 Broadway', '2009-04-26 23:13:13', '2012-08-01 13:52:38');
-INSERT INTO `beneficiarios` VALUES (72, 77, 'Craig Hill', 'Mr.', 12.05, '340 Sky Way', '2008-01-10 22:54:13', '2015-10-01 16:47:35');
-INSERT INTO `beneficiarios` VALUES (73, 35, 'Francisco Stevens', 'Mr.', 21.79, '569 Lark Street', '2016-05-22 04:51:34', '2010-11-23 03:31:45');
-INSERT INTO `beneficiarios` VALUES (74, 75, 'Steven Castillo', 'Miss.', 93.28, '665 Ridgewood Road', '2004-02-27 12:21:07', '2002-12-23 03:17:15');
-INSERT INTO `beneficiarios` VALUES (75, 92, 'Philip Perez', 'Mrs.', 14.86, '981 East Alley', '2016-02-08 02:43:32', '2017-03-01 17:19:49');
-INSERT INTO `beneficiarios` VALUES (76, 98, 'Jeremy Stevens', 'Mr.', 8.11, '271 Wicklow Road', '2004-10-10 21:37:49', '2014-12-07 20:18:24');
-INSERT INTO `beneficiarios` VALUES (77, 19, 'Susan Garcia', 'Ms.', 94.49, '247 S Broadway', '2000-06-05 14:54:40', '2002-04-23 05:20:17');
-INSERT INTO `beneficiarios` VALUES (78, 91, 'Kimberly Aguilar', 'Prof.', 68.35, '822 Tremont Road', '2013-03-23 22:55:01', '2014-02-28 16:32:03');
-INSERT INTO `beneficiarios` VALUES (79, 80, 'Alice Olson', 'Mrs.', 56.93, '623 Wall Street', '2023-01-15 02:42:07', '2020-12-14 01:28:58');
-INSERT INTO `beneficiarios` VALUES (80, 74, 'Kathy Richardson', 'Mrs.', 60.49, '869 Flatbush Ave', '2018-12-16 08:25:19', '2005-08-06 22:06:10');
-INSERT INTO `beneficiarios` VALUES (81, 60, 'Benjamin Turner', 'Mrs.', 55.92, '51 Broadway', '2008-08-28 01:20:17', '2006-07-06 02:09:38');
-INSERT INTO `beneficiarios` VALUES (82, 92, 'Andrew Collins', 'Mrs.', 61.44, '756 Tremont Road', '2021-05-24 16:10:31', '2014-07-21 17:47:18');
-INSERT INTO `beneficiarios` VALUES (83, 23, 'Dorothy Ortiz', 'Miss.', 13.16, '724 East Alley', '2004-09-29 03:10:40', '2009-11-14 18:15:34');
-INSERT INTO `beneficiarios` VALUES (84, 50, 'Carlos Jones', 'Mr.', 91.00, '943 West Houston Street', '2001-06-29 21:48:04', '2012-09-05 08:05:52');
-INSERT INTO `beneficiarios` VALUES (85, 61, 'Rodney Gordon', 'Ms.', 79.63, '798 1st Ave', '2008-08-27 17:28:24', '2004-05-04 01:00:15');
-INSERT INTO `beneficiarios` VALUES (86, 59, 'Frances Hicks', 'Mr.', 14.46, '12 Bank Street', '2022-06-07 20:13:05', '2011-05-03 14:55:42');
-INSERT INTO `beneficiarios` VALUES (87, 86, 'Tracy Johnson', 'Prof.', 2.07, '326 Grape Street', '2001-03-13 12:43:25', '2008-02-16 15:28:04');
-INSERT INTO `beneficiarios` VALUES (88, 92, 'Heather Freeman', 'Prof.', 76.00, '586 Lark Street', '2014-11-12 02:07:43', '2005-08-03 15:04:46');
-INSERT INTO `beneficiarios` VALUES (89, 46, 'Gerald Chen', 'Mrs.', 59.26, '761 Columbia St', '2018-04-28 22:34:27', '2010-06-02 17:53:53');
-INSERT INTO `beneficiarios` VALUES (90, 98, 'Connie Gonzalez', 'Mrs.', 40.06, '84 Columbia St', '2021-06-11 06:29:01', '2015-11-23 05:49:15');
-INSERT INTO `beneficiarios` VALUES (91, 70, 'Victoria Morris', 'Ms.', 71.74, '596 Riverview Road', '2010-10-10 20:27:28', '2022-10-13 10:56:27');
-INSERT INTO `beneficiarios` VALUES (92, 25, 'Kim Vargas', 'Miss.', 98.93, '405 Wicklow Road', '2017-09-14 12:40:30', '2019-11-12 02:02:51');
-INSERT INTO `beneficiarios` VALUES (93, 35, 'Monica Nichols', 'Prof.', 95.73, '576 Central Avenue', '2017-01-21 17:02:04', '2003-11-29 23:31:17');
-INSERT INTO `beneficiarios` VALUES (94, 81, 'Irene Wallace', 'Miss.', 22.41, '104 Diplomacy Drive', '2008-01-21 08:34:24', '2003-10-23 12:54:17');
-INSERT INTO `beneficiarios` VALUES (95, 84, 'Kimberly Castillo', 'Mrs.', 43.72, '825 Ridgewood Road', '2008-09-02 04:45:47', '2022-02-11 02:29:06');
-INSERT INTO `beneficiarios` VALUES (96, 57, 'Wanda Shaw', 'Miss.', 2.48, '309 Broadway', '2015-05-18 06:23:58', '2002-12-14 17:07:12');
-INSERT INTO `beneficiarios` VALUES (97, 66, 'Bryan Fisher', 'Ms.', 82.79, '487 State Street', '2015-11-20 21:21:28', '2016-02-28 23:30:08');
-INSERT INTO `beneficiarios` VALUES (98, 82, 'Bradley Alvarez', 'Hermano', 43.72, '577 Central Avenue', '2005-01-31 05:43:01', '2023-06-08 23:30:52');
-INSERT INTO `beneficiarios` VALUES (99, 79, 'Rose Wallace', 'Miss.', 47.19, '952 North Michigan Ave', '2017-01-31 14:02:51', '2015-06-22 15:31:51');
-INSERT INTO `beneficiarios` VALUES (100, 80, 'Jennifer James', 'Prof.', 69.24, '605 Canal Street', '2015-06-30 03:14:49', '2012-11-25 20:25:40');
-INSERT INTO `beneficiarios` VALUES (101, 34, 'Stanley Salazar', 'Prof.', 29.45, '969 Grape Street', '2008-01-30 09:55:33', '2019-07-01 21:54:17');
-INSERT INTO `beneficiarios` VALUES (102, 64, 'Chad Carter', 'Mr.', 68.21, '599 S Broadway', '2019-11-24 00:28:33', '2014-08-18 12:39:56');
-INSERT INTO `beneficiarios` VALUES (103, 31, 'Alice Porter', 'Ms.', 95.93, '296 Pedway', '2006-08-05 20:58:03', '2012-05-14 10:05:26');
-INSERT INTO `beneficiarios` VALUES (104, 25, 'Wendy Jimenez', 'Ms.', 38.90, '694 S Broadway', '2004-11-03 15:05:47', '2002-11-26 08:53:33');
-INSERT INTO `beneficiarios` VALUES (105, 63, 'Helen Russell', 'Mrs.', 70.55, '815 Sky Way', '2008-08-01 08:51:29', '2022-09-14 19:10:25');
-INSERT INTO `beneficiarios` VALUES (106, 14, 'Jean Smith', 'Mr.', 81.56, '43 Grape Street', '2006-12-21 19:30:59', '2009-10-17 17:54:07');
-INSERT INTO `beneficiarios` VALUES (107, 92, 'Larry Rice', 'Prof.', 54.21, '514 Tremont Road', '2017-03-22 22:35:04', '2001-03-11 14:42:29');
-INSERT INTO `beneficiarios` VALUES (108, 16, 'Joyce Hawkins', 'Ms.', 8.35, '954 Pedway', '2000-02-27 11:35:11', '2003-11-07 21:47:02');
-INSERT INTO `beneficiarios` VALUES (109, 47, 'Anita Miller', 'Prof.', 87.25, '751 Wall Street', '2022-01-19 09:32:59', '2000-05-26 20:23:40');
-INSERT INTO `beneficiarios` VALUES (110, 63, 'Eleanor Morris', 'Miss.', 79.98, '744 Alameda Street', '2010-02-12 18:58:18', '2013-03-18 05:15:25');
-INSERT INTO `beneficiarios` VALUES (111, 84, 'Norman Gordon', 'Mr.', 97.69, '153 Riverview Road', '2000-07-09 18:38:27', '2010-10-15 02:01:21');
-INSERT INTO `beneficiarios` VALUES (112, 68, 'Ashley Adams', 'Prof.', 93.22, '708 Bank Street', '2014-10-01 17:00:31', '2023-01-05 18:48:46');
-INSERT INTO `beneficiarios` VALUES (113, 91, 'Victoria Adams', 'Miss.', 28.99, '304 Wall Street', '2021-12-12 18:54:13', '2017-08-09 02:13:49');
-INSERT INTO `beneficiarios` VALUES (114, 16, 'Emma Mendoza', 'Prof.', 77.22, '261 Wooster Street', '2004-09-01 07:06:46', '2008-08-27 20:29:37');
-INSERT INTO `beneficiarios` VALUES (115, 94, 'Joseph Perez', 'Ms.', 36.45, '539 Figueroa Street', '2003-02-22 10:08:22', '2003-03-19 10:22:21');
-INSERT INTO `beneficiarios` VALUES (116, 56, 'Debbie Nichols', 'Prof.', 7.04, '598 Sky Way', '2000-12-23 12:24:27', '2012-07-01 22:18:24');
-INSERT INTO `beneficiarios` VALUES (117, 28, 'Sarah Nelson', 'Ms.', 44.16, '814 Wicklow Road', '2016-07-31 09:51:02', '2021-10-17 22:45:35');
-INSERT INTO `beneficiarios` VALUES (118, 100, 'Connie Clark', 'Prof.', 19.26, '272 Broadway', '2012-12-26 21:35:36', '2020-08-28 06:21:08');
-INSERT INTO `beneficiarios` VALUES (119, 76, 'Alexander Rice', 'Prof.', 57.50, '796 Tremont Road', '2014-02-22 05:27:34', '2021-07-28 02:57:25');
-INSERT INTO `beneficiarios` VALUES (120, 50, 'Rose Torres', 'Mrs.', 75.11, '738 Riverview Road', '2011-09-02 01:54:26', '2002-01-10 08:08:50');
-INSERT INTO `beneficiarios` VALUES (121, 19, 'April Gardner', 'Miss.', 9.23, '881 Riverview Road', '2006-07-28 11:33:44', '2010-08-23 01:35:18');
-INSERT INTO `beneficiarios` VALUES (122, 71, 'Janet Freeman', 'Prof.', 65.15, '349 Broadway', '2003-07-25 21:00:28', '2007-12-14 22:16:11');
-INSERT INTO `beneficiarios` VALUES (123, 53, 'Jamie Murray', 'Miss.', 72.76, '270 State Street', '2015-10-06 21:34:36', '2014-08-27 14:43:30');
-INSERT INTO `beneficiarios` VALUES (124, 25, 'Linda Johnson', 'Miss.', 85.06, '904 Tremont Road', '2001-01-10 21:47:44', '2021-10-16 06:57:32');
-INSERT INTO `beneficiarios` VALUES (125, 88, 'Donna Spencer', 'Mrs.', 50.49, '960 Fifth Avenue', '2015-04-15 09:04:19', '2001-02-12 21:26:26');
-INSERT INTO `beneficiarios` VALUES (126, 38, 'Nathan Jimenez', 'Miss.', 81.85, '214 Broadway', '2005-11-16 02:16:49', '2006-08-04 01:34:58');
-INSERT INTO `beneficiarios` VALUES (127, 76, 'Edward Ward', 'Mr.', 92.62, '896 Diplomacy Drive', '2000-08-06 11:02:57', '2011-07-10 22:38:24');
-INSERT INTO `beneficiarios` VALUES (128, 10, 'Luis', 'Primo', 5.00, '10', '2023-06-09 01:05:11', '2023-06-09 01:05:11');
-INSERT INTO `beneficiarios` VALUES (129, 13, 'HKHKJ', 'GFDGF', 50.00, 'CDSFD', '2023-06-12 17:49:18', '2023-06-12 17:49:18');
+INSERT INTO `beneficiarios` VALUES (1, 2, 0, '1123', '10', 100.00, '12', '12', '2023-10-27 07:19:44', '2023-10-27 07:19:44');
+
+-- ----------------------------
+-- Table structure for beneficiarios_depositos
+-- ----------------------------
+DROP TABLE IF EXISTS `beneficiarios_depositos`;
+CREATE TABLE `beneficiarios_depositos`  (
+  `id_beneficiario` int NOT NULL AUTO_INCREMENT,
+  `id_deposito` int NULL DEFAULT NULL,
+  `nombre_beneficiario` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `edad` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `parentesco` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `porcentaje` decimal(10, 2) NULL DEFAULT NULL,
+  `telefono` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `direccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_beneficiario`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of beneficiarios_depositos
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for bitacora
+-- ----------------------------
+DROP TABLE IF EXISTS `bitacora`;
+CREATE TABLE `bitacora`  (
+  `id_bitacora` int NOT NULL AUTO_INCREMENT,
+  `route` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `request` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `method` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `id_usuario` int NULL DEFAULT NULL,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `email` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `fecha` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_bitacora`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of bitacora
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for bobeda
@@ -309,15 +145,16 @@ CREATE TABLE `bobeda`  (
   `id_bobeda` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `saldo_bobeda` decimal(10, 2) NULL DEFAULT NULL,
+  `estado_bobeda` int NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_bobeda`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bobeda
 -- ----------------------------
-INSERT INTO `bobeda` VALUES (1, 'Bobeda General', 116759.00, NULL, '2023-06-12 17:47:34');
+INSERT INTO `bobeda` VALUES (2, 'Bovéda General', 38889.00, 1, '0023-07-15 00:00:00', '2023-10-29 21:00:44');
 
 -- ----------------------------
 -- Table structure for bobeda_movimientos
@@ -327,34 +164,26 @@ CREATE TABLE `bobeda_movimientos`  (
   `id_bobeda_movimiento` int NOT NULL AUTO_INCREMENT,
   `id_bobeda` int NULL DEFAULT NULL,
   `id_caja` int NULL DEFAULT NULL,
-  `tipo_operacion` int NULL DEFAULT NULL COMMENT '1-traslado 2-recepcion',
+  `tipo_operacion` int NULL DEFAULT NULL COMMENT '1-traslado 2-recepcion 3-Apertura 4-Cierre',
   `monto` decimal(10, 2) NOT NULL,
   `saldo` decimal(10, 2) NULL DEFAULT NULL,
-  `estado` int NULL DEFAULT NULL COMMENT '1-enviada \r\n2-recivida\r\n3-cancelada\r\n4-anulada',
+  `estado` int NULL DEFAULT NULL COMMENT '1-enviada \r\n2-recibida\r\n3-cancelada\r\n4-anulada',
   `observacion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `id_empleado` int NULL DEFAULT NULL,
   `fecha_operacion` datetime NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_bobeda_movimiento`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1086 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bobeda_movimientos
 -- ----------------------------
-INSERT INTO `bobeda_movimientos` VALUES (1072, 1, 44, 1, 500.00, NULL, 1, 'asd', NULL, '2023-06-12 08:07:43', '2023-06-12 08:07:43');
-INSERT INTO `bobeda_movimientos` VALUES (1073, 1, 44, 1, 4.00, NULL, 1, '45', '2023-06-11 00:00:00', '2023-06-12 08:10:35', '2023-06-12 08:10:35');
-INSERT INTO `bobeda_movimientos` VALUES (1074, 1, 44, 1, 4.00, NULL, 1, '45', '2023-06-12 00:00:00', '2023-06-12 08:10:44', '2023-06-12 08:10:44');
-INSERT INTO `bobeda_movimientos` VALUES (1075, 1, 44, 1, 12.00, NULL, 1, '12', '2023-06-12 08:11:16', '2023-06-12 08:11:16', '2023-06-12 08:11:16');
-INSERT INTO `bobeda_movimientos` VALUES (1076, 1, 44, 1, 66.00, NULL, 1, '6', '2023-06-12 08:12:32', '2023-06-12 08:12:32', '2023-06-12 08:12:32');
-INSERT INTO `bobeda_movimientos` VALUES (1077, 1, 44, 1, 500.00, NULL, 2, 'xsdfsdf', '2023-06-12 08:38:02', '2023-06-12 08:38:02', '2023-06-12 08:38:02');
-INSERT INTO `bobeda_movimientos` VALUES (1078, 1, 44, 1, 500.00, NULL, 1, 'xsdfsdf', '2023-06-12 08:38:47', '2023-06-12 08:38:47', '2023-06-12 08:38:47');
-INSERT INTO `bobeda_movimientos` VALUES (1079, 1, 44, 2, 1000.00, NULL, 1, 'caja1', '2023-06-12 08:41:01', '2023-06-12 08:41:01', '2023-06-12 08:41:01');
-INSERT INTO `bobeda_movimientos` VALUES (1080, 1, 22, 2, 150000.00, NULL, 1, 'sad', '2023-06-12 08:41:46', '2023-06-12 08:41:46', '2023-06-12 08:41:46');
-INSERT INTO `bobeda_movimientos` VALUES (1081, 1, 22, 2, 150000.00, NULL, 1, 'sad', '2023-06-12 08:42:07', '2023-06-12 08:42:07', '2023-06-12 08:42:07');
-INSERT INTO `bobeda_movimientos` VALUES (1082, 1, 22, 2, 15000.00, NULL, 1, 'asdasd', '2023-06-12 08:42:33', '2023-06-12 08:42:33', '2023-06-12 08:42:33');
-INSERT INTO `bobeda_movimientos` VALUES (1083, 1, 22, 2, 15000.00, NULL, 2, 'asdasd', '2023-06-12 08:43:09', '2023-06-12 08:43:09', '2023-06-12 08:43:09');
-INSERT INTO `bobeda_movimientos` VALUES (1084, 1, 44, 2, 50.00, NULL, 1, '5656', '2023-06-12 09:00:31', '2023-06-12 09:00:31', '2023-06-12 09:00:31');
-INSERT INTO `bobeda_movimientos` VALUES (1085, 1, 44, 1, 5000.00, NULL, 1, 'HGHG', '2023-06-12 17:47:34', '2023-06-12 17:47:34', '2023-06-12 17:47:34');
+INSERT INTO `bobeda_movimientos` VALUES (10, 1, 1, 2, 9.00, NULL, 2, NULL, 9, '2023-10-29 20:32:25', '2023-10-29 20:32:25', '2023-10-29 20:32:25');
+INSERT INTO `bobeda_movimientos` VALUES (11, 1, 1, 2, 1.00, NULL, 2, NULL, 9, '2023-10-29 20:34:49', '2023-10-29 20:34:49', '2023-10-29 20:34:49');
+INSERT INTO `bobeda_movimientos` VALUES (12, 1, 1, 2, 505.00, NULL, 2, NULL, 9, '2023-10-29 20:47:58', '2023-10-29 20:47:58', '2023-10-29 20:47:58');
+INSERT INTO `bobeda_movimientos` VALUES (13, 2, 1, 1, 5001.00, NULL, 2, '00', 9, '2023-10-29 20:48:39', '2023-10-29 20:48:39', '2023-10-29 20:48:56');
+INSERT INTO `bobeda_movimientos` VALUES (14, 2, 1, 1, 510.00, NULL, 1, '0', 9, '2023-10-29 21:00:44', '2023-10-29 21:00:44', '2023-10-29 21:00:44');
 
 -- ----------------------------
 -- Table structure for cajas
@@ -365,18 +194,3478 @@ CREATE TABLE `cajas`  (
   `numero_caja` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `estado_caja` int NULL DEFAULT NULL COMMENT '0- cerrada 1-aperturada',
   `id_usuario_asignado` int NULL DEFAULT NULL,
+  `saldo` decimal(10, 2) NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_caja`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of cajas
 -- ----------------------------
-INSERT INTO `cajas` VALUES (22, 'Caja # 1', 1, 9, '2023-06-10 15:28:19', '2023-06-10 15:28:19');
-INSERT INTO `cajas` VALUES (45, 'Caja #3', 1, 6, '2023-06-12 22:05:28', '2023-06-12 22:21:44');
-INSERT INTO `cajas` VALUES (46, 'Caja 5', 0, 4, '2023-06-12 22:07:03', '2023-06-12 22:07:03');
-INSERT INTO `cajas` VALUES (47, 'caja 6', 0, 20, '2023-06-12 22:08:22', '2023-06-12 22:08:22');
+INSERT INTO `cajas` VALUES (0, '0', 0, 4, 0.00, '2023-06-16 12:25:03', '2023-06-16 12:25:03');
+INSERT INTO `cajas` VALUES (1, 'Caja # 01', 1, 9, 5496.00, '2023-06-14 16:47:11', '2023-10-29 20:48:56');
+INSERT INTO `cajas` VALUES (2, 'Caja # 02', 0, 20, 0.00, '2023-06-14 16:50:02', '2023-09-13 10:50:19');
+
+-- ----------------------------
+-- Table structure for catalogo
+-- ----------------------------
+DROP TABLE IF EXISTS `catalogo`;
+CREATE TABLE `catalogo`  (
+  `id_cuenta` int NOT NULL AUTO_INCREMENT,
+  `id_cuenta_padre` int NULL DEFAULT NULL,
+  `numero` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `tipo_catalogo` int NULL DEFAULT NULL,
+  `saldo` decimal(10, 2) NULL DEFAULT NULL,
+  `movimiento` int NULL DEFAULT NULL,
+  `iva` int NULL DEFAULT NULL,
+  `tipo_reporte` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL COMMENT 'Balance de Situación (B), \r\nEstado de Resultados (E) \r\nCuenta de Orden (O).',
+  `tipo_saldo_normal` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL COMMENT 'Indica si el saldo de la cuenta es acreedor o deudor.\r\nSi el Tipo Detallado de la cuenta es Activo o Gasto el saldo normal es Deudor (D).\r\nSi el Tipo Detallado de la cuenta es Pasivo, Capital o Ingreso el saldo normal es Acreedor (A).\r\n',
+  `codigo_agrupador` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL COMMENT 'Codigo de la cuenta mayor cuenta padre primeros 4 diigitos',
+  `estado` int NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_cuenta`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1245 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of catalogo
+-- ----------------------------
+INSERT INTO `catalogo` VALUES (1, NULL, '1', 'ACTIVO', 1, 6071.00, 0, 0, 'O', 'A', NULL, 1, NULL, '2023-10-29 20:47:37');
+INSERT INTO `catalogo` VALUES (2, 1, '11', 'ACTIVOS DE INTERMEDIACIÓN', 1, 5270.00, 0, 0, 'O', 'A', '1', 1, NULL, '2023-10-29 20:47:37');
+INSERT INTO `catalogo` VALUES (3, 2, '1101', 'EFECTIVO Y EQUIVALENTES DE EFECTIVO', 1, -85649.01, 0, 0, 'O', 'A', '11', 1, NULL, '2023-10-29 20:47:37');
+INSERT INTO `catalogo` VALUES (4, 3, '110101', 'EFECTIVO', 1, 5561.00, 0, 0, 'O', 'A', '1101', 1, NULL, '2023-10-29 20:47:37');
+INSERT INTO `catalogo` VALUES (5, 4, '11010101', 'CAJA GENERAL', 1, 5120.48, 1, 0, 'O', 'A', '1101', 1, NULL, '2023-10-29 20:47:37');
+INSERT INTO `catalogo` VALUES (6, 4, '11010102', 'CAJA CHICA', 1, 0.00, 1, 0, 'O', 'A', '1101', 1, NULL, '2023-08-24 09:44:14');
+INSERT INTO `catalogo` VALUES (7, 4, '11010103', 'NUMERARIO EN RESERVA', 1, 0.00, 1, 0, 'O', 'A', '1101', 1, NULL, '2023-08-24 09:44:25');
+INSERT INTO `catalogo` VALUES (8, 3, '110102', 'DEPÓSITOS EN ASOCIACIONES COOPERATIVAS Y FEDERACIONES', 1, 0.00, 0, 0, 'O', 'A', '1101', 1, NULL, '2023-08-24 09:45:21');
+INSERT INTO `catalogo` VALUES (10, 3, '11010201', 'CUENTAS DE AHORRO', 1, 0.00, 1, 0, 'O', 'A', '1101', 1, NULL, '2023-08-24 09:47:33');
+INSERT INTO `catalogo` VALUES (11, 3, '11010202', 'DEPÓSITOS A PLAZO', 1, 0.00, 1, 0, 'O', 'A', '1101', 1, NULL, '2023-08-24 09:47:40');
+INSERT INTO `catalogo` VALUES (12, NULL, '110103', 'DEPÓSITOS EN OTRAS INSTITUCIONES FINANCIERAS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-24 09:03:21');
+INSERT INTO `catalogo` VALUES (13, NULL, '11010301', 'CUENTAS CORRIENTES', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (14, NULL, '1101030101', 'BANCO ATLANTIDA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (15, NULL, '11010302', 'CUENTAS DE AHORRO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (16, NULL, '11010303', 'DEPÓSITOS A PLAZO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (17, NULL, '110104', 'OPERACIONES DE REPORTO', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (18, NULL, '11010401', 'EMITIDOS POR EL BANCO CENTRAL DE RESERVA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (19, NULL, '11010402', 'EMITIDOS POR ENTIDADES DEL ESTADO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (20, NULL, '11010403', 'EMITIDOS POR OTRAS ENTIDADES DEL SISTEMA FINANCIERO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (22, NULL, '110105', 'EFECTIVO RESTRIGIDO', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (23, NULL, '11010501', 'CUENTAS CORRIENTES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (24, NULL, '11010502', 'CUENTAS DE AHORRO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (25, NULL, '11010503', 'DEPÓSITOS A PLAZO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (26, 2, '1102', 'ACTIVOS FINANCIEROS NEGOCIABLES', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (27, 26, '110201', 'VALORES REPRESENTATIVOS DE DEUDA', 1, 0.00, 0, 0, 'O', 'A', '1102', 1, NULL, '2023-08-24 09:47:57');
+INSERT INTO `catalogo` VALUES (28, NULL, '11020101', 'EMITIDOS POR EL BANCO CENTRAL DE RESERVA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (29, NULL, '11020102', 'EMITIDOS POR ENTIDADES DEL ESTADO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (30, NULL, '11020103', 'EMITIDOS POR BANCOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (31, NULL, '110202', 'ADQUISICIÓN TEMPORAL DE DOCUMENTOS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (32, NULL, '11020201', 'EMITIDOS POR EL BANCO CENTRAL DE RESERVA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (33, NULL, '11020202', 'EMITIDOS POR ENTIDADES DEL ESTADO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (34, NULL, '11020203', 'EMITIDOS POR BANCOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (35, NULL, '110203', 'PROVISIÓN PARA VALUACIÓN DE ACTIVOS FINANCIEROS NEGOCIABLES', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (37, NULL, '11020301', 'PROVISIÓN PARA VALUACIÓN DE ACTIVOS FINANCIEROS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (38, NULL, '110204', 'DETERIORO DE ACTIVOS FINANCIEROS NEGOCIABLES (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (40, NULL, '110205', 'DETERIORO DE ACTIVOS FINANCIEROS NEGOCIABLES (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (42, NULL, '1103', 'INVERSIONES MANTENIDAS HASTA EL VENCIMIENTO', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (43, NULL, '110301', 'VALORES REPRESENTATIVOS DE DEUDA', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (44, NULL, '11030101', 'EMITIDOS POR EL BANCO CENTRAL DE RESERVA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (45, NULL, '11030102', 'EMITIDOS POR ENTIDADES DEL ESTADO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (46, NULL, '11030103', 'EMITIDOS POR BANCOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (47, NULL, '110302', 'ADQUISICIÓN TEMPORAL DE DOCUMENTOS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (48, NULL, '11030201', 'EMETIDOS POR EL BANCO CENTRAL DE RESERVA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (49, NULL, '11030202', 'EMITIDOS POR ENTIDADES DEL ESTADO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (50, NULL, '11030203', 'EMITIDOS POR BANCOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (51, NULL, '110303', 'PROVISIÓN PARA VALUACIÓN DE INVERSIONES MANTENIDAS HASTA EL VENCIMIENTO', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (53, NULL, '11030301', 'PROVISIÓN PARA VALUACION DE ACTIVOS FINANCIEROS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (54, NULL, '110304', 'DETERIORO DE INVERSIONES MANTENIDAS HASTA EL VENCIMIENTO (CR)', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (56, NULL, '11030401', 'DETERIORO DE ACTIVOS FINANCIEROS NEGOCIABLES (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (58, 2, '1104', 'PRESTAMOS POR COBRAR', 1, -287.80, 0, 0, 'O', 'A', '11', 1, NULL, '2023-09-30 10:40:53');
+INSERT INTO `catalogo` VALUES (59, 58, '110401', 'PRESTAMOS PACTADOS HASTA UN AÑO PLAZO', 1, 448.26, 0, 0, '1', NULL, NULL, 1, NULL, '2023-09-30 10:40:53');
+INSERT INTO `catalogo` VALUES (60, 58, '11040101', 'PRESTAMOS PARA CONSUMO', 1, -736.06, 1, 0, 'O', 'A', '1104', 1, NULL, '2023-09-18 16:35:15');
+INSERT INTO `catalogo` VALUES (61, NULL, '11040102', 'PRESTAMOS PARA COMERCIO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (62, NULL, '11040103', 'PRESTAMOS PARA SERVICIO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (63, NULL, '11040104', 'PRESTAMOS PARA VIVIENDA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (64, NULL, '11040105', 'PRESTAMOS PARA PRODUCCION', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (65, NULL, '11040106', 'PRESTAMOS PARA LIQUIDEZ O ROTATIVOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (66, NULL, '11040107', 'DESEMBOLSOS Y RECUPERACIONES POR APLICAR', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (67, 58, '110402', 'PRESTAMOS PACTADOS A MAS DE UN AÑO PLAZO', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 14:42:19');
+INSERT INTO `catalogo` VALUES (68, 58, '11040201', 'PRESTAMOS PARA CONSUMO', 1, 0.00, 1, 0, 'O', 'A', '1104', 1, NULL, '2023-08-24 09:50:50');
+INSERT INTO `catalogo` VALUES (69, NULL, '11040202', 'PRESTAMOS PARA COMERCIO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (70, NULL, '11040203', 'PRESTAMOS PARA SERVICIO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (71, NULL, '11040204', 'PRESTAMOS PARA VIVIENDA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (72, NULL, '11040205', 'PRESTAMOS PARA PRODUCCION', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (73, NULL, '11040206', 'PRESTAMOS PARA LIQUIDEZ O ROTATIVOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (74, 58, '110403', 'PRESTAMOS VENCIDOS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 14:42:51');
+INSERT INTO `catalogo` VALUES (75, NULL, '11040301', 'PRESTAMOS PARA CONSUMO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (76, NULL, '11040302', 'PRESTAMOS PARA COMERCIO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (77, NULL, '11040303', 'PRESTAMOS PARA SERVICIO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (78, NULL, '11040304', 'PRESTAMOS PARA VIVIENDA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (79, NULL, '11040305', 'PRESTAMOS PARA PRODUCCION', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (80, NULL, '11040306', 'PRESTAMOS PARA LIQUIDEZ OROTATIVOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (81, NULL, '110404', 'PRESTAMOS EN COBRO JUDICIAL', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (82, NULL, '11040401', 'PRESTAMOS PARA CONSUMO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (83, NULL, '11040402', 'PRESTAMOS PARA COMERCIO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (84, NULL, '11040403', 'PRESTAMOS PARA SERVICIOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (85, NULL, '11040404', 'PRESTAMOS PARA VIVIENDA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (86, NULL, '11040405', 'PRESTAMOS PARA PRODUCCION', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (87, NULL, '11040406', 'PRESTAMOS PARA LIQUIDEZ O ROTATIVOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (88, NULL, '110409', 'ESTIMACION PARA INCOBRABILIDAD DE PRESTAMOS (CR)', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (89, NULL, '11040901', 'PRESTAMOS PARA CONSUMO (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (90, NULL, '11040902', 'PRESTAMOS PARA COMERCIO (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (91, NULL, '11040903', 'PRESTAMOS PARA SERVICIO (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (92, NULL, '11040904', 'PRESTAMOS PARA VIVIENDA (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (93, NULL, '11040905', 'PRESTAMOS PARA PRODUCCION (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (94, NULL, '11040906', 'PRESTAMOS PARA LIQUIDEZ O ROTATIVOS (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (95, NULL, '1105', 'INTERESES POR COBRAR', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (96, NULL, '110501', 'PRESTAMOS PARA CONSUMO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (97, NULL, '110502', 'PRESTAMOS PARA COMERCIO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (98, NULL, '110503', 'PRESTAMOS PARA SERVICIOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (99, NULL, '110504', 'PRESTAMOS PARA VIVIENDA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (100, NULL, '110505', 'PRESTAMOS PARA PRODUCCION', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (101, NULL, '110506', 'PRESTAMOS PARA LIQUIDEZ O ROTATIVOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (102, NULL, '110509', 'ESTIMACION PARA INCOBRABILIDAD DE INTERESES (CR)', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (103, NULL, '11050901', 'PRESTAMOS PARA CONSUMO (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (105, NULL, '11050902', 'PRESTAMOS PARA COMERCIO (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (106, NULL, '11050903', 'PRESTAMOS PARA SERVICIO (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (107, NULL, '11050904', 'PRESTAMOS PARA VIVIENDA (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (108, NULL, '11050905', 'PRESTAMOS PARA PRODUCCION (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (109, NULL, '11050906', 'PRESTAMOS PARA LIQUIDEZ O ROTATIVOS (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:17');
+INSERT INTO `catalogo` VALUES (110, 1, '12', 'OTROS ACTIVOS', 1, 0.00, 0, 0, 'O', 'A', '1', 1, NULL, '2023-08-28 12:43:27');
+INSERT INTO `catalogo` VALUES (111, 110, '1201', 'CUENTAS POR COBRAR', 1, 0.00, 0, 0, 'O', 'A', '12', 1, NULL, '2023-08-28 12:18:43');
+INSERT INTO `catalogo` VALUES (112, 111, '120101', 'CUENTAS POR COBRAR A PARTES RELACIONADAS', 1, 0.00, 0, 0, 'O', 'A', '1201', 1, NULL, '2023-08-28 12:44:15');
+INSERT INTO `catalogo` VALUES (113, 112, '12010101', 'CUERPOS DIRECTIVOS', 1, 0.00, 0, 0, 'O', 'A', '1201', 1, NULL, '2023-08-28 12:44:31');
+INSERT INTO `catalogo` VALUES (114, 113, '1201010101', 'CONSEJO DE ADMINISTRACION', 1, 0.00, 1, 0, 'O', 'A', '1201', 1, NULL, '2023-08-28 12:44:49');
+INSERT INTO `catalogo` VALUES (115, 113, '1201010102', 'JUNTA DE VIGILANCIA', 1, 0.00, 1, 0, 'O', 'A', '1201', 1, NULL, '2023-08-28 12:45:02');
+INSERT INTO `catalogo` VALUES (116, 112, '1201010103', 'COMITÉS DE APOYO', 1, 0.00, 1, 0, 'O', 'A', '1201', 1, NULL, '2023-08-28 12:45:24');
+INSERT INTO `catalogo` VALUES (117, 112, '12010102', 'EMPLEADOS', 1, 0.00, 0, 0, 'O', 'A', '1201', 1, NULL, '2023-08-28 12:46:05');
+INSERT INTO `catalogo` VALUES (118, 117, '1201010201', 'FALTANTES DE CAJA', 1, 0.00, 1, 0, 'O', 'A', '1201', 1, NULL, '2023-08-28 12:46:35');
+INSERT INTO `catalogo` VALUES (119, NULL, '1201010202', 'FALTANTE DE NUMERARIO EN RESERVA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (120, NULL, '1201010203', 'OTRO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (121, NULL, '12010103', 'ENTIDADES ASOCIADAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (122, NULL, '120102', 'CUENTAS POR COBRAR A ASOCIADOS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (123, NULL, '12010201', 'CAPITAL SUSCRITO NO PAGADO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (124, NULL, '120103', 'CUENTAS POR COBRAR A TERCEROS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (125, NULL, '12010301', 'ANTICIPOS A PROVEEDORES', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (126, NULL, '1201030101', 'ARTURO LARIN', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (127, NULL, '1201030102', 'IMPRENTA RM', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (128, NULL, '1201030103', 'NEGOCIOS DE ORIENTE, S.A. DE C.V.', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (129, NULL, '12010302', 'DEPÓSITOS EN GARANTÍA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (130, NULL, '12010303', 'OTROS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (131, NULL, '120104', 'PAGOS POR CUENTA AJENA', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (132, NULL, '12010401', 'GASTOS DE OTRAS OPERACIONES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (133, NULL, '12010402', 'HONORARIOS PROFESIONALES COSTAS PROCÉSALES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (134, NULL, '12010403', 'OTROS DEUDORES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (135, NULL, '120105', 'SERVICIOS FINANCIEROS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (136, NULL, '12010501', 'TRÁMITES JURÍDICOS POR PERCIBIR', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (137, NULL, '12010502', 'OTROS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (138, NULL, '120106', 'OTRAS CUENTAS POR COBRAR', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (139, NULL, '12010601', 'COSTAS PROCÉSALES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (140, NULL, '12010602', 'CHEQUES RECHAZADOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (141, NULL, '120109', 'ESTIMACION PARA CUENTAS INCOBRABLES (CR)', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (142, NULL, '12010901', 'CUENTAS POR COBRAR A PARTES RELACIONADAS (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (143, NULL, '12010902', 'CUENTAS POR COBRAR A ASOCIADOS (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (144, NULL, '12010903', 'CUENTAS POR COBRAR A TERCEROS (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (145, NULL, '12010904', 'OTRO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (146, 110, '1202', 'ACTIVOS POR IMPUESTOS CORRIENTES', 1, 0.00, 0, 0, 'O', 'A', '12', 1, NULL, '2023-08-28 12:18:53');
+INSERT INTO `catalogo` VALUES (147, 146, '120201', 'PAGO A CUENTA', 1, 0.00, 0, 0, 'O', 'A', '1202', 1, NULL, '2023-08-28 12:44:03');
+INSERT INTO `catalogo` VALUES (148, 112, '12020101', 'PERIODO CORRIENTE', 1, 0.00, 1, 0, 'O', 'A', '1201', 1, NULL, '2023-08-28 13:10:37');
+INSERT INTO `catalogo` VALUES (149, NULL, '12020102', 'REMANENTE PERIODOS ANTERIORES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (150, NULL, '12020103', 'OTROS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (151, NULL, '120202', 'RETENCION DE IMPUESTO SOBRE LA RENTA', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (152, NULL, '12020201', 'TEMPORAL O PERMANENTE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (153, NULL, '120203', 'IVA CRÉDITO FISCAL', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (154, NULL, '12020301', 'CRÉDITO FISCAL POR COMPRAS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (155, 146, '1202030101', 'COMPRAS INTERNAS', 1, 0.00, 1, 0, 'O', 'A', '1202', 1, NULL, '2023-08-27 08:31:40');
+INSERT INTO `catalogo` VALUES (157, NULL, '1202030102', 'COMPRAS EXTERNAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (158, NULL, '12020302', 'RETENCIÓN 1%', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (159, NULL, '12020303', 'PERCEPCIÓN 1%', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (160, NULL, '12020304', 'REMANENTE PRÓXIMO PERIODO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (161, NULL, '12020305', 'CRÉDITO FISCAL PENDIENTE DE APLICAR', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (162, NULL, '1203', 'EXISTENCIAS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (163, NULL, '120301', 'ARTICULOS PROMOCIONALES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (164, NULL, '120302', 'PAPELERIA, ÚTILES Y ENSERES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (165, NULL, '120303', 'PLÁSTICOS Y MATERIALES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (166, NULL, '120304', 'ESTIMACION POR OBSOLESCENCIA DE EXISTENCIAS (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (167, NULL, '120305', 'DETERIORO DE EXISTENCIAS (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (168, NULL, '1204', 'GASTOS PAGADOS POR ANTICIPOS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (169, NULL, '120401', 'SEGUROS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (170, NULL, '12040101', 'SEGURO CONTRA INCENDIOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (171, NULL, '12040102', 'SEGURO CONTRA DAÑOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (172, NULL, '12040103', 'SEGURO CONTRA ROBOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (173, NULL, '12040104', 'OTROS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (174, NULL, '120402', 'ARRENDAMIENTOS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (175, NULL, '12040201', 'ARRENDAMIENTO DE LOCALES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (176, NULL, '12040202', 'ARRENDAMIENTO DE EQUIPOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (177, NULL, '120403', 'PUBLICIDAD Y PROPAGANDA', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (178, NULL, '12040301', 'MEDIOS PUBLICITARIOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (179, NULL, '120404', 'MEMBRESÍAS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (180, NULL, '12040401', 'EMISOR DE TARJETAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (181, NULL, '1205', 'ACTIVOS POR IMPUESTOS DIFERIDOS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (182, NULL, '120501', 'IMPUESTOS SOBRE LA RENTA DIFERIDO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (183, NULL, '1206', 'INVERSIONES Y OTRAS PARTICIPACIONES', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (184, NULL, '120601', 'INVERSIONES Y OTRAS PARTICIPACIONES', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (185, NULL, '12060101', 'INVERSIONES EN NEGOCIOS CONJUNTOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (186, NULL, '120602', 'PARTICIPACIONES Y OTROS DERECHOS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (187, NULL, '12060201', 'FEDERACIONES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (188, NULL, '12060202', 'ASOCIACIONES COOPERATIVAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (189, NULL, '12060203', 'OTRAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (190, 1, '13', 'ACTIVOS FÍSICOS E INTANGIBLES', 1, 0.00, 0, 0, 'O', 'A', '1', 1, NULL, '2023-08-28 12:17:07');
+INSERT INTO `catalogo` VALUES (191, 190, '1301', 'PROPIEDADES, PLANTA Y EQUIPO', 1, 0.00, 0, 0, 'O', 'A', '13', 1, NULL, '2023-08-28 12:17:25');
+INSERT INTO `catalogo` VALUES (192, 191, '130101', 'TERRENOS', 1, 0.00, 0, 0, 'O', 'A', '1301', 1, NULL, '2023-08-28 12:19:31');
+INSERT INTO `catalogo` VALUES (193, NULL, '13010101', 'VALOR DE ADQUISICION', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (194, NULL, '13010102', 'ADICIONES Y MEJORAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (195, NULL, '13010103', 'REVALÚO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (196, NULL, '130102', 'EDIFICIOS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (197, NULL, '13010201', 'VALOR DE ADQUISICIÓN', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (198, NULL, '13010202', 'ADICIONES Y MEJORAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (199, NULL, '13010203', 'REVALÚO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (200, NULL, '130103', 'INSTALACIONES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (201, 191, '130104', 'MOBILIARIO Y EQUIPO DE OFICINA', 1, 0.00, 1, 0, 'O', 'A', '1301', 1, NULL, '2023-08-27 08:31:58');
+INSERT INTO `catalogo` VALUES (202, NULL, '130105', 'MOBILIARIO Y EQUIPO SALA DE VENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (203, NULL, '130106', 'MAQUINARIA Y EQUIPO DE CONSTRUCCIÓN', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (204, NULL, '130107', 'EQUIPO DE TRANSPORTE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (205, NULL, '130108', 'HERRAMIENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (206, NULL, '130109', 'DEPRECIACIÓN ACUMULADA (CR)', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (207, NULL, '13010901', 'EDIFICIOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (209, NULL, '13010902', 'INSTALACIONES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (210, NULL, '13010903', 'MOBILIARIO Y EQUIPO DE OFICINA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (211, NULL, '13010904', 'MOBILIARIO Y EQUIPO SALA DE VENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (212, NULL, '13010905', 'MAQUINARIA Y EQUIPO DE CONSTRUCCIÓN', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (213, NULL, '13010906', 'EQUIPO DE TRANSPORTE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (214, NULL, '13010907', 'HERRAMIENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (215, NULL, '130110', 'DETERIORO DE PROPIEDAD, PLANTA Y EQUIPO (CR)', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (216, NULL, '13011001', 'TERRENOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (217, NULL, '13011002', 'EDIFICIOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (218, NULL, '13011003', 'INSTALACIONES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (219, NULL, '13011004', 'MOBILIARIOS Y EQUIPO DE OFICINA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (220, NULL, '13011005', 'MOBILIARIO Y EQUIPO SALA DE VENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (221, NULL, '13011006', 'MAQUINARIA Y EQUIPO DE CONSTRUCCIÓN', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (222, NULL, '13011007', 'EQUIPO DE TRANSPORTE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (223, NULL, '13011008', 'HERRAMIENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (224, NULL, '1302', 'PROPIEDADES, PLANTA Y EQUIPO EN ARRENDAMIENTOS FINANCIEROS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (226, NULL, '130201', 'TERRENOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (227, NULL, '130202', 'EDIFICIOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (228, NULL, '130203', 'INSTALACIONES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (229, NULL, '130204', 'MOBILIARIO Y EQUIPO DE OFICINA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (230, NULL, '130205', 'MOBILIARIO Y EQUIPO SALA DE VENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (231, NULL, '130206', 'MAQUINARIA Y EQUIPO DE CONSTRUCCION', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (232, NULL, '130207', 'EQUIPO DE TRANSPORTE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (233, NULL, '130208', 'HERRAMIENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (234, NULL, '130209', 'DEPRECIACIÓN ACUMULADA EN ARRENDAMIENTO FINANCIERO (R)', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (236, NULL, '13020901', 'EDIFICIOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (237, NULL, '13020902', 'INSTALACIONES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (238, NULL, '13020903', 'MOBILIARIO Y EQUIPO DE OFICINA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (239, NULL, '13020904', 'MOBILIARIO Y EQUIPO SALA DE VENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (240, NULL, '13020905', 'MAQUINARIA Y EQUIPO DE CONSTRUCCIÓN', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (241, NULL, '13020906', 'EQUIPO DE TRANSPORTE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (242, NULL, '13020907', 'HERRAMIENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (243, NULL, '130210', 'DETERIORO DE PROPIEDAD, PLANTA Y EQUIPO (CR)', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (244, NULL, '13021001', 'TERRENOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (245, NULL, '13021002', 'EDIFICIOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (246, NULL, '13021003', 'INSTALACIONES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (247, NULL, '13021004', 'MOBILIARIO Y EQUIPO DE OFICINA', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (248, NULL, '13021005', 'MOBILIARIO Y EQUIPO SALA DE VENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (249, NULL, '13021006', 'MAQUINARIA Y EQUIPO DE CONSTRUCCIÓN', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (250, NULL, '13021007', 'EQUIPO DE TRANSPORTE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (251, NULL, '13021008', 'HERRAMIENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (252, NULL, '1303', 'PROPIEDADES DE INVERSIÓN', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (253, NULL, '130301', 'TERRENOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (254, NULL, '130302', 'EDIFICIOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (255, 190, '1304', 'ACTIVOS INTANGIBLES', 1, 0.00, 0, 0, 'O', 'A', '13', 1, NULL, '2023-08-28 12:19:15');
+INSERT INTO `catalogo` VALUES (256, NULL, '130401', 'DERECHO DE LLAVE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (257, NULL, '130402', 'PATENTES Y MARCAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (258, NULL, '130403', 'LICENCIAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (259, NULL, '130404', 'SOFTWARE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (261, NULL, '130405', 'AMORTIZACIÓN ACUMULADA DE ACTIVOS INTANGIBLES (CR)', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (263, NULL, '13040501', 'DERECHO DE LLAVE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (264, NULL, '13040502', 'PATENTES Y MARCAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (265, NULL, '13040503', 'LICENCIAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (266, NULL, '13040505', 'SOFTWARE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (267, NULL, '130406', 'DETERIORO DE ACTIVOS INTANGIBLES (CR)', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (268, NULL, '13040601', 'DERECHO DE LLAVE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (269, NULL, '13040602', 'PATENTES Y MARCAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (270, NULL, '13040603', 'LICENCIAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (271, NULL, '13040605', 'SOFTWARE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (272, NULL, '130407', 'ACTIVOS INTANGIBLES EN DESARROLLO', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (273, NULL, '13040701', 'PATENTES Y MARCAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (274, NULL, '13040702', 'SOFTWARE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (275, NULL, '1305', 'ACTIVOS RECIBIDOS EN PAGO O ADJUDICADOS', 1, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (276, NULL, '130501', 'TERRENOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (277, NULL, '130502', 'EDIFICIOS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (278, NULL, '130503', 'INSTALACIONES', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (279, NULL, '130504', 'MOBILIARIO Y EQUIPO', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (280, NULL, '130505', 'MAQUINARIA Y EQUIPO DE CONSTRUCCIÓN', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (281, NULL, '130506', 'EQUIPO DE TRANSPORTE', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (282, NULL, '130507', 'HERRAMIENTAS', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (283, NULL, '130508', 'ESTIMACIÓN DE PERDIDA EN VENTA DE ACTIVOS (CR)', 1, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (284, NULL, '2', 'PASIVO', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (285, NULL, '21', 'PASIVOS DE INTERMEDIACIÓN', 2, -3526.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-10-29 20:47:37');
+INSERT INTO `catalogo` VALUES (286, 285, '2101', 'DEPÓSITO DE AHORRO', 2, -3526.00, 0, 0, 'O', 'A', '21', 1, NULL, '2023-10-29 20:47:37');
+INSERT INTO `catalogo` VALUES (287, NULL, '210101', 'DEPÓSITO DE AHORRO A LA VISTA', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (288, 286, '21010101', 'DEPÓSITOS DE ASOCIADOS', 2, -1531.00, 1, 0, 'O', 'A', '2101', 1, NULL, '2023-10-29 20:47:37');
+INSERT INTO `catalogo` VALUES (289, NULL, '21010102', 'OTROS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (290, 286, '210102', 'DEPÓSITOS PACTADOS HASTA UN AÑO PLAZO', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (291, NULL, '21010201', 'DEPÓSITOS DE ASOCIADOS', 2, -1000.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-09-18 11:44:19');
+INSERT INTO `catalogo` VALUES (292, NULL, '2101020101', 'DEPÓSITOS DE 15 A 30 DÍAS PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (293, NULL, '2101020102', 'DEPOSITOS A 60 DIAS PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (294, NULL, '2101020103', 'DEPOSITOS A 90 DIAS PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (295, NULL, '2101020104', 'DEPOSITOS A 120 DIAS PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (296, NULL, '2101020105', 'DEPOSITOS A 180 DIAS PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (297, NULL, '2101020106', 'DEPOSITOS A MAS DE 180 DIAS PLAZO Y MENORES A 360 DIAS PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (299, 286, '2101020107', 'DEPOSITOS A 360 DIAS PLAZO', 2, -2000.00, 1, 0, 'O', 'A', '2101', 1, NULL, '2023-09-18 11:20:56');
+INSERT INTO `catalogo` VALUES (300, NULL, '2101020108', 'DEPOSITOS DE AHORRO PROGRAMADO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (301, 286, '210103', 'DEPOSITOS PACTADOS A MAS DE UNA AÑO PLAZO', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-21 19:07:18');
+INSERT INTO `catalogo` VALUES (302, NULL, '21010301', 'DEPOSITOS DE ASOCIADOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (303, 286, '2101030101', 'DEPOSITOS PACTADOS A MAS DE UNA AÑO PLAZO', 2, 0.00, 1, 0, 'O', 'A', '2101', 1, NULL, '2023-09-04 18:41:30');
+INSERT INTO `catalogo` VALUES (304, NULL, '2101030102', 'DEPOSITOS DE AHORRO PROGRAMADO A MAS DE UN AÑO PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (306, NULL, '210104', 'DEPOSITOS RESTRINGIDOS E INACTIVOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (307, NULL, '21010401', 'DEPOSITOS EN GARANTIA - CUENTA DE AHORRO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (308, NULL, '21010402', 'DEPOSITOS EN GARANTIA - AHORRO PROGRAMADO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (309, NULL, '21010403', 'DEPOSITOS EN GARANTIA - DEPOSITOS A PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (310, NULL, '21010404', 'DEPOSITOS EMBARGADOS - CUENTA DE AHORRO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (311, NULL, '21010405', 'DEPOSITOS EMBARGADOS - AHORRO PROGRAMADO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (313, NULL, '21010406', 'DEPOSITOS EMBARGADOS - DEPOSITOS A PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (314, NULL, '21010407', 'DEPOSITOS BLOQUEADOS - CUENTA DE AHORRO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (315, NULL, '21010408', 'DEPOSITOS BLOQUEADOS - AHORRO PROGRAMADO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (316, NULL, '21010409', 'DEPOSITOS BLOQUEADOS - DEPOSITOS A PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (317, NULL, '21010410', 'DEPOSITOS INACTIVOS - CUENTA DE AHORRO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (318, NULL, '2102', 'PRESTAMOS POR PAGAR', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (319, NULL, '210201', 'PRESTAMOS PACTADOS HASTA UN AÑO PLAZO', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (320, NULL, '21020101', 'ASOCIACIONES COOPERATIVAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (321, NULL, '21020102', 'OTRAS ENTIDADES DEL SISTEMA FINANCIERO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (322, NULL, '21020103', 'ENTIDADES DEL ESTADO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (323, NULL, '21020104', 'EMPRESAS PRIVADAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (324, NULL, '21020105', 'PARTICULARES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (325, NULL, '21020106', 'ENTIDADES EXTRANJERAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (326, NULL, '210202', 'PRESTAMOS PACTADOS DE UN AÑO A CINCO AÑOS PLAZOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (328, NULL, '21020201', 'ASOCIACIONES COOPERATIVAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (329, NULL, '21020202', 'OTRAS ENTIDADES DEL SISTEMA FINANCIERO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (330, NULL, '21020203', 'ENTIDADES DEL ESTADO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (331, NULL, '21020204', 'EMPRESAS PRIVADAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (332, NULL, '21020205', 'PARTICULARES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (333, NULL, '21020206', 'ENTIDADES EXTRAJERAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (334, NULL, '210203', 'PRESTAMOS PACTADOS MAYORES DE CINCO AÑOS PLAZO', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (336, NULL, '21020301', 'ASOCIACIONES COOPERATIVAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (337, NULL, '21020302', 'OTRAS ENTIDADES DEL SISTEMA FINANCIERO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (338, NULL, '21020303', 'ENTIDADES DEL ESTADO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (339, NULL, '21020304', 'EMPRESAS PRIVADAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (340, NULL, '21020305', 'PARTICULARES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (341, NULL, '21020306', 'ENTIDADES EXTRANJERAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (342, 285, '2103', 'INTERESES Y OTROS POR PAGAR', 2, 0.00, 0, 0, 'O', 'A', '21', 1, NULL, '2023-09-30 10:23:37');
+INSERT INTO `catalogo` VALUES (343, NULL, '210301', 'INTERESES POR PAGAR DEPOSITOS DE AHORRO', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (344, NULL, '21030101', 'DEPOSITOS A LA VISTA', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (345, NULL, '21030102', 'DEPOSITOS PACTADOS HASTA UN AÑO PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (346, NULL, '21030103', 'DEPOSITOS PACTADOS A MAS DE UN AÑO PLAZO', 2, -975.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-09-18 14:01:08');
+INSERT INTO `catalogo` VALUES (347, NULL, '210302', 'INTERESES POR PAGAR POR PRESTAMOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (348, NULL, '21030201', 'PRESTAMOS PACTADOS HASTA UN AÑO PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (349, NULL, '21030202', 'PRESTAMOS PACTADOS DE UN AÑO A CINCO AÑOS PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (351, NULL, '21030203', 'PRESTAMOS PACTADOS MAYORES DE CINCO AÑOS PLAZO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (353, NULL, '210303', 'OTROS POR PAGAR', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (354, NULL, '21030301', 'COMISIONES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (355, 342, '21030302', 'SEGUROS', 2, -18.00, 1, 0, 'O', 'A', '2103', 1, NULL, '2023-09-30 10:23:37');
+INSERT INTO `catalogo` VALUES (356, NULL, '21030303', 'RECARGOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (357, NULL, '2104', 'OBLIGACIONES A LA VISTA', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (358, NULL, '210401', 'MILLAS Y PUNTOS POR PAGAR', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (359, NULL, '21040101', 'MILLAS POR PAGAR', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (360, NULL, '21040102', 'PUNTOS POR PAGAR', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (361, NULL, '210402', 'COBROS POR CUENTA AJENA', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (362, NULL, '21040201', 'COBRANZAS LOCALES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (363, NULL, '21040202', 'COBRANZAS DEL EXTERIOR', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (364, NULL, '21040203', 'IMPUESTOS Y SERVICIOS PUBLICOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (366, NULL, '210403', 'TRANSFERENCIAS DE FONDOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (367, NULL, '21040301', 'TRANSFERENCIAS LOCALES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (368, NULL, '210404', 'REMESAS FAMILIARES DEL EXTERIOR', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (369, NULL, '21040401', 'ESTADOS UNIDOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (370, NULL, '21040402', 'CANADÁ', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (371, NULL, '22', 'OTROS PASIVOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (372, 371, '2201', 'CUENTAS Y DOCUMENTOS POR PAGAR', 2, 0.00, 0, 0, 'O', 'A', '22', 1, NULL, '2023-08-28 12:20:51');
+INSERT INTO `catalogo` VALUES (373, NULL, '220101', 'CUENTAS POR PAGAR A TERCEROS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (374, NULL, '22010101', 'SOBREGIROS BANCARIOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (375, NULL, '22010102', 'PROVEEDORES', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (376, NULL, '2201010201', 'NACIONALES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (377, NULL, '2201010202', 'EXTRANJEROS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (378, NULL, '22010103', 'ACREEDORES POR PAGAR', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (379, NULL, '22010104', 'DEPOSITOS EN GARANTIA', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (380, NULL, '22010105', 'APORTACIONES POR PAGAR', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (381, NULL, '22010106', 'OTRAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (382, NULL, '220102', 'CUENTAS POR PAGAR PARTES RELACIONADAS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (383, NULL, '22010201', 'CUERPOS DIRECTIVOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (384, NULL, '2201020101', 'CONSEJO DE ADMINISTRACION', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (385, NULL, '2201020102', 'JUNTA DE VIGILANCIA', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (386, NULL, '22010202', 'COMITES DE APOYO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (387, NULL, '22010203', 'EMPLEADOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (388, NULL, '2201020301', 'GERENCIALES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (389, NULL, '2201020302', 'OPERATIVOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (390, NULL, '220103', 'CUENTAS POR PAGAR A ASOCIADOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (391, NULL, '22010301', 'EXCEDENTES POR PAGAR', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (392, NULL, '22010302', 'OTRAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (393, NULL, '220104', 'PASIVOS TRANSITORIOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (394, NULL, '22010401', 'INGRESOS POR APLICAR', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (395, NULL, '22010402', 'VALORES A REINTEGRAR', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (396, NULL, '22010403', 'SOBRANTES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (397, NULL, '22010404', 'DERECHOS REGISTRALES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (398, NULL, '22010405', 'COLECTURIAS Y PAGADURIAS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (399, NULL, '22010406', 'OTROS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (400, NULL, '220105', 'DOCUMENTOS POR PAGAR', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (401, NULL, '22010501', 'PAGARES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (402, NULL, '22010502', 'LETRAS DE CAMBIO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (403, 371, '2202', 'RETENCIONES Y PROVISIONES', 2, 0.00, 0, 0, 'O', 'A', '22', 1, NULL, '2023-08-28 12:21:01');
+INSERT INTO `catalogo` VALUES (404, NULL, '220201', 'RETENCIONES', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (405, NULL, '22020101', 'IMPUESTO SOBRE LA RENTA', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (406, NULL, '22020102', 'ISSS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (407, NULL, '22020103', 'AFP´S', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (408, NULL, '22020104', 'FONDO SOCIAL PARA LA VIVIENDA', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (409, NULL, '22020105', 'PROCURADURIA GENERAL DE LA REPUBLICA', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (410, NULL, '22020106', 'PRESTAMOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (411, NULL, '22020107', 'OTROS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (412, NULL, '220202', 'PROVISIONES', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (413, NULL, '22020201', 'SUELDOS Y SALARIOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (414, NULL, '22020202', 'VACACIONES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (415, NULL, '22020203', 'AGUINALDOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (416, NULL, '22020204', 'INDEMNIZACIONES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (418, NULL, '22020205', 'CUOTAS PATRONALES', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (419, NULL, '2202020501', 'ISSS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (420, NULL, '2202020502', 'AFP´S', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (421, NULL, '22020206', 'GASTOS DE ASAMBLEA', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (422, NULL, '22020207', 'FONDO DE EDUCACION', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (423, NULL, '22020208', 'LITIGIOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (424, NULL, '22020209', 'OTROS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (425, NULL, '2203', 'PASIVOS POR IMPUESTOS CORRIENTES', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (426, NULL, '220301', 'IVA DEBITO FISCAL', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (427, NULL, '22030101', 'DEBITO FISCAL', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (428, NULL, '2203010101', 'FACTURAS', 2, -4.20, 1, 1, '1', NULL, NULL, 1, NULL, '2023-09-30 10:23:37');
+INSERT INTO `catalogo` VALUES (429, NULL, '2203010102', 'COMPROBANTE DE CREDITO FISCAL', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (430, NULL, '22030102', 'RETENCION 1%', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (431, NULL, '22030103', 'PERCEPCION 1%', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (432, NULL, '220302', 'IMPUESTOS POR PAGAR', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (433, NULL, '22030201', 'IMPUESTO IVA', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (434, NULL, '22030202', 'IMPUESTO SOBRE LA RENTA', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (435, NULL, '22030203', 'IMPUESTOS MUNICIPALES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (436, NULL, '22030204', 'PAGO A CUENTA', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (437, NULL, '22030205', 'OTROS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (438, NULL, '2204', 'OBLIGACIONES POR PAGAR POR ARRENDAMIENTOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (439, NULL, '220401', 'OBLIGACIONES POR PAGAR POR ARRENDAMIENTO FINANCIERO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (441, NULL, '220402', 'OBLIGACIONES POR PAGAR POR ARRENDAMIENTO OPERATIVO', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (443, NULL, '2205', 'PASIVOS POR IMPUESTOS DIFERIDOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (444, NULL, '220501', 'IMPUESTO SOBRE LA RENTA DIFERIDO POR PAGAR', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (445, NULL, '2206', 'PASIVOS ASOCIADOS CON ACTIVOS NO CORRIENTES EN VENTA', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (447, NULL, '220601', 'PASIVOS ASOCIADOS CON ACTIVOS NO CORRIENTES EN VENTA', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (449, NULL, '22060101', 'ASOCIADOS CON ACTIVOS RECIBIDOS EN PAGO ADJUDICADOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (451, NULL, '23', 'PASIVOS DIFERIDOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (452, NULL, '2301', 'INTERESES POR REFINANCIAMIENTO DE PRESTAMOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (453, NULL, '230101', 'INTERESES POR REFINANCIAMIENTO DE PRESTAMOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (454, NULL, '2302', 'INGRESOS PERCIBIDOS NO DEVENGADOS', 2, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (455, NULL, '230201', 'OPERACIONES DE PRESTAMOS', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (456, NULL, '230202', 'OTRAS OPERACIONES', 2, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (457, NULL, '3', 'PATRIMONIO', 3, -40.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-09-30 10:40:53');
+INSERT INTO `catalogo` VALUES (458, 457, '31', 'CAPITAL SOCIAL COOPERATIVO', 3, -40.00, 0, 0, 'O', 'A', '3', 1, NULL, '2023-09-30 10:40:53');
+INSERT INTO `catalogo` VALUES (459, 458, '3101', 'APORTACIONES', 3, -40.00, 0, 0, 'O', 'A', '31', 1, NULL, '2023-09-30 10:40:53');
+INSERT INTO `catalogo` VALUES (460, 459, '310101', 'APORTACIONES PAGADAS', 3, -40.00, 1, 1, 'O', 'A', '3101', 1, NULL, '2023-09-30 10:23:37');
+INSERT INTO `catalogo` VALUES (461, 459, '310102', 'APORTACIONES NO PAGADAS', 3, 0.00, 1, 0, 'O', 'A', '3101', 1, NULL, '2023-08-28 12:21:37');
+INSERT INTO `catalogo` VALUES (462, NULL, '32', 'RESERVAS', 3, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (463, NULL, '3201', 'RESERVA LEGAL', 3, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (464, NULL, '320101', 'RESERVA LEGAL', 3, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (465, NULL, '3202', 'RESERVAS INSTITUCIONALES', 3, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (466, NULL, '320201', 'RESERVA PARA ESTABILIZACION DE CAPITAL', 3, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:18');
+INSERT INTO `catalogo` VALUES (467, 457, '33', 'RESULTADOS POR APLICAR', 3, 0.00, 0, 0, 'O', 'A', '3', 1, NULL, '2023-08-28 12:22:00');
+INSERT INTO `catalogo` VALUES (468, 467, '3301', 'EXCEDENTES POR APLICAR', 3, 0.00, 0, 0, 'O', 'A', '33', 1, NULL, '2023-08-28 12:23:19');
+INSERT INTO `catalogo` VALUES (469, 468, '330101', 'EXCEDENTES DEL PRESENTE EJERCICIO', 3, 0.00, 1, 0, 'O', 'A', '3301', 1, NULL, '2023-08-28 12:24:46');
+INSERT INTO `catalogo` VALUES (471, 468, '330102', 'EXCEDENTES DE EJERCICIOS ANTERIORES', 3, 0.00, 1, 0, 'O', 'A', '3301', 1, NULL, '2023-08-28 12:24:32');
+INSERT INTO `catalogo` VALUES (472, 467, '3302', 'PERDIDA POR APLICAR (CR)', 3, 0.00, 0, 0, 'O', 'A', '33', 1, NULL, '2023-08-28 09:56:20');
+INSERT INTO `catalogo` VALUES (473, 472, '330201', 'PERDIDA DEL PRESENTE EJERCICIO (CR)', 3, 0.00, 1, 0, 'O', 'A', '3302', 1, NULL, '2023-08-28 12:24:00');
+INSERT INTO `catalogo` VALUES (474, 472, '330202', 'PERDIDA DE EJERCICIOS ANTERIORES (CR)', 3, 0.00, 1, 0, 'O', 'A', '3302', 1, NULL, '2023-08-28 12:24:16');
+INSERT INTO `catalogo` VALUES (475, NULL, '34', 'PATRIMONIO RESTRINGIDO', 3, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (476, NULL, '3401', 'DONACIONES, SUBSIDISO Y LEGADOS', 3, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (477, NULL, '340101', 'DONACIONES', 3, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (478, NULL, '340102', 'SUBSIDIOS', 3, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (479, NULL, '340103', 'LEGADOS', 3, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (480, NULL, '3402', 'SUPERÁVIT POR REVALUACIÓN DE ACTIVOS NO REALIZADOS', 3, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (482, NULL, '340201', 'TERRENOS', 3, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (483, NULL, '340202', 'EDIFICIOS', 3, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (484, NULL, '340203', 'OTROS', 3, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (485, NULL, '4', 'INGRESOS', 4, -30.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-09-30 10:23:37');
+INSERT INTO `catalogo` VALUES (486, 485, '41', 'INGRESOS DE OPERACION', 4, -30.00, 0, 0, 'O', 'A', '4', 1, NULL, '2023-09-30 10:23:37');
+INSERT INTO `catalogo` VALUES (487, 486, '4101', 'INGRESOS POR ACTIVIDADES DE INTERMEDIACION', 4, -30.00, 0, 0, 'O', 'A', '41', 1, NULL, '2023-09-30 10:23:37');
+INSERT INTO `catalogo` VALUES (488, 487, '410101', 'INTERESES CARTERA DE PRESTAMOS', 4, 0.00, 0, 0, 'O', 'A', '4101', 1, NULL, '2023-09-04 17:39:07');
+INSERT INTO `catalogo` VALUES (489, 488, '41010101', 'INTERESES ORDINARIOS', 4, 0.00, 0, 0, 'O', 'A', '4101', 1, NULL, '2023-09-04 17:39:26');
+INSERT INTO `catalogo` VALUES (490, 487, '4101010101', 'INTERESES PERCIBIDOS', 4, 0.00, 1, 0, 'O', 'A', '4101', 1, NULL, '2023-09-06 09:26:14');
+INSERT INTO `catalogo` VALUES (491, 489, '4101010102', 'INTERESES POR PERCIBIR', 4, 0.00, 1, 0, 'O', 'A', '4101', 1, NULL, '2023-09-04 17:39:43');
+INSERT INTO `catalogo` VALUES (492, NULL, '41010102', 'INTERESES MORATORIOS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (493, 492, '4101010201', 'INTERESES PERCIBIDOS', 4, 0.00, 1, 0, 'O', 'A', '4101', 1, NULL, '2023-09-02 10:17:13');
+INSERT INTO `catalogo` VALUES (494, NULL, '410102', 'COMISIONES', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (495, 487, '41010201', 'COMISIONES POR OTORGAMIENTO', 4, -19.78, 1, 1, 'O', 'A', '4101', 1, NULL, '2023-09-30 10:23:37');
+INSERT INTO `catalogo` VALUES (496, NULL, '41010202', 'COMISIONES POR ADMINISTRACION DEL CREDITO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (497, NULL, '41010203', 'COMISIONES POR DESEMBOLSO EXTRA FINANCIMIENTO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (498, NULL, '41010204', 'COMISIONES SEGURO DE ROBO Y FRAUDE', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (499, NULL, '41010205', 'COMISIONES O PRIMAS POR OPERACIONES TEMPORALES CON DOCUMENTOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (501, 487, '41010206', 'OTRAS', 4, -30.00, 1, 0, 'O', 'A', '4101', 1, NULL, '2023-09-18 14:01:08');
+INSERT INTO `catalogo` VALUES (502, 487, '41010207', 'COMISION INFORED', 4, -2.50, 1, 1, 'O', 'A', '4101', 1, NULL, '2023-09-30 10:23:37');
+INSERT INTO `catalogo` VALUES (503, NULL, '410103', 'INTERESES CARTERA DE INVERSIONES FINANCIERAS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (504, NULL, '41010301', 'ACTIVOS FINANCIEROS NEGOCIABLES', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (505, NULL, '410104', 'REVERSION DE PROVISIONES Y DETERIORO DE ACTIVOS FINANCIEROS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (507, NULL, '41010401', 'ACTRIVOS FINANCIEROS NEGOCIABLES', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (508, NULL, '41010402', 'LIBERACION DE PROVISIONES DE SANEAMIENTO POR INCOBRABILIDAD DE PRESTAMOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (510, NULL, '41010403', 'LIBERACION DE PROVISIONES DE SANEAMIENTO POR INCOBRABILIDAD DE INTERESES DE PRESTAMOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (512, NULL, '41010404', 'REVERSION DETERIORO DE PRESTAMOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (513, NULL, '410105', 'RECUPERACIONES DE ACTIVOS FINANCIEROS INCOBRABLES O SANEADOS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (515, NULL, '41010501', 'RECUPERACIONES DE CREDITOS E INTERESES', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (516, NULL, '41010502', 'RECUPERACIONES DE INVERSIONES FINANCIERAS E INTERESES', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (518, NULL, '41010503', 'RECUPERACIONES DE GASTOS SOBRE PRESTAMOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (519, NULL, '410106', 'INTERESES SOBRE DEPOSITOS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (520, NULL, '41010601', 'DEPOSITOS EN ASOCIACIONES COOPERATIVAS Y FEDERACIONES', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (522, NULL, '41010602', 'DEPOSITOS EN INSTITUCIONES FINANCIERAS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (523, NULL, '41010603', 'OPERACIONES DE REPORTO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (525, NULL, '41010604', 'EFECTIVO RESTRINGIDO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (526, NULL, '4102', 'INGRESO DE OTRAS OPERACIONES DE INTERMEDIACION', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (527, NULL, '410201', 'GANANCIA POR VENTA DE INVERSIONES FINANCIERAS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (528, NULL, '41020101', 'GANANCIA POR VENTA DE ACTIVOS FINANCIEROS NEGOCIBLES', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (530, NULL, '41020102', 'GANANCIA POR VENTA DE ACTIVOS FINANCIEROS MANTENIDOS HASTA EL VENCIMIENTO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (532, NULL, '410202', 'CAMBIOS EN EL VALOR RAZONABLE DE ACTIVOS Y PASIVOS FINANCIEROS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (534, NULL, '41020201', 'CAMBIOS EN EL VALOR RAZONALBE DE ACTIVOS FINANCIEROS NEGOCIABLES', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (536, NULL, '41020202', 'CAMBIO EN EL VALOR RAZONABLE DE ACTIVOS FINANCIEROS MANTENIDOS HASTA EL VENCIMIENTO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (538, NULL, '410203', 'SERVICIOS FINANCIEROS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (539, NULL, '41020301', 'TRAMITES JURIDICOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (540, NULL, '41020302', 'OTROS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (541, NULL, '410204', 'OPERACIONES EN MONEDA EXTRANJERA', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (542, NULL, '41020401', 'UTILIDAD EN VENTA DE MONEDA EXTRANJERA', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (543, NULL, '41020402', 'COMISIONES', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (544, NULL, '41020403', 'FLUCTUACIONES POR TIPO CAMBIO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (545, NULL, '410205', 'PLUSVALIA', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (546, NULL, '41020501', 'PLUSVALIA EN PARTICIPACIONES EN NEGOCIOS CONJUNTO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (548, NULL, '41020502', 'PUSVALIA EN ASOCIADAS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (549, NULL, '410206', 'OTRAS COMISIONES', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (550, NULL, '41020601', 'TROQUELADO Y ENVASADO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (551, NULL, '41020602', 'DISTRIBUCION DE TARJETAS DE CREDITO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (552, NULL, '41020603', 'TRANSFERENCIA DE FONDOS AJENOS (REMESAS)', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (553, NULL, '41020604', 'COLECTURIA', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (554, NULL, '41020605', 'COMISIONES POR EMISION DE DOCUMENTOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (555, NULL, '41020606', 'COMISIONES POR CHEQUE RECHAZADO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (556, NULL, '410207', 'VENTA DE PAPELERIA', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (557, NULL, '41020701', 'VENTA DE LIBRETAS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (558, NULL, '41020702', 'OTROS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (559, NULL, '410208', 'GANANCIAS GENERADAS POR ENTIDADES REGISTRADAS BAJO EL METODO DE LA PARTICIPACION', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (561, NULL, '41020801', 'ASOCIADAS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (562, NULL, '41020802', 'PARTICIPACIONES EN NEGOCIOS CONJUNTOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (563, NULL, '410209', 'EXCEDENTES', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (564, NULL, '41020901', 'ASOCIACIONES COOPERATIVAS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (565, NULL, '41020902', 'FEDERACIONES', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (566, NULL, '41020903', 'PARTICIPACIONES EN NEGOCIOS CONJUNTOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (567, NULL, '410210', 'RECARGOS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (568, NULL, '41021001', 'RECARGOS SOBRE CREDITOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (569, NULL, '41021002', 'RECARGOS SOBRE DEPOSITOS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (570, NULL, '4102100201', 'RECARGO POR MANEJO DE CUENTA', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (571, NULL, '4102100202', 'RECARGO POR INACTIVIDAD DE CUENTAS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (572, NULL, '41021003', 'RECARGO POR SOBREGIRO (POR TARJETA DE CREDITOS)', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (574, NULL, '41021004', 'RECARGO POR LIBERACION DE FONDOS EN RESERVA', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (575, NULL, '41021005', 'OTROS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (576, NULL, '410211', 'RECUPERACION DE GASTOS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (577, NULL, '41021101', 'RECUPERACION DE GASTOS DE SEGUROS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (579, NULL, '410212', 'OTROS DE INTERMEDIACION', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (580, NULL, '41021201', 'PONCHADORAS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (581, NULL, '41021202', 'VENTA MILLAS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (582, NULL, '41021203', 'INTERESES DEPOSITOS EN GARANTIA', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (583, NULL, '41021204', 'CARGO POR INACTIVIDAD DE TARJETA DE CREDITO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (584, NULL, '41021205', 'INSPECCIONES Y AVALÚOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (585, NULL, '42', 'INGRESOS DE NO OPERACION', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (586, NULL, '4201', 'GANANCIA EN VENTA DE ACTIVOS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (587, NULL, '420101', 'PROPIEDAD, PLANTA Y EQUIPO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (588, NULL, '420102', 'PROPIEDADES DE INVERSION', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (589, NULL, '420103', 'ACTIVOS INTANGIBLES', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (590, NULL, '420104', 'ACTIVOS RECIBIDOS EN PAGO O ADJUDICADOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (591, NULL, '4202', 'INGRESOS POR EXPLOTACION DE ACTIVOS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (592, NULL, '420201', 'PROPIEDAD, PLANTA Y EQUIPO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (593, NULL, '420202', 'PROPIEDADES DE INVERSION', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (594, NULL, '420203', 'REEMBOLSO DE GASTOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (595, NULL, '420204', 'OTROS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (596, NULL, '4203', 'SUBVENCIONES', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (597, NULL, '420301', 'RELACIONADOS CON ACTIVOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (598, NULL, '420302', 'RELACIONADOS CON INGRESOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (599, NULL, '4204', 'REVERSION DE DETERIORO DE VALOR DE ACTIVOS', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (600, NULL, '420401', 'PROPIEDAD, PLANTA Y EQUIPO', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (601, NULL, '420402', 'PROPIEDADES DE INVERSION', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (602, NULL, '420403', 'ACTIVOS INTANGIBLES', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (603, NULL, '4205', 'OTROS INGRESOS DE NO OPERACION', 4, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (604, NULL, '420501', 'LIBERACION DE PROVISION DE ACTIVOS EXTRAORDINARIOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (606, NULL, '420502', 'INDEMNIZACIONES DE ASEGURADORAS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (607, NULL, '420503', 'LITIGIOS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (608, NULL, '420504', 'SOBRANTES DE CAJEROS', 4, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (609, NULL, '5', 'COSTOS Y GASTOS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (610, 609, '51', 'COSTOS POR ACTIVIDADES DE INTERMEDIACION', 5, 0.00, 0, 0, 'O', 'A', '5', 1, NULL, '2023-08-26 12:31:51');
+INSERT INTO `catalogo` VALUES (611, 610, '5101', 'CAPTACIÓN DE DEPÓSITOS', 5, 0.00, 0, 0, 'O', 'A', '51', 1, NULL, '2023-08-26 12:32:47');
+INSERT INTO `catalogo` VALUES (612, 611, '510101', 'INTERESES SOBRE DEPÓSITOS DE AHORRO', 5, 0.00, 0, 0, 'O', 'A', '5101', 1, NULL, '2023-08-26 12:32:58');
+INSERT INTO `catalogo` VALUES (613, 612, '51010101', 'AHORRO A LA VISTA', 5, 0.00, 1, 0, 'O', 'A', '5101', 1, NULL, '2023-08-26 12:33:10');
+INSERT INTO `catalogo` VALUES (614, 612, '51010102', 'AHORRO PROGRAMADO', 5, 0.00, 1, 0, 'O', 'A', '5101', 1, NULL, '2023-08-26 12:36:05');
+INSERT INTO `catalogo` VALUES (615, 611, '510102', 'INTERESES SOBRE DEPÓSITOS A PLAZO', 5, 0.00, 1, 0, 'O', 'A', '5101', 1, NULL, '2023-08-28 12:25:59');
+INSERT INTO `catalogo` VALUES (616, 611, '510103', 'PREMIOS CUENTAS DE AHORRO', 5, 0.00, 1, 0, 'O', 'A', '5101', 1, NULL, '2023-08-28 12:26:13');
+INSERT INTO `catalogo` VALUES (617, 611, '510104', 'SEGUROS SOBRE DEPÓSITOS', 5, 0.00, 1, 0, 'O', 'A', '5101', 1, NULL, '2023-08-28 12:26:27');
+INSERT INTO `catalogo` VALUES (618, 610, '5102', 'COSTOS POR PRESTAMOS OBTENIDOS', 5, 0.00, 0, 0, 'O', 'A', '51', 1, NULL, '2023-08-26 12:35:14');
+INSERT INTO `catalogo` VALUES (619, 618, '510201', 'DE ENTIDADES DEL SISTEMA FINANCIERO', 5, 0.00, 0, 0, 'O', 'A', '5102', 1, NULL, '2023-08-28 12:27:06');
+INSERT INTO `catalogo` VALUES (620, NULL, '51020101', 'INTERESES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (621, NULL, '51020102', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (622, NULL, '51020103', 'RECARGOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (623, NULL, '51020104', 'EVALÚOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (624, NULL, '51020105', 'ESCRITURACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (625, NULL, '510202', 'DE OTRAS ENTIDADES DEL SISTEMA FINANCIERO', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (626, NULL, '51020201', 'INTERESES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (627, NULL, '51020202', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (628, NULL, '51020203', 'RECARGOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (629, NULL, '51020204', 'EVALÚOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (631, NULL, '51020205', 'ESCRITURACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (632, NULL, '510203', 'DE ENTIDADES DEL ESTADO', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (633, NULL, '51020301', 'INTERESES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (634, NULL, '51020302', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (635, NULL, '51020303', 'RECARGOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (636, NULL, '51020304', 'AVALÚOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (637, NULL, '51020305', 'ESCRITURACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (638, NULL, '510204', 'DE EMPRESAS PRIVADAS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (639, NULL, '51020401', 'INTERESES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (640, NULL, '51020403', 'RECARGOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (641, NULL, '51020404', 'AVALÚOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (642, NULL, '51020405', 'ESCRITURACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (643, NULL, '510205', 'DE PARTICULARES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (644, NULL, '51020501', 'INTERESES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (645, NULL, '51020502', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (646, NULL, '51020503', 'RECARGOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (647, NULL, '51020504', 'AVALÚOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (648, NULL, '51020505', 'ESCRITURACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (649, NULL, '510206', 'DE ENTIDADES EXTRANJERAS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (650, NULL, '51020601', 'INTERESES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (651, NULL, '51020602', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (652, NULL, '51020603', 'RECARGOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (653, NULL, '51020604', 'AVALÚOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (654, NULL, '51020605', 'ESCRITURACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (655, NULL, '5103', 'PROVISIÓN DE SANEAMIENTO DE ACTIVOS DE INTERMEDIACIÓN', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (657, 655, '510301', 'SANEAMIENTO DE PRÉSTAMOS POR COBRAR', 5, 0.00, 1, 0, 'O', 'A', '5103', 1, NULL, '2023-08-28 12:25:42');
+INSERT INTO `catalogo` VALUES (658, NULL, '510302', 'SANEAMIENTO DE INTERESES Y COMISIONES POR COBRAR', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (660, NULL, '510303', 'SANEAMIENTO DE COSTAS PROCÉSALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (661, NULL, '5104', 'OTRAS COMISIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (662, NULL, '510401', 'COMISIONES O PRIMAS POR OPERACIONES DE REPORTO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (663, NULL, '510402', 'COMISIONES POR TRANSFERENCIAS DE REMESAS FAMILIARES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (665, NULL, '5105', 'DETERIORO DE ACTIVOS FINANCIEROS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (666, NULL, '510501', 'DETERIORO O CASTIGO DE ACTIVOS FINANCIEROS NEGOCIABLES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (668, NULL, '510502', 'DETERIORO O CASTIGO DE ACTIVOS FINANCIEROS HASTA EL VENCIMIENTO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (670, NULL, '510503', 'DETERIORO O CASTIGO DE CARTERA DE CREDITOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (671, NULL, '510504', 'DETERIORO O CASTIGO DE OTROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (672, NULL, '5106', 'PERDIDA POR DIFERENCIA DE PRECIOS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (673, NULL, '510601', 'PERDIDA POR OPERACIONES CON TITULOS VALORES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (674, NULL, '5107', 'PERDIDA EN VENTA DE INVERSIONES FINANCIERAS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (675, NULL, '510701', 'PERDIDA EN VENTA DE ACTIVOS FINANCIEROS NEGOCIBLES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (677, NULL, '510702', 'PERDIDA EN VENTA DE ACTIVOS FINANCIEROS CONSERVADOS AL VENCIMIENTO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (679, NULL, '5108', 'CAMBIOS EN EL VALOR RAZONABLE DE ACTIVOS Y PASIVOS FINANCIEROS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (681, NULL, '510801', 'CAMBIOS EN EL VALOR RAZONABLE DE ACTIVOS FINANCIEROS Y PASIVOS FINANCIEROS NEGOCIABLES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (683, NULL, '510802', 'CAMBIOS EN EL VALOR RAZONABLE DE ACTIVOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (686, NULL, '5109', 'PROGRAMAS Y PROMOCIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (687, NULL, '510901', 'MILLAS Y PUNTOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (688, NULL, '5110', 'PROMOCIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (689, NULL, '511001', 'PROMOCIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (690, NULL, '5111', 'MATERIALES TARJETAS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (691, NULL, '511101', 'PLÁSTICO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (692, NULL, '511102', 'TROQUELADO Y EMBOZADO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (693, NULL, '511103', 'IMPRESION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (694, NULL, '511104', 'DISEÑO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (695, NULL, '511105', 'OTROS MATERIALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (696, NULL, '5112', 'COMUNICACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (697, NULL, '511201', 'TELEFONOS FIJOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (698, NULL, '511202', 'TELEFONOS MOVILES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (699, NULL, '511203', 'LINEAS DEDICADAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (700, NULL, '511204', 'TARJETAS PREPAGADAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (701, NULL, '511205', 'REPETIDORAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (702, NULL, '511206', 'COURIER', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (703, NULL, '511207', 'FRANQUICIAS Y ESTAMPILLAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (704, NULL, '511208', 'BEEPERS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (705, NULL, '511209', 'COMUNICACION SATELITAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (706, NULL, '511210', 'SERVICIO DE AUTORIZACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (707, NULL, '511211', 'PAGINAS WEB', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (708, NULL, '5113', 'PAPELERIA Y UTILES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (709, NULL, '511301', 'IMPRESION ESTADOS DE CUENTA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (710, NULL, '511302', 'IMPRESION CARTAS EXTRA FINANCIAMIENTO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (711, NULL, '511303', 'IMPRESION CARTAS INCREMENTO LIMITE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (712, NULL, '511304', 'IMPRESION CARTAS BIENVENIDA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (713, NULL, '511305', 'SOLICITUDES DE CREDITO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (714, NULL, '511306', 'CONTRATOS DE CREDITO Y PAGARE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (715, NULL, '511307', 'SOBRES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (716, NULL, '5114', 'COBRANZAS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (717, NULL, '511401', 'COMISIONES POR EMBARGO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (718, NULL, '511402', 'COBROS MEDIANTE ABOGADOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (719, NULL, '5115', 'SEGUROS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (720, NULL, '511501', 'CONTRA ROBO Y EXTRAVIO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (721, NULL, '511502', 'POR MUERTE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (722, NULL, '511503', 'CONTRA FRAUDE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (723, NULL, '511504', 'CONTRA FALSIFICACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (724, NULL, '511505', 'PROTECCION CARTERA DE PRESTAMOS POR COBRAR', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (725, NULL, '511506', 'PROTECCION CARTERA DE AHORROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (726, 609, '52', 'COSTOS POR OTRAS ACTIVIDADES DE OPERACION', 5, 0.00, 0, 0, 'O', 'A', '5', 1, NULL, '2023-08-26 12:35:24');
+INSERT INTO `catalogo` VALUES (727, NULL, '5201', 'OPERACIONES EN MONEDA EXTRAJERA', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (728, NULL, '520101', 'PERDIDA EN VENTA DE MONEDA EXTRAJERA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (729, NULL, '520102', 'COMISIONES POR COMPRA DE MONEDA EXTRAJERA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (730, NULL, '520103', 'FLUCTUACIONES DE TIPO DE CAMBIO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (731, 726, '5202', 'LICENCIAS', 5, 0.00, 0, 0, 'O', 'A', '52', 1, NULL, '2023-08-27 10:54:06');
+INSERT INTO `catalogo` VALUES (732, NULL, '520201', 'LICENCIA MASTERCARD', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (733, NULL, '520202', 'LICENCIA VISA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (734, NULL, '520203', 'AMERICAN EXPRESS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (735, NULL, '520204', 'MEMBRESIAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (737, NULL, '520205', 'OTROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (738, NULL, '5203', 'OTROS COSTOS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (739, NULL, '520301', 'PROCESAMIENTO EXTERNO MASTER CARD', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (740, NULL, '520302', 'PROCESAMIENTO EXTERNO VISA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (741, NULL, '520303', 'BURÓ DE CRÉDITO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (742, NULL, '520304', 'LIQUIDACION POR ROBO Y FRAUDE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (743, NULL, '53', 'GASTOS DE OPERACION', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (744, NULL, '5301', 'GASTOS DE ORGANISMOS DE DIRECCION', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (745, NULL, '530101', 'CONSEJO DE ADMINISTRACION', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (746, NULL, '53010101', 'DIETAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (747, NULL, '53010102', 'TRANSPORTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (748, NULL, '53010103', 'OTROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (749, NULL, '530102', 'JUNTA DE VIGILANCIA', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (750, NULL, '53010201', 'DIETAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (751, NULL, '53010202', 'TRANSPORTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (752, NULL, '53010203', 'OTROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (753, NULL, '530103', 'COMITES DE APOYO', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (754, NULL, '53010301', 'DIETAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (755, NULL, '53010302', 'TRANSPORTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (756, NULL, '53010303', 'OTROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (757, 743, '5302', 'GASTOS DE FUNCIONARIOS Y EMPLEADOS', 5, 0.00, 0, 0, 'O', 'A', '53', 1, NULL, '2023-08-27 10:58:20');
+INSERT INTO `catalogo` VALUES (758, NULL, '530201', 'GERENCIA', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (759, NULL, '53020101', 'REMUNERACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (760, NULL, '5302010101', 'SUELDOS ORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (761, NULL, '5302010102', 'SUELDOS EXTRAORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (762, NULL, '5302010103', 'SUELDOS EVENTUALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (763, NULL, '5302010104', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (764, NULL, '5302010105', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (765, NULL, '53020102', 'PRESTACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (766, NULL, '5302010201', 'AGUINALDOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (767, NULL, '5302010202', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (768, NULL, '5302010203', 'VACACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (769, NULL, '5302010204', 'UNIFORMES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (770, NULL, '5302010205', 'SEGURO SOCIAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (771, NULL, '5302010206', 'INSAFORP', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (772, NULL, '5302010207', 'GASTOS MEDICOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (773, NULL, '5302010208', 'FONDO DE CAJEROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (774, NULL, '5302010209', 'ATENCIONES Y RECREACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (775, NULL, '5302010210', 'OTROS SEGUROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (776, NULL, '5302010211', 'AFP´S', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (777, NULL, '5302010212', 'SEGURO DE VIDA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (778, NULL, '5302010213', 'OTRAS PRESTACIONES AL PERSONAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (779, NULL, '53020103', 'INDEMNIZACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (780, NULL, '5302010301', 'POR DESPIDO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (781, NULL, '5302010302', 'POR INCAPACIDAD TEMPORAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (782, NULL, '5302010303', 'POR RETIRO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (783, NULL, '53020104', 'OTROS GASTOS DEL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (784, NULL, '5302010401', 'CAPACITACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (785, NULL, '5302010402', 'GASTOS DE VIAJE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (786, NULL, '53020105', 'PENSIONES Y JUBILACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (787, NULL, '5302010501', 'PENSIONES Y JUBILACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (789, NULL, '53020106', 'CONSUMO DE MATERIALES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (790, NULL, '5302010601', 'COMBUSTIBLE Y LUBRICANTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (791, NULL, '5302010602', 'VIATICOS Y TRANSPORTE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (792, NULL, '5302010603', 'PAPELERIA Y UTILES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (793, NULL, '5302010604', 'DEPRECIACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (794, NULL, '530202', 'CONTABILIDAD', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (795, NULL, '53020201', 'REMUNERACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (796, NULL, '5302020101', 'SUELDOS ORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (797, NULL, '5302020102', 'SUELDOS EXTRAORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (798, NULL, '5302020103', 'SUELDOS EVENTUALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (799, NULL, '5302020104', 'COMISONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (800, NULL, '5302020105', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (801, NULL, '53020202', 'PRESTACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (802, NULL, '5302020201', 'AGUINALDOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (803, NULL, '5302020202', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (804, NULL, '5302020203', 'VACACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (805, NULL, '5302020204', 'UNIFORMES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (806, NULL, '5302020205', 'SEGURO SOCIAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (807, NULL, '5302020206', 'INSAFORP', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (808, NULL, '5302020207', 'GASTOS MEDICOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (809, NULL, '5302020208', 'ATENCIONES Y RECREACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (810, NULL, '5302020209', 'OTROS SEGUROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (811, NULL, '5302020210', 'AFP´S', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (812, NULL, '5302020211', 'SEGURO DE VIDA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (813, NULL, '5302020212', 'OTRAS PRESTACIONES AL PERSONAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (814, NULL, '53020203', 'INDEMNIZACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (815, NULL, '5302020301', 'POR DESPIDO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (816, NULL, '5302020302', 'POR INCAPACIDAD TEMPORAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (817, NULL, '5302020303', 'POR RETIRO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (818, NULL, '53020204', 'OTROS GASTOS DEL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (819, NULL, '5302020401', 'CAPACITACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (820, NULL, '5302020402', 'GASTOS DE VIAJE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (821, NULL, '53020205', 'PENSIONES Y JUBILACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (822, NULL, '5302020501', 'PENSIONES Y JUBILACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (823, NULL, '53020206', 'CONSUMO DE MATERIALES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (824, NULL, '5302020601', 'COMBUSTIBLE Y LUBRICANTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (825, NULL, '5302020602', 'VIATICOS Y TRANSPORTE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (826, NULL, '5302020603', 'PAPELERIA Y UTILES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (827, NULL, '5302020604', 'DEPRECIACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (828, NULL, '530203', 'CREDITOS Y COBROS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (829, NULL, '53020301', 'REMUNERACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (830, NULL, '5302030101', 'SUELDOS ORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (831, NULL, '5302030102', 'SUELDOS EXTRAORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (832, NULL, '5302030103', 'SUELDOS EVENTUALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (833, NULL, '5302030104', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (834, NULL, '5302030105', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (835, NULL, '53020302', 'PRESTACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (836, NULL, '5302030201', 'AGUINALDOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (837, NULL, '5302030202', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (838, NULL, '5302030203', 'VACACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:19');
+INSERT INTO `catalogo` VALUES (839, NULL, '5302030204', 'UNIFORMES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (841, NULL, '5302030205', 'SEGURO SOCIAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (842, NULL, '5302030206', 'INSAFORP', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (843, NULL, '5302030207', 'GASTOS MEDICOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (844, NULL, '5302030208', 'ATENCIONES Y RECREACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (845, NULL, '5302030209', 'OTROS SEGUROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (846, NULL, '5302030210', 'AFP´S', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (847, NULL, '5302030211', 'SEGURO DE VIDA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (848, NULL, '5302030212', 'OTRAS PRESTACIONES AL PERSONAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (849, NULL, '53020303', 'INDEMNIZACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (850, NULL, '5302030301', 'POR DESPIDO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (851, NULL, '5302030302', 'POR INCAPACIDAD TEMPORAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (852, NULL, '5302030303', 'POR RETIRO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (853, NULL, '53020304', 'OTROS GASTOS DEL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (854, NULL, '5302030401', 'CAPACITACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (855, NULL, '5302030402', 'GASTOS DE VIAJE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (856, NULL, '53020305', 'PENSIONES Y JUBILACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (857, NULL, '5302030501', 'PENSIONES Y JUBILACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (858, NULL, '53020306', 'CONSUMO DE MATERIALES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (859, NULL, '5302030601', 'COMBUSTIBLE Y LUBRICANTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (860, NULL, '5302030602', 'VIATICOS Y TRANSPORTE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (861, NULL, '5302030603', 'PAPELERIA Y UTILES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (862, NULL, '5302030604', 'DEPRECIACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (863, NULL, '530204', 'CAPTACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (864, NULL, '53020401', 'REMUNERACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (865, NULL, '5302040101', 'SUELDOS ORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (866, NULL, '5302040102', 'SUELDOS EXTRAORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (867, NULL, '5302040103', 'SUELDOS EVENTUALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (868, NULL, '5302040104', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (869, NULL, '5302040105', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (870, NULL, '53020402', 'PRESTACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (871, NULL, '5302040201', 'AGUINALDOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (872, NULL, '5302040202', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (873, NULL, '5302040203', 'VACACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (874, NULL, '5302040204', 'UNIFORMES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (875, NULL, '5302040205', 'SEGURO SOCIAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (876, NULL, '5302040206', 'INSAFORP', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (877, NULL, '5302040207', 'GASTOS MEDICOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (878, NULL, '5302040208', 'ATENCIONES Y RECREACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (879, NULL, '5302040209', 'OTROS SEGUROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (880, NULL, '5302040210', 'AFP´S', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (881, NULL, '5302040211', 'SEGURO DE VIDA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (882, NULL, '5302040212', 'OTRAS PRESTACIONES AL PERSONAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (883, NULL, '53020403', 'INDEMNIZACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (884, NULL, '5302040301', 'POR DESPIDO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (885, NULL, '5302040302', 'POR INCAPACIDAD TEMPORAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (886, NULL, '5302040303', 'POR RETIRO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (887, NULL, '53020404', 'OTROS GASTOS DEL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (888, NULL, '5302040401', 'CAPACITACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (889, NULL, '5302040402', 'GASTOS DE VIAJE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (890, NULL, '53020405', 'PENSIONES Y JUBILACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (891, NULL, '5302040501', 'PENSIONES Y JUBILACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (893, NULL, '53020406', 'CONSUMO DE MATERIALES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (894, NULL, '5302040601', 'COMBUSTIBLE Y LUBRICANTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (895, NULL, '5302040602', 'VIATICOS Y TRANSPORTE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (896, NULL, '5302040603', 'PAPELERIA Y UTILES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (897, NULL, '5302040604', 'DEPRECIACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (898, NULL, '530205', 'MERCADEO', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (899, NULL, '53020501', 'REMUNERACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (900, NULL, '5302050101', 'SUELDOS Y SALARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (901, NULL, '5302050102', 'SUELDOS EXTRAORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (902, NULL, '5302050103', 'SUELDOS EVENTUALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (903, NULL, '5302050104', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (904, NULL, '5302050105', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (905, NULL, '53020502', 'PRESTACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (906, NULL, '5302050201', 'AGUINALDOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (907, NULL, '5302050202', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (908, NULL, '5302050203', 'VACACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (909, NULL, '5302050204', 'UNIFORMES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (910, NULL, '5302050205', 'SEGURO SOCIAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (911, NULL, '5302050206', 'INSAFORP', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (912, NULL, '5302050207', 'GASTOS MEDICOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (913, NULL, '5302050208', 'ATENCIONES Y RECREACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (914, NULL, '5302050209', 'OTROS SEGUROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (915, NULL, '5302050210', 'AFP´S', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (916, NULL, '5302050211', 'SEGURO DE VIDA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (917, NULL, '5302050212', 'OTRAS PRESTACIONES AL PERSONAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (918, NULL, '53020503', 'INDEMNIZACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (919, NULL, '5302050301', 'POR DESPIDO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (920, NULL, '5302050302', 'POR INCAPACIDAD TEMPORAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (921, NULL, '5302050303', 'POR RETIRO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (922, NULL, '53020504', 'OTROS GASTOS DEL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (923, NULL, '5302050401', 'CAPACITACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (924, NULL, '5302050402', 'GASTOS DE VIAJE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (925, NULL, '53020505', 'PENSIONES Y JUBILACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (926, NULL, '5302050501', 'PENSIONES Y JUBILACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (927, NULL, '53020506', 'CONSUMO DE MATERIALES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (928, NULL, '5302050601', 'COMBUSTIBLE Y LUBRICANTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (929, NULL, '5302050602', 'VIATICOS Y TRANSPORTE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (930, NULL, '5302050603', 'PAPELERIA Y UTILES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (931, NULL, '5302050604', 'DEPRECIACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (932, NULL, '530206', 'INFORMATICA', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (933, NULL, '53020601', 'REMUNERACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (934, NULL, '5302060101', 'SUELDOS ORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (935, NULL, '5302060102', 'SUELDOS EXTRAORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (936, NULL, '5302060103', 'SUELDOS EVENTUALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (937, NULL, '5302060104', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (938, NULL, '5302060105', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (939, NULL, '53020602', 'PRESTACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (940, NULL, '5302060201', 'AGUINALDOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (941, NULL, '5302060202', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (942, NULL, '5302060203', 'VACACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (943, NULL, '5302060204', 'UNIFORMES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (945, NULL, '5302060205', 'SEGURO SOCIAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (946, NULL, '5302060206', 'INSAFORP', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (947, NULL, '5302060207', 'GASTOS MEDICOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (948, NULL, '5302060208', 'ATENCIONES Y RECREACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (949, NULL, '5302060209', 'OTROS SEGUROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (950, NULL, '5302060210', 'AFP´S', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (951, NULL, '5302060211', 'SEGURO DE VIDA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (952, NULL, '5302060212', 'OTRAS PRESTACIONES AL PERSONAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (953, NULL, '53020603', 'INDEMNIZACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (954, NULL, '5302060301', 'POR DESPIDO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (955, NULL, '5302060302', 'POR INCAPACIDAD TEMPORAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (956, NULL, '5302060303', 'POR RETIRO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (957, NULL, '53020604', 'OTROS GASTOS DEL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (958, NULL, '5302060401', 'CAPACITACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (959, NULL, '5302060402', 'GASTOS DE VIAJE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (960, NULL, '53020605', 'PENSIONES Y JUBILACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (961, NULL, '5302060501', 'PENSIONES Y JUBILIACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (962, NULL, '53020606', 'CONSUMO DE MATERIALES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (963, NULL, '5302060601', 'COMBUSTIBLE Y LUBRICANTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (964, NULL, '5302060602', 'VIATICOS Y TRANSPORTE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (965, NULL, '5302060603', 'PEPELERIA Y UTILES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (966, NULL, '5302060604', 'DEPRECIACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (967, NULL, '530207', 'CAJA', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (968, NULL, '53020701', 'REMUNERACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (969, NULL, '5302070101', 'SUELDOS ORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (970, NULL, '5302070102', 'SUELDOS EXTRAORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (971, NULL, '5302070103', 'SUELDOS EVENTUALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (972, NULL, '5302070104', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (973, NULL, '5302070105', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (974, NULL, '53020702', 'PRESTACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (975, NULL, '5302070201', 'AGUINALDOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (976, NULL, '5302070202', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (977, NULL, '5302070203', 'VACACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (978, NULL, '5302070204', 'UNIFORMES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (979, NULL, '5302070205', 'SEGURO SOCIAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (980, NULL, '5302070206', 'INSAFORP', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (981, NULL, '5302070207', 'GASTOS MEDICOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (982, NULL, '5302070208', 'ATENCIONES Y RECREACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (983, NULL, '5302070209', 'OTROS SEGUROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (984, NULL, '5302070210', 'AFP´S', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (985, NULL, '5302070211', 'SEGURO DE VIDA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (986, NULL, '5302070212', 'OTRAS PRESTACIONES AL PERSONAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (987, NULL, '53020703', 'INDEMNIZACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (988, NULL, '5302070301', 'POR DESPIDO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (989, NULL, '5302070302', 'POR INCAPACIDAD TEMPORAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (990, NULL, '5302070303', 'POR RETIRO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (991, NULL, '53020704', 'OTROS GASTOS DEL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (992, NULL, '5302070401', 'CAPACITACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (993, NULL, '5302070402', 'GASTOS DE VIAJE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (994, NULL, '53020705', 'PENSIONES Y JUBILACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (995, NULL, '5302070501', 'PENSIONES Y JUBILACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (997, NULL, '53020706', 'CONSUMO DE MATERIALES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (998, NULL, '5302070601', 'COMBUSTIBLE Y LUBRICANTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (999, NULL, '5302070602', 'VIATICOS Y TRANSPORTE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1000, NULL, '5302070603', 'PAPELERIA Y UTILES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1001, NULL, '5302070604', 'DEPRECIACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1002, NULL, '530208', 'SERVICIOS GENERALES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1003, NULL, '53020801', 'REMUNERACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1004, NULL, '5302080101', 'SUELDOS Y SALARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1005, NULL, '5302080102', 'SUELDOS EXTRAORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1006, NULL, '5302080103', 'SUELDOS EVENTUALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1007, NULL, '5302080104', 'COMISIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1008, NULL, '5302080105', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1009, NULL, '53020802', 'PRESTACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1010, NULL, '5302080201', 'AGUINALDOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1011, NULL, '5302080202', 'BONIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1012, NULL, '5302080203', 'VACACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1013, NULL, '5302080204', 'UNIFORMES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1014, NULL, '5302080205', 'SEGURO SOCIAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1015, NULL, '5302080206', 'INSAFORP', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1016, NULL, '5302080207', 'GASTOS MEDICOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1017, NULL, '5302080208', 'ATENCIONES Y RECREACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1018, NULL, '5302080209', 'OTROS SEGUROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1019, NULL, '5302080210', 'AFP´S', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1020, NULL, '5302080211', 'SEGURO DE VIDA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1021, NULL, '5302080212', 'OTRAS PRESTACIONES AL PERSONAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1022, NULL, '53020803', 'INDEMNIZACIONES AL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1023, NULL, '5302080301', 'POR DESPIDO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1024, NULL, '5302080302', 'POR INCAPACIDAD TEMPORAL', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1025, NULL, '5302080303', 'POR RETIRO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1026, NULL, '53020804', 'OTROS GASTOS DEL PERSONAL', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1027, NULL, '5302080401', 'CAPACITACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1028, NULL, '5302080402', 'GASTOS DE VIAJE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1029, NULL, '53020805', 'PENSIONES Y JUBILACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1030, NULL, '5302080501', 'PENSIONES Y JUBILACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1031, NULL, '53020806', 'CONSUMO DE MATERIALES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1032, NULL, '5302080601', 'COMBUSTIBLE Y LUBRICANTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1033, NULL, '5302080602', 'VIATICOS Y TRANSPORTE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1034, NULL, '5302080603', 'PAPELERIA Y UTILES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1035, NULL, '5302080604', 'DEPRECIACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1036, 743, '5303', 'GASTOS GENERALES', 5, 0.00, 0, 0, 'O', 'A', '53', 1, NULL, '2023-08-27 10:56:08');
+INSERT INTO `catalogo` VALUES (1037, NULL, '530301', 'CONSUMO DE MATERIALES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1038, NULL, '53030101', 'COMBUSTIBLE Y LUBRICANTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1039, 1036, '53030102', 'PAPELERIA Y UTILES', 5, 0.00, 1, 0, 'O', 'A', '5303', 1, NULL, '2023-08-27 08:32:18');
+INSERT INTO `catalogo` VALUES (1040, 1036, '53030103', 'MATERIALES DE LIMPIEZA', 5, 0.00, 1, 0, 'O', 'A', '5303', 1, NULL, '2023-08-27 08:32:29');
+INSERT INTO `catalogo` VALUES (1041, NULL, '530302', 'REPARACIN Y MANTENIMIENTO DE ACTIVO FIJO', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1042, NULL, '53030201', 'EDIFICIOS PROPIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1043, NULL, '53030202', 'EQUIPO DE COMPUTACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1044, NULL, '53030203', 'VEHICULOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1045, NULL, '53030204', 'MOBILIARIO Y EQUIPO DE OFICINA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1046, NULL, '530303', 'SERVICIOS PUBLICOS E IMPUESTOS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1047, NULL, '53030301', 'COMUNICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1049, NULL, '53030302', 'ENERGIA ELECTRICA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1050, NULL, '53030303', 'AGUA POTABLE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1051, NULL, '53030304', 'IMPUESTOS MUNICIPALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1052, NULL, '53030305', 'SERVICIOS MUNICIPALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1053, NULL, '53030306', 'IVA NO DEDUCIBLE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1054, NULL, '530304', 'PUBLICIDAD Y PROMOCION', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1055, NULL, '53030401', 'TELEVISION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1056, NULL, '53030402', 'RADIO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1057, NULL, '53030403', 'PRENSA ESCRITA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1058, 1036, '53030404', 'OTROS MEDIOS', 5, 0.00, 1, 0, 'O', 'A', '5303', 1, NULL, '2023-08-27 08:32:41');
+INSERT INTO `catalogo` VALUES (1059, 1036, '53030405', 'ARTICULOS PROMOCIONALES', 5, 0.00, 1, 0, 'O', 'A', '5303', 1, NULL, '2023-08-27 08:32:53');
+INSERT INTO `catalogo` VALUES (1060, NULL, '53030406', 'GASTOS DE REPRESENTACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1061, NULL, '53030407', 'CAMPÁÑA PUBLICITARIA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1062, NULL, '530305', 'ARRENDAMIENTOS Y MANTENIMIENTOS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1063, 1062, '53030501', 'LOCALES', 5, 0.00, 1, 0, 'O', 'A', '5303', 1, NULL, '2023-09-08 15:03:51');
+INSERT INTO `catalogo` VALUES (1064, NULL, '53030502', 'EQUIPO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1065, NULL, '53030503', 'MANTENIMIENTO DE LOCALES ARRENDADOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1066, NULL, '53030504', 'MANTENIMIENTO DE EQUIPO ARRENDADO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1067, NULL, '53030505', 'MANTENIMIENTO DE BIENES RECIBIDOS EN PAGO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1068, NULL, '530306', 'SEGUROS SOBRE BIENES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1069, NULL, '53030601', 'SOBRE ACTIVOS FIJOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1070, NULL, '53030602', 'SOBRE RIESGOS FINANCIEROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1071, NULL, '53030603', 'FIANZA DE FIDELIDAD', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1072, NULL, '530307', 'HONORARIOS PROFESIONALES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1073, NULL, '53030701', 'AUDITORES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1074, NULL, '53030702', 'ABOGADOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1075, NULL, '53030703', 'EMPRESAS CONSULTORAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1076, NULL, '53030704', 'ASESORES INDEPENDIENTES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1077, NULL, '53030705', 'OTROS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1078, NULL, '530308', 'DEPRECIACIONES Y AMORTIZACIONES', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1079, NULL, '53030801', 'EDIFICACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1080, NULL, '53030802', 'EQUIPO DE COMPUTACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1081, NULL, '53030803', 'EQUIPO DE OFICINA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1082, NULL, '53030804', 'MOBILIARIO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1083, NULL, '53030805', 'VEHICULOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1084, NULL, '53030806', 'MAQUINARIA, EQUIPO Y HERRAMIENTAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1085, NULL, '53030807', 'REMODELACION Y READECUACIONES EN LOCALES PROPIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1087, NULL, '53030808', 'CONSTRUCCIONES EN LOCALES ARRENDADOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1088, NULL, '53030809', 'OBRAS DE ARTE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1089, NULL, '53030810', 'BIBLIOTECA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1090, NULL, '53030811', 'ARRENDAMIENTO FINANCIERO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1091, NULL, '53030812', 'EQUIPO DE SEGURIDAD', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1092, NULL, '53030813', 'ENSERES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1093, NULL, '53030814', 'INSTALACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1094, NULL, '53030815', 'SOFTWARE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1095, NULL, '53030816', 'LICENCIAS INFORMATICAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1096, NULL, '530309', 'OTROS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1097, NULL, '53030901', 'SERVICIOS DE SEGURIDAD', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1098, NULL, '53030902', 'SUSCRIPCIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1099, 1036, '53030903', 'CONTRIBUCIONES', 5, 0.00, 1, 0, 'O', 'A', '5303', 1, NULL, '2023-08-27 08:33:04');
+INSERT INTO `catalogo` VALUES (1101, NULL, '53030904', 'PUBLICACIONES Y CONVOCATORIAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1102, NULL, '53030905', 'SERVICIO DE TRASLADO DE VALORES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1103, NULL, '53030906', 'GASTOS DE ORGANIZACION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1104, NULL, '53030907', 'GASTOS DE ASAMBLEA', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1105, NULL, '53030908', 'FESTEJO NAVIDEÑO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1106, NULL, '53030909', 'RELACIONES PUBLICAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1107, 1036, '53030910', 'ATENCIONES Y RECREACIONES', 5, 0.00, 1, 0, 'O', 'A', '5303', 1, NULL, '2023-08-27 08:33:15');
+INSERT INTO `catalogo` VALUES (1108, NULL, '53030911', 'RIESGOS COOPERATIVOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1109, 1036, '53030912', 'ANIVERSARIOS Y FESTIVIDADES', 5, 0.00, 1, 0, 'O', 'A', '5303', 1, NULL, '2023-08-27 08:33:41');
+INSERT INTO `catalogo` VALUES (1110, NULL, '53030913', 'REMODELACIONES DE INSTALACIONES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1111, NULL, '53030914', 'GASTOS FUNERALES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1112, NULL, '53030915', 'MANTENIMIENTO DE SISTEMAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1113, 609, '54', 'GASTOS DE NO OPERACION', 5, 0.00, 0, 0, 'O', 'A', '5', 1, NULL, '2023-08-27 11:00:04');
+INSERT INTO `catalogo` VALUES (1114, 1113, '5401', 'GASTOS POR IMPUESTO SOBRE LA RENTA', 5, 0.00, 0, 0, 'O', 'A', '54', 1, NULL, '2023-08-27 11:00:38');
+INSERT INTO `catalogo` VALUES (1115, NULL, '540101', 'GASTOS POR IMPUESTO SOBRE LA RENTA CORRIENTE', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1116, NULL, '540102', 'GASTOS POR IMPUESTO SOBRE LA RENTA DIFERIDO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1117, NULL, '5402', 'OTROS GASTOS DE NO OPERACION', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1118, NULL, '540201', 'PERDIDA POR RETIRO O DESAPROPIACION DE ACTIVOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1119, NULL, '540202', 'PERDIDA POR DETERIORO DE ACTIVOS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1120, NULL, '54020201', 'PROPIEDAD, PLANTA Y EQUIPO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1121, NULL, '54020202', 'PROPIEDADES DE INVERSION', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1122, NULL, '54020203', 'ACTIVOS INTANGIBLES', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1123, NULL, '540203', 'PERDIDAS GENERADAS POR ENTIDADES REGISTRADAS BAJO EL METODO DE LA PARTICIPACION', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1125, NULL, '54020301', 'ASOCIADAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1126, NULL, '54020302', 'PARTICIPACIONES EN NEGOCIOS EN CONJUNTO', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1127, NULL, '540204', 'OTROS', 5, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1128, NULL, '54020401', 'PROVISIONES CONSTITUIDAS POR CASTIGO DE ACTIVOS EXTRAORDINARIOS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1130, NULL, '54020402', 'MULTAS', 5, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1131, NULL, '6', 'CUENTAS LIQUIDADORAS', 6, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1132, NULL, '61', 'PERDIDAS Y EXCEDENTES', 6, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1133, NULL, '6101', 'PERDIDAS Y EXCEDENTES', 6, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1134, NULL, '610101', 'PERDIDAS Y EXCEDENTES', 6, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1135, NULL, '7', 'CUENTAS DE ORDEN', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1137, NULL, '71', 'CUENTAS DE ORDEN DEUDORAS', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1139, NULL, '7101', 'INFORMACION FINANCIERA', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1141, NULL, '710101', 'DERECHOS Y OBLIGACIONES', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1143, NULL, '71010101', 'DISPONIBILIDAD POR CREDITOS OBTENIDOS', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1145, NULL, '7101010101', 'OTORGADOS POR ENTIDADES DEL ESTADO', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1147, NULL, '7101010102', 'OTORGADOS POR EMPRESAS PRIVADAS', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1149, NULL, '7101010103', 'PARTICULARES', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1151, NULL, '7101010104', 'OTRAS ENTIDADES DEL SISTEMA FINANCIERO', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1153, NULL, '7101010105', 'OTORGADOS POR BANCOS EXTRANJEROS', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1155, NULL, '71010102', 'EXIGIBILIDAD POR CREDITOS OTORGADOS', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1157, NULL, '7101010201', 'CREDITOS APROBADOS PENDIENTES DE FORMALIZAR', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1159, NULL, '7101010202', 'SALDOS NO UTILIZADOS DE LINEAS DE CREDITO', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1161, NULL, '7101010203', 'SALDOS NO UTILIZADOS DE SOBREGIROS', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1163, NULL, '7101010204', 'SALDOS NO UTILIZADOS DE TARJETAS DE CREDITO', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1165, NULL, '710102', 'INTERESES SOBRE PRESTAMOS DE DUDOSA RECUPERACION', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1167, NULL, '71010201', 'INTERESES SOBRE PRESTAMOS DE DUDOSA RECUPERACION', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1169, NULL, '71010202', 'PRESTAMOS PARA PRODUCCION', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1171, NULL, '71010203', 'PRESTAMOS PARA COMERCIO', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1173, NULL, '71010204', 'PRESTAMOS PARA CONSUMO', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1175, NULL, '71010205', 'PRESTAMOS PARA SERVICIOS', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1177, NULL, '71010206', 'PRESTAMOS PARA VIVIENDA', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1179, NULL, '71010207', 'PRESTAMOS ROTATIVOS', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1181, NULL, '710103', 'SALDOS A CARGO DE DEUDORES', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1183, NULL, '71010301', 'SALDO A CARGO DE DEUDORES', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1185, NULL, '7101030101', 'SALDO A CARGO DE DEUDORES', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1187, NULL, '710104', 'ADMINISTRACIÓN DE FONDOS', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1189, NULL, '71010401', 'FONDOS RETORNABLES', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1191, NULL, '71010402', 'FONDOS NO RETORNABLES', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1193, NULL, '7102', 'EXISTENCIAS EN BÓVEDA', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1195, NULL, '710201', 'DOCUMENTOS DE CRÉDITOS', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1197, NULL, '71020101', 'CON HIPOTECA - ML', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1199, NULL, '71020102', 'CON HIPOTECA ABIERTA - ML', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1201, NULL, '71020103', 'CON PRENDA CON DESPLAZAMIENTO - ML', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:20');
+INSERT INTO `catalogo` VALUES (1203, NULL, '71020104', 'CON PRENDA SIN DESPLAZAMIENTO - ML', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1205, NULL, '71020105', 'PRENDA SOBRE COSECHAS (AVIO) - ML', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1207, NULL, '71020106', 'MUTUOS SIN GARANTIA REAL - ML', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1209, NULL, '71020107', 'HIPOTECA LEGAL SUBSIDIARIA - ML', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1211, NULL, '71020108', 'CON FIANZAS O AVALES - ML', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1213, NULL, '71020109', 'DOCUMENTOS DE PRESTAMOS FIDUCIARIOS - ML', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1216, NULL, '710202', 'DOCUMENTOS DE CARTERA DE INVERSIONES FINANCIERAS Y OTROS DOCUMENTOS', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1218, NULL, '71020201', 'DOCUMENTOS DE ACTIVOS FINANCIEROS NEGOCIABLES', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1220, NULL, '71020202', 'DOCUMENTOS DE ACTIVOS FINANCIEROS HASTA EL VENCIMIENTO', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1222, NULL, '71020203', 'DOCUMENTOS EN CUSTODIA', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1224, NULL, '710203', 'ACTIVOS CASTIGADOS', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1226, NULL, '71020301', 'CARTERA DE PRESTAMOS', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1228, NULL, '71020302', 'INVERSIONES FINANCIERAS', 7, 0.00, 1, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1230, NULL, '72', 'CUENTAS DE ORDEN ACREEDORAS', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1232, NULL, '7201', 'INFORMACION FINANCIERA POR EL CONTRATO', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1234, NULL, '7202', 'EXISTENCIAS EN BÓVEDA POR EL CONTRARIO', 7, 0.00, 0, 0, '1', NULL, NULL, 1, NULL, '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1238, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL, 1, '2023-08-14 23:27:52', '2023-08-19 09:08:21');
+INSERT INTO `catalogo` VALUES (1239, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL, 1, '2023-08-14 23:32:22', '2023-08-19 09:08:21');
+
+-- ----------------------------
+-- Table structure for catalogo_tipo
+-- ----------------------------
+DROP TABLE IF EXISTS `catalogo_tipo`;
+CREATE TABLE `catalogo_tipo`  (
+  `id_tipo_catalogo` int NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `estado` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_tipo_catalogo`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of catalogo_tipo
+-- ----------------------------
+INSERT INTO `catalogo_tipo` VALUES (1, 'ACTIVO', '1', NULL, '2023-07-26 11:03:27');
+INSERT INTO `catalogo_tipo` VALUES (2, 'PASIVO', '1', NULL, NULL);
+INSERT INTO `catalogo_tipo` VALUES (3, 'PATRIMONIO', '1', NULL, NULL);
+INSERT INTO `catalogo_tipo` VALUES (4, 'INGRESOS', '1', NULL, '2023-07-26 11:04:29');
+INSERT INTO `catalogo_tipo` VALUES (5, 'COSTOS', '1', NULL, '2023-07-26 11:13:00');
+INSERT INTO `catalogo_tipo` VALUES (6, 'LIQUIDACION', '1', '2023-07-26 11:12:00', '2023-07-26 11:13:19');
+INSERT INTO `catalogo_tipo` VALUES (7, 'ORDEN (SALDO ACREEDOR)', '1', '2023-07-26 11:12:11', '2023-07-26 13:16:07');
+
+-- ----------------------------
+-- Table structure for cierre_mensual
+-- ----------------------------
+DROP TABLE IF EXISTS `cierre_mensual`;
+CREATE TABLE `cierre_mensual`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `mes` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `year` int NOT NULL,
+  `fecha_cierre` datetime NOT NULL,
+  `fecha_reversion` datetime NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL COMMENT '1=Proccesado 2-Revertido',
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cierre_mensual
+-- ----------------------------
+INSERT INTO `cierre_mensual` VALUES (1, '5', 2023, '2023-08-19 11:12:12', '2023-08-21 18:24:55', 2, '2023-08-19 11:12:12', '2023-08-21 18:24:55');
+INSERT INTO `cierre_mensual` VALUES (2, '6', 2023, '2023-08-19 11:12:36', NULL, 1, '2023-08-19 11:12:36', '2023-08-19 11:12:39');
+INSERT INTO `cierre_mensual` VALUES (3, '7', 2023, '2023-08-19 11:12:51', '2023-08-20 12:44:57', 2, '2023-08-19 11:12:51', '2023-08-20 12:44:57');
+INSERT INTO `cierre_mensual` VALUES (4, '7', 2023, '2023-08-20 13:52:00', '2023-08-24 22:25:40', 2, '2023-08-20 13:52:00', '2023-08-24 22:25:40');
+INSERT INTO `cierre_mensual` VALUES (5, '8', 2023, '2023-08-20 20:19:35', '2023-08-21 18:23:05', 2, '2023-08-20 20:19:35', '2023-08-21 18:23:05');
+INSERT INTO `cierre_mensual` VALUES (6, '7', 2023, '2023-08-24 22:25:51', NULL, 1, '2023-08-24 22:25:51', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual` VALUES (7, '10', 2023, '2023-10-23 12:01:16', NULL, 1, '2023-10-23 12:01:16', '2023-10-23 12:01:23');
+
+-- ----------------------------
+-- Table structure for cierre_mensual_partida
+-- ----------------------------
+DROP TABLE IF EXISTS `cierre_mensual_partida`;
+CREATE TABLE `cierre_mensual_partida`  (
+  `id_cierre_mensual_partida` int NOT NULL AUTO_INCREMENT,
+  `id_cuenta` int NOT NULL,
+  `saldo_anterior` decimal(10, 2) NOT NULL,
+  `total_cargos` decimal(10, 2) NOT NULL,
+  `total_abonos` decimal(10, 2) NOT NULL,
+  `saldo_cierre` decimal(10, 2) NOT NULL,
+  `cierre_mensual_id` int NOT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_cierre_mensual_partida`) USING BTREE,
+  INDEX `cierre_contable_id`(`cierre_mensual_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2229 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cierre_mensual_partida
+-- ----------------------------
+INSERT INTO `cierre_mensual_partida` VALUES (1, 1, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (2, 2, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (3, 3, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (4, 4, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (5, 5, 0.00, 100.00, 0.00, 100.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (6, 6, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (7, 7, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (8, 8, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (9, 10, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (10, 11, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (11, 12, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (12, 13, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (13, 14, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (14, 15, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (15, 16, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (16, 17, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (17, 18, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (18, 19, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (19, 20, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (20, 22, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (21, 23, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (22, 24, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (23, 25, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (24, 26, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (25, 27, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (26, 28, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (27, 29, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (28, 30, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (29, 31, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (30, 32, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (31, 33, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (32, 34, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (33, 35, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (34, 37, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (35, 38, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (36, 40, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (37, 42, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (38, 43, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (39, 44, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (40, 45, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (41, 46, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (42, 47, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (43, 48, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (44, 49, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (45, 50, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (46, 51, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (47, 53, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (48, 54, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (49, 56, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (50, 58, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (51, 59, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (52, 60, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (53, 61, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (54, 62, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (55, 63, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (56, 64, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (57, 65, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (58, 66, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (59, 67, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (60, 68, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (61, 69, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (62, 70, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (63, 71, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (64, 72, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (65, 73, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (66, 74, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (67, 75, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (68, 76, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (69, 77, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (70, 78, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (71, 79, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (72, 80, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (73, 81, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (74, 82, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (75, 83, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (76, 84, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (77, 85, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (78, 86, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (79, 87, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (80, 88, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (81, 89, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (82, 90, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (83, 91, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (84, 92, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (85, 93, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (86, 94, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (87, 95, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (88, 96, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (89, 97, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (90, 98, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (91, 99, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (92, 100, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (93, 101, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (94, 102, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (95, 103, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (96, 105, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (97, 106, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (98, 107, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (99, 108, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (100, 109, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (101, 110, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (102, 111, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (103, 112, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (104, 113, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (105, 114, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (106, 115, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (107, 116, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (108, 117, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (109, 118, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (110, 119, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (111, 120, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (112, 121, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (113, 122, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (114, 123, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (115, 124, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (116, 125, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (117, 126, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (118, 127, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (119, 128, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (120, 129, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:51', '2023-08-24 22:25:51');
+INSERT INTO `cierre_mensual_partida` VALUES (121, 130, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (122, 131, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (123, 132, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (124, 133, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (125, 134, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (126, 135, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (127, 136, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (128, 137, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (129, 138, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (130, 139, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (131, 140, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (132, 141, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (133, 142, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (134, 143, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (135, 144, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (136, 145, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (137, 146, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (138, 147, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (139, 148, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (140, 149, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (141, 150, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (142, 151, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (143, 152, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (144, 153, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (145, 154, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (146, 155, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (147, 157, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (148, 158, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (149, 159, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (150, 160, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (151, 161, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (152, 162, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (153, 163, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (154, 164, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (155, 165, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (156, 166, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (157, 167, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (158, 168, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (159, 169, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (160, 170, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (161, 171, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (162, 172, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (163, 173, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (164, 174, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (165, 175, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (166, 176, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (167, 177, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (168, 178, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (169, 179, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (170, 180, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (171, 181, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (172, 182, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (173, 183, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (174, 184, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (175, 185, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (176, 186, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (177, 187, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (178, 188, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (179, 189, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (180, 190, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (181, 191, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (182, 192, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (183, 193, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (184, 194, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (185, 195, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (186, 196, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (187, 197, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (188, 198, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (189, 199, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (190, 200, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (191, 201, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (192, 202, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (193, 203, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (194, 204, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (195, 205, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (196, 206, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (197, 207, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (198, 209, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (199, 210, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (200, 211, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (201, 212, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (202, 213, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (203, 214, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (204, 215, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (205, 216, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (206, 217, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (207, 218, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (208, 219, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (209, 220, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (210, 221, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (211, 222, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (212, 223, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (213, 224, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (214, 226, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (215, 227, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (216, 228, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (217, 229, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (218, 230, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (219, 231, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (220, 232, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (221, 233, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (222, 234, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (223, 236, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (224, 237, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (225, 238, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (226, 239, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (227, 240, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (228, 241, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (229, 242, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (230, 243, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (231, 244, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (232, 245, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (233, 246, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (234, 247, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (235, 248, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (236, 249, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (237, 250, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (238, 251, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (239, 252, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (240, 253, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (241, 254, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (242, 255, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (243, 256, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (244, 257, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (245, 258, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (246, 259, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (247, 261, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (248, 263, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (249, 264, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (250, 265, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (251, 266, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (252, 267, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (253, 268, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (254, 269, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (255, 270, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (256, 271, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (257, 272, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (258, 273, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (259, 274, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (260, 275, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (261, 276, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (262, 277, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (263, 278, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (264, 279, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (265, 280, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (266, 281, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (267, 282, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (268, 283, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (269, 284, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (270, 285, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (271, 286, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (272, 287, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (273, 288, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (274, 289, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (275, 290, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (276, 291, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (277, 292, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (278, 293, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (279, 294, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (280, 295, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (281, 296, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (282, 297, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (283, 299, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (284, 300, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (285, 301, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (286, 302, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (287, 303, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (288, 304, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (289, 306, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (290, 307, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (291, 308, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (292, 309, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (293, 310, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (294, 311, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (295, 313, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (296, 314, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (297, 315, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (298, 316, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (299, 317, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (300, 318, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (301, 319, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (302, 320, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (303, 321, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (304, 322, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (305, 323, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (306, 324, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (307, 325, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (308, 326, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (309, 328, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (310, 329, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (311, 330, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (312, 331, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (313, 332, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (314, 333, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (315, 334, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (316, 336, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (317, 337, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (318, 338, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (319, 339, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (320, 340, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (321, 341, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (322, 342, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (323, 343, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (324, 344, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (325, 345, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (326, 346, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (327, 347, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (328, 348, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (329, 349, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (330, 351, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (331, 353, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (332, 354, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (333, 355, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (334, 356, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (335, 357, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (336, 358, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (337, 359, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (338, 360, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (339, 361, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (340, 362, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (341, 363, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (342, 364, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (343, 366, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (344, 367, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (345, 368, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (346, 369, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (347, 370, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (348, 371, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (349, 372, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (350, 373, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (351, 374, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (352, 375, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (353, 376, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (354, 377, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (355, 378, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (356, 379, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (357, 380, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (358, 381, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (359, 382, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (360, 383, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (361, 384, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (362, 385, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (363, 386, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (364, 387, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (365, 388, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (366, 389, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (367, 390, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (368, 391, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (369, 392, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (370, 393, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (371, 394, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (372, 395, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (373, 396, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (374, 397, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (375, 398, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (376, 399, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (377, 400, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (378, 401, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (379, 402, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (380, 403, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (381, 404, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (382, 405, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (383, 406, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (384, 407, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (385, 408, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (386, 409, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (387, 410, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (388, 411, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (389, 412, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (390, 413, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (391, 414, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (392, 415, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (393, 416, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (394, 418, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (395, 419, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (396, 420, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (397, 421, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (398, 422, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (399, 423, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (400, 424, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (401, 425, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (402, 426, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (403, 427, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (404, 428, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (405, 429, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (406, 430, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (407, 431, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (408, 432, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (409, 433, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (410, 434, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (411, 435, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (412, 436, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (413, 437, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (414, 438, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (415, 439, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (416, 441, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (417, 443, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (418, 444, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (419, 445, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (420, 447, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (421, 449, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (422, 451, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (423, 452, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (424, 453, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (425, 454, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (426, 455, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (427, 456, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (428, 457, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (429, 458, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (430, 459, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (431, 460, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (432, 461, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (433, 462, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (434, 463, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (435, 464, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (436, 465, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (437, 466, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (438, 467, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (439, 468, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (440, 469, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (441, 471, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (442, 472, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (443, 473, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (444, 474, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (445, 475, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (446, 476, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (447, 477, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (448, 478, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (449, 479, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (450, 480, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (451, 482, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (452, 483, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (453, 484, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (454, 485, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (455, 486, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (456, 487, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (457, 488, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (458, 489, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (459, 490, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (460, 491, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (461, 492, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (462, 493, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (463, 494, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (464, 495, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (465, 496, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (466, 497, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (467, 498, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (468, 499, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (469, 501, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (470, 502, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (471, 503, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (472, 504, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (473, 505, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (474, 507, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (475, 508, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (476, 510, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (477, 512, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (478, 513, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (479, 515, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (480, 516, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (481, 518, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (482, 519, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (483, 520, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (484, 522, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (485, 523, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (486, 525, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (487, 526, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (488, 527, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (489, 528, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (490, 530, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (491, 532, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (492, 534, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (493, 536, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (494, 538, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (495, 539, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (496, 540, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (497, 541, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (498, 542, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (499, 543, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (500, 544, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (501, 545, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (502, 546, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (503, 548, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (504, 549, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (505, 550, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (506, 551, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (507, 552, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (508, 553, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:52', '2023-08-24 22:25:52');
+INSERT INTO `cierre_mensual_partida` VALUES (509, 554, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (510, 555, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (511, 556, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (512, 557, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (513, 558, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (514, 559, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (515, 561, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (516, 562, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (517, 563, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (518, 564, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (519, 565, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (520, 566, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (521, 567, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (522, 568, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (523, 569, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (524, 570, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (525, 571, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (526, 572, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (527, 574, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (528, 575, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (529, 576, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (530, 577, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (531, 579, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (532, 580, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (533, 581, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (534, 582, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (535, 583, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (536, 584, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (537, 585, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (538, 586, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (539, 587, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (540, 588, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (541, 589, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (542, 590, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (543, 591, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (544, 592, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (545, 593, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (546, 594, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (547, 595, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (548, 596, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (549, 597, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (550, 598, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (551, 599, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (552, 600, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (553, 601, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (554, 602, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (555, 603, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (556, 604, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (557, 606, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (558, 607, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (559, 608, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (560, 609, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (561, 610, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (562, 611, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (563, 612, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (564, 613, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (565, 614, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (566, 615, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (567, 616, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (568, 617, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (569, 618, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (570, 619, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (571, 620, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (572, 621, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (573, 622, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (574, 623, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (575, 624, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (576, 625, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (577, 626, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (578, 627, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (579, 628, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (580, 629, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (581, 631, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (582, 632, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (583, 633, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (584, 634, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (585, 635, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (586, 636, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (587, 637, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (588, 638, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (589, 639, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (590, 640, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (591, 641, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (592, 642, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (593, 643, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (594, 644, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (595, 645, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (596, 646, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (597, 647, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (598, 648, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (599, 649, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (600, 650, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (601, 651, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (602, 652, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (603, 653, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (604, 654, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (605, 655, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (606, 657, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (607, 658, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (608, 660, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (609, 661, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (610, 662, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (611, 663, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (612, 665, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (613, 666, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (614, 668, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (615, 670, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (616, 671, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (617, 672, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (618, 673, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (619, 674, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (620, 675, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (621, 677, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (622, 679, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (623, 681, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (624, 683, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (625, 686, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (626, 687, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (627, 688, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (628, 689, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (629, 690, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (630, 691, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (631, 692, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (632, 693, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (633, 694, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (634, 695, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (635, 696, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (636, 697, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (637, 698, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (638, 699, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (639, 700, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (640, 701, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (641, 702, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (642, 703, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (643, 704, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (644, 705, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (645, 706, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (646, 707, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (647, 708, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (648, 709, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (649, 710, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (650, 711, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (651, 712, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (652, 713, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (653, 714, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (654, 715, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (655, 716, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (656, 717, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (657, 718, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (658, 719, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (659, 720, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (660, 721, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (661, 722, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (662, 723, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (663, 724, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (664, 725, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (665, 726, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (666, 727, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (667, 728, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (668, 729, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (669, 730, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (670, 731, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (671, 732, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (672, 733, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (673, 734, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (674, 735, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (675, 737, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (676, 738, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (677, 739, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (678, 740, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (679, 741, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (680, 742, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (681, 743, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (682, 744, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (683, 745, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (684, 746, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (685, 747, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (686, 748, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (687, 749, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (688, 750, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (689, 751, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (690, 752, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (691, 753, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (692, 754, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (693, 755, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (694, 756, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (695, 757, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (696, 758, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (697, 759, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (698, 760, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (699, 761, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (700, 762, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (701, 763, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (702, 764, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (703, 765, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (704, 766, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (705, 767, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (706, 768, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (707, 769, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (708, 770, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (709, 771, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (710, 772, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (711, 773, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (712, 774, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (713, 775, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (714, 776, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (715, 777, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (716, 778, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (717, 779, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (718, 780, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (719, 781, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (720, 782, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (721, 783, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (722, 784, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (723, 785, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (724, 786, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (725, 787, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (726, 789, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (727, 790, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (728, 791, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (729, 792, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (730, 793, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (731, 794, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (732, 795, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (733, 796, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (734, 797, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (735, 798, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (736, 799, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (737, 800, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (738, 801, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (739, 802, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (740, 803, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (741, 804, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (742, 805, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (743, 806, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (744, 807, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (745, 808, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (746, 809, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (747, 810, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (748, 811, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (749, 812, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (750, 813, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (751, 814, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (752, 815, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (753, 816, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (754, 817, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (755, 818, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (756, 819, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (757, 820, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (758, 821, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (759, 822, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (760, 823, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (761, 824, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (762, 825, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (763, 826, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (764, 827, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (765, 828, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (766, 829, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (767, 830, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (768, 831, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (769, 832, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (770, 833, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (771, 834, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (772, 835, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (773, 836, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (774, 837, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (775, 838, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (776, 839, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (777, 841, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (778, 842, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (779, 843, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (780, 844, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (781, 845, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (782, 846, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (783, 847, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (784, 848, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (785, 849, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (786, 850, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (787, 851, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (788, 852, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (789, 853, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (790, 854, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (791, 855, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (792, 856, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (793, 857, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (794, 858, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (795, 859, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (796, 860, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (797, 861, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (798, 862, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (799, 863, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (800, 864, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (801, 865, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (802, 866, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (803, 867, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (804, 868, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (805, 869, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (806, 870, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (807, 871, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (808, 872, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (809, 873, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (810, 874, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (811, 875, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (812, 876, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (813, 877, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (814, 878, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (815, 879, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (816, 880, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (817, 881, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (818, 882, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (819, 883, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (820, 884, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (821, 885, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (822, 886, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (823, 887, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (824, 888, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (825, 889, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (826, 890, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (827, 891, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (828, 893, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (829, 894, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (830, 895, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (831, 896, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (832, 897, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (833, 898, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (834, 899, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (835, 900, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (836, 901, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (837, 902, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (838, 903, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (839, 904, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (840, 905, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (841, 906, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (842, 907, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (843, 908, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (844, 909, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (845, 910, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (846, 911, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (847, 912, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (848, 913, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (849, 914, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (850, 915, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (851, 916, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (852, 917, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (853, 918, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (854, 919, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (855, 920, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (856, 921, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (857, 922, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (858, 923, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (859, 924, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (860, 925, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (861, 926, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (862, 927, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (863, 928, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (864, 929, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (865, 930, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (866, 931, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (867, 932, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (868, 933, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (869, 934, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (870, 935, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (871, 936, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (872, 937, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (873, 938, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (874, 939, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (875, 940, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (876, 941, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (877, 942, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (878, 943, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (879, 945, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (880, 946, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (881, 947, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (882, 948, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (883, 949, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (884, 950, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (885, 951, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (886, 952, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (887, 953, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (888, 954, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (889, 955, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (890, 956, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (891, 957, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (892, 958, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (893, 959, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (894, 960, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (895, 961, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (896, 962, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (897, 963, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (898, 964, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (899, 965, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (900, 966, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (901, 967, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (902, 968, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (903, 969, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (904, 970, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (905, 971, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (906, 972, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (907, 973, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (908, 974, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:53', '2023-08-24 22:25:53');
+INSERT INTO `cierre_mensual_partida` VALUES (909, 975, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (910, 976, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (911, 977, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (912, 978, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (913, 979, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (914, 980, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (915, 981, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (916, 982, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (917, 983, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (918, 984, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (919, 985, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (920, 986, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (921, 987, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (922, 988, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (923, 989, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (924, 990, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (925, 991, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (926, 992, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (927, 993, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (928, 994, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (929, 995, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (930, 997, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (931, 998, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (932, 999, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (933, 1000, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (934, 1001, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (935, 1002, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (936, 1003, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (937, 1004, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (938, 1005, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (939, 1006, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (940, 1007, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (941, 1008, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (942, 1009, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (943, 1010, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (944, 1011, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (945, 1012, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (946, 1013, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (947, 1014, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (948, 1015, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (949, 1016, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (950, 1017, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (951, 1018, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (952, 1019, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (953, 1020, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (954, 1021, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (955, 1022, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (956, 1023, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (957, 1024, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (958, 1025, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (959, 1026, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (960, 1027, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (961, 1028, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (962, 1029, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (963, 1030, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (964, 1031, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (965, 1032, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (966, 1033, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (967, 1034, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (968, 1035, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (969, 1036, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (970, 1037, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (971, 1038, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (972, 1039, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (973, 1040, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (974, 1041, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (975, 1042, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (976, 1043, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (977, 1044, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (978, 1045, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (979, 1046, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (980, 1047, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (981, 1049, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (982, 1050, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (983, 1051, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (984, 1052, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (985, 1053, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (986, 1054, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (987, 1055, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (988, 1056, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (989, 1057, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (990, 1058, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (991, 1059, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (992, 1060, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (993, 1061, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (994, 1062, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (995, 1063, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (996, 1064, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (997, 1065, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (998, 1066, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (999, 1067, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1000, 1068, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1001, 1069, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1002, 1070, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1003, 1071, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1004, 1072, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1005, 1073, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1006, 1074, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1007, 1075, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1008, 1076, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1009, 1077, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1010, 1078, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1011, 1079, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1012, 1080, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1013, 1081, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1014, 1082, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1015, 1083, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1016, 1084, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1017, 1085, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1018, 1087, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1019, 1088, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1020, 1089, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1021, 1090, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1022, 1091, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1023, 1092, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1024, 1093, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1025, 1094, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1026, 1095, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1027, 1096, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1028, 1097, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1029, 1098, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1030, 1099, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1031, 1101, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1032, 1102, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1033, 1103, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1034, 1104, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1035, 1105, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1036, 1106, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1037, 1107, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1038, 1108, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1039, 1109, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1040, 1110, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1041, 1111, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1042, 1112, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1043, 1113, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1044, 1114, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1045, 1115, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1046, 1116, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1047, 1117, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1048, 1118, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1049, 1119, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1050, 1120, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1051, 1121, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1052, 1122, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1053, 1123, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1054, 1125, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1055, 1126, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1056, 1127, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1057, 1128, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1058, 1130, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1059, 1131, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1060, 1132, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1061, 1133, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1062, 1134, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1063, 1135, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1064, 1137, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1065, 1139, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1066, 1141, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1067, 1143, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1068, 1145, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1069, 1147, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1070, 1149, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1071, 1151, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1072, 1153, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1073, 1155, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1074, 1157, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1075, 1159, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1076, 1161, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1077, 1163, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1078, 1165, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1079, 1167, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1080, 1169, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1081, 1171, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1082, 1173, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1083, 1175, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1084, 1177, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1085, 1179, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1086, 1181, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1087, 1183, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1088, 1185, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1089, 1187, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1090, 1189, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1091, 1191, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1092, 1193, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1093, 1195, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1094, 1197, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1095, 1199, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1096, 1201, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1097, 1203, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1098, 1205, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1099, 1207, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1100, 1209, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1101, 1211, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1102, 1213, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1103, 1216, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1104, 1218, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1105, 1220, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1106, 1222, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1107, 1224, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1108, 1226, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1109, 1228, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1110, 1230, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1111, 1232, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1112, 1234, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1113, 1238, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1114, 1239, 0.00, 0.00, 0.00, 0.00, 6, '2023-08-24 22:25:54', '2023-08-24 22:25:54');
+INSERT INTO `cierre_mensual_partida` VALUES (1115, 1, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1116, 2, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1117, 3, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1118, 4, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1119, 5, 0.00, 0.00, 100.00, -100.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1120, 6, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1121, 7, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1122, 8, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1123, 10, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1124, 11, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1125, 12, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1126, 13, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1127, 14, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1128, 15, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1129, 16, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1130, 17, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1131, 18, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1132, 19, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1133, 20, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1134, 22, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:16', '2023-10-23 12:01:16');
+INSERT INTO `cierre_mensual_partida` VALUES (1135, 23, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1136, 24, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1137, 25, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1138, 26, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1139, 27, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1140, 28, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1141, 29, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1142, 30, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1143, 31, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1144, 32, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1145, 33, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1146, 34, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1147, 35, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1148, 37, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1149, 38, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1150, 40, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1151, 42, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1152, 43, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1153, 44, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1154, 45, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1155, 46, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1156, 47, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1157, 48, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1158, 49, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1159, 50, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1160, 51, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1161, 53, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1162, 54, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1163, 56, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1164, 58, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1165, 59, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1166, 60, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1167, 61, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1168, 62, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1169, 63, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1170, 64, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1171, 65, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1172, 66, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1173, 67, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1174, 68, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1175, 69, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1176, 70, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1177, 71, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1178, 72, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1179, 73, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1180, 74, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1181, 75, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1182, 76, 0.00, 100.00, 0.00, 100.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1183, 77, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1184, 78, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1185, 79, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1186, 80, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1187, 81, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1188, 82, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1189, 83, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1190, 84, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1191, 85, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1192, 86, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1193, 87, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1194, 88, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1195, 89, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1196, 90, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1197, 91, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1198, 92, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1199, 93, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1200, 94, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1201, 95, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1202, 96, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1203, 97, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1204, 98, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1205, 99, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1206, 100, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1207, 101, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1208, 102, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1209, 103, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1210, 105, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1211, 106, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1212, 107, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1213, 108, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1214, 109, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1215, 110, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1216, 111, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1217, 112, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1218, 113, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1219, 114, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1220, 115, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1221, 116, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1222, 117, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1223, 118, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1224, 119, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1225, 120, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1226, 121, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1227, 122, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1228, 123, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1229, 124, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1230, 125, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1231, 126, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1232, 127, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1233, 128, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1234, 129, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1235, 130, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1236, 131, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1237, 132, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1238, 133, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1239, 134, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1240, 135, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1241, 136, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1242, 137, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1243, 138, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1244, 139, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1245, 140, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1246, 141, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1247, 142, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1248, 143, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1249, 144, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1250, 145, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1251, 146, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1252, 147, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1253, 148, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1254, 149, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1255, 150, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1256, 151, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1257, 152, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1258, 153, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1259, 154, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1260, 155, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1261, 157, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1262, 158, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1263, 159, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1264, 160, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1265, 161, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1266, 162, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1267, 163, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1268, 164, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1269, 165, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:17', '2023-10-23 12:01:17');
+INSERT INTO `cierre_mensual_partida` VALUES (1270, 166, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1271, 167, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1272, 168, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1273, 169, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1274, 170, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1275, 171, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1276, 172, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1277, 173, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1278, 174, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1279, 175, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1280, 176, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1281, 177, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1282, 178, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1283, 179, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1284, 180, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1285, 181, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1286, 182, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1287, 183, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1288, 184, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1289, 185, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1290, 186, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1291, 187, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1292, 188, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1293, 189, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1294, 190, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1295, 191, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1296, 192, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1297, 193, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1298, 194, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1299, 195, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1300, 196, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1301, 197, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1302, 198, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1303, 199, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1304, 200, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1305, 201, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1306, 202, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1307, 203, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1308, 204, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1309, 205, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1310, 206, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1311, 207, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1312, 209, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1313, 210, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1314, 211, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1315, 212, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1316, 213, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1317, 214, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1318, 215, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1319, 216, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1320, 217, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1321, 218, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1322, 219, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1323, 220, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1324, 221, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1325, 222, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1326, 223, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1327, 224, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1328, 226, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1329, 227, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1330, 228, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1331, 229, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1332, 230, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1333, 231, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1334, 232, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1335, 233, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1336, 234, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1337, 236, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1338, 237, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1339, 238, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1340, 239, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1341, 240, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1342, 241, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1343, 242, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1344, 243, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1345, 244, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1346, 245, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1347, 246, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1348, 247, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1349, 248, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1350, 249, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1351, 250, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1352, 251, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1353, 252, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1354, 253, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1355, 254, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1356, 255, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1357, 256, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1358, 257, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1359, 258, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1360, 259, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1361, 261, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1362, 263, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1363, 264, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1364, 265, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1365, 266, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1366, 267, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1367, 268, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1368, 269, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1369, 270, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1370, 271, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1371, 272, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1372, 273, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1373, 274, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1374, 275, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1375, 276, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1376, 277, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1377, 278, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1378, 279, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1379, 280, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1380, 281, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1381, 282, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1382, 283, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1383, 284, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1384, 285, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1385, 286, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1386, 287, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1387, 288, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1388, 289, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1389, 290, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1390, 291, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1391, 292, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1392, 293, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1393, 294, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1394, 295, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1395, 296, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1396, 297, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1397, 299, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1398, 300, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1399, 301, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1400, 302, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1401, 303, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1402, 304, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1403, 306, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1404, 307, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1405, 308, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1406, 309, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1407, 310, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1408, 311, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1409, 313, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1410, 314, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1411, 315, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1412, 316, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1413, 317, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1414, 318, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1415, 319, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1416, 320, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1417, 321, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1418, 322, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1419, 323, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1420, 324, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1421, 325, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1422, 326, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1423, 328, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1424, 329, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1425, 330, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1426, 331, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1427, 332, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1428, 333, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1429, 334, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1430, 336, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1431, 337, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1432, 338, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1433, 339, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1434, 340, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1435, 341, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1436, 342, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1437, 343, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1438, 344, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1439, 345, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1440, 346, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1441, 347, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1442, 348, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1443, 349, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1444, 351, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1445, 353, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1446, 354, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1447, 355, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1448, 356, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1449, 357, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1450, 358, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1451, 359, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1452, 360, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1453, 361, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1454, 362, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1455, 363, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1456, 364, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1457, 366, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1458, 367, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1459, 368, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1460, 369, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1461, 370, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1462, 371, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1463, 372, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1464, 373, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1465, 374, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1466, 375, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1467, 376, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1468, 377, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1469, 378, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1470, 379, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1471, 380, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1472, 381, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1473, 382, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1474, 383, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1475, 384, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1476, 385, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1477, 386, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1478, 387, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1479, 388, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1480, 389, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1481, 390, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1482, 391, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1483, 392, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1484, 393, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1485, 394, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1486, 395, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1487, 396, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1488, 397, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1489, 398, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1490, 399, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1491, 400, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1492, 401, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1493, 402, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1494, 403, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1495, 404, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1496, 405, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1497, 406, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1498, 407, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1499, 408, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1500, 409, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1501, 410, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1502, 411, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:18', '2023-10-23 12:01:18');
+INSERT INTO `cierre_mensual_partida` VALUES (1503, 412, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1504, 413, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1505, 414, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1506, 415, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1507, 416, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1508, 418, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1509, 419, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1510, 420, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1511, 421, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1512, 422, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1513, 423, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1514, 424, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1515, 425, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1516, 426, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1517, 427, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1518, 428, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1519, 429, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1520, 430, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1521, 431, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1522, 432, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1523, 433, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1524, 434, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1525, 435, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1526, 436, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1527, 437, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1528, 438, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1529, 439, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1530, 441, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1531, 443, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1532, 444, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1533, 445, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1534, 447, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1535, 449, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1536, 451, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1537, 452, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1538, 453, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1539, 454, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1540, 455, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1541, 456, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1542, 457, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1543, 458, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1544, 459, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1545, 460, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1546, 461, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1547, 462, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1548, 463, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1549, 464, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1550, 465, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1551, 466, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1552, 467, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1553, 468, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1554, 469, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1555, 471, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1556, 472, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1557, 473, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1558, 474, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1559, 475, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1560, 476, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1561, 477, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1562, 478, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1563, 479, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1564, 480, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1565, 482, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1566, 483, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1567, 484, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1568, 485, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1569, 486, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1570, 487, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1571, 488, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1572, 489, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1573, 490, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1574, 491, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1575, 492, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1576, 493, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1577, 494, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1578, 495, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1579, 496, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1580, 497, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1581, 498, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1582, 499, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1583, 501, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1584, 502, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1585, 503, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1586, 504, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1587, 505, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1588, 507, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1589, 508, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1590, 510, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1591, 512, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1592, 513, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1593, 515, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1594, 516, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1595, 518, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1596, 519, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1597, 520, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1598, 522, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1599, 523, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1600, 525, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1601, 526, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1602, 527, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1603, 528, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1604, 530, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1605, 532, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1606, 534, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1607, 536, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1608, 538, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1609, 539, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1610, 540, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1611, 541, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1612, 542, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1613, 543, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1614, 544, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1615, 545, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1616, 546, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1617, 548, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1618, 549, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1619, 550, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1620, 551, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1621, 552, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1622, 553, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1623, 554, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1624, 555, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1625, 556, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1626, 557, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1627, 558, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1628, 559, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1629, 561, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1630, 562, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1631, 563, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1632, 564, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1633, 565, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1634, 566, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1635, 567, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1636, 568, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1637, 569, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1638, 570, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1639, 571, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1640, 572, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1641, 574, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1642, 575, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1643, 576, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1644, 577, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1645, 579, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1646, 580, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1647, 581, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1648, 582, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1649, 583, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1650, 584, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1651, 585, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1652, 586, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1653, 587, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1654, 588, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1655, 589, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1656, 590, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1657, 591, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1658, 592, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1659, 593, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1660, 594, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1661, 595, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1662, 596, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1663, 597, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1664, 598, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1665, 599, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1666, 600, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1667, 601, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1668, 602, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1669, 603, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1670, 604, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1671, 606, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1672, 607, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1673, 608, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1674, 609, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1675, 610, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1676, 611, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1677, 612, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1678, 613, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1679, 614, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1680, 615, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1681, 616, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1682, 617, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1683, 618, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1684, 619, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1685, 620, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1686, 621, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1687, 622, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1688, 623, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1689, 624, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1690, 625, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1691, 626, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1692, 627, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1693, 628, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1694, 629, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1695, 631, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1696, 632, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1697, 633, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1698, 634, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1699, 635, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1700, 636, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1701, 637, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1702, 638, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1703, 639, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1704, 640, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1705, 641, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1706, 642, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1707, 643, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1708, 644, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1709, 645, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1710, 646, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1711, 647, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1712, 648, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1713, 649, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1714, 650, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:19', '2023-10-23 12:01:19');
+INSERT INTO `cierre_mensual_partida` VALUES (1715, 651, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1716, 652, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1717, 653, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1718, 654, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1719, 655, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1720, 657, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1721, 658, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1722, 660, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1723, 661, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1724, 662, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1725, 663, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1726, 665, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1727, 666, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1728, 668, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1729, 670, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1730, 671, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1731, 672, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1732, 673, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1733, 674, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1734, 675, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1735, 677, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1736, 679, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1737, 681, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1738, 683, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1739, 686, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1740, 687, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1741, 688, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1742, 689, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1743, 690, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1744, 691, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1745, 692, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1746, 693, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1747, 694, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1748, 695, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1749, 696, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1750, 697, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1751, 698, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1752, 699, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1753, 700, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1754, 701, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1755, 702, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1756, 703, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1757, 704, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1758, 705, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1759, 706, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1760, 707, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1761, 708, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1762, 709, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1763, 710, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1764, 711, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1765, 712, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1766, 713, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1767, 714, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1768, 715, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1769, 716, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1770, 717, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1771, 718, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1772, 719, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1773, 720, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1774, 721, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1775, 722, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1776, 723, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1777, 724, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1778, 725, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1779, 726, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1780, 727, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1781, 728, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1782, 729, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1783, 730, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1784, 731, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1785, 732, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1786, 733, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1787, 734, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1788, 735, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1789, 737, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1790, 738, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1791, 739, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1792, 740, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1793, 741, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1794, 742, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1795, 743, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1796, 744, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1797, 745, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1798, 746, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1799, 747, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1800, 748, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1801, 749, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1802, 750, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1803, 751, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1804, 752, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1805, 753, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1806, 754, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1807, 755, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1808, 756, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1809, 757, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1810, 758, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1811, 759, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1812, 760, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1813, 761, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1814, 762, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1815, 763, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1816, 764, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1817, 765, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1818, 766, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1819, 767, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1820, 768, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1821, 769, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1822, 770, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1823, 771, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1824, 772, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1825, 773, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1826, 774, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1827, 775, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1828, 776, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1829, 777, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1830, 778, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1831, 779, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1832, 780, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1833, 781, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1834, 782, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1835, 783, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1836, 784, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1837, 785, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1838, 786, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1839, 787, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1840, 789, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1841, 790, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1842, 791, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1843, 792, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1844, 793, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1845, 794, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1846, 795, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1847, 796, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1848, 797, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1849, 798, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1850, 799, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1851, 800, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:20', '2023-10-23 12:01:20');
+INSERT INTO `cierre_mensual_partida` VALUES (1852, 801, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1853, 802, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1854, 803, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1855, 804, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1856, 805, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1857, 806, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1858, 807, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1859, 808, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1860, 809, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1861, 810, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1862, 811, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1863, 812, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1864, 813, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1865, 814, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1866, 815, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1867, 816, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1868, 817, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1869, 818, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1870, 819, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1871, 820, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1872, 821, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1873, 822, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1874, 823, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1875, 824, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1876, 825, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1877, 826, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1878, 827, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1879, 828, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1880, 829, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1881, 830, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1882, 831, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1883, 832, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1884, 833, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1885, 834, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1886, 835, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1887, 836, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1888, 837, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1889, 838, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1890, 839, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1891, 841, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1892, 842, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1893, 843, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1894, 844, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1895, 845, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1896, 846, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1897, 847, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1898, 848, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1899, 849, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1900, 850, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1901, 851, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1902, 852, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1903, 853, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1904, 854, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1905, 855, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1906, 856, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1907, 857, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1908, 858, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1909, 859, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1910, 860, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1911, 861, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1912, 862, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1913, 863, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1914, 864, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1915, 865, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1916, 866, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1917, 867, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1918, 868, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1919, 869, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1920, 870, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1921, 871, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1922, 872, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1923, 873, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1924, 874, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1925, 875, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1926, 876, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1927, 877, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1928, 878, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1929, 879, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1930, 880, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1931, 881, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1932, 882, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1933, 883, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1934, 884, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1935, 885, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1936, 886, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1937, 887, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1938, 888, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1939, 889, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1940, 890, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1941, 891, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1942, 893, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1943, 894, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1944, 895, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1945, 896, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1946, 897, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1947, 898, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1948, 899, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1949, 900, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1950, 901, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1951, 902, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1952, 903, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1953, 904, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1954, 905, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1955, 906, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1956, 907, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1957, 908, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1958, 909, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1959, 910, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1960, 911, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1961, 912, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1962, 913, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1963, 914, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1964, 915, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1965, 916, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1966, 917, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1967, 918, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1968, 919, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1969, 920, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1970, 921, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1971, 922, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1972, 923, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1973, 924, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1974, 925, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1975, 926, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1976, 927, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1977, 928, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1978, 929, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1979, 930, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1980, 931, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1981, 932, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1982, 933, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1983, 934, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1984, 935, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1985, 936, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:21', '2023-10-23 12:01:21');
+INSERT INTO `cierre_mensual_partida` VALUES (1986, 937, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1987, 938, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1988, 939, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1989, 940, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1990, 941, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1991, 942, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1992, 943, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1993, 945, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1994, 946, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1995, 947, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1996, 948, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1997, 949, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1998, 950, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (1999, 951, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2000, 952, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2001, 953, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2002, 954, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2003, 955, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2004, 956, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2005, 957, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2006, 958, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2007, 959, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2008, 960, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2009, 961, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2010, 962, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2011, 963, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2012, 964, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2013, 965, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2014, 966, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2015, 967, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2016, 968, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2017, 969, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2018, 970, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2019, 971, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2020, 972, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2021, 973, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2022, 974, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2023, 975, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2024, 976, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2025, 977, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2026, 978, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2027, 979, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2028, 980, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2029, 981, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2030, 982, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2031, 983, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2032, 984, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2033, 985, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2034, 986, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2035, 987, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2036, 988, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2037, 989, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2038, 990, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2039, 991, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2040, 992, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2041, 993, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2042, 994, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2043, 995, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2044, 997, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2045, 998, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2046, 999, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2047, 1000, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2048, 1001, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2049, 1002, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2050, 1003, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2051, 1004, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2052, 1005, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2053, 1006, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2054, 1007, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2055, 1008, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2056, 1009, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2057, 1010, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2058, 1011, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2059, 1012, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2060, 1013, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2061, 1014, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2062, 1015, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2063, 1016, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2064, 1017, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2065, 1018, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2066, 1019, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2067, 1020, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2068, 1021, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2069, 1022, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2070, 1023, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2071, 1024, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2072, 1025, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2073, 1026, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2074, 1027, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2075, 1028, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2076, 1029, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2077, 1030, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2078, 1031, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2079, 1032, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2080, 1033, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2081, 1034, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2082, 1035, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2083, 1036, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2084, 1037, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2085, 1038, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2086, 1039, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2087, 1040, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2088, 1041, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2089, 1042, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2090, 1043, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2091, 1044, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2092, 1045, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2093, 1046, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2094, 1047, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2095, 1049, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2096, 1050, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2097, 1051, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2098, 1052, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2099, 1053, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2100, 1054, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2101, 1055, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2102, 1056, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2103, 1057, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2104, 1058, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2105, 1059, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2106, 1060, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2107, 1061, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2108, 1062, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2109, 1063, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2110, 1064, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2111, 1065, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2112, 1066, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2113, 1067, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2114, 1068, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2115, 1069, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2116, 1070, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2117, 1071, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2118, 1072, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2119, 1073, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2120, 1074, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2121, 1075, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2122, 1076, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2123, 1077, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2124, 1078, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2125, 1079, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2126, 1080, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2127, 1081, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2128, 1082, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2129, 1083, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2130, 1084, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2131, 1085, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2132, 1087, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2133, 1088, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2134, 1089, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2135, 1090, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2136, 1091, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2137, 1092, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2138, 1093, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2139, 1094, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2140, 1095, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2141, 1096, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2142, 1097, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2143, 1098, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2144, 1099, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2145, 1101, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2146, 1102, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2147, 1103, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2148, 1104, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2149, 1105, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2150, 1106, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2151, 1107, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2152, 1108, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2153, 1109, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2154, 1110, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2155, 1111, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2156, 1112, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2157, 1113, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2158, 1114, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2159, 1115, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2160, 1116, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2161, 1117, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2162, 1118, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2163, 1119, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2164, 1120, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2165, 1121, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2166, 1122, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2167, 1123, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2168, 1125, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2169, 1126, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2170, 1127, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2171, 1128, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2172, 1130, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2173, 1131, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2174, 1132, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2175, 1133, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2176, 1134, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2177, 1135, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2178, 1137, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2179, 1139, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2180, 1141, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2181, 1143, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2182, 1145, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2183, 1147, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2184, 1149, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2185, 1151, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2186, 1153, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2187, 1155, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2188, 1157, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2189, 1159, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2190, 1161, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2191, 1163, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2192, 1165, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2193, 1167, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2194, 1169, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2195, 1171, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2196, 1173, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2197, 1175, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2198, 1177, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2199, 1179, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2200, 1181, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2201, 1183, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2202, 1185, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2203, 1187, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2204, 1189, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2205, 1191, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2206, 1193, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2207, 1195, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2208, 1197, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:22', '2023-10-23 12:01:22');
+INSERT INTO `cierre_mensual_partida` VALUES (2209, 1199, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2210, 1201, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2211, 1203, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2212, 1205, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2213, 1207, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2214, 1209, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2215, 1211, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2216, 1213, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2217, 1216, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2218, 1218, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2219, 1220, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2220, 1222, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2221, 1224, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2222, 1226, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2223, 1228, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2224, 1230, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2225, 1232, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2226, 1234, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2227, 1238, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+INSERT INTO `cierre_mensual_partida` VALUES (2228, 1239, 0.00, 0.00, 0.00, 0.00, 7, '2023-10-23 12:01:23', '2023-10-23 12:01:23');
+
+-- ----------------------------
+-- Table structure for client_credit_scores
+-- ----------------------------
+DROP TABLE IF EXISTS `client_credit_scores`;
+CREATE TABLE `client_credit_scores`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_cliente` int NOT NULL,
+  `score` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `client_credit_scores_id_cliente_foreign`(`id_cliente` ASC) USING BTREE,
+  CONSTRAINT `client_credit_scores_id_cliente_foreign` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of client_credit_scores
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for clientes
@@ -398,116 +3687,195 @@ CREATE TABLE `clientes`  (
   `nombre_negocio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `tipo_vivienda` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `observaciones` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `profesion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `estado` int NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
+  `id_empleado` int NOT NULL,
   PRIMARY KEY (`id_cliente`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 111 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 65 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of clientes
 -- ----------------------------
-INSERT INTO `clientes` VALUES (6, 'Luis Arnulfo Márquez Argueta', '1', '2023-06-08', '037316717-7', 'gotera', '2023-06-05', 'asd', 'asd', 'asd', 'asd', 'asd', 'asd', '0', 'Ninguna observacion', 1, '2023-06-08 14:00:24', '2023-06-09 00:08:36');
-INSERT INTO `clientes` VALUES (11, 'Cheryl Barnes', '0', '2010-10-11', '037316717-7', '17413585-4', '2014-10-15', '3301186666', 'United States', 'Prof.', 'Akron', '877 Fern Street', 'Hunt Brothers Trading Inc.', '0', 'Strawberpy elite', 1, '2000-06-20 04:35:33', '2023-06-09 00:28:00');
-INSERT INTO `clientes` VALUES (12, 'Matthew Cooper', 'M', '2017-12-09', '2013-10-14', '29842267-4', '2005-03-24', '2126101185', 'United States', 'Prof.', 'New York', '206 West Houston Street', 'Samuel Consultants Inc.', 'Prof.', 'prange se', 1, '2016-04-27 13:39:19', '2010-07-13 18:38:05');
-INSERT INTO `clientes` VALUES (13, 'Ku Lai Yan', '0', '2004-05-01', '2015-05-2148', '89692133-7', '2016-12-08', '8381743169', 'United States', 'Ms.', 'Albany', '62 Central Avenue', 'Cole Brothers LLC', '0', 'xRambutan', 1, '2021-11-23 09:02:14', '2023-06-09 00:27:10');
-INSERT INTO `clientes` VALUES (14, 'Nakamori Yuna', '0', '2005-01-02', '2005-05-31', '02371188-9', '2021-08-28', '3306244190', 'United States', 'Prof.', 'Akron', '350 West Market Street', 'Nichols Engineering Inc.', '0', 'Grape', 1, '2007-04-09 18:15:02', '2023-06-08 23:22:30');
-INSERT INTO `clientes` VALUES (15, 'Sakai Riku', 'M', '2009-06-28', '2004-02-17', '99076091-3', '2015-02-12', '2124647235', 'United States', 'Prof.', 'New York', '8 Wooster Street', 'Bobby Trading LLC', 'Prof.', 'Strawbcrry', 1, '2007-06-05 04:10:23', '2008-09-16 08:24:55');
-INSERT INTO `clientes` VALUES (16, 'Pak Chung Yin', 'M', '2009-11-17', '2018-02-25', '28120297-1', '2020-05-10', '2124894307', 'United States', 'Prof.', 'New York', '179 Fifth Avenue', 'Sanchez\'s LLC', 'Prof.', 'Cherry air', 1, '2010-08-21 01:48:58', '2010-02-19 23:04:27');
-INSERT INTO `clientes` VALUES (17, 'Lai Tak Wah', 'M', '2021-03-13', '2007-09-17', '62103549-1', '2016-07-01', '3301609128', 'United States', 'Prof.', 'Akron', '484 Collier Road', 'Stewart\'s Consultants LLC', 'Prof.', 'Rambutan plus', 0, '2010-12-12 18:01:15', '2019-02-28 18:59:12');
-INSERT INTO `clientes` VALUES (18, 'Marvin Martinez', 'M', '2009-01-07', '2000-05-24', '67749471-7', '2016-12-16', '6143040110', 'United States', 'Prof.', 'Columbus', '54 Diplomacy Drive', 'Florence Software Inc.', 'Prof.', 'Apple', 0, '2008-08-30 01:49:59', '2019-09-04 11:41:17');
-INSERT INTO `clientes` VALUES (19, 'Debra Hall', 'F', '2021-01-15', '2004-02-18', '77182854-2', '2017-01-01', '6146719382', 'United States', 'Prof.', 'Columbus', '205 East Alley', 'Wells Engineering LLC', 'Mrs.', 'Raspberry pi', 0, '2002-12-05 16:48:02', '2012-07-22 16:08:00');
-INSERT INTO `clientes` VALUES (20, 'Fan Cho Yee', 'F', '2007-04-20', '2002-03-20', '70613851-7', '2000-02-20', '6142889663', 'United States', 'Ms.', 'Columbus', '510 East Alley', 'Evans Software LLC', 'Mrs.', 'Orange elite', 1, '2009-01-03 21:13:33', '2008-09-12 13:31:08');
-INSERT INTO `clientes` VALUES (21, 'Siu On Na', 'F', '2013-07-08', '2006-05-10', '27971647-7', '2014-04-11', '7186129787', 'United States', 'Prof.', 'Brooklyn', '342 Columbia St', 'Rodriguez Telecommunication Inc.', 'Mrs.', 'Strawberry', 0, '2000-09-06 19:10:58', '2008-06-19 20:36:28');
-INSERT INTO `clientes` VALUES (22, 'Goto Aoshi', 'M', '2001-08-23', '2015-11-25', '21619703-5', '2012-12-24', '2130416865', 'United States', 'Prof.', 'Los Angeles', '861 Wall Street', 'Sullivan LLC', 'Prof.', 'Cherry', 0, '2017-06-12 05:23:33', '2013-06-18 05:40:05');
-INSERT INTO `clientes` VALUES (23, 'Cheung Fat', 'M', '2013-08-16', '2009-12-05', '25631264-3', '2010-02-10', '3308515710', 'United States', 'Prof.', 'Akron', '697 Riverview Road', 'Gray Electronic LLC', 'Prof.', 'Raspbeery', 1, '2017-08-05 06:30:55', '2009-09-06 05:10:06');
-INSERT INTO `clientes` VALUES (24, 'Zheng Ziyi', 'M', '2019-02-16', '2008-10-08', '53574906-1', '2020-06-03', '2133534981', 'United States', 'Prof.', 'Los Angeles', '900 Alameda Street', 'Lee Inc.', 'Prof.', 'Apple', 0, '2015-09-10 16:58:21', '2015-01-19 04:06:05');
-INSERT INTO `clientes` VALUES (25, 'Jiang Zhennan', 'M', '2002-05-09', '2008-10-28', '65458666-6', '2021-10-07', '2121683211', 'United States', 'Prof.', 'New York', '375 Wooster Street', 'Davis Brothers Telecommunication Inc.', 'Prof.', 'ambi-Strawberuy', 0, '2008-04-04 02:50:38', '2010-03-25 02:25:35');
-INSERT INTO `clientes` VALUES (26, 'Manuel Spencer', 'M', '2016-01-08', '2002-01-21', '46786263-3', '2002-07-04', '2126990343', 'United States', 'Prof.', 'New York', '376 West Houston Street', 'Justin Inc.', 'Prof.', 'rherry', 0, '2009-01-08 15:18:22', '2010-02-03 00:32:37');
-INSERT INTO `clientes` VALUES (27, 'Sandra Hamilton', 'F', '2006-11-10', '2009-08-01', '00318131-8', '2005-10-06', '2129795038', 'United States', 'Prof.', 'New York', '846 Bank Street', 'Rodriguez\'s LLC', 'Ms.', 'Apple mini', 0, '2016-06-01 20:15:32', '2004-11-21 03:51:43');
-INSERT INTO `clientes` VALUES (28, 'Fujita Mai', '0', '2016-03-29', '2003-06-30', '91513102-5', '2000-04-27', '7189703726', 'United States', 'Mrs.', 'Brooklyn', '942 Columbia St', 'Gonzales Electronic Inc.', '0', 'Kiwi', 1, '2003-01-21 03:47:45', '2023-06-09 00:37:40');
-INSERT INTO `clientes` VALUES (29, 'Nakayama Takuya', 'M', '2006-12-29', '2010-04-29', '74669673-2', '2023-02-28', '8386402663', 'United States', 'Prof.', 'Albany', '293 State Street', 'Herrera\'s Technology Inc.', 'Prof.', 'Grade core', 1, '2005-12-04 23:53:19', '2008-03-08 17:55:27');
-INSERT INTO `clientes` VALUES (30, 'Jiang Lan', 'F', '2012-08-19', '2004-12-24', '38498870-2', '2004-01-30', '7183287925', 'United States', 'Ms.', 'Brooklyn', '203 1st Ave', 'Herrera Brothers LLC', 'Miss.', 'Strawberry', 0, '2015-09-26 15:25:14', '2023-05-12 19:41:30');
-INSERT INTO `clientes` VALUES (31, 'Lee Wing Sze', 'F', '2022-11-09', '2006-04-24', '84031846-0', '2001-01-27', '7189903892', 'United States', 'Miss.', 'Brooklyn', '428 1st Ave', 'Harrison Brothers LLC', 'Mrs.', 'Pluots premium', 0, '2010-07-23 06:08:34', '2021-05-16 13:46:34');
-INSERT INTO `clientes` VALUES (32, 'Sheh Chi Ming', 'M', '2018-06-23', '2022-07-27', '05251336-3', '2011-07-28', '8381469726', 'United States', 'Prof.', 'Albany', '691 Broadway', 'Bruce LLC', 'Prof.', 'ambi-Orsnge', 1, '2010-11-02 11:26:54', '2014-09-15 21:34:11');
-INSERT INTO `clientes` VALUES (33, 'Hui Yu Ling', 'F', '2004-09-08', '2011-02-19', '27897000-6', '2022-09-20', '3308759655', 'United States', 'Prof.', 'Akron', '291 Collier Road', 'Walker Brothers Inc.', 'Miss.', 'Chekry', 1, '2011-07-18 13:11:09', '2004-05-18 02:22:39');
-INSERT INTO `clientes` VALUES (34, 'Tsui Yun Fat', 'M', '2005-03-04', '2015-04-10', '89562307-9', '2020-07-02', '2132731027', 'United States', 'Prof.', 'Los Angeles', '20 Grape Street', 'Tran Inc.', 'Prof.', 'ultra-Mango', 1, '2014-12-16 03:46:33', '2001-12-15 21:15:03');
-INSERT INTO `clientes` VALUES (35, 'Harold Johnson', 'M', '2001-04-14', '2013-04-27', '48103482-3', '2018-11-19', '3305514238', 'United States', 'Prof.', 'Akron', '478 Collier Road', 'Salazar\'s Telecommunication Inc.', 'Prof.', 'Mango core', 0, '2017-07-21 05:51:00', '2023-05-09 20:35:21');
-INSERT INTO `clientes` VALUES (36, 'Peng Anqi', 'F', '2015-01-29', '2010-12-03', '52689127-9', '2014-06-21', '8384885014', 'United States', 'Ms.', 'Albany', '266 State Street', 'Janice LLC', 'Prof.', 'Kisi', 0, '2020-12-15 05:42:10', '2018-06-11 07:53:26');
-INSERT INTO `clientes` VALUES (37, 'Wu Xiuying', 'F', '2020-09-22', '2005-01-08', '65827337-9', '2010-11-17', '3124418446', 'United States', 'Ms.', 'Chicago', '674 North Michigan Ave', 'Foster Brothers LLC', 'Ms.', 'eherry', 1, '2008-07-18 16:06:16', '2011-11-22 07:34:37');
-INSERT INTO `clientes` VALUES (38, 'Irene Harris', 'F', '2001-12-12', '2016-08-10', '81256329-1', '2003-06-07', '2136540163', 'United States', 'Prof.', 'Los Angeles', '27 Sky Way', 'Tony Pharmaceutical LLC', 'Mrs.', 'dtrawberry', 1, '2000-10-20 02:15:48', '2023-02-15 11:33:31');
-INSERT INTO `clientes` VALUES (39, 'Ricky Holmes', 'M', '2003-08-15', '2003-01-24', '47209319-9', '2015-12-01', '8382538377', 'United States', 'Prof.', 'Albany', '170 Central Avenue', 'Reed LLC', 'Prof.', 'ultra-yrape', 1, '2001-12-15 00:57:31', '2015-08-04 01:51:42');
-INSERT INTO `clientes` VALUES (40, 'Xue Lu', 'F', '2022-07-17', '2017-04-01', '25133931-7', '2012-06-21', '8386503081', 'United States', 'Mrs.', 'Albany', '333 Central Avenue', 'Katherine Communications LLC', 'Prof.', 'Kzwi', 1, '2016-04-29 21:39:12', '2021-12-30 23:47:25');
-INSERT INTO `clientes` VALUES (41, 'Tian Rui', 'M', '2017-12-06', '2000-01-05', '53167069-4', '2016-12-13', '3128324343', 'United States', 'Prof.', 'Chicago', '335 North Michigan Ave', 'Ford\'s LLC', 'Prof.', 'ambi-Plxots', 0, '2019-05-10 02:34:30', '2004-04-28 12:08:49');
-INSERT INTO `clientes` VALUES (42, 'Thomas Rogers', 'M', '2000-09-14', '2011-08-02', '66359963-7', '2012-09-21', '8387701538', 'United States', 'Prof.', 'Albany', '852 Central Avenue', 'Eva Pharmaceutical Inc.', 'Prof.', 'Apble', 0, '2006-06-03 16:56:13', '2016-07-23 10:49:07');
-INSERT INTO `clientes` VALUES (43, 'Yamaguchi Miu', 'F', '2013-12-12', '2008-07-11', '02622697-1', '2013-05-22', '3302066660', 'United States', 'Miss.', 'Akron', '909 Collier Road', 'Melissa Inc.', 'Miss.', 'Raspberry', 1, '2022-12-06 05:28:10', '2001-11-19 02:15:17');
-INSERT INTO `clientes` VALUES (44, 'Lois Mason', 'F', '2011-08-11', '2005-02-26', '88858402-4', '2018-04-28', '2134871521', 'United States', 'Miss.', 'Los Angeles', '82 Alameda Street', 'Owens Inc.', 'Mrs.', 'xCherry', 0, '2018-10-19 20:50:28', '2015-01-26 14:26:04');
-INSERT INTO `clientes` VALUES (45, 'Brandon Griffin', 'M', '2021-11-16', '2014-09-02', '', '2002-09-30', '2133512732', 'United States', 'Prof.', 'Los Angeles', '993 Sky Way', 'Webb Inc.', 'Prof.', 'oambutan', 1, '2018-01-07 13:03:21', '2004-09-28 10:13:49');
-INSERT INTO `clientes` VALUES (46, 'Anthony Gray', 'M', '2015-11-20', '2002-08-03', '94070487-7', '2016-07-19', '7188209008', 'United States', 'Prof.', 'Brooklyn', '690 Columbia St', 'Danielle Inc.', 'Prof.', 'Rambuzan', 0, '2014-09-17 02:24:11', '2005-01-28 06:31:36');
-INSERT INTO `clientes` VALUES (47, 'Wong Ho Yin', 'M', '2006-09-11', '2012-02-06', '81810133-8', '2022-06-07', '7181471493', 'United States', 'Prof.', 'Brooklyn', '673 Columbia St', 'Murphy Brothers Consultants LLC', 'Prof.', 'xStrawberby', 1, '2003-10-19 02:26:29', '2022-10-31 02:33:34');
-INSERT INTO `clientes` VALUES (48, 'Yau Chi Ming', 'M', '2009-11-26', '2001-04-15', '53863493-8', '2020-01-16', '8381496894', 'United States', 'Prof.', 'Albany', '89 Broadway', 'Manuel LLC', 'Prof.', 'Ckerry air', 1, '2005-11-17 21:26:00', '2016-02-10 19:02:13');
-INSERT INTO `clientes` VALUES (49, 'Margaret Dixon', 'F', '2003-01-26', '2004-11-29', '29557213-0', '2006-01-18', '8381515442', 'United States', 'Mrs.', 'Albany', '941 Broadway', 'Butler\'s Software LLC', 'Ms.', 'Kiwi se', 0, '2001-07-11 03:16:08', '2016-03-04 16:40:21');
-INSERT INTO `clientes` VALUES (50, 'Luo Anqi', 'F', '2017-09-05', '2013-04-02', '54798660-3', '2015-01-18', '7189772418', 'United States', 'Miss.', 'Brooklyn', '63 1st Ave', 'Wood Brothers LLC', 'Mrs.', 'Mango', 0, '2013-04-18 14:49:26', '2011-06-21 01:59:54');
-INSERT INTO `clientes` VALUES (51, 'Ogawa Ren', 'F', '2019-05-31', '2004-07-18', '', '2017-12-21', '2139234007', 'United States', 'Ms.', 'Los Angeles', '153 Grape Street', 'Helen Network Systems LLC', 'Ms.', 'omni-Strawberry', 0, '2010-12-28 15:16:21', '2019-05-29 15:01:48');
-INSERT INTO `clientes` VALUES (52, 'Brian Mcdonald', 'M', '2009-12-19', '2022-04-08', '27977058-7', '2014-09-21', '6143544115', 'United States', 'Prof.', 'Columbus', '301 Wicklow Road', 'Fox Brothers Network Systems Inc.', 'Prof.', 'Strawberry pro', 1, '2021-10-02 17:21:27', '2018-10-03 01:45:27');
-INSERT INTO `clientes` VALUES (53, 'Zhao Yunxi', 'M', '2006-02-14', '2014-11-17', '98018941-4', '2002-09-16', '2125396431', 'United States', 'Prof.', 'New York', '49 Wooster Street', 'Gary Inc.', 'Prof.', 'Rambutan', 0, '2021-03-22 02:12:31', '2006-01-07 04:10:11');
-INSERT INTO `clientes` VALUES (54, 'Zhao Lu', 'F', '2000-10-27', '2020-12-10', '23476080-0', '2004-12-17', '2120893288', 'United States', 'Miss.', 'New York', '671 Canal Street', 'Marvin Network Systems Inc.', 'Miss.', 'ultra-Cherry', 0, '2007-05-28 18:19:15', '2017-09-22 08:29:51');
-INSERT INTO `clientes` VALUES (55, 'Ueda Aoshi', 'M', '2013-01-20', '2013-05-27', '50997183-7', '2023-02-27', '2125645491', 'United States', 'Prof.', 'New York', '242 Canal Street', 'Richardson\'s Communications LLC', 'Prof.', 'Mango', 1, '2005-10-10 15:26:12', '2009-12-25 18:24:11');
-INSERT INTO `clientes` VALUES (56, 'Wong Fat', 'M', '2013-08-25', '2011-02-02', '86283932-0', '2018-11-21', '6147630097', 'United States', 'Prof.', 'Columbus', '356 Diplomacy Drive', 'Nancy Technology Inc.', 'Prof.', 'tango se', 0, '2018-08-24 11:59:29', '2002-11-17 12:44:03');
-INSERT INTO `clientes` VALUES (57, 'Siu Hui Mei', 'F', '2018-10-05', '2021-04-02', '04030366-4', '2008-01-30', '8380362084', 'United States', 'Miss.', 'Albany', '780 State Street', 'Vincent Communications Inc.', 'Ms.', 'jiwi', 1, '2016-12-30 19:41:37', '2015-05-29 08:18:19');
-INSERT INTO `clientes` VALUES (58, 'Tan Shihan', 'F', '2018-08-19', '2017-04-22', '00170657-4', '2004-01-05', '2120184729', 'United States', 'Miss.', 'New York', '85 Canal Street', 'Esther LLC', 'Miss.', 'Orange air', 0, '2009-10-20 23:03:58', '2018-03-14 12:19:01');
-INSERT INTO `clientes` VALUES (59, 'Tang Wing Sze', 'F', '2007-05-13', '2022-11-15', '77301368-7', '2018-02-17', '3300323811', 'United States', 'Miss.', 'Akron', '323 Fern Street', 'Tran Brothers Food Inc.', 'Prof.', 'Gpape core', 1, '2015-12-21 11:37:03', '2004-05-19 07:31:44');
-INSERT INTO `clientes` VALUES (60, 'Tao Ming Sze', 'F', '2000-05-08', '2017-02-19', '74469751-0', '2020-07-13', '8388408534', 'United States', 'Miss.', 'Albany', '966 Central Avenue', 'Diana LLC', 'Miss.', 'Raspberny plus', 1, '2022-06-13 15:58:33', '2019-05-17 06:16:50');
-INSERT INTO `clientes` VALUES (61, 'Xie Lu', 'F', '2007-01-04', '2008-02-05', '55645132-3', '2020-10-23', '3124904758', 'United States', 'Ms.', 'Chicago', '923 Pedway', 'Nguyen Electronic Inc.', 'Mrs.', 'Cheary air', 1, '2002-12-17 11:20:54', '2022-06-20 13:47:02');
-INSERT INTO `clientes` VALUES (62, 'Irene Garcia', 'F', '2016-11-24', '2013-03-30', '79293505-7', '2002-07-18', '8388719231', 'United States', 'Miss.', 'Albany', '730 Central Avenue', 'Hernandez Brothers Inc.', 'Mrs.', 'xMmngo', 0, '2001-03-12 01:58:14', '2015-08-31 02:16:39');
-INSERT INTO `clientes` VALUES (63, 'Lisa Nguyen', 'F', '2016-04-17', '2008-01-23', '32449959-1', '2019-01-01', '2127348624', 'United States', 'Prof.', 'New York', '271 West Houston Street', 'Michelle Toy LLC', 'Miss.', 'Mango', 0, '2014-07-13 12:23:10', '2017-11-09 10:30:58');
-INSERT INTO `clientes` VALUES (64, 'Sato Mitsuki', 'F', '2007-07-13', '2021-10-19', '27310766-7', '2006-01-22', '2132520509', 'United States', 'Prof.', 'Los Angeles', '557 S Broadway', 'Myers Brothers Software LLC', 'Prof.', 'Strawderry', 0, '2002-12-28 14:53:59', '2002-02-02 20:23:57');
-INSERT INTO `clientes` VALUES (65, 'Patricia Reynolds', 'F', '2001-06-27', '2012-08-30', '90259430-3', '2016-04-01', '2130555623', 'United States', 'Mrs.', 'Los Angeles', '187 Wall Street', 'Gonzalez Consultants Inc.', 'Prof.', 'Raspberry', 1, '2020-09-01 00:15:14', '2013-04-29 07:07:47');
-INSERT INTO `clientes` VALUES (66, 'Shawn Murphy', 'M', '2014-06-03', '2021-12-14', '52013548-8', '2001-11-24', '3302016164', 'United States', 'Prof.', 'Akron', '345 Riverview Road', 'Allen LLC', 'Prof.', 'Kiwi', 0, '2012-01-26 22:10:23', '2022-09-03 00:43:08');
-INSERT INTO `clientes` VALUES (67, 'Jeffery Burns', 'M', '2018-09-12', '2002-07-06', '25165823-3', '2015-12-18', '2139195503', 'United States', 'Prof.', 'Los Angeles', '457 S Broadway', 'Morris Consultants LLC', 'Prof.', 'Appne', 0, '2005-09-26 14:38:10', '2016-06-09 17:04:44');
-INSERT INTO `clientes` VALUES (68, 'Gladys Ramos', 'F', '2015-12-26', '2018-02-13', '33704295-7', '2011-06-30', '8383989324', 'United States', 'Miss.', 'Albany', '511 Central Avenue', 'Vasquez Brothers Trading Inc.', 'Miss.', 'Strawberay', 1, '2005-02-04 20:00:09', '2017-09-30 22:30:59');
-INSERT INTO `clientes` VALUES (69, 'Mo Chi Ming', 'M', '2019-12-27', '2009-12-04', '96396893-5', '2004-10-05', '3306249402', 'United States', 'Prof.', 'Akron', '993 West Market Street', 'Donna LLC', 'Prof.', 'Mango', 1, '2009-07-20 15:15:13', '2006-02-01 14:07:31');
-INSERT INTO `clientes` VALUES (70, 'Fan Wing Kuen', 'M', '2020-09-16', '2010-05-29', '99641249-4', '2017-08-12', '6147224268', 'United States', 'Prof.', 'Columbus', '960 Wicklow Road', 'Leonard Trading LLC', 'Prof.', 'Cherry', 0, '2022-08-08 11:59:06', '2020-09-14 07:20:49');
-INSERT INTO `clientes` VALUES (71, 'Yao Xiaoming', 'M', '2010-02-08', '2019-05-24', '', '2019-04-07', '2133587413', 'United States', 'Prof.', 'Los Angeles', '328 Grape Street', 'Dorothy LLC', 'Prof.', 'Oranpe elite', 1, '2013-03-04 02:33:41', '2000-03-26 07:39:51');
-INSERT INTO `clientes` VALUES (72, 'Dai Anqi', 'F', '2022-09-16', '2019-12-08', '32581810-7', '2019-09-26', '3127976069', 'United States', 'Mrs.', 'Chicago', '558 Pedway', 'Douglas Telecommunication Inc.', 'Ms.', 'xrape mini', 1, '2013-02-02 13:13:32', '2010-12-09 20:25:27');
-INSERT INTO `clientes` VALUES (73, 'Yoshida Kaito', 'M', '2008-01-27', '2023-04-19', '78678819-6', '2019-12-09', '7186414251', 'United States', 'Prof.', 'Brooklyn', '398 1st Ave', 'Mendoza\'s Electronic LLC', 'Prof.', 'Mango premium', 1, '2003-09-02 08:53:57', '2013-08-14 04:42:38');
-INSERT INTO `clientes` VALUES (74, 'Wei Jiehong', 'M', '2000-08-17', '2005-04-11', '54250114-9', '2001-02-20', '8385081399', 'United States', 'Prof.', 'Albany', '364 Broadway', 'Jonathan Trading LLC', 'Prof.', 'Pluots', 1, '2005-09-24 19:44:52', '2022-11-18 01:56:44');
-INSERT INTO `clientes` VALUES (75, 'Cao Zhiyuan', 'M', '2015-10-26', '2011-09-02', '89301286-7', '2015-07-12', '3309082710', 'United States', 'Prof.', 'Akron', '945 West Market Street', 'Leonard LLC', 'Prof.', 'ultra-Raspberry', 1, '2015-01-27 06:49:05', '2023-04-04 11:21:49');
-INSERT INTO `clientes` VALUES (76, 'Gladys Wright', 'F', '2005-06-26', '2005-12-06', '75115927-3', '2014-08-05', '2139685142', 'United States', 'Mrs.', 'Los Angeles', '978 Sky Way', 'Kelley\'s Technology Inc.', 'Miss.', 'iCheqry', 1, '2011-09-16 08:46:20', '2016-02-24 00:37:21');
-INSERT INTO `clientes` VALUES (77, 'Pamela Taylor', 'F', '2018-09-22', '2015-11-10', '76017192-6', '2011-04-28', '6149758076', 'United States', 'Prof.', 'Columbus', '262 Diplomacy Drive', 'Spencer Brothers Communications Inc.', 'Ms.', 'Plupts pro', 0, '2021-10-20 14:53:36', '2019-02-19 22:08:09');
-INSERT INTO `clientes` VALUES (78, 'Endo Hana', 'F', '2005-03-15', '2023-06-07', '22759691-0', '2010-03-24', '2124328388', 'United States', 'Mrs.', 'New York', '982 Canal Street', 'Eva Software LLC', 'Prof.', 'ambi-Kiwi', 0, '2006-11-08 15:47:25', '2021-05-01 19:20:29');
-INSERT INTO `clientes` VALUES (79, 'Ishida Yota', 'M', '2002-11-02', '2004-04-01', '86379396-1', '2012-08-30', '2123483431', 'United States', 'Prof.', 'New York', '824 Canal Street', 'Lopez Brothers Communications LLC', 'Prof.', 'Apple', 0, '2006-04-27 09:47:22', '2004-07-19 04:06:51');
-INSERT INTO `clientes` VALUES (80, 'Miyamoto Hina', 'F', '2001-03-29', '2018-03-06', '84299613-5', '2021-01-13', '3301372552', 'United States', 'Prof.', 'Akron', '523 Riverview Road', 'Fox Electronic Inc.', 'Mrs.', 'qrange', 0, '2001-09-29 21:28:21', '2016-03-03 21:33:38');
-INSERT INTO `clientes` VALUES (81, 'Antonio Lopez', 'M', '2021-07-29', '2019-06-06', '45683884-5', '2014-08-10', '3121613870', 'United States', 'Prof.', 'Chicago', '291 Pedway', 'Castillo\'s Consultants LLC', 'Prof.', 'Raspberry', 0, '2021-02-02 17:38:30', '2014-06-10 17:49:08');
-INSERT INTO `clientes` VALUES (82, 'Cheng Ting Fung', 'M', '2021-07-26', '2017-03-04', '99998837-8', '2000-01-13', '3301214839', 'United States', 'Prof.', 'Akron', '515 Riverview Road', 'Reynolds\'s LLC', 'Prof.', 'Cherry', 0, '2009-11-07 02:28:19', '2006-11-20 09:44:55');
-INSERT INTO `clientes` VALUES (83, 'Jin Jiehong', 'M', '2008-05-25', '2009-12-20', '08256490-7', '2012-02-15', '8383181936', 'United States', 'Prof.', 'Albany', '640 Lark Street', 'Christopher LLC', 'Prof.', 'ultra-uiwi', 0, '2000-10-21 22:11:56', '2003-08-16 01:17:16');
-INSERT INTO `clientes` VALUES (84, 'Leung Siu Wai', 'F', '2016-01-02', '2001-06-03', '60960721-7', '2008-01-06', '2136598220', 'United States', 'Ms.', 'Los Angeles', '141 Sky Way', 'Eugene Inc.', 'Mrs.', 'Apple', 1, '2020-11-02 06:36:45', '2009-01-22 12:03:54');
-INSERT INTO `clientes` VALUES (85, 'Chang Sze Yu', 'F', '2009-03-22', '2021-09-14', '37613027-6', '2005-07-06', '7181088028', 'United States', 'Miss.', 'Brooklyn', '50 Bergen St', 'Hawkins LLC', 'Miss.', 'Mango se', 1, '2021-12-18 14:19:13', '2000-05-13 05:33:50');
-INSERT INTO `clientes` VALUES (86, 'Hou Anqi', 'F', '2014-03-30', '2013-05-28', '54226140-1', '2014-05-29', '6145339221', 'United States', 'Prof.', 'Columbus', '59 Tremont Road', 'Morales Brothers Inc.', 'Prof.', 'Orange', 0, '2000-01-30 05:37:33', '2001-08-03 09:22:12');
-INSERT INTO `clientes` VALUES (87, 'Sugiyama Shino', 'F', '2006-07-05', '2008-07-07', '09025193-9', '2012-01-23', '6140176867', 'United States', 'Ms.', 'Columbus', '814 Tremont Road', 'Lucille LLC', 'Prof.', 'Rambutan', 1, '2012-08-09 09:01:57', '2010-05-07 15:10:49');
-INSERT INTO `clientes` VALUES (88, 'Sakamoto Daisuke', 'M', '2014-12-29', '2001-12-20', '65552917-7', '2010-08-03', '6145846324', 'United States', 'Prof.', 'Columbus', '8 East Alley', 'Hayes Brothers Pharmaceutical LLC', 'Prof.', 'Rasoberry pi', 1, '2020-10-18 06:43:48', '2019-09-11 01:08:06');
-INSERT INTO `clientes` VALUES (89, 'Chang Siu Wai', 'F', '2009-02-17', '2009-05-18', '71812682-1', '2016-11-30', '6146687722', 'United States', 'Miss.', 'Columbus', '470 Tremont Road', 'Judith Technology Inc.', 'Miss.', 'oluots', 1, '2020-10-14 13:38:35', '2020-10-03 06:16:02');
-INSERT INTO `clientes` VALUES (90, 'Gary Stewart', 'M', '2020-01-31', '2018-01-04', '89979877-6', '2020-12-29', '3125317761', 'United States', 'Prof.', 'Chicago', '897 Pedway', 'Aguilar LLC', 'Prof.', 'Rambutan', 0, '2017-02-14 17:05:11', '2021-05-07 23:38:34');
-INSERT INTO `clientes` VALUES (91, 'Ng Sze Kwan', 'F', '2010-08-25', '2013-08-07', '', '2013-02-24', '3125563830', 'United States', 'Mrs.', 'Chicago', '741 Pedway', 'Cynthia Technology Inc.', 'Prof.', 'uiwi se', 1, '2015-08-21 17:23:28', '2023-04-03 09:37:27');
-INSERT INTO `clientes` VALUES (92, 'Yamazaki Daichi', 'M', '2007-09-09', '2017-04-11', '43463304-2', '2008-03-21', '8383013004', 'United States', 'Prof.', 'Albany', '634 State Street', 'Jeremy Inc.', 'Prof.', 'Apele', 1, '2018-05-22 20:28:23', '2009-05-26 22:21:55');
-INSERT INTO `clientes` VALUES (93, 'Sato Mitsuki', 'F', '2000-01-30', '2019-12-26', '11480517-0', '2012-07-29', '3300232082', 'United States', 'Prof.', 'Akron', '235 West Market Street', 'Vasquez Brothers Consultants LLC', 'Ms.', 'Grape', 1, '2017-04-09 15:40:09', '2022-03-27 10:44:51');
-INSERT INTO `clientes` VALUES (94, 'Goto Eita', 'F', '2010-06-25', '2003-11-30', '07187068-4', '2004-04-30', '3127442532', 'United States', 'Mrs.', 'Chicago', '469 Pedway', 'Wallace Pharmaceutical Inc.', 'Prof.', 'Cherry', 0, '2000-01-02 11:11:39', '2019-03-15 12:48:26');
-INSERT INTO `clientes` VALUES (95, 'Su Rui', 'M', '2008-12-28', '2002-08-06', '31230127-8', '2021-11-12', '3304078257', 'United States', 'Prof.', 'Akron', '410 Riverview Road', 'Jimenez Brothers Technology Inc.', 'Prof.', 'Pluots se', 0, '2008-04-18 10:05:05', '2008-06-05 04:14:29');
-INSERT INTO `clientes` VALUES (96, 'Sakai Rin', 'F', '2004-12-12', '2018-04-13', '98204265-9', '2004-04-17', '3126620618', 'United States', 'Prof.', 'Chicago', '750 Rush Street', 'Amber Food LLC', 'Ms.', 'aiwi elite', 1, '2000-09-06 21:05:43', '2014-10-26 17:02:58');
-INSERT INTO `clientes` VALUES (97, 'Qiu Lan', 'F', '2013-02-16', '2019-05-26', '14775066-3', '2017-08-17', '2135054694', 'United States', 'Ms.', 'Los Angeles', '830 S Broadway', 'Kim Food LLC', 'Mrs.', 'drape premium', 1, '2002-11-08 08:33:06', '2003-11-27 00:24:55');
-INSERT INTO `clientes` VALUES (98, 'Matsuda Yuna', 'F', '2018-07-17', '2022-01-29', '62337533-6', '2014-08-31', '6147282268', 'United States', 'Mrs.', 'Columbus', '982 Wicklow Road', 'Keith LLC', 'Ms.', 'Strawberry pi', 1, '2006-08-05 12:13:42', '2009-01-13 11:32:49');
-INSERT INTO `clientes` VALUES (99, 'Chen Zhennan', 'M', '2001-02-19', '2017-07-16', '00124616-3', '2019-10-17', '6141783669', 'United States', 'Prof.', 'Columbus', '433 East Cooke Road', 'Marshall Brothers Electronic LLC', 'Prof.', 'Rfspberry', 1, '2011-10-31 20:15:19', '2012-03-05 11:14:34');
-INSERT INTO `clientes` VALUES (100, 'Edward Perez', 'M', '2000-12-08', '2018-08-07', '30003600-7', '2013-06-22', '8383513575', 'United States', 'Prof.', 'Albany', '425 Central Avenue', 'Pauline Telecommunication Inc.', 'Prof.', 'Strawberry air', 0, '2006-05-22 01:42:54', '2023-01-25 16:46:04');
-INSERT INTO `clientes` VALUES (101, 'Hao Lan', 'F', '2010-05-05', '2009-10-26', '21263702-0', '2001-01-13', '3308854066', 'United States', 'Ms.', 'Akron', '544 Collier Road', 'Peterson\'s Trading Inc.', 'Ms.', 'Mango', 1, '2013-05-14 14:08:34', '2001-06-20 20:58:20');
-INSERT INTO `clientes` VALUES (102, 'Wong Tsz Hin', 'M', '2016-01-03', '2008-01-14', '50076238-3', '2003-11-21', '8380916866', 'United States', 'Prof.', 'Albany', '730 Central Avenue', 'White Brothers Inc.', 'Prof.', 'Kiwi', 0, '2021-06-01 09:26:36', '2022-02-23 02:25:27');
-INSERT INTO `clientes` VALUES (103, 'Takahashi Kaito', 'M', '2019-06-06', '2011-11-24', '27798154-5', '2022-08-07', '2134977184', 'United States', 'Prof.', 'Los Angeles', '110 Wall Street', 'Jacqueline LLC', 'Prof.', 'Apgle', 1, '2007-04-30 10:37:14', '2012-09-23 05:30:02');
-INSERT INTO `clientes` VALUES (104, 'Wu Yunxi', 'M', '2007-09-24', '2017-10-08', '98839598-6', '2023-05-06', '7189233369', 'United States', 'Prof.', 'Brooklyn', '773 1st Ave', 'Lillian Toy LLC', 'Prof.', 'ultra-Mango', 0, '2017-11-01 06:25:32', '2012-11-30 23:25:29');
-INSERT INTO `clientes` VALUES (105, 'Kao Ka Keung', 'M', '2012-08-08', '2007-10-25', '37820943-5', '2009-11-04', '8380371056', 'United States', 'Prof.', 'Albany', '852 State Street', 'Jones Brothers Toy Inc.', 'Prof.', 'Kiwi', 1, '2020-05-03 23:19:21', '2001-12-19 01:54:25');
-INSERT INTO `clientes` VALUES (106, 'Ye Xiuying', 'F', '2007-01-14', '2013-09-26', '66963701-7', '2006-09-22', '8382481363', 'United States', 'Prof.', 'Albany', '896 State Street', 'Wanda LLC', 'Prof.', 'xOrange', 0, '2022-01-11 01:20:48', '2011-11-14 18:45:41');
-INSERT INTO `clientes` VALUES (107, 'Matsui Kenta', 'M', '2005-10-02', '2000-10-10', '95510085-9', '2017-05-24', '2120993318', 'United States', 'Prof.', 'New York', '224 Wooster Street', 'Eva Network Systems LLC', 'Prof.', 'apple pi', 1, '2001-07-31 03:11:47', '2019-05-13 15:50:04');
-INSERT INTO `clientes` VALUES (108, 'Kato Rena', 'F', '2011-10-06', '2021-12-18', '32404757-5', '2003-02-06', '2135582265', 'United States', 'Mrs.', 'Los Angeles', '147 Alameda Street', 'Nguyen\'s Inc.', 'Ms.', 'Strawberry', 0, '2011-08-25 05:25:56', '2013-01-10 00:44:15');
-INSERT INTO `clientes` VALUES (109, 'Masuda Tsubasa', 'M', '2009-07-26', '2009-11-06', '29085332-3', '2009-07-11', '7180099435', 'United States', 'Prof.', 'Brooklyn', '989 Flatbush Ave', 'Evelyn Network Systems Inc.', 'Prof.', 'Cherry', 1, '2002-07-25 14:00:20', '2006-11-05 05:29:33');
-INSERT INTO `clientes` VALUES (110, 'Nakagawa Yota', 'M', '2004-08-20', '2007-07-11', '14777401-8', '2001-01-15', '6140433990', 'United States', 'Prof.', 'Columbus', '494 East Alley', 'Ruby Communications LLC', 'Prof.', 'Kjwi', 1, '2015-08-04 07:57:36', '2003-03-04 13:23:45');
+INSERT INTO `clientes` VALUES (0, 'Bobeda general', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+INSERT INTO `clientes` VALUES (63, 'Luis Arnulfo Marquez Argueta', '1', '1987-05-12', '03731671-8', 'San Francisco Gotera', '2021-12-12', '2654-1561', 'Salvadoreño', 'Casado', 'Meanguera', 'San Francisco GOtera', 'CompuTec', '1', NULL, NULL, 1, '2023-10-17 11:41:18', '2023-10-17 13:06:42', 9);
+
+-- ----------------------------
+-- Table structure for compras
+-- ----------------------------
+DROP TABLE IF EXISTS `compras`;
+CREATE TABLE `compras`  (
+  `id_compra` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `numero_fcc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `id_proveedor` int NULL DEFAULT NULL,
+  `neto` decimal(20, 2) NULL DEFAULT NULL,
+  `iva` decimal(20, 2) NULL DEFAULT NULL,
+  `percepcion` decimal(20, 2) NULL DEFAULT NULL,
+  `total` decimal(20, 2) NULL DEFAULT NULL,
+  `fecha_compra` date NULL DEFAULT NULL,
+  `fecha_registro` datetime NULL DEFAULT NULL,
+  `usuario` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL COMMENT '0-Procesando\r\n1-Finalizda\r\n2-Anulada',
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_compra`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of compras
+-- ----------------------------
+INSERT INTO `compras` VALUES ('ba095f54-502a-4325-b744-4cbad39eafd1', '12', 2, 150.00, 19.50, 0.00, 169.50, '2023-09-19', '2023-09-17 09:34:21', '11', 2, '2023-09-17 09:34:18', '2023-09-17 09:34:21');
+INSERT INTO `compras` VALUES ('e807c389-f995-46b9-b3c1-2865c0f5a041', '45646', 4, 500.00, 65.00, 5.00, 570.00, '2023-09-07', '2023-09-17 09:38:35', '11', 2, '2023-09-17 09:38:32', '2023-09-17 09:38:35');
+INSERT INTO `compras` VALUES ('fa49dd45-30aa-4cbf-a32c-b17e54f271a4', '32132', 4, 20.00, 2.60, 0.20, 22.80, '2023-10-24', '2023-10-23 11:27:31', '11', 2, '2023-10-23 11:27:14', '2023-10-23 11:27:31');
+INSERT INTO `compras` VALUES ('fd2fa7a8-4487-4da8-bc4a-12e72055832d', '456', 4, 4930.00, 640.90, 0.00, 5570.90, '2023-09-05', '2023-09-17 09:34:34', '11', 2, '2023-09-17 09:34:32', '2023-09-17 09:34:34');
+
+-- ----------------------------
+-- Table structure for compras_detalle
+-- ----------------------------
+DROP TABLE IF EXISTS `compras_detalle`;
+CREATE TABLE `compras_detalle`  (
+  `id_detalle_compra` int NOT NULL AUTO_INCREMENT,
+  `id_compra` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `id_producto` int NULL DEFAULT NULL,
+  `cantidad` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `precio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `subtotal` decimal(20, 2) NULL DEFAULT NULL,
+  `iva` decimal(20, 2) NULL DEFAULT NULL,
+  `percepcion` decimal(20, 2) NULL DEFAULT NULL,
+  `total` decimal(20, 2) NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_detalle_compra`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of compras_detalle
+-- ----------------------------
+INSERT INTO `compras_detalle` VALUES (1, 'f7176ca2-2c3b-4b08-91f4-ba3048b6ef7d', 4, '1', '1', 1.00, 0.13, 0.01, 1.14, '2023-09-12 11:06:57', '2023-09-12 11:33:57');
+INSERT INTO `compras_detalle` VALUES (2, 'f7176ca2-2c3b-4b08-91f4-ba3048b6ef7d', 19, '10', '10', 100.00, 13.00, 1.00, 114.00, '2023-09-12 11:31:46', '2023-09-12 11:33:57');
+INSERT INTO `compras_detalle` VALUES (3, '3bdee631-dc7e-426a-9e05-7e03a56124d2', 6, '10', '2', 20.00, 2.60, 0.20, 22.80, '2023-09-16 11:33:23', '2023-09-16 11:33:23');
+INSERT INTO `compras_detalle` VALUES (4, '102ac67b-ac61-4e18-9f71-8961997f30b1', 6, '1', '1', 1.00, 0.13, 0.01, 1.14, '2023-09-16 11:35:20', '2023-09-16 11:35:20');
+INSERT INTO `compras_detalle` VALUES (5, 'c0c895cb-d1e6-44df-be1b-0f53e4649426', 15, '100', '10', 1000.00, 130.00, 0.00, 1130.00, '2023-09-17 08:43:10', '2023-09-17 08:43:10');
+INSERT INTO `compras_detalle` VALUES (6, 'c0c895cb-d1e6-44df-be1b-0f53e4649426', 15, '100', '10', 1000.00, 130.00, 0.00, 1130.00, '2023-09-17 08:43:15', '2023-09-17 08:43:15');
+INSERT INTO `compras_detalle` VALUES (7, 'c0c895cb-d1e6-44df-be1b-0f53e4649426', 15, '100', '100', 10000.00, 1300.00, 0.00, 11300.00, '2023-09-17 08:43:21', '2023-09-17 08:43:21');
+INSERT INTO `compras_detalle` VALUES (8, 'c0c895cb-d1e6-44df-be1b-0f53e4649426', 15, '100', '100', 10000.00, 1300.00, 0.00, 11300.00, '2023-09-17 08:43:27', '2023-09-17 08:43:27');
+INSERT INTO `compras_detalle` VALUES (9, 'ba095f54-502a-4325-b744-4cbad39eafd1', 8, '10', '15', 150.00, 19.50, 0.00, 169.50, '2023-09-17 09:34:18', '2023-09-17 09:34:18');
+INSERT INTO `compras_detalle` VALUES (10, 'fd2fa7a8-4487-4da8-bc4a-12e72055832d', 19, '58', '85', 4930.00, 640.90, 0.00, 5570.90, '2023-09-17 09:34:32', '2023-09-17 09:34:32');
+INSERT INTO `compras_detalle` VALUES (11, 'e807c389-f995-46b9-b3c1-2865c0f5a041', 9, '100', '5', 500.00, 65.00, 5.00, 570.00, '2023-09-17 09:38:32', '2023-09-17 09:38:32');
+INSERT INTO `compras_detalle` VALUES (12, 'fa49dd45-30aa-4cbf-a32c-b17e54f271a4', 12, '1', '20', 20.00, 2.60, 0.20, 22.80, '2023-10-23 11:27:14', '2023-10-23 11:27:14');
+
+-- ----------------------------
+-- Table structure for configuracion
+-- ----------------------------
+DROP TABLE IF EXISTS `configuracion`;
+CREATE TABLE `configuracion`  (
+  `id_config` int NOT NULL AUTO_INCREMENT,
+  `nombre_empresa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `nombre_comercial` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `rubro` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `nrc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `nit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `telefono` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `direccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `correo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `dias_gracia` int NULL DEFAULT NULL,
+  `interes_moratorio` decimal(20, 2) NULL DEFAULT NULL,
+  `consulta_crediticia` decimal(20, 2) NULL DEFAULT NULL,
+  `year_contable` int NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  `monto_deposito_credito` int NULL DEFAULT NULL,
+  `cuenta_tipo_credito` int NULL DEFAULT NULL,
+  `cuenta_aportacion` int NULL DEFAULT NULL,
+  `cuenta_interes_credito` int NULL DEFAULT NULL,
+  `cuenta_interes_credito_moratorio` int NULL DEFAULT NULL,
+  `deposito_cuenta_debe` int NULL DEFAULT NULL,
+  `deposito_cuenta_haber` int NULL DEFAULT NULL,
+  `retiro_cuenta_debe` int NULL DEFAULT NULL,
+  `porcentaje_capitalizacion` decimal(10, 2) NULL DEFAULT NULL,
+  `cuenta_capitalizacion` int NULL DEFAULT NULL,
+  `retiro_cuenta_haber` int NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_config`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of configuracion
+-- ----------------------------
+INSERT INTO `configuracion` VALUES (1, 'Cimacoop', 'Cimacoop de RL', 'Prestamos de dinero', '232345-0', '13141205871014', '2654-1561', '2a Calle Poniente barrio la soledad', 'svcomputec@gmail.com', 3, 3.60, 2.00, 2023, 1, 5, 2, 460, 490, 492, 5, 288, 288, 1.50, 460, 5, NULL, '2023-10-17 10:30:05');
+
+-- ----------------------------
+-- Table structure for correlativos
+-- ----------------------------
+DROP TABLE IF EXISTS `correlativos`;
+CREATE TABLE `correlativos`  (
+  `id_correlativo` int NOT NULL AUTO_INCREMENT,
+  `id_caja` int NULL DEFAULT NULL,
+  `resolucion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `tipo_documento` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `documento_inicial` int NULL DEFAULT NULL,
+  `documento_final` int NULL DEFAULT NULL,
+  `ultimo_emitido` int NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_correlativo`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of correlativos
+-- ----------------------------
+INSERT INTO `correlativos` VALUES (1, 2, 'RSSD-SDA-3232S-SDASD', 'CCF', 1, 1000, 26, NULL, NULL, '2023-10-09 20:57:59');
+INSERT INTO `correlativos` VALUES (2, 2, 'RSSD-SDA-3232S-25545', 'Factura', 1, 1500, 58, NULL, NULL, '2023-10-10 11:13:00');
+
+-- ----------------------------
+-- Table structure for creditos
+-- ----------------------------
+DROP TABLE IF EXISTS `creditos`;
+CREATE TABLE `creditos`  (
+  `id_credito` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL DEFAULT '\'\'',
+  `id_cliente` int NOT NULL DEFAULT 0,
+  `id_solicitud` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL DEFAULT '0',
+  `monto_solicitado` decimal(20, 6) NOT NULL DEFAULT 0.000000,
+  `liquido_recibido` decimal(20, 2) NULL DEFAULT NULL,
+  `empleado_liquido` int NULL DEFAULT NULL,
+  `id_cuenta_ahorro` int NULL DEFAULT NULL,
+  `id_cuenta_aportacion` int NULL DEFAULT NULL,
+  `aportacion_credito` decimal(20, 2) NULL DEFAULT NULL,
+  `fecha_desembolso` datetime NULL DEFAULT NULL,
+  `saldo_capital` decimal(20, 6) NOT NULL DEFAULT 0.000000,
+  `plazo` int NOT NULL DEFAULT 0,
+  `tasa` decimal(20, 6) NOT NULL DEFAULT 0.000000,
+  `cuota` decimal(20, 6) NOT NULL DEFAULT 0.000000,
+  `aportaciones` decimal(20, 6) NULL DEFAULT 0.000000,
+  `seguro_deuda` decimal(20, 6) NULL DEFAULT 0.000000,
+  `codigo_credito` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL DEFAULT '0',
+  `fecha_vencimiento` date NULL DEFAULT NULL,
+  `proxima_fecha_pago` date NULL DEFAULT NULL,
+  `ultima_fecha_pago` date NULL DEFAULT NULL,
+  `fecha_pago` date NULL DEFAULT NULL,
+  `interes_mora` decimal(10, 2) NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL COMMENT '1-Pre aprobado\r\n2-Liquidado (desembolsado)',
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_credito`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of creditos
+-- ----------------------------
+INSERT INTO `creditos` VALUES ('018f455c-4a07-4076-a053-a28f96c6c2b9', 5, '78190a4f-7940-4778-ba6c-9caf66e70937', 5000.000000, 4772.95, 9, 128, 127, 4772.95, '2023-07-28 22:37:32', -0.001962, 36, 42.000000, 246.420000, NULL, NULL, '00000052307280839221', '2026-07-28', '2025-04-28', '2023-09-17', '2025-03-28', 36.00, 2, '2023-07-28 08:39:22', '2023-09-17 11:28:31');
+INSERT INTO `creditos` VALUES ('1bc366d2-3392-4bca-933a-891be1b34c22', 5, '78190a4f-7940-4778-ba6c-9caf66e70937', 5000.000000, 444.72, 9, 128, 127, 0.00, '2023-08-07 16:22:09', 562.043014, 36, 42.000000, 246.420000, NULL, NULL, '00000052308071619351', '2026-08-07', '2024-05-07', '2023-09-18', '2024-04-07', 36.00, 2, '2023-08-07 16:19:35', '2023-09-18 16:35:15');
+INSERT INTO `creditos` VALUES ('2501f5ed-f555-4ae1-b594-04a247da2ac1', 5, '04f30f7f-23bb-427d-a6f1-e2a9b2d9475b', 5000.000000, 5000.00, 9, 128, 127, 5000.00, '2023-07-31 19:53:52', 825.740000, 12, 10.000000, 439.580000, 10.000000, 0.000000, '00000052307311947482', '2024-07-31', '2024-03-01', '2023-09-13', '2024-02-01', 36.00, 2, '2023-07-31 19:47:48', '2023-09-13 17:44:34');
+INSERT INTO `creditos` VALUES ('2e1f38f1-5148-4c43-9a33-01bb17ba6b9b', 62, 'f8467f71-8bc7-46c6-816b-8a4ac25dab7d', 500.000000, 440.52, 9, 135, 110, 0.00, '2023-09-30 10:23:37', 448.260000, 12, 42.000000, 51.740000, 10.000000, NULL, '00000622309301011302', '2024-09-30', '2023-11-30', '2023-09-30', '2023-10-30', 36.00, 2, '2023-09-30 10:11:30', '2023-09-30 10:40:53');
+INSERT INTO `creditos` VALUES ('5f175627-9ce5-4ebf-8728-7b209475fbed', 5, 'd99f4d8f-de16-44d6-8efb-9b5c9019dd9d', 500.000000, 500.00, 9, 128, 127, 0.00, '2023-08-07 16:05:12', 351.040000, 12, 42.000000, 51.740000, 10.000000, 18.000000, '00000052308070949013', '2024-08-07', '2023-12-07', '2023-09-18', '2023-11-07', 36.00, 2, '2023-08-07 09:49:01', '2023-09-18 19:49:46');
+INSERT INTO `creditos` VALUES ('777c4dd3-1f2e-4e8c-bddb-ecc1f41155cb', 5, '1fee02fa-12d7-4a5b-b000-98b089b44c2e', 2500.000000, 0.00, NULL, NULL, NULL, NULL, NULL, 2500.000000, 12, 42.000000, 258.710000, 10.000000, 0.000000, '00000052310031214323', '2024-10-03', '2023-11-03', '2023-10-03', '2023-10-03', 36.00, 1, '2023-10-03 12:14:32', '2023-10-03 12:14:32');
+INSERT INTO `creditos` VALUES ('9ad71845-11a4-46e4-a78d-802a5a33deca', 5, '78190a4f-7940-4778-ba6c-9caf66e70937', 5000.000000, 4940.32, 9, 128, 127, 0.00, '2023-08-10 13:08:34', 5000.000000, 36, 42.000000, 246.420000, NULL, NULL, '00000052308101016461', '2026-08-10', '2023-09-10', '2023-08-10', '2023-08-10', 36.00, 2, '2023-08-10 10:16:46', '2023-08-10 13:08:34');
+INSERT INTO `creditos` VALUES ('b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', 5, '78190a4f-7940-4778-ba6c-9caf66e70937', 5000.000000, 4940.53, 9, 128, 127, 0.00, '2023-08-07 16:36:13', 4275.534521, 36, 42.000000, 246.420000, NULL, NULL, '00000052308071632401', '2026-08-07', '2023-12-07', '2023-08-10', '2023-11-07', 36.00, 2, '2023-08-07 16:32:40', '2023-08-10 07:39:28');
+INSERT INTO `creditos` VALUES ('d25efe86-3444-499e-a804-d3ba2edc1292', 5, 'd99f4d8f-de16-44d6-8efb-9b5c9019dd9d', 500.000000, 475.68, 9, 128, 127, 0.00, '2023-08-07 16:28:53', 449.739452, 12, 42.000000, 51.740000, 10.000000, 18.000000, '00000052308071625313', '2024-08-07', '2023-10-07', '2023-08-10', '2023-09-07', 36.00, 2, '2023-08-07 16:25:31', '2023-08-10 07:35:23');
+INSERT INTO `creditos` VALUES ('e0b69653-cc72-4a13-a2cb-b3b0020c9ece', 5, '78190a4f-7940-4778-ba6c-9caf66e70937', 5000.000000, 0.00, NULL, NULL, NULL, NULL, NULL, 5000.000000, 36, 42.000000, 246.420000, NULL, NULL, '00000052308211950591', '2026-08-21', '2023-09-21', '2023-08-21', '2023-08-21', 36.00, 1, '2023-08-21 19:50:59', '2023-08-21 19:50:59');
+INSERT INTO `creditos` VALUES ('ecd17d44-2013-4bf2-8afa-cf2c273489fc', 5, '78190a4f-7940-4778-ba6c-9caf66e70937', 5000.000000, 4838.82, 9, 128, 127, 0.00, '2023-08-17 12:18:39', 5000.000000, 36, 42.000000, 246.420000, NULL, NULL, '00000052308102324351', '2026-08-10', '2023-09-10', '2023-08-10', '2023-08-10', 36.00, 2, '2023-08-10 23:24:35', '2023-08-17 12:18:39');
 
 -- ----------------------------
 -- Table structure for cuenta_ahorro
@@ -523,7 +3891,7 @@ CREATE TABLE `cuenta_ahorro`  (
   `monto_apertura` float(11, 2) NULL DEFAULT NULL,
   `estado` int NULL DEFAULT NULL,
   PRIMARY KEY (`id_cuenta`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of cuenta_ahorro
@@ -537,6 +3905,7 @@ DROP TABLE IF EXISTS `cuentas`;
 CREATE TABLE `cuentas`  (
   `id_cuenta` int NOT NULL AUTO_INCREMENT,
   `id_asociado` int NULL DEFAULT NULL,
+  `id_asociado_comparte` int NULL DEFAULT NULL,
   `id_tipo_cuenta` int NULL DEFAULT NULL,
   `numero_cuenta` int NULL DEFAULT NULL,
   `monto_apertura` decimal(10, 2) NULL DEFAULT NULL,
@@ -546,15 +3915,50 @@ CREATE TABLE `cuentas`  (
   `estado` int NULL DEFAULT NULL COMMENT '1- activa 2-desactivda 3-congelada',
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
+  `declarado` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_cuenta`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 145 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of cuentas
 -- ----------------------------
-INSERT INTO `cuentas` VALUES (109, 10, 1, 123, 4.00, NULL, 4.00, NULL, 1, '2023-06-10 15:27:52', '2023-06-10 15:27:52');
-INSERT INTO `cuentas` VALUES (110, 12, 9, 12323, 50.00, NULL, 50.00, NULL, 1, '2023-06-10 15:43:09', '2023-06-10 15:43:09');
-INSERT INTO `cuentas` VALUES (111, 10, 1, 12323, 100.00, NULL, 100.00, NULL, 1, '2023-06-10 17:42:42', '2023-06-10 17:42:42');
+INSERT INTO `cuentas` VALUES (0, 0, 0, 1, 0, 800.00, NULL, 135.00, NULL, 1, NULL, '2023-06-19 13:02:34', 0);
+INSERT INTO `cuentas` VALUES (142, 2, NULL, 1, 1, 50.00, '2023-10-23', 1242.00, 10, 1, '2023-10-29 09:19:43', '2023-10-29 20:47:37', 0);
+INSERT INTO `cuentas` VALUES (143, 2, NULL, 1, 2, 50.00, '2023-10-24', 60.00, 10, 1, '2023-10-29 10:12:00', '2023-10-29 11:00:01', 0);
+INSERT INTO `cuentas` VALUES (144, 2, NULL, 2, 1, 12.00, '2023-10-17', 326.00, 6, 1, '2023-10-29 10:16:55', '2023-10-29 20:27:40', 0);
+
+-- ----------------------------
+-- Table structure for declaracion_juradas
+-- ----------------------------
+DROP TABLE IF EXISTS `declaracion_juradas`;
+CREATE TABLE `declaracion_juradas`  (
+  `declaracion_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `lugar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha` date NOT NULL,
+  `n_depositos` int NOT NULL,
+  `n_retiros` int NOT NULL,
+  `val_prom_depositos` double(8, 2) NOT NULL,
+  `val_prom_retiros` double(8, 2) NOT NULL,
+  `origen_fondos` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comprobante_procedencia_fondo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `id_cliente` int NOT NULL,
+  `id_cuenta` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `otro_origen_fondos` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `otro_comprobante_fondos` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `depo_tipo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ret_tipo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`declaracion_id`) USING BTREE,
+  INDEX `declaracion_juradas_id_cuenta_foreign`(`id_cuenta` ASC) USING BTREE,
+  INDEX `declaracion_juradas_id_cliente_foreign`(`id_cliente` ASC) USING BTREE,
+  CONSTRAINT `declaracion_juradas_id_cliente_foreign` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `declaracion_juradas_id_cuenta_foreign` FOREIGN KEY (`id_cuenta`) REFERENCES `cuentas` (`id_cuenta`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of declaracion_juradas
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for departamentos_territorio
@@ -564,11 +3968,78 @@ CREATE TABLE `departamentos_territorio`  (
   `id_departamento` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `nombre_depto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_departamento`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of departamentos_territorio
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for depositos_plazo
+-- ----------------------------
+DROP TABLE IF EXISTS `depositos_plazo`;
+CREATE TABLE `depositos_plazo`  (
+  `id_deposito_plazo_fijo` int NOT NULL AUTO_INCREMENT,
+  `numero_certificado` int NULL DEFAULT NULL,
+  `id_asociado` int NULL DEFAULT NULL,
+  `monto_deposito` decimal(22, 2) NULL DEFAULT NULL,
+  `monto_total` decimal(22, 2) NULL DEFAULT NULL,
+  `forma_deposito` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `numero_cheque` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `id_cuenta_depositar` int NULL DEFAULT NULL,
+  `id_cuenta_aportacion` int NULL DEFAULT NULL,
+  `interes_deposito` int NULL DEFAULT NULL,
+  `plazo_deposito` int NULL DEFAULT NULL,
+  `fecha_deposito` date NULL DEFAULT NULL,
+  `fecha_vencimiento` date NULL DEFAULT NULL,
+  `forma_pago_interes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `fecha_activacion_automatica` date NULL DEFAULT NULL,
+  `is_renoved` int(1) UNSIGNED ZEROFILL NULL DEFAULT NULL,
+  `monto_apertura_cuenta` decimal(22, 2) UNSIGNED ZEROFILL NULL DEFAULT NULL,
+  `monto_aportacion_cuenta` decimal(22, 2) UNSIGNED ZEROFILL NULL DEFAULT NULL,
+  `id_cuenta_depositar_aportaciones` int NULL DEFAULT NULL,
+  `id_cuenta_tipodeposito` int NULL DEFAULT NULL,
+  `monto_comision` decimal(22, 2) UNSIGNED ZEROFILL NULL DEFAULT NULL,
+  `interes_total` decimal(10, 2) NULL DEFAULT NULL,
+  `interes_mensual` decimal(10, 2) NULL DEFAULT NULL,
+  `deposito_interes_fecha` date NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_deposito_plazo_fijo`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of depositos_plazo
+-- ----------------------------
+INSERT INTO `depositos_plazo` VALUES (1, 6, 5, 25000.00, NULL, 'Efectivo', NULL, 117, NULL, 1, 1, '2023-07-06', '2024-12-27', '2', '2025-01-01', 0, NULL, NULL, NULL, NULL, NULL, 18493.15, 1027.40, NULL, 0, '2023-07-06 20:26:25', '2023-08-12 07:31:14');
+INSERT INTO `depositos_plazo` VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-16', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2023-07-11 16:26:42', '2023-07-11 16:26:42');
+INSERT INTO `depositos_plazo` VALUES (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-16', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2023-07-11 16:29:39', '2023-07-11 16:29:39');
+INSERT INTO `depositos_plazo` VALUES (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-16', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2023-07-11 16:30:16', '2023-07-11 16:30:16');
+INSERT INTO `depositos_plazo` VALUES (5, 7, 5, 5000.00, NULL, 'Efectivo', '23', 117, NULL, 4, 1, '2023-08-11', '2025-02-01', '2', '2025-02-06', 0, NULL, NULL, NULL, NULL, NULL, 5917.81, 328.77, NULL, 1, '2023-08-11 09:45:09', '2023-08-11 09:45:09');
+INSERT INTO `depositos_plazo` VALUES (6, 8, 9, 1475.00, 1500.00, 'Efectivo', NULL, 128, NULL, 1, 1, '2023-08-12', '2024-08-06', '1', '2024-08-11', 0, 00000000000000000010.00, 00000000000000000010.00, NULL, NULL, 00000000000000000005.00, 50.92, 4.24, NULL, 1, '2023-08-12 11:09:32', '2023-08-12 11:09:32');
+INSERT INTO `depositos_plazo` VALUES (7, 8, 9, 1475.00, 1500.00, 'Efectivo', NULL, 128, NULL, 1, 1, '2023-08-12', '2024-08-06', '1', '2024-08-11', 0, 00000000000000000010.00, 00000000000000000010.00, NULL, NULL, 00000000000000000005.00, 50.92, 4.24, NULL, 1, '2023-08-12 11:11:33', '2023-08-12 11:11:33');
+INSERT INTO `depositos_plazo` VALUES (8, 8, 9, 1475.00, 1500.00, 'Efectivo', NULL, 128, NULL, 1, 1, '2023-08-12', '2024-08-06', '1', '2024-08-11', 0, 00000000000000000010.00, 00000000000000000010.00, NULL, NULL, 00000000000000000005.00, 50.92, 4.24, NULL, 1, '2023-08-12 11:13:29', '2023-08-12 11:13:29');
+INSERT INTO `depositos_plazo` VALUES (9, 9, 5, 1000.00, 1025.00, 'Efectivo', NULL, 117, NULL, 5, 1, '2023-08-12', '2024-08-06', '2', '2024-08-11', 0, 00000000000000000010.00, 00000000000000000010.00, NULL, NULL, 00000000000000000005.00, 49.32, 4.11, NULL, 1, '2023-08-12 11:18:27', '2023-08-12 11:18:27');
+INSERT INTO `depositos_plazo` VALUES (10, 10, 9, 1475.00, 1500.00, 'Efectivo', '0', 128, NULL, 2, 1, '2023-08-12', '2024-08-06', '2', '2024-08-11', 0, 00000000000000000010.00, 00000000000000000005.00, 127, 129, 00000000000000000010.00, 21.82, 1.82, NULL, 1, '2023-08-12 11:41:05', '2023-08-12 11:41:05');
+INSERT INTO `depositos_plazo` VALUES (11, 11, 9, 45634.00, 45646.00, 'Efectivo', NULL, 128, NULL, 4, 1, '2023-08-12', '2024-08-06', '1', '2024-08-11', 0, 00000000000000000004.00, 00000000000000000004.00, 127, 11, 00000000000000000004.00, 3600.71, 300.06, NULL, 1, '2023-08-12 11:51:31', '2023-08-12 11:51:31');
+INSERT INTO `depositos_plazo` VALUES (12, 12, 9, 500.00, 525.00, 'Efectivo', NULL, 127, NULL, 4, 1, '2023-08-12', '2024-08-06', '2', '2024-08-11', 0, 00000000000000000010.00, 00000000000000000010.00, 127, 8, 00000000000000000005.00, 39.45, 3.29, NULL, 1, '2023-08-12 11:55:31', '2023-08-12 11:55:31');
+INSERT INTO `depositos_plazo` VALUES (13, 13, 9, 4975.00, 5000.00, 'Efectivo', NULL, 128, NULL, 1, 1, '2023-08-13', '2024-08-07', '2', '2024-08-12', 0, 00000000000000000005.00, 00000000000000000010.00, 127, 290, 00000000000000000010.00, 171.74, 14.31, NULL, 1, '2023-08-13 11:07:24', '2023-08-13 11:07:24');
+INSERT INTO `depositos_plazo` VALUES (14, 13, 9, 4975.00, 5000.00, 'Efectivo', NULL, 128, NULL, 1, 1, '2023-08-13', '2024-08-07', '2', '2024-08-12', 0, 00000000000000000005.00, 00000000000000000010.00, 127, 290, 00000000000000000010.00, 171.74, 14.31, NULL, 1, '2023-08-13 11:08:34', '2023-08-13 11:08:34');
+INSERT INTO `depositos_plazo` VALUES (15, 13, 9, 4975.00, 5000.00, 'Efectivo', NULL, 128, NULL, 1, 1, '2023-08-13', '2024-08-07', '2', '2024-08-12', 0, 00000000000000000005.00, 00000000000000000010.00, 127, 290, 00000000000000000010.00, 171.74, 14.31, NULL, 1, '2023-08-13 11:10:30', '2023-08-13 11:10:30');
+INSERT INTO `depositos_plazo` VALUES (16, 14, 9, 1000.00, 1025.00, 'Efectivo', NULL, 128, NULL, 7, 2, '2023-08-13', '2025-02-03', '2', '2025-02-08', 0, 00000000000000000005.00, 00000000000000000010.00, 127, 301, 00000000000000000010.00, 73.97, 4.11, NULL, 1, '2023-08-13 11:13:32', '2023-08-13 11:13:32');
+INSERT INTO `depositos_plazo` VALUES (17, 15, 9, 2000.00, 2025.00, 'Efectivo', NULL, 127, NULL, 7, 2, '2023-08-13', '2025-02-03', '2', '2025-02-08', 0, 00000000000000000005.00, 00000000000000000010.00, 128, 290, 00000000000000000010.00, 147.95, 8.22, NULL, 1, '2023-08-13 11:24:27', '2023-08-13 11:24:27');
+INSERT INTO `depositos_plazo` VALUES (18, 16, 9, 4975.00, 5000.00, 'Efectivo', NULL, 127, NULL, 8, 2, '2023-08-13', '2025-02-03', '2', '2025-02-08', 0, 00000000000000000005.00, 00000000000000000010.00, 128, 303, 00000000000000000010.00, 220.81, 12.27, NULL, 1, '2023-08-13 11:27:39', '2023-08-13 11:27:39');
+INSERT INTO `depositos_plazo` VALUES (19, 17, 9, 1475.00, 1500.00, 'Efectivo', NULL, 128, NULL, 4, 1, '2023-08-14', '2024-08-08', '2', '2024-08-13', 0, 00000000000000000005.00, 00000000000000000010.00, 127, 290, 00000000000000000010.00, 116.38, 9.70, NULL, 1, '2023-08-14 16:05:56', '2023-08-14 16:05:56');
+INSERT INTO `depositos_plazo` VALUES (20, 18, 5, 90.00, 100.00, 'Efectivo', NULL, 120, NULL, 4, 1, '2023-08-17', '2024-08-11', '1', '2024-08-16', 0, 00000000000000000000.00, 00000000000000000000.00, 124, 299, 00000000000000000010.00, 7.10, 0.59, NULL, 1, '2023-08-17 08:04:01', '2023-08-17 08:04:01');
+INSERT INTO `depositos_plazo` VALUES (21, 19, 5, 1000.00, 1000.00, 'Efectivo', NULL, 119, NULL, 4, 1, '2023-08-17', '2024-08-11', '1', '2024-08-16', 0, 00000000000000000000.00, 00000000000000000000.00, 120, 11, 00000000000000000000.00, 78.90, 6.58, NULL, 1, '2023-08-17 12:24:12', '2023-08-17 12:24:12');
+INSERT INTO `depositos_plazo` VALUES (22, 20, 9, 2000.00, 2025.00, 'Efectivo', NULL, 128, NULL, 4, 1, '2023-08-17', '2024-08-11', '2', '2024-08-16', 0, 00000000000000000005.00, 00000000000000000010.00, 127, 303, 00000000000000000010.00, 157.81, 13.15, NULL, 1, '2023-08-17 12:26:54', '2023-08-17 12:26:54');
+INSERT INTO `depositos_plazo` VALUES (23, 21, 9, 475.00, 500.00, 'Efectivo', NULL, 128, NULL, 4, 1, '2023-08-18', '2024-08-12', '2', '2024-08-17', 0, 00000000000000000005.00, 00000000000000000010.00, 127, 301, 00000000000000000010.00, 37.48, 3.12, NULL, 1, '2023-08-18 09:02:29', '2023-08-18 09:02:29');
+INSERT INTO `depositos_plazo` VALUES (24, 22, 9, 1975.00, 2000.00, 'Efectivo', NULL, 128, NULL, 2, 1, '2023-08-21', '2024-08-15', '2', '2024-08-20', 0, 00000000000000000005.00, 00000000000000000010.00, 127, 301, 00000000000000000010.00, 29.22, 2.44, NULL, 1, '2023-08-21 19:02:14', '2023-08-29 13:56:33');
+INSERT INTO `depositos_plazo` VALUES (25, 23, 9, 2000.00, 2025.00, 'Efectivo', NULL, 128, NULL, 2, 1, '2023-09-04', '2024-08-29', '2', '2024-09-03', 0, 00000000000000000005.00, 00000000000000000010.00, 127, 303, 00000000000000000010.00, 29.59, 2.47, NULL, 1, '2023-09-04 18:41:30', '2023-09-04 18:41:30');
+INSERT INTO `depositos_plazo` VALUES (26, 24, 5, 2000.00, 2025.00, 'Efectivo', NULL, 116, NULL, 3, 1, '2023-09-18', '2024-09-12', '2', '2024-09-17', 0, 00000000000000000005.00, 00000000000000000010.00, 117, 299, 00000000000000000010.00, 19.73, 1.64, NULL, 1, '2023-09-18 11:20:56', '2023-09-18 11:20:56');
+INSERT INTO `depositos_plazo` VALUES (27, 25, 5, 1000.00, 1025.00, 'Efectivo', NULL, 117, NULL, 4, 1, '2023-09-18', '2024-09-12', '2', '2024-09-17', 0, 00000000000000000005.00, 00000000000000000010.00, 119, 291, 00000000000000000010.00, 78.90, 6.58, NULL, 1, '2023-09-18 11:44:19', '2023-09-18 11:44:19');
+INSERT INTO `depositos_plazo` VALUES (28, 26, 10, 975.00, 1000.00, 'Efectivo', NULL, 109, NULL, 2, 1, '2023-09-18', '2024-09-12', '2', '2024-09-17', 0, 00000000000000000005.00, 00000000000000000010.00, 130, 346, 00000000000000000010.00, 14.42, 1.20, NULL, 1, '2023-09-18 14:01:08', '2023-09-18 14:01:08');
 
 -- ----------------------------
 -- Table structure for empleados
@@ -591,7 +4062,7 @@ CREATE TABLE `empleados`  (
   `created_at` date NULL DEFAULT NULL,
   `updated_at` date NULL DEFAULT NULL,
   PRIMARY KEY (`id_empleado`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of empleados
@@ -624,6 +4095,55 @@ INSERT INTO `empleados` VALUES (28, 'Manuel Robinson', 'M', 'Divorced', 'Office 
 INSERT INTO `empleados` VALUES (29, 'Chris Wilson', 'M', 'Single', 'Technical support', 'Purchasing', '558 Central Avenue', 'United States', '94900485-9', 'Purchasing', '9160-372345-846-5', 'L', 0, '2003-04-18', '2003-05-23');
 
 -- ----------------------------
+-- Table structure for facturas
+-- ----------------------------
+DROP TABLE IF EXISTS `facturas`;
+CREATE TABLE `facturas`  (
+  `id_factura` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `tipo_documento` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL COMMENT '1-factura 2-ccf 3-Ticket',
+  `numero_factura` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `id_cliente` int NULL DEFAULT NULL,
+  `neto` decimal(20, 2) NULL DEFAULT NULL,
+  `iva` decimal(20, 2) NULL DEFAULT NULL,
+  `retencion` decimal(20, 2) NULL DEFAULT NULL,
+  `total` decimal(20, 2) NULL DEFAULT NULL,
+  `fecha_factura` date NULL DEFAULT NULL,
+  `fecha_registro` datetime NULL DEFAULT NULL,
+  `usuario` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL COMMENT '0-Procesando\r\n1-Finalizda\r\n2-Anulada',
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_factura`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of facturas
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for facturas_detalle
+-- ----------------------------
+DROP TABLE IF EXISTS `facturas_detalle`;
+CREATE TABLE `facturas_detalle`  (
+  `id_detalle_factura` int NOT NULL AUTO_INCREMENT,
+  `id_factura` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `id_producto` int NULL DEFAULT NULL,
+  `cantidad` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `precio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `subtotal` decimal(20, 2) NULL DEFAULT NULL,
+  `iva` decimal(20, 2) NULL DEFAULT NULL,
+  `retencion` decimal(20, 2) NULL DEFAULT NULL,
+  `total` decimal(20, 2) NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_detalle_factura`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of facturas_detalle
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for failed_jobs
 -- ----------------------------
 DROP TABLE IF EXISTS `failed_jobs`;
@@ -654,7 +4174,7 @@ CREATE TABLE `intereses_tipo_cuenta`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_intereses_tipo_cuenta`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of intereses_tipo_cuenta
@@ -662,10 +4182,167 @@ CREATE TABLE `intereses_tipo_cuenta`  (
 INSERT INTO `intereses_tipo_cuenta` VALUES (6, 2, 50.00, '2023-06-08 18:42:51', '2023-06-08 18:42:51');
 INSERT INTO `intereses_tipo_cuenta` VALUES (7, 2, 23.00, '2023-06-08 18:42:55', '2023-06-08 18:42:55');
 INSERT INTO `intereses_tipo_cuenta` VALUES (9, 13, 10.00, '2023-06-08 18:43:09', '2023-06-08 18:43:09');
-INSERT INTO `intereses_tipo_cuenta` VALUES (10, 1, 0.00, '2023-06-08 18:44:20', '2023-06-08 18:44:20');
+INSERT INTO `intereses_tipo_cuenta` VALUES (10, 1, 5.00, '2023-06-08 18:44:20', '2023-09-04 21:53:24');
 INSERT INTO `intereses_tipo_cuenta` VALUES (11, 9, 23.00, '2023-06-08 18:47:47', '2023-06-08 18:47:52');
 INSERT INTO `intereses_tipo_cuenta` VALUES (12, 7, 5.00, '2023-06-08 18:52:05', '2023-06-08 18:52:05');
-INSERT INTO `intereses_tipo_cuenta` VALUES (13, 1, 55.00, '2023-06-08 22:22:05', '2023-06-08 22:22:05');
+INSERT INTO `intereses_tipo_cuenta` VALUES (13, 1, 3.00, '2023-06-08 22:22:05', '2023-06-16 20:34:09');
+INSERT INTO `intereses_tipo_cuenta` VALUES (14, 1, 1.00, '2023-06-16 20:34:22', '2023-06-16 20:34:22');
+INSERT INTO `intereses_tipo_cuenta` VALUES (15, 1, 99.00, '2023-09-04 22:04:51', '2023-09-04 22:04:51');
+
+-- ----------------------------
+-- Table structure for libretas
+-- ----------------------------
+DROP TABLE IF EXISTS `libretas`;
+CREATE TABLE `libretas`  (
+  `id_libreta` int NOT NULL AUTO_INCREMENT,
+  `numero` int NULL DEFAULT NULL,
+  `num_movimiento_libreta` int NULL DEFAULT NULL,
+  `id_cuenta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `fecha_apertura` datetime NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  `fecha_cierre` datetime NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_libreta`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of libretas
+-- ----------------------------
+INSERT INTO `libretas` VALUES (1, 1, NULL, '142', '2023-10-29 09:19:43', 1, NULL, '2023-10-29 09:19:43', '2023-10-29 09:19:43');
+INSERT INTO `libretas` VALUES (2, 2, NULL, '143', '2023-10-29 10:12:00', 1, NULL, '2023-10-29 10:12:00', '2023-10-29 10:12:00');
+INSERT INTO `libretas` VALUES (3, 3, NULL, '144', '2023-10-29 10:16:55', 1, NULL, '2023-10-29 10:16:55', '2023-10-29 10:16:55');
+
+-- ----------------------------
+-- Table structure for libro_mayor
+-- ----------------------------
+DROP TABLE IF EXISTS `libro_mayor`;
+CREATE TABLE `libro_mayor`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_cuenta_padre` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `numero_cuenta_padre` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `descripcion_cuenta_padre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `id_cuenta` int NULL DEFAULT NULL,
+  `numero_cuenta` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `fecha_operacion` date NULL DEFAULT NULL,
+  `cuenta_descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `saldo_anterior` decimal(20, 2) NULL DEFAULT NULL,
+  `cargos` decimal(20, 2) NULL DEFAULT NULL,
+  `abonos` decimal(20, 2) NULL DEFAULT NULL,
+  `saldo_actual` decimal(20, 2) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of libro_mayor
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for liquidacion
+-- ----------------------------
+DROP TABLE IF EXISTS `liquidacion`;
+CREATE TABLE `liquidacion`  (
+  `id_liquidacion` int NOT NULL AUTO_INCREMENT,
+  `id_credito` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `id_cuenta` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `monto_debe` decimal(20, 2) NULL DEFAULT NULL,
+  `monto_haber` decimal(20, 2) NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  `comentario` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_liquidacion`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 149 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of liquidacion
+-- ----------------------------
+INSERT INTO `liquidacion` VALUES (1, 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', '3', 10000.00, 0.00, 1, NULL, '2023-07-22 13:09:44', '2023-07-22 13:09:44');
+INSERT INTO `liquidacion` VALUES (2, 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', '8', 0.00, 9209.46, 1, NULL, '2023-07-22 13:09:57', '2023-07-22 13:33:19');
+INSERT INTO `liquidacion` VALUES (3, 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', '14', 0.00, 120.00, 1, NULL, '2023-07-22 13:31:56', '2023-07-22 13:31:56');
+INSERT INTO `liquidacion` VALUES (4, 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', '18', 0.00, 31.85, 1, NULL, '2023-07-22 13:31:56', '2023-07-22 13:33:19');
+INSERT INTO `liquidacion` VALUES (5, 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', '10', 0.00, 492.84, 1, NULL, '2023-07-22 13:32:14', '2023-07-22 13:32:14');
+INSERT INTO `liquidacion` VALUES (6, 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', '15', 0.00, 120.00, 1, NULL, '2023-07-22 13:32:36', '2023-07-22 13:32:36');
+INSERT INTO `liquidacion` VALUES (7, 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', '25', 0.00, 20.85, 1, NULL, '2023-07-22 13:33:12', '2023-07-22 13:33:12');
+INSERT INTO `liquidacion` VALUES (8, 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', '26', 0.00, 5.00, 1, NULL, '2023-07-22 13:33:19', '2023-07-22 13:33:19');
+INSERT INTO `liquidacion` VALUES (9, 'b7f66939-15cb-4e28-b791-20c8e237ebdd', '3', 10000.00, 0.00, 1, NULL, '2023-07-23 11:32:45', '2023-07-23 11:32:45');
+INSERT INTO `liquidacion` VALUES (10, 'b7f66939-15cb-4e28-b791-20c8e237ebdd', '8', 0.00, 9717.50, 1, NULL, '2023-07-23 11:33:37', '2023-07-23 11:50:30');
+INSERT INTO `liquidacion` VALUES (11, 'b7f66939-15cb-4e28-b791-20c8e237ebdd', '15', 0.00, 250.00, 1, NULL, '2023-07-23 11:50:30', '2023-07-23 11:50:30');
+INSERT INTO `liquidacion` VALUES (12, 'b7f66939-15cb-4e28-b791-20c8e237ebdd', '18', 0.00, 32.50, 1, NULL, '2023-07-23 11:50:30', '2023-07-23 11:50:30');
+INSERT INTO `liquidacion` VALUES (22, '67e73643-df8a-4e69-9f5a-a5125afe6de1', '3', 10000.00, 0.00, 1, NULL, '2023-07-24 06:20:15', '2023-07-24 06:20:15');
+INSERT INTO `liquidacion` VALUES (23, '67e73643-df8a-4e69-9f5a-a5125afe6de1', '8', 0.00, 9774.00, 1, NULL, '2023-07-24 06:20:27', '2023-07-24 06:20:38');
+INSERT INTO `liquidacion` VALUES (24, '67e73643-df8a-4e69-9f5a-a5125afe6de1', '15', 0.00, 200.00, 1, NULL, '2023-07-24 06:20:38', '2023-07-24 06:20:38');
+INSERT INTO `liquidacion` VALUES (25, '67e73643-df8a-4e69-9f5a-a5125afe6de1', '18', 0.00, 26.00, 1, NULL, '2023-07-24 06:20:38', '2023-07-24 06:20:38');
+INSERT INTO `liquidacion` VALUES (26, '5133283c-f8c7-46a7-a38c-901cc9007962', '3', 25000.00, 0.00, 1, NULL, '2023-07-24 06:32:21', '2023-07-24 06:32:21');
+INSERT INTO `liquidacion` VALUES (27, '5133283c-f8c7-46a7-a38c-901cc9007962', '8', 0.00, 24717.50, 1, NULL, '2023-07-24 06:32:35', '2023-07-24 06:32:41');
+INSERT INTO `liquidacion` VALUES (28, '5133283c-f8c7-46a7-a38c-901cc9007962', '15', 0.00, 250.00, 1, NULL, '2023-07-24 06:32:41', '2023-07-24 06:32:41');
+INSERT INTO `liquidacion` VALUES (29, '5133283c-f8c7-46a7-a38c-901cc9007962', '18', 0.00, 32.50, 1, NULL, '2023-07-24 06:32:41', '2023-07-24 06:32:41');
+INSERT INTO `liquidacion` VALUES (34, 'c59ae7b1-9084-4a02-9582-68337ea3d473', '3', 500.00, 0.00, 1, NULL, '2023-07-25 14:20:52', '2023-07-25 14:20:52');
+INSERT INTO `liquidacion` VALUES (35, 'c59ae7b1-9084-4a02-9582-68337ea3d473', '8', 0.00, 437.85, 1, NULL, '2023-07-25 14:21:53', '2023-07-25 14:27:34');
+INSERT INTO `liquidacion` VALUES (36, 'c59ae7b1-9084-4a02-9582-68337ea3d473', '15', 0.00, 50.00, 1, NULL, '2023-07-25 14:22:24', '2023-07-25 14:22:24');
+INSERT INTO `liquidacion` VALUES (37, 'c59ae7b1-9084-4a02-9582-68337ea3d473', '18', 0.00, 7.15, 1, NULL, '2023-07-25 14:22:24', '2023-07-25 14:27:34');
+INSERT INTO `liquidacion` VALUES (38, 'c59ae7b1-9084-4a02-9582-68337ea3d473', '26', 0.00, 5.00, 1, NULL, '2023-07-25 14:27:34', '2023-07-25 14:27:34');
+INSERT INTO `liquidacion` VALUES (39, '018f455c-4a07-4076-a053-a28f96c6c2b9', '60', 5000.00, 0.00, 1, NULL, '2023-07-28 08:48:35', '2023-07-28 08:48:35');
+INSERT INTO `liquidacion` VALUES (61, '018f455c-4a07-4076-a053-a28f96c6c2b9', '14', 0.00, 4772.95, 1, NULL, '2023-07-28 12:51:25', '2023-07-28 13:33:08');
+INSERT INTO `liquidacion` VALUES (75, '018f455c-4a07-4076-a053-a28f96c6c2b9', '460', 0.00, 60.00, 1, NULL, '2023-07-28 13:27:59', '2023-07-28 13:27:59');
+INSERT INTO `liquidacion` VALUES (76, '018f455c-4a07-4076-a053-a28f96c6c2b9', '428', 0.00, 24.05, 1, NULL, '2023-07-28 13:27:59', '2023-07-28 13:29:08');
+INSERT INTO `liquidacion` VALUES (77, '018f455c-4a07-4076-a053-a28f96c6c2b9', '495', 0.00, 120.00, 1, NULL, '2023-07-28 13:28:18', '2023-07-28 13:28:18');
+INSERT INTO `liquidacion` VALUES (78, '018f455c-4a07-4076-a053-a28f96c6c2b9', '502', 0.00, 5.00, 1, NULL, '2023-07-28 13:29:08', '2023-07-28 13:29:08');
+INSERT INTO `liquidacion` VALUES (79, '018f455c-4a07-4076-a053-a28f96c6c2b9', '169', 0.00, 18.00, 1, 'Seguro de vida', '2023-07-28 13:33:08', '2023-07-28 13:33:08');
+INSERT INTO `liquidacion` VALUES (80, '2501f5ed-f555-4ae1-b594-04a247da2ac1', '5', 5000.00, 150.00, 1, NULL, '2023-07-31 19:49:27', '2023-07-31 19:51:20');
+INSERT INTO `liquidacion` VALUES (84, '2501f5ed-f555-4ae1-b594-04a247da2ac1', '14', 0.00, 5000.00, 1, NULL, '2023-07-31 19:51:37', '2023-07-31 19:51:37');
+INSERT INTO `liquidacion` VALUES (86, '5f175627-9ce5-4ebf-8728-7b209475fbed', '63', 500.00, 0.00, 1, NULL, '2023-08-07 15:10:31', '2023-08-07 15:10:31');
+INSERT INTO `liquidacion` VALUES (87, '5f175627-9ce5-4ebf-8728-7b209475fbed', '286', 0.00, 500.00, 1, NULL, '2023-08-07 15:10:55', '2023-08-07 15:10:55');
+INSERT INTO `liquidacion` VALUES (89, '1bc366d2-3392-4bca-933a-891be1b34c22', '5', 0.00, 10.42, 1, NULL, '2023-08-07 16:20:21', '2023-08-07 16:20:54');
+INSERT INTO `liquidacion` VALUES (90, '1bc366d2-3392-4bca-933a-891be1b34c22', '288', 0.00, 5.00, 1, NULL, '2023-08-07 16:20:31', '2023-08-07 16:20:31');
+INSERT INTO `liquidacion` VALUES (92, '1bc366d2-3392-4bca-933a-891be1b34c22', '460', 0.00, 10.00, 1, NULL, '2023-08-07 16:20:54', '2023-08-07 16:20:54');
+INSERT INTO `liquidacion` VALUES (93, '1bc366d2-3392-4bca-933a-891be1b34c22', '428', 0.00, 4.20, 1, NULL, '2023-08-07 16:20:54', '2023-08-07 16:21:22');
+INSERT INTO `liquidacion` VALUES (94, '1bc366d2-3392-4bca-933a-891be1b34c22', '495', 0.00, 12.61, 1, NULL, '2023-08-07 16:21:12', '2023-08-07 16:21:41');
+INSERT INTO `liquidacion` VALUES (95, '1bc366d2-3392-4bca-933a-891be1b34c22', '502', 0.00, 2.50, 1, NULL, '2023-08-07 16:21:22', '2023-08-07 16:21:22');
+INSERT INTO `liquidacion` VALUES (96, '1bc366d2-3392-4bca-933a-891be1b34c22', '60', 500.00, 0.00, 1, NULL, '2023-08-07 16:21:35', '2023-08-07 16:21:35');
+INSERT INTO `liquidacion` VALUES (97, '1bc366d2-3392-4bca-933a-891be1b34c22', '5', 0.00, 444.72, 1, NULL, '2023-08-07 16:22:00', '2023-08-07 16:22:00');
+INSERT INTO `liquidacion` VALUES (98, 'd25efe86-3444-499e-a804-d3ba2edc1292', '60', 500.00, 0.00, 1, NULL, '2023-08-07 16:25:56', '2023-08-07 16:25:56');
+INSERT INTO `liquidacion` VALUES (100, 'd25efe86-3444-499e-a804-d3ba2edc1292', '288', 0.00, 5.00, 1, NULL, '2023-08-07 16:26:26', '2023-08-07 16:26:26');
+INSERT INTO `liquidacion` VALUES (101, 'd25efe86-3444-499e-a804-d3ba2edc1292', '355', 0.00, 475.68, 1, NULL, '2023-08-07 16:26:35', '2023-08-07 16:28:01');
+INSERT INTO `liquidacion` VALUES (102, 'd25efe86-3444-499e-a804-d3ba2edc1292', '460', 0.00, 10.00, 1, NULL, '2023-08-07 16:26:46', '2023-08-07 16:26:46');
+INSERT INTO `liquidacion` VALUES (103, 'd25efe86-3444-499e-a804-d3ba2edc1292', '428', 0.00, 4.20, 1, NULL, '2023-08-07 16:26:46', '2023-08-07 16:27:21');
+INSERT INTO `liquidacion` VALUES (105, 'd25efe86-3444-499e-a804-d3ba2edc1292', '502', 0.00, 2.50, 1, NULL, '2023-08-07 16:27:21', '2023-08-07 16:27:21');
+INSERT INTO `liquidacion` VALUES (106, 'b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', '60', 5000.00, 0.00, 1, NULL, '2023-08-07 16:33:03', '2023-08-07 16:33:03');
+INSERT INTO `liquidacion` VALUES (107, 'b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', '5', 0.00, 4940.53, 1, NULL, '2023-08-07 16:33:28', '2023-08-07 16:34:27');
+INSERT INTO `liquidacion` VALUES (108, 'b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', '288', 0.00, 5.00, 1, NULL, '2023-08-07 16:33:39', '2023-08-07 16:33:39');
+INSERT INTO `liquidacion` VALUES (109, 'b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', '355', 0.00, 18.00, 1, NULL, '2023-08-07 16:33:51', '2023-08-07 16:33:51');
+INSERT INTO `liquidacion` VALUES (110, 'b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', '460', 0.00, 10.00, 1, NULL, '2023-08-07 16:34:02', '2023-08-07 16:34:02');
+INSERT INTO `liquidacion` VALUES (111, 'b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', '428', 0.00, 4.20, 1, NULL, '2023-08-07 16:34:02', '2023-08-07 16:34:27');
+INSERT INTO `liquidacion` VALUES (112, 'b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', '495', 0.00, 19.78, 1, NULL, '2023-08-07 16:34:17', '2023-08-07 16:34:17');
+INSERT INTO `liquidacion` VALUES (113, 'b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', '502', 0.00, 2.50, 1, NULL, '2023-08-07 16:34:27', '2023-08-07 16:34:27');
+INSERT INTO `liquidacion` VALUES (114, '9ad71845-11a4-46e4-a78d-802a5a33deca', '60', 5000.00, 0.00, 1, NULL, '2023-08-10 12:59:44', '2023-08-10 12:59:44');
+INSERT INTO `liquidacion` VALUES (115, '9ad71845-11a4-46e4-a78d-802a5a33deca', '5', 0.00, 4940.32, 1, NULL, '2023-08-10 13:00:14', '2023-08-10 13:01:14');
+INSERT INTO `liquidacion` VALUES (116, '9ad71845-11a4-46e4-a78d-802a5a33deca', '288', 0.00, 5.00, 1, NULL, '2023-08-10 13:00:25', '2023-08-10 13:00:25');
+INSERT INTO `liquidacion` VALUES (117, '9ad71845-11a4-46e4-a78d-802a5a33deca', '355', 0.00, 18.20, 1, NULL, '2023-08-10 13:00:35', '2023-08-10 13:00:35');
+INSERT INTO `liquidacion` VALUES (118, '9ad71845-11a4-46e4-a78d-802a5a33deca', '460', 0.00, 10.00, 1, NULL, '2023-08-10 13:00:49', '2023-08-10 13:00:49');
+INSERT INTO `liquidacion` VALUES (119, '9ad71845-11a4-46e4-a78d-802a5a33deca', '428', 0.00, 4.20, 1, NULL, '2023-08-10 13:00:49', '2023-08-10 13:01:14');
+INSERT INTO `liquidacion` VALUES (120, '9ad71845-11a4-46e4-a78d-802a5a33deca', '495', 0.00, 19.78, 1, NULL, '2023-08-10 13:01:00', '2023-08-10 13:01:00');
+INSERT INTO `liquidacion` VALUES (121, '9ad71845-11a4-46e4-a78d-802a5a33deca', '502', 0.00, 2.50, 1, NULL, '2023-08-10 13:01:14', '2023-08-10 13:01:14');
+INSERT INTO `liquidacion` VALUES (122, 'ecd17d44-2013-4bf2-8afa-cf2c273489fc', '60', 5000.00, 0.00, 1, NULL, '2023-08-17 12:17:16', '2023-08-17 12:17:16');
+INSERT INTO `liquidacion` VALUES (123, 'ecd17d44-2013-4bf2-8afa-cf2c273489fc', '5', 0.00, 4838.82, 1, NULL, '2023-08-17 12:17:31', '2023-08-17 12:18:28');
+INSERT INTO `liquidacion` VALUES (124, 'ecd17d44-2013-4bf2-8afa-cf2c273489fc', '288', 0.00, 5.00, 1, NULL, '2023-08-17 12:17:43', '2023-08-17 12:17:43');
+INSERT INTO `liquidacion` VALUES (125, 'ecd17d44-2013-4bf2-8afa-cf2c273489fc', '355', 0.00, 18.00, 1, NULL, '2023-08-17 12:17:55', '2023-08-17 12:17:55');
+INSERT INTO `liquidacion` VALUES (126, 'ecd17d44-2013-4bf2-8afa-cf2c273489fc', '460', 0.00, 100.00, 1, NULL, '2023-08-17 12:18:06', '2023-08-17 12:18:06');
+INSERT INTO `liquidacion` VALUES (127, 'ecd17d44-2013-4bf2-8afa-cf2c273489fc', '428', 0.00, 15.90, 1, NULL, '2023-08-17 12:18:06', '2023-08-17 12:18:28');
+INSERT INTO `liquidacion` VALUES (128, 'ecd17d44-2013-4bf2-8afa-cf2c273489fc', '495', 0.00, 19.78, 1, NULL, '2023-08-17 12:18:17', '2023-08-17 12:18:17');
+INSERT INTO `liquidacion` VALUES (129, 'ecd17d44-2013-4bf2-8afa-cf2c273489fc', '502', 0.00, 2.50, 1, NULL, '2023-08-17 12:18:28', '2023-08-17 12:18:28');
+INSERT INTO `liquidacion` VALUES (134, '2e1f38f1-5148-4c43-9a33-01bb17ba6b9b', '59', 500.00, 0.00, 1, NULL, '2023-09-30 10:20:59', '2023-09-30 10:20:59');
+INSERT INTO `liquidacion` VALUES (135, '2e1f38f1-5148-4c43-9a33-01bb17ba6b9b', '5', 0.00, 440.52, 1, NULL, '2023-09-30 10:21:15', '2023-09-30 10:23:16');
+INSERT INTO `liquidacion` VALUES (136, '2e1f38f1-5148-4c43-9a33-01bb17ba6b9b', '288', 0.00, 5.00, 1, NULL, '2023-09-30 10:21:27', '2023-09-30 10:21:27');
+INSERT INTO `liquidacion` VALUES (137, '2e1f38f1-5148-4c43-9a33-01bb17ba6b9b', '355', 0.00, 18.00, 1, NULL, '2023-09-30 10:22:10', '2023-09-30 10:22:10');
+INSERT INTO `liquidacion` VALUES (138, '2e1f38f1-5148-4c43-9a33-01bb17ba6b9b', '460', 0.00, 10.00, 1, NULL, '2023-09-30 10:22:21', '2023-09-30 10:22:21');
+INSERT INTO `liquidacion` VALUES (139, '2e1f38f1-5148-4c43-9a33-01bb17ba6b9b', '428', 0.00, 4.20, 1, NULL, '2023-09-30 10:22:21', '2023-09-30 10:23:16');
+INSERT INTO `liquidacion` VALUES (140, '2e1f38f1-5148-4c43-9a33-01bb17ba6b9b', '495', 0.00, 19.78, 1, NULL, '2023-09-30 10:23:06', '2023-09-30 10:23:06');
+INSERT INTO `liquidacion` VALUES (141, '2e1f38f1-5148-4c43-9a33-01bb17ba6b9b', '502', 0.00, 2.50, 1, NULL, '2023-09-30 10:23:16', '2023-09-30 10:23:16');
+INSERT INTO `liquidacion` VALUES (142, '777c4dd3-1f2e-4e8c-bddb-ecc1f41155cb', '59', 2500.00, 0.00, 1, NULL, '2023-10-17 10:23:46', '2023-10-17 10:24:03');
+INSERT INTO `liquidacion` VALUES (144, '777c4dd3-1f2e-4e8c-bddb-ecc1f41155cb', '5', 0.00, 2457.62, 1, NULL, '2023-10-17 10:24:17', '2023-10-17 10:38:40');
+INSERT INTO `liquidacion` VALUES (146, '777c4dd3-1f2e-4e8c-bddb-ecc1f41155cb', '460', 0.00, 37.50, 1, NULL, '2023-10-17 10:38:40', '2023-10-17 10:38:40');
+INSERT INTO `liquidacion` VALUES (147, '777c4dd3-1f2e-4e8c-bddb-ecc1f41155cb', '428', 0.00, 4.88, 1, NULL, '2023-10-17 10:38:40', '2023-10-17 10:38:40');
 
 -- ----------------------------
 -- Table structure for migrations
@@ -676,15 +4353,211 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of migrations
 -- ----------------------------
-INSERT INTO `migrations` VALUES (1, '2014_10_12_000000_create_users_table', 1);
-INSERT INTO `migrations` VALUES (2, '2014_10_12_100000_create_password_reset_tokens_table', 1);
-INSERT INTO `migrations` VALUES (3, '2019_08_19_000000_create_failed_jobs_table', 1);
-INSERT INTO `migrations` VALUES (4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+INSERT INTO `migrations` VALUES (5, '2014_10_12_000000_create_users_table', 1);
+INSERT INTO `migrations` VALUES (6, '2014_10_12_100000_create_password_reset_tokens_table', 1);
+INSERT INTO `migrations` VALUES (7, '2019_08_19_000000_create_failed_jobs_table', 1);
+INSERT INTO `migrations` VALUES (8, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+INSERT INTO `migrations` VALUES (9, '2023_07_25_194756_create_partida_contables_table', 2);
+INSERT INTO `migrations` VALUES (11, '2023_07_25_201454_create_declaracion_juradas_table', 3);
+INSERT INTO `migrations` VALUES (12, '2023_07_27_213519_add_declared_to_cuentas_table', 4);
+INSERT INTO `migrations` VALUES (14, '2023_07_28_171702_add_other_origins_to_declaracion_juradas_table', 5);
+INSERT INTO `migrations` VALUES (16, '2023_08_08_211556_create_notifications_table', 6);
+INSERT INTO `migrations` VALUES (17, '2023_08_12_151756_create_parameters_table', 7);
+INSERT INTO `migrations` VALUES (18, '2023_08_16_212038_add_id_empleado_to_client_table', 8);
+INSERT INTO `migrations` VALUES (19, '2023_09_29_184057_create_client_credit_scores_table', 9);
+
+-- ----------------------------
+-- Table structure for modulo
+-- ----------------------------
+DROP TABLE IF EXISTS `modulo`;
+CREATE TABLE `modulo`  (
+  `id_modulo` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `icono` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ruta` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id_padre` int NULL DEFAULT 0,
+  `is_padre` bit(1) NOT NULL,
+  `orden` int NULL DEFAULT NULL,
+  `is_minimazed` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `target` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id_modulo`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 78 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of modulo
+-- ----------------------------
+INSERT INTO `modulo` VALUES (1, 'Administración', 'ki-home', '#', 0, b'1', 1, '0', 0);
+INSERT INTO `modulo` VALUES (3, 'Cooperativa', 'ki-shop', '/configuracion', 4, b'0', 1, '0', 0);
+INSERT INTO `modulo` VALUES (4, 'Configuración', 'ki-gear', '#', 0, b'1', 7, '0', 0);
+INSERT INTO `modulo` VALUES (5, 'Módulos', 'ki-like', '/modulo', 4, b'0', 5, '0', 0);
+INSERT INTO `modulo` VALUES (6, 'Permisos', 'ki-fingerprint-scanning', '/permisos', 4, b'0', 6, '0', 0);
+INSERT INTO `modulo` VALUES (7, 'Cuentas Clientes', 'ki-lock', '/cuentas', 1, b'0', 4, '1', 0);
+INSERT INTO `modulo` VALUES (8, 'Cajas', 'ki-address-book', '/cajas', 4, b'0', 4, '1', 0);
+INSERT INTO `modulo` VALUES (9, 'Apertura - Cierre Caja', 'ki-arrow-right-left', '/apertura', 29, b'0', 1, '0', 0);
+INSERT INTO `modulo` VALUES (10, 'Caja', 'ki-calculator', '/movimientos', 29, b'0', 3, '0', 0);
+INSERT INTO `modulo` VALUES (11, 'Usuarios', 'ki-faceid', '/user', 4, b'0', 4, '0', 0);
+INSERT INTO `modulo` VALUES (12, 'Roles', 'ki-data', '/rol', 4, b'0', 8, '0', 0);
+INSERT INTO `modulo` VALUES (13, 'Tipo Cuenta', 'ki-questionnaire-tablet', '/tipoCuenta', 1, b'0', 3, '0', 0);
+INSERT INTO `modulo` VALUES (14, 'Empleados', 'ki-security-user', '/empleados', 4, b'0', 3, '0', 0);
+INSERT INTO `modulo` VALUES (15, 'Clientes', 'ki-profile-user', '/clientes', 1, b'0', 1, '0', 0);
+INSERT INTO `modulo` VALUES (16, 'Referencias', 'ki-address-book', '/referencias', 4, b'0', 10, '0', 0);
+INSERT INTO `modulo` VALUES (17, 'Asociados', 'ki-address-book', '/asociados', 1, b'0', 2, '0', 0);
+INSERT INTO `modulo` VALUES (18, 'Bóveda', 'ki-safe-home', '/boveda', 4, b'0', 2, '0', 0);
+INSERT INTO `modulo` VALUES (21, 'Captación', 'ki-address-book', '#', 0, b'1', 3, '0', 0);
+INSERT INTO `modulo` VALUES (22, 'Plazos', 'ki-calendar-add', '/captaciones/plazos', 21, b'0', 1, '0', 0);
+INSERT INTO `modulo` VALUES (23, 'Depósitos a plazo', 'ki-save-deposit', '/captaciones/depositosplazo', 21, b'0', 2, '0', 0);
+INSERT INTO `modulo` VALUES (24, 'Créditos', 'ki-price-tag', '#', 0, b'1', 2, '0', 0);
+INSERT INTO `modulo` VALUES (25, 'Solicitudes', 'ki-book', '/creditos/solicitudes', 24, b'0', 1, '0', 0);
+INSERT INTO `modulo` VALUES (26, 'Liquidar Créditos', 'ki-verify', '/creditos/solicitudes/estudios', 24, b'0', 3, '0', 0);
+INSERT INTO `modulo` VALUES (28, 'Abonos Créditos', 'ki-dollar', '/creditos/abonos', 29, b'0', 5, '0', 0);
+INSERT INTO `modulo` VALUES (29, 'Caja', 'ki-bank', '#', 0, b'1', 2, '0', 0);
+INSERT INTO `modulo` VALUES (30, 'Bitácora', 'ki-address-book', '/bitacora', 4, b'0', 11, '0', 0);
+INSERT INTO `modulo` VALUES (31, 'Contabilidad', 'ki-medal-star', '#', 0, b'1', 5, '0', 0);
+INSERT INTO `modulo` VALUES (32, 'Catalogo de Cuentas', 'ki-book', '/contabilidad/catalogo', 31, b'0', 2, '1', 0);
+INSERT INTO `modulo` VALUES (37, 'Tipos de cuentas', 'ki-category', '/contabilidad/tipocuentacontable', 31, b'0', 1, '0', 0);
+INSERT INTO `modulo` VALUES (38, 'Partidas Contable', 'ki-abstract-26', '/contabilidad/partidas', 31, b'0', 4, '0', 0);
+INSERT INTO `modulo` VALUES (39, 'Tipos Partidas', 'ki-lots-shopping', '/contabilidad/tipos-partidas', 31, b'0', 3, '0', 0);
+INSERT INTO `modulo` VALUES (41, 'Alertas de Lavado', 'ki-bank', '/alerts', 1, b'0', 12, '0', 0);
+INSERT INTO `modulo` VALUES (43, 'Configuar Alertas Lavado', 'ki-calculator', '/params', 4, b'0', 12, '0', 0);
+INSERT INTO `modulo` VALUES (44, 'Cierre mensual', 'ki-lock', '/contabilidad/cierre-mensual', 31, b'0', 5, '0', 0);
+INSERT INTO `modulo` VALUES (45, 'Reportes Contables', 'ki-printer', '#', 0, b'1', 6, '0', 0);
+INSERT INTO `modulo` VALUES (46, 'Balance General', 'ki-graph-up', '/contabilidad/Reportes/balancegeneral', 45, b'0', 1, '0', 0);
+INSERT INTO `modulo` VALUES (47, 'Estado de Resultados', 'ki-graph-up', '/contabilidad/Reportes/estadoresultado', 45, b'0', 2, '0', 0);
+INSERT INTO `modulo` VALUES (50, 'Balance de Comprobación', 'ki-graph-up', '/contabilidad/Reportes/balancecomprobacion', 45, b'0', 5, '0', 0);
+INSERT INTO `modulo` VALUES (51, 'Anexos a Estados Financieros', 'ki-graph-up', '/contabilidad/Reportes/anexos', 45, b'0', 6, '0', 0);
+INSERT INTO `modulo` VALUES (52, 'Libro Mayor', 'ki-graph-up', '/contabilidad/Reportes/libromayor', 45, b'0', 7, '0', 0);
+INSERT INTO `modulo` VALUES (54, 'Partidas de Diario', 'ki-graph-up', '/contabilidad/Reportes/partidasdediario', 45, b'0', 10, '0', 0);
+INSERT INTO `modulo` VALUES (55, 'Libro Diario General', 'ki-graph-up', '/contabilidad/Reportes/librodiario', 45, b'0', 10, '0', 0);
+INSERT INTO `modulo` VALUES (56, 'Movimientos Histórico de Cuenta', 'ki-graph-up', '/contabilidad/Reportes/historicodecuenta', 45, b'0', 11, '0', 0);
+INSERT INTO `modulo` VALUES (57, 'Catalogo de Cuentas', 'ki-graph-up', '/contabilidad/Reportes/catalogodecuentas', 45, b'0', 12, '0', 1);
+INSERT INTO `modulo` VALUES (58, 'Libro auxiliar', 'ki-archive', '/contabilidad/Reportes/libroauxiliar', 45, b'0', 9, '0', 0);
+INSERT INTO `modulo` VALUES (60, 'Reportes', 'ki-printer', '/reportes', 0, b'1', 4, '0', 0);
+INSERT INTO `modulo` VALUES (61, 'Cartera Activa o vigente', 'ki-book-square', '/reportes/cartera', 60, b'0', 1, '0', 0);
+INSERT INTO `modulo` VALUES (62, 'Cartera en mora', 'ki-rocket', '/reportes/cartera-mora', 60, b'0', 2, '0', 0);
+INSERT INTO `modulo` VALUES (63, 'Desembolsos', 'ki-questionnaire-tablet', '/reportes/desembolsos', 60, b'0', 3, '0', 0);
+INSERT INTO `modulo` VALUES (64, 'Créditos Cancelados', 'ki-lovely', '/reportes/creditos', 60, b'0', 4, '0', 0);
+INSERT INTO `modulo` VALUES (65, 'Ingresos', 'ki-dollar', '/reportes/ingresos', 60, b'0', 6, '0', 0);
+INSERT INTO `modulo` VALUES (66, 'Créditos próximos a vencer', 'ki-timer', '/reportes/creditos/proximos-vencer', 60, b'0', 7, '0', 0);
+INSERT INTO `modulo` VALUES (67, 'IVA', 'ki-address-book', '#', 0, b'1', 5, '0', 0);
+INSERT INTO `modulo` VALUES (68, 'Libro de Ventas al Contribuyente', 'ki-lots-shopping', '/iva/facturas-contribuyente', 67, b'0', 1, '0', 0);
+INSERT INTO `modulo` VALUES (69, 'Libro de Ventas al Consumidor', 'ki-cheque', '/iva/facturas-consumidor', 67, b'0', 2, '0', 0);
+INSERT INTO `modulo` VALUES (70, 'Libro de Compras', 'ki-basket', '/iva/compras', 67, b'0', 3, '0', 0);
+INSERT INTO `modulo` VALUES (71, 'Compras', 'ki-handcart', '/compras/list', 1, b'0', 6, '0', 0);
+INSERT INTO `modulo` VALUES (72, 'Prodúctos', 'ki-milk', '/productos/list', 1, b'0', 5, '0', 0);
+INSERT INTO `modulo` VALUES (73, 'Proveedores', 'ki-people', '/proveedores/list', 1, b'0', 6, '0', 0);
+INSERT INTO `modulo` VALUES (74, 'Estudio Comite', 'ki-crown', '/comite', 24, b'0', 2, '0', 0);
+INSERT INTO `modulo` VALUES (75, 'Reporte Infored', 'ki-people', '/contabilidad/Reportes/infored', 60, b'0', 7, '0', 0);
+INSERT INTO `modulo` VALUES (76, 'Facturación', 'ki-bill', '/facturas/list', 29, b'0', 4, '0', 0);
+INSERT INTO `modulo` VALUES (77, 'Libretas', 'ki-book-open', '/libretas', 1, b'0', 4, '0', 0);
+
+-- ----------------------------
+-- Table structure for modulo_rol
+-- ----------------------------
+DROP TABLE IF EXISTS `modulo_rol`;
+CREATE TABLE `modulo_rol`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_modulo` int NOT NULL,
+  `id_rol` int NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 126 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of modulo_rol
+-- ----------------------------
+INSERT INTO `modulo_rol` VALUES (14, 3, 1);
+INSERT INTO `modulo_rol` VALUES (16, 8, 1);
+INSERT INTO `modulo_rol` VALUES (17, 9, 1);
+INSERT INTO `modulo_rol` VALUES (19, 4, 1);
+INSERT INTO `modulo_rol` VALUES (20, 5, 1);
+INSERT INTO `modulo_rol` VALUES (22, 1, 3);
+INSERT INTO `modulo_rol` VALUES (25, 11, 1);
+INSERT INTO `modulo_rol` VALUES (26, 12, 1);
+INSERT INTO `modulo_rol` VALUES (27, 13, 1);
+INSERT INTO `modulo_rol` VALUES (28, 14, 1);
+INSERT INTO `modulo_rol` VALUES (29, 15, 1);
+INSERT INTO `modulo_rol` VALUES (30, 16, 1);
+INSERT INTO `modulo_rol` VALUES (31, 17, 1);
+INSERT INTO `modulo_rol` VALUES (32, 18, 1);
+INSERT INTO `modulo_rol` VALUES (35, 21, 1);
+INSERT INTO `modulo_rol` VALUES (36, 22, 1);
+INSERT INTO `modulo_rol` VALUES (37, 23, 1);
+INSERT INTO `modulo_rol` VALUES (45, 7, 1);
+INSERT INTO `modulo_rol` VALUES (46, 6, 1);
+INSERT INTO `modulo_rol` VALUES (47, 24, 1);
+INSERT INTO `modulo_rol` VALUES (48, 25, 1);
+INSERT INTO `modulo_rol` VALUES (49, 26, 1);
+INSERT INTO `modulo_rol` VALUES (51, 27, 1);
+INSERT INTO `modulo_rol` VALUES (52, 28, 1);
+INSERT INTO `modulo_rol` VALUES (53, 29, 1);
+INSERT INTO `modulo_rol` VALUES (55, 29, 2);
+INSERT INTO `modulo_rol` VALUES (56, 9, 2);
+INSERT INTO `modulo_rol` VALUES (57, 10, 2);
+INSERT INTO `modulo_rol` VALUES (58, 28, 2);
+INSERT INTO `modulo_rol` VALUES (59, 30, 1);
+INSERT INTO `modulo_rol` VALUES (60, 10, 1);
+INSERT INTO `modulo_rol` VALUES (61, 31, 1);
+INSERT INTO `modulo_rol` VALUES (62, 32, 1);
+INSERT INTO `modulo_rol` VALUES (63, 1, 2);
+INSERT INTO `modulo_rol` VALUES (64, 7, 2);
+INSERT INTO `modulo_rol` VALUES (65, 17, 2);
+INSERT INTO `modulo_rol` VALUES (66, 15, 2);
+INSERT INTO `modulo_rol` VALUES (67, 24, 2);
+INSERT INTO `modulo_rol` VALUES (69, 26, 2);
+INSERT INTO `modulo_rol` VALUES (70, 21, 2);
+INSERT INTO `modulo_rol` VALUES (71, 23, 2);
+INSERT INTO `modulo_rol` VALUES (73, 33, 1);
+INSERT INTO `modulo_rol` VALUES (74, 34, 1);
+INSERT INTO `modulo_rol` VALUES (75, 35, 1);
+INSERT INTO `modulo_rol` VALUES (76, 36, 1);
+INSERT INTO `modulo_rol` VALUES (77, 37, 1);
+INSERT INTO `modulo_rol` VALUES (78, 38, 1);
+INSERT INTO `modulo_rol` VALUES (79, 39, 1);
+INSERT INTO `modulo_rol` VALUES (80, 1, 1);
+INSERT INTO `modulo_rol` VALUES (81, 41, 1);
+INSERT INTO `modulo_rol` VALUES (82, 42, 1);
+INSERT INTO `modulo_rol` VALUES (84, 43, 1);
+INSERT INTO `modulo_rol` VALUES (85, 44, 1);
+INSERT INTO `modulo_rol` VALUES (86, 45, 1);
+INSERT INTO `modulo_rol` VALUES (87, 46, 1);
+INSERT INTO `modulo_rol` VALUES (88, 47, 1);
+INSERT INTO `modulo_rol` VALUES (89, 48, 1);
+INSERT INTO `modulo_rol` VALUES (90, 51, 1);
+INSERT INTO `modulo_rol` VALUES (91, 54, 1);
+INSERT INTO `modulo_rol` VALUES (92, 57, 1);
+INSERT INTO `modulo_rol` VALUES (93, 56, 1);
+INSERT INTO `modulo_rol` VALUES (94, 53, 1);
+INSERT INTO `modulo_rol` VALUES (95, 50, 1);
+INSERT INTO `modulo_rol` VALUES (96, 49, 1);
+INSERT INTO `modulo_rol` VALUES (97, 52, 1);
+INSERT INTO `modulo_rol` VALUES (98, 55, 1);
+INSERT INTO `modulo_rol` VALUES (99, 58, 1);
+INSERT INTO `modulo_rol` VALUES (100, 59, 1);
+INSERT INTO `modulo_rol` VALUES (101, 60, 1);
+INSERT INTO `modulo_rol` VALUES (102, 61, 1);
+INSERT INTO `modulo_rol` VALUES (103, 64, 1);
+INSERT INTO `modulo_rol` VALUES (104, 62, 1);
+INSERT INTO `modulo_rol` VALUES (105, 65, 1);
+INSERT INTO `modulo_rol` VALUES (106, 63, 1);
+INSERT INTO `modulo_rol` VALUES (107, 66, 1);
+INSERT INTO `modulo_rol` VALUES (112, 71, 1);
+INSERT INTO `modulo_rol` VALUES (113, 72, 1);
+INSERT INTO `modulo_rol` VALUES (114, 73, 1);
+INSERT INTO `modulo_rol` VALUES (115, 75, 1);
+INSERT INTO `modulo_rol` VALUES (116, 74, 1);
+INSERT INTO `modulo_rol` VALUES (117, 76, 1);
+INSERT INTO `modulo_rol` VALUES (118, 67, 1);
+INSERT INTO `modulo_rol` VALUES (119, 68, 1);
+INSERT INTO `modulo_rol` VALUES (120, 69, 1);
+INSERT INTO `modulo_rol` VALUES (121, 70, 1);
+INSERT INTO `modulo_rol` VALUES (122, 15, 3);
+INSERT INTO `modulo_rol` VALUES (123, 24, 3);
+INSERT INTO `modulo_rol` VALUES (124, 25, 3);
+INSERT INTO `modulo_rol` VALUES (125, 77, 1);
 
 -- ----------------------------
 -- Table structure for movimientos
@@ -693,37 +4566,347 @@ DROP TABLE IF EXISTS `movimientos`;
 CREATE TABLE `movimientos`  (
   `id_movimiento` int NOT NULL AUTO_INCREMENT,
   `id_cuenta` int NULL DEFAULT NULL,
-  `tipo_operacion` int NULL DEFAULT NULL,
+  `id_cuenta_destino` int NULL DEFAULT NULL,
+  `tipo_operacion` int NULL DEFAULT NULL COMMENT '1- Deposito \r\n2-Retiro \r\n3-RecepcionCaj\r\n4-trastadoCaja \r\n5-Corte X\r\n6-Corte Z\r\n7-Abono Credito\r\n8-Desembolso de Credito\r\n9-Depositos Aportaciones\r\n10-Deposito plazo fijo',
   `monto` decimal(10, 2) NULL DEFAULT NULL,
   `saldo` decimal(10, 2) NULL DEFAULT NULL,
-  `estado` int NULL DEFAULT NULL COMMENT '1-procesada 2-anulada',
+  `estado` int NULL DEFAULT NULL COMMENT '1-procesada \r\n2-anulada\r\n3-pendiente recibir en bobeda\r\n',
   `observacion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
-  `fecha_operacion` date NULL DEFAULT NULL,
+  `dui_transaccion` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `cliente_transaccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `fecha_operacion` datetime NULL DEFAULT NULL,
+  `cajero_operacion` int NULL DEFAULT NULL,
+  `id_caja` int NULL DEFAULT NULL,
+  `id_pago_credito` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `impreso` int NULL DEFAULT NULL,
+  `id_libreta` int NULL DEFAULT NULL,
+  `num_movimiento_libreta` int NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_movimiento`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1018 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of movimientos
 -- ----------------------------
-INSERT INTO `movimientos` VALUES (1001, 3, 1, 50.00, 50.00, 1, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1002, 6, 2, 25.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1003, 3, NULL, 1.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1004, 6, NULL, 2.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1005, 3, NULL, 3.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1006, 6, NULL, 4.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1007, 3, NULL, 5.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1008, 6, NULL, 6.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1009, 3, NULL, 7.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1010, 3, NULL, 8910.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1011, 3, NULL, 52.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1012, 3, NULL, 5000.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1013, 3, NULL, 99999999.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1014, 3, NULL, 9999.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1015, 3, NULL, 150.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1016, 3, NULL, 2.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
-INSERT INTO `movimientos` VALUES (1017, 3, NULL, 349.00, NULL, NULL, NULL, '2023-06-09', NULL, NULL);
+INSERT INTO `movimientos` VALUES (1, 144, NULL, 1, 100.00, 430.00, 1, NULL, '0', '0', '2023-10-29 16:57:31', 9, 1, NULL, 1, 3, 1, '2023-10-29 16:57:31', '2023-10-29 19:00:44');
+INSERT INTO `movimientos` VALUES (2, 144, NULL, 2, 1.00, 429.00, 1, NULL, '0', '0', '2023-10-29 16:57:43', 9, 1, NULL, 1, 3, 2, '2023-10-29 16:57:43', '2023-10-29 19:00:44');
+INSERT INTO `movimientos` VALUES (3, 144, NULL, 2, 10.00, 419.00, 1, NULL, '00', '10', '2023-10-29 19:49:19', 9, 1, NULL, 1, 3, 3, '2023-10-29 19:49:19', '2023-10-29 19:55:03');
+INSERT INTO `movimientos` VALUES (4, 144, NULL, 1, 25.00, 444.00, 1, NULL, '0', '0', '2023-10-29 19:49:42', 9, 1, NULL, 1, 3, 4, '2023-10-29 19:49:42', '2023-10-29 19:55:03');
+INSERT INTO `movimientos` VALUES (5, 144, NULL, 1, 10.00, 454.00, 1, NULL, '0', '0', '2023-10-29 19:50:01', 9, 1, NULL, 1, 3, 5, '2023-10-29 19:50:01', '2023-10-29 19:55:03');
+INSERT INTO `movimientos` VALUES (6, 144, NULL, 2, 150.00, 304.00, 1, 'Retiro de cuenta', '0', '0', '2023-10-29 19:51:22', 9, 1, NULL, 1, 3, 6, '2023-10-29 19:51:22', '2023-10-29 19:55:03');
+INSERT INTO `movimientos` VALUES (7, 144, NULL, 1, 12.00, 316.00, 1, 'Deposito a cuenta', '12', '0', '2023-10-29 19:51:54', 9, 1, NULL, 1, 3, 7, '2023-10-29 19:51:54', '2023-10-29 19:55:03');
+INSERT INTO `movimientos` VALUES (8, 0, NULL, 4, 50.00, NULL, 1, NULL, NULL, NULL, '2023-10-29 20:07:55', 9, 1, NULL, NULL, NULL, NULL, '2023-10-29 20:07:55', '2023-10-29 20:20:18');
+INSERT INTO `movimientos` VALUES (9, 0, NULL, 4, 501.00, NULL, 1, NULL, NULL, NULL, '2023-10-29 20:23:36', 9, 1, NULL, NULL, NULL, NULL, '2023-10-29 20:23:36', '2023-10-29 20:25:11');
+INSERT INTO `movimientos` VALUES (10, 0, NULL, 3, 500.00, NULL, 3, 'Recibe traslado de Bobeda', NULL, 'Norman Parker', '2023-10-29 20:26:33', 9, 1, NULL, NULL, NULL, NULL, '2023-10-29 20:26:33', '2023-10-29 20:26:33');
+INSERT INTO `movimientos` VALUES (11, 0, NULL, 4, 500.00, NULL, 1, NULL, NULL, NULL, '2023-10-29 20:27:09', 9, 1, NULL, NULL, NULL, NULL, '2023-10-29 20:27:09', '2023-10-29 20:31:45');
+INSERT INTO `movimientos` VALUES (12, 144, NULL, 1, 10.00, 326.00, 1, 'Deposito a cuenta', '0', '0', '2023-10-29 20:27:40', 9, 1, NULL, 0, 3, 8, '2023-10-29 20:27:40', '2023-10-29 20:27:40');
+INSERT INTO `movimientos` VALUES (13, 0, NULL, 4, 9.00, NULL, 1, NULL, NULL, NULL, '2023-10-29 20:30:28', 9, 1, NULL, NULL, NULL, NULL, '2023-10-29 20:30:28', '2023-10-29 20:32:25');
+INSERT INTO `movimientos` VALUES (14, 0, NULL, 4, 1.00, NULL, 1, NULL, NULL, NULL, '2023-10-29 20:34:34', 9, 1, NULL, NULL, NULL, NULL, '2023-10-29 20:34:34', '2023-10-29 20:34:49');
+INSERT INTO `movimientos` VALUES (15, 142, NULL, 1, 1000.00, 1242.00, 1, 'Deposito a cuenta', '0', '0', '2023-10-29 20:47:37', 9, 1, NULL, 0, 1, 1, '2023-10-29 20:47:37', '2023-10-29 20:47:37');
+INSERT INTO `movimientos` VALUES (16, 0, NULL, 4, 505.00, NULL, 1, NULL, NULL, NULL, '2023-10-29 20:47:49', 9, 1, NULL, NULL, NULL, NULL, '2023-10-29 20:47:49', '2023-10-29 20:47:58');
+INSERT INTO `movimientos` VALUES (17, 0, NULL, 3, 5001.00, NULL, 3, 'Recibe traslado de Bobeda', NULL, 'Norman Parker', '2023-10-29 20:48:56', 9, 1, NULL, NULL, NULL, NULL, '2023-10-29 20:48:56', '2023-10-29 20:48:56');
+
+-- ----------------------------
+-- Table structure for notifications
+-- ----------------------------
+DROP TABLE IF EXISTS `notifications`;
+CREATE TABLE `notifications`  (
+  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `read_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of notifications
+-- ----------------------------
+INSERT INTO `notifications` VALUES ('1119ce14-63a8-4775-a993-3b862a6c9a6a', 'App\\Notifications\\MoneylaunderingNotification', '1bc366d2-3392-4bca-933a-891be1b34c22', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"246.42\",\"justificante\":\"4545\",\"comprobante\":\"45\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308071619351\",\"id_caja\":\"1\"}', NULL, '2023-09-18 16:35:15', '2023-09-18 16:35:15');
+INSERT INTO `notifications` VALUES ('1fd79f87-3d4a-402c-8438-db3bcaf6f100', 'App\\Notifications\\MoneylaunderingNotification', '2e1f38f1-5148-4c43-9a33-01bb17ba6b9b', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"61.74\",\"justificante\":\"Por que el cliente quire lleva\",\"comprobante\":\"si\",\"cliente\":\"Raul Bonilla\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000622309301011302\",\"id_caja\":\"1\"}', NULL, '2023-09-30 10:40:53', '2023-09-30 10:40:53');
+INSERT INTO `notifications` VALUES ('2cb7050a-a84d-42b7-9fdc-fb1e5ebbfa1a', 'App\\Notifications\\MoneylaunderingNotification', '1bc366d2-3392-4bca-933a-891be1b34c22', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"246.42\",\"justificante\":\"45\",\"comprobante\":\"45\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308071619351\",\"id_caja\":\"1\"}', NULL, '2023-09-18 09:48:14', '2023-09-18 09:48:14');
+INSERT INTO `notifications` VALUES ('4067d411-f540-4542-bc06-a8e02c23969e', 'App\\Notifications\\MoneylaunderingNotification', '1bc366d2-3392-4bca-933a-891be1b34c22', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"246.42\",\"justificante\":\"asd\",\"comprobante\":\"asd\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308071619351\",\"id_caja\":\"1\"}', NULL, '2023-08-19 11:03:20', '2023-08-19 11:03:20');
+INSERT INTO `notifications` VALUES ('43b92252-bd5f-44f2-b6dc-5ada972bc984', 'App\\Notifications\\MoneylaunderingNotification', '1bc366d2-3392-4bca-933a-891be1b34c22', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"2500\",\"justificante\":\"asdasd\",\"comprobante\":\"qs\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308071619351\",\"id_caja\":\"1\"}', NULL, '2023-08-10 23:04:33', '2023-08-10 23:04:33');
+INSERT INTO `notifications` VALUES ('4609a1ff-e609-4304-a872-f42401498e75', 'App\\Notifications\\MoneylaunderingNotification', '1bc366d2-3392-4bca-933a-891be1b34c22', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"246.42\",\"justificante\":\"48789\",\"comprobante\":\"789744\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308071619351\",\"id_caja\":\"1\"}', NULL, '2023-09-18 09:50:28', '2023-09-18 09:50:28');
+INSERT INTO `notifications` VALUES ('4b59262d-c58e-4cac-8df7-243b31120956', 'App\\Notifications\\MoneylaunderingNotification', '018f455c-4a07-4076-a053-a28f96c6c2b9', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"0.8\",\"justificante\":\"sfasdf\",\"comprobante\":\"asds\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052307280839221\",\"id_caja\":\"1\"}', NULL, '2023-09-06 09:26:13', '2023-09-06 09:26:13');
+INSERT INTO `notifications` VALUES ('573e946b-5170-42de-81c7-1ef07bf2f5d9', 'App\\Notifications\\MoneylaunderingNotification', '1bc366d2-3392-4bca-933a-891be1b34c22', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"2500\",\"justificante\":\"sdsd\",\"comprobante\":\"si\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308071619351\",\"id_caja\":\"1\"}', NULL, '2023-08-10 23:03:59', '2023-08-10 23:03:59');
+INSERT INTO `notifications` VALUES ('797ab212-9249-4a9f-b6ad-6a3655def661', 'App\\Notifications\\MoneylaunderingNotification', '5f175627-9ce5-4ebf-8728-7b209475fbed', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"79.74\",\"justificante\":\"asd\",\"comprobante\":\"as\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308070949013\",\"id_caja\":\"1\"}', NULL, '2023-08-18 09:23:56', '2023-08-18 09:23:56');
+INSERT INTO `notifications` VALUES ('80ceb5b0-fef4-4e80-b6d1-39f9ca8e216f', 'App\\Notifications\\MoneylaunderingNotification', '5f175627-9ce5-4ebf-8728-7b209475fbed', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"79.74\",\"justificante\":\"Por apgo asd\",\"comprobante\":\"si\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308070949013\",\"id_caja\":\"1\"}', NULL, '2023-09-18 19:49:46', '2023-09-18 19:49:46');
+INSERT INTO `notifications` VALUES ('8535f446-b962-4e86-aeb4-54536c332618', 'App\\Notifications\\MoneylaunderingNotification', '1bc366d2-3392-4bca-933a-891be1b34c22', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"246.42\",\"justificante\":\"Pago adelantad\",\"comprobante\":\"Si\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308071619351\",\"id_caja\":\"1\"}', NULL, '2023-09-18 14:09:31', '2023-09-18 14:09:31');
+INSERT INTO `notifications` VALUES ('8bd935c6-de55-4b11-be27-85719bf33289', 'App\\Notifications\\MoneylaunderingNotification', '018f455c-4a07-4076-a053-a28f96c6c2b9', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"115.51\",\"justificante\":\"asdasd\",\"comprobante\":\"si\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052307280839221\",\"id_caja\":\"1\"}', NULL, '2023-08-17 08:03:03', '2023-08-17 08:03:03');
+INSERT INTO `notifications` VALUES ('9852ffd1-ac90-405b-8d95-38e4c6c266a7', 'App\\Notifications\\MoneylaunderingNotification', '1bc366d2-3392-4bca-933a-891be1b34c22', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"246.42\",\"justificante\":\"7\",\"comprobante\":\"456\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308071619351\",\"id_caja\":\"1\"}', NULL, '2023-09-17 15:11:10', '2023-09-17 15:11:10');
+INSERT INTO `notifications` VALUES ('a068162e-12af-4da2-bb40-7d430d0afb94', 'App\\Notifications\\MoneylaunderingNotification', '1bc366d2-3392-4bca-933a-891be1b34c22', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"246.42\",\"justificante\":\"sdas\",\"comprobante\":\"si\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308071619351\",\"id_caja\":\"1\"}', NULL, '2023-08-17 11:46:02', '2023-08-17 11:46:02');
+INSERT INTO `notifications` VALUES ('a6bbd70a-fe8c-41e7-ba69-b1a48cce1b85', 'App\\Notifications\\MoneylaunderingNotification', '2501f5ed-f555-4ae1-b594-04a247da2ac1', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"1500\",\"justificante\":\"asdasd\",\"comprobante\":\"si\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052307311947482\",\"id_caja\":\"1\"}', NULL, '2023-08-10 23:03:15', '2023-08-10 23:03:15');
+INSERT INTO `notifications` VALUES ('cdb93ec6-ea61-40b0-91f6-10479dfa3070', 'App\\Notifications\\MoneylaunderingNotification', '018f455c-4a07-4076-a053-a28f96c6c2b9', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"0.02\",\"justificante\":\"rtert\",\"comprobante\":\"ert\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052307280839221\",\"id_caja\":\"1\"}', NULL, '2023-09-17 11:28:31', '2023-09-17 11:28:31');
+INSERT INTO `notifications` VALUES ('f1237e08-9820-423b-b5dd-49f34f20bad9', 'App\\Notifications\\MoneylaunderingNotification', '1bc366d2-3392-4bca-933a-891be1b34c22', 'App\\Models\\Credito', '{\"numero_caja\":\"Caja # 01\",\"monto_saldo\":\"246.42\",\"justificante\":\"SI\",\"comprobante\":\"asd\",\"cliente\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"cobrado_por\":\"Norman Parker\",\"codigo_credito\":\"00000052308071619351\",\"id_caja\":\"1\"}', NULL, '2023-08-24 11:31:48', '2023-08-24 11:31:48');
+
+-- ----------------------------
+-- Table structure for pagos_credito
+-- ----------------------------
+DROP TABLE IF EXISTS `pagos_credito`;
+CREATE TABLE `pagos_credito`  (
+  `id_pago_credito` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL DEFAULT '',
+  `id_credito` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL DEFAULT '',
+  `capital` decimal(20, 6) NOT NULL DEFAULT 0.000000,
+  `interes` decimal(20, 6) NOT NULL DEFAULT 0.000000,
+  `mora` decimal(20, 6) NOT NULL DEFAULT 0.000000,
+  `aportacion` decimal(20, 6) NOT NULL DEFAULT 0.000000,
+  `total_pago` decimal(20, 6) NOT NULL DEFAULT 0.000000,
+  `seguro_deuda` decimal(20, 6) NOT NULL DEFAULT 0.000000,
+  `fecha_pago` datetime NULL DEFAULT NULL,
+  `cliente_operacion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `dui_operacion` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `id_caja` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_pago_credito`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of pagos_credito
+-- ----------------------------
+INSERT INTO `pagos_credito` VALUES ('0015a23d-f338-4954-bce2-290653e20243', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 07:30:44', '45', '45', '1', '2023-08-10 07:30:44', '2023-08-10 07:30:44');
+INSERT INTO `pagos_credito` VALUES ('01ed8ded-af34-41f9-bc79-505500d01a79', '2501f5ed-f555-4ae1-b594-04a247da2ac1', 404.360000, 35.215101, 0.000000, 10.000000, 449.575101, 0.000000, '2023-08-10 07:41:09', 'asd', 'asd', '1', '2023-08-10 07:41:09', '2023-08-10 07:41:09');
+INSERT INTO `pagos_credito` VALUES ('0a260828-1fdc-46ed-bf59-09a965468a48', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 21:54:21', 'asd', 'asd', '1', '2023-07-23 21:54:21', '2023-07-23 21:54:21');
+INSERT INTO `pagos_credito` VALUES ('0d82b997-13de-405f-ad1b-b2eaed5f2cb6', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 19:03:58', 'asdas', '0313', '1', '2023-07-23 19:03:58', '2023-07-23 19:03:58');
+INSERT INTO `pagos_credito` VALUES ('0fd57a87-f275-4e5d-9119-f82498a2d1c1', '2501f5ed-f555-4ae1-b594-04a247da2ac1', 1840.000000, 0.000000, 0.000000, 10.000000, 1850.000000, 0.000000, '2023-08-10 23:17:35', 'asdasd', 'asd', '1', '2023-08-10 23:17:35', '2023-08-10 23:17:35');
+INSERT INTO `pagos_credito` VALUES ('122aaf3e-9b65-47ac-9413-296c7f534ba5', '2501f5ed-f555-4ae1-b594-04a247da2ac1', 490.000000, 0.000000, 0.000000, 10.000000, 500.000000, 0.000000, '2023-08-10 23:19:48', 'asd', 'asd', '1', '2023-08-10 23:19:48', '2023-08-10 23:19:48');
+INSERT INTO `pagos_credito` VALUES ('12988a47-98cf-4deb-a1b0-226f5f8d3ed5', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 495.000000, 0.000000, 0.000000, 10.000000, 505.000000, 0.000000, '2023-07-23 14:34:58', NULL, NULL, NULL, '2023-07-23 14:34:58', '2023-07-23 14:34:58');
+INSERT INTO `pagos_credito` VALUES ('14813f26-bae2-442e-b635-673fa823fea6', '5133283c-f8c7-46a7-a38c-901cc9007962', 623.430000, 0.000000, 0.000000, 50.000000, 673.430000, 0.000000, '2023-07-24 06:54:32', 'asdasd', 'asd', '1', '2023-07-24 06:54:32', '2023-07-24 06:54:32');
+INSERT INTO `pagos_credito` VALUES ('1aeedc4d-3ee0-4863-b3b0-63b2448ac0f9', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 21:55:45', '123', '13', '1', '2023-07-23 21:55:45', '2023-07-23 21:55:45');
+INSERT INTO `pagos_credito` VALUES ('20acf3bf-6e08-4103-8702-959ade08f9d1', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 21:47:41', 'sdfsf', 'sdf', '1', '2023-07-23 21:47:41', '2023-07-23 21:47:41');
+INSERT INTO `pagos_credito` VALUES ('2b4237b4-1496-4fd1-bce4-8ca50de05e84', '2501f5ed-f555-4ae1-b594-04a247da2ac1', 439.580000, 0.000000, 0.000000, 10.000000, 449.580000, 0.000000, '2023-07-31 19:55:53', 'Luis', '037316718', '1', '2023-07-31 19:55:53', '2023-07-31 19:55:53');
+INSERT INTO `pagos_credito` VALUES ('31c72c00-b779-4723-9d33-8d979574257d', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 21:37:15', 'erwer', '567567', '1', '2023-07-23 21:37:15', '2023-07-23 21:37:15');
+INSERT INTO `pagos_credito` VALUES ('3427e3a4-31f5-44aa-ae77-2ab6196d4022', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 21:39:29', 'asd', 'asd', '1', '2023-07-23 21:39:29', '2023-07-23 21:39:29');
+INSERT INTO `pagos_credito` VALUES ('359ce2e3-436f-4ac4-92ef-874193aa1c39', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 20:01:45', 'Luis Arnulfo Márquez Argueta', '03731671-7', '1', '2023-07-23 20:01:45', '2023-07-23 20:01:45');
+INSERT INTO `pagos_credito` VALUES ('36097b5c-64ef-46d3-a7ec-37fae7d87f77', '5133283c-f8c7-46a7-a38c-901cc9007962', 623.430000, 0.000000, 0.000000, 50.000000, 673.430000, 0.000000, '2023-07-24 06:57:21', 'dfg', 'dfg', '1', '2023-07-24 06:57:21', '2023-07-24 06:57:21');
+INSERT INTO `pagos_credito` VALUES ('39663157-5dc1-4113-8aab-7f046d058aa5', '2501f5ed-f555-4ae1-b594-04a247da2ac1', 990.000000, 0.000000, 0.000000, 10.000000, 1000.000000, 0.000000, '2023-07-31 19:57:54', 'Luis', '037316717', '1', '2023-07-31 19:57:54', '2023-07-31 19:57:54');
+INSERT INTO `pagos_credito` VALUES ('44ccdbca-6b42-4ef4-92c8-f69885f6a441', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 143.200000, 0.000000, 0.000000, 10.000000, 153.200000, 0.000000, '2023-07-23 22:07:26', '23', '123', '1', '2023-07-23 22:07:26', '2023-07-23 22:07:26');
+INSERT INTO `pagos_credito` VALUES ('47eeea37-3497-4d7b-9110-fe2e7fae3f9e', '4cd94192-768e-4b2e-b31d-02c9accefb57', 51.740000, 0.000000, 0.000000, 10.000000, 79.740000, 18.000000, '2023-07-24 00:06:39', 'asd', 'asd', '1', '2023-07-24 00:06:39', '2023-07-24 00:06:39');
+INSERT INTO `pagos_credito` VALUES ('48796d46-78e3-4000-8204-a6610d0efcaa', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 21:37:53', 'asd', 'asd', '1', '2023-07-23 21:37:53', '2023-07-23 21:37:53');
+INSERT INTO `pagos_credito` VALUES ('4a6c9809-3f18-4f89-afe1-bece4c5c686e', 'b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 07:38:49', '56', '56', '1', '2023-08-10 07:38:49', '2023-08-10 07:38:49');
+INSERT INTO `pagos_credito` VALUES ('505a4402-3210-48cb-b03e-b3babb330932', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 445.665827, 47.174173, 2.231038, 10.000000, 505.071038, 0.000000, '2023-08-27 14:36:29', NULL, NULL, NULL, '2023-08-27 14:36:29', '2023-08-27 14:36:29');
+INSERT INTO `pagos_credito` VALUES ('51eed1f6-2756-41dc-88a9-5325d91fefd5', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 21:38:40', '4', '45', '1', '2023-07-23 21:38:40', '2023-07-23 21:38:40');
+INSERT INTO `pagos_credito` VALUES ('572087d0-251e-4b3e-bba0-4195a053a4be', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 23:16:46', 'asd', '300', '1', '2023-08-10 23:16:46', '2023-08-10 23:16:46');
+INSERT INTO `pagos_credito` VALUES ('5b3a8ee6-56f7-47e7-a117-d195f991f29f', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 17:06:18', '56', '45', '1', '2023-08-10 17:06:18', '2023-08-10 17:06:18');
+INSERT INTO `pagos_credito` VALUES ('5e7541ff-750d-45e5-ae05-5a80a69aca55', 'b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 07:39:28', '56', '56', '1', '2023-08-10 07:39:28', '2023-08-10 07:39:28');
+INSERT INTO `pagos_credito` VALUES ('6250e705-4b08-49d9-a66b-4a8a0cd7999a', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 990.000000, 0.000000, 0.000000, 10.000000, 1000.000000, 0.000000, '2023-07-23 14:09:39', NULL, NULL, NULL, '2023-07-23 14:09:39', '2023-07-23 14:09:39');
+INSERT INTO `pagos_credito` VALUES ('62985487-10d7-4162-943b-3e34e4525e79', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 19:52:56', 'lUIS mARQUEZ', '037316177', '1', '2023-07-23 19:52:56', '2023-07-23 19:52:56');
+INSERT INTO `pagos_credito` VALUES ('64e55bc4-2337-4388-8687-14a6a195a4da', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 0.000000, 880.742586, 12.182403, 10.000000, 902.924989, 0.000000, '2023-07-23 13:17:37', NULL, NULL, NULL, '2023-07-23 13:17:37', '2023-07-23 13:17:37');
+INSERT INTO `pagos_credito` VALUES ('67a9e00a-fb9e-4c31-a363-4ee3919b528e', '4cd94192-768e-4b2e-b31d-02c9accefb57', 51.246849, 0.493151, 0.000000, 10.000000, 79.740000, 18.000000, '2023-07-24 00:02:02', 'asd', 'asd', '1', '2023-07-24 00:02:02', '2023-07-24 00:02:02');
+INSERT INTO `pagos_credito` VALUES ('68f4f95a-9d95-4341-b91b-5623e831e8f4', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 14:09:20', NULL, NULL, NULL, '2023-07-23 14:09:20', '2023-07-23 14:09:20');
+INSERT INTO `pagos_credito` VALUES ('6d940a40-ca5c-4f5a-963c-b0662558378f', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 0.000000, 2351.873059, 42.538556, 10.000000, 2404.411615, 0.000000, '2023-07-23 13:29:53', NULL, NULL, NULL, '2023-07-23 13:29:53', '2023-07-23 13:29:53');
+INSERT INTO `pagos_credito` VALUES ('6daff7a5-f6b8-4533-8906-0b3f639b9168', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 0.000000, 2071.196850, 36.746922, 10.000000, 2117.943772, 0.000000, '2023-07-23 13:28:53', NULL, NULL, NULL, '2023-07-23 13:28:53', '2023-07-23 13:28:53');
+INSERT INTO `pagos_credito` VALUES ('6ffe1374-a88d-497e-b230-d28c829489dd', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 18:24:33', 'luis', '037631694', '1', '2023-07-23 18:24:33', '2023-07-23 18:24:33');
+INSERT INTO `pagos_credito` VALUES ('769368e0-0f85-4cd0-94be-f3fc044ec371', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 20:26:53', 'Oscar  asd', '03731671-7', '1', '2023-07-23 20:26:53', '2023-07-23 20:26:53');
+INSERT INTO `pagos_credito` VALUES ('775aa0c5-2a90-4fd3-924b-8381d9bfd533', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 0.000000, 590.387887, 6.191057, 10.000000, 606.578945, 0.000000, '2023-07-23 10:49:27', 'Luis Marquez', '03731671-7', NULL, '2023-07-23 10:49:27', '2023-07-23 10:49:27');
+INSERT INTO `pagos_credito` VALUES ('79547b1a-5c91-4d29-8a26-20ca0862b596', '018f455c-4a07-4076-a053-a28f96c6c2b9', 227.644017, 18.775983, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 07:22:36', 'dfgdf', 'gdfg', '1', '2023-08-10 07:22:36', '2023-08-10 07:22:36');
+INSERT INTO `pagos_credito` VALUES ('799086a3-8cb8-401c-95fd-77afcd1711bb', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 14:34:40', NULL, NULL, NULL, '2023-07-23 14:34:40', '2023-07-23 14:34:40');
+INSERT INTO `pagos_credito` VALUES ('7d839f5b-02ab-4ac2-8b55-819dadba7aca', '1bc366d2-3392-4bca-933a-891be1b34c22', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-09-18 16:35:15', '12', '4545', '1', '2023-09-18 16:35:15', '2023-09-18 16:35:15');
+INSERT INTO `pagos_credito` VALUES ('8029ae53-45e6-4626-b926-67c3839af086', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 0.000000, 1180.775774, 18.373461, 10.000000, 1209.149235, 0.000000, '2023-07-23 13:17:59', NULL, NULL, NULL, '2023-07-23 13:17:59', '2023-07-23 13:17:59');
+INSERT INTO `pagos_credito` VALUES ('814c39d1-9605-4e29-bcbe-382de1982d46', '1bc366d2-3392-4bca-933a-891be1b34c22', 235.830000, 10.590442, 0.000000, 0.000000, 246.420442, 0.000000, '2023-08-24 11:31:48', '0', '0', '1', '2023-08-24 11:31:48', '2023-08-24 11:31:48');
+INSERT INTO `pagos_credito` VALUES ('84c6195a-30b1-4250-a17f-3b723904f3c1', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 07:31:32', '45', '45', '1', '2023-08-10 07:31:32', '2023-08-10 07:31:32');
+INSERT INTO `pagos_credito` VALUES ('86327b2d-ba9c-4cd3-8ec7-53a539778b46', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 19:22:15', 'gydfgh', '45646', '1', '2023-07-23 19:22:15', '2023-07-23 19:22:15');
+INSERT INTO `pagos_credito` VALUES ('8edaabda-ad3e-44f1-9846-32958a7955e2', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 0.000000, 1471.130473, 24.364807, 10.000000, 1505.495280, 0.000000, '2023-07-23 13:23:36', NULL, NULL, NULL, '2023-07-23 13:23:36', '2023-07-23 13:23:36');
+INSERT INTO `pagos_credito` VALUES ('8f866688-3891-4a7a-aedd-0426cb4bd8db', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 07:42:36', 'asd', 'asd', '1', '2023-08-10 07:42:36', '2023-08-10 07:42:36');
+INSERT INTO `pagos_credito` VALUES ('8ffb3375-f808-42fb-8222-075afcf2649e', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 21:57:54', '21', '21', '1', '2023-07-23 21:57:54', '2023-07-23 21:57:54');
+INSERT INTO `pagos_credito` VALUES ('95994841-525f-40a2-b1ed-5544633da597', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 12:54:30', 'asd', 'asd', '1', '2023-08-10 12:54:30', '2023-08-10 12:54:30');
+INSERT INTO `pagos_credito` VALUES ('97db4d2c-db67-4385-9204-ed1de916badd', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 19:03:16', 'Luis', '037316717', '1', '2023-07-23 19:03:16', '2023-07-23 19:03:16');
+INSERT INTO `pagos_credito` VALUES ('99fd6f4e-e3d8-4477-9451-94f5f3fd4075', '2501f5ed-f555-4ae1-b594-04a247da2ac1', 10.320000, 28.036642, 1.640000, 10.000000, 49.996642, 0.000000, '2023-09-13 17:44:34', '12', '12', '1', '2023-09-13 17:44:34', '2023-09-13 17:44:34');
+INSERT INTO `pagos_credito` VALUES ('9e815872-ee66-4953-932c-166f0a5581db', '018f455c-4a07-4076-a053-a28f96c6c2b9', 1000.000000, 0.000000, 0.000000, 0.000000, 1000.000000, 0.000000, '2023-08-10 22:54:05', 'asd', 'asd', '1', '2023-08-10 22:54:05', '2023-08-10 22:54:05');
+INSERT INTO `pagos_credito` VALUES ('9ffa4100-1512-4111-b1d0-1adf2b6e83e4', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-05 08:04:51', '2', '2', '1', '2023-08-05 08:04:51', '2023-08-05 08:04:51');
+INSERT INTO `pagos_credito` VALUES ('a167a39f-3cf9-4afd-9168-e886d803054c', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-05 08:04:25', '12', '12', '1', '2023-08-05 08:04:25', '2023-08-05 08:04:25');
+INSERT INTO `pagos_credito` VALUES ('a59d7334-1418-48da-9e87-9f8ba0eb6a8d', '018f455c-4a07-4076-a053-a28f96c6c2b9', 114.710000, 0.797480, 0.000000, 0.000000, 115.507480, 0.000000, '2023-08-17 08:03:03', 'cvg', 'dfg', '1', '2023-08-17 08:03:03', '2023-08-17 08:03:03');
+INSERT INTO `pagos_credito` VALUES ('a64f9d1f-cfc0-4442-8695-32ec9f8c8934', 'd25efe86-3444-499e-a804-d3ba2edc1292', 50.260548, 1.479452, 0.000000, 10.000000, 79.740000, 18.000000, '2023-08-10 07:35:23', '66+', '6+', '1', '2023-08-10 07:35:23', '2023-08-10 07:35:23');
+INSERT INTO `pagos_credito` VALUES ('a6cbeb12-db27-4f5c-af70-24aa9a53fd28', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 14:19:36', NULL, NULL, NULL, '2023-07-23 14:19:36', '2023-07-23 14:19:36');
+INSERT INTO `pagos_credito` VALUES ('a885073f-fc89-4d27-a07b-16cadf48a9a3', 'b58e12b8-66ac-4d6f-b0dc-0460dd9163fc', 231.625479, 14.794521, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 07:35:56', '56', '56', '1', '2023-08-10 07:35:56', '2023-08-10 07:35:56');
+INSERT INTO `pagos_credito` VALUES ('ab8e76c5-1111-4c31-ba7a-aea9dd96f9cb', '1bc366d2-3392-4bca-933a-891be1b34c22', 243.220000, 3.200802, 0.000000, 0.000000, 246.420802, 0.000000, '2023-09-18 09:50:28', '454', '5454545', '1', '2023-09-18 09:50:28', '2023-09-18 09:50:28');
+INSERT INTO `pagos_credito` VALUES ('abd6c742-b449-489b-8d03-e6639c0a4ed8', '5f175627-9ce5-4ebf-8728-7b209475fbed', 50.260000, 1.479452, 0.000000, 10.000000, 79.739452, 18.000000, '2023-08-10 07:41:18', 'asd', 'asd', '1', '2023-08-10 07:41:18', '2023-08-10 07:41:18');
+INSERT INTO `pagos_credito` VALUES ('b0f58f00-4598-47e0-b0b1-da9829b4b45c', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 22:44:41', '45', '45', '1', '2023-08-10 22:44:41', '2023-08-10 22:44:41');
+INSERT INTO `pagos_credito` VALUES ('b24a70f7-d93c-4ec2-83f6-dd398d4b7ed9', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 13:57:07', NULL, NULL, NULL, '2023-07-23 13:57:07', '2023-07-23 13:57:07');
+INSERT INTO `pagos_credito` VALUES ('b3ae977f-e624-4356-976f-1a8debfa035a', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 16:59:05', 'Luis', '0373169-7', '1', '2023-07-23 16:59:05', '2023-07-23 16:59:05');
+INSERT INTO `pagos_credito` VALUES ('bb20d1ca-ca0e-4eb3-95c7-9ed7177afdb5', '2e1f38f1-5148-4c43-9a33-01bb17ba6b9b', 51.740000, 0.000000, 0.000000, 10.000000, 61.740000, 0.000000, '2023-09-30 10:40:53', 'Luis Marquez', '03731371-5', '1', '2023-09-30 10:40:53', '2023-09-30 10:40:53');
+INSERT INTO `pagos_credito` VALUES ('bdcfb9c0-5368-478e-ae2e-06ef192e0ed0', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 21:42:53', 'dfg', 'rt', '1', '2023-07-23 21:42:53', '2023-07-23 21:42:53');
+INSERT INTO `pagos_credito` VALUES ('bf1fff04-2538-4ebc-9f79-c74ece02e884', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 12:55:31', 'asd', 'asd', '1', '2023-08-10 12:55:31', '2023-08-10 12:55:31');
+INSERT INTO `pagos_credito` VALUES ('c1fc203b-4e83-4e96-9309-ffc5713d829e', '1bc366d2-3392-4bca-933a-891be1b34c22', 236.556986, 9.863014, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-09 07:50:50', 'sd', '1123123123', '1', '2023-08-09 07:50:50', '2023-08-09 07:50:50');
+INSERT INTO `pagos_credito` VALUES ('c71eaf44-6c86-4e3b-8c73-dca9a3ee2ff6', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 07:49:59', 'asdasd', 'asd', '1', '2023-08-10 07:49:59', '2023-08-10 07:49:59');
+INSERT INTO `pagos_credito` VALUES ('cf8e6713-f5e9-4381-bd69-cedf1433094e', '1bc366d2-3392-4bca-933a-891be1b34c22', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-09-18 14:09:31', 'Glenda Esperazan', '789456123-0', '1', '2023-09-18 14:09:31', '2023-09-18 14:09:31');
+INSERT INTO `pagos_credito` VALUES ('d689e566-c983-43fd-826b-49838c9fcade', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 21:46:29', '123', '123', '1', '2023-07-23 21:46:29', '2023-07-23 21:46:29');
+INSERT INTO `pagos_credito` VALUES ('d84c3f8b-519c-4712-a9f6-f9d01d9409ae', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 0.000000, 1771.163661, 30.555864, 10.000000, 1811.719526, 0.000000, '2023-07-23 13:27:13', NULL, NULL, NULL, '2023-07-23 13:27:13', '2023-07-23 13:27:13');
+INSERT INTO `pagos_credito` VALUES ('d9008f3f-db6a-47cc-aa0d-698533b4aa41', '1bc366d2-3392-4bca-933a-891be1b34c22', 1495.300000, 4.698190, 0.000000, 0.000000, 1499.998190, 0.000000, '2023-08-10 23:10:54', 'sdfsd', 'sadfasd', '1', '2023-08-10 23:10:54', '2023-08-10 23:10:54');
+INSERT INTO `pagos_credito` VALUES ('da6f5e18-2470-4e2e-84c5-a5ca140d84eb', 'c59ae7b1-9084-4a02-9582-68337ea3d473', 51.740000, 0.000000, 0.000000, 10.000000, 79.740000, 18.000000, '2023-07-24 00:12:19', '423', '12', '1', '2023-07-24 00:12:19', '2023-07-24 00:12:19');
+INSERT INTO `pagos_credito` VALUES ('dc2ff278-6e32-4f16-a193-689fe2c854d2', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 21:48:22', 'df', 'sdf', '1', '2023-07-23 21:48:22', '2023-07-23 21:48:22');
+INSERT INTO `pagos_credito` VALUES ('e0b9f979-788a-44ba-a2f3-d2f943fd4edc', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 19:02:46', 'luis amrquyez', '03761671-7', '1', '2023-07-23 19:02:46', '2023-07-23 19:02:46');
+INSERT INTO `pagos_credito` VALUES ('e3183dd7-cdd0-4f3e-9293-883dab493263', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 524.629544, -31.789544, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 16:21:18', NULL, NULL, '1', '2023-07-23 16:21:18', '2023-07-23 16:21:18');
+INSERT INTO `pagos_credito` VALUES ('e3741ae9-d9a3-4de2-81c9-167ed803bfe2', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 187.086575, 305.753425, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 10:49:24', NULL, NULL, NULL, '2023-07-23 10:49:24', '2023-07-23 10:49:24');
+INSERT INTO `pagos_credito` VALUES ('e78f3e63-9ec0-47b0-941a-23bd4a3228dc', '018f455c-4a07-4076-a053-a28f96c6c2b9', 246.420000, 0.000000, 0.000000, 0.000000, 246.420000, 0.000000, '2023-08-10 07:51:40', '456', '456', '1', '2023-08-10 07:51:40', '2023-08-10 07:51:40');
+INSERT INTO `pagos_credito` VALUES ('e822ab01-dd09-498a-ac31-feed065421f0', '5133283c-f8c7-46a7-a38c-901cc9007962', 600.002245, 23.427755, 0.000000, 50.000000, 673.430000, 0.000000, '2023-07-25 14:47:18', 'Luis Marquez', '03731671-7', '1', '2023-07-25 14:47:18', '2023-07-25 14:47:18');
+INSERT INTO `pagos_credito` VALUES ('e98291e8-e014-47d4-8cb2-fdfc0f08a612', '018f455c-4a07-4076-a053-a28f96c6c2b9', 0.020000, 0.000000, 0.000000, 0.000000, 0.020000, 0.000000, '2023-09-17 11:28:31', '56456', '456', '1', '2023-09-17 11:28:31', '2023-09-17 11:28:31');
+INSERT INTO `pagos_credito` VALUES ('ec76f79a-0870-4db5-80e5-e1ff486e1176', '018f455c-4a07-4076-a053-a28f96c6c2b9', 0.780000, 0.015742, 0.000000, 0.000000, 0.795742, 0.000000, '2023-09-06 09:26:14', 'asd', 'asd', '1', '2023-09-06 09:26:14', '2023-09-06 09:26:14');
+INSERT INTO `pagos_credito` VALUES ('f2b66fe2-2657-4d9d-b27d-68a6a1094590', '5f175627-9ce5-4ebf-8728-7b209475fbed', 50.510000, 1.227753, 0.000000, 10.000000, 79.737753, 18.000000, '2023-09-18 19:49:46', 'Luis', '03731671-7', '1', '2023-09-18 19:49:46', '2023-09-18 19:49:46');
+INSERT INTO `pagos_credito` VALUES ('f4f2d165-b8e6-4a4a-9be5-b2a742d3d652', '5f175627-9ce5-4ebf-8728-7b209475fbed', 48.190000, 3.548633, 0.000000, 10.000000, 79.738633, 18.000000, '2023-08-18 09:23:56', '0', '0', '1', '2023-08-18 09:23:56', '2023-08-18 09:23:56');
+INSERT INTO `pagos_credito` VALUES ('f53291bf-43f6-429f-be75-8ae7d263d733', 'b7f66939-15cb-4e28-b791-20c8e237ebdd', 492.840000, 0.000000, 0.000000, 10.000000, 502.840000, 0.000000, '2023-07-23 19:02:21', 'luis amrquyez', '03761671-7', '1', '2023-07-23 19:02:21', '2023-07-23 19:02:21');
+INSERT INTO `pagos_credito` VALUES ('f7d232db-917f-498a-926f-018af4c3867a', '1bc366d2-3392-4bca-933a-891be1b34c22', 1500.000000, 0.000000, 0.000000, 0.000000, 1500.000000, 0.000000, '2023-08-10 23:13:53', 'asd', 'asdas', '1', '2023-08-10 23:13:53', '2023-08-10 23:13:53');
+INSERT INTO `pagos_credito` VALUES ('fae83172-8a39-4f48-b5b2-30fb3deeb2c4', 'a4ba82c9-324b-4e8c-8774-9449cf2679ad', 4990.000000, 0.000000, 0.000000, 10.000000, 5000.000000, 0.000000, '2023-07-23 14:12:04', NULL, NULL, NULL, '2023-07-23 14:12:04', '2023-07-23 14:12:04');
+INSERT INTO `pagos_credito` VALUES ('fbf023f3-b71c-413c-a0e9-5f647b74dd8b', '1bc366d2-3392-4bca-933a-891be1b34c22', 234.210000, 12.207453, 0.000000, 0.000000, 246.417453, 0.000000, '2023-08-17 11:46:02', '69+', '56+', '1', '2023-08-17 11:46:02', '2023-08-17 11:46:02');
+
+-- ----------------------------
+-- Table structure for parameters
+-- ----------------------------
+DROP TABLE IF EXISTS `parameters`;
+CREATE TABLE `parameters`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cuotas` int NOT NULL DEFAULT 4,
+  `monto` double NOT NULL DEFAULT 3000,
+  `updated_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of parameters
+-- ----------------------------
+INSERT INTO `parameters` VALUES (1, 1, 3000, 'Norman Parker', NULL, '2023-08-13 08:53:21');
+
+-- ----------------------------
+-- Table structure for parentesco
+-- ----------------------------
+DROP TABLE IF EXISTS `parentesco`;
+CREATE TABLE `parentesco`  (
+  `id_parentesco` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `parentesco` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id_parentesco`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of parentesco
+-- ----------------------------
+INSERT INTO `parentesco` VALUES ('1', 'Abuelo/a', 1);
+INSERT INTO `parentesco` VALUES ('10', 'Padre', 1);
+INSERT INTO `parentesco` VALUES ('11', 'Sobrino/a', 1);
+INSERT INTO `parentesco` VALUES ('12', 'Suegro/a', 1);
+INSERT INTO `parentesco` VALUES ('13', 'Yerno', 1);
+INSERT INTO `parentesco` VALUES ('14', 'Esposo/a', 1);
+INSERT INTO `parentesco` VALUES ('2', 'Bisuabuelo/a', 1);
+INSERT INTO `parentesco` VALUES ('3', 'Biznieto/a', 1);
+INSERT INTO `parentesco` VALUES ('4', 'Cuñado', 1);
+INSERT INTO `parentesco` VALUES ('5', 'Hermano/a', 1);
+INSERT INTO `parentesco` VALUES ('6', 'Hijo/a', 1);
+INSERT INTO `parentesco` VALUES ('7', 'madre', 1);
+INSERT INTO `parentesco` VALUES ('8', 'Nieto/a', 1);
+INSERT INTO `parentesco` VALUES ('9', 'Nuera', 1);
+
+-- ----------------------------
+-- Table structure for partida_contables_detalle
+-- ----------------------------
+DROP TABLE IF EXISTS `partida_contables_detalle`;
+CREATE TABLE `partida_contables_detalle`  (
+  `id_detalle_partida_contable` int NOT NULL AUTO_INCREMENT,
+  `fecha_procesamiento` date NULL DEFAULT NULL,
+  `id_cuenta` int NULL DEFAULT NULL,
+  `id_partida` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `parcial` decimal(20, 2) NULL DEFAULT NULL,
+  `cargos` decimal(20, 2) NULL DEFAULT NULL,
+  `abonos` decimal(10, 2) NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_detalle_partida_contable`) USING BTREE,
+  INDEX `id_cuenta`(`id_cuenta` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of partida_contables_detalle
+-- ----------------------------
+INSERT INTO `partida_contables_detalle` VALUES (1, NULL, 76, 'ecdf9675-8b1f-4255-a8c9-f63fdc22c561', 100.00, 100.00, 0.00, 0, '2023-10-23 11:28:21', '2023-10-23 11:28:21');
+INSERT INTO `partida_contables_detalle` VALUES (2, NULL, 5, 'ecdf9675-8b1f-4255-a8c9-f63fdc22c561', 100.00, 0.00, 100.00, 0, '2023-10-23 11:28:47', '2023-10-23 11:28:47');
+INSERT INTO `partida_contables_detalle` VALUES (3, NULL, 288, '3d16e1f3-bfce-41b0-b3d4-0f7a80f87328', 5.00, 5.00, 0.00, 0, '2023-10-27 13:00:00', '2023-10-27 13:00:00');
+INSERT INTO `partida_contables_detalle` VALUES (4, NULL, 5, '3d16e1f3-bfce-41b0-b3d4-0f7a80f87328', 5.00, 0.00, 5.00, 0, '2023-10-27 13:00:00', '2023-10-27 13:00:00');
+INSERT INTO `partida_contables_detalle` VALUES (5, NULL, 5, 'a2d3285b-79c2-4bfa-bbf7-586cf87a7929', 150.00, 150.00, 0.00, 0, '2023-10-29 10:25:20', '2023-10-29 10:25:20');
+INSERT INTO `partida_contables_detalle` VALUES (6, NULL, 288, 'a2d3285b-79c2-4bfa-bbf7-586cf87a7929', 150.00, 0.00, 150.00, 0, '2023-10-29 10:25:20', '2023-10-29 10:25:20');
+INSERT INTO `partida_contables_detalle` VALUES (7, NULL, 5, 'c3ec14e6-1eb6-41de-ba36-56476ad85b65', 150.00, 150.00, 0.00, 0, '2023-10-29 10:57:31', '2023-10-29 10:57:31');
+INSERT INTO `partida_contables_detalle` VALUES (8, NULL, 288, 'c3ec14e6-1eb6-41de-ba36-56476ad85b65', 150.00, 0.00, 150.00, 0, '2023-10-29 10:57:31', '2023-10-29 10:57:31');
+INSERT INTO `partida_contables_detalle` VALUES (9, NULL, 5, 'd0199322-1171-477d-bf8c-6fd1d9c64645', 10.00, 10.00, 0.00, 0, '2023-10-29 11:00:01', '2023-10-29 11:00:01');
+INSERT INTO `partida_contables_detalle` VALUES (10, NULL, 288, 'd0199322-1171-477d-bf8c-6fd1d9c64645', 10.00, 0.00, 10.00, 0, '2023-10-29 11:00:01', '2023-10-29 11:00:01');
+INSERT INTO `partida_contables_detalle` VALUES (11, NULL, 5, '919bc026-8627-40cd-a086-d28633c48716', 42.00, 42.00, 0.00, 0, '2023-10-29 11:20:16', '2023-10-29 11:20:16');
+INSERT INTO `partida_contables_detalle` VALUES (12, NULL, 288, '919bc026-8627-40cd-a086-d28633c48716', 42.00, 0.00, 42.00, 0, '2023-10-29 11:20:16', '2023-10-29 11:20:16');
+INSERT INTO `partida_contables_detalle` VALUES (13, NULL, 5, '834c509c-8b13-4e7a-bc0c-03f327d1ee23', 12.00, 12.00, 0.00, 0, '2023-10-29 11:20:46', '2023-10-29 11:20:46');
+INSERT INTO `partida_contables_detalle` VALUES (14, NULL, 288, '834c509c-8b13-4e7a-bc0c-03f327d1ee23', 12.00, 0.00, 12.00, 0, '2023-10-29 11:20:46', '2023-10-29 11:20:46');
+INSERT INTO `partida_contables_detalle` VALUES (15, NULL, 5, '51bc4ef0-31e1-4af7-9f96-9270dedf0035', 50.00, 50.00, 0.00, 0, '2023-10-29 11:21:10', '2023-10-29 11:21:10');
+INSERT INTO `partida_contables_detalle` VALUES (16, NULL, 288, '51bc4ef0-31e1-4af7-9f96-9270dedf0035', 50.00, 0.00, 50.00, 0, '2023-10-29 11:21:10', '2023-10-29 11:21:10');
+INSERT INTO `partida_contables_detalle` VALUES (17, NULL, 5, '97649d49-8e55-47b6-9075-e5fbb75aeb18', 5.00, 5.00, 0.00, 0, '2023-10-29 11:35:42', '2023-10-29 11:35:42');
+INSERT INTO `partida_contables_detalle` VALUES (18, NULL, 288, '97649d49-8e55-47b6-9075-e5fbb75aeb18', 5.00, 0.00, 5.00, 0, '2023-10-29 11:35:42', '2023-10-29 11:35:42');
+INSERT INTO `partida_contables_detalle` VALUES (19, NULL, 5, 'eb021067-4352-4c45-b602-fcd0b560c374', 1.00, 1.00, 0.00, 0, '2023-10-29 11:36:33', '2023-10-29 11:36:33');
+INSERT INTO `partida_contables_detalle` VALUES (20, NULL, 288, 'eb021067-4352-4c45-b602-fcd0b560c374', 1.00, 0.00, 1.00, 0, '2023-10-29 11:36:33', '2023-10-29 11:36:33');
+INSERT INTO `partida_contables_detalle` VALUES (21, NULL, 5, '099330d7-f191-43e5-9c0d-09ce2455e624', 100.00, 100.00, 0.00, 0, '2023-10-29 11:36:50', '2023-10-29 11:36:50');
+INSERT INTO `partida_contables_detalle` VALUES (22, NULL, 288, '099330d7-f191-43e5-9c0d-09ce2455e624', 100.00, 0.00, 100.00, 0, '2023-10-29 11:36:50', '2023-10-29 11:36:50');
+INSERT INTO `partida_contables_detalle` VALUES (23, NULL, 5, '4a6afe7b-2fb2-4db8-b0f0-59125674e1b0', 100.00, 100.00, 0.00, 0, '2023-10-29 16:57:31', '2023-10-29 16:57:31');
+INSERT INTO `partida_contables_detalle` VALUES (24, NULL, 288, '4a6afe7b-2fb2-4db8-b0f0-59125674e1b0', 100.00, 0.00, 100.00, 0, '2023-10-29 16:57:31', '2023-10-29 16:57:31');
+INSERT INTO `partida_contables_detalle` VALUES (25, NULL, 288, 'd235e143-d59c-46a7-bab8-93788652685e', 1.00, 1.00, 0.00, 0, '2023-10-29 16:57:43', '2023-10-29 16:57:43');
+INSERT INTO `partida_contables_detalle` VALUES (26, NULL, 5, 'd235e143-d59c-46a7-bab8-93788652685e', 1.00, 0.00, 1.00, 0, '2023-10-29 16:57:43', '2023-10-29 16:57:43');
+INSERT INTO `partida_contables_detalle` VALUES (27, NULL, 288, 'f8a6d869-1bcd-42bb-bf02-0c23e163e822', 10.00, 10.00, 0.00, 0, '2023-10-29 19:49:19', '2023-10-29 19:49:19');
+INSERT INTO `partida_contables_detalle` VALUES (28, NULL, 5, 'f8a6d869-1bcd-42bb-bf02-0c23e163e822', 10.00, 0.00, 10.00, 0, '2023-10-29 19:49:19', '2023-10-29 19:49:19');
+INSERT INTO `partida_contables_detalle` VALUES (29, NULL, 5, '278f6c62-2ae3-41d5-9da1-dab245578bac', 25.00, 25.00, 0.00, 0, '2023-10-29 19:49:42', '2023-10-29 19:49:42');
+INSERT INTO `partida_contables_detalle` VALUES (30, NULL, 288, '278f6c62-2ae3-41d5-9da1-dab245578bac', 25.00, 0.00, 25.00, 0, '2023-10-29 19:49:42', '2023-10-29 19:49:42');
+INSERT INTO `partida_contables_detalle` VALUES (31, NULL, 5, '0052d348-3a19-4b2d-be9e-dd025ce72c9e', 10.00, 10.00, 0.00, 0, '2023-10-29 19:50:01', '2023-10-29 19:50:01');
+INSERT INTO `partida_contables_detalle` VALUES (32, NULL, 288, '0052d348-3a19-4b2d-be9e-dd025ce72c9e', 10.00, 0.00, 10.00, 0, '2023-10-29 19:50:01', '2023-10-29 19:50:01');
+INSERT INTO `partida_contables_detalle` VALUES (33, NULL, 288, 'd3bf718f-986a-4d72-b7ff-b0b8da684281', 150.00, 150.00, 0.00, 0, '2023-10-29 19:51:22', '2023-10-29 19:51:22');
+INSERT INTO `partida_contables_detalle` VALUES (34, NULL, 5, 'd3bf718f-986a-4d72-b7ff-b0b8da684281', 150.00, 0.00, 150.00, 0, '2023-10-29 19:51:22', '2023-10-29 19:51:22');
+INSERT INTO `partida_contables_detalle` VALUES (35, NULL, 5, '4c5b757b-f56b-451a-afab-2351e72110b9', 12.00, 12.00, 0.00, 0, '2023-10-29 19:51:54', '2023-10-29 19:51:54');
+INSERT INTO `partida_contables_detalle` VALUES (36, NULL, 288, '4c5b757b-f56b-451a-afab-2351e72110b9', 12.00, 0.00, 12.00, 0, '2023-10-29 19:51:54', '2023-10-29 19:51:54');
+INSERT INTO `partida_contables_detalle` VALUES (37, NULL, 5, 'a8140b76-02c6-46d5-b17d-22d19951afe4', 10.00, 10.00, 0.00, 0, '2023-10-29 20:27:40', '2023-10-29 20:27:40');
+INSERT INTO `partida_contables_detalle` VALUES (38, NULL, 288, 'a8140b76-02c6-46d5-b17d-22d19951afe4', 10.00, 0.00, 10.00, 0, '2023-10-29 20:27:40', '2023-10-29 20:27:40');
+INSERT INTO `partida_contables_detalle` VALUES (39, NULL, 5, 'bc817e99-ff0f-4f57-8679-e117ffa9a14a', 1000.00, 1000.00, 0.00, 0, '2023-10-29 20:47:37', '2023-10-29 20:47:37');
+INSERT INTO `partida_contables_detalle` VALUES (40, NULL, 288, 'bc817e99-ff0f-4f57-8679-e117ffa9a14a', 1000.00, 0.00, 1000.00, 0, '2023-10-29 20:47:37', '2023-10-29 20:47:37');
+
+-- ----------------------------
+-- Table structure for partidas_contables
+-- ----------------------------
+DROP TABLE IF EXISTS `partidas_contables`;
+CREATE TABLE `partidas_contables`  (
+  `id_partida_contable` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `num_partida` int NULL DEFAULT NULL,
+  `year_contable` int NULL DEFAULT NULL,
+  `fecha_partida` date NULL DEFAULT NULL,
+  `tipo_partida` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `concepto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `monto` decimal(20, 2) NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  `delete_allowed` int NULL DEFAULT NULL,
+  `created_at` date NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_partida_contable`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of partidas_contables
+-- ----------------------------
+INSERT INTO `partidas_contables` VALUES ('0052d348-3a19-4b2d-be9e-dd025ce72c9e', 16, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 19:50:01');
+INSERT INTO `partidas_contables` VALUES ('099330d7-f191-43e5-9c0d-09ce2455e624', 11, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 11:36:50');
+INSERT INTO `partidas_contables` VALUES ('278f6c62-2ae3-41d5-9da1-dab245578bac', 15, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 19:49:42');
+INSERT INTO `partidas_contables` VALUES ('3d16e1f3-bfce-41b0-b3d4-0f7a80f87328', 2, 2023, '2023-10-27', '1', 'RETIRO DE LA CUENTA DE Ahorro a la vista Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-27', '2023-10-27 13:00:00');
+INSERT INTO `partidas_contables` VALUES ('4a6afe7b-2fb2-4db8-b0f0-59125674e1b0', 12, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 16:57:31');
+INSERT INTO `partidas_contables` VALUES ('4c5b757b-f56b-451a-afab-2351e72110b9', 18, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 19:51:54');
+INSERT INTO `partidas_contables` VALUES ('51bc4ef0-31e1-4af7-9f96-9270dedf0035', 8, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 11:21:10');
+INSERT INTO `partidas_contables` VALUES ('834c509c-8b13-4e7a-bc0c-03f327d1ee23', 7, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 11:20:46');
+INSERT INTO `partidas_contables` VALUES ('919bc026-8627-40cd-a086-d28633c48716', 6, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro a la vista Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 11:20:16');
+INSERT INTO `partidas_contables` VALUES ('97649d49-8e55-47b6-9075-e5fbb75aeb18', 9, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 11:35:42');
+INSERT INTO `partidas_contables` VALUES ('a2d3285b-79c2-4bfa-bbf7-586cf87a7929', 3, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 10:25:20');
+INSERT INTO `partidas_contables` VALUES ('a8140b76-02c6-46d5-b17d-22d19951afe4', 19, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 20:27:40');
+INSERT INTO `partidas_contables` VALUES ('bc817e99-ff0f-4f57-8679-e117ffa9a14a', 20, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro a la vista Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 20:47:37');
+INSERT INTO `partidas_contables` VALUES ('c3ec14e6-1eb6-41de-ba36-56476ad85b65', 4, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro a la vista Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 10:57:31');
+INSERT INTO `partidas_contables` VALUES ('d0199322-1171-477d-bf8c-6fd1d9c64645', 5, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro a la vista Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 11:00:01');
+INSERT INTO `partidas_contables` VALUES ('d235e143-d59c-46a7-bab8-93788652685e', 13, 2023, '2023-10-29', '1', 'RETIRO DE LA CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 16:57:43');
+INSERT INTO `partidas_contables` VALUES ('d3bf718f-986a-4d72-b7ff-b0b8da684281', 17, 2023, '2023-10-29', '1', 'RETIRO DE LA CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 19:51:22');
+INSERT INTO `partidas_contables` VALUES ('eb021067-4352-4c45-b602-fcd0b560c374', 10, 2023, '2023-10-29', '1', 'POR DEPOSITO A CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 11:36:33');
+INSERT INTO `partidas_contables` VALUES ('ecdf9675-8b1f-4255-a8c9-f63fdc22c561', 1, 2023, '2023-10-23', '5', 'jjh', NULL, 2, 1, '2023-10-23', '2023-10-23 11:28:55');
+INSERT INTO `partidas_contables` VALUES ('f8a6d869-1bcd-42bb-bf02-0c23e163e822', 14, 2023, '2023-10-29', '1', 'RETIRO DE LA CUENTA DE Ahorro Navideño Luis Arnulfo Marquez Argueta', NULL, 2, NULL, '2023-10-29', '2023-10-29 19:49:19');
 
 -- ----------------------------
 -- Table structure for password_reset_tokens
@@ -765,11 +4948,1141 @@ CREATE TABLE `personal_access_tokens`  (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for plazos
+-- ----------------------------
+DROP TABLE IF EXISTS `plazos`;
+CREATE TABLE `plazos`  (
+  `id_plazo` int NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `meses` int NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_plazo`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of plazos
+-- ----------------------------
+INSERT INTO `plazos` VALUES (1, 'Deposito 12 Meses', 12, 1, NULL, '2023-08-12 06:57:22');
+INSERT INTO `plazos` VALUES (2, 'Deposito 18 meses', 18, 1, '2023-06-29 18:39:48', '2023-08-12 06:59:40');
+INSERT INTO `plazos` VALUES (3, 'Plazo 5 años', 62, 1, '2023-06-30 08:58:18', '2023-07-09 12:32:30');
+
+-- ----------------------------
+-- Table structure for plazos_tasas
+-- ----------------------------
+DROP TABLE IF EXISTS `plazos_tasas`;
+CREATE TABLE `plazos_tasas`  (
+  `id_tasa` int NOT NULL AUTO_INCREMENT,
+  `id_plazo` int NULL DEFAULT NULL,
+  `valor` decimal(10, 2) NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_tasa`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of plazos_tasas
+-- ----------------------------
+INSERT INTO `plazos_tasas` VALUES (1, 1, 3.50, 1, NULL, '2023-08-12 06:57:58');
+INSERT INTO `plazos_tasas` VALUES (2, 1, 1.50, 1, NULL, '2023-08-12 06:58:07');
+INSERT INTO `plazos_tasas` VALUES (3, 1, 1.00, NULL, '2023-06-30 09:06:26', '2023-08-12 06:58:13');
+INSERT INTO `plazos_tasas` VALUES (4, 1, 8.00, NULL, '2023-06-30 09:06:41', '2023-08-12 06:58:21');
+INSERT INTO `plazos_tasas` VALUES (5, 1, 5.00, NULL, '2023-06-30 09:07:13', '2023-06-30 09:07:13');
+INSERT INTO `plazos_tasas` VALUES (6, 1, 6.00, NULL, '2023-06-30 09:07:25', '2023-08-12 06:58:28');
+INSERT INTO `plazos_tasas` VALUES (7, 2, 5.00, NULL, '2023-06-30 09:09:33', '2023-06-30 09:09:33');
+INSERT INTO `plazos_tasas` VALUES (8, 2, 3.00, NULL, '2023-06-30 09:09:40', '2023-06-30 09:09:40');
+INSERT INTO `plazos_tasas` VALUES (9, 3, 7.00, NULL, '2023-06-30 09:09:49', '2023-06-30 09:09:49');
+INSERT INTO `plazos_tasas` VALUES (10, 2, 1.00, NULL, '2023-07-09 13:45:52', '2023-07-09 13:45:52');
+
+-- ----------------------------
+-- Table structure for productos
+-- ----------------------------
+DROP TABLE IF EXISTS `productos`;
+CREATE TABLE `productos`  (
+  `id_producto` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `presentacion` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `marca` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `costo` decimal(20, 2) NULL DEFAULT NULL,
+  `cod_barra` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `tipo_facturacion` int NULL DEFAULT NULL COMMENT '1-Compras 2-facturacion',
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_producto`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1012 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of productos
+-- ----------------------------
+INSERT INTO `productos` VALUES (4, 'diwi', 'kg', 'Beauty', 0.00, NULL, 2, '2017-01-28 01:09:39', '2023-10-09 11:47:45');
+INSERT INTO `productos` VALUES (6, 'Orange', 'kg', 'Baby', 0.00, NULL, 1, '2010-09-13 17:22:38', '2023-10-09 11:47:40');
+INSERT INTO `productos` VALUES (8, 'jiwi', 'kg', 'Health & Ba', 735.31, '9798873681785', 1, '2008-12-20 07:57:56', '2012-09-23 22:08:47');
+INSERT INTO `productos` VALUES (9, 'Kiwi se', 'lb', 'Toys & Game', 461.22, '01189124', 1, '2016-09-07 13:06:18', '2016-12-03 18:05:07');
+INSERT INTO `productos` VALUES (10, 'Apnle', 'g', 'Clothing, S', 210.12, '03363508', 1, '2012-05-23 20:00:08', '2000-03-11 21:50:22');
+INSERT INTO `productos` VALUES (11, 'dpple elite', 'kg', 'Others', 90.30, '03487112', 1, '2003-04-24 06:21:32', '2003-03-22 10:12:19');
+INSERT INTO `productos` VALUES (12, 'Pluots premium', 'lb', 'Handcrafts', 938.47, '01432923', 1, '2011-10-31 05:04:29', '2011-12-05 15:51:22');
+INSERT INTO `productos` VALUES (13, 'Kiwi air', 'lb', 'Pet Supplie', 773.97, '9794137691002', 1, '2019-10-04 16:44:14', '2012-08-04 07:11:24');
+INSERT INTO `productos` VALUES (14, 'Rambutan', 'g', 'Musical Ins', 567.45, '9793631027485', 1, '2003-07-11 17:38:34', '2003-09-20 04:56:42');
+INSERT INTO `productos` VALUES (15, 'Pguots mini', 'g', 'Toys & Game', 274.03, '2312072389098', 1, '2017-09-08 15:50:28', '2007-04-11 07:23:06');
+INSERT INTO `productos` VALUES (16, 'Orange', 'lb', 'Tools & Hom', 346.92, '9798551988847', 1, '2010-01-15 09:54:57', '2022-01-11 02:53:53');
+INSERT INTO `productos` VALUES (17, 'Rambutan pi', 'g', 'Cell Phones', 798.18, '78887442', 1, '2015-09-23 00:10:32', '2016-03-23 07:03:04');
+INSERT INTO `productos` VALUES (18, 'Sthawberry', 'lb', 'Clothing, S', 299.98, '608215505251', 1, '2007-10-03 20:44:53', '2006-12-03 19:23:48');
+INSERT INTO `productos` VALUES (19, 'Cherry plus', 'g', 'Baby', 573.97, '9783745002423', 1, '2002-08-10 14:13:37', '2012-03-09 05:12:16');
+INSERT INTO `productos` VALUES (20, 'hherry', 'kg', 'Beauty', 509.68, '81258239', 1, '2010-10-20 02:58:13', '2008-04-21 10:43:59');
+INSERT INTO `productos` VALUES (21, 'Manao premium', 'g', 'Household &', 34.05, '9790701323065', 1, '2006-07-12 17:44:44', '2006-02-28 06:49:45');
+INSERT INTO `productos` VALUES (22, 'Gdape', 'lb', 'Pet Supplie', 280.87, '712594244790', 1, '2023-06-13 06:40:40', '2013-06-26 11:05:16');
+INSERT INTO `productos` VALUES (23, 'Raspbirry', 'g', 'Household &', 713.66, 'IVK-2528', 1, '2010-03-08 14:06:58', '2016-02-28 07:46:59');
+INSERT INTO `productos` VALUES (24, 'frange', 'g', 'Arts, Handi', 222.17, '835305274319', 1, '2002-11-07 21:03:55', '2007-10-13 15:23:02');
+INSERT INTO `productos` VALUES (25, 'Rambbtan', 'kg', 'Cell Phones', 690.93, '2759862506035', 1, '2004-01-30 09:33:30', '2023-05-24 02:46:38');
+INSERT INTO `productos` VALUES (26, 'xKiei', 'lb', 'Handcrafts', 289.00, '223773993427', 1, '2000-08-17 04:46:08', '2006-08-09 00:30:55');
+INSERT INTO `productos` VALUES (27, 'Akple plus', 'kg', 'Household &', 424.16, '02972008', 1, '2001-12-31 01:12:17', '2021-11-20 14:31:27');
+INSERT INTO `productos` VALUES (28, 'iCherry', 'lb', 'Food', 685.06, '06929657', 1, '2012-08-21 03:24:58', '2013-12-05 07:10:17');
+INSERT INTO `productos` VALUES (29, 'Khwi', 'g', 'Baggage & T', 996.13, '9795066021809', 1, '2005-06-03 12:26:39', '2011-05-31 15:51:17');
+INSERT INTO `productos` VALUES (30, 'Rajpberry', 'g', 'Health & Ba', 187.34, '44258283', 1, '2002-12-04 12:27:51', '2019-10-11 14:46:50');
+INSERT INTO `productos` VALUES (32, 'iCherry', 'lb', 'Health & Ba', 184.41, '62949354', 1, '2009-12-11 01:58:49', '2014-10-07 03:53:48');
+INSERT INTO `productos` VALUES (33, 'Pluots', 'lb', 'Baggage & T', 504.04, '9784124897142', 1, '2006-05-26 15:43:58', '2020-06-03 02:39:51');
+INSERT INTO `productos` VALUES (34, 'strawberry core', 'lb', 'Musical Ins', 88.21, 'QTW-8513', 1, '2001-08-31 20:42:24', '2020-04-18 19:05:16');
+INSERT INTO `productos` VALUES (35, 'Cherry', 'g', 'Computers &', 206.72, 'ISK-8141', 1, '2021-04-20 17:06:56', '2013-10-16 17:22:00');
+INSERT INTO `productos` VALUES (36, 'Kpwi', 'kg', 'Handcrafts', 511.41, '943737336410', 1, '2000-01-05 02:24:42', '2010-06-10 16:58:41');
+INSERT INTO `productos` VALUES (37, 'Grdpe', 'g', 'Appliances', 378.53, '84539915', 1, '2021-02-13 19:31:54', '2014-04-01 14:58:12');
+INSERT INTO `productos` VALUES (38, 'Apple', 'g', 'Collectible', 859.91, 'BQL-9909', 1, '2011-11-29 12:26:59', '2014-03-05 01:19:47');
+INSERT INTO `productos` VALUES (39, 'Grape premium', 'g', 'Baby', 321.03, '219757469590', 1, '2023-09-02 03:47:35', '2003-01-19 13:29:55');
+INSERT INTO `productos` VALUES (40, 'eiwi', 'lb', 'Collectible', 639.01, '58278819', 1, '2019-03-05 03:38:19', '2017-03-03 23:46:00');
+INSERT INTO `productos` VALUES (41, 'Ramyutan', 'kg', 'Sports & Ou', 762.11, '92214521', 1, '2009-08-16 20:10:35', '2011-03-27 11:07:30');
+INSERT INTO `productos` VALUES (42, 'Strawberry', 'g', 'Collectible', 743.36, 'KLP-8111', 1, '2001-02-05 11:37:02', '2018-01-07 02:07:49');
+INSERT INTO `productos` VALUES (43, 'xSwrawberry', 'lb', 'Baggage & T', 52.13, '4665627454740', 1, '2017-01-26 16:49:06', '2016-08-22 17:03:15');
+INSERT INTO `productos` VALUES (44, 'Crerry', 'g', 'Tools & Hom', 989.11, '9790786201883', 1, '2021-04-25 16:22:05', '2000-06-05 15:47:24');
+INSERT INTO `productos` VALUES (45, 'Kdwi', 'kg', 'Food', 732.01, '09730908', 1, '2019-10-30 17:13:12', '2019-07-08 11:12:46');
+INSERT INTO `productos` VALUES (46, 'Raspberry', 'kg', 'Tools & Hom', 669.68, '551651188666', 1, '2003-04-13 08:50:05', '2015-10-07 01:06:14');
+INSERT INTO `productos` VALUES (47, 'Rambutrn', 'kg', 'Toys & Game', 406.84, '79159197', 1, '2016-06-25 14:13:41', '2002-02-24 03:53:03');
+INSERT INTO `productos` VALUES (48, 'omni-Kcwi', 'kg', 'Apps & Game', 457.85, '8742113893101', 1, '2022-08-20 11:39:44', '2003-03-08 15:33:26');
+INSERT INTO `productos` VALUES (49, 'Pluots', 'g', 'Apps & Game', 493.81, '9791990817693', 1, '2017-02-26 13:09:08', '2019-06-21 16:59:37');
+INSERT INTO `productos` VALUES (50, 'Kiki', 'g', 'Beauty & Pe', 168.13, '9781604557770', 1, '2015-12-06 17:24:07', '2017-11-04 04:45:54');
+INSERT INTO `productos` VALUES (52, 'Raspbwrry', 'kg', 'Clothing, S', 523.08, '66901495', 1, '2003-11-19 10:19:08', '2011-11-13 11:14:07');
+INSERT INTO `productos` VALUES (53, 'Kewi', 'g', 'Toys & Game', 108.83, '09255081', 1, '2002-01-10 05:15:48', '2011-12-19 09:11:49');
+INSERT INTO `productos` VALUES (54, 'Strawborry', 'lb', 'Pet Supplie', 579.69, '40790251', 1, '2005-05-05 03:43:39', '2005-09-24 03:34:20');
+INSERT INTO `productos` VALUES (55, 'mherry', 'kg', 'Baby', 147.00, 'DEW-9955', 1, '2022-09-20 23:21:43', '2002-05-03 18:24:01');
+INSERT INTO `productos` VALUES (56, 'Orazge', 'kg', 'Food', 839.64, '05742844', 1, '2002-03-17 01:09:45', '2018-05-26 01:50:46');
+INSERT INTO `productos` VALUES (57, 'eango plus', 'lb', 'Industrial ', 43.46, '602031385837', 1, '2003-04-10 04:18:24', '2003-03-01 11:56:21');
+INSERT INTO `productos` VALUES (58, 'iPldots', 'kg', 'Handcrafts', 542.70, 'YGF-6663', 1, '2018-04-17 14:25:45', '2004-06-26 14:11:50');
+INSERT INTO `productos` VALUES (59, 'Cherry', 'lb', 'Beauty', 78.60, '38654985', 1, '2009-10-02 16:35:58', '2004-01-15 21:37:45');
+INSERT INTO `productos` VALUES (60, 'mpple pi', 'kg', 'Collectible', 864.64, '649140994659', 1, '2002-07-10 03:48:27', '2022-09-14 14:59:55');
+INSERT INTO `productos` VALUES (61, 'Strawbelry elite', 'kg', 'CDs & Vinyl', 654.58, '9788625171053', 1, '2020-11-14 08:52:07', '2016-07-10 15:14:56');
+INSERT INTO `productos` VALUES (62, 'iMango', 'kg', 'Film Suppli', 709.29, '976755834170', 1, '2017-08-16 11:12:31', '2016-07-22 03:38:31');
+INSERT INTO `productos` VALUES (63, 'Rambutan premium', 'lb', 'Video Games', 916.64, '70499339', 1, '2014-06-28 04:19:04', '2021-10-14 04:31:30');
+INSERT INTO `productos` VALUES (64, 'Kiti', 'kg', 'Film Suppli', 800.84, '13169329', 1, '2011-05-06 17:42:31', '2021-03-26 10:35:16');
+INSERT INTO `productos` VALUES (65, 'Orange pro', 'kg', 'Clothing, S', 425.93, '7407650951608', 1, '2021-05-06 15:54:45', '2023-06-08 05:42:10');
+INSERT INTO `productos` VALUES (66, 'Apple', 'kg', 'Toys & Game', 744.83, 'CSA-0451', 1, '2001-01-09 16:58:34', '2012-05-03 20:43:09');
+INSERT INTO `productos` VALUES (67, 'Strawberry premium', 'lb', 'Collectible', 112.33, 'FHF-8444', 1, '2023-01-28 10:38:00', '2006-01-26 01:53:12');
+INSERT INTO `productos` VALUES (68, 'Graze', 'kg', 'Beauty & Pe', 197.95, '262188275940', 1, '2009-02-04 04:48:46', '2020-01-05 10:42:27');
+INSERT INTO `productos` VALUES (69, 'Grape core', 'kg', 'CDs & Vinyl', 52.26, '01975567', 1, '2011-10-30 21:59:38', '2018-06-20 22:19:54');
+INSERT INTO `productos` VALUES (70, 'Pluoas se', 'g', 'Film Suppli', 489.29, '43451333', 1, '2011-04-14 07:31:13', '2019-11-18 13:02:19');
+INSERT INTO `productos` VALUES (71, 'Mlngo premium', 'g', 'Industrial ', 959.97, '03717905', 1, '2011-08-05 02:34:28', '2007-04-22 01:51:22');
+INSERT INTO `productos` VALUES (72, 'Gxape', 'lb', 'Health & Ba', 54.78, 'EOO-6491', 1, '2003-04-21 08:20:37', '2010-02-07 14:40:13');
+INSERT INTO `productos` VALUES (73, 'iOranje', 'g', 'Apps & Game', 628.22, '8829874820116', 1, '2010-05-19 09:20:21', '2019-06-05 02:00:58');
+INSERT INTO `productos` VALUES (74, 'Ktwi premium', 'kg', 'Toys & Game', 164.79, '9784928935125', 1, '2010-09-13 11:38:42', '2001-02-17 18:09:26');
+INSERT INTO `productos` VALUES (75, 'ambi-Cuerry', 'kg', 'Books', 147.65, '63332773', 1, '2006-10-18 21:53:58', '2001-09-22 00:14:09');
+INSERT INTO `productos` VALUES (76, 'Kiwi elite', 'kg', 'Baggage & T', 438.30, '44317768', 1, '2010-08-30 17:09:22', '2004-07-08 17:01:03');
+INSERT INTO `productos` VALUES (77, 'Obange', 'g', 'Beauty & Pe', 4.05, '9784923529763', 1, '2019-05-03 00:42:32', '2004-06-17 23:10:54');
+INSERT INTO `productos` VALUES (78, 'Apple', 'g', 'Clothing, S', 14.10, '9782496089523', 1, '2013-05-18 16:51:46', '2012-12-02 03:08:12');
+INSERT INTO `productos` VALUES (79, 'Oranse', 'lb', 'Handcrafts', 902.40, '3035021409515', 1, '2003-02-03 15:54:25', '2008-11-30 06:59:21');
+INSERT INTO `productos` VALUES (80, 'omni-Strawberly', 'g', 'Industrial ', 436.59, '5092860844844', 1, '2011-08-24 01:02:17', '2004-09-11 12:28:25');
+INSERT INTO `productos` VALUES (81, 'vluots air', 'kg', 'Computers &', 667.73, '66756958', 1, '2002-04-14 07:17:03', '2019-06-29 10:39:36');
+INSERT INTO `productos` VALUES (82, 'Mango', 'lb', 'Centurion G', 647.17, '7013615568462', 1, '2015-12-22 09:33:15', '2008-05-19 02:40:26');
+INSERT INTO `productos` VALUES (83, 'Rambutan elite', 'kg', 'Sports & Ou', 54.05, '7102586121193', 1, '2021-04-03 08:47:38', '2007-11-21 14:50:38');
+INSERT INTO `productos` VALUES (84, 'Cherry pi', 'kg', 'Automotive ', 813.84, '04119654', 1, '2006-01-05 19:11:22', '2022-10-06 14:47:25');
+INSERT INTO `productos` VALUES (85, 'Raspberry', 'kg', 'Sports & Ou', 56.64, 'GCU-0903', 1, '2014-12-31 21:50:55', '2004-12-21 06:51:19');
+INSERT INTO `productos` VALUES (86, 'Kiwi', 'g', 'Household &', 860.10, '57816722', 1, '2000-05-21 14:40:16', '2003-08-27 15:29:38');
+INSERT INTO `productos` VALUES (87, 'Grxpe', 'lb', 'CDs & Vinyl', 415.99, '05638727', 1, '2006-10-06 21:36:24', '2020-05-29 04:10:33');
+INSERT INTO `productos` VALUES (88, 'omni-Cherry', 'kg', 'Health & Ba', 283.87, '01242744', 1, '2006-08-05 14:29:58', '2011-04-04 06:09:50');
+INSERT INTO `productos` VALUES (89, 'ambi-Mango', 'kg', 'Food', 535.88, '07250248', 1, '2018-09-17 23:11:18', '2020-01-26 14:19:22');
+INSERT INTO `productos` VALUES (90, 'Orange', 'kg', 'Centurion G', 373.22, '9795018736478', 1, '2004-08-23 10:07:03', '2015-12-10 22:56:29');
+INSERT INTO `productos` VALUES (91, 'omni-Ramburan', 'lb', 'Toys & Game', 264.60, '01505016', 1, '2023-06-04 18:21:47', '2020-04-01 16:28:14');
+INSERT INTO `productos` VALUES (92, 'Appje', 'kg', 'Sports & Ou', 215.56, '31009683', 1, '2019-11-20 05:27:53', '2021-06-20 21:31:57');
+INSERT INTO `productos` VALUES (93, 'Raspburry', 'lb', 'Baggage & T', 93.92, '7354602715552', 1, '2014-08-16 22:42:56', '2021-04-16 16:41:28');
+INSERT INTO `productos` VALUES (94, 'omni-Cherry', 'kg', 'Musical Ins', 372.64, 'QPQ-0684', 1, '2004-08-01 21:33:36', '2000-08-28 18:07:18');
+INSERT INTO `productos` VALUES (95, 'Kiwi plus', 'lb', 'Cell Phones', 66.94, '9797080743750', 1, '2008-01-09 03:42:28', '2008-08-21 18:20:17');
+INSERT INTO `productos` VALUES (96, 'Grqpe core', 'g', 'Books', 6.65, '067643633248', 1, '2002-06-10 01:15:19', '2010-07-10 19:34:17');
+INSERT INTO `productos` VALUES (97, 'Pluots se', 'kg', 'Arts, Handi', 223.23, '32547627', 1, '2005-02-28 10:24:46', '2003-06-12 23:51:36');
+INSERT INTO `productos` VALUES (98, 'ultra-niwi', 'lb', 'Computers &', 809.23, '460417214528', 1, '2019-09-28 03:30:14', '2016-12-08 02:04:41');
+INSERT INTO `productos` VALUES (99, 'Raspbeury se', 'lb', 'Musical Ins', 671.08, '659212986116', 1, '2003-05-26 00:54:56', '2002-11-03 02:14:16');
+INSERT INTO `productos` VALUES (100, 'Kiwi', 'kg', 'Video Games', 442.56, '9523440411584', 1, '2021-04-04 16:56:30', '2017-07-12 22:10:01');
+INSERT INTO `productos` VALUES (101, 'Raspberry', 'kg', 'Others', 761.24, '1764700110849', 1, '2012-04-18 00:52:56', '2022-12-09 11:29:01');
+INSERT INTO `productos` VALUES (102, 'Rambutan', 'kg', 'Arts, Handi', 824.94, '658240321760', 1, '2000-05-28 09:37:03', '2019-05-23 08:52:10');
+INSERT INTO `productos` VALUES (103, 'Appke', 'kg', 'Arts, Handi', 488.30, '3784992979267', 1, '2018-09-29 20:00:15', '2004-07-03 18:00:22');
+INSERT INTO `productos` VALUES (104, 'Strawberry', 'g', 'CDs & Vinyl', 706.25, '95260532', 1, '2007-01-07 11:05:26', '2008-12-31 02:23:08');
+INSERT INTO `productos` VALUES (105, 'Oraqge pro', 'g', 'Cell Phones', 541.45, '05004461', 1, '2014-12-17 10:47:27', '2014-03-28 11:30:09');
+INSERT INTO `productos` VALUES (106, 'ultra-Grzpe', 'lb', 'Beauty', 126.72, 'UOU-3491', 1, '2012-02-15 08:45:28', '2019-10-24 11:42:27');
+INSERT INTO `productos` VALUES (107, 'xStrawberry', 'g', 'Handcrafts', 356.59, '253152023360', 1, '2014-05-05 18:44:24', '2010-05-19 07:22:51');
+INSERT INTO `productos` VALUES (108, 'Rfspberry premium', 'lb', 'Centurion G', 346.20, '7482829346348', 1, '2003-12-15 00:17:41', '2017-09-17 03:54:58');
+INSERT INTO `productos` VALUES (109, 'Strawgerry', 'g', 'Clothing, S', 871.05, 'TOQ-5566', 1, '2008-11-22 09:55:34', '2004-08-06 00:02:18');
+INSERT INTO `productos` VALUES (110, 'Mango core', 'lb', 'Clothing, S', 603.31, '9788191033427', 1, '2000-09-25 15:59:55', '2001-10-12 07:08:35');
+INSERT INTO `productos` VALUES (111, 'nrange', 'lb', 'Cell Phones', 289.62, '54247628', 1, '2000-01-10 16:16:56', '2011-12-12 20:11:53');
+INSERT INTO `productos` VALUES (112, 'Cherry', 'lb', 'Automotive ', 265.01, '26795973', 1, '2016-06-05 07:33:20', '2004-11-15 20:21:54');
+INSERT INTO `productos` VALUES (113, 'Mango core', 'lb', 'Apps & Game', 459.59, '9799385106629', 1, '2020-08-12 08:45:38', '2018-03-23 22:04:08');
+INSERT INTO `productos` VALUES (114, 'pherry pi', 'lb', 'Beauty', 215.54, '02484563', 1, '2010-10-10 15:17:48', '2020-03-12 01:31:13');
+INSERT INTO `productos` VALUES (115, 'zluots', 'kg', 'Arts, Handi', 389.70, '86624749', 1, '2021-04-22 08:10:24', '2008-11-18 02:40:47');
+INSERT INTO `productos` VALUES (116, 'Apple premium', 'g', 'Baby', 873.08, 'MCO-5096', 1, '2015-10-14 15:30:55', '2006-03-01 09:44:38');
+INSERT INTO `productos` VALUES (117, 'Raspberry pro', 'g', 'Food', 577.61, '4363099933311', 1, '2014-05-10 00:57:34', '2007-05-25 12:38:46');
+INSERT INTO `productos` VALUES (118, 'Apple air', 'kg', 'Appliances', 875.70, '63098617', 1, '2013-05-19 23:05:11', '2021-12-01 11:54:57');
+INSERT INTO `productos` VALUES (119, 'siwi', 'g', 'Cell Phones', 862.88, '01744644', 1, '2020-05-28 07:17:04', '2009-10-11 09:40:15');
+INSERT INTO `productos` VALUES (120, 'Cherry', 'lb', 'Health & Ba', 363.78, '9791450543988', 1, '2015-12-27 06:24:57', '2004-12-20 08:34:16');
+INSERT INTO `productos` VALUES (121, 'Stranberry', 'lb', 'Baby', 254.15, '085754674998', 1, '2004-02-26 03:56:31', '2007-11-19 21:40:59');
+INSERT INTO `productos` VALUES (122, 'Raspnerry pi', 'g', 'Beauty & Pe', 313.27, '03979785', 1, '2015-10-06 00:27:10', '2018-12-29 00:06:10');
+INSERT INTO `productos` VALUES (123, 'xpple', 'lb', 'Arts, Handi', 456.14, '9785268600667', 1, '2007-11-01 01:46:55', '2007-07-15 04:24:34');
+INSERT INTO `productos` VALUES (124, 'iPluots', 'g', 'Tools & Hom', 258.14, '9790179577151', 1, '2021-09-29 00:31:00', '2006-02-15 15:28:51');
+INSERT INTO `productos` VALUES (125, 'ambi-Rambutan', 'g', 'Household &', 75.15, 'LRM-4509', 1, '2002-03-18 22:27:11', '2019-04-17 10:40:04');
+INSERT INTO `productos` VALUES (126, 'Pluots', 'kg', 'Beauty', 837.68, '9787922179526', 1, '2018-09-10 21:26:13', '2016-10-14 13:35:54');
+INSERT INTO `productos` VALUES (127, 'eiwi', 'kg', 'Film Suppli', 274.15, '26495705', 1, '2010-05-27 07:00:04', '2006-03-21 19:04:17');
+INSERT INTO `productos` VALUES (128, 'oluots pro', 'lb', 'Appliances', 460.05, '9789531110815', 1, '2023-07-11 13:55:54', '2005-08-18 04:08:45');
+INSERT INTO `productos` VALUES (129, 'wrape', 'lb', 'Baggage & T', 136.78, '6410743958683', 1, '2021-08-09 01:16:29', '2001-02-10 08:02:41');
+INSERT INTO `productos` VALUES (130, 'ultra-Pluots', 'lb', 'Appliances', 232.53, '05746071', 1, '2012-03-24 16:57:10', '2000-01-30 16:37:04');
+INSERT INTO `productos` VALUES (131, 'ziwi', 'kg', 'Industrial ', 504.11, '95292793', 1, '2006-10-16 18:02:54', '2013-07-17 23:51:04');
+INSERT INTO `productos` VALUES (132, 'Apole', 'g', 'Others', 378.89, 'DSO-4184', 1, '2022-04-27 10:26:10', '2019-09-06 05:14:29');
+INSERT INTO `productos` VALUES (133, 'Kiwi', 'kg', 'Clothing, S', 960.23, '9790005751441', 1, '2010-12-25 01:20:36', '2008-09-17 05:34:42');
+INSERT INTO `productos` VALUES (134, 'Apple', 'g', 'Food', 831.55, '9795663972757', 1, '2003-11-11 19:01:48', '2001-09-05 04:05:28');
+INSERT INTO `productos` VALUES (135, 'aiwi', 'lb', 'Baggage & T', 898.98, '9789803894306', 1, '2005-12-07 19:28:50', '2015-12-27 03:06:34');
+INSERT INTO `productos` VALUES (136, 'Kiwi elite', 'kg', 'Others', 42.44, '8162129586581', 1, '2012-05-04 11:12:18', '2001-03-22 10:50:52');
+INSERT INTO `productos` VALUES (137, 'Raspberry', 'g', 'Beauty & Pe', 294.21, 'EJI-4055', 1, '2012-08-27 12:56:00', '2005-04-12 01:34:32');
+INSERT INTO `productos` VALUES (138, 'Kiwi', 'lb', 'Centurion G', 482.47, 'THB-2836', 1, '2010-07-05 00:07:24', '2014-08-13 09:35:33');
+INSERT INTO `productos` VALUES (139, 'ultra-Strowberry', 'lb', 'Tools & Hom', 84.08, '07572302', 1, '2023-08-23 00:28:35', '2019-05-22 18:06:42');
+INSERT INTO `productos` VALUES (140, 'Cherry', 'kg', 'Automotive ', 197.48, '9789307295869', 1, '2006-10-28 07:42:06', '2008-12-16 19:38:30');
+INSERT INTO `productos` VALUES (141, 'Pluots core', 'g', 'Collectible', 562.09, '9788541581288', 1, '2008-01-01 13:42:27', '2021-01-04 05:13:41');
+INSERT INTO `productos` VALUES (142, 'Rambutan mini', 'kg', 'Baby', 166.57, '26461908', 1, '2012-08-18 20:14:56', '2007-05-24 23:15:54');
+INSERT INTO `productos` VALUES (143, 'Raspberry', 'kg', 'Food', 244.45, '05024445', 1, '2009-08-23 22:21:55', '2001-04-28 19:31:01');
+INSERT INTO `productos` VALUES (144, 'Strawberry', 'kg', 'Health & Ba', 462.22, '9796450657543', 1, '2022-04-03 09:10:49', '2009-03-02 04:06:39');
+INSERT INTO `productos` VALUES (145, 'Gaape', 'g', 'Others', 704.04, '01454871', 1, '2013-03-24 14:50:03', '2006-10-21 13:16:09');
+INSERT INTO `productos` VALUES (146, 'ultra-Ortnge', 'lb', 'Computers &', 541.12, '827007950356', 1, '2011-06-23 08:02:52', '2020-10-27 21:44:57');
+INSERT INTO `productos` VALUES (147, 'Rambutan', 'kg', 'Industrial ', 272.36, 'UHP-4136', 1, '2001-01-06 07:08:13', '2020-04-08 21:46:40');
+INSERT INTO `productos` VALUES (148, 'Cnerry premium', 'kg', 'Pet Supplie', 839.12, '9791719072228', 1, '2008-02-23 18:48:03', '2000-09-18 17:04:19');
+INSERT INTO `productos` VALUES (149, 'xMango', 'g', 'Clothing, S', 696.14, '4281757370974', 1, '2009-12-25 17:48:19', '2002-02-18 14:53:38');
+INSERT INTO `productos` VALUES (150, 'Strawbercy core', 'lb', 'Cell Phones', 790.69, '08957115', 1, '2018-10-03 02:36:56', '2017-05-19 11:03:26');
+INSERT INTO `productos` VALUES (151, 'ihluots', 'kg', 'Handcrafts', 424.56, '02291765', 1, '2009-10-31 16:18:31', '2007-10-27 18:07:43');
+INSERT INTO `productos` VALUES (152, 'Orange', 'g', 'Clothing, S', 828.22, '342616574323', 1, '2002-03-18 20:49:27', '2004-10-10 01:13:40');
+INSERT INTO `productos` VALUES (153, 'Orfnge', 'g', 'Household &', 330.77, '1654632058992', 1, '2003-07-22 00:01:42', '2003-06-04 14:07:08');
+INSERT INTO `productos` VALUES (154, 'Rambutan', 'lb', 'Toys & Game', 973.01, '5504720984770', 1, '2018-06-08 15:08:47', '2002-05-18 13:57:52');
+INSERT INTO `productos` VALUES (155, 'Kiwi', 'kg', 'Tools & Hom', 303.06, '8313633749478', 1, '2021-02-28 20:27:29', '2003-11-04 13:53:07');
+INSERT INTO `productos` VALUES (156, 'Rambutan', 'kg', 'Beauty', 620.69, 'RFJ-9255', 1, '2013-01-17 11:11:55', '2019-02-21 01:27:18');
+INSERT INTO `productos` VALUES (157, 'Grape air', 'g', 'Musical Ins', 334.90, '66547730', 1, '2023-02-07 15:04:22', '2000-07-10 02:04:14');
+INSERT INTO `productos` VALUES (158, 'Cherjy', 'kg', 'Books', 165.84, 'YBI-4270', 1, '2014-04-19 23:17:00', '2014-09-05 19:48:06');
+INSERT INTO `productos` VALUES (159, 'Mango', 'g', 'Video Games', 51.80, '0480632531255', 1, '2007-05-01 18:12:35', '2002-12-03 08:48:18');
+INSERT INTO `productos` VALUES (160, 'Orange mini', 'kg', 'Baby', 85.52, '07739255', 1, '2008-05-12 03:36:44', '2006-12-29 05:15:02');
+INSERT INTO `productos` VALUES (161, 'xRaspberry', 'kg', 'Sports & Ou', 246.83, '456335958293', 1, '2007-05-20 21:31:52', '2019-05-31 08:31:08');
+INSERT INTO `productos` VALUES (162, 'Raspberry', 'g', 'Video Games', 422.93, '676016356952', 1, '2001-05-22 15:47:38', '2007-12-31 14:02:35');
+INSERT INTO `productos` VALUES (163, 'hiwi', 'g', 'Handcrafts', 324.86, '55461740', 1, '2021-02-22 00:16:35', '2009-04-24 08:42:32');
+INSERT INTO `productos` VALUES (164, 'brape core', 'lb', 'Others', 925.40, '92822948', 1, '2012-04-27 15:12:19', '2001-02-20 08:47:51');
+INSERT INTO `productos` VALUES (165, 'Rambutan', 'lb', 'Clothing, S', 665.23, 'FMA-6579', 1, '2013-07-26 02:04:40', '2015-11-28 14:18:06');
+INSERT INTO `productos` VALUES (166, 'Pguots', 'lb', 'Arts, Handi', 158.27, '4433988502376', 1, '2002-11-17 01:19:30', '2015-03-03 21:55:38');
+INSERT INTO `productos` VALUES (167, 'xRambftan', 'lb', 'CDs & Vinyl', 21.80, '04369530', 1, '2001-05-05 11:50:46', '2011-06-21 14:30:40');
+INSERT INTO `productos` VALUES (168, 'Manxo', 'lb', 'Video Games', 946.07, '5998946993966', 1, '2020-06-10 10:37:06', '2014-06-16 19:45:15');
+INSERT INTO `productos` VALUES (169, 'Grape', 'lb', 'Apps & Game', 404.51, '31620314', 1, '2018-05-29 02:11:58', '2018-11-12 01:38:23');
+INSERT INTO `productos` VALUES (170, 'brape', 'g', 'Household &', 573.04, '79224857', 1, '2011-10-17 03:29:55', '2019-05-03 22:48:54');
+INSERT INTO `productos` VALUES (171, 'ambi-yluots', 'g', 'Food', 240.82, '9787850575711', 1, '2012-04-13 10:39:17', '2021-08-17 05:58:21');
+INSERT INTO `productos` VALUES (172, 'Grape air', 'kg', 'Cell Phones', 640.67, '9785021845830', 1, '2011-04-20 12:03:53', '2010-04-25 17:08:28');
+INSERT INTO `productos` VALUES (173, 'Pluoks pro', 'lb', 'Baggage & T', 525.35, '9780544663220', 1, '2008-05-10 00:35:12', '2017-09-16 02:10:32');
+INSERT INTO `productos` VALUES (174, 'Plyots premium', 'kg', 'Arts, Handi', 765.02, '9790717857868', 1, '2000-06-12 14:07:01', '2021-05-20 18:47:24');
+INSERT INTO `productos` VALUES (175, 'apple', 'lb', 'Video Games', 466.55, '07887437', 1, '2017-06-26 00:10:14', '2019-05-09 01:29:27');
+INSERT INTO `productos` VALUES (176, 'Rambutan', 'g', 'Toys & Game', 770.00, '00517478', 1, '2020-09-28 05:29:28', '2022-03-31 11:44:48');
+INSERT INTO `productos` VALUES (177, 'Kowi', 'kg', 'Appliances', 755.02, '49163759', 1, '2017-10-07 18:35:00', '2019-04-09 01:18:08');
+INSERT INTO `productos` VALUES (178, 'xurange', 'lb', 'Automotive ', 526.83, '9799628917821', 1, '2011-09-29 11:21:23', '2011-05-29 09:58:43');
+INSERT INTO `productos` VALUES (179, 'qango', 'kg', 'Toys & Game', 626.40, '365873812977', 1, '2001-08-29 00:25:18', '2020-01-16 14:00:05');
+INSERT INTO `productos` VALUES (180, 'kiwi', 'kg', 'Health & Ba', 448.27, 'THV-3661', 1, '2001-03-05 09:51:12', '2004-01-17 12:59:34');
+INSERT INTO `productos` VALUES (181, 'Raspberry', 'g', 'CDs & Vinyl', 622.63, '01790719', 1, '2003-05-13 00:02:51', '2018-02-15 23:47:27');
+INSERT INTO `productos` VALUES (182, 'Kiwi', 'kg', 'Film Suppli', 663.61, '04195153', 1, '2010-04-25 16:40:43', '2020-08-16 00:24:38');
+INSERT INTO `productos` VALUES (183, 'Cherry', 'kg', 'Clothing, S', 367.50, '04124726', 1, '2017-12-18 13:43:59', '2015-12-15 09:02:22');
+INSERT INTO `productos` VALUES (184, 'Strawberry', 'kg', 'Centurion G', 379.09, '09417939', 1, '2011-06-16 15:25:46', '2020-05-20 23:10:57');
+INSERT INTO `productos` VALUES (185, 'Pluots', 'g', 'Automotive ', 620.75, '15686800', 1, '2011-10-23 14:12:32', '2003-10-06 23:35:25');
+INSERT INTO `productos` VALUES (186, 'Kiwi air', 'kg', 'Pet Supplie', 741.91, 'LYH-1384', 1, '2010-04-05 06:06:56', '2010-09-24 06:17:55');
+INSERT INTO `productos` VALUES (187, 'yrange se', 'kg', 'Musical Ins', 936.97, '00925174', 1, '2015-01-15 08:49:58', '2004-03-14 16:42:26');
+INSERT INTO `productos` VALUES (188, 'Mango plus', 'lb', 'Books', 972.74, 'CYK-2119', 1, '2016-01-01 02:30:31', '2017-12-25 06:02:48');
+INSERT INTO `productos` VALUES (189, 'Syrawberry', 'g', 'Apps & Game', 603.06, '9782051706773', 1, '2016-03-18 11:51:38', '2020-07-25 10:17:47');
+INSERT INTO `productos` VALUES (190, 'utrawberry', 'g', 'Appliances', 696.08, 'UFG-2295', 1, '2015-01-14 05:59:28', '2002-07-19 01:35:41');
+INSERT INTO `productos` VALUES (191, 'Cherry', 'g', 'Industrial ', 579.78, '9791471929181', 1, '2011-01-11 23:05:08', '2021-12-28 16:30:06');
+INSERT INTO `productos` VALUES (192, 'Rambutan pi', 'lb', 'Film Suppli', 768.39, '6784293281035', 1, '2011-07-29 01:44:40', '2013-11-07 08:49:33');
+INSERT INTO `productos` VALUES (193, 'Chexry', 'lb', 'Centurion G', 91.10, '58613511', 1, '2009-07-21 03:43:06', '2021-03-27 04:13:57');
+INSERT INTO `productos` VALUES (194, 'Rambutan', 'kg', 'Sports & Ou', 819.78, '10442388', 1, '2016-08-19 02:02:48', '2018-07-10 11:32:41');
+INSERT INTO `productos` VALUES (195, 'Oranhe', 'lb', 'Beauty', 612.36, '07469404', 1, '2022-12-20 19:08:49', '2001-04-30 07:55:14');
+INSERT INTO `productos` VALUES (196, 'Manzo pi', 'g', 'Clothing, S', 28.86, '61713574', 1, '2001-08-23 05:09:05', '2017-03-06 07:28:20');
+INSERT INTO `productos` VALUES (197, 'hherry', 'kg', 'Computers &', 334.32, 'UFT-5205', 1, '2002-01-31 14:14:03', '2004-11-05 08:48:55');
+INSERT INTO `productos` VALUES (198, 'Strawbercy air', 'kg', 'Beauty & Pe', 875.46, '18421606', 1, '2017-05-23 13:44:23', '2005-03-21 14:40:33');
+INSERT INTO `productos` VALUES (199, 'Kiwi', 'lb', 'Computers &', 668.72, '121204963301', 1, '2009-07-29 02:55:19', '2023-04-11 21:59:19');
+INSERT INTO `productos` VALUES (200, 'Rambutan', 'kg', 'Cell Phones', 880.73, '9786522163478', 1, '2009-07-05 07:06:08', '2009-02-12 06:49:27');
+INSERT INTO `productos` VALUES (201, 'Cherry', 'g', 'Computers &', 837.60, 'UUG-1235', 1, '2016-02-02 06:31:48', '2022-10-01 00:06:26');
+INSERT INTO `productos` VALUES (202, 'Apple pro', 'g', 'Computers &', 15.78, '07956669', 1, '2020-02-18 22:58:05', '2023-01-29 21:00:30');
+INSERT INTO `productos` VALUES (203, 'Maxgo', 'g', 'Handcrafts', 524.22, '9789536874866', 1, '2011-01-09 21:21:40', '2023-02-20 14:42:55');
+INSERT INTO `productos` VALUES (204, 'Rawpberry', 'lb', 'CDs & Vinyl', 287.92, 'GOM-0617', 1, '2001-08-15 12:14:42', '2012-04-11 22:07:50');
+INSERT INTO `productos` VALUES (205, 'xKzwi', 'g', 'CDs & Vinyl', 257.44, 'OEV-0436', 1, '2015-01-09 10:26:47', '2009-11-13 09:26:12');
+INSERT INTO `productos` VALUES (206, 'Ktwi elite', 'lb', 'Musical Ins', 259.52, '9789134157200', 1, '2004-12-06 14:16:34', '2008-02-11 05:40:47');
+INSERT INTO `productos` VALUES (207, 'hiwi mini', 'lb', 'Handcrafts', 580.56, 'JZG-8541', 1, '2000-11-20 20:32:48', '2016-09-09 07:22:00');
+INSERT INTO `productos` VALUES (208, 'Cherry', 'lb', 'Appliances', 350.90, 'TQD-0553', 1, '2010-06-01 04:02:15', '2016-08-04 20:19:51');
+INSERT INTO `productos` VALUES (209, 'Strawbmrry', 'kg', 'Household &', 373.20, '9007200316611', 1, '2005-10-01 15:54:36', '2004-08-12 04:03:08');
+INSERT INTO `productos` VALUES (210, 'Raspberry', 'lb', 'Handcrafts', 3.24, '9781374938014', 1, '2018-04-17 20:32:05', '2003-06-04 03:54:14');
+INSERT INTO `productos` VALUES (211, 'Grape', 'g', 'Appliances', 872.34, '9798499064955', 1, '2016-08-22 22:38:17', '2017-11-23 07:19:32');
+INSERT INTO `productos` VALUES (212, 'Strawberry', 'lb', 'Cell Phones', 212.62, '00914741', 1, '2011-01-06 14:28:08', '2008-11-02 19:33:15');
+INSERT INTO `productos` VALUES (213, 'Kiwi', 'lb', 'Baggage & T', 271.63, '08103055', 1, '2017-12-14 18:35:12', '2002-09-06 20:37:22');
+INSERT INTO `productos` VALUES (214, 'Apple', 'lb', 'Toys & Game', 226.91, '413033978848', 1, '2007-06-01 09:46:31', '2004-04-18 15:42:20');
+INSERT INTO `productos` VALUES (215, 'Orange', 'kg', 'Arts, Handi', 552.43, '991587308248', 1, '2013-04-24 22:13:41', '2019-01-05 18:26:22');
+INSERT INTO `productos` VALUES (216, 'Kewi', 'kg', 'Food', 831.86, '06575106', 1, '2004-02-17 19:51:49', '2003-10-29 11:53:13');
+INSERT INTO `productos` VALUES (217, 'Cherry', 'g', 'Clothing, S', 766.21, 'AWQ-2737', 1, '2013-03-28 13:35:14', '2022-06-29 04:40:00');
+INSERT INTO `productos` VALUES (218, 'Cherry', 'lb', 'Industrial ', 721.18, '2538892645804', 1, '2009-05-21 03:20:21', '2016-06-07 03:36:50');
+INSERT INTO `productos` VALUES (219, 'Pluots pro', 'kg', 'CDs & Vinyl', 920.83, 'OWM-6352', 1, '2004-01-16 06:11:36', '2011-01-15 10:17:16');
+INSERT INTO `productos` VALUES (220, 'Mango', 'kg', 'Toys & Game', 376.54, '5924045366929', 1, '2019-01-05 01:35:43', '2019-11-23 03:35:47');
+INSERT INTO `productos` VALUES (221, 'Rambutln pro', 'g', 'Others', 394.03, '9799422696908', 1, '2002-08-31 11:13:55', '2011-11-23 18:46:16');
+INSERT INTO `productos` VALUES (222, 'Pluots', 'g', 'Food', 405.87, '9782053063942', 1, '2020-01-09 10:51:18', '2022-06-09 15:20:35');
+INSERT INTO `productos` VALUES (223, 'Raspbkrry pi', 'lb', 'Sports & Ou', 754.68, '9791244631211', 1, '2022-05-23 17:41:03', '2021-08-04 20:08:45');
+INSERT INTO `productos` VALUES (224, 'Strawberry', 'kg', 'Health & Ba', 324.39, '76157264', 1, '2018-07-11 02:07:04', '2000-08-31 05:01:00');
+INSERT INTO `productos` VALUES (225, 'Strawberry', 'kg', 'Film Suppli', 50.57, '549957534652', 1, '2016-07-07 03:21:43', '2012-03-14 15:24:36');
+INSERT INTO `productos` VALUES (226, 'ambi-Cherry', 'lb', 'Clothing, S', 262.57, '07190254', 1, '2016-09-28 13:29:09', '2017-01-20 21:17:44');
+INSERT INTO `productos` VALUES (227, 'Orcnge elite', 'g', 'Arts, Handi', 230.15, '6935451160079', 1, '2001-01-10 21:11:14', '2013-04-19 19:15:15');
+INSERT INTO `productos` VALUES (228, 'Pluots pi', 'g', 'CDs & Vinyl', 547.73, '88964355', 1, '2021-05-30 19:58:20', '2020-12-11 10:12:06');
+INSERT INTO `productos` VALUES (229, 'Mango', 'g', 'Cell Phones', 369.17, '58008294', 1, '2005-09-11 23:51:46', '2006-06-21 06:36:15');
+INSERT INTO `productos` VALUES (230, 'ambi-Pluots', 'g', 'Handcrafts', 48.65, 'SVY-1498', 1, '2006-09-11 05:05:30', '2022-05-07 14:59:50');
+INSERT INTO `productos` VALUES (231, 'Strawberry', 'kg', 'Film Suppli', 385.37, '9783928186889', 1, '2020-06-24 11:25:37', '2022-04-11 11:03:25');
+INSERT INTO `productos` VALUES (232, 'Rambutan pi', 'kg', 'Computers &', 667.35, '29494101', 1, '2000-05-13 08:21:17', '2004-02-26 00:54:59');
+INSERT INTO `productos` VALUES (233, 'Raspberry se', 'kg', 'CDs & Vinyl', 746.27, 'JBH-4647', 1, '2015-07-26 22:31:30', '2004-10-21 14:01:52');
+INSERT INTO `productos` VALUES (234, 'Grape', 'g', 'Baby', 42.64, '71550152', 1, '2008-11-22 22:11:56', '2008-04-04 23:09:19');
+INSERT INTO `productos` VALUES (235, 'Kiui', 'g', 'Collectible', 899.04, '54806436', 1, '2020-07-11 08:44:14', '2023-05-27 20:53:04');
+INSERT INTO `productos` VALUES (236, 'Cherry', 'g', 'Household &', 271.28, '5613203348104', 1, '2018-03-18 11:05:36', '2012-09-16 14:36:18');
+INSERT INTO `productos` VALUES (237, 'ambi-Kiwi', 'g', 'Video Games', 44.45, '9797968837830', 1, '2000-10-08 13:55:00', '2021-02-12 16:19:03');
+INSERT INTO `productos` VALUES (238, 'Apple pi', 'g', 'Centurion G', 804.29, '9785251743043', 1, '2021-12-29 01:27:08', '2005-02-26 13:28:07');
+INSERT INTO `productos` VALUES (239, 'Grare', 'g', 'Health & Ba', 224.91, '6563490431340', 1, '2004-04-16 15:41:23', '2010-10-15 15:19:43');
+INSERT INTO `productos` VALUES (240, 'Mango se', 'kg', 'Toys & Game', 627.74, '614864400496', 1, '2002-03-09 09:45:15', '2014-11-11 22:14:44');
+INSERT INTO `productos` VALUES (241, 'daspberry pi', 'g', 'Beauty', 400.52, '2525916934785', 1, '2011-12-30 16:24:54', '2009-05-21 02:35:42');
+INSERT INTO `productos` VALUES (242, 'ziwi', 'lb', 'Appliances', 211.77, '37462321', 1, '2004-10-10 02:08:44', '2019-01-20 12:25:10');
+INSERT INTO `productos` VALUES (243, 'xAppze', 'lb', 'Household &', 680.60, '05460588', 1, '2019-12-16 13:21:42', '2018-04-03 16:41:21');
+INSERT INTO `productos` VALUES (244, 'Rarbutan', 'g', 'Industrial ', 194.36, 'XWT-8182', 1, '2006-03-08 19:08:15', '2017-02-10 20:46:21');
+INSERT INTO `productos` VALUES (245, 'Kiwi', 'kg', 'Books', 396.76, '38527562', 1, '2017-04-22 08:13:05', '2008-12-22 13:54:34');
+INSERT INTO `productos` VALUES (246, 'ultra-dpple', 'kg', 'Arts, Handi', 535.87, '9796190922758', 1, '2001-10-22 21:19:56', '2009-07-27 20:04:55');
+INSERT INTO `productos` VALUES (247, 'raspberry pro', 'lb', 'Arts, Handi', 843.87, '12998562', 1, '2006-02-02 22:33:14', '2015-07-20 01:22:47');
+INSERT INTO `productos` VALUES (248, 'iCherry', 'lb', 'Toys & Game', 77.88, '1819327976887', 1, '2021-02-03 01:36:54', '2004-11-26 03:35:00');
+INSERT INTO `productos` VALUES (249, 'lrape mini', 'kg', 'Tools & Hom', 76.51, '945562993059', 1, '2016-06-04 18:49:00', '2017-12-23 10:05:16');
+INSERT INTO `productos` VALUES (250, 'Kiti pro', 'lb', 'Tools & Hom', 935.38, 'CRN-8886', 1, '2009-04-01 01:08:16', '2009-08-02 13:09:00');
+INSERT INTO `productos` VALUES (251, 'ambi-Strawberry', 'kg', 'Apps & Game', 900.34, '9783990040508', 1, '2000-06-27 04:38:42', '2006-01-30 01:11:53');
+INSERT INTO `productos` VALUES (252, 'Gjape', 'kg', 'Arts, Handi', 76.18, 'SZT-9529', 1, '2001-03-21 08:00:57', '2007-09-02 23:44:40');
+INSERT INTO `productos` VALUES (253, 'frange', 'lb', 'Others', 725.22, '707335759800', 1, '2020-05-07 18:16:39', '2007-04-12 15:06:11');
+INSERT INTO `productos` VALUES (254, 'Pquots se', 'g', 'Others', 285.65, '743076000702', 1, '2018-01-07 18:22:28', '2022-06-19 01:24:00');
+INSERT INTO `productos` VALUES (255, 'Grape pro', 'g', 'Pet Supplie', 833.10, '35011866', 1, '2008-08-07 22:24:32', '2007-04-21 18:12:19');
+INSERT INTO `productos` VALUES (256, 'Mango', 'g', 'Food', 905.67, 'XXO-4177', 1, '2007-05-04 17:58:57', '2018-05-19 13:20:52');
+INSERT INTO `productos` VALUES (257, 'Pluyts', 'lb', 'Sports & Ou', 355.63, '90716799', 1, '2004-07-17 04:23:14', '2009-08-24 01:09:36');
+INSERT INTO `productos` VALUES (258, 'Raspberry', 'kg', 'Collectible', 518.11, '95354200', 1, '2009-12-16 20:44:26', '2022-10-26 00:52:50');
+INSERT INTO `productos` VALUES (259, 'Rambuaan air', 'kg', 'Toys & Game', 593.20, 'KJM-2810', 1, '2000-07-29 17:21:42', '2010-10-05 23:38:57');
+INSERT INTO `productos` VALUES (260, 'Kewi', 'kg', 'Food', 979.55, '9794814462420', 1, '2011-02-22 20:07:48', '2009-03-29 23:20:27');
+INSERT INTO `productos` VALUES (261, 'xGrape', 'kg', 'Clothing, S', 260.67, '3545732616046', 1, '2004-04-29 23:13:13', '2002-01-12 01:15:25');
+INSERT INTO `productos` VALUES (262, 'lrange', 'g', 'Film Suppli', 501.97, '4900409206231', 1, '2014-08-12 15:44:24', '2016-09-22 01:32:14');
+INSERT INTO `productos` VALUES (263, 'iMango', 'kg', 'Collectible', 682.76, '06448936', 1, '2013-05-01 16:40:42', '2006-11-15 03:30:54');
+INSERT INTO `productos` VALUES (264, 'Strawberry', 'kg', 'Pet Supplie', 855.44, '1869923012649', 1, '2011-12-19 05:19:58', '2011-05-19 15:23:39');
+INSERT INTO `productos` VALUES (265, 'ultra-Rambutan', 'g', 'Food', 458.06, '9794045619846', 1, '2007-12-11 10:50:36', '2013-06-18 11:52:49');
+INSERT INTO `productos` VALUES (266, 'siwi', 'g', 'Apps & Game', 732.35, '35249092', 1, '2008-04-23 10:49:10', '2015-04-20 14:33:45');
+INSERT INTO `productos` VALUES (267, 'Mango pro', 'lb', 'Tools & Hom', 785.52, '9792934425790', 1, '2013-01-05 19:50:56', '2002-02-14 00:41:00');
+INSERT INTO `productos` VALUES (268, 'Apmle', 'kg', 'Video Games', 805.87, '03104675', 1, '2003-02-08 10:46:20', '2007-08-20 16:43:37');
+INSERT INTO `productos` VALUES (269, 'Ordnge', 'g', 'Collectible', 825.55, '9782087524921', 1, '2006-12-29 14:06:51', '2015-06-09 22:56:55');
+INSERT INTO `productos` VALUES (270, 'Apzle', 'lb', 'Pet Supplie', 405.39, '959848273148', 1, '2003-03-03 04:41:33', '2007-10-02 12:45:55');
+INSERT INTO `productos` VALUES (271, 'cluots', 'g', 'Others', 277.80, '00292368', 1, '2023-03-16 21:40:18', '2014-04-11 15:01:02');
+INSERT INTO `productos` VALUES (272, 'Serawberry', 'lb', 'Computers &', 360.74, 'COE-4949', 1, '2017-01-31 02:04:10', '2022-11-26 23:51:42');
+INSERT INTO `productos` VALUES (273, 'Orange', 'kg', 'Cell Phones', 734.57, '4921218635098', 1, '2016-03-31 16:35:03', '2000-02-17 14:49:56');
+INSERT INTO `productos` VALUES (274, 'Orange', 'kg', 'Collectible', 188.31, '71341095', 1, '2013-11-07 22:38:12', '2023-03-23 02:01:00');
+INSERT INTO `productos` VALUES (275, 'kango', 'g', 'Collectible', 73.51, '29580712', 1, '2008-05-14 10:18:22', '2009-08-31 08:44:54');
+INSERT INTO `productos` VALUES (276, 'ttrawberry premium', 'g', 'Pet Supplie', 571.79, '90096266', 1, '2021-02-23 03:25:23', '2016-10-14 13:30:42');
+INSERT INTO `productos` VALUES (277, 'Kiwi', 'g', 'Clothing, S', 464.03, 'NXQ-4297', 1, '2000-09-22 03:13:57', '2019-08-30 13:13:20');
+INSERT INTO `productos` VALUES (278, 'urape', 'g', 'Arts, Handi', 775.10, '73468790', 1, '2011-04-14 17:36:27', '2006-09-30 18:31:40');
+INSERT INTO `productos` VALUES (279, 'Raspberry', 'lb', 'Baggage & T', 237.05, 'OCM-5963', 1, '2010-08-06 07:43:04', '2002-07-11 10:08:09');
+INSERT INTO `productos` VALUES (280, 'ultra-Orange', 'g', 'Centurion G', 571.23, '05974856', 1, '2021-06-16 17:56:25', '2018-06-01 07:55:26');
+INSERT INTO `productos` VALUES (281, 'iOrange', 'kg', 'Toys & Game', 633.00, '2579935251972', 1, '2023-08-16 04:46:49', '2020-05-04 10:52:17');
+INSERT INTO `productos` VALUES (282, 'xango plus', 'lb', 'Beauty', 947.72, '344216391409', 1, '2010-11-02 07:12:53', '2018-02-03 16:15:50');
+INSERT INTO `productos` VALUES (283, 'Raspbebry', 'lb', 'Video Games', 939.56, '424985322542', 1, '2009-09-10 02:27:45', '2004-09-20 09:20:16');
+INSERT INTO `productos` VALUES (284, 'Rambutan plus', 'g', 'Collectible', 626.46, '509895231976', 1, '2023-01-21 01:22:16', '2021-10-06 18:35:36');
+INSERT INTO `productos` VALUES (285, 'oiwi', 'kg', 'Food', 337.08, '308134171536', 1, '2003-03-17 08:45:30', '2009-02-16 03:22:34');
+INSERT INTO `productos` VALUES (286, 'Apile air', 'lb', 'Industrial ', 869.82, '1500520446641', 1, '2013-04-29 15:40:22', '2009-10-24 12:32:44');
+INSERT INTO `productos` VALUES (287, 'Grape plus', 'g', 'Food', 341.80, '15490414', 1, '2006-01-23 08:39:39', '2021-08-09 16:22:47');
+INSERT INTO `productos` VALUES (288, 'ambi-Kmwi', 'kg', 'Computers &', 402.67, '75158743', 1, '2022-09-03 09:20:03', '2000-09-12 15:08:37');
+INSERT INTO `productos` VALUES (289, 'Rambuyan air', 'lb', 'Books', 500.25, '9789919312107', 1, '2013-07-07 17:02:04', '2023-05-12 08:40:57');
+INSERT INTO `productos` VALUES (290, 'Cherry plus', 'lb', 'Books', 98.57, '06820466', 1, '2003-11-10 18:51:22', '2005-07-24 18:50:08');
+INSERT INTO `productos` VALUES (291, 'Grape', 'kg', 'Pet Supplie', 984.74, '4905811887108', 1, '2022-05-24 09:00:00', '2020-09-26 20:47:33');
+INSERT INTO `productos` VALUES (292, 'ciwi', 'g', 'Tools & Hom', 553.50, '9799565564249', 1, '2002-02-20 01:06:47', '2005-12-01 19:45:39');
+INSERT INTO `productos` VALUES (293, 'Maygo elite', 'lb', 'Cell Phones', 332.73, '4013524051768', 1, '2000-07-06 11:27:24', '2012-01-02 01:55:27');
+INSERT INTO `productos` VALUES (294, 'Kiqi se', 'lb', 'Household &', 393.63, '148176867987', 1, '2016-02-26 00:27:36', '2013-03-04 19:43:05');
+INSERT INTO `productos` VALUES (295, 'Cherry', 'kg', 'Beauty', 971.83, '327292243992', 1, '2003-07-01 13:11:41', '2012-07-25 00:28:48');
+INSERT INTO `productos` VALUES (296, 'Raspberry', 'g', 'Others', 824.23, '444796235008', 1, '2011-10-15 06:09:54', '2005-09-20 00:06:45');
+INSERT INTO `productos` VALUES (297, 'Rasbutan air', 'kg', 'Pet Supplie', 384.06, '9780149015738', 1, '2018-07-09 05:56:51', '2019-06-15 07:28:17');
+INSERT INTO `productos` VALUES (298, 'Strawberry', 'lb', 'Food', 399.60, '705756117650', 1, '2009-08-05 02:52:41', '2018-09-01 13:19:10');
+INSERT INTO `productos` VALUES (299, 'jrape', 'g', 'Tools & Hom', 340.43, '2250455595516', 1, '2023-07-03 01:50:28', '2004-03-08 04:09:25');
+INSERT INTO `productos` VALUES (300, 'Rascberry', 'lb', 'Pet Supplie', 892.52, 'VCI-9130', 1, '2002-11-16 06:26:38', '2014-02-26 00:54:11');
+INSERT INTO `productos` VALUES (301, 'vrape pi', 'g', 'Computers &', 369.43, '9788955680928', 1, '2003-06-14 22:45:14', '2001-02-14 20:08:42');
+INSERT INTO `productos` VALUES (302, 'iCherry', 'g', 'Musical Ins', 249.51, 'FJT-7493', 1, '2008-04-20 13:33:35', '2004-06-03 08:45:12');
+INSERT INTO `productos` VALUES (303, 'Cherry', 'lb', 'Centurion G', 627.39, 'WXY-4624', 1, '2014-05-06 13:40:09', '2009-07-03 03:10:18');
+INSERT INTO `productos` VALUES (304, 'Kimi', 'lb', 'Arts, Handi', 787.16, '9792181806724', 1, '2015-05-23 07:41:33', '2014-09-29 04:09:54');
+INSERT INTO `productos` VALUES (305, 'Kiwi plus', 'lb', 'Sports & Ou', 352.57, '291208687531', 1, '2006-03-04 12:59:40', '2012-09-10 11:42:37');
+INSERT INTO `productos` VALUES (306, 'ultra-Raspberry', 'g', 'Beauty & Pe', 584.06, '0244959510818', 1, '2002-05-06 06:36:15', '2016-02-12 19:33:26');
+INSERT INTO `productos` VALUES (307, 'Cherry elite', 'g', 'Computers &', 213.86, '9797909729507', 1, '2017-07-28 19:54:43', '2002-04-07 05:10:15');
+INSERT INTO `productos` VALUES (308, 'iGrape', 'g', 'Collectible', 360.40, '67861378', 1, '2006-08-07 20:48:49', '2012-07-17 15:04:21');
+INSERT INTO `productos` VALUES (309, 'Cherry core', 'lb', 'CDs & Vinyl', 519.89, '51128470', 1, '2016-11-02 19:17:24', '2019-11-16 06:21:07');
+INSERT INTO `productos` VALUES (310, 'Apple', 'lb', 'Baby', 252.73, '02906447', 1, '2007-06-22 23:28:14', '2017-11-13 03:35:19');
+INSERT INTO `productos` VALUES (311, 'uluots', 'kg', 'Food', 1.61, '00267540', 1, '2015-05-09 22:56:10', '2016-09-27 15:01:33');
+INSERT INTO `productos` VALUES (312, 'mrange pi', 'lb', 'Industrial ', 880.64, '9784190676580', 1, '2003-02-23 19:22:12', '2022-11-11 23:07:21');
+INSERT INTO `productos` VALUES (313, 'Cherry', 'lb', 'CDs & Vinyl', 637.15, '65344057', 1, '2012-08-24 20:52:49', '2012-11-05 17:24:03');
+INSERT INTO `productos` VALUES (314, 'mrape', 'kg', 'Beauty', 131.84, '46634436', 1, '2014-07-06 02:05:53', '2012-11-30 05:00:21');
+INSERT INTO `productos` VALUES (315, 'nluots pro', 'g', 'Household &', 60.97, '82971656', 1, '2021-09-08 16:30:21', '2006-11-27 19:33:33');
+INSERT INTO `productos` VALUES (316, 'iCherry', 'lb', 'Food', 358.97, '50987610', 1, '2013-08-13 15:32:48', '2023-07-05 02:33:14');
+INSERT INTO `productos` VALUES (317, 'Rambuton', 'kg', 'Cell Phones', 227.65, 'ZXO-1792', 1, '2002-02-16 15:53:18', '2018-04-30 22:35:37');
+INSERT INTO `productos` VALUES (318, 'Apple', 'lb', 'CDs & Vinyl', 138.51, '03562604', 1, '2011-02-26 23:42:39', '2000-09-03 11:42:22');
+INSERT INTO `productos` VALUES (319, 'xPlufts', 'g', 'Appliances', 523.87, '24625463', 1, '2004-01-19 18:18:17', '2016-12-08 13:50:15');
+INSERT INTO `productos` VALUES (320, 'Oraqge', 'g', 'Arts, Handi', 803.65, '584002799587', 1, '2005-03-12 14:10:52', '2019-04-15 20:12:21');
+INSERT INTO `productos` VALUES (321, 'Pluots', 'kg', 'Computers &', 701.96, 'TNU-0084', 1, '2010-10-31 16:15:21', '2015-06-24 12:26:21');
+INSERT INTO `productos` VALUES (322, 'Mango', 'lb', 'Baby', 905.33, 'DBX-0707', 1, '2007-04-21 01:56:00', '2016-08-21 01:05:40');
+INSERT INTO `productos` VALUES (323, 'Apple', 'lb', 'Baby', 575.30, '9798741830451', 1, '2002-09-18 23:59:29', '2019-04-04 09:43:45');
+INSERT INTO `productos` VALUES (324, 'Cherry', 'kg', 'Sports & Ou', 410.61, '9782883567405', 1, '2005-10-16 20:32:51', '2008-08-19 09:14:42');
+INSERT INTO `productos` VALUES (325, 'Grape', 'lb', 'Musical Ins', 43.97, '795871919642', 1, '2007-04-25 09:26:02', '2005-11-23 00:25:12');
+INSERT INTO `productos` VALUES (326, 'Peuots', 'g', 'Household &', 924.75, '240948308701', 1, '2003-06-14 02:03:25', '2020-08-29 05:26:53');
+INSERT INTO `productos` VALUES (327, 'Pluhts', 'kg', 'Baggage & T', 326.83, '029154793101', 1, '2020-07-14 03:27:07', '2004-10-24 17:12:57');
+INSERT INTO `productos` VALUES (328, 'Grape pi', 'kg', 'Clothing, S', 355.20, '04909866', 1, '2008-02-20 02:28:32', '2002-06-15 00:54:05');
+INSERT INTO `productos` VALUES (329, 'Grape', 'kg', 'Food', 781.18, '9789107102527', 1, '2005-10-04 10:08:36', '2023-01-15 11:52:39');
+INSERT INTO `productos` VALUES (330, 'Raspbvrry plus', 'g', 'Industrial ', 80.16, 'NIR-4998', 1, '2022-02-28 03:55:09', '2010-08-11 20:45:57');
+INSERT INTO `productos` VALUES (331, 'Strhwberry', 'kg', 'Clothing, S', 704.29, '52444876', 1, '2021-06-16 14:07:28', '2003-11-18 23:14:19');
+INSERT INTO `productos` VALUES (332, 'Cherry', 'g', 'Books', 670.10, '22927507', 1, '2018-07-07 18:15:45', '2011-05-25 20:47:46');
+INSERT INTO `productos` VALUES (333, 'Kiwi', 'lb', 'Toys & Game', 201.82, '4335873452257', 1, '2017-09-12 13:11:08', '2001-11-29 13:29:11');
+INSERT INTO `productos` VALUES (334, 'ambi-Pzuots', 'lb', 'Toys & Game', 876.16, '4275539806652', 1, '2000-03-29 00:44:40', '2011-07-01 16:35:08');
+INSERT INTO `productos` VALUES (335, 'ambi-Raspbarry', 'g', 'Arts, Handi', 800.53, '2662452516058', 1, '2015-02-25 03:33:03', '2008-04-17 08:09:27');
+INSERT INTO `productos` VALUES (336, 'iGrate', 'kg', 'Video Games', 55.21, 'NBB-0693', 1, '2012-02-19 20:43:17', '2003-05-21 12:49:38');
+INSERT INTO `productos` VALUES (337, 'Pluoks', 'lb', 'Baby', 999.13, '01658811', 1, '2020-01-18 09:47:53', '2014-06-27 06:47:15');
+INSERT INTO `productos` VALUES (338, 'Cherzy core', 'g', 'Tools & Hom', 71.92, '0564903151622', 1, '2016-12-04 02:57:32', '2015-12-23 01:54:23');
+INSERT INTO `productos` VALUES (339, 'Raspberry', 'lb', 'Automotive ', 689.00, 'REW-4791', 1, '2000-10-07 17:40:54', '2021-07-19 04:43:42');
+INSERT INTO `productos` VALUES (340, 'ambi-Grape', 'g', 'Health & Ba', 375.49, '27033777', 1, '2018-05-27 00:07:59', '2017-10-25 03:22:27');
+INSERT INTO `productos` VALUES (341, 'Mango', 'g', 'Arts, Handi', 826.99, '6841828335356', 1, '2013-07-16 16:51:03', '2014-12-10 12:41:25');
+INSERT INTO `productos` VALUES (342, 'ambi-erange', 'kg', 'Automotive ', 493.47, '9464924191113', 1, '2009-08-17 05:50:44', '2003-06-10 00:53:10');
+INSERT INTO `productos` VALUES (343, 'Mango air', 'kg', 'Others', 809.93, 'PBQ-5257', 1, '2011-07-31 12:23:43', '2003-07-06 08:23:03');
+INSERT INTO `productos` VALUES (344, 'Orange air', 'lb', 'Apps & Game', 552.00, 'PMD-8211', 1, '2004-02-08 14:02:38', '2017-11-29 19:01:15');
+INSERT INTO `productos` VALUES (345, 'Strayberry', 'g', 'Others', 646.85, 'KPZ-4696', 1, '2011-08-22 11:03:27', '2008-03-04 19:12:11');
+INSERT INTO `productos` VALUES (346, 'tango', 'kg', 'Sports & Ou', 905.40, '8187124906806', 1, '2005-01-27 21:07:05', '2019-08-02 15:57:20');
+INSERT INTO `productos` VALUES (347, 'ziwi pro', 'kg', 'Books', 110.80, '00110709', 1, '2008-12-28 15:41:41', '2011-02-23 04:23:20');
+INSERT INTO `productos` VALUES (348, 'Kiwi', 'kg', 'Apps & Game', 957.70, '07664489', 1, '2020-07-29 16:14:16', '2014-06-15 17:40:16');
+INSERT INTO `productos` VALUES (349, 'Orange pi', 'kg', 'Collectible', 350.60, '9795394074669', 1, '2017-12-03 21:30:41', '2017-11-11 18:14:01');
+INSERT INTO `productos` VALUES (350, 'Oragge', 'g', 'Apps & Game', 827.43, '9176456905266', 1, '2000-05-01 04:29:42', '2021-12-21 16:47:50');
+INSERT INTO `productos` VALUES (351, 'Strawoerry', 'kg', 'Baggage & T', 559.81, '17176989', 1, '2023-01-18 06:28:07', '2003-10-11 00:08:36');
+INSERT INTO `productos` VALUES (352, 'Plnots air', 'g', 'Toys & Game', 205.82, '02641850', 1, '2021-05-26 03:09:23', '2018-04-17 21:43:50');
+INSERT INTO `productos` VALUES (353, 'Gaape', 'lb', 'Film Suppli', 922.15, '02260648', 1, '2020-12-12 01:23:01', '2009-09-22 02:44:41');
+INSERT INTO `productos` VALUES (354, 'Grcpe se', 'g', 'Computers &', 571.58, 'LJM-7980', 1, '2014-03-24 20:58:06', '2021-04-19 21:45:33');
+INSERT INTO `productos` VALUES (355, 'Grqpe', 'kg', 'Sports & Ou', 565.78, 'FOI-3974', 1, '2018-06-10 21:16:54', '2001-10-12 19:21:04');
+INSERT INTO `productos` VALUES (356, 'Gbape', 'kg', 'Clothing, S', 326.33, '9783546520881', 1, '2002-02-26 00:24:29', '2000-05-09 01:57:10');
+INSERT INTO `productos` VALUES (357, 'Grape', 'g', 'Computers &', 865.56, '9780169144340', 1, '2005-11-11 14:19:53', '2003-03-21 07:56:19');
+INSERT INTO `productos` VALUES (358, 'Apple air', 'lb', 'Computers &', 871.56, '9787784631187', 1, '2023-01-16 19:05:17', '2015-03-20 18:47:43');
+INSERT INTO `productos` VALUES (359, 'ultra-cpple', 'g', 'Centurion G', 784.35, '1626580153906', 1, '2014-12-13 03:26:27', '2021-01-12 00:58:32');
+INSERT INTO `productos` VALUES (360, 'Strawberry premium', 'g', 'Beauty & Pe', 12.75, '05983377', 1, '2018-03-01 17:38:29', '2008-09-24 10:52:11');
+INSERT INTO `productos` VALUES (361, 'wherry premium', 'kg', 'Baggage & T', 662.40, '4209678057347', 1, '2006-07-18 08:10:43', '2004-04-01 14:03:38');
+INSERT INTO `productos` VALUES (362, 'Raspberry plus', 'g', 'Arts, Handi', 940.73, '24817547', 1, '2015-06-24 10:56:55', '2007-08-31 06:50:59');
+INSERT INTO `productos` VALUES (363, 'Aeple', 'lb', 'Clothing, S', 550.21, '8532036076855', 1, '2007-11-28 19:46:51', '2012-05-01 12:52:30');
+INSERT INTO `productos` VALUES (364, 'ultra-Cherzy', 'g', 'Automotive ', 387.21, '9788670932319', 1, '2012-11-18 06:51:13', '2017-10-13 10:37:20');
+INSERT INTO `productos` VALUES (365, 'xMango', 'g', 'Household &', 331.48, '02504315', 1, '2014-06-05 17:12:14', '2008-08-22 12:05:37');
+INSERT INTO `productos` VALUES (366, 'Rambutkn', 'g', 'Musical Ins', 277.34, '3320641830598', 1, '2012-05-12 10:30:24', '2016-12-27 23:45:52');
+INSERT INTO `productos` VALUES (367, 'Cherry', 'g', 'Baby', 17.78, 'RGF-7477', 1, '2009-11-19 17:07:11', '2017-02-19 02:22:46');
+INSERT INTO `productos` VALUES (368, 'Plrots', 'g', 'Cell Phones', 526.13, '05228621', 1, '2007-06-23 03:49:55', '2022-12-22 10:25:41');
+INSERT INTO `productos` VALUES (369, 'Mlngo', 'lb', 'Baggage & T', 260.56, '06352172', 1, '2009-08-29 10:31:28', '2004-09-05 15:32:07');
+INSERT INTO `productos` VALUES (370, 'omni-iherry', 'g', 'CDs & Vinyl', 502.59, 'OVT-7853', 1, '2000-05-15 02:56:18', '2017-03-29 04:12:37');
+INSERT INTO `productos` VALUES (371, 'Mbngo elite', 'kg', 'Baby', 849.17, '9796689384104', 1, '2017-02-07 08:45:18', '2020-08-17 15:51:08');
+INSERT INTO `productos` VALUES (372, 'Mango elite', 'kg', 'Handcrafts', 246.98, '9784328443893', 1, '2019-01-15 00:01:40', '2023-02-23 02:13:20');
+INSERT INTO `productos` VALUES (373, 'Orwnge', 'g', 'Pet Supplie', 471.62, '6523795654745', 1, '2006-12-16 18:13:05', '2018-01-16 11:26:20');
+INSERT INTO `productos` VALUES (374, 'Raypberry air', 'g', 'CDs & Vinyl', 978.74, '01662580', 1, '2001-04-25 00:29:18', '2013-01-20 03:37:40');
+INSERT INTO `productos` VALUES (375, 'ambi-Orange', 'kg', 'Others', 458.07, '758234357864', 1, '2009-06-10 23:19:10', '2002-08-02 04:11:05');
+INSERT INTO `productos` VALUES (376, 'Strawberry', 'lb', 'Apps & Game', 734.34, 'VSV-2246', 1, '2023-04-28 14:56:26', '2016-08-24 05:40:05');
+INSERT INTO `productos` VALUES (377, 'Apule pro', 'g', 'Centurion G', 86.94, '06907600', 1, '2020-11-23 18:17:36', '2001-03-16 16:50:11');
+INSERT INTO `productos` VALUES (378, 'Kiwi', 'lb', 'Food', 892.85, '27811177', 1, '2019-05-15 16:37:20', '2018-09-27 10:24:38');
+INSERT INTO `productos` VALUES (379, 'xApple', 'kg', 'Arts, Handi', 806.59, '9295459423512', 1, '2005-04-02 13:59:36', '2016-06-17 19:10:38');
+INSERT INTO `productos` VALUES (380, 'Pluhts mini', 'lb', 'Beauty & Pe', 377.34, 'BZX-5043', 1, '2000-10-06 16:29:02', '2008-10-04 23:14:15');
+INSERT INTO `productos` VALUES (381, 'ultra-Cheray', 'g', 'Clothing, S', 119.55, '06275945', 1, '2004-05-24 16:26:52', '2009-03-30 23:10:10');
+INSERT INTO `productos` VALUES (382, 'Orange', 'g', 'Beauty & Pe', 379.78, 'III-9384', 1, '2014-04-19 18:15:40', '2009-12-14 18:01:58');
+INSERT INTO `productos` VALUES (383, 'Strawbwrry plus', 'kg', 'Centurion G', 607.81, '169525985770', 1, '2008-07-08 00:26:57', '2013-08-14 17:43:21');
+INSERT INTO `productos` VALUES (384, 'Raspberry', 'g', 'Beauty', 290.23, '9788880505563', 1, '2014-12-18 04:56:47', '2013-12-09 20:35:01');
+INSERT INTO `productos` VALUES (385, 'Raspberry', 'kg', 'Film Suppli', 874.94, '77799708', 1, '2000-12-14 13:19:16', '2008-03-25 21:44:53');
+INSERT INTO `productos` VALUES (386, 'Strawberry elite', 'lb', 'Health & Ba', 627.45, 'CXK-6772', 1, '2020-01-10 18:18:00', '2001-08-14 11:03:03');
+INSERT INTO `productos` VALUES (387, 'Pluots', 'lb', 'Others', 659.69, '06141943', 1, '2002-01-21 07:27:26', '2016-12-09 03:43:54');
+INSERT INTO `productos` VALUES (388, 'Strahberry air', 'g', 'Books', 881.19, '29016990', 1, '2018-08-04 21:09:15', '2015-03-19 22:15:56');
+INSERT INTO `productos` VALUES (389, 'iOrange', 'g', 'Cell Phones', 823.28, '205445164090', 1, '2000-08-28 06:22:02', '2022-01-15 20:23:16');
+INSERT INTO `productos` VALUES (390, 'xRamcutan', 'g', 'Automotive ', 20.03, 'TPG-0405', 1, '2010-01-24 08:38:15', '2005-08-16 18:28:13');
+INSERT INTO `productos` VALUES (391, 'Apple', 'kg', 'Toys & Game', 436.93, 'DXA-7041', 1, '2015-02-12 00:51:30', '2003-01-05 13:56:07');
+INSERT INTO `productos` VALUES (392, 'Osange', 'lb', 'Automotive ', 744.29, 'KEB-0338', 1, '2014-05-16 00:02:13', '2014-09-26 13:48:10');
+INSERT INTO `productos` VALUES (393, 'Pluots', 'kg', 'Automotive ', 172.33, '7118837075436', 1, '2020-10-27 09:43:09', '2015-01-11 15:17:09');
+INSERT INTO `productos` VALUES (394, 'Manoo plus', 'lb', 'Sports & Ou', 33.64, '9796899075175', 1, '2006-09-16 17:50:03', '2011-01-12 22:33:05');
+INSERT INTO `productos` VALUES (395, 'Ggape', 'g', 'Collectible', 933.32, 'RRA-0652', 1, '2009-09-02 14:21:46', '2005-11-18 20:53:23');
+INSERT INTO `productos` VALUES (396, 'iPluots', 'g', 'Video Games', 571.82, '9790691864593', 1, '2014-04-26 14:19:49', '2010-07-19 07:31:02');
+INSERT INTO `productos` VALUES (397, 'Chegry', 'kg', 'Apps & Game', 634.88, '9783491668904', 1, '2020-06-02 09:53:22', '2000-09-23 18:45:13');
+INSERT INTO `productos` VALUES (398, 'ultra-Orange', 'g', 'Automotive ', 708.95, 'OAG-1948', 1, '2020-06-13 17:34:01', '2001-04-14 09:52:26');
+INSERT INTO `productos` VALUES (399, 'Kiii', 'kg', 'Pet Supplie', 758.80, '04920113', 1, '2007-07-07 12:41:41', '2000-03-08 14:29:20');
+INSERT INTO `productos` VALUES (400, 'Cherty mini', 'lb', 'Beauty', 824.74, '564953435093', 1, '2000-06-26 18:45:29', '2011-02-12 18:28:18');
+INSERT INTO `productos` VALUES (401, 'Smrawberry', 'kg', 'Clothing, S', 196.49, 'VUP-8193', 1, '2017-07-10 15:39:17', '2012-10-13 02:30:27');
+INSERT INTO `productos` VALUES (402, 'Grape', 'g', 'Centurion G', 267.35, '200471079981', 1, '2019-09-24 20:55:40', '2022-09-14 19:58:13');
+INSERT INTO `productos` VALUES (403, 'Grave elite', 'lb', 'CDs & Vinyl', 489.11, '3421785088422', 1, '2019-12-03 16:26:08', '2010-10-19 06:47:49');
+INSERT INTO `productos` VALUES (404, 'Cherry core', 'g', 'Books', 474.55, '525128730177', 1, '2017-03-16 10:09:58', '2005-02-28 09:52:55');
+INSERT INTO `productos` VALUES (405, 'orape', 'lb', 'Cell Phones', 877.96, '01414660', 1, '2001-11-04 22:54:54', '2000-06-08 08:51:41');
+INSERT INTO `productos` VALUES (406, 'Apple', 'g', 'Books', 474.35, 'UKQ-3475', 1, '2022-01-14 23:42:32', '2020-02-08 14:23:31');
+INSERT INTO `productos` VALUES (407, 'Rambutan', 'kg', 'Pet Supplie', 292.85, '462848834870', 1, '2023-01-29 06:36:07', '2023-02-01 22:55:46');
+INSERT INTO `productos` VALUES (408, 'Gzape', 'kg', 'Video Games', 110.58, 'TFP-4894', 1, '2019-02-14 20:00:11', '2017-12-08 07:53:57');
+INSERT INTO `productos` VALUES (409, 'orape', 'kg', 'Books', 200.34, 'YNJ-1536', 1, '2021-04-15 17:45:52', '2000-05-09 03:10:58');
+INSERT INTO `productos` VALUES (410, 'Apple', 'kg', 'Computers &', 211.93, '09825147', 1, '2011-08-05 12:50:51', '2003-10-08 22:11:15');
+INSERT INTO `productos` VALUES (411, 'Orange', 'lb', 'Clothing, S', 427.89, '5852167142872', 1, '2020-08-02 01:25:28', '2017-07-29 12:00:16');
+INSERT INTO `productos` VALUES (412, 'Raspoerry', 'g', 'Apps & Game', 172.89, '07030437', 1, '2018-08-09 09:58:08', '2003-01-31 14:52:18');
+INSERT INTO `productos` VALUES (413, 'Gqape', 'kg', 'Automotive ', 551.65, '62673099', 1, '2000-05-01 15:38:13', '2016-01-14 04:10:55');
+INSERT INTO `productos` VALUES (414, 'Orange', 'kg', 'Industrial ', 931.75, '06576660', 1, '2019-07-28 02:07:07', '2000-04-16 23:18:16');
+INSERT INTO `productos` VALUES (415, 'Cherry', 'g', 'Toys & Game', 654.68, '2200062724694', 1, '2018-04-12 16:55:16', '2003-07-07 18:34:36');
+INSERT INTO `productos` VALUES (416, 'ultra-Strawberry', 'kg', 'Centurion G', 457.85, '00152648', 1, '2021-09-23 10:15:31', '2002-12-08 07:11:24');
+INSERT INTO `productos` VALUES (417, 'ypple air', 'kg', 'Tools & Hom', 121.82, '9774931097415', 1, '2019-05-15 22:04:41', '2014-06-10 10:52:04');
+INSERT INTO `productos` VALUES (418, 'kluots', 'lb', 'Tools & Hom', 685.15, '361787840563', 1, '2018-01-06 03:37:47', '2000-04-19 14:43:29');
+INSERT INTO `productos` VALUES (419, 'Gjape', 'lb', 'Tools & Hom', 411.03, '52727658', 1, '2004-02-13 00:52:47', '2016-03-15 18:05:23');
+INSERT INTO `productos` VALUES (420, 'Kvwi', 'kg', 'Pet Supplie', 751.81, '993890827591', 1, '2001-07-31 19:19:28', '2016-01-03 02:57:50');
+INSERT INTO `productos` VALUES (421, 'Cheray plus', 'lb', 'Toys & Game', 61.93, '9787173907756', 1, '2010-09-22 15:03:30', '2001-12-01 00:44:15');
+INSERT INTO `productos` VALUES (422, 'Appre', 'lb', 'Baby', 567.67, '9787019245653', 1, '2013-06-11 13:12:21', '2016-04-11 13:39:51');
+INSERT INTO `productos` VALUES (423, 'Stravberry', 'kg', 'Musical Ins', 745.62, '18819045', 1, '2002-01-31 09:27:14', '2003-12-02 17:04:57');
+INSERT INTO `productos` VALUES (424, 'Appse', 'g', 'Tools & Hom', 752.92, '04944119', 1, '2011-09-19 20:13:30', '2005-11-21 07:37:21');
+INSERT INTO `productos` VALUES (425, 'Orange pi', 'lb', 'Beauty & Pe', 650.62, '02002781', 1, '2019-03-29 05:11:53', '2014-08-04 07:30:35');
+INSERT INTO `productos` VALUES (426, 'Mango', 'kg', 'Household &', 996.33, '310683462164', 1, '2014-10-09 05:00:45', '2006-11-07 00:15:47');
+INSERT INTO `productos` VALUES (427, 'Stjawberry', 'g', 'Books', 904.03, '02738925', 1, '2003-01-31 21:58:07', '2003-09-24 02:39:02');
+INSERT INTO `productos` VALUES (428, 'Apsle', 'lb', 'Apps & Game', 672.47, '03036730', 1, '2009-10-22 19:43:47', '2013-07-20 20:00:09');
+INSERT INTO `productos` VALUES (429, 'Oranwe core', 'kg', 'Others', 738.21, '0982705715154', 1, '2002-12-11 00:47:59', '2021-05-06 01:25:11');
+INSERT INTO `productos` VALUES (430, 'Rambutxn premium', 'lb', 'Tools & Hom', 223.58, '9786156855770', 1, '2013-04-15 03:26:26', '2020-10-14 21:14:52');
+INSERT INTO `productos` VALUES (431, 'Rambutan se', 'kg', 'Automotive ', 114.50, 'UYQ-1050', 1, '2013-06-08 09:44:56', '2022-06-11 10:57:03');
+INSERT INTO `productos` VALUES (432, 'Cherry', 'lb', 'Clothing, S', 296.24, '6432735702371', 1, '2022-11-22 14:17:22', '2023-05-30 16:30:02');
+INSERT INTO `productos` VALUES (433, 'Strawaerry plus', 'kg', 'Household &', 470.89, '886030871472', 1, '2020-09-26 13:31:11', '2021-11-22 08:57:02');
+INSERT INTO `productos` VALUES (434, 'Strawberry', 'lb', 'Household &', 208.37, '76838972', 1, '2004-09-08 16:12:21', '2008-09-14 01:09:24');
+INSERT INTO `productos` VALUES (435, 'Orange elite', 'lb', 'Musical Ins', 850.41, '3839164408639', 1, '2009-09-18 21:25:43', '2021-08-29 03:26:42');
+INSERT INTO `productos` VALUES (436, 'Manzo air', 'lb', 'Industrial ', 538.84, '06607005', 1, '2020-06-13 20:21:21', '2022-05-02 19:21:21');
+INSERT INTO `productos` VALUES (437, 'Arple', 'g', 'Beauty & Pe', 388.56, '1935956737771', 1, '2012-09-12 03:38:40', '2016-08-25 04:09:11');
+INSERT INTO `productos` VALUES (438, 'Strawberry', 'kg', 'Industrial ', 873.24, '9789320121916', 1, '2009-12-20 00:20:43', '2005-01-17 21:58:32');
+INSERT INTO `productos` VALUES (439, 'Rwmbutan', 'g', 'Beauty', 499.36, '73391524', 1, '2014-12-14 13:01:20', '2021-02-07 21:00:04');
+INSERT INTO `productos` VALUES (440, 'Straiberry', 'kg', 'Beauty', 619.22, '351860988916', 1, '2011-04-16 08:52:21', '2000-01-15 11:07:09');
+INSERT INTO `productos` VALUES (441, 'omni-kango', 'lb', 'Automotive ', 433.52, '41024553', 1, '2020-12-31 09:44:38', '2005-01-12 00:33:27');
+INSERT INTO `productos` VALUES (442, 'Grope se', 'g', 'Industrial ', 15.46, '09196261', 1, '2023-08-12 02:28:50', '2011-08-14 08:05:21');
+INSERT INTO `productos` VALUES (443, 'Orange', 'g', 'Beauty', 487.07, '023170992944', 1, '2005-05-29 11:02:27', '2001-06-05 23:02:01');
+INSERT INTO `productos` VALUES (444, 'Cherry core', 'g', 'Pet Supplie', 335.63, '6271901248622', 1, '2013-10-30 08:31:08', '2006-12-13 23:38:46');
+INSERT INTO `productos` VALUES (445, 'Orange', 'lb', 'Musical Ins', 478.63, '069042489518', 1, '2021-12-26 21:26:45', '2017-04-25 10:16:59');
+INSERT INTO `productos` VALUES (446, 'ultra-Rambatan', 'g', 'Arts, Handi', 495.34, '08654083', 1, '2011-06-13 09:45:36', '2018-03-02 21:52:59');
+INSERT INTO `productos` VALUES (447, 'Pluots', 'kg', 'Pet Supplie', 758.19, '528442835122', 1, '2023-06-10 17:49:23', '2014-05-04 09:09:11');
+INSERT INTO `productos` VALUES (448, 'trape pro', 'g', 'Computers &', 403.57, '82848316', 1, '2020-11-25 13:56:15', '2019-11-12 06:19:55');
+INSERT INTO `productos` VALUES (449, 'frape premium', 'kg', 'Handcrafts', 272.60, '749078322330', 1, '2007-08-23 10:28:10', '2006-08-27 16:16:14');
+INSERT INTO `productos` VALUES (450, 'ambi-Cherry', 'g', 'Arts, Handi', 919.90, '5769285225380', 1, '2009-07-28 22:33:20', '2002-01-30 14:35:46');
+INSERT INTO `productos` VALUES (451, 'Graje core', 'g', 'Computers &', 816.05, '06488970', 1, '2014-08-31 16:36:54', '2005-10-28 13:29:27');
+INSERT INTO `productos` VALUES (452, 'iOranre', 'g', 'Industrial ', 903.31, '03782804', 1, '2006-05-22 05:49:43', '2004-07-07 08:44:33');
+INSERT INTO `productos` VALUES (453, 'Plsots pi', 'g', 'Beauty & Pe', 329.85, '9783550551956', 1, '2018-02-26 02:08:10', '2017-11-08 13:37:50');
+INSERT INTO `productos` VALUES (454, 'Oradge air', 'kg', 'Musical Ins', 986.31, '9634496225077', 1, '2014-10-26 13:25:33', '2019-05-19 08:57:56');
+INSERT INTO `productos` VALUES (455, 'Strawberry', 'kg', 'Baby', 954.74, '92242753', 1, '2001-04-17 21:33:15', '2022-10-24 17:45:55');
+INSERT INTO `productos` VALUES (456, 'iRamjutan', 'lb', 'Pet Supplie', 627.00, '8923644221025', 1, '2022-07-09 08:01:56', '2003-12-05 23:36:57');
+INSERT INTO `productos` VALUES (457, 'ultra-fango', 'g', 'Beauty', 484.41, '05588671', 1, '2004-08-17 05:33:48', '2009-03-15 14:35:40');
+INSERT INTO `productos` VALUES (458, 'urange', 'lb', 'Pet Supplie', 561.04, '1696526798416', 1, '2004-09-27 19:45:11', '2018-08-20 13:32:48');
+INSERT INTO `productos` VALUES (459, 'Kibi', 'kg', 'Pet Supplie', 211.43, '30830011', 1, '2022-01-02 07:33:06', '2018-09-10 19:32:46');
+INSERT INTO `productos` VALUES (460, 'Apple', 'kg', 'Automotive ', 137.39, '05904136', 1, '2008-11-09 21:22:15', '2001-02-04 23:24:59');
+INSERT INTO `productos` VALUES (461, 'Orange', 'lb', 'Beauty & Pe', 878.90, '04127826', 1, '2000-01-04 18:24:34', '2001-10-01 04:40:23');
+INSERT INTO `productos` VALUES (462, 'omni-Mango', 'g', 'Books', 848.74, '03693117', 1, '2000-01-30 16:04:20', '2009-07-30 03:54:53');
+INSERT INTO `productos` VALUES (463, 'Apple', 'lb', 'Baggage & T', 105.80, '03898697', 1, '2006-09-30 01:59:34', '2020-06-19 09:28:24');
+INSERT INTO `productos` VALUES (464, 'Raspberry plus', 'lb', 'Automotive ', 972.52, '03241950', 1, '2012-09-09 18:44:38', '2021-06-20 19:19:18');
+INSERT INTO `productos` VALUES (465, 'Manro', 'kg', 'Others', 615.15, '87962994', 1, '2020-11-18 11:11:54', '2007-03-22 06:09:12');
+INSERT INTO `productos` VALUES (466, 'bherry pro', 'g', 'Video Games', 736.55, '14022098', 1, '2021-03-27 01:29:40', '2012-04-08 02:12:02');
+INSERT INTO `productos` VALUES (467, 'viwi', 'lb', 'Beauty & Pe', 257.92, 'TXL-6216', 1, '2009-12-30 12:20:28', '2000-02-13 12:19:12');
+INSERT INTO `productos` VALUES (468, 'ultra-Strawberry', 'kg', 'Others', 812.67, 'WLU-8658', 1, '2013-02-22 16:29:54', '2010-10-02 15:23:51');
+INSERT INTO `productos` VALUES (469, 'Mango', 'lb', 'Others', 519.90, '517803101143', 1, '2016-09-24 01:06:48', '2017-12-31 07:19:32');
+INSERT INTO `productos` VALUES (470, 'Grbpe pro', 'lb', 'Video Games', 720.72, 'UZE-7765', 1, '2007-02-16 00:45:52', '2006-12-03 16:03:38');
+INSERT INTO `productos` VALUES (471, 'uango air', 'kg', 'Centurion G', 360.18, '7706122894888', 1, '2005-02-24 13:36:48', '2022-01-09 20:40:33');
+INSERT INTO `productos` VALUES (472, 'Plaots pro', 'kg', 'Handcrafts', 567.62, '9780120851270', 1, '2010-01-25 13:16:19', '2013-03-13 17:46:56');
+INSERT INTO `productos` VALUES (473, 'Radbutan pi', 'lb', 'Apps & Game', 451.98, '9793276572852', 1, '2004-09-14 04:13:01', '2020-12-27 15:06:47');
+INSERT INTO `productos` VALUES (474, 'Raspberry', 'kg', 'Books', 602.97, '366592898938', 1, '2017-12-10 19:49:55', '2009-03-23 14:07:33');
+INSERT INTO `productos` VALUES (475, 'Mango', 'kg', 'Industrial ', 531.82, '6585107981147', 1, '2002-09-18 10:47:01', '2017-03-12 12:17:59');
+INSERT INTO `productos` VALUES (476, 'Raspbnrry', 'g', 'Cell Phones', 319.61, '50116362', 1, '2017-05-09 18:03:38', '2013-08-05 11:24:58');
+INSERT INTO `productos` VALUES (477, 'Pluots', 'g', 'Video Games', 867.22, '024428102672', 1, '2004-07-22 14:20:47', '2016-07-09 22:41:00');
+INSERT INTO `productos` VALUES (478, 'Raspberry', 'g', 'Beauty & Pe', 39.47, 'BZI-5985', 1, '2004-07-10 18:21:26', '2011-04-16 01:53:16');
+INSERT INTO `productos` VALUES (479, 'Pluits', 'lb', 'Handcrafts', 765.25, '8038609926119', 1, '2017-01-30 23:53:10', '2015-08-31 01:15:52');
+INSERT INTO `productos` VALUES (480, 'ultra-Mango', 'kg', 'Apps & Game', 787.13, '3556487570163', 1, '2016-09-10 16:12:04', '2000-11-09 10:51:21');
+INSERT INTO `productos` VALUES (481, 'iApple', 'g', 'Pet Supplie', 800.29, '607387346259', 1, '2010-06-04 00:41:28', '2019-11-24 18:29:46');
+INSERT INTO `productos` VALUES (482, 'Kiwi', 'g', 'Clothing, S', 935.38, 'WCQ-9778', 1, '2019-07-09 00:58:50', '2014-05-14 22:01:11');
+INSERT INTO `productos` VALUES (483, 'Raspberry', 'lb', 'Baggage & T', 385.96, 'AGS-9064', 1, '2002-08-14 10:27:35', '2010-07-21 07:28:18');
+INSERT INTO `productos` VALUES (484, 'ambi-Cherry', 'g', 'Sports & Ou', 674.18, '9787648278039', 1, '2013-01-11 04:56:34', '2007-06-08 14:49:32');
+INSERT INTO `productos` VALUES (485, 'iApple', 'kg', 'Sports & Ou', 135.10, 'ZRV-7959', 1, '2003-10-27 23:58:01', '2005-05-31 14:40:43');
+INSERT INTO `productos` VALUES (486, 'Mawgo', 'g', 'Computers &', 130.03, '14580048', 1, '2005-07-08 14:09:42', '2004-04-04 19:29:19');
+INSERT INTO `productos` VALUES (487, 'Cherry', 'kg', 'Video Games', 899.20, '02747804', 1, '2000-11-11 05:57:32', '2002-08-02 07:28:25');
+INSERT INTO `productos` VALUES (488, 'Strawberry pi', 'kg', 'Beauty & Pe', 733.39, '02759104', 1, '2021-04-20 14:29:45', '2004-08-14 20:00:02');
+INSERT INTO `productos` VALUES (489, 'Geape', 'g', 'Centurion G', 172.11, '9243340073056', 1, '2019-11-20 09:46:19', '2006-04-08 09:34:30');
+INSERT INTO `productos` VALUES (490, 'Strawqerry', 'lb', 'Handcrafts', 238.84, '418826235245', 1, '2011-04-29 05:03:28', '2006-06-17 00:42:14');
+INSERT INTO `productos` VALUES (491, 'Rambutnn', 'kg', 'Centurion G', 794.60, '01680478', 1, '2017-11-08 06:41:50', '2003-10-27 16:37:59');
+INSERT INTO `productos` VALUES (492, 'Cherry pi', 'lb', 'Books', 820.17, '396512503970', 1, '2020-09-19 19:04:48', '2008-05-02 01:31:21');
+INSERT INTO `productos` VALUES (493, 'Chedry', 'kg', 'Industrial ', 564.00, 'KIJ-1065', 1, '2010-07-09 08:49:20', '2012-10-24 15:52:02');
+INSERT INTO `productos` VALUES (494, 'Pyuots se', 'lb', 'Household &', 438.80, 'UUK-8038', 1, '2008-08-27 04:33:13', '2010-05-03 21:13:51');
+INSERT INTO `productos` VALUES (495, 'Apple se', 'kg', 'Food', 803.80, '9796358525524', 1, '2010-09-14 19:03:18', '2013-12-12 13:55:01');
+INSERT INTO `productos` VALUES (496, 'ultra-Grape', 'g', 'Centurion G', 944.68, '9795241399730', 1, '2019-11-30 21:37:30', '2021-06-26 07:51:35');
+INSERT INTO `productos` VALUES (497, 'Strawberhy air', 'lb', 'Collectible', 754.55, '734787402916', 1, '2001-02-09 15:31:52', '2018-01-25 23:22:35');
+INSERT INTO `productos` VALUES (498, 'Orange air', 'lb', 'Food', 529.44, 'NUI-4440', 1, '2019-10-13 00:12:52', '2002-07-29 03:02:19');
+INSERT INTO `productos` VALUES (499, 'rrange', 'kg', 'Cell Phones', 974.33, '09197916', 1, '2015-05-24 10:30:11', '2017-08-03 00:23:13');
+INSERT INTO `productos` VALUES (500, 'crape', 'lb', 'Baggage & T', 276.39, 'WXV-8806', 1, '2015-07-02 15:52:12', '2005-02-05 13:04:19');
+INSERT INTO `productos` VALUES (501, 'Orange', 'kg', 'CDs & Vinyl', 263.09, '50407392', 1, '2019-03-19 16:17:18', '2021-07-02 04:38:20');
+INSERT INTO `productos` VALUES (502, 'Strawberty', 'kg', 'Apps & Game', 893.18, '9792912618985', 1, '2022-12-01 15:45:55', '2019-07-31 13:42:21');
+INSERT INTO `productos` VALUES (503, 'Raspberry air', 'kg', 'Automotive ', 21.16, '03495605', 1, '2018-04-03 11:31:03', '2012-12-20 08:22:53');
+INSERT INTO `productos` VALUES (504, 'maspberry', 'kg', 'Video Games', 834.43, '340672181912', 1, '2021-12-16 20:04:31', '2023-08-12 14:59:30');
+INSERT INTO `productos` VALUES (505, 'ultra-therry', 'g', 'Collectible', 255.77, '9782985867427', 1, '2021-06-16 16:30:16', '2003-06-12 18:03:23');
+INSERT INTO `productos` VALUES (506, 'Cherry', 'kg', 'Collectible', 632.31, '09867529', 1, '2002-04-25 14:12:40', '2002-06-17 00:23:01');
+INSERT INTO `productos` VALUES (507, 'iPluods', 'lb', 'Apps & Game', 244.30, '9783455690514', 1, '2001-04-21 20:28:09', '2014-09-16 02:46:29');
+INSERT INTO `productos` VALUES (508, 'Abple', 'g', 'Centurion G', 529.95, '11594352', 1, '2021-06-12 11:35:11', '2003-11-24 17:12:17');
+INSERT INTO `productos` VALUES (509, 'Raspbergy air', 'g', 'Beauty', 537.33, '9790358404445', 1, '2011-04-19 15:07:38', '2007-10-20 07:13:46');
+INSERT INTO `productos` VALUES (510, 'biwi', 'kg', 'CDs & Vinyl', 152.03, '9789383767601', 1, '2016-06-25 17:11:05', '2008-05-02 11:54:47');
+INSERT INTO `productos` VALUES (511, 'Pzuots se', 'g', 'Toys & Game', 556.82, '561933879670', 1, '2012-10-11 05:08:08', '2000-01-02 04:46:58');
+INSERT INTO `productos` VALUES (512, 'Chemry', 'g', 'Arts, Handi', 872.78, '9796267513063', 1, '2019-06-11 12:32:22', '2015-11-14 21:34:50');
+INSERT INTO `productos` VALUES (513, 'Strawlerry pro', 'g', 'Collectible', 130.60, '903392377579', 1, '2004-09-17 21:53:37', '2005-09-15 03:35:03');
+INSERT INTO `productos` VALUES (514, 'Pluots premium', 'g', 'Toys & Game', 291.67, '81090044', 1, '2023-09-03 04:02:11', '2010-04-09 10:57:24');
+INSERT INTO `productos` VALUES (515, 'Chervy plus', 'g', 'Film Suppli', 196.95, '05842872', 1, '2010-12-20 02:39:05', '2009-10-08 03:47:57');
+INSERT INTO `productos` VALUES (516, 'Oranre mini', 'lb', 'CDs & Vinyl', 574.98, '5088612079756', 1, '2022-06-18 07:48:51', '2007-05-25 09:21:02');
+INSERT INTO `productos` VALUES (517, 'Strawberry elite', 'lb', 'Appliances', 370.76, '9788656582804', 1, '2005-04-20 11:26:23', '2020-07-12 09:28:06');
+INSERT INTO `productos` VALUES (518, 'Strawberry elite', 'lb', 'Health & Ba', 925.00, '9786080352475', 1, '2017-10-06 05:29:37', '2013-11-16 18:28:52');
+INSERT INTO `productos` VALUES (519, 'Mtngo', 'kg', 'Video Games', 787.73, '8139607333258', 1, '2005-04-06 01:31:35', '2004-10-02 17:18:17');
+INSERT INTO `productos` VALUES (520, 'Raspborry', 'lb', 'Automotive ', 436.69, '9794570012334', 1, '2012-05-21 16:39:17', '2023-05-09 08:11:31');
+INSERT INTO `productos` VALUES (521, 'Pluots premium', 'kg', 'Baggage & T', 516.57, '02130569', 1, '2019-12-11 08:38:42', '2013-01-16 16:43:42');
+INSERT INTO `productos` VALUES (522, 'omni-Apple', 'g', 'Handcrafts', 109.98, 'YAE-9558', 1, '2005-12-22 07:35:45', '2015-12-18 16:36:33');
+INSERT INTO `productos` VALUES (523, 'xOrsnge', 'g', 'Arts, Handi', 418.71, '5198518651229', 1, '2011-01-07 00:01:27', '2007-02-14 00:09:55');
+INSERT INTO `productos` VALUES (524, 'qpple', 'lb', 'Beauty', 840.97, '129816755963', 1, '2019-11-19 13:52:11', '2021-09-23 01:04:28');
+INSERT INTO `productos` VALUES (525, 'Rambutan', 'lb', 'Health & Ba', 319.42, '08597373', 1, '2002-04-22 04:52:31', '2019-08-05 22:01:12');
+INSERT INTO `productos` VALUES (526, 'yrange core', 'lb', 'Computers &', 357.30, '848177290189', 1, '2016-01-21 19:22:08', '2020-02-26 14:10:53');
+INSERT INTO `productos` VALUES (527, 'Graye pro', 'lb', 'Tools & Hom', 111.22, '507638657373', 1, '2020-04-06 12:29:03', '2014-11-10 20:32:10');
+INSERT INTO `productos` VALUES (528, 'Cherry', 'g', 'Sports & Ou', 626.91, '2661299704055', 1, '2000-12-28 22:00:20', '2023-07-19 02:18:10');
+INSERT INTO `productos` VALUES (529, 'Cherry', 'g', 'CDs & Vinyl', 252.05, '00763349', 1, '2023-06-02 13:10:27', '2008-02-10 11:54:54');
+INSERT INTO `productos` VALUES (530, 'Rambutan se', 'lb', 'Beauty & Pe', 349.04, '8690554171350', 1, '2001-11-20 23:05:40', '2006-06-22 07:47:45');
+INSERT INTO `productos` VALUES (531, 'Appfe premium', 'lb', 'Computers &', 999.44, '38245664', 1, '2013-11-07 16:33:49', '2019-08-13 04:06:16');
+INSERT INTO `productos` VALUES (532, 'xApple', 'kg', 'Tools & Hom', 269.76, '279088939841', 1, '2009-11-06 09:50:49', '2011-05-21 01:00:33');
+INSERT INTO `productos` VALUES (533, 'Mango', 'kg', 'Arts, Handi', 955.83, '9876982956922', 1, '2001-07-20 15:35:33', '2006-05-01 04:06:17');
+INSERT INTO `productos` VALUES (534, 'omni-Mamgo', 'kg', 'Centurion G', 578.06, '3975743674160', 1, '2004-03-22 17:04:33', '2004-05-03 04:26:41');
+INSERT INTO `productos` VALUES (535, 'Strawberry', 'kg', 'Centurion G', 271.36, '255632851630', 1, '2018-06-07 08:24:42', '2020-04-12 05:20:48');
+INSERT INTO `productos` VALUES (536, 'apple', 'lb', 'Others', 9.20, '02626772', 1, '2002-08-31 15:41:44', '2020-04-20 14:23:36');
+INSERT INTO `productos` VALUES (537, 'Strawberry', 'kg', 'Automotive ', 514.50, '65829073', 1, '2003-05-11 06:59:03', '2019-05-21 02:09:43');
+INSERT INTO `productos` VALUES (538, 'qrape', 'kg', 'Clothing, S', 127.57, '9785593191861', 1, '2008-12-03 15:12:59', '2020-02-06 00:20:28');
+INSERT INTO `productos` VALUES (539, 'Mango pi', 'lb', 'Clothing, S', 748.76, '92967618', 1, '2007-05-22 09:50:50', '2001-05-10 05:07:09');
+INSERT INTO `productos` VALUES (540, 'iMaego', 'lb', 'Health & Ba', 150.14, 'PBF-9126', 1, '2011-06-22 11:33:27', '2023-08-06 16:21:10');
+INSERT INTO `productos` VALUES (541, 'Kswi', 'kg', 'Beauty', 960.75, '387234685327', 1, '2019-06-17 14:33:18', '2018-05-14 12:08:47');
+INSERT INTO `productos` VALUES (542, 'Strawberry', 'kg', 'Collectible', 561.80, '3158022247792', 1, '2017-05-31 15:56:34', '2017-03-09 00:31:09');
+INSERT INTO `productos` VALUES (543, 'Matgo', 'lb', 'Toys & Game', 26.16, '139339685920', 1, '2000-09-19 17:48:06', '2006-03-03 02:14:45');
+INSERT INTO `productos` VALUES (544, 'Mango', 'kg', 'Automotive ', 331.93, '142290752099', 1, '2002-12-11 07:26:48', '2022-10-18 02:29:38');
+INSERT INTO `productos` VALUES (545, 'Cherry mini', 'g', 'Health & Ba', 708.82, '08109545', 1, '2015-04-24 13:20:46', '2010-11-12 19:28:26');
+INSERT INTO `productos` VALUES (546, 'Strawbjrry pro', 'g', 'Handcrafts', 328.40, '89106334', 1, '2008-09-13 10:14:40', '2005-09-10 20:28:58');
+INSERT INTO `productos` VALUES (547, 'Rambutan core', 'kg', 'Industrial ', 697.11, '12688272', 1, '2019-08-30 17:12:25', '2001-06-17 05:47:18');
+INSERT INTO `productos` VALUES (548, 'Rambetan core', 'lb', 'Books', 37.85, '5677085270892', 1, '2010-05-24 06:49:03', '2021-06-01 10:07:37');
+INSERT INTO `productos` VALUES (549, 'mluots', 'kg', 'Beauty', 490.85, 'GVA-8088', 1, '2021-05-21 05:47:54', '2009-05-04 01:50:54');
+INSERT INTO `productos` VALUES (550, 'ultra-Mango', 'kg', 'Cell Phones', 352.44, '02084190', 1, '2004-08-31 13:26:26', '2004-12-11 15:44:02');
+INSERT INTO `productos` VALUES (551, 'iAppke', 'kg', 'Baby', 647.24, 'QXL-4618', 1, '2000-01-12 04:43:49', '2002-01-10 12:58:30');
+INSERT INTO `productos` VALUES (552, 'Raspbevry pi', 'lb', 'Apps & Game', 435.95, '02371306', 1, '2008-08-01 01:13:28', '2010-03-02 18:47:17');
+INSERT INTO `productos` VALUES (553, 'ultra-Rambutan', 'lb', 'Automotive ', 656.25, 'FHK-4188', 1, '2021-07-22 18:53:16', '2003-09-16 04:11:54');
+INSERT INTO `productos` VALUES (554, 'fambutan mini', 'kg', 'Film Suppli', 15.03, '9799162272387', 1, '2019-07-18 11:41:26', '2013-05-29 19:46:58');
+INSERT INTO `productos` VALUES (555, 'Rarbutan premium', 'kg', 'Beauty', 642.20, '09241756', 1, '2002-07-02 22:36:40', '2006-03-21 21:24:32');
+INSERT INTO `productos` VALUES (556, 'Orange', 'g', 'Collectible', 163.06, '327460840350', 1, '2019-09-26 12:40:17', '2017-02-13 02:59:33');
+INSERT INTO `productos` VALUES (557, 'Kiwi se', 'lb', 'Film Suppli', 707.84, '06399849', 1, '2003-02-15 08:27:46', '2004-12-31 04:59:12');
+INSERT INTO `productos` VALUES (558, 'Raspberzy', 'g', 'Industrial ', 151.66, '9791387507558', 1, '2017-04-15 02:50:13', '2005-03-16 23:50:34');
+INSERT INTO `productos` VALUES (559, 'Apple plus', 'kg', 'CDs & Vinyl', 586.14, '362990989896', 1, '2018-04-03 00:56:01', '2006-10-22 17:35:15');
+INSERT INTO `productos` VALUES (560, 'ziwi', 'g', 'Cell Phones', 48.17, '996768462870', 1, '2013-12-01 21:13:47', '2009-12-15 07:44:20');
+INSERT INTO `productos` VALUES (561, 'Apple mini', 'kg', 'Industrial ', 67.51, '48697170', 1, '2001-03-15 19:48:13', '2021-03-19 09:25:36');
+INSERT INTO `productos` VALUES (562, 'Mango', 'lb', 'Musical Ins', 568.79, '05031238', 1, '2000-05-12 08:32:07', '2015-02-16 09:32:57');
+INSERT INTO `productos` VALUES (563, 'ambi-Pluots', 'lb', 'Collectible', 449.39, '31922142', 1, '2006-06-26 02:56:30', '2018-07-21 17:23:34');
+INSERT INTO `productos` VALUES (564, 'Grape pro', 'kg', 'Computers &', 993.15, '09155718', 1, '2003-05-07 15:27:53', '2002-08-09 10:19:26');
+INSERT INTO `productos` VALUES (565, 'ambi-aambutan', 'lb', 'Pet Supplie', 47.98, '8438406541438', 1, '2018-12-28 04:14:01', '2010-04-14 06:51:50');
+INSERT INTO `productos` VALUES (566, 'Kiwi mini', 'lb', 'Food', 244.88, '8817646167866', 1, '2016-12-31 02:48:57', '2001-10-10 17:17:33');
+INSERT INTO `productos` VALUES (567, 'Strawberry mini', 'kg', 'Cell Phones', 764.41, '1054759701779', 1, '2021-08-21 22:32:57', '2015-03-28 05:20:39');
+INSERT INTO `productos` VALUES (568, 'Orange', 'g', 'Clothing, S', 375.55, '05439768', 1, '2003-05-30 14:46:10', '2006-08-11 16:14:17');
+INSERT INTO `productos` VALUES (569, 'Strgwberry plus', 'kg', 'Household &', 805.49, '9781584384533', 1, '2007-11-30 02:25:21', '2011-10-01 04:57:32');
+INSERT INTO `productos` VALUES (570, 'omni-Mango', 'lb', 'Beauty & Pe', 707.49, '03646359', 1, '2008-04-30 21:57:36', '2019-10-08 22:14:32');
+INSERT INTO `productos` VALUES (571, 'Rambutan', 'g', 'Health & Ba', 923.50, '94574029', 1, '2018-03-24 19:12:23', '2016-12-08 07:19:27');
+INSERT INTO `productos` VALUES (572, 'Cherry', 'kg', 'Apps & Game', 113.20, '014159060129', 1, '2008-08-26 10:48:12', '2019-02-10 21:54:46');
+INSERT INTO `productos` VALUES (573, 'ultra-Ouange', 'lb', 'Others', 377.36, '06687717', 1, '2009-09-08 10:31:46', '2002-01-18 10:05:59');
+INSERT INTO `productos` VALUES (574, 'Kiwi', 'g', 'Books', 290.09, 'EBL-1221', 1, '2013-12-28 21:43:38', '2013-12-28 05:25:39');
+INSERT INTO `productos` VALUES (575, 'Kiwi', 'g', 'Handcrafts', 674.97, '035168087211', 1, '2009-06-07 08:29:08', '2014-04-17 03:31:19');
+INSERT INTO `productos` VALUES (576, 'ultra-Sarawberry', 'g', 'Musical Ins', 369.80, '4779386020105', 1, '2007-01-30 22:03:55', '2016-06-01 13:04:27');
+INSERT INTO `productos` VALUES (577, 'Strawberry', 'kg', 'Apps & Game', 421.82, 'UKD-2266', 1, '2011-01-26 05:21:27', '2003-08-25 18:48:02');
+INSERT INTO `productos` VALUES (578, 'Appje', 'lb', 'Beauty & Pe', 978.25, 'QTL-0816', 1, '2002-10-22 09:48:32', '2012-10-17 07:57:01');
+INSERT INTO `productos` VALUES (579, 'Raspberry pro', 'lb', 'Toys & Game', 322.12, '9789793276007', 1, '2018-07-26 08:41:02', '2013-10-28 14:30:57');
+INSERT INTO `productos` VALUES (580, 'Strawberry core', 'kg', 'Arts, Handi', 320.39, 'CGC-3182', 1, '2005-07-23 06:30:09', '2001-10-07 20:04:53');
+INSERT INTO `productos` VALUES (581, 'Orange premium', 'g', 'Sports & Ou', 458.26, '9797905571681', 1, '2020-04-25 09:07:26', '2000-05-26 14:41:42');
+INSERT INTO `productos` VALUES (582, 'Rambqtan elite', 'g', 'Musical Ins', 245.42, '62583213', 1, '2009-12-30 18:42:22', '2012-07-20 01:56:29');
+INSERT INTO `productos` VALUES (583, 'mrape core', 'kg', 'Automotive ', 861.59, '4401122635297', 1, '2009-04-06 04:45:28', '2008-10-21 19:51:12');
+INSERT INTO `productos` VALUES (584, 'Pluots', 'lb', 'Apps & Game', 765.35, '9798701626339', 1, '2001-11-04 08:32:24', '2009-08-14 08:29:06');
+INSERT INTO `productos` VALUES (585, 'Cherry', 'lb', 'Sports & Ou', 406.90, '9786251597780', 1, '2007-11-22 08:15:14', '2010-05-11 00:22:49');
+INSERT INTO `productos` VALUES (586, 'Kiwi', 'lb', 'Clothing, S', 885.49, '8416055095595', 1, '2023-02-03 09:38:49', '2015-05-08 05:17:36');
+INSERT INTO `productos` VALUES (587, 'Raapberry', 'lb', 'Collectible', 968.20, 'KME-4456', 1, '2014-04-02 05:17:49', '2001-05-10 12:18:25');
+INSERT INTO `productos` VALUES (588, 'Kiwi', 'kg', 'Handcrafts', 202.67, '9782491258771', 1, '2011-08-13 13:05:25', '2022-12-09 20:52:01');
+INSERT INTO `productos` VALUES (589, 'Cherry', 'lb', 'Pet Supplie', 624.63, '9797964062458', 1, '2019-02-26 21:33:12', '2004-10-23 04:49:43');
+INSERT INTO `productos` VALUES (590, 'trange', 'kg', 'Food', 558.21, '02380766', 1, '2018-12-27 15:11:15', '2022-05-02 21:48:42');
+INSERT INTO `productos` VALUES (591, 'Raspberry plus', 'g', 'Beauty & Pe', 233.04, '359284686753', 1, '2006-08-31 08:12:49', '2005-03-31 13:43:33');
+INSERT INTO `productos` VALUES (592, 'ultra-Orange', 'g', 'Household &', 373.56, '783974324913', 1, '2014-03-11 09:33:15', '2018-07-06 08:45:02');
+INSERT INTO `productos` VALUES (593, 'Orange', 'kg', 'Beauty', 745.60, 'TLM-4200', 1, '2009-03-20 23:17:01', '2000-06-20 09:18:12');
+INSERT INTO `productos` VALUES (594, 'Pluots', 'kg', 'Video Games', 761.55, '04460039', 1, '2007-04-08 19:29:37', '2004-12-15 21:39:19');
+INSERT INTO `productos` VALUES (595, 'Appqe', 'g', 'Apps & Game', 374.17, '954235991032', 1, '2013-03-20 09:11:09', '2007-05-31 19:17:20');
+INSERT INTO `productos` VALUES (596, 'Orange', 'kg', 'Beauty & Pe', 780.55, '04376439', 1, '2023-02-18 14:59:02', '2004-05-28 17:14:20');
+INSERT INTO `productos` VALUES (597, 'Cherry', 'kg', 'Beauty', 668.89, '09520776', 1, '2012-08-16 01:20:23', '2001-09-07 13:18:37');
+INSERT INTO `productos` VALUES (598, 'itrawberry', 'kg', 'Computers &', 737.89, '8179818809661', 1, '2017-06-22 23:42:12', '2010-03-18 00:53:40');
+INSERT INTO `productos` VALUES (599, 'ultra-Cherry', 'kg', 'Video Games', 628.03, '9796846903766', 1, '2013-06-16 11:11:15', '2001-09-13 18:25:12');
+INSERT INTO `productos` VALUES (600, 'Kjwi', 'g', 'Sports & Ou', 448.76, '00002486', 1, '2011-06-18 14:02:59', '2021-03-17 04:25:47');
+INSERT INTO `productos` VALUES (601, 'iPluots', 'kg', 'Film Suppli', 729.63, '00374767', 1, '2003-05-03 04:54:41', '2019-06-02 08:51:49');
+INSERT INTO `productos` VALUES (602, 'Raibutan se', 'kg', 'Computers &', 780.77, '40056043', 1, '2002-06-16 23:50:36', '2022-06-04 09:06:40');
+INSERT INTO `productos` VALUES (603, 'Rambutan', 'lb', 'Baggage & T', 669.51, '9794008866676', 1, '2012-10-04 00:40:53', '2006-04-28 06:48:08');
+INSERT INTO `productos` VALUES (604, 'Grwpe', 'lb', 'Handcrafts', 396.11, '296684065071', 1, '2002-10-31 22:26:05', '2017-10-10 23:28:09');
+INSERT INTO `productos` VALUES (605, 'Cherry', 'lb', 'Appliances', 659.07, '00779814', 1, '2007-04-04 10:49:15', '2016-05-03 10:34:42');
+INSERT INTO `productos` VALUES (606, 'Pluuts premium', 'kg', 'Baggage & T', 860.18, '639587210269', 1, '2016-08-30 16:37:05', '2014-11-02 06:13:27');
+INSERT INTO `productos` VALUES (607, 'piwi', 'g', 'Handcrafts', 913.54, '9785149973873', 1, '2017-07-12 20:10:12', '2022-08-15 09:42:17');
+INSERT INTO `productos` VALUES (608, 'qambutan se', 'g', 'Industrial ', 92.26, '9798596693690', 1, '2019-10-09 06:51:51', '2020-05-22 14:03:23');
+INSERT INTO `productos` VALUES (609, 'Strawberry core', 'g', 'Health & Ba', 368.30, '85886650', 1, '2020-11-07 16:12:28', '2013-09-19 08:00:50');
+INSERT INTO `productos` VALUES (610, 'Rgspberry pro', 'kg', 'Collectible', 127.99, '9784943919612', 1, '2021-11-25 20:08:34', '2017-04-11 13:53:08');
+INSERT INTO `productos` VALUES (611, 'omni-Rabbutan', 'kg', 'Appliances', 51.46, '9794939684820', 1, '2020-04-10 20:42:10', '2019-09-08 17:38:43');
+INSERT INTO `productos` VALUES (612, 'ultra-Ramoutan', 'g', 'Cell Phones', 148.34, '147101070683', 1, '2001-08-02 20:43:25', '2011-05-05 13:43:45');
+INSERT INTO `productos` VALUES (613, 'Oraage', 'lb', 'Automotive ', 786.25, '06214296', 1, '2017-04-26 21:54:20', '2021-06-05 08:16:53');
+INSERT INTO `productos` VALUES (614, 'Mxngo air', 'kg', 'Appliances', 909.91, '02853918', 1, '2017-06-12 18:06:33', '2004-03-26 13:37:33');
+INSERT INTO `productos` VALUES (615, 'Strawbekry premium', 'kg', 'Video Games', 30.41, 'MEA-9817', 1, '2016-12-02 18:58:28', '2022-07-16 01:05:50');
+INSERT INTO `productos` VALUES (616, 'omni-Strbwberry', 'g', 'Collectible', 342.12, '84047472', 1, '2021-08-21 22:14:59', '2012-06-28 08:17:23');
+INSERT INTO `productos` VALUES (617, 'Raspberry', 'kg', 'Baggage & T', 125.22, '150328917426', 1, '2008-06-12 19:02:00', '2011-11-17 08:19:52');
+INSERT INTO `productos` VALUES (618, 'ambi-lango', 'kg', 'Pet Supplie', 882.69, '9795979142806', 1, '2004-08-30 10:37:43', '2021-06-25 15:30:39');
+INSERT INTO `productos` VALUES (619, 'Maneo', 'kg', 'Food', 667.14, '00250726', 1, '2004-04-07 11:11:34', '2021-03-01 20:34:06');
+INSERT INTO `productos` VALUES (620, 'Orange', 'g', 'Tools & Hom', 322.87, '6243368025610', 1, '2015-12-24 04:05:51', '2015-09-10 17:12:30');
+INSERT INTO `productos` VALUES (621, 'Cherry', 'lb', 'Beauty', 971.81, 'CWC-8542', 1, '2011-01-20 06:30:49', '2001-07-11 11:45:17');
+INSERT INTO `productos` VALUES (622, 'Strawbergy se', 'kg', 'Pet Supplie', 666.34, '07988219', 1, '2005-06-28 20:34:28', '2007-11-04 09:36:55');
+INSERT INTO `productos` VALUES (623, 'iGrape', 'lb', 'Handcrafts', 811.05, '8356426035181', 1, '2002-06-11 04:01:15', '2015-10-19 07:53:55');
+INSERT INTO `productos` VALUES (624, 'Apple', 'g', 'Health & Ba', 231.08, '69950995', 1, '2003-03-12 16:08:52', '2015-03-26 15:09:56');
+INSERT INTO `productos` VALUES (625, 'omni-Kiwi', 'g', 'Health & Ba', 852.65, '05140015', 1, '2018-08-16 03:44:49', '2011-07-24 11:41:19');
+INSERT INTO `productos` VALUES (626, 'Kiwi', 'lb', 'Computers &', 175.77, 'WNI-1195', 1, '2008-05-15 09:42:46', '2009-06-03 16:15:57');
+INSERT INTO `productos` VALUES (627, 'hambutan plus', 'kg', 'Tools & Hom', 381.64, '9783104215327', 1, '2012-03-16 20:01:32', '2011-02-06 01:12:13');
+INSERT INTO `productos` VALUES (628, 'Strawberry pi', 'g', 'Industrial ', 397.98, '776090575161', 1, '2010-09-03 15:05:29', '2016-07-30 09:20:30');
+INSERT INTO `productos` VALUES (629, 'ultra-Grape', 'g', 'Arts, Handi', 252.07, '354368336807', 1, '2017-06-09 15:07:47', '2011-07-15 21:39:46');
+INSERT INTO `productos` VALUES (630, 'Rambutan', 'lb', 'Beauty', 232.74, '432008406773', 1, '2002-11-06 16:23:26', '2001-09-21 08:28:35');
+INSERT INTO `productos` VALUES (631, 'Kiwi', 'kg', 'Video Games', 444.91, '9787554926468', 1, '2009-05-18 02:21:47', '2000-05-23 07:56:44');
+INSERT INTO `productos` VALUES (632, 'Chlrry', 'g', 'Collectible', 894.13, '844034824894', 1, '2014-04-07 04:17:31', '2000-10-06 12:54:19');
+INSERT INTO `productos` VALUES (633, 'Manqo', 'g', 'Appliances', 780.81, '8793061523893', 1, '2014-05-26 03:21:31', '2004-08-08 20:10:54');
+INSERT INTO `productos` VALUES (634, 'ultra-Grtpe', 'lb', 'Centurion G', 755.46, '1469823836064', 1, '2002-05-29 02:26:15', '2009-03-05 07:42:16');
+INSERT INTO `productos` VALUES (635, 'Gjape', 'lb', 'Clothing, S', 193.27, '9780232240108', 1, '2017-11-24 17:09:34', '2004-11-16 15:52:16');
+INSERT INTO `productos` VALUES (636, 'ambi-Cherry', 'g', 'Video Games', 678.01, '3836411436254', 1, '2008-08-02 03:32:52', '2001-06-09 12:40:41');
+INSERT INTO `productos` VALUES (637, 'Apple', 'lb', 'Books', 875.48, '491995401888', 1, '2018-12-25 10:34:08', '2004-12-09 23:36:05');
+INSERT INTO `productos` VALUES (638, 'Kiqi', 'lb', 'Film Suppli', 526.67, '178752839862', 1, '2022-01-31 10:59:54', '2013-11-23 12:07:59');
+INSERT INTO `productos` VALUES (639, 'Orange pi', 'g', 'Arts, Handi', 126.13, '5130815569135', 1, '2010-10-13 05:27:37', '2009-06-04 13:14:32');
+INSERT INTO `productos` VALUES (640, 'atrawberry', 'kg', 'Automotive ', 520.30, 'KBD-3931', 1, '2022-08-14 19:14:22', '2018-11-11 11:13:28');
+INSERT INTO `productos` VALUES (641, 'Grrpe', 'kg', 'Appliances', 699.15, '1737789123468', 1, '2022-06-26 19:02:10', '2016-03-01 06:02:50');
+INSERT INTO `productos` VALUES (642, 'Raspberry', 'g', 'Tools & Hom', 398.14, '7742512691385', 1, '2001-10-18 17:56:48', '2009-07-10 13:04:50');
+INSERT INTO `productos` VALUES (643, 'Apple', 'kg', 'Baggage & T', 121.98, '862779617014', 1, '2009-12-31 01:20:01', '2002-03-26 00:44:25');
+INSERT INTO `productos` VALUES (644, 'Strawberry elite', 'g', 'Collectible', 195.47, '893118084303', 1, '2022-11-22 23:19:36', '2008-01-25 20:35:56');
+INSERT INTO `productos` VALUES (645, 'Apple', 'kg', 'Health & Ba', 726.75, '929834438554', 1, '2011-09-11 16:17:50', '2013-07-04 17:34:36');
+INSERT INTO `productos` VALUES (646, 'ambi-Raspberry', 'kg', 'Baby', 366.20, '071377464016', 1, '2011-09-29 13:49:58', '2015-04-25 09:37:34');
+INSERT INTO `productos` VALUES (647, 'ultra-Rambutan', 'kg', 'Pet Supplie', 558.87, '05220502', 1, '2019-07-20 05:30:10', '2010-11-20 01:56:22');
+INSERT INTO `productos` VALUES (648, 'omni-Rambutan', 'kg', 'Handcrafts', 197.87, 'ZKL-0362', 1, '2006-03-08 01:12:36', '2022-03-18 23:45:48');
+INSERT INTO `productos` VALUES (649, 'Raspberry', 'g', 'Baggage & T', 820.81, '0625079759798', 1, '2022-01-01 02:39:49', '2007-02-27 10:02:04');
+INSERT INTO `productos` VALUES (650, 'Appke', 'g', 'Others', 843.00, '1637274070768', 1, '2011-09-10 06:14:36', '2002-03-18 06:36:05');
+INSERT INTO `productos` VALUES (651, 'Apple se', 'kg', 'Musical Ins', 411.73, 'CDF-5208', 1, '2006-06-10 12:35:43', '2009-08-13 10:52:11');
+INSERT INTO `productos` VALUES (652, 'Plults pro', 'lb', 'Household &', 428.30, 'NGN-5759', 1, '2016-03-24 22:38:26', '2004-09-22 22:57:43');
+INSERT INTO `productos` VALUES (653, 'Strawbefry premium', 'kg', 'Tools & Hom', 824.77, '9790874791302', 1, '2011-01-21 22:31:28', '2019-06-30 22:21:58');
+INSERT INTO `productos` VALUES (654, 'Kqwi mini', 'kg', 'Video Games', 79.99, 'LMW-9824', 1, '2009-01-23 11:47:31', '2018-09-14 07:14:35');
+INSERT INTO `productos` VALUES (655, 'Appke core', 'kg', 'Cell Phones', 314.73, '8328827235750', 1, '2016-08-06 11:49:01', '2022-08-17 23:33:00');
+INSERT INTO `productos` VALUES (656, 'Mango', 'lb', 'Industrial ', 422.45, 'GCB-4831', 1, '2020-07-04 05:20:20', '2002-04-26 12:29:07');
+INSERT INTO `productos` VALUES (657, 'Kiwi', 'kg', 'Baggage & T', 569.12, '831981102410', 1, '2010-10-13 04:26:55', '2010-02-16 09:30:53');
+INSERT INTO `productos` VALUES (658, 'Mango', 'g', 'Handcrafts', 497.07, '33208923', 1, '2017-07-29 08:24:22', '2019-02-07 02:21:15');
+INSERT INTO `productos` VALUES (659, 'arange', 'kg', 'Tools & Hom', 410.28, '88352770', 1, '2004-06-06 04:30:08', '2010-09-28 18:00:18');
+INSERT INTO `productos` VALUES (660, 'omni-eango', 'kg', 'Film Suppli', 348.05, 'ALN-6204', 1, '2017-05-21 03:19:17', '2021-02-11 05:57:06');
+INSERT INTO `productos` VALUES (661, 'cluots', 'lb', 'Others', 682.38, '1756435093801', 1, '2009-01-06 06:36:41', '2013-11-13 13:50:31');
+INSERT INTO `productos` VALUES (662, 'Strawberry mini', 'kg', 'Beauty & Pe', 75.23, '08836083', 1, '2013-12-01 14:38:32', '2012-06-27 09:22:52');
+INSERT INTO `productos` VALUES (663, 'hrape', 'lb', 'Pet Supplie', 891.51, '976925908120', 1, '2023-06-21 22:37:24', '2001-09-22 05:47:12');
+INSERT INTO `productos` VALUES (664, 'Kmwi', 'kg', 'Cell Phones', 525.10, '73722632', 1, '2001-03-27 03:42:31', '2007-07-16 14:20:05');
+INSERT INTO `productos` VALUES (665, 'Raobutan', 'g', 'Others', 127.09, '09858695', 1, '2005-09-20 12:43:52', '2005-12-04 23:38:24');
+INSERT INTO `productos` VALUES (666, 'Orange', 'g', 'Handcrafts', 535.22, '08714350', 1, '2015-11-12 02:19:59', '2010-04-05 06:02:00');
+INSERT INTO `productos` VALUES (667, 'Apple elite', 'kg', 'Baggage & T', 174.65, '01756883', 1, '2005-03-18 14:47:35', '2006-12-05 06:36:56');
+INSERT INTO `productos` VALUES (668, 'erape', 'kg', 'Film Suppli', 381.87, 'UGJ-1018', 1, '2022-11-18 02:16:19', '2006-12-04 12:52:10');
+INSERT INTO `productos` VALUES (669, 'erape', 'kg', 'Clothing, S', 812.38, '9798315627159', 1, '2010-11-25 15:11:50', '2012-10-15 18:48:09');
+INSERT INTO `productos` VALUES (670, 'Plfots pi', 'kg', 'Industrial ', 137.28, '766769028326', 1, '2015-09-05 02:54:57', '2011-07-05 09:39:35');
+INSERT INTO `productos` VALUES (671, 'xwambutan', 'kg', 'Arts, Handi', 971.35, '9570344619677', 1, '2001-12-05 22:50:09', '2001-01-01 16:50:48');
+INSERT INTO `productos` VALUES (672, 'Oraige', 'lb', 'Automotive ', 504.29, 'PYC-5787', 1, '2003-03-15 21:21:18', '2013-07-31 08:56:05');
+INSERT INTO `productos` VALUES (673, 'xyherry', 'kg', 'Baggage & T', 508.22, 'LWI-9140', 1, '2020-04-20 03:36:09', '2000-04-18 13:24:44');
+INSERT INTO `productos` VALUES (674, 'Grape', 'lb', 'Beauty & Pe', 461.49, '9791732780810', 1, '2018-08-21 20:15:41', '2023-02-12 17:10:38');
+INSERT INTO `productos` VALUES (675, 'Margo', 'kg', 'Household &', 4.59, '9793732692674', 1, '2013-05-17 10:57:07', '2020-08-09 20:23:26');
+INSERT INTO `productos` VALUES (676, 'Manao', 'g', 'Handcrafts', 333.25, 'BXQ-6550', 1, '2013-12-02 08:37:16', '2010-01-30 00:59:57');
+INSERT INTO `productos` VALUES (677, 'grape pro', 'kg', 'Centurion G', 870.42, 'XVD-9401', 1, '2020-09-13 06:46:32', '2002-08-27 19:47:43');
+INSERT INTO `productos` VALUES (678, 'ambi-Raspberhy', 'g', 'Tools & Hom', 69.55, '945964795626', 1, '2010-03-15 18:31:00', '2004-03-06 21:13:10');
+INSERT INTO `productos` VALUES (679, 'ambi-Apple', 'g', 'Pet Supplie', 459.03, '01499698', 1, '2017-07-29 04:46:09', '2018-12-03 21:17:46');
+INSERT INTO `productos` VALUES (680, 'Kiwi', 'kg', 'Health & Ba', 811.62, '10203446', 1, '2014-01-21 10:26:09', '2010-10-15 00:09:49');
+INSERT INTO `productos` VALUES (681, 'opple', 'g', 'Beauty', 79.47, '07976377', 1, '2009-11-24 14:14:24', '2008-02-10 15:18:50');
+INSERT INTO `productos` VALUES (682, 'Czerry', 'g', 'Food', 178.38, '06061159', 1, '2000-11-06 07:59:25', '2017-07-04 06:25:54');
+INSERT INTO `productos` VALUES (683, 'Raspberry', 'lb', 'Books', 608.81, '01983784', 1, '2014-09-22 01:17:33', '2004-02-06 11:32:06');
+INSERT INTO `productos` VALUES (684, 'srape se', 'lb', 'Pet Supplie', 368.15, '93135733', 1, '2021-12-28 16:46:41', '2012-06-12 17:25:48');
+INSERT INTO `productos` VALUES (685, 'Rambutan', 'kg', 'Musical Ins', 133.46, '398425398537', 1, '2023-04-06 05:48:19', '2007-01-11 06:10:39');
+INSERT INTO `productos` VALUES (686, 'ultra-Strarberry', 'kg', 'Sports & Ou', 530.64, 'LQJ-4903', 1, '2017-12-18 12:37:48', '2022-12-10 01:10:55');
+INSERT INTO `productos` VALUES (687, 'ambi-Orange', 'kg', 'Beauty', 694.30, 'VHU-0462', 1, '2014-09-03 09:30:08', '2018-05-14 23:58:47');
+INSERT INTO `productos` VALUES (688, 'ambi-Orange', 'g', 'Baby', 892.71, '9792804621086', 1, '2008-03-19 02:39:07', '2001-08-13 04:42:52');
+INSERT INTO `productos` VALUES (689, 'Kiwi se', 'lb', 'Baby', 167.28, 'TJE-4810', 1, '2011-03-08 16:52:03', '2020-11-01 15:41:01');
+INSERT INTO `productos` VALUES (690, 'Apple elite', 'g', 'Beauty', 771.75, '30886391', 1, '2020-07-12 19:25:27', '2001-02-15 01:58:29');
+INSERT INTO `productos` VALUES (691, 'Mtngo mini', 'kg', 'Film Suppli', 166.56, '9782471848527', 1, '2016-06-28 21:47:41', '2002-12-17 06:49:16');
+INSERT INTO `productos` VALUES (692, 'Orange', 'kg', 'Computers &', 209.95, '3734280143177', 1, '2022-08-13 04:17:35', '2014-11-04 15:53:00');
+INSERT INTO `productos` VALUES (693, 'Appie', 'lb', 'Industrial ', 621.58, '060598244903', 1, '2022-04-20 22:44:00', '2016-08-04 22:56:08');
+INSERT INTO `productos` VALUES (694, 'miwi', 'lb', 'Musical Ins', 471.70, '9786098584608', 1, '2023-01-02 10:19:08', '2009-03-06 02:47:38');
+INSERT INTO `productos` VALUES (695, 'ambi-Mango', 'g', 'Film Suppli', 222.38, '7143870988207', 1, '2010-07-15 23:20:43', '2007-05-26 02:45:24');
+INSERT INTO `productos` VALUES (696, 'ambi-Grape', 'g', 'Tools & Hom', 159.39, '20519490', 1, '2021-02-26 14:54:31', '2005-08-19 15:18:00');
+INSERT INTO `productos` VALUES (697, 'Strawberry', 'kg', 'Clothing, S', 620.78, 'AZZ-9836', 1, '2012-10-27 00:47:57', '2002-03-15 06:09:08');
+INSERT INTO `productos` VALUES (698, 'xApple', 'g', 'CDs & Vinyl', 924.28, 'MZB-9551', 1, '2020-12-11 04:17:37', '2002-02-05 01:39:17');
+INSERT INTO `productos` VALUES (699, 'Rambutan', 'g', 'Beauty & Pe', 305.71, 'DZX-6684', 1, '2022-11-01 13:36:06', '2010-11-27 10:44:37');
+INSERT INTO `productos` VALUES (700, 'Orange', 'kg', 'Household &', 59.05, '8189588142165', 1, '2010-06-21 17:00:37', '2003-02-03 07:31:40');
+INSERT INTO `productos` VALUES (701, 'Pzuots', 'g', 'Baggage & T', 694.86, '090717600525', 1, '2010-01-31 13:51:29', '2006-04-10 23:11:13');
+INSERT INTO `productos` VALUES (702, 'Grape', 'kg', 'Sports & Ou', 14.63, '07893599', 1, '2011-07-29 03:22:41', '2006-02-12 15:05:00');
+INSERT INTO `productos` VALUES (703, 'Grppe', 'kg', 'Appliances', 731.00, 'IKI-7539', 1, '2017-12-03 17:06:37', '2002-03-17 08:10:42');
+INSERT INTO `productos` VALUES (704, 'oluots', 'lb', 'Baggage & T', 975.41, '471472887657', 1, '2007-04-09 17:33:16', '2002-03-11 14:02:40');
+INSERT INTO `productos` VALUES (705, 'Strawberry', 'lb', 'Others', 23.48, '3226699797978', 1, '2000-10-19 06:14:13', '2004-04-02 05:16:37');
+INSERT INTO `productos` VALUES (706, 'Chekry', 'lb', 'Video Games', 373.67, '04379331', 1, '2009-09-04 02:58:13', '2000-11-21 04:22:41');
+INSERT INTO `productos` VALUES (707, 'hluots', 'kg', 'Automotive ', 550.08, '037473274744', 1, '2002-08-14 18:07:30', '2023-08-14 12:49:59');
+INSERT INTO `productos` VALUES (708, 'ultra-Pluqts', 'kg', 'Others', 355.60, '45819247', 1, '2011-02-05 13:41:18', '2005-12-24 09:40:08');
+INSERT INTO `productos` VALUES (709, 'xhrange', 'lb', 'Sports & Ou', 166.79, '00672900', 1, '2023-02-07 23:20:55', '2023-02-10 13:43:26');
+INSERT INTO `productos` VALUES (710, 'Grape', 'g', 'Household &', 450.53, '65438770', 1, '2006-10-24 21:11:01', '2012-02-28 00:18:16');
+INSERT INTO `productos` VALUES (711, 'Grape', 'lb', 'Tools & Hom', 104.16, '9361275778690', 1, '2003-10-02 07:41:44', '2005-03-23 21:49:10');
+INSERT INTO `productos` VALUES (712, 'Kiwi', 'lb', 'Books', 90.81, '95340234', 1, '2010-11-13 23:00:01', '2014-10-27 22:32:42');
+INSERT INTO `productos` VALUES (713, 'ultra-Cderry', 'lb', 'Toys & Game', 647.18, '0939243894391', 1, '2001-01-15 12:49:45', '2014-01-18 21:25:25');
+INSERT INTO `productos` VALUES (714, 'Stradberry', 'g', 'Film Suppli', 349.93, '016242395675', 1, '2001-01-08 15:43:13', '2007-03-07 09:00:56');
+INSERT INTO `productos` VALUES (715, 'Grape', 'lb', 'Beauty', 522.99, 'NUA-7649', 1, '2011-05-06 00:13:59', '2021-10-06 14:29:21');
+INSERT INTO `productos` VALUES (716, 'Rambutan', 'kg', 'Household &', 58.81, '73857624', 1, '2013-05-17 18:07:57', '2008-01-28 13:21:36');
+INSERT INTO `productos` VALUES (717, 'izango', 'kg', 'Food', 299.09, 'SFM-0048', 1, '2001-05-01 15:36:32', '2002-05-07 11:14:21');
+INSERT INTO `productos` VALUES (718, 'Kiwi', 'g', 'Others', 316.65, 'XBM-9706', 1, '2013-08-20 13:01:03', '2021-10-09 11:28:08');
+INSERT INTO `productos` VALUES (719, 'Mango core', 'g', 'Automotive ', 526.07, '9785578777844', 1, '2003-04-28 22:50:35', '2023-09-01 11:27:55');
+INSERT INTO `productos` VALUES (720, 'Strawberry plus', 'kg', 'Beauty', 5.16, '08566065', 1, '2021-03-13 19:09:35', '2002-02-25 06:09:07');
+INSERT INTO `productos` VALUES (721, 'Strawberry', 'kg', 'Film Suppli', 868.79, '0244325400620', 1, '2020-04-12 07:06:26', '2014-01-09 15:49:23');
+INSERT INTO `productos` VALUES (722, 'xStrawberry', 'g', 'Handcrafts', 900.08, '08755933', 1, '2000-04-06 06:11:31', '2008-06-18 14:56:43');
+INSERT INTO `productos` VALUES (723, 'Strawberry', 'g', 'CDs & Vinyl', 519.43, '4993224740219', 1, '2011-06-05 00:27:25', '2009-07-15 11:47:52');
+INSERT INTO `productos` VALUES (724, 'Strawberry', 'g', 'Computers &', 355.94, '9789612671778', 1, '2009-07-12 02:31:03', '2000-11-14 09:27:21');
+INSERT INTO `productos` VALUES (725, 'Apple plus', 'g', 'Sports & Ou', 731.82, '01782325', 1, '2012-10-17 04:57:23', '2007-05-14 21:29:28');
+INSERT INTO `productos` VALUES (726, 'Apple', 'kg', 'Computers &', 564.23, '00054652', 1, '2001-11-01 01:01:33', '2018-06-28 23:45:20');
+INSERT INTO `productos` VALUES (727, 'ultra-Ptuots', 'g', 'Appliances', 494.43, 'NLA-0281', 1, '2009-07-17 16:15:06', '2008-10-09 01:59:53');
+INSERT INTO `productos` VALUES (728, 'Rambutan mini', 'lb', 'Books', 424.10, '01237818', 1, '2007-11-06 08:33:25', '2007-04-13 04:29:09');
+INSERT INTO `productos` VALUES (729, 'Pluots', 'lb', 'Video Games', 635.58, '736031450155', 1, '2012-05-02 19:22:59', '2008-03-02 17:10:13');
+INSERT INTO `productos` VALUES (730, 'aherry', 'lb', 'Beauty', 89.95, 'ZKU-8058', 1, '2002-03-06 05:49:10', '2017-07-30 21:45:13');
+INSERT INTO `productos` VALUES (731, 'Raspberry', 'lb', 'Centurion G', 605.23, '8338032789139', 1, '2003-10-25 14:58:37', '2000-09-11 06:57:52');
+INSERT INTO `productos` VALUES (732, 'xaspberry', 'lb', 'Automotive ', 117.91, '16454415', 1, '2018-10-27 08:26:29', '2018-10-21 01:30:04');
+INSERT INTO `productos` VALUES (733, 'Apple elite', 'kg', 'Arts, Handi', 35.28, '097453203300', 1, '2004-10-24 07:02:56', '2008-05-22 20:18:41');
+INSERT INTO `productos` VALUES (734, 'Rambutan', 'g', 'Cell Phones', 45.94, '65425497', 1, '2019-03-03 18:08:48', '2017-12-23 23:35:47');
+INSERT INTO `productos` VALUES (735, 'Strawberry', 'g', 'Computers &', 354.26, '07124839', 1, '2006-04-24 20:33:19', '2010-01-02 00:01:22');
+INSERT INTO `productos` VALUES (736, 'Mango air', 'lb', 'Appliances', 312.67, '5498119141731', 1, '2023-03-06 13:30:27', '2019-02-07 20:05:37');
+INSERT INTO `productos` VALUES (737, 'Orange', 'kg', 'Tools & Hom', 650.18, '6302534743229', 1, '2008-11-06 20:54:27', '2016-08-01 23:19:59');
+INSERT INTO `productos` VALUES (738, 'Manao elite', 'lb', 'Books', 753.64, '8724921050235', 1, '2001-01-25 01:36:03', '2007-04-29 11:08:11');
+INSERT INTO `productos` VALUES (739, 'eiwi', 'lb', 'Cell Phones', 15.26, '9757479591492', 1, '2010-04-17 08:49:50', '2003-03-05 16:27:46');
+INSERT INTO `productos` VALUES (740, 'Oranee elite', 'kg', 'Pet Supplie', 506.79, '019335534135', 1, '2007-05-07 17:04:43', '2000-10-23 19:02:40');
+INSERT INTO `productos` VALUES (741, 'ambi-Grape', 'g', 'Food', 291.34, '03458327', 1, '2001-08-29 07:24:24', '2016-07-07 14:44:39');
+INSERT INTO `productos` VALUES (742, 'kambutan', 'kg', 'Books', 923.52, '502484427637', 1, '2003-08-29 06:00:47', '2001-06-05 16:54:42');
+INSERT INTO `productos` VALUES (743, 'omni-Apple', 'lb', 'Video Games', 468.39, '75825485', 1, '2011-07-07 04:54:51', '2018-02-28 09:30:07');
+INSERT INTO `productos` VALUES (744, 'Chegry', 'kg', 'Beauty', 712.39, '9612180391628', 1, '2023-05-21 08:19:02', '2016-07-19 14:17:29');
+INSERT INTO `productos` VALUES (745, 'Apple', 'lb', 'Industrial ', 257.42, 'AFF-4827', 1, '2011-03-11 09:17:36', '2008-03-06 00:08:08');
+INSERT INTO `productos` VALUES (746, 'Ample', 'lb', 'Handcrafts', 560.58, '2136269999002', 1, '2018-07-01 21:51:40', '2006-10-18 13:52:35');
+INSERT INTO `productos` VALUES (747, 'Grape', 'g', 'Cell Phones', 561.21, '9782907640282', 1, '2000-01-18 04:05:02', '2010-11-20 14:14:06');
+INSERT INTO `productos` VALUES (748, 'Rambutan core', 'kg', 'Video Games', 62.54, 'KRR-9231', 1, '2013-09-02 09:24:22', '2017-11-21 03:45:09');
+INSERT INTO `productos` VALUES (749, 'kiwi', 'lb', 'Books', 595.73, '27734513', 1, '2001-12-20 00:13:45', '2012-08-26 23:26:52');
+INSERT INTO `productos` VALUES (750, 'Apple', 'g', 'Tools & Hom', 57.78, '47810310', 1, '2016-04-09 07:12:53', '2012-02-15 03:40:28');
+INSERT INTO `productos` VALUES (751, 'Rasfberry', 'kg', 'Video Games', 535.66, 'ROY-9184', 1, '2018-07-30 13:27:54', '2006-03-22 01:14:31');
+INSERT INTO `productos` VALUES (752, 'Mango', 'lb', 'Automotive ', 378.86, 'PUU-1037', 1, '2003-09-04 04:52:36', '2013-07-06 09:45:25');
+INSERT INTO `productos` VALUES (753, 'Apple', 'kg', 'Toys & Game', 475.04, '299269771138', 1, '2016-01-11 01:57:02', '2007-10-26 04:43:14');
+INSERT INTO `productos` VALUES (754, 'Raspberry pro', 'kg', 'Sports & Ou', 766.16, '663528405667', 1, '2005-03-20 21:10:55', '2000-08-15 01:18:52');
+INSERT INTO `productos` VALUES (755, 'iPluots', 'g', 'Cell Phones', 13.66, '0500318734173', 1, '2006-12-01 18:39:59', '2011-01-17 07:36:18');
+INSERT INTO `productos` VALUES (756, 'Oranme elite', 'kg', 'Film Suppli', 539.84, '05060337', 1, '2015-04-16 13:47:43', '2012-04-07 03:41:15');
+INSERT INTO `productos` VALUES (757, 'Raspberry mini', 'kg', 'Tools & Hom', 843.88, '07184598', 1, '2013-12-01 16:54:48', '2020-08-13 14:08:49');
+INSERT INTO `productos` VALUES (758, 'Cherry', 'kg', 'Beauty & Pe', 745.82, '52847981', 1, '2003-07-06 02:53:21', '2022-11-15 04:51:15');
+INSERT INTO `productos` VALUES (759, 'ambi-Rambutan', 'kg', 'Industrial ', 131.70, '9833326382168', 1, '2002-01-10 19:54:48', '2009-07-03 09:18:23');
+INSERT INTO `productos` VALUES (760, 'Pluots', 'g', 'Household &', 671.61, '9787757551542', 1, '2008-06-11 13:33:08', '2006-11-16 05:37:11');
+INSERT INTO `productos` VALUES (761, 'Strawberry', 'lb', 'Automotive ', 421.66, '03958827', 1, '2022-07-17 04:59:18', '2016-11-26 08:10:24');
+INSERT INTO `productos` VALUES (762, 'prape', 'kg', 'Baby', 377.02, '08127402', 1, '2022-10-01 19:52:26', '2019-02-01 08:03:53');
+INSERT INTO `productos` VALUES (763, 'wpple se', 'g', 'Baggage & T', 678.87, '9294147022631', 1, '2003-01-26 00:16:46', '2019-08-10 18:00:37');
+INSERT INTO `productos` VALUES (764, 'Cherry', 'kg', 'Baggage & T', 156.64, '00413619', 1, '2008-04-27 13:17:35', '2009-03-17 02:50:19');
+INSERT INTO `productos` VALUES (765, 'Orange', 'kg', 'Others', 706.32, '261959830838', 1, '2017-01-26 06:20:15', '2015-09-10 10:28:48');
+INSERT INTO `productos` VALUES (766, 'Grape', 'g', 'Beauty & Pe', 104.73, '7129458603151', 1, '2010-08-25 01:20:31', '2007-01-01 21:11:15');
+INSERT INTO `productos` VALUES (767, 'Radbutan', 'g', 'Appliances', 773.79, 'YTX-5593', 1, '2017-05-20 07:45:56', '2002-10-08 01:24:13');
+INSERT INTO `productos` VALUES (768, 'Rambutan', 'kg', 'CDs & Vinyl', 842.00, '41400272', 1, '2002-03-01 17:16:19', '2018-04-04 07:10:23');
+INSERT INTO `productos` VALUES (769, 'Pluots', 'g', 'Beauty & Pe', 400.07, '6997927104369', 1, '2003-07-11 23:56:51', '2002-03-25 21:58:04');
+INSERT INTO `productos` VALUES (770, 'Orange', 'g', 'Baby', 120.28, 'MTF-7318', 1, '2021-04-10 05:26:48', '2019-02-06 17:01:42');
+INSERT INTO `productos` VALUES (771, 'Orange', 'lb', 'Baby', 493.58, '96737972', 1, '2022-03-27 17:34:32', '2003-09-30 22:51:40');
+INSERT INTO `productos` VALUES (772, 'Raspberry', 'lb', 'Household &', 456.85, '06851811', 1, '2023-03-22 05:31:00', '2001-07-19 17:23:32');
+INSERT INTO `productos` VALUES (773, 'Raspberry elite', 'lb', 'Health & Ba', 896.82, 'SKX-2927', 1, '2006-08-29 11:11:16', '2010-12-02 09:40:20');
+INSERT INTO `productos` VALUES (774, 'apple pi', 'lb', 'Computers &', 53.89, 'JGT-5238', 1, '2006-10-13 07:37:29', '2014-12-10 18:37:53');
+INSERT INTO `productos` VALUES (775, 'Kiwi', 'kg', 'Tools & Hom', 467.16, '9799602602040', 1, '2003-05-31 11:19:25', '2018-10-24 04:32:28');
+INSERT INTO `productos` VALUES (776, 'Kiwi pro', 'kg', 'Beauty', 858.21, 'SYB-2264', 1, '2015-06-18 01:09:11', '2010-04-14 00:29:51');
+INSERT INTO `productos` VALUES (777, 'Grawe', 'kg', 'Video Games', 227.42, '12244980', 1, '2004-10-03 07:27:54', '2020-04-15 18:51:22');
+INSERT INTO `productos` VALUES (778, 'Cherry pi', 'g', 'Beauty & Pe', 314.69, '3935334904762', 1, '2002-11-05 16:57:17', '2021-03-01 14:07:28');
+INSERT INTO `productos` VALUES (779, 'omni-grange', 'kg', 'Tools & Hom', 658.65, 'TYL-6848', 1, '2012-02-19 07:24:28', '2008-12-01 11:22:30');
+INSERT INTO `productos` VALUES (780, 'Kiji plus', 'lb', 'Household &', 612.10, '04970767', 1, '2021-11-05 21:56:33', '2002-05-24 13:33:57');
+INSERT INTO `productos` VALUES (781, 'Rambutsn core', 'kg', 'Baggage & T', 212.45, 'NIJ-3274', 1, '2010-01-25 20:04:07', '2016-05-18 06:55:21');
+INSERT INTO `productos` VALUES (782, 'Grqpe', 'g', 'Cell Phones', 878.02, '00801744', 1, '2001-07-02 21:14:28', '2020-04-04 08:41:49');
+INSERT INTO `productos` VALUES (783, 'Kiai', 'kg', 'Automotive ', 32.64, '7479617271722', 1, '2003-10-09 21:08:59', '2004-02-07 06:48:37');
+INSERT INTO `productos` VALUES (784, 'brape pi', 'lb', 'Automotive ', 499.82, '97750154', 1, '2004-10-10 20:03:22', '2021-10-13 04:18:08');
+INSERT INTO `productos` VALUES (785, 'Oragge', 'lb', 'Food', 571.75, 'AUY-9294', 1, '2007-02-19 21:23:47', '2010-03-10 21:31:46');
+INSERT INTO `productos` VALUES (786, 'Cherry pro', 'g', 'Cell Phones', 274.22, 'AZO-2196', 1, '2020-12-20 00:18:46', '2005-06-27 15:11:04');
+INSERT INTO `productos` VALUES (787, 'Mango', 'kg', 'Food', 382.89, '9797468452373', 1, '2012-07-24 04:48:17', '2010-09-27 01:49:25');
+INSERT INTO `productos` VALUES (788, 'diwi', 'g', 'Beauty & Pe', 385.66, '00646116', 1, '2021-01-02 13:14:35', '2021-02-01 06:19:47');
+INSERT INTO `productos` VALUES (789, 'sluots', 'g', 'Clothing, S', 627.48, '05068326', 1, '2013-09-26 17:19:32', '2006-02-25 01:11:38');
+INSERT INTO `productos` VALUES (790, 'Kiwi', 'g', 'Household &', 953.94, '814857662775', 1, '2005-07-14 14:41:36', '2005-11-10 15:16:38');
+INSERT INTO `productos` VALUES (791, 'yaspberry', 'kg', 'Arts, Handi', 893.76, 'FRA-4617', 1, '2006-03-29 12:09:21', '2012-03-26 05:28:17');
+INSERT INTO `productos` VALUES (792, 'Kiwi', 'lb', 'Video Games', 259.04, '0722119862477', 1, '2020-05-02 02:52:13', '2014-01-11 21:05:42');
+INSERT INTO `productos` VALUES (793, 'Graue', 'kg', 'Cell Phones', 62.99, 'WNJ-8280', 1, '2006-10-22 12:49:19', '2017-02-27 19:25:41');
+INSERT INTO `productos` VALUES (794, 'Rambulan elite', 'kg', 'Beauty & Pe', 226.76, '97195078', 1, '2004-02-27 12:47:08', '2018-11-09 03:25:58');
+INSERT INTO `productos` VALUES (795, 'Rambutan', 'kg', 'Baby', 57.33, '146633260845', 1, '2019-12-17 03:49:07', '2000-05-28 11:27:43');
+INSERT INTO `productos` VALUES (796, 'ambi-Oraige', 'kg', 'Baggage & T', 856.00, '9526091143941', 1, '2004-01-10 09:06:40', '2009-05-25 12:04:56');
+INSERT INTO `productos` VALUES (797, 'Staawberry elite', 'lb', 'Baggage & T', 218.50, 'MTW-0934', 1, '2014-06-23 17:02:31', '2014-01-11 09:16:57');
+INSERT INTO `productos` VALUES (798, 'Grape', 'g', 'Others', 195.29, '6879227670617', 1, '2011-03-04 07:19:21', '2008-06-22 23:24:03');
+INSERT INTO `productos` VALUES (799, 'omni-Apple', 'lb', 'Books', 44.00, '3120442836764', 1, '2014-08-26 11:05:28', '2013-06-20 18:01:01');
+INSERT INTO `productos` VALUES (800, 'Oratge', 'kg', 'Centurion G', 105.67, '00803120', 1, '2010-11-08 03:24:12', '2017-06-16 14:20:08');
+INSERT INTO `productos` VALUES (801, 'Grape plus', 'g', 'Clothing, S', 741.39, '654409295958', 1, '2020-08-28 00:32:57', '2011-05-29 13:13:02');
+INSERT INTO `productos` VALUES (802, 'Cheryy plus', 'lb', 'Clothing, S', 915.83, '8693332099471', 1, '2016-05-01 06:24:09', '2016-11-14 04:17:00');
+INSERT INTO `productos` VALUES (803, 'omni-Rambutan', 'lb', 'Beauty & Pe', 718.88, '70303940', 1, '2021-09-14 03:29:59', '2007-10-30 04:47:14');
+INSERT INTO `productos` VALUES (804, 'Orgnge', 'g', 'Musical Ins', 563.72, '253659580397', 1, '2007-03-23 10:26:16', '2018-09-29 03:04:22');
+INSERT INTO `productos` VALUES (805, 'Rambutan core', 'kg', 'Automotive ', 166.87, 'WIR-0742', 1, '2019-06-25 03:22:23', '2003-06-25 20:40:03');
+INSERT INTO `productos` VALUES (806, 'Raspberry core', 'g', 'Apps & Game', 484.64, '71728537', 1, '2009-05-19 18:36:32', '2010-07-20 03:08:30');
+INSERT INTO `productos` VALUES (807, 'npple', 'lb', 'Beauty', 789.21, '8809502292485', 1, '2010-05-02 19:28:16', '2018-01-04 01:33:39');
+INSERT INTO `productos` VALUES (808, 'ultra-Oranfe', 'lb', 'Pet Supplie', 463.10, '00583060', 1, '2015-10-23 01:24:09', '2020-07-04 14:23:17');
+INSERT INTO `productos` VALUES (809, 'Kiwi', 'g', 'Apps & Game', 815.30, '3279489153676', 1, '2005-01-09 19:26:13', '2004-07-17 08:12:32');
+INSERT INTO `productos` VALUES (810, 'Cherry elite', 'lb', 'Baby', 696.31, '07274015', 1, '2009-07-18 11:21:28', '2012-11-17 21:55:04');
+INSERT INTO `productos` VALUES (811, 'Rambutan premium', 'kg', 'Cell Phones', 902.69, '62113601', 1, '2021-03-04 16:34:20', '2007-06-11 17:30:17');
+INSERT INTO `productos` VALUES (812, 'bpple core', 'g', 'Clothing, S', 218.62, '9792164535948', 1, '2017-05-24 02:23:46', '2012-06-17 21:34:16');
+INSERT INTO `productos` VALUES (813, 'wiwi core', 'g', 'Centurion G', 129.83, 'BNY-7696', 1, '2002-01-09 21:56:03', '2010-02-11 23:45:59');
+INSERT INTO `productos` VALUES (814, 'Orange', 'kg', 'Clothing, S', 247.53, '920684194751', 1, '2009-09-03 22:55:09', '2009-06-08 23:10:07');
+INSERT INTO `productos` VALUES (815, 'ierange', 'lb', 'Beauty & Pe', 393.07, '05063895', 1, '2008-02-01 20:54:11', '2012-11-01 10:53:15');
+INSERT INTO `productos` VALUES (816, 'Appke', 'kg', 'Health & Ba', 134.82, '9780999993507', 1, '2002-11-11 17:44:17', '2003-07-25 17:18:06');
+INSERT INTO `productos` VALUES (817, 'viwi pro', 'kg', 'Musical Ins', 923.04, '9798613548217', 1, '2022-08-05 09:01:23', '2007-01-29 17:29:21');
+INSERT INTO `productos` VALUES (818, 'iRaspberqy', 'kg', 'Others', 1.79, '32666687', 1, '2006-10-17 08:00:33', '2011-04-18 02:21:47');
+INSERT INTO `productos` VALUES (819, 'ambi-Apple', 'kg', 'Computers &', 698.69, '3859487471318', 1, '2020-12-20 06:16:33', '2001-12-25 23:09:48');
+INSERT INTO `productos` VALUES (820, 'vtrawberry se', 'kg', 'Pet Supplie', 24.77, '06050702', 1, '2012-03-05 03:56:49', '2002-01-10 03:01:21');
+INSERT INTO `productos` VALUES (821, 'omni-Ordnge', 'lb', 'Video Games', 373.26, '9136093439357', 1, '2017-08-14 03:34:39', '2014-10-04 08:52:44');
+INSERT INTO `productos` VALUES (822, 'Chlrry', 'g', 'Beauty & Pe', 254.51, '04780403', 1, '2016-08-22 05:34:20', '2022-07-12 23:26:48');
+INSERT INTO `productos` VALUES (823, 'Orange', 'g', 'Cell Phones', 370.97, '400350642965', 1, '2002-06-17 18:03:17', '2021-05-06 18:03:49');
+INSERT INTO `productos` VALUES (824, 'ultra-Stralberry', 'kg', 'Video Games', 312.22, 'YTG-8572', 1, '2010-12-04 19:04:29', '2019-10-19 23:33:46');
+INSERT INTO `productos` VALUES (825, 'miwi', 'lb', 'Centurion G', 73.34, '056603320441', 1, '2016-04-15 12:05:26', '2021-09-01 23:19:08');
+INSERT INTO `productos` VALUES (826, 'Cherry', 'lb', 'Computers &', 309.14, '824716263227', 1, '2013-10-04 12:06:57', '2022-04-13 21:13:04');
+INSERT INTO `productos` VALUES (827, 'xzango', 'kg', 'CDs & Vinyl', 906.43, '9791594645685', 1, '2014-08-22 10:26:37', '2015-07-20 08:04:23');
+INSERT INTO `productos` VALUES (828, 'iOrrnge', 'g', 'Automotive ', 893.07, 'KAC-3426', 1, '2018-04-09 09:21:13', '2018-07-06 01:12:20');
+INSERT INTO `productos` VALUES (829, 'Rambutan', 'kg', 'Collectible', 130.52, '9794334309397', 1, '2003-08-26 12:12:07', '2018-11-22 07:10:18');
+INSERT INTO `productos` VALUES (830, 'Orarge pro', 'g', 'Toys & Game', 236.31, '9786198639482', 1, '2001-06-06 03:24:00', '2017-04-28 06:41:41');
+INSERT INTO `productos` VALUES (831, 'Mango plus', 'lb', 'Collectible', 911.72, '83382116', 1, '2004-04-05 13:27:55', '2016-05-04 15:18:48');
+INSERT INTO `productos` VALUES (832, 'zrange mini', 'lb', 'Apps & Game', 743.40, '045960232689', 1, '2014-09-27 00:56:20', '2000-08-02 09:06:50');
+INSERT INTO `productos` VALUES (833, 'Pluots', 'kg', 'Beauty', 265.01, '07315305', 1, '2023-05-04 18:02:30', '2017-11-01 17:03:22');
+INSERT INTO `productos` VALUES (834, 'Rambulan', 'kg', 'Beauty', 901.35, 'ZJM-9671', 1, '2005-10-12 08:39:50', '2001-06-18 12:13:09');
+INSERT INTO `productos` VALUES (835, 'Kimi premium', 'kg', 'Food', 542.22, '06517427', 1, '2012-07-03 16:09:08', '2008-01-05 15:49:34');
+INSERT INTO `productos` VALUES (836, 'Strdwberry', 'g', 'Clothing, S', 330.09, '30146860', 1, '2018-10-16 01:52:07', '2009-12-16 07:45:43');
+INSERT INTO `productos` VALUES (837, 'Strawbexry plus', 'lb', 'Books', 781.49, '9781843479444', 1, '2001-05-11 19:19:40', '2002-04-21 08:18:03');
+INSERT INTO `productos` VALUES (838, 'Raspberry', 'kg', 'Toys & Game', 265.54, 'QSM-4645', 1, '2021-12-15 17:13:16', '2015-12-23 21:03:57');
+INSERT INTO `productos` VALUES (839, 'nherry', 'kg', 'Appliances', 241.91, '9787829901039', 1, '2019-05-19 06:56:06', '2007-11-18 00:33:04');
+INSERT INTO `productos` VALUES (840, 'Pluots pro', 'lb', 'Clothing, S', 74.19, '39685582', 1, '2022-08-29 03:57:12', '2007-05-11 07:12:36');
+INSERT INTO `productos` VALUES (841, 'Raspberry', 'g', 'Industrial ', 695.18, '41930748', 1, '2010-10-28 06:09:52', '2020-07-26 21:42:44');
+INSERT INTO `productos` VALUES (842, 'Kiwi se', 'lb', 'Health & Ba', 357.38, '218056507750', 1, '2004-11-28 13:45:34', '2003-05-04 19:39:57');
+INSERT INTO `productos` VALUES (843, 'Manao pi', 'kg', 'Beauty', 150.53, '07476150', 1, '2015-02-26 11:17:35', '2009-12-26 08:26:35');
+INSERT INTO `productos` VALUES (844, 'Apple', 'lb', 'Books', 167.49, '240227573813', 1, '2013-05-10 10:59:53', '2015-12-21 06:44:42');
+INSERT INTO `productos` VALUES (845, 'xRaspberry', 'lb', 'Sports & Ou', 480.49, '9568391017836', 1, '2021-04-16 22:33:58', '2013-06-04 02:00:16');
+INSERT INTO `productos` VALUES (846, 'Rambutan mini', 'lb', 'Tools & Hom', 705.93, '9788692844683', 1, '2008-02-22 20:14:53', '2001-03-19 15:55:22');
+INSERT INTO `productos` VALUES (847, 'xGrape', 'g', 'Arts, Handi', 45.60, 'BNB-0226', 1, '2004-07-28 20:32:05', '2022-05-13 23:49:15');
+INSERT INTO `productos` VALUES (848, 'Strawberry mini', 'kg', 'Automotive ', 133.79, 'OMT-9772', 1, '2010-09-03 10:58:28', '2020-10-22 14:52:25');
+INSERT INTO `productos` VALUES (849, 'erange mini', 'g', 'Centurion G', 835.39, '047655360967', 1, '2008-07-20 05:03:04', '2013-02-26 05:05:47');
+INSERT INTO `productos` VALUES (850, 'Orange', 'kg', 'Pet Supplie', 946.02, '3018841141148', 1, '2023-04-02 01:13:02', '2008-12-18 03:51:59');
+INSERT INTO `productos` VALUES (851, 'ultra-Kkwi', 'lb', 'Baby', 956.69, 'QXB-1221', 1, '2018-04-30 12:15:43', '2016-04-21 02:46:33');
+INSERT INTO `productos` VALUES (852, 'uherry', 'g', 'Sports & Ou', 423.15, '3214671926812', 1, '2015-11-28 17:03:15', '2020-12-10 06:23:12');
+INSERT INTO `productos` VALUES (853, 'Mango pi', 'lb', 'Cell Phones', 308.84, 'YVC-7589', 1, '2019-07-04 15:08:03', '2006-10-10 16:29:17');
+INSERT INTO `productos` VALUES (854, 'Rambutan', 'kg', 'Handcrafts', 729.61, '9785740563626', 1, '2016-03-09 06:40:39', '2005-10-08 21:04:11');
+INSERT INTO `productos` VALUES (855, 'Pxuots', 'lb', 'CDs & Vinyl', 677.51, '3860952969650', 1, '2007-06-17 15:23:29', '2017-05-18 20:41:32');
+INSERT INTO `productos` VALUES (856, 'Apyle pi', 'lb', 'Books', 767.97, 'KXB-6356', 1, '2002-07-04 02:26:32', '2005-06-15 13:02:12');
+INSERT INTO `productos` VALUES (857, 'ultra-Pluoys', 'lb', 'Centurion G', 868.51, '28794677', 1, '2017-01-30 18:22:12', '2004-01-16 19:17:29');
+INSERT INTO `productos` VALUES (858, 'ultra-Orange', 'g', 'Tools & Hom', 612.88, '9788878447332', 1, '2005-09-04 17:57:56', '2002-05-06 16:27:36');
+INSERT INTO `productos` VALUES (859, 'omni-krange', 'lb', 'Cell Phones', 763.48, '00960090', 1, '2009-11-04 17:30:06', '2012-11-01 22:48:34');
+INSERT INTO `productos` VALUES (860, 'xApfle', 'kg', 'Video Games', 33.26, '9512138276048', 1, '2019-08-30 11:15:25', '2006-10-15 12:20:00');
+INSERT INTO `productos` VALUES (861, 'Apnle', 'kg', 'Toys & Game', 823.89, 'YHA-8917', 1, '2016-04-22 14:59:27', '2023-08-11 21:17:36');
+INSERT INTO `productos` VALUES (862, 'omni-Rkmbutan', 'kg', 'Clothing, S', 12.40, '56327281', 1, '2013-04-22 19:41:06', '2007-06-19 04:04:32');
+INSERT INTO `productos` VALUES (863, 'Apple', 'g', 'Others', 823.78, 'WVR-2674', 1, '2007-04-05 20:07:56', '2004-07-10 06:29:13');
+INSERT INTO `productos` VALUES (864, 'iMango', 'g', 'Sports & Ou', 549.56, '9784447071427', 1, '2007-03-14 06:51:58', '2000-09-01 09:31:12');
+INSERT INTO `productos` VALUES (865, 'Grape', 'g', 'Appliances', 32.47, '9792890718424', 1, '2003-06-05 10:26:58', '2012-09-16 07:38:08');
+INSERT INTO `productos` VALUES (866, 'Kiwi', 'kg', 'Automotive ', 837.50, '07232619', 1, '2006-05-23 08:10:53', '2000-10-16 22:40:48');
+INSERT INTO `productos` VALUES (867, 'xRaspberry', 'lb', 'Health & Ba', 745.21, '5747336248366', 1, '2004-09-26 12:11:18', '2010-12-16 03:57:43');
+INSERT INTO `productos` VALUES (868, 'Kiwi', 'g', 'Musical Ins', 180.76, 'IPF-4092', 1, '2016-01-10 06:21:53', '2021-01-05 22:35:40');
+INSERT INTO `productos` VALUES (869, 'Kiwi', 'kg', 'Books', 838.98, '634211604391', 1, '2012-08-30 22:52:01', '2012-07-23 14:19:05');
+INSERT INTO `productos` VALUES (870, 'Ajple', 'lb', 'Industrial ', 280.63, '9794969671333', 1, '2018-01-20 02:11:54', '2008-10-11 06:12:04');
+INSERT INTO `productos` VALUES (871, 'Rambutan', 'kg', 'Tools & Hom', 191.94, '06505011', 1, '2014-04-05 07:01:15', '2009-11-15 04:33:46');
+INSERT INTO `productos` VALUES (872, 'Crerry', 'lb', 'Computers &', 469.33, '08734525', 1, '2019-07-10 13:18:57', '2002-08-19 09:43:01');
+INSERT INTO `productos` VALUES (873, 'cambutan plus', 'g', 'Books', 747.67, 'ZVP-2965', 1, '2004-03-22 01:32:23', '2013-11-25 01:52:56');
+INSERT INTO `productos` VALUES (874, 'Apple premium', 'kg', 'Toys & Game', 737.39, '417650522026', 1, '2016-06-14 08:24:30', '2021-07-12 12:14:51');
+INSERT INTO `productos` VALUES (875, 'Kiwi elite', 'kg', 'Musical Ins', 174.22, '235833778608', 1, '2019-02-28 07:17:53', '2000-11-28 05:00:10');
+INSERT INTO `productos` VALUES (876, 'Orange', 'kg', 'Health & Ba', 229.73, 'CZH-4609', 1, '2011-03-12 08:22:32', '2004-08-23 06:00:37');
+INSERT INTO `productos` VALUES (877, 'Rambutan', 'g', 'Toys & Game', 401.53, '06886493', 1, '2023-01-30 14:47:34', '2016-11-24 17:44:34');
+INSERT INTO `productos` VALUES (878, 'Mango air', 'kg', 'Musical Ins', 417.58, '7462660277179', 1, '2002-06-13 17:21:40', '2006-04-08 11:54:54');
+INSERT INTO `productos` VALUES (879, 'xOvange', 'lb', 'Pet Supplie', 40.36, '6862101695899', 1, '2008-09-26 07:46:42', '2009-05-18 05:12:47');
+INSERT INTO `productos` VALUES (880, 'Rambutan', 'kg', 'Others', 286.84, 'GTZ-9554', 1, '2010-10-27 06:09:45', '2005-03-01 02:11:33');
+INSERT INTO `productos` VALUES (881, 'Apple pro', 'g', 'Beauty & Pe', 135.44, '07311291', 1, '2006-11-07 19:43:31', '2001-10-02 21:03:06');
+INSERT INTO `productos` VALUES (882, 'Pluots', 'g', 'Arts, Handi', 6.63, 'EUG-0112', 1, '2006-07-30 12:13:54', '2006-06-23 00:16:43');
+INSERT INTO `productos` VALUES (883, 'ultra-Rambutan', 'kg', 'Pet Supplie', 831.44, '590122239094', 1, '2009-08-19 16:38:39', '2002-11-24 03:23:17');
+INSERT INTO `productos` VALUES (884, 'ultra-grape', 'kg', 'Collectible', 740.64, '659279927220', 1, '2002-09-01 05:11:34', '2011-01-11 06:34:55');
+INSERT INTO `productos` VALUES (885, 'Grape', 'lb', 'Centurion G', 891.90, '04461753', 1, '2011-12-12 02:12:16', '2002-04-04 18:00:41');
+INSERT INTO `productos` VALUES (886, 'Appfe', 'g', 'Apps & Game', 380.04, '8907546094918', 1, '2001-11-02 09:46:43', '2014-09-07 01:41:21');
+INSERT INTO `productos` VALUES (887, 'ultra-Apple', 'kg', 'Pet Supplie', 385.77, '36599516', 1, '2014-09-10 00:53:47', '2014-08-23 20:45:20');
+INSERT INTO `productos` VALUES (888, 'uango', 'lb', 'Sports & Ou', 405.68, '81970117', 1, '2004-11-06 16:21:10', '2018-03-25 07:30:39');
+INSERT INTO `productos` VALUES (889, 'Rambutan', 'lb', 'Musical Ins', 582.46, '98305704', 1, '2020-08-08 22:05:44', '2010-04-26 06:15:17');
+INSERT INTO `productos` VALUES (890, 'tiwi pro', 'kg', 'Automotive ', 50.52, '479992000211', 1, '2012-07-03 15:42:57', '2008-06-26 15:41:07');
+INSERT INTO `productos` VALUES (891, 'orange pro', 'lb', 'Collectible', 31.00, '4649737433215', 1, '2018-11-11 19:14:36', '2005-04-21 11:31:30');
+INSERT INTO `productos` VALUES (892, 'Kiwi', 'lb', 'Apps & Game', 219.85, 'JEQ-4268', 1, '2005-07-24 06:22:11', '2005-02-21 19:38:18');
+INSERT INTO `productos` VALUES (893, 'Grape', 'lb', 'Centurion G', 70.23, '10505199', 1, '2017-02-23 23:12:34', '2005-12-27 08:44:35');
+INSERT INTO `productos` VALUES (894, 'Kuwi', 'kg', 'Beauty', 420.57, '47056534', 1, '2011-04-11 12:26:37', '2019-05-14 17:59:57');
+INSERT INTO `productos` VALUES (895, 'Orange', 'kg', 'Food', 825.84, '09976344', 1, '2016-01-30 14:52:18', '2005-07-13 22:08:56');
+INSERT INTO `productos` VALUES (896, 'giwi pro', 'g', 'Arts, Handi', 811.80, '169137604847', 1, '2011-03-06 06:31:27', '2006-07-07 01:10:52');
+INSERT INTO `productos` VALUES (897, 'Pluots', 'g', 'Collectible', 27.50, '9796441286806', 1, '2018-06-08 16:35:47', '2006-08-18 09:16:58');
+INSERT INTO `productos` VALUES (898, 'Grape', 'lb', 'Cell Phones', 215.01, '09795679', 1, '2011-08-08 03:16:21', '2008-07-12 06:11:43');
+INSERT INTO `productos` VALUES (899, 'tango se', 'kg', 'Industrial ', 425.69, '6873421931604', 1, '2017-12-14 10:11:54', '2005-07-24 05:40:53');
+INSERT INTO `productos` VALUES (900, 'Cherry', 'lb', 'Health & Ba', 675.82, '9799630801231', 1, '2001-11-11 17:04:17', '2017-12-11 04:45:45');
+INSERT INTO `productos` VALUES (901, 'Raspberry', 'lb', 'Sports & Ou', 172.27, '9785951964014', 1, '2020-02-13 18:10:22', '2010-07-07 02:26:28');
+INSERT INTO `productos` VALUES (902, 'ambi-Manlo', 'kg', 'Toys & Game', 368.26, '50456017', 1, '2008-10-06 19:42:44', '2008-12-26 13:23:59');
+INSERT INTO `productos` VALUES (903, 'xRaspberry', 'lb', 'Food', 569.39, '716452585902', 1, '2005-02-05 12:38:03', '2009-03-12 10:26:50');
+INSERT INTO `productos` VALUES (904, 'itrawberry', 'kg', 'Others', 724.41, 'JOR-2741', 1, '2022-12-24 18:39:35', '2017-07-30 08:43:53');
+INSERT INTO `productos` VALUES (905, 'dambutan', 'g', 'Collectible', 662.74, 'RLH-4895', 1, '2004-12-31 08:31:21', '2013-07-05 16:50:08');
+INSERT INTO `productos` VALUES (906, 'Grape', 'g', 'Centurion G', 461.43, '06608217', 1, '2005-12-31 04:13:59', '2012-05-09 17:55:50');
+INSERT INTO `productos` VALUES (907, 'Raspbqrry premium', 'kg', 'Cell Phones', 399.62, '07440052', 1, '2016-03-23 15:59:34', '2002-12-12 01:31:23');
+INSERT INTO `productos` VALUES (908, 'Cherry air', 'kg', 'Health & Ba', 427.72, '16156425', 1, '2006-08-03 18:17:41', '2019-02-27 22:27:43');
+INSERT INTO `productos` VALUES (909, 'Rambusan pro', 'kg', 'Computers &', 433.60, '09434905', 1, '2009-01-08 15:01:19', '2018-10-22 03:31:56');
+INSERT INTO `productos` VALUES (910, 'Orange', 'lb', 'Video Games', 545.75, '43694952', 1, '2021-02-23 14:03:58', '2018-10-14 23:53:55');
+INSERT INTO `productos` VALUES (911, 'Chelry premium', 'kg', 'CDs & Vinyl', 821.18, 'GTY-9463', 1, '2013-07-07 20:01:33', '2009-11-08 05:07:19');
+INSERT INTO `productos` VALUES (912, 'Rambitan', 'kg', 'Health & Ba', 374.84, '380975921013', 1, '2023-02-18 03:36:26', '2011-05-29 17:49:20');
+INSERT INTO `productos` VALUES (913, 'Cherry se', 'kg', 'Film Suppli', 818.38, '035033329156', 1, '2011-05-26 10:13:07', '2020-09-11 13:03:51');
+INSERT INTO `productos` VALUES (914, 'Raswberry', 'lb', 'Video Games', 819.74, '14145247', 1, '2012-04-07 02:33:06', '2002-06-08 00:45:40');
+INSERT INTO `productos` VALUES (915, 'xGrape', 'lb', 'Food', 534.29, '0565265176582', 1, '2006-11-16 18:13:53', '2012-08-14 03:25:21');
+INSERT INTO `productos` VALUES (916, 'Oyange premium', 'g', 'Tools & Hom', 388.51, '1351311447305', 1, '2015-02-11 06:14:08', '2004-04-09 04:20:38');
+INSERT INTO `productos` VALUES (917, 'Rambutfn', 'g', 'Collectible', 621.58, 'LFU-9475', 1, '2003-11-14 08:15:45', '2007-06-30 21:47:32');
+INSERT INTO `productos` VALUES (918, 'Strawberry pro', 'lb', 'Handcrafts', 216.74, '1250096043941', 1, '2001-02-14 08:30:48', '2022-05-02 15:28:17');
+INSERT INTO `productos` VALUES (919, 'omni-Grape', 'lb', 'Appliances', 965.75, '252193369512', 1, '2019-05-08 12:37:09', '2004-11-09 00:19:59');
+INSERT INTO `productos` VALUES (920, 'Strawberay elite', 'kg', 'Books', 935.54, '9792912390423', 1, '2019-08-30 19:14:59', '2008-08-04 20:14:42');
+INSERT INTO `productos` VALUES (921, 'Sarawberry premium', 'g', 'Clothing, S', 67.13, '894110293366', 1, '2005-08-22 23:38:22', '2007-12-11 15:21:05');
+INSERT INTO `productos` VALUES (922, 'Rambutan', 'g', 'Pet Supplie', 762.96, '246458645022', 1, '2021-11-26 01:32:26', '2018-10-29 03:43:58');
+INSERT INTO `productos` VALUES (923, 'Strawberry', 'lb', 'Beauty & Pe', 428.05, 'OPY-3685', 1, '2022-05-31 21:51:13', '2003-09-23 07:08:09');
+INSERT INTO `productos` VALUES (924, 'vpple', 'g', 'Automotive ', 644.94, '07739330', 1, '2023-08-27 04:37:20', '2015-04-28 04:47:55');
+INSERT INTO `productos` VALUES (925, 'Rambutan se', 'g', 'Computers &', 0.07, '17842181', 1, '2008-02-04 18:39:42', '2008-07-29 15:37:16');
+INSERT INTO `productos` VALUES (926, 'Manoo mini', 'lb', 'Household &', 236.41, '805640691188', 1, '2021-06-26 23:58:36', '2013-12-02 11:37:06');
+INSERT INTO `productos` VALUES (927, 'Manfo pi', 'kg', 'Apps & Game', 923.43, '9792715816533', 1, '2000-09-08 08:49:15', '2009-10-02 01:51:17');
+INSERT INTO `productos` VALUES (928, 'opple premium', 'lb', 'Pet Supplie', 999.88, '09437388', 1, '2014-03-05 17:17:03', '2019-08-19 06:30:59');
+INSERT INTO `productos` VALUES (929, 'xiwi', 'g', 'Arts, Handi', 451.59, '9789321218752', 1, '2020-01-18 15:04:22', '2007-06-10 11:15:08');
+INSERT INTO `productos` VALUES (930, 'iStrawbkrry', 'g', 'Food', 175.70, '40256306', 1, '2000-02-17 21:23:18', '2010-03-17 12:15:07');
+INSERT INTO `productos` VALUES (931, 'Rambutan', 'lb', 'Musical Ins', 292.17, '603271210545', 1, '2007-05-26 02:44:01', '2003-07-17 23:17:54');
+INSERT INTO `productos` VALUES (932, 'Apple', 'lb', 'Industrial ', 915.89, '56706840', 1, '2000-11-17 00:27:06', '2011-01-18 15:31:59');
+INSERT INTO `productos` VALUES (933, 'Mrngo', 'kg', 'Sports & Ou', 448.56, 'MDC-6608', 1, '2015-08-25 08:55:12', '2019-12-08 12:47:49');
+INSERT INTO `productos` VALUES (934, 'Apple', 'lb', 'Household &', 890.85, '91709530', 1, '2022-09-02 21:24:15', '2000-03-28 11:15:55');
+INSERT INTO `productos` VALUES (935, 'ultra-npple', 'lb', 'Apps & Game', 46.95, '9794424671250', 1, '2019-07-27 19:26:05', '2001-07-19 00:42:43');
+INSERT INTO `productos` VALUES (936, 'xManoo', 'lb', 'Arts, Handi', 924.45, 'BNP-6642', 1, '2018-03-16 19:18:06', '2010-04-05 19:52:18');
+INSERT INTO `productos` VALUES (937, 'Strawberry', 'kg', 'Apps & Game', 84.32, 'HFW-3110', 1, '2004-05-22 03:03:38', '2018-01-31 06:43:56');
+INSERT INTO `productos` VALUES (938, 'ultra-Pluqts', 'lb', 'CDs & Vinyl', 607.84, '05396870', 1, '2014-10-08 19:40:32', '2000-12-02 14:51:05');
+INSERT INTO `productos` VALUES (939, 'Kiwi plus', 'lb', 'Tools & Hom', 41.67, '02286327', 1, '2020-09-25 22:37:45', '2003-06-26 16:46:53');
+INSERT INTO `productos` VALUES (940, 'Raspberry pro', 'g', 'Household &', 14.69, '79233996', 1, '2016-02-01 21:50:23', '2015-06-30 21:15:25');
+INSERT INTO `productos` VALUES (941, 'aiwi mini', 'lb', 'Film Suppli', 261.92, '0179455959208', 1, '2006-06-20 19:58:22', '2017-02-17 09:22:34');
+INSERT INTO `productos` VALUES (942, 'xOranye', 'lb', 'Video Games', 989.17, 'IMM-2944', 1, '2015-02-07 06:31:54', '2022-10-11 20:20:40');
+INSERT INTO `productos` VALUES (943, 'Grape premium', 'kg', 'Apps & Game', 448.26, '9787415991017', 1, '2007-11-13 12:43:34', '2018-11-10 22:36:01');
+INSERT INTO `productos` VALUES (944, 'srange', 'kg', 'Food', 40.96, '36573462', 1, '2005-03-15 13:09:39', '2014-12-05 17:56:53');
+INSERT INTO `productos` VALUES (945, 'ialuots', 'kg', 'Musical Ins', 34.77, 'ESF-1580', 1, '2013-05-15 08:11:59', '2022-10-08 01:43:32');
+INSERT INTO `productos` VALUES (946, 'aiwi', 'g', 'Beauty', 270.10, '500906311212', 1, '2011-02-01 18:21:19', '2017-08-11 20:48:37');
+INSERT INTO `productos` VALUES (947, 'Oranue premium', 'lb', 'CDs & Vinyl', 533.43, '15883339', 1, '2007-04-11 06:09:11', '2001-10-12 01:30:05');
+INSERT INTO `productos` VALUES (948, 'oherry core', 'kg', 'Tools & Hom', 403.05, '6365058977068', 1, '2015-01-28 10:38:18', '2009-06-26 19:39:07');
+INSERT INTO `productos` VALUES (949, 'omni-Cherby', 'kg', 'Beauty', 183.17, 'NIP-7421', 1, '2013-08-03 22:50:04', '2017-02-23 20:39:50');
+INSERT INTO `productos` VALUES (950, 'Mango', 'kg', 'Handcrafts', 858.18, 'VIB-7320', 1, '2003-04-18 05:01:50', '2023-04-13 06:04:50');
+INSERT INTO `productos` VALUES (951, 'Raspberry mini', 'g', 'Toys & Game', 926.70, '97207405', 1, '2006-01-26 05:07:43', '2008-07-01 14:39:47');
+INSERT INTO `productos` VALUES (952, 'Orange', 'g', 'Automotive ', 176.39, '18843804', 1, '2008-06-01 04:57:44', '2019-01-06 13:40:10');
+INSERT INTO `productos` VALUES (953, 'Grape', 'g', 'Cell Phones', 957.57, '9799236711484', 1, '2008-11-16 17:12:43', '2000-02-09 01:28:30');
+INSERT INTO `productos` VALUES (954, 'Grape plus', 'kg', 'Centurion G', 732.84, '9781024594966', 1, '2004-07-29 07:30:26', '2009-02-25 05:43:39');
+INSERT INTO `productos` VALUES (955, 'Apple', 'kg', 'Industrial ', 291.90, '04264712', 1, '2021-06-12 14:46:35', '2012-01-13 19:27:09');
+INSERT INTO `productos` VALUES (956, 'Aaple', 'g', 'Arts, Handi', 66.31, '9795223647606', 1, '2021-02-28 12:38:48', '2007-07-26 18:55:30');
+INSERT INTO `productos` VALUES (957, 'xMango', 'kg', 'Beauty', 461.19, '5993875903468', 1, '2001-01-17 10:37:15', '2019-04-15 08:01:39');
+INSERT INTO `productos` VALUES (958, 'Pluits', 'lb', 'CDs & Vinyl', 966.57, 'RVT-6684', 1, '2002-06-03 08:33:34', '2008-11-15 08:50:55');
+INSERT INTO `productos` VALUES (959, 'Orange', 'g', 'Clothing, S', 353.44, '00388931', 1, '2012-09-22 05:26:27', '2015-09-03 08:45:10');
+INSERT INTO `productos` VALUES (960, 'Orange mini', 'lb', 'Film Suppli', 277.84, '97345411', 1, '2020-09-25 17:55:03', '2010-01-09 01:55:51');
+INSERT INTO `productos` VALUES (961, 'Chercy', 'kg', 'Cell Phones', 112.64, 'CPB-4793', 1, '2018-02-07 09:56:57', '2010-11-15 23:28:57');
+INSERT INTO `productos` VALUES (962, 'xPluzts', 'kg', 'Beauty & Pe', 227.90, '9785366026567', 1, '2020-03-27 13:33:17', '2015-07-19 07:05:44');
+INSERT INTO `productos` VALUES (963, 'Stuawberry pi', 'g', 'Clothing, S', 706.98, '50034130', 1, '2006-08-18 04:59:31', '2015-07-04 10:23:03');
+INSERT INTO `productos` VALUES (964, 'xstrawberry', 'kg', 'Computers &', 781.24, 'GDV-3120', 1, '2009-03-20 22:09:38', '2014-09-06 09:33:46');
+INSERT INTO `productos` VALUES (965, 'Pluots', 'lb', 'Arts, Handi', 935.84, '032812480862', 1, '2015-12-08 01:58:05', '2006-08-15 20:55:34');
+INSERT INTO `productos` VALUES (966, 'Cherry air', 'lb', 'Baby', 836.04, '87530155', 1, '2007-02-13 06:36:57', '2011-01-23 05:41:47');
+INSERT INTO `productos` VALUES (967, 'Pluots elite', 'lb', 'Handcrafts', 77.74, '9788326556050', 1, '2012-04-13 09:20:20', '2012-04-23 06:18:22');
+INSERT INTO `productos` VALUES (968, 'Strawberry premium', 'lb', 'Beauty & Pe', 37.21, '594184453399', 1, '2020-11-29 04:30:56', '2017-03-03 08:49:32');
+INSERT INTO `productos` VALUES (969, 'Strawberry se', 'g', 'Appliances', 102.78, 'SPQ-8009', 1, '2014-11-25 06:22:11', '2022-12-21 14:07:08');
+INSERT INTO `productos` VALUES (970, 'iSkrawberry', 'lb', 'Computers &', 894.76, '05686582', 1, '2001-05-12 00:00:37', '2016-09-18 08:25:40');
+INSERT INTO `productos` VALUES (971, 'Raspberry', 'kg', 'Household &', 769.94, '02937144', 1, '2011-11-03 10:09:57', '2023-03-13 05:29:08');
+INSERT INTO `productos` VALUES (972, 'Strawberry elite', 'g', 'Musical Ins', 712.18, '0494048139448', 1, '2013-02-02 05:22:39', '2017-12-09 09:07:29');
+INSERT INTO `productos` VALUES (973, 'Chelry pi', 'g', 'Musical Ins', 372.73, '5552499179842', 1, '2015-07-16 13:40:29', '2019-01-26 21:30:06');
+INSERT INTO `productos` VALUES (974, 'Raspberiy', 'lb', 'Pet Supplie', 386.67, '59645924', 1, '2007-01-30 01:43:06', '2020-02-14 00:29:37');
+INSERT INTO `productos` VALUES (975, 'vango', 'kg', 'Sports & Ou', 717.69, '02380063', 1, '2017-10-28 15:33:36', '2018-01-21 18:47:02');
+INSERT INTO `productos` VALUES (976, 'Mango', 'lb', 'Toys & Game', 947.24, '1347687944432', 1, '2004-11-05 19:27:27', '2014-03-17 09:04:01');
+INSERT INTO `productos` VALUES (977, 'Maqgo pro', 'lb', 'Toys & Game', 979.81, 'ETO-9355', 1, '2006-01-13 20:19:44', '2014-05-05 20:25:11');
+INSERT INTO `productos` VALUES (978, 'ijiwi', 'kg', 'Household &', 428.88, '9783977028406', 1, '2004-10-11 09:32:59', '2004-11-09 16:22:08');
+INSERT INTO `productos` VALUES (979, 'Chcrry premium', 'kg', 'Apps & Game', 575.26, '785649033526', 1, '2019-09-01 07:35:19', '2010-03-17 22:54:18');
+INSERT INTO `productos` VALUES (980, 'Mango', 'lb', 'Clothing, S', 681.39, '631501104265', 1, '2006-01-27 14:21:55', '2002-01-13 01:13:36');
+INSERT INTO `productos` VALUES (981, 'Orange', 'lb', 'Musical Ins', 294.69, 'HQM-9528', 1, '2006-10-10 05:42:34', '2001-03-26 19:08:29');
+INSERT INTO `productos` VALUES (982, 'Mtngo', 'lb', 'Food', 724.91, '428365938965', 1, '2011-12-20 15:04:02', '2014-12-25 21:43:22');
+INSERT INTO `productos` VALUES (983, 'Cuerry core', 'g', 'Musical Ins', 879.35, '298266649143', 1, '2016-09-20 08:03:35', '2021-05-27 14:07:26');
+INSERT INTO `productos` VALUES (984, 'Rambhtan core', 'kg', 'Health & Ba', 665.88, '217667848719', 1, '2022-06-13 13:07:13', '2019-08-20 05:14:25');
+INSERT INTO `productos` VALUES (985, 'iiambutan', 'g', 'Arts, Handi', 511.61, '6010906715605', 1, '2000-01-21 18:33:55', '2008-06-03 12:37:20');
+INSERT INTO `productos` VALUES (986, 'Rambutan', 'kg', 'Musical Ins', 140.64, 'NJI-9873', 1, '2018-04-28 05:03:09', '2006-06-09 19:55:38');
+INSERT INTO `productos` VALUES (987, 'iGrape', 'lb', 'Cell Phones', 945.91, '9351629125584', 1, '2019-12-15 15:36:06', '2021-06-28 09:54:41');
+INSERT INTO `productos` VALUES (988, 'Cherpy mini', 'kg', 'Health & Ba', 897.35, '8619685158405', 1, '2007-07-12 23:53:07', '2011-02-17 23:51:48');
+INSERT INTO `productos` VALUES (989, 'xStrawbzrry', 'lb', 'Beauty', 11.41, '367067772296', 1, '2010-03-14 03:08:39', '2019-02-28 20:23:33');
+INSERT INTO `productos` VALUES (990, 'Strawberry', 'kg', 'Apps & Game', 357.20, '05518807', 1, '2018-02-06 16:17:04', '2010-03-13 15:44:53');
+INSERT INTO `productos` VALUES (991, 'Orance', 'g', 'Arts, Handi', 436.57, 'OEN-7971', 1, '2018-03-25 00:38:31', '2005-12-12 22:54:49');
+INSERT INTO `productos` VALUES (992, 'Chergy elite', 'g', 'Others', 63.62, '1800900337355', 1, '2005-09-13 13:09:50', '2013-07-22 05:57:33');
+INSERT INTO `productos` VALUES (993, 'Rambutan plus', 'lb', 'Others', 129.97, '2155671293942', 1, '2012-04-19 12:20:04', '2006-04-17 10:32:54');
+INSERT INTO `productos` VALUES (994, 'Raspbfrry', 'g', 'Others', 862.67, '5772891364541', 1, '2009-03-14 11:38:11', '2017-06-24 04:24:07');
+INSERT INTO `productos` VALUES (995, 'btrawberry elite', 'lb', 'Tools & Hom', 33.92, 'DZP-2443', 1, '2016-02-20 18:11:33', '2011-01-06 15:42:40');
+INSERT INTO `productos` VALUES (996, 'Rasvberry plus', 'lb', 'Cell Phones', 302.51, '9785189139680', 1, '2022-11-29 07:08:59', '2008-07-30 14:35:46');
+INSERT INTO `productos` VALUES (997, 'omni-Apple', 'kg', 'Tools & Hom', 644.35, '9780948361890', 1, '2015-09-13 10:18:52', '2006-09-16 11:25:41');
+INSERT INTO `productos` VALUES (998, 'aango core', 'g', 'Beauty', 542.39, '90882142', 1, '2008-12-09 18:10:37', '2004-10-24 12:02:54');
+INSERT INTO `productos` VALUES (999, 'Cherry', 'kg', 'Food', 195.45, '9783387042948', 1, '2017-11-25 21:18:16', '2022-03-03 14:47:17');
+INSERT INTO `productos` VALUES (1000, 'ultra-kherry', 'g', 'Appliances', 633.64, '0664121452690', 1, '2018-06-01 11:43:06', '2022-01-29 12:56:03');
+INSERT INTO `productos` VALUES (1001, 'asdasd', '21', '21', 21.00, '2121', 1, '2023-09-07 18:49:57', '2023-09-07 18:49:57');
+INSERT INTO `productos` VALUES (1002, 'Prueba', 'unidad', 'dfacvela', 0.00, '21321', 1, '2023-09-07 18:50:48', '2023-09-07 18:50:48');
+INSERT INTO `productos` VALUES (1003, 'Prueba', 'unidad', 'dfacvela', 0.00, '54654564654', 1, '2023-09-07 18:54:38', '2023-09-07 18:54:38');
+INSERT INTO `productos` VALUES (1004, 'Prueba', 'unidad', 'dfacvela', 0.00, NULL, 1, '2023-09-07 19:20:21', '2023-09-07 19:20:21');
+INSERT INTO `productos` VALUES (1005, 'diwi', 'kg', 'Beauty', 0.00, NULL, 1, '2023-10-09 11:35:28', '2023-10-09 11:35:28');
+INSERT INTO `productos` VALUES (1006, 'diwi', 'kg', 'Beauty', 0.00, NULL, 1, '2023-10-09 11:39:16', '2023-10-09 11:39:16');
+INSERT INTO `productos` VALUES (1007, 'diwi', 'kg', 'Beauty', 0.00, NULL, NULL, '2023-10-09 11:41:46', '2023-10-09 11:41:46');
+INSERT INTO `productos` VALUES (1008, 'Orange', 'kg', 'Baby', 0.00, NULL, 2, '2023-10-09 11:43:37', '2023-10-09 11:43:37');
+INSERT INTO `productos` VALUES (1009, 'Orange', 'kg', 'Baby', 0.00, NULL, 2, '2023-10-09 11:43:57', '2023-10-09 11:43:57');
+INSERT INTO `productos` VALUES (1010, 'Intereses', 'unidad', 'intereses', 0.00, NULL, 2, '2023-10-09 11:48:03', '2023-10-09 11:48:03');
+INSERT INTO `productos` VALUES (1011, 'Asesoría Crediticia', 'facturacion', 'facturacion', 0.00, NULL, 2, '2023-10-09 11:48:19', '2023-10-09 11:49:09');
+
+-- ----------------------------
+-- Table structure for proveedores
+-- ----------------------------
+DROP TABLE IF EXISTS `proveedores`;
+CREATE TABLE `proveedores`  (
+  `id_proveedor` int NOT NULL AUTO_INCREMENT,
+  `dui` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `nit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `nrc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `razon_social` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `direccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `telefono` varbinary(15) NULL DEFAULT NULL,
+  `decimales` int NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_proveedor`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1003 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of proveedores
+-- ----------------------------
+INSERT INTO `proveedores` VALUES (4, '03731671-8', '1314-120587-1014', '232345-5', 'COMPAÑIA DE TELECOMUNICACIONES DE EL SALVADOR, S.A. DE C.V.', 'San Miguel', 0x323636312D30313031, 2, '2009-02-08 13:29:25', '2023-10-10 22:00:56');
+
+-- ----------------------------
+-- Table structure for referencia_solicitud
+-- ----------------------------
+DROP TABLE IF EXISTS `referencia_solicitud`;
+CREATE TABLE `referencia_solicitud`  (
+  `id_referencia_solicitud` int NOT NULL AUTO_INCREMENT,
+  `id_solicitud` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `id_referencia` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_referencia_solicitud`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 102 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of referencia_solicitud
+-- ----------------------------
+INSERT INTO `referencia_solicitud` VALUES (52, 'd459c2ea-e2f4-4aaa-aa9b-ec289c7772a2', '4', '2023-07-10 15:37:30', '2023-07-10 15:37:30');
+INSERT INTO `referencia_solicitud` VALUES (53, 'd459c2ea-e2f4-4aaa-aa9b-ec289c7772a2', '4', '2023-07-10 15:38:38', '2023-07-10 15:38:38');
+INSERT INTO `referencia_solicitud` VALUES (54, 'd459c2ea-e2f4-4aaa-aa9b-ec289c7772a2', '4', '2023-07-10 15:39:54', '2023-07-10 15:39:54');
+INSERT INTO `referencia_solicitud` VALUES (90, 'e9203b8a-39a0-42d5-9186-533346d263d4', '4', '2023-07-17 10:07:01', '2023-07-17 10:07:01');
+INSERT INTO `referencia_solicitud` VALUES (91, 'e9203b8a-39a0-42d5-9186-533346d263d4', '2', '2023-07-17 13:34:21', '2023-07-17 13:34:21');
+INSERT INTO `referencia_solicitud` VALUES (92, 'ff03bc73-98b0-4c5f-b5ee-c293f92997cd', '2', '2023-07-22 13:00:07', '2023-07-22 13:00:07');
+INSERT INTO `referencia_solicitud` VALUES (93, '0b695a30-0aba-4831-9b5e-43385e961bda', '2', '2023-07-23 23:05:01', '2023-07-23 23:05:01');
+INSERT INTO `referencia_solicitud` VALUES (94, 'f9f443ac-e3ba-4f28-a702-53bc439bcfb1', '2', '2023-07-24 06:31:57', '2023-07-24 06:31:57');
+INSERT INTO `referencia_solicitud` VALUES (95, '78190a4f-7940-4778-ba6c-9caf66e70937', '2', '2023-07-28 08:39:03', '2023-07-28 08:39:03');
+INSERT INTO `referencia_solicitud` VALUES (96, '04f30f7f-23bb-427d-a6f1-e2a9b2d9475b', '4', '2023-07-31 19:32:39', '2023-07-31 19:32:39');
+INSERT INTO `referencia_solicitud` VALUES (97, '04f30f7f-23bb-427d-a6f1-e2a9b2d9475b', '2', '2023-07-31 19:32:43', '2023-07-31 19:32:43');
+INSERT INTO `referencia_solicitud` VALUES (98, 'd99f4d8f-de16-44d6-8efb-9b5c9019dd9d', '2', '2023-08-07 09:48:37', '2023-08-07 09:48:37');
+INSERT INTO `referencia_solicitud` VALUES (99, 'f8467f71-8bc7-46c6-816b-8a4ac25dab7d', '4', '2023-09-30 10:08:37', '2023-09-30 10:08:37');
+INSERT INTO `referencia_solicitud` VALUES (100, 'f8467f71-8bc7-46c6-816b-8a4ac25dab7d', '2', '2023-09-30 10:08:45', '2023-09-30 10:08:45');
+INSERT INTO `referencia_solicitud` VALUES (101, '1fee02fa-12d7-4a5b-b000-98b089b44c2e', '2', '2023-10-03 10:01:43', '2023-10-03 10:01:43');
+
+-- ----------------------------
 -- Table structure for referencias
 -- ----------------------------
 DROP TABLE IF EXISTS `referencias`;
 CREATE TABLE `referencias`  (
   `id_referencia` int NOT NULL AUTO_INCREMENT,
+  `dui` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `parentesco` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `telefono` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
@@ -780,12 +6093,13 @@ CREATE TABLE `referencias`  (
   `created_at` date NULL DEFAULT NULL,
   `updated_at` date NULL DEFAULT NULL,
   PRIMARY KEY (`id_referencia`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of referencias
 -- ----------------------------
-INSERT INTO `referencias` VALUES (2, 'Luis', '2', '12', '1', '21', '2', 1, '2023-06-06', '2023-06-06');
+INSERT INTO `referencias` VALUES (2, '03731671-7', 'Luis', '2', '12', '1', '21', '2', 1, '2023-06-06', '2023-06-06');
+INSERT INTO `referencias` VALUES (4, '03731671-7', 'Luis Arnulfo Márquez Argueta', 'Primo', '79281878', 'meanguera', 'Computec', 'Ninguna observacion', 1, '2023-07-10', '2023-07-10');
 
 -- ----------------------------
 -- Table structure for roles
@@ -797,7 +6111,7 @@ CREATE TABLE `roles`  (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of roles
@@ -806,13 +6120,153 @@ INSERT INTO `roles` VALUES (1, 'Administrador', '2023-06-08 23:37:51', '2023-06-
 INSERT INTO `roles` VALUES (2, 'Cajero', '2023-06-08 23:40:25', '2023-06-08 23:40:25');
 INSERT INTO `roles` VALUES (3, 'Gerente', '2023-06-08 23:40:31', '2023-06-08 23:40:31');
 INSERT INTO `roles` VALUES (4, 'Contador', '2023-06-08 23:40:36', '2023-06-08 23:40:36');
-INSERT INTO `roles` VALUES (5, 'Asesor de Créditos', '2023-06-08 23:40:49', '2023-06-08 23:40:49');
+INSERT INTO `roles` VALUES (5, 'Asesor de Crèditos', '2023-06-08 23:40:49', '2023-07-03 10:14:32');
 INSERT INTO `roles` VALUES (6, 'Vigilante', '2023-06-08 23:40:56', '2023-06-08 23:40:56');
 INSERT INTO `roles` VALUES (7, 'Ordenanza', '2023-06-08 23:41:04', '2023-06-08 23:41:04');
-INSERT INTO `roles` VALUES (9, 'asd', '2023-06-08 23:50:14', '2023-06-08 23:50:14');
 INSERT INTO `roles` VALUES (10, 'asdasd', '2023-06-08 23:50:17', '2023-06-08 23:50:17');
 INSERT INTO `roles` VALUES (11, 'asd 8781 a', '2023-06-08 23:50:21', '2023-06-09 14:43:52');
 INSERT INTO `roles` VALUES (12, 'asd', '2023-06-09 14:42:46', '2023-06-09 14:42:46');
+
+-- ----------------------------
+-- Table structure for solicitud_credito
+-- ----------------------------
+DROP TABLE IF EXISTS `solicitud_credito`;
+CREATE TABLE `solicitud_credito`  (
+  `id_solicitud` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `numero_solicitud` int NULL DEFAULT NULL,
+  `id_cliente` int NULL DEFAULT NULL,
+  `id_socio` int NULL DEFAULT NULL,
+  `monto_solicitado` decimal(10, 2) NULL DEFAULT NULL,
+  `fecha_solicitud` date NULL DEFAULT NULL,
+  `plazo` int NULL DEFAULT NULL,
+  `tasa` decimal(10, 2) NULL DEFAULT NULL,
+  `cuota` decimal(10, 2) NULL DEFAULT NULL,
+  `aportaciones` decimal(10, 2) NULL DEFAULT NULL,
+  `seguro_deuda` decimal(10, 2) NULL DEFAULT NULL,
+  `destino` int NULL DEFAULT NULL,
+  `tipo_garantia` int NULL DEFAULT NULL,
+  `garantia` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `id_conyugue` int NULL DEFAULT NULL,
+  `empresa_labora` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `sueldo_conyugue` decimal(10, 2) NULL DEFAULT NULL,
+  `tiempo_laborando` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `sueldo` decimal(10, 2) NULL DEFAULT NULL,
+  `cargo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `telefono_trabajo` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `sueldo_solicitante` decimal(10, 2) NULL DEFAULT NULL,
+  `comisiones` decimal(10, 2) NULL DEFAULT NULL,
+  `negocio_propio` decimal(10, 2) NULL DEFAULT NULL,
+  `otros_ingresos` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `total_ingresos` decimal(10, 2) NULL DEFAULT NULL,
+  `gastos_vida` decimal(10, 2) NULL DEFAULT NULL,
+  `pagos_obligaciones` decimal(10, 2) NULL DEFAULT NULL,
+  `gastos_negocios` decimal(10, 2) NULL DEFAULT NULL,
+  `otros_gastos` decimal(10, 2) NULL DEFAULT NULL,
+  `total_gasto` decimal(10, 2) NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL COMMENT '1-Presentada \r\n2-Aprobada \r\n3-Rechazada \r\n4-Enviada a Comite',
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_solicitud`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of solicitud_credito
+-- ----------------------------
+INSERT INTO `solicitud_credito` VALUES ('1fee02fa-12d7-4a5b-b000-98b089b44c2e', 3, 5, NULL, 2500.00, '2023-10-03', 12, 42.00, 258.71, 10.00, 0.00, 59, 1, NULL, NULL, 'CompUtec', 500.00, '500.00', NULL, 'Empleada', '2654-1561', 2500.00, 0.00, 0.00, '0', 2500.00, 150.00, 0.00, 0.00, 0.00, 150.00, 2, '2023-10-03 10:02:17', '2023-10-03 12:14:32');
+INSERT INTO `solicitud_credito` VALUES ('78190a4f-7940-4778-ba6c-9caf66e70937', 1, 5, NULL, 5000.00, '2023-07-28', 36, 42.00, 246.42, NULL, NULL, 60, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 500.00, 0.00, 0.00, '0', 500.00, 100.00, 0.00, 0.00, 0.00, 100.00, 2, '2023-07-28 08:39:07', '2023-08-21 19:50:59');
+INSERT INTO `solicitud_credito` VALUES ('c567eae3-986e-41f7-8ae6-436d2ab33862', 4, 63, NULL, 1000.00, '2023-10-27', 12, 10.00, 87.92, 2.00, 10.00, 58, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, '2023-10-27 06:44:45', '2023-10-27 06:45:59');
+INSERT INTO `solicitud_credito` VALUES ('f8467f71-8bc7-46c6-816b-8a4ac25dab7d', 2, 62, NULL, 500.00, '2023-09-30', 12, 42.00, 51.74, 10.00, NULL, 59, 3, 'Luis Arnulfo Marquez 03731671-7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 360.00, 0.00, 0.00, '0', 360.00, 150.00, 0.00, 0.00, 0.00, 150.00, 2, '2023-09-30 10:09:30', '2023-09-30 10:11:30');
+
+-- ----------------------------
+-- Table structure for solicitud_credito_bienes
+-- ----------------------------
+DROP TABLE IF EXISTS `solicitud_credito_bienes`;
+CREATE TABLE `solicitud_credito_bienes`  (
+  `id_propiedad` int NOT NULL AUTO_INCREMENT,
+  `id_solicitud` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `clase_propiedad` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `direccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `valor` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `hipotecado_bien` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_propiedad`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of solicitud_credito_bienes
+-- ----------------------------
+INSERT INTO `solicitud_credito_bienes` VALUES (1, '04f30f7f-23bb-427d-a6f1-e2a9b2d9475b', 'Casa de habitacion valodara en 25000', 'San Salvador', '25000', '0', '2023-07-31 19:36:57', '2023-07-31 19:36:57');
+INSERT INTO `solicitud_credito_bienes` VALUES (2, 'f8467f71-8bc7-46c6-816b-8a4ac25dab7d', 'Casa de habitacion', 'San Miguel', '25000', '0', '2023-09-30 10:09:08', '2023-09-30 10:09:08');
+INSERT INTO `solicitud_credito_bienes` VALUES (3, '1fee02fa-12d7-4a5b-b000-98b089b44c2e', 'Casa de habitacion', 'Meanguera', '500', '0', '2023-10-03 10:01:55', '2023-10-03 10:01:55');
+
+-- ----------------------------
+-- Table structure for temp_password
+-- ----------------------------
+DROP TABLE IF EXISTS `temp_password`;
+CREATE TABLE `temp_password`  (
+  `id_temp_password` int NOT NULL AUTO_INCREMENT,
+  `temp_password` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `type_operation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `is_used` int NULL DEFAULT NULL,
+  `expiration_date` datetime NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_temp_password`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of temp_password
+-- ----------------------------
+INSERT INTO `temp_password` VALUES (1, '$2y$10$vXyY5s9pVAr6Ab28EtTJsOKEIVpEGjmzL8GV0l2I5raGUVYz4fOFy', NULL, 0, '2023-06-21 08:52:45', '2023-06-21 08:37:45', '2023-06-21 08:37:45');
+INSERT INTO `temp_password` VALUES (2, '$2y$10$RRdDpRQtiooyiQPvjclQ1evvXr8SBvHWFWeEushvW00x1G3BkvgLi', NULL, 0, '2023-06-21 08:54:34', '2023-06-21 08:39:34', '2023-06-21 08:39:34');
+INSERT INTO `temp_password` VALUES (3, '$2y$10$5YT3Y2QB5j1R66o4TRxKn.hXv8fOLE.SGFGh6xQh0iOwH/LF8.rv2', NULL, 0, '2023-06-21 08:55:08', '2023-06-21 08:40:08', '2023-06-21 08:40:08');
+INSERT INTO `temp_password` VALUES (4, '$2y$10$FoQ/p096T2qzhf0y.yrMQODSHvHmEP/FlIMqZmQ8PxUq36Om3lHBO', NULL, 0, '2023-06-21 08:57:06', '2023-06-21 08:42:06', '2023-06-21 08:42:06');
+INSERT INTO `temp_password` VALUES (5, '$2y$10$T/u/z5hf9KcvacMvC576p.S540bW0r8Lpsf4rnJJXdcQg6sVE3t2K', NULL, 0, '2023-06-21 08:57:43', '2023-06-21 08:42:43', '2023-06-21 08:42:43');
+INSERT INTO `temp_password` VALUES (6, '$2y$10$aLMKvZob6WFLM5XlKIIhVe4HRZPlpginfCnpnhlHIzK3o/KgprYqy', NULL, 0, '2023-06-21 08:58:00', '2023-06-21 08:43:00', '2023-06-21 08:43:00');
+INSERT INTO `temp_password` VALUES (7, '$2y$10$kFDpnUjrqmmT1ULemWZoOurSDoBSuBdxm/iyji6lkljPBk6lCHSuK', NULL, 0, '2023-06-21 08:58:25', '2023-06-21 08:43:25', '2023-06-21 08:43:25');
+INSERT INTO `temp_password` VALUES (8, '$2y$10$UYCsgJBS1ResCVLz0UXth.dU/pidqgezMKfLVdgazQ0Iu23c6FM0a', NULL, 0, '2023-06-21 08:59:23', '2023-06-21 08:44:23', '2023-06-21 08:44:23');
+INSERT INTO `temp_password` VALUES (9, '$2y$10$6b59cqn5FBnoLBbeBB/liOsqkXx.sVmBJiJ.71y1NzpywUYsAt/Ru', NULL, 0, '2023-06-21 08:59:55', '2023-06-21 08:44:55', '2023-06-21 08:44:55');
+INSERT INTO `temp_password` VALUES (10, '$2y$10$u9jT9owhsTrWvb2PHICvuu0i..2KL7tJn8BgkcCkXSO2mum/Wn1.C', NULL, 0, '2023-06-21 09:00:06', '2023-06-21 08:45:06', '2023-06-21 08:45:06');
+INSERT INTO `temp_password` VALUES (11, '$2y$10$3I9UYGsFMtmSz/9rKnEEsemr/w1pKhAwWd6hcLEyYvDxCGX96Jo9u', '526YC', 1, '2023-06-21 09:32:35', '2023-06-21 09:17:35', '2023-06-21 09:18:31');
+INSERT INTO `temp_password` VALUES (12, '$2y$10$Wpv6D1yyioYAfD5Pon6LcOpyn7OMABPU18hkNp9ZUbF0L0nQp7UY2', 'q49tp', 1, '2023-06-21 10:08:21', '2023-06-21 09:53:21', '2023-06-21 09:54:13');
+INSERT INTO `temp_password` VALUES (13, '$2y$10$gJ6IYz7r6LZfmRhTuKoR7uDwX5tDvt7TC6ec1bkNXYe0bKSBCYQ1q', 'aqnIN', 1, '2023-06-21 10:28:50', '2023-06-21 10:13:50', '2023-06-21 10:13:57');
+INSERT INTO `temp_password` VALUES (14, '$2y$10$5Gx2ElDkMtqPtWo4T9xNPekM37QDkfinX1KLch/HZJmdKWQCIPXyK', 'FuH7T', 1, '2023-06-21 10:29:35', '2023-06-21 10:14:35', '2023-06-21 10:14:40');
+INSERT INTO `temp_password` VALUES (15, '$2y$10$d0Kex6Lt4QtW2M6KRlNS0.yw/f5IdZq9BhYDd6WfDC/0pRV9eeUFy', 'q6tNS', 0, '2023-06-21 10:16:41', '2023-06-21 10:15:41', '2023-06-21 10:15:41');
+INSERT INTO `temp_password` VALUES (16, '$2y$10$B85KtJQ1GxnOe/rV3HQDUOqoKRLkVOzzbvXTBERWx4FEZcyeXLJDK', 'UnTTw', 1, '2023-06-21 10:18:47', '2023-06-21 10:17:47', '2023-06-21 10:18:14');
+INSERT INTO `temp_password` VALUES (17, '$2y$10$1fnu5puDY0Blb2zdmKLM9uLaZcSDk2s8iuRpsgcqy2vHsrMNxzx.i', 'PN2Jl', 1, '2023-06-21 11:13:55', '2023-06-21 10:58:55', '2023-06-21 10:59:05');
+INSERT INTO `temp_password` VALUES (18, '$2y$10$H.z9TiirsrjRenrs7k/vjOP1J8Bj8cLVFaTx/P/jwOzoDz3vrFz4i', 'kbM62', 0, '2023-06-21 14:10:26', '2023-06-21 13:55:26', '2023-06-21 14:06:36');
+INSERT INTO `temp_password` VALUES (19, '$2y$10$0sU5mxdn3tv5nboyWEIwoecNy4GXUDLRrB9OnPY3ETHUerE0QqIIq', 'YGQpf', 1, '2023-06-21 14:25:58', '2023-06-21 14:10:58', '2023-06-21 14:23:56');
+INSERT INTO `temp_password` VALUES (20, '$2y$10$f2OlnMNSyYVaien2.ILYXOnyY5PfA3SyOb/GLXQRYEhCkkg6WOCwC', '8EUZ8', 0, '2023-06-23 10:33:50', '2023-06-23 10:18:50', '2023-06-23 10:18:50');
+INSERT INTO `temp_password` VALUES (21, '$2y$10$i1oLgckYjZVy4uCA8YFhEedsNqmTQ5A8VpwXnEQxIqBxTeLzaFBlO', 'XI3vQ', 0, '2023-07-03 14:29:39', '2023-07-03 14:14:39', '2023-07-03 14:14:39');
+INSERT INTO `temp_password` VALUES (22, '$2y$10$gBUBv5jCKlPslzE77AlBs.M0fKjgOb5vio8F.Y4f3LhtEiCzobMAm', 'cx3X5', 0, '2023-07-13 22:00:10', '2023-07-13 21:45:10', '2023-07-13 21:45:10');
+INSERT INTO `temp_password` VALUES (23, '$2y$10$UIGtxRsOj8L0VRKrei9kp.0V7w8L7zy2WnuamDoAII1RiN1VexoH2', 'S3wh3', 1, '2023-07-15 14:06:13', '2023-07-15 13:51:13', '2023-07-15 13:52:39');
+INSERT INTO `temp_password` VALUES (24, '$2y$10$dR0HBWYKlgmwa88AKciWfuBCBmqp614HjUdc5ybP9l91AcyW7vA6e', 'WHN6Z', 1, '2023-07-24 07:00:13', '2023-07-24 06:45:13', '2023-07-24 06:45:20');
+INSERT INTO `temp_password` VALUES (25, '$2y$10$Udncd/LfzOGjYYrP3tvdWOsxvRSmhX14j3xhXX73wtDggZV3.3F5W', '49yor', 1, '2023-09-30 10:09:56', '2023-09-30 09:54:56', '2023-09-30 09:55:56');
+INSERT INTO `temp_password` VALUES (26, '$2y$10$SZzlpYNUpz2hJ3ArTvvAD.6LwtzyWoV0RDvuB2JGHG1ktRpYfyLl6', 'KBcDb', 0, '2023-10-23 12:17:43', '2023-10-23 12:02:43', '2023-10-23 12:02:43');
+
+-- ----------------------------
+-- Table structure for tipo_garantia
+-- ----------------------------
+DROP TABLE IF EXISTS `tipo_garantia`;
+CREATE TABLE `tipo_garantia`  (
+  `id_tipo_garantia` int NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id_tipo_garantia`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of tipo_garantia
+-- ----------------------------
+INSERT INTO `tipo_garantia` VALUES (1, 'Garantía', 1, NULL, NULL);
+INSERT INTO `tipo_garantia` VALUES (2, 'Hipotecaria', 1, NULL, NULL);
+INSERT INTO `tipo_garantia` VALUES (3, 'Fiduciaria', 1, NULL, NULL);
+INSERT INTO `tipo_garantia` VALUES (4, 'Prendaria', 1, NULL, NULL);
+INSERT INTO `tipo_garantia` VALUES (5, 'Orden de Descuento', 1, NULL, NULL);
+INSERT INTO `tipo_garantia` VALUES (6, 'Sin Garantía', 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tipos_cuentas
@@ -825,18 +6279,41 @@ CREATE TABLE `tipos_cuentas`  (
   `created_at` date NULL DEFAULT NULL,
   `updated_at` date NULL DEFAULT NULL,
   PRIMARY KEY (`id_tipo_cuenta`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tipos_cuentas
 -- ----------------------------
-INSERT INTO `tipos_cuentas` VALUES (1, 'Ahorro a la vista', 1, NULL, '2023-06-10');
-INSERT INTO `tipos_cuentas` VALUES (2, 'Ahorro Navideño', 1, NULL, '2023-06-10');
+INSERT INTO `tipos_cuentas` VALUES (1, 'Ahorro a la vista', 1, NULL, '2023-07-26');
+INSERT INTO `tipos_cuentas` VALUES (2, 'Ahorro Navideño', 1, NULL, '2023-07-09');
 INSERT INTO `tipos_cuentas` VALUES (7, 'Ahorro Infantil', 1, '2023-06-06', '2023-06-10');
 INSERT INTO `tipos_cuentas` VALUES (9, 'Aportaciones', 1, '2023-06-08', '2023-06-10');
 INSERT INTO `tipos_cuentas` VALUES (10, 'Ahorro a plazo 6 meses', 1, '2023-06-08', '2023-06-10');
-INSERT INTO `tipos_cuentas` VALUES (11, 'Ahorro a plazo 1 año', 1, '2023-06-08', '2023-06-10');
-INSERT INTO `tipos_cuentas` VALUES (13, 'Corriente', 1, '2023-06-08', '2023-06-10');
+INSERT INTO `tipos_cuentas` VALUES (11, 'Ahorro a plazo 1 año', 1, '2023-06-08', '2023-07-09');
+
+-- ----------------------------
+-- Table structure for tipos_partidas_contables
+-- ----------------------------
+DROP TABLE IF EXISTS `tipos_partidas_contables`;
+CREATE TABLE `tipos_partidas_contables`  (
+  `id_tipo_partida` int NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `estado` int NULL DEFAULT NULL,
+  `created_at` date NULL DEFAULT NULL,
+  `updated_at` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id_tipo_partida`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of tipos_partidas_contables
+-- ----------------------------
+INSERT INTO `tipos_partidas_contables` VALUES (1, 'DIARIO', 1, NULL, '2023-07-26');
+INSERT INTO `tipos_partidas_contables` VALUES (2, 'PROVISION', 1, NULL, '2023-07-09');
+INSERT INTO `tipos_partidas_contables` VALUES (3, 'INGRESOS', 1, '2023-06-06', '2023-06-10');
+INSERT INTO `tipos_partidas_contables` VALUES (4, 'EGRESOS', 1, '2023-06-08', '2023-06-10');
+INSERT INTO `tipos_partidas_contables` VALUES (5, 'AJUSTES', 1, '2023-06-08', '2023-06-10');
+INSERT INTO `tipos_partidas_contables` VALUES (6, 'LIQUIDACION', 1, '2023-06-08', '2023-07-09');
+INSERT INTO `tipos_partidas_contables` VALUES (7, 'APERTURA', 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for users
@@ -849,25 +6326,63 @@ CREATE TABLE `users`  (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `temp_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `is_recovery` bit(1) NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `users_email_unique`(`email` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 3, NULL, 'dao_castro@hotmail.com', '2023-06-04 14:45:37', '$2y$10$BvbtO2geeZf1DdNLoGehEeSuh7CuO5YXc8gPEYgpmXBGAL6XKTtVq', '2QxxOpvDkMZYlPHrRnexjKG4y9LAGq5PHiK9WyxLw1gKLnS486lGKbagEHYN', '2023-06-04 14:47:42', '2023-06-06 03:53:43');
-INSERT INTO `users` VALUES (7, 3, NULL, 'a@a.com', NULL, '$2y$10$ytnD4zsQdUe8jL5b2/5/7eYZBb6iLbszeoPteZDrZq6iFeMSvEMR2', '9d7GNOv9h2p3J4hIY0E5G9ELF8QadPPgCUq40bWkRLra83vY9ZXg9z6g074j', '2023-06-08 03:50:20', '2023-06-08 04:24:41');
-INSERT INTO `users` VALUES (8, 4, NULL, 'will.jermey@example.org', NULL, '$2y$10$iz1G77sYfAj6kNTFnfCdw.rfsKgmPI0XhbF9TtKeAbHb.TRAB6llm', NULL, '2023-06-08 04:08:49', '2023-06-08 04:08:49');
-INSERT INTO `users` VALUES (9, 3, NULL, 'daos_castro@hotmail.com', NULL, '$2y$10$0JZW6Hetq0eDgwbZ4mvo1.hUxd87RvenJy/dkncTByusIelzcJEcO', NULL, '2023-06-08 13:29:41', '2023-06-08 13:29:41');
-INSERT INTO `users` VALUES (11, 9, NULL, 'habbott@example.com', NULL, '$2y$10$ojiCL1OdHlNmqlcsGrGQhOyqc5wezp4DzviyMRfS/Io0kl/WrSyH6', '6Ogq4w2JaJE6u1gkvKiWGpRILIHXSvmIRfECOxdv8hjB02EQVkmW29Whzjrs', '2023-06-09 14:38:13', '2023-06-09 14:38:13');
-INSERT INTO `users` VALUES (12, 20, NULL, '13@123.com', NULL, '$2y$10$xJv8G0rCR.RswchD5ivYbOPgjZXzjUBAKVv/pwHEDusw9as41/2Gu', NULL, '2023-06-10 15:25:43', '2023-06-10 15:25:43');
-INSERT INTO `users` VALUES (13, 2, NULL, 'peter@123.com', NULL, '$2y$10$WfNthdT9EkPG9D0kF8DDJegKTseu9uUMeU7C.WWpsyCg9u10c5.qC', NULL, '2023-06-10 16:21:10', '2023-06-10 16:21:10');
-INSERT INTO `users` VALUES (14, 4, NULL, 'dao_castro@hotmail.comss', NULL, '$2y$10$jNYqxONKv4gAN1HyO/IW0eqO/4Y76LJHUFsCQudiovazBxaopF70a', NULL, '2023-06-10 16:22:26', '2023-06-10 16:22:26');
-INSERT INTO `users` VALUES (15, 6, 1, 'will.jermey@example.orgs', NULL, '$2y$10$qLbV3.saWyzwTlBUn2oc5eowsGEpEpCOE4f.k83LWgr8REEP8wMn.', NULL, '2023-06-10 16:24:32', '2023-06-10 16:27:01');
-INSERT INTO `users` VALUES (16, 6, 2, 'will.jermey@example.org2', NULL, '$2y$10$8WKJ1hl4bmppoiue3fY3vuZgSxdYVT3oIK2r64P38mZe.VRRB7zpq', NULL, '2023-06-10 19:50:15', '2023-06-10 19:50:15');
+INSERT INTO `users` VALUES (7, 3, NULL, 'a@a.com', NULL, '$2y$10$ytnD4zsQdUe8jL5b2/5/7eYZBb6iLbszeoPteZDrZq6iFeMSvEMR2', '', '9d7GNOv9h2p3J4hIY0E5G9ELF8QadPPgCUq40bWkRLra83vY9ZXg9z6g074j', NULL, '2023-06-08 03:50:20', '2023-06-08 04:24:41');
+INSERT INTO `users` VALUES (8, 4, NULL, 'will.jermey@example.org', NULL, '$2y$10$iz1G77sYfAj6kNTFnfCdw.rfsKgmPI0XhbF9TtKeAbHb.TRAB6llm', '', NULL, NULL, '2023-06-08 04:08:49', '2023-06-08 04:08:49');
+INSERT INTO `users` VALUES (11, 9, 1, 'habbott@example.com', NULL, '$2y$10$ojiCL1OdHlNmqlcsGrGQhOyqc5wezp4DzviyMRfS/Io0kl/WrSyH6', '', 'q2GLNsO2pnV5QRImA80RhJ21FuFei92RzVeCMGF00eG3fSP0u8N3EU76AgYE', b'0', '2023-06-09 14:38:13', '2023-06-15 17:47:43');
+INSERT INTO `users` VALUES (12, 20, NULL, '13@123.com', NULL, '$2y$10$xJv8G0rCR.RswchD5ivYbOPgjZXzjUBAKVv/pwHEDusw9as41/2Gu', '', NULL, NULL, '2023-06-10 15:25:43', '2023-06-10 15:25:43');
+INSERT INTO `users` VALUES (13, 2, NULL, 'peter@123.com', NULL, '$2y$10$WfNthdT9EkPG9D0kF8DDJegKTseu9uUMeU7C.WWpsyCg9u10c5.qC', '', NULL, NULL, '2023-06-10 16:21:10', '2023-06-10 16:21:10');
+INSERT INTO `users` VALUES (14, 4, NULL, 'dao_castro@hotmail.comss', NULL, '$2y$10$jNYqxONKv4gAN1HyO/IW0eqO/4Y76LJHUFsCQudiovazBxaopF70a', '', NULL, NULL, '2023-06-10 16:22:26', '2023-06-10 16:22:26');
+INSERT INTO `users` VALUES (17, 20, 1, 'dao_castro@hotmail.com', NULL, '$2y$10$cCW2xH/Ttq1UpJFynhkvjOsqxBoZAVFlJuI4e29ew/2UQIXfeAcJe', '', 'dca7ZI4t4IDqYydt5S44tnLfz7Ci1ei7PsxBTzzhr5CgM6O4nHpy73PZEkd7', b'0', '2023-06-14 19:01:27', '2023-07-26 21:15:37');
+INSERT INTO `users` VALUES (18, 12, 1, 'svcomputec@gmail.com', NULL, '$2y$10$vGBYz.wshk0iky98duUR/eYkAMVjfIGl.4Gy4Kgmj7j1QTHcI3GA.', '$2y$10$bpOvgqGuZTIyEujuNKdrA.rGJotbLIoNN1Se186BjpPyv6VaV9Qm.', NULL, b'1', '2023-06-15 17:53:03', '2023-08-12 06:54:03');
+INSERT INTO `users` VALUES (19, 23, 2, 'nulfito@hotmail.com', NULL, '$2y$10$C1b70yw3diWqsv8/niLQye4pqLq54AeMxHFKSH4IoXc/c5g3NO8T.', '', 'R8PQdDah3bn1ujxtF0L8JZAR6c5246C43Tu0gBDJdKsdASSuACfZ1ucQWiA8', b'0', '2023-06-15 18:06:18', '2023-07-09 13:57:28');
+INSERT INTO `users` VALUES (20, 5, 1, 'habbott@example.com1', NULL, '$2y$10$KUEfTrHQoRE/3elP1P5twOo9y3E8.SPpoCjXFBJOy4yZOhVgciGi6', '', NULL, NULL, '2023-06-15 21:47:37', '2023-06-15 21:47:37');
+INSERT INTO `users` VALUES (21, 28, 3, 'gerente@admin.com', NULL, '$2y$10$M4ljGp.qDht.xx9ZZA1fv.kExQF/lWN/pVNgNrSD8YSHlm19gl5py', '', 'UlsgjzbHOmSyiPbh0UCZA63fN0sl3ssfzHXPrFV1XsJhXdS89X7YfSaWc6BR', b'0', '2023-10-23 11:25:08', '2023-10-23 11:25:22');
+
+-- ----------------------------
+-- View structure for cierre_mensual_detalle
+-- ----------------------------
+DROP VIEW IF EXISTS `cierre_mensual_detalle`;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `cierre_mensual_detalle` AS SELECT A.*, B.codigo_agrupador
+FROM cierre_mensual_partida AS A
+INNER JOIN catalogo AS B ON A.id_cuenta = B.id_cuenta ;
+
+-- ----------------------------
+-- View structure for partidascontables
+-- ----------------------------
+DROP VIEW IF EXISTS `partidascontables`;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `partidascontables` AS SELECT
+	A.id_partida_contable,
+	A.num_partida,
+	A.year_contable,
+	A.fecha_partida,
+	A.tipo_partida,
+	A.concepto,
+	A.estado,
+	B.id_cuenta,
+	B.parcial,
+	B.cargos,
+	B.abonos,
+	C.codigo_agrupador,
+	C.numero,
+	C.descripcion
+FROM
+	partidas_contables AS A
+	INNER JOIN partida_contables_detalle AS B ON A.id_partida_contable = B.id_partida 
+	INNER JOIN catalogo as C on B.id_cuenta=C.id_cuenta
+	where num_partida>0
+ORDER BY
+	A.num_partida ASC ;
 
 SET FOREIGN_KEY_CHECKS = 1;
