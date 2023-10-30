@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Luecano\NumeroALetras\NumeroALetras;
 use \PDF;
-use App\Helpers\ConversionHelper;
 use App\Exports\CreditScoreExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -83,9 +82,6 @@ class ReportesController extends Controller
 
         
 
-        $pdf->setOptions([
-            'enable-local-file-access' => true
-        ]);
 
         $pdf = PDF::loadView('reportes.movimientosBobeda', [
             'movimientoBobeda' => $movimientoBobeda,
@@ -121,6 +117,7 @@ class ReportesController extends Controller
         $pdf = PDF::loadView('reportes.caja.comprobante', [
             'movimiento' => $movimiento,
             'estilos' => $this->estilos,
+            'stilosBundle'=> $this->stilosBundle,
             'numeroEnLetras' => $numeroEnLetras
         ]);
         return $pdf->setOrientation('portrait')->inline();
@@ -135,6 +132,10 @@ class ReportesController extends Controller
             ->orderBy('bobeda_movimientos.id_bobeda_movimiento', 'desc')
             ->select('bobeda_movimientos.*', 'cajas.*', 'empleados.nombre_empleado as nombre_empleado')
             ->first();
+          
+            if(!$movimientoBobeda){
+                return redirect("/boveda")->withErrors('El movimiento no existe 😵‍💫');
+            }
 
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimientoBobeda->monto, 2, 'DoLARES');
@@ -142,6 +143,7 @@ class ReportesController extends Controller
         $pdf = PDF::loadView('reportes.bobeda.comprobante', [
             'movimiento' => $movimientoBobeda,
             'estilos' => $this->estilos,
+            'stilosBundle'=> $this->stilosBundle,
             'numeroEnLetras' => $numeroEnLetras,
             'bobeda_empleado' => $movimientoBobeda->nombre_empleado
         ]);

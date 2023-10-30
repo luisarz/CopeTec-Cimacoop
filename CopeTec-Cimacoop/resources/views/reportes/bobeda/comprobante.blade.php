@@ -3,22 +3,22 @@
 
 <head>
     <title>CoopeTec-Administracion de cooperativas CompuTec Consultores</title>
-    {{-- <meta charset="utf-8" /> --}}
+    <meta charset="utf-8" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-        {!! $estilos !!}
+        {{ $estilos }}
+        {{ $stilosBundle }}
     </style>
 
 </head>
 
-<body class="body">
-
+<body  style="font-size: 14px;">
 
 
 {{-- Datos del Bobeda --}}
-   <div class="text-align-rigth " style="margin-right:80px; margin-top:100px; ">
+   <div class="text-align-rigth " style="margin-right:80px; margin-top:100px; font-size: 15px !important; ">
         Empleado Bobeda  : <span class="text-bold"> {{ strtoupper($bobeda_empleado) }} </span>
         <br>
         Fecha: {{ \Carbon\Carbon::parse($movimiento->fecha_operacion)->format('d/m/Y') }}
@@ -28,11 +28,11 @@
     </div>
 
     {{-- Datos de Bobeda --}}
-    <div class="text-align-left " style="margin-left:30px; margin-top:-70px; ">
+    <div class="text-align-left " style="margin-left:30px; margin-top:-70px; font-size: 15px !important; ">
         Cajaro : <span class="text-bold"> {{ $movimiento->numero_caja!=0? strtoupper($movimiento->nombre_empleado):'--' }} </span>
     </div>
 
-    <div style="margin-top: -10px; margin-left:30px; margin-top:10px; " class=" text-bold ">
+    <div style="margin-top: -10px; margin-left:30px; margin-top:10px;  font-size: 15px !important; " class=" text-bold ">
         @php
             $tipoOperacion = $movimiento->tipo_operacion;
         @endphp
@@ -68,13 +68,13 @@
 
     </div>
 
-    <div style="margin-top: 50px; width=100px; text-align:center;">
+    <div style="margin-top: 50px; width=100px; text-align:center;  font-size: 16px !important;">
         {{ strtoupper($movimiento->direccion_personal) }} <br>
         Coopetativa La Cima CIMACOOP DE RL
     </div>
 
 
-    <table class="table " style="width: 100% !important; ">
+    <table class="table table-borderless fs-2" style="border: 1px solid rgb(255, 255, 255);  font-size: 16px !important;" >
         <thead>
             <th></th>
             <th></th>
@@ -93,7 +93,7 @@
                 <td></td>
                 <td></td>
 
-                <td class="text-bold">
+                <td class="text-bold" style=" font-size: 15px !important;">
                     @switch($movimiento->tipo_operacion)
                         @case(1)
                             <span class=" text-bold">Traslado</span>

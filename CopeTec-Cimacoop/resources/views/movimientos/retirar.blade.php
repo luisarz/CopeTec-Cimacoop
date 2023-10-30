@@ -7,6 +7,7 @@
         {!! csrf_field() !!}
         <div class="input-group mb-5"></div>
         <input type="hidden" id="id_caja" name="id_caja" value="{{ $aperturaCaja }}">
+        <input type="hidden" id="num_movimiento_libreta" name="num_movimiento_libreta" value="">
 
         <div class="d-flex justify-content-center">
 
@@ -55,6 +56,14 @@
                         </div>
 
                     </div>
+                     <div class="form-group row mb-5">
+                            <div class="form-floating col-lg-12">
+                                <input type="number"
+                                    class="form-control text-danger text-bold" name="id_libreta" id="id_libreta" readonly
+                                    required />
+                                <label>Libreta:</label>
+                            </div>
+                        </div>
                     <!--begin::row group-->
                     <div class="form-group row mb-5">
                         <div class="form-floating col-lg-12">
@@ -138,13 +147,21 @@
                         // opcion_seleccionada: id_cuenta
                     },
                     success: function(response) {
-                        $('#saldo').val(response.saldo_cuenta_sin_formato);
-                        $("#lblSaldo").text('$' + response.saldo_cuenta_formateado);
-                        $("#monto").attr({
-                            "max": response
-                                .saldo_cuenta_sin_formato, // substitute your own
-                            "min": 1 // values (or variables) here
-                        });
+                        if (response.response == "ok") {
+                            $("#id_libreta").val(response.libreta);
+                        $("#num_movimiento_libreta").val(response.num_movimiento_libreta);
+                            $('#saldo').val(0.0);
+                            $("#lblSaldo").text('Seleccione Cuenta');
+                            $('#saldo').val(response.saldo_cuenta_sin_formato);
+                            $("#lblSaldo").text('$' + response.saldo_cuenta_formateado);
+                            $("#monto").attr({
+                                "max": response
+                                    .saldo_cuenta_sin_formato, // substitute your own
+                                "min": 1 // values (or variables) here
+                            });
+                            $("")
+                        }
+
                     },
                     error: function(xhr, status, error) {
                         console.log(error);

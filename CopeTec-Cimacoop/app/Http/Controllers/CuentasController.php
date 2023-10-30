@@ -29,6 +29,7 @@ class CuentasController extends Controller
     public function getLibreta($id_cuenta)
     {
         $libreta = LibretasModel::where("id_cuenta", "=", $id_cuenta)->where('estado','1')->first();
+        
         if ($libreta) {
             $numMovimiento= Movimientos::where("id_libreta", "=", $libreta->id_libreta)->max('num_movimiento_libreta');
             $proximoMovimiento = $numMovimiento + 1;
@@ -184,12 +185,29 @@ class CuentasController extends Controller
     {
         $cuenta = Cuentas::find($id);
         $saldo_cuenta_formateado = null;
+        $libreta = LibretasModel::where("id_cuenta", "=", $id)->where('estado', '1')->first();
+
+
         if ($cuenta) {
             $saldo_cuenta_formateado = number_format($cuenta->saldo_cuenta, 2, '.', ',');
+        }
+        if ($libreta) {
+            $numMovimiento = Movimientos::where("id_libreta", "=", $libreta->id_libreta)->max('num_movimiento_libreta');
+            $proximoMovimiento = $numMovimiento + 1;
+            $msg = "ok";
+        }else{
+              $proximoMovimiento = 0;  
+              $msg = "error";
         }
         return response()->json([
             'saldo_cuenta_formateado' => $saldo_cuenta_formateado != null ? $saldo_cuenta_formateado : 0,
             'saldo_cuenta_sin_formato' => $cuenta ? $cuenta->saldo_cuenta : 0,
+            'proximoMovimiento' => $proximoMovimiento,
+            "response" => $msg,
+            "libreta" => $libreta->id_libreta,
+            "num_movimiento_libreta" => $proximoMovimiento,
+
+
         ]);
     }
     public function anularCuenta(Request $request)

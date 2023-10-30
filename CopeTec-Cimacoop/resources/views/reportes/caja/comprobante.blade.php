@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
 
     <title>CoopeTec-Administracion de cooperativas CompuTec Consultores</title>
-    {{-- <meta charset="utf-8" /> --}}
+    <meta charset="utf-8" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         {!! $estilos !!}
+        {!! $stilosBundle !!}
     </style>
 
 </head>
@@ -21,15 +22,15 @@
 
 
 
-    <div class="text-align-rigth " style="margin-right:100px; margin-top:100px; ">
+    <div class="text-align-rigth " style="margin-right:100px; margin-top:100px; font-size: 15px !important; ">
         Cajaro : <span class="text-bold"> {{ strtoupper($movimiento->nombre_empleado) }} </span>
         <br>
         Fecha: {{ \Carbon\Carbon::parse($movimiento->fecha_operacion)->format('d/m/Y') }}
         <br>
-        Hora: {{ \Carbon\Carbon::parse($movimiento->fecha_operacion)->format('H:i:') }}
+        Hora: {{ \Carbon\Carbon::parse($movimiento->fecha_operacion)->format('H:i:s A') }}
 
     </div>
-    <div style="margin-top: -10px; margin-left:30px; " class=" text-bold ">
+    <div style="margin-top: -10px; margin-left:30px; font-size: 15px !important;" class=" text-bold ">
         @php
             $tipoOperacion = $movimiento->tipo_operacion;
         @endphp
@@ -43,13 +44,13 @@
 
     </div>
 
-    <div style="margin-top: 50px; width=100px; text-align:center;">
+    <div style="margin-top: 50px; width=100px; text-align:center; font-size: 16px !important;">
         {{ strtoupper($movimiento->direccion_personal) }} <br>
         Coopetativa La Cima CIMACOOP DE RL
     </div>
 
 
-    <table class="table " style="width: 100% !important">
+    <table class="table "  style="border: solid 1px rgb(255, 255, 255) !important; font-size: 18px !important;">
         <tbody>
             <tr>
                 <td></td>
@@ -61,35 +62,35 @@
                         {{ $movimiento->numero_cuenta }} {{ $movimiento->descripcion_cuenta }}
                     @endif
                 </td>
-                <td> @switch($movimiento->tipo_operacion)
+                <td style="font-size: 15px !important;"> @switch($movimiento->tipo_operacion)
                         @case('1')
-                            <span class="badge badge-light-success fs-6">Deposito</span>
+                            <span class="badge badge-light-success fs-2">Deposito</span>
                             @if ($movimiento->id_cuenta_destino != null)
-                                <span class="badge badge-light-danger fs-6"> - Transferencia Tercero</span>
+                                <span class="badge badge-light-danger fs-2"> - Transferencia Tercero</span>
                             @endif
                         @break
 
                         @case('2')
-                            <span class="badge badge-light-danger fs-6">Retiro</span>
+                            <span class="badge badge-light-danger fs-2">Retiro</span>
                             @if ($movimiento->id_cuenta_destino != null)
-                                <span class="badge badge-light-danger fs-6"> - Transferencia Tercero</span>
+                                <span class="badge badge-light-danger fs-2"> - Transferencia Tercero</span>
                             @endif
                         @break
 
                         @case('3')
-                            <span class="badge badge-light-danger fs-6">Recepcion de Bobeda</span>
+                            <span class="badge badge-light-danger fs-2">Recepcion de Bobeda</span>
                         @break
 
                         @case('4')
-                            <span class="badge badge-light-danger fs-6">Traslado a Bobeda</span>
+                            <span class="badge badge-light-danger fs-2">Traslado a Bobeda</span>
                         @break
 
                         @case('5')
-                            <span class="badge badge-light-danger fs-6">Corte X</span>
+                            <span class="badge badge-light-danger fs-2">Corte X</span>
                         @break
 
                         @case('6')
-                            <span class="badge badge-light-danger fs-6">Corte Z</span>
+                            <span class="badge badge-light-danger fs-2">Corte Z</span>
                         @break
 
                     @endswitch

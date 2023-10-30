@@ -22,7 +22,7 @@
 
                     <input type="hidden" id="id_cuenta">
                     <div class="modal-header">
-                        <h5 class="check-title" id="exampleModalLabel">Movimientos sin imprimir</h5>
+                        <h5 class="check-title" id="exampleModalLabel">POSTEO de Libretas</h5>
                     </div>
                     <div class="modal-body" style="height: 300px;">
 
@@ -205,16 +205,17 @@
                         const movimientos = data.movimientos;
                         $('#elementosBody').html("");
                         $.each(movimientos, function(index, element) {
-                            let tipo_operacion = index.tipo_operacion
-                            let retiros = 0;
+                            let tipo_operacion = element.tipo_operacion
+                            let retiro = 0;
                             let depositos = 0;
                             let saldo = 0;
+                            
                             if (tipo_operacion == '2') {
-                                retiros = element.monto;
-                                depositos = '0.00';
+                                retiro = element.monto;
+                                depositos = '-';
                             } else {
                                 depositos = element.monto;
-                                retiros = '0.00';
+                                retiro = '-';
                             }
 
                             let id = element.id_movimiento;
@@ -223,7 +224,7 @@
                                 '<td><input type="checkbox" checked class="check-imprimir" id="' +
                                 id + '"> </td>' +
                                 '<td>' + element.fecha_operacion + '</td>' +
-                                '<td>' + retiros + '</td>' +
+                                '<td>' + retiro + '</td>' +
                                 '<td>' + depositos + '</td>' +
                                 '<td>' + element.saldo + '</td>' +
                                 '<td>' + element.numero_caja + '</td>' +

@@ -113,6 +113,7 @@ class BobedaController extends Controller
     public function recibirDeCajaABobeda()
     {
         $cajas = Cajas::where('id_caja', '!=', 0)->get();
+        // dd($cajas);
         $id_empleado = session('id_empleado_usuario');
         $empleados = Empleados::where('id_empleado', '=', $id_empleado)->get();
         return view("boveda.recibir", compact("cajas", 'empleados'));
@@ -208,7 +209,7 @@ class BobedaController extends Controller
         return redirect("/boveda");
     }
     public function getTrasladoPendienteCajaABobeda($id){
-        $movimientos = Movimientos::where('id_caja','=','$id')
+        $movimientos = Movimientos::where('id_caja','=',$id)
         ->where('tipo_operacion','=',4)
         ->where('id_cuenta','=',0)
         ->where('estado','=',0)
@@ -221,6 +222,7 @@ class BobedaController extends Controller
     }
 
     public function recibirTransferenciaDeCaja(Request $request){
+        // dd      ($request->all());
         $bobeMovimiento = new BobedaMovimientos();
         $bobeMovimiento->id_bobeda = 1;
         $bobeMovimiento->id_caja = $request->id_caja;

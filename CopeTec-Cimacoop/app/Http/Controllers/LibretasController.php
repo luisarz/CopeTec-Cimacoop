@@ -57,6 +57,7 @@ class LibretasController extends Controller
         if (empty($movimientos)) {
             return redirect()->back()->with('error', 'No se ha seleccionado ningún movimiento');
         }
+        
         Movimientos::whereIn('id_movimiento', $elementosMarcados)
             ->update([
                 'impreso' => 1,

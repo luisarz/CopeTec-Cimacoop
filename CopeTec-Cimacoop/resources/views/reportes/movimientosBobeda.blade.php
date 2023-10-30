@@ -3,7 +3,7 @@
 
 <head>
     <title>CoopeTec-Administracion de cooperativas CompuTec Consultores</title>
-    {{-- <meta charset="utf-8" /> --}}
+    <meta charset="utf-8" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,7 +25,10 @@
 
         Reporte de movimientos - {{ $bobeda->nombre }}
         <br>
-        Fecha de Apertura. {{ \Carbon\Carbon::parse($aperturaCaja->fecha_apertura)->format('d/m/Y H:i:s') }}
+        Fecha de Apertura.
+        {{ isset($aperturaCaja->fecha_apertura)
+            ? date('m-d-Y H:i:s', strtotime($aperturaCaja->fecha_apertura))
+            : 'No disponible' }}
     </div>
 
 
@@ -38,23 +41,26 @@
     <div class="container">
         <div class="alinea">
             <div class="item">
-                <div class="price">${{ number_format($aperturaCaja->monto, 2, '.', ',') }}</div>
+                <div class="price">
+                    ${{ isset($aperturaCaja->monto) ? number_format($aperturaCaja->monto, 2, '.') : '0.00' }}
+                </div>
+
                 <div class="description">Apertura</div>
             </div>
             <div class="item">
-                <div class="price">${{ number_format($trasladoACaja, 2, '.', ',') }}</div>
+                <div class="price">${{ number_format($trasladoACaja, 2, '.') }}</div>
                 <div class="description">Traslado a Caja</div>
             </div>
             <div class="item">
-                <div class="price">${{ number_format($recibidoDeCaja, 2, '.', ',') }}</div>
+                <div class="price">${{ number_format($recibidoDeCaja, 2, '.') }}</div>
                 <div class="description">Traslado de Caja</div>
             </div>
             <div class="item">
-                <div class="price">${{ number_format($cancelados, 2, '.', ',') }}</div>
+                <div class="price">${{ number_format($cancelados, 2, '.') }}</div>
                 <div class="description">Tras. Cancelado</div>
             </div>
             <div class="item">
-                <div class="price">$ {{ number_format($bobeda->saldo_bobeda, 2, '.', ',') }}</div>
+                <div class="price">$ {{ number_format($bobeda->saldo_bobeda, 2, '.') }}</div>
                 <div class="description">Saldo Caja</div>
             </div>
         </div>

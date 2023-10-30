@@ -66,7 +66,6 @@
                             <label for="floatingPassword">Observacion</label>
                         </div>
                     </div>
-
                 </div>
                 <div class="card-footer d-flex justify-content-center py-6">
                     <button type="submit" class="btn btn-block btn-bg-success btn-text-white">
@@ -82,9 +81,6 @@
 
 
 
-
-
-
     </form>
 @endsection
 @section('scripts')
@@ -94,12 +90,7 @@
 
     <script>
         $(document).ready(function() {
-            $("#transferenciForm").on("submit", function(event) {
-                this.submit();
-                setTimeout(function() {
-                    window.location.href = "/movimientos";
-                }, 1000);
-            });
+         
 
             let saldoDisponible = '{{ $cajas->saldo }}';
             if (saldoDisponible <= 0) {
@@ -115,6 +106,12 @@
 
                 });
             }
+               $("#transferenciForm").on("submit", function(event) {
+                this.submit();
+                setTimeout(function() {
+                    window.location.href = "/movimientos";
+                }, 1000);
+            });
 
         });
     </script>
