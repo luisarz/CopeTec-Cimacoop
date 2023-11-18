@@ -58,10 +58,10 @@ class LibretasController extends Controller
             return redirect()->back()->with('error', 'No se ha seleccionado ningún movimiento');
         }
         
-        Movimientos::whereIn('id_movimiento', $elementosMarcados)
-            ->update([
-                'impreso' => 1,
-            ]);
+        // Movimientos::whereIn('id_movimiento', $elementosMarcados)
+        //     ->update([
+        //         'impreso' => 1,
+        //     ]);
 
 
         $pdf = PDF::loadView('libretas.imprimir.movimientos', [

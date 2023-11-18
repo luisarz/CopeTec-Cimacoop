@@ -15,4 +15,8 @@ class Asociados extends Model
     {
         return $this->belongsTo(Clientes::class,'id_cliente');
     }
+    public function cuentas()
+    {
+        return $this->hasMany(Cuentas::class, 'id_asociado');
+    }
 }

@@ -23,7 +23,7 @@
 
 
     <div class="text-align-rigth " style="margin-right:100px; margin-top:100px; font-size: 15px !important; ">
-        Cajaro : <span class="text-bold"> {{ strtoupper($movimiento->nombre_empleado) }} </span>
+        Cajero : <span class="text-bold"> {{ strtoupper($movimiento->nombre_empleado) }} </span>
         <br>
         Fecha: {{ \Carbon\Carbon::parse($movimiento->fecha_operacion)->format('d/m/Y') }}
         <br>

@@ -59,14 +59,12 @@ class MoneylaunderingController extends Controller
     }
     public function clientReport(string $id)
     {
-        $client =   Clientes::find($id);
-        // $pdf = \App::make('snappy.pdf');
+        $client = Clientes::with(['asociado.cuentas', 'creditos'])->get()->find($id);
+        $cuentas = $client->asociado->cuentas;
 
-        // $pdf->setOptions([
-        //     'enable-local-file-access' => true
-        // ]);
         $pdf = PDF::loadView('reportes.clients.client', [
-            'client' => $client
+            'client' => $client,
+            'cuentas' => $cuentas
         ]);
 
         return $pdf->setOrientation('portrait')->inline();
@@ -75,11 +73,7 @@ class MoneylaunderingController extends Controller
     public function activeReport()
     {
         $clients =   DB::table('clientes')->get();
-        // $pdf = \App::make('snappy.pdf');
-
-        // $pdf->setOptions([
-        //     'enable-local-file-access' => true
-        // ]);
+       
         $pdf = PDF::loadView('reportes.clients.active', [
             'clients' => $clients
         ]);
@@ -90,11 +84,7 @@ class MoneylaunderingController extends Controller
     public function empReport()
     {
         $clients =   Clientes::orderBy('nombre', 'asc')->get();
-        // $pdf = \App::make('snappy.pdf');
-
-        // $pdf->setOptions([
-        //     'enable-local-file-access' => true
-        // ]);
+       
         $pdf = PDF::loadView('reportes.clients.empleados', [
             'clients' => $clients
         ]);

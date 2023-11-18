@@ -265,7 +265,7 @@ class FacturasController extends Controller
         } else {
             
             $facturas = facturasModel::join('clientes', 'facturas.id_cliente', '=', 'clientes.id_cliente')
-            ->select('facturas.*', 'clientes.nombre', 'clientes.dui')->get();
+            ->select('facturas.*', 'clientes.nombre', 'clientes.dui_cliente')->get();
         }
 
 

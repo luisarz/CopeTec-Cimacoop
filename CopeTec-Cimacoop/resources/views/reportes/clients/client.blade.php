@@ -74,7 +74,7 @@
                                 </h5>
                             </div>
                             <div class="col-12">
-                                @if (count($client->cuentas) > 0)
+                                @if (count($client->asociado->cuentas) > 0)
                                     <table class="data-table-coop table table-bordered  fs-5     gy-2 gs-5">
                                         <thead>
                                             <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
@@ -87,7 +87,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($client->cuentas as $cuenta)
+                                            @foreach ($client->asociado->cuentas as $cuenta)
                                                 <tr>
                                                     <td class="text-left">
                                                         {{ str_pad($cuenta->numero_cuenta, 10, '0', STR_PAD_LEFT) }}

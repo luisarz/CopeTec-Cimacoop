@@ -256,6 +256,7 @@ class CuentasController extends Controller
         $movimientos = Movimientos::join('cajas', 'movimientos.id_caja', '=', 'cajas.id_caja')
             ->where('impreso', '!=', [1, null])->where('id_cuenta', $id)
             ->select(
+                'movimientos.num_movimiento_libreta',
                 'movimientos.id_movimiento',
                 'movimientos.id_cuenta',
                 'movimientos.tipo_operacion',

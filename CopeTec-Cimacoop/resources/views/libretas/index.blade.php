@@ -28,8 +28,9 @@
 
 
                         <div class="row table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-responsive">
                                 <th><input type="checkbox" id="check-todos" class="checkbox"></th>
+                                <th>#</th>
                                 <th>Fecha</th>
                                 <th>Retiros</th>
                                 <th>Depositos</th>
@@ -223,6 +224,8 @@
                                 '<tr>' +
                                 '<td><input type="checkbox" checked class="check-imprimir" id="' +
                                 id + '"> </td>' +
+                                '<td>' + element.num_movimiento_libreta + '</td>' +
+
                                 '<td>' + element.fecha_operacion + '</td>' +
                                 '<td>' + retiro + '</td>' +
                                 '<td>' + depositos + '</td>' +
