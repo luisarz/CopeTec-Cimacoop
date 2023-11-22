@@ -48,7 +48,13 @@
                             </select>
                             <label for="floatingPassword">Cuenta Origen</label>
                         </div>
-                        <div class="form-floating col-lg-4">
+                         <div class="form-floating col-lg-2">
+                            <input type="text" required value="0.00" class="form-control text-success"
+                                name="id_libreta" id="id_libreta" placeholder="Saldo" aria-label="monto" readonly
+                                aria-describedby="basic-addon1" />
+                            <label for="floatingPassword">Libreta</label>
+                        </div>
+                        <div class="form-floating col-lg-2">
                             <input type="text" required value="0.00" class="form-control text-success"
                                 name="saldo_disponible" id="saldo_disponible" placeholder="Saldo" aria-label="monto"
                                 aria-describedby="basic-addon1" />
@@ -66,7 +72,13 @@
                             </select>
                             <label for="floatingPassword">Cuenta Destino</label>
                         </div>
-                        <div class="form-floating col-lg-4">
+                          <div class="form-floating col-lg-2">
+                            <input type="text" required value="0.00" class="form-control text-success"
+                                name="id_libreta_destino" id="id_libreta_destino" placeholder="Saldo" aria-label="monto" readonly
+                                aria-describedby="basic-addon1" />
+                            <label for="floatingPassword">Libreta Destino</label>
+                        </div>
+                        <div class="form-floating col-lg-2">
                             <input type="text" required class="form-control text-danger" name="monto" id="monto"
                                 placeholder="Saldo" aria-label="monto" aria-describedby="basic-addon1" />
                             <label for="floatingPassword">Cantidad Transferir</label>
@@ -76,14 +88,12 @@
                     <div class="form-group row mb-5">
                         <div class="form-floating col-lg-4">
                             <input type="text" required class="form-control text-danger" name="dui_transaccion"
-                                id="dui_transaccion" placeholder="Saldo" aria-label="monto"
-                                aria-describedby="basic-addon1" />
+                                id="dui_transaccion" placeholder="Saldo" />
                             <label for="floatingPassword">DUI</label>
                         </div>
                         <div class="form-floating col-lg-8">
-                            <input type="text" required class="form-control text-danger" name="cliente_transaccion"
-                                id="cliente_transaccion" placeholder="Saldo" aria-label="monto"
-                                aria-describedby="basic-addon1" />
+                            <input type="text" required class="form-control text-danger text-bold" name="cliente_transaccion"
+                                id="cliente_transaccion" placeholder="Saldo" />
                             <label for="floatingPassword">Cliente Transfiere</label>
                         </div>
                     </div>
@@ -127,6 +137,26 @@
 
             $("#transferenciaForm").on("submit", function(event) {
                 event.preventDefault();
+
+                let id_cuenta_origen = $("#id_cuenta_origen").val();
+                let id_cuenta_destino = $("#id_cuenta_destino").val();
+                if (id_cuenta_origen == id_cuenta_destino) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'No puede transferir a la misma cuenta',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        timer: 3000, // Tiempo en milisegundos (3 segundos en este caso)
+                        timerProgressBar: true,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                    return false;
+                }
+
+
                 let id_movimiento = "";
                 Swal.fire({
                     title: 'Cargando',
@@ -217,6 +247,7 @@
                             '<option value="">Seleccione la cuenta destino</option>');
 
                         $("#saldo_disponible").val(response.saldo_disponible).val()
+                        $("#id_libreta").val(response.id_libreta).val()
 
                         $("#monto").attr({
                             "max": response
@@ -232,6 +263,40 @@
                                 ' -> ' + obj.tipo_cuenta + '</option>');
 
                         });
+                        Swal.close();
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                        Swal.close();
+
+                    }
+                });
+            });
+
+            
+            $('#id_cuenta_destino').on('change', function() {
+
+                Swal.fire({
+                    title: 'Cargando',
+                    text: 'Por favor, espere...',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    onBeforeOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                let id = $(this).val();
+                let url = '/cuentas/getCuentasDisponibles/' + id;
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        $("#id_libreta_destino").val(response.id_libreta).val()
                         Swal.close();
 
                     },

@@ -12,7 +12,7 @@ use App\Models\Empleados;
 use App\Models\Movimientos;
 use App\Models\PartidaContable;
 use App\Models\PartidaContableDetalleModel;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -94,9 +94,12 @@ class MovimientosController extends Controller
         $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->join('libretas', 'libretas.id_cuenta', '=', 'cuentas.id_cuenta')
             ->select('cuentas.id_cuenta', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
             ->whereNotIn('clientes.estado', [0, 7])
             ->get();
+
+
         return view("movimientos.depositar", compact("cuentas", "aperturaCaja"));
     }
     public function retirar($id)
@@ -210,9 +213,9 @@ class MovimientosController extends Controller
         $movimiento->dui_transaccion = $request->dui_transaccion;
         $movimiento->cliente_transaccion = $request->cliente_transaccion;
         $movimiento->estado = 1;
-        $movimiento->saldo= $cuentaDestinoDatos->saldo_cuenta + $request->monto;
+        $movimiento->saldo = $cuentaDestinoDatos->saldo_cuenta + $request->monto;
         $movimiento->id_libreta = $request->id_libreta;
-        $movimiento->num_movimiento_libreta=$request->num_movimiento_libreta;
+        $movimiento->num_movimiento_libreta = $request->num_movimiento_libreta;
         $movimiento->impreso = 0;
         $movimiento->observacion = "Deposito a cuenta";
         $movimiento->save();
@@ -325,8 +328,8 @@ class MovimientosController extends Controller
         $movimiento->id_caja = $request->id_caja;
         $movimiento->saldo = $cuentaOrigenDatos->saldo_cuenta - $request->monto;
         $movimiento->impreso = 0;
-        $movimiento->id_libreta=$request->id_libreta;
-        $movimiento->num_movimiento_libreta=$request->num_movimiento_libreta;
+        $movimiento->id_libreta = $request->id_libreta;
+        $movimiento->num_movimiento_libreta = $request->num_movimiento_libreta;
         $movimiento->estado = 1;
         $movimiento->dui_transaccion = $request->dui_transaccion;
         $movimiento->cliente_transaccion = $request->cliente_transaccion;
@@ -480,7 +483,7 @@ class MovimientosController extends Controller
             ]);
         } else {
 
-
+            // DB::beginTransaction();
             //registrar el movimiento de retiro en la cuenta origen
             $movimientoOrigen = new Movimientos();
             $movimientoOrigen->id_cuenta = $request->id_cuenta_origen;
@@ -491,9 +494,14 @@ class MovimientosController extends Controller
             $movimientoOrigen->cajero_operacion = session()->get('id_empleado_usuario');
             $movimientoOrigen->id_caja = $request->id_caja;
             $movimientoOrigen->estado = 1;
+            $movimientoOrigen->id_libreta = $request->id_libreta;
+            $numMovimiento = Movimientos::where("id_libreta", "=", $request->id_libreta)->max('num_movimiento_libreta');
+            $proximoMovimiento = $numMovimiento + 1;
+            $movimientoOrigen->num_movimiento_libreta = $proximoMovimiento;
+
             $movimientoOrigen->dui_transaccion = $request->dui_transaccion;
             $movimientoOrigen->cliente_transaccion = $request->cliente_transaccion;
-            $movimientoOrigen->saldo= $cuentaOrigen->saldo_cuenta - $request->monto;
+            $movimientoOrigen->saldo = $cuentaOrigen->saldo_cuenta - $request->monto;
             $movimientoOrigen->save();
 
             //actualizar el saldo de la cuenta origen
@@ -508,14 +516,20 @@ class MovimientosController extends Controller
             $movimientoDestino->cajero_operacion = session()->get('id_empleado_usuario');
             $movimientoDestino->id_caja = $request->id_caja;
             $movimientoDestino->estado = 1;
+            $movimientoDestino->id_libreta = $request->id_libreta_destino;
+            $numMovimiento = Movimientos::where("id_libreta", "=", $request->id_libreta_destino)->max('num_movimiento_libreta');
+            $proximoMovimiento = $numMovimiento + 1;
+            $movimientoDestino->num_movimiento_libreta = $proximoMovimiento;
+
             $movimientoDestino->dui_transaccion = $request->dui_transaccion;
             $movimientoDestino->cliente_transaccion = $request->cliente_transaccion;
             $movimientoDestino->id_cuenta_destino = $request->id_cuenta_origen;
-            $movimientoDestino->saldo= $cuentaDestino->saldo_cuenta + $request->monto;
+            $movimientoDestino->saldo = $cuentaDestino->saldo_cuenta + $request->monto;
             $movimientoDestino->save();
             //actualizar el saldo de la cuenta destino
             $cuentaDestino->saldo_cuenta = $cuentaDestino->saldo_cuenta + $request->monto;
             $cuentaDestino->save();
+            // DB::commit();
             return response()->json([
                 'success' => true,
                 'error' => "Transferencia realizada con exito",
@@ -582,7 +596,7 @@ class MovimientosController extends Controller
             $saldosPorTipo[$tipoOperacion] += $saldo;
         }
 
-            // dd($movimientos);
+        // dd($movimientos);
         $sumaIngresos = $saldosPorTipo[1];
         $sumaAbonoCredito = $saldosPorTipo[7];
         $sumaDepositoAportaciones = $saldosPorTipo[9];

@@ -28,15 +28,15 @@ class CuentasController extends Controller
 
     public function getLibreta($id_cuenta)
     {
-        $libreta = LibretasModel::where("id_cuenta", "=", $id_cuenta)->where('estado','1')->first();
-        
+        $libreta = LibretasModel::where("id_cuenta", "=", $id_cuenta)->where('estado', '1')->first();
+
         if ($libreta) {
-            $numMovimiento= Movimientos::where("id_libreta", "=", $libreta->id_libreta)->max('num_movimiento_libreta');
+            $numMovimiento = Movimientos::where("id_libreta", "=", $libreta->id_libreta)->max('num_movimiento_libreta');
             $proximoMovimiento = $numMovimiento + 1;
             return response()->json([
                 "response" => "ok",
                 "libreta" => $libreta->id_libreta,
-                "num_movimiento_libreta"=>$proximoMovimiento,
+                "num_movimiento_libreta" => $proximoMovimiento,
 
             ]);
         } else {
@@ -76,6 +76,8 @@ class CuentasController extends Controller
         $asociados = Asociados::join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->whereNotIn('clientes.estado', [0, 7])->get(); //El cliente no este desactivado ni sea la bobeda
         $tiposcuentas = TipoCuenta::all();
+
+
 
         return view("cuentas.addcuentacompartida", compact("asociados", "tiposcuentas"));
     }
@@ -195,9 +197,9 @@ class CuentasController extends Controller
             $numMovimiento = Movimientos::where("id_libreta", "=", $libreta->id_libreta)->max('num_movimiento_libreta');
             $proximoMovimiento = $numMovimiento + 1;
             $msg = "ok";
-        }else{
-              $proximoMovimiento = 0;  
-              $msg = "error";
+        } else {
+            $proximoMovimiento = 0;
+            $msg = "error";
         }
         return response()->json([
             'saldo_cuenta_formateado' => $saldo_cuenta_formateado != null ? $saldo_cuenta_formateado : 0,
@@ -219,19 +221,27 @@ class CuentasController extends Controller
     }
     public function getCuentasDisponibles($id)
     {
-        $cuenta_origen = Cuentas::find($id);
+        $cuenta_origen = Cuentas::with('libreta')->find($id);
         $cuentas = Cuentas::join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
             ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
             ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
+            ->join('libretas', 'libretas.id_cuenta', '=', 'cuentas.id_cuenta')
             ->whereNotIn('clientes.estado', [0, 7])
             ->where('cuentas.id_cuenta', '!=', $id)
             ->distinct()
             ->orderby('clientes.nombre', 'asc')
-            ->select('cuentas.*', 'clientes.nombre as nombre_cliente', 'clientes.dui_cliente as dui_cliente', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta')
+            ->select(
+                'cuentas.*',
+                'clientes.nombre as nombre_cliente',
+                'clientes.dui_cliente as dui_cliente',
+                'tipos_cuentas.descripcion_cuenta as tipo_cuenta',
+                'libretas.numero as numero_libreta'
+            )
             ->get();
         return response()->json([
             'cuentas' => $cuentas,
-            'saldo_disponible' => $cuenta_origen->saldo_cuenta
+            'saldo_disponible' => $cuenta_origen->saldo_cuenta,
+            'id_libreta' => isset($cuenta_origen->libreta)? $cuenta_origen->libreta->id_libreta:'',
         ]);
     }
     public function getCuentasByAsociado($id)
@@ -254,7 +264,7 @@ class CuentasController extends Controller
     {
 
         $movimientos = Movimientos::join('cajas', 'movimientos.id_caja', '=', 'cajas.id_caja')
-            ->where('impreso', '!=', [1, null])->where('id_cuenta', $id)
+            ->where('id_cuenta', $id)
             ->select(
                 'movimientos.num_movimiento_libreta',
                 'movimientos.id_movimiento',
@@ -265,7 +275,9 @@ class CuentasController extends Controller
                 'movimientos.fecha_operacion',
                 'movimientos.id_caja',
                 'cajas.numero_caja'
-            )->get();
+            )->orderby('movimientos.fecha_operacion')
+            ->get();
+            // dd($movimientos);
         $movimientosPendientes = 0;
         if ($movimientos) {
             $movimientosPendientes = $movimientos->count();

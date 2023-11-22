@@ -47,6 +47,7 @@ use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\CreditoController;
 use App\Http\Controllers\DeclaracionJuradaController;
+use App\Http\Controllers\DepositosInteresController;
 use App\Http\Controllers\MoneylaunderingController;
 use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\FacturasController;
@@ -365,6 +366,10 @@ Route::get('/captaciones/depositosplazo/liquidar/{id}', [DepositosPlazoControlle
 Route::post('/captaciones/depositosplazo/liquidar', [DepositosPlazoController::class, 'liquidarDeposito'])->middleware(['auth', 'bitacora']);
 Route::get('/captaciones/depositosplazo/renovar/{id}', [DepositosPlazoController::class, 'renovar'])->middleware(['auth', 'bitacora']);
 Route::delete('/captaciones/depositosplazo/delete', [DepositosPlazoController::class, 'delete'])->middleware(['auth', 'bitacora']);
+
+/**Deposito de INteres */
+Route::get('/captaciones/interes/deposito', [DepositosInteresController::class, 'index'])->middleware(['auth', 'bitacora']);
+
 /*
 Beneficiarios Depositos Plazo Fijos
 */

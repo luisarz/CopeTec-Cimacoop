@@ -65,18 +65,18 @@
                             </span>
                             Aperturar Cuenta
                         </a>
-                        <a href="/cuentas/addcompartida" class="btn btn-info">
+                        <a href="/cuentas/addcuentacompartida" class="btn btn-info">
                             <span>
                                 <i class="fa fa-download fa-2x"></i>
                             </span>
                             Aperturar Cuenta Compartida
                         </a>
-                        <a href="/cuentas/addcompartida" class="btn btn-outline btn-outline-dashed btn-outline-info">
+                        {{-- <a href="/cuentas/addcompartida" class="btn btn-outline btn-outline-dashed btn-outline-info">
                             <span>
                                 <i class="fa fa-print fa-2x"></i>
                             </span>
                             Reporte de Cuentas
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
@@ -136,14 +136,14 @@
                                             @endif
                                         </div>
                                         <div class="menu-item px-2">
-                                            <a href="/reportes/contrato/{{ $cuenta->id_cuenta }}" class="menu-link px-3">
+                                            <a href="/reportes/contrato/{{ $cuenta->id_cuenta }}" target="_blank" class="menu-link px-3">
                                                 <i class="ki-outline ki-printer text-primary fs-2">
                                                 </i>
                                                 <span class=""> Contrato</span>
                                             </a>
                                         </div>
                                         <div class="menu-item px-2">
-                                            <a href="/reportes/RepEstadoCuenta/{{ $cuenta->id_cuenta }}"
+                                            <a href="/reportes/RepEstadoCuenta/{{ $cuenta->id_cuenta }}" target="_blank"
                                                 class="menu-link px-3">
                                                 <i class="ki-outline ki-printer text-primary fs-2">
                                                 </i>

@@ -24,4 +24,7 @@ class Cuentas extends Model
     {
         return $this->belongsTo(TipoCuenta::class,'id_tipo_cuenta');
     }
+    public function libreta(){
+        return $this->hasOne( LibretasModel::class,'id_cuenta');
+    }
 }

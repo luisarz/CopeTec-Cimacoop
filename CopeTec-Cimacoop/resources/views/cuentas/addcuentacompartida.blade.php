@@ -113,17 +113,17 @@
                     @endif
                 </div>
                 <div class="card-footer">
-                     <div class="form-group row mb-2">
-                            <div class="card-footer d-flex justify-content-center py-6">
-                                <button type="submit" class="btn btn-block btn-bg-info btn-text-white">
-                                    <i class="ki-duotone ki-dollar    text-white fs-2x                   ">
-                                        <i class="path1"></i>
-                                        <i class="path2"></i>
-                                        <i class="path3"></i>
-                                    </i>
-                                    Aperturar Cuenta</button>
-                            </div>
+                    <div class="form-group row mb-2">
+                        <div class="card-footer d-flex justify-content-center py-6">
+                            <button type="submit" class="btn btn-block btn-bg-info btn-text-white">
+                                <i class="ki-duotone ki-dollar    text-white fs-2x                   ">
+                                    <i class="path1"></i>
+                                    <i class="path2"></i>
+                                    <i class="path3"></i>
+                                </i>
+                                Aperturar Cuenta</button>
                         </div>
+                    </div>
                 </div>
             </div>
 
@@ -149,14 +149,15 @@
                         opcion_seleccionada: id_tipo_cuenta
                     },
                     success: function(response) {
-                        $('#id_interes_tipo_cuenta').empty();
-                        $.each(response, function(index, interes) {
+                        $.each(response[0], function(index, interes) {
                             $('#id_interes_tipo_cuenta').append(
                                 $('<option>', {
                                     value: interes.id_intereses_tipo_cuenta,
                                     text: interes.interes
-                                }));
+                                })
+                            );
                         });
+
                     },
                     error: function(xhr, status, error) {
                         console.log(error);
