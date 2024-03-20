@@ -71,7 +71,7 @@
                     <tbody>
                         @foreach ($creditos as $credito)
                             <tr>
-                                <td>{{ $credito->cliente->nombre }}</td>
+                                <td>{{ $credito->cliente->nombre??'' }}</td>
                                 <td>Natural</td>
                                 <td>{{ $credito->codigo_credito }}</td>
                                 <td></td>
@@ -103,8 +103,8 @@
                                 <td> Dólares</td>
                                 <td>${{ number_format($credito->cuota, 2) }}</td>
                                 <td>31</td>
-                                <td>{{ $credito->cliente->fecha_nacimiento }}</td>
-                                <td>{{ $credito->cliente->dui_cliente }}</td>
+                                <td>{{ $credito->cliente->fecha_nacimiento??'' }}</td>
+                                <td>{{ $credito->cliente->dui_cliente ?? ''}}</td>
                                 <td></td>
                                 <td>
                                     @if ($credito->saldo_capital <= 0)
@@ -116,9 +116,10 @@
                                     {{ $credito->plazo }}
                                 </td>
                                 <td>
-                                    @if ($credito->cliente->score)
-                                        {{ $credito->cliente->score->score }}
-                                    @endif
+
+                                    {{-- @if isset($credito->cliente->score) --}}
+                                        {{ $credito->cliente->score->score ??''}}
+                                    {{-- @endif --}}
                                 </td>
                                 <td>Comerciante</td>
 

@@ -41,7 +41,7 @@
                                 <tr class="fs-5 font-bold">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $cr->codigo_credito }}</td>
-                                    <td>{{ $cr->cliente->nombre }}</td>
+                                    <td>{{ $cr->cliente->nombre??'' }}</td>
                                     <td>{{ \Carbon\Carbon::parse($cr->fecha_pago)->format('d') }} c/mes</td>
                                     <td>{{ \Carbon\Carbon::parse($cr->ultima_fecha_pago)->format('d/m/Y') }}</td>
                                     <td>@money($cr->saldo_capital)</td>
