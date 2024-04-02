@@ -34,7 +34,7 @@
                             <th class="min-w-20px">Fecha Pago</th>
                             <th class="min-w-20px">Ultimo Pago</th>
                             <th class="min-w-30px">Saldo</th>
-                            <th class="min-w-30px">Monto</th>
+                            <th class="min-w-30px">Monto Mora</th>
                             <th class="min-w-30px">A1 -7 </th>
                             <th class="min-w-30px">A2 -30 </th>
                             <th class="min-w-30px">B -60 </th>
@@ -50,19 +50,20 @@
                     </thead>
                     <tbody>
                     <tbody>
-                        @if (count($creditos) > 0)
-                            @foreach ($creditos as $cr)
+                        @if (count($data) > 0)
+                            @foreach ($data as $cr)
+                            {{-- {{ dd($cr['dias_mora']) }} --}}
                                 @php
-                                    $dias_mora = \Carbon\Carbon::now()->diffInDays($cr->ultima_fecha_pago);
+                                    $dias_mora = $cr['dias_mora'];// \Carbon\Carbon::now()->diffInDays($cr->dias_mora);
                                 @endphp
                                 <tr class="fs-5 font-bold">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $cr->codigo_credito }}</td>
-                                    <td>{{ $cr->cliente->nombre ?? '' }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($cr->fecha_pago)->format('d') }} c/mes</td>
-                                    <td>{{ \Carbon\Carbon::parse($cr->ultima_fecha_pago)->format('d/m/Y') }}</td>
-                                    <td>@money($cr->saldo_capital)</td>
-                                    <td>@money($cr->monto_solicitado)</td>
+                                    <td>{{ $cr['codigo_credito'] }}</td>
+                                    <td>{{ $cr['cliente->nombre'] ?? '' }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($cr['fecha_pago'])->format('d') }} c/mes</td>
+                                    <td>{{ \Carbon\Carbon::parse($cr['ultima_fecha_pago'])->format('d/m/Y') }}</td>
+                                    <td>@money($cr['saldo_capital'])</td>
+                                    <td class="text-danger">@money($cr['total_pagar'])</td>
                                     <td>
                                        {{ ($dias_mora <= 7 )? $dias_mora : '-' }}
                                     </td>

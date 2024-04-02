@@ -473,22 +473,171 @@ class CreditoController extends Controller
       session()->put("estadoMenuminimizado", "1");
 
       $creditos = Credito::whereRaw("DATEDIFF('" . Carbon::now()->format('Y-m-d') . "', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital<>0")->get();
-      return view('creditos.reportes.cartera_mora', compact('creditos'));
+
+      $data=[];
+      foreach ($creditos as $credito) {
+
+
+         $id=$credito->id_credito;
+         $credito = Credito::where('id_credito', $id)->first();
+         $configuracion = Configuracion::first();
+
+
+
+         $MORA = 0.000 * 0;
+
+         $proxima_fecha_pago = date("Y-m-d");
+         $ultima_proxima_fecha_pago = $credito->ultima_fecha_pago;
+
+         $CUOTA = number_format($credito->cuota, 2, '.', '');
+         $APORTACION = $credito->aportaciones;
+         $SEGURO_DEUDA = $credito->seguro_deuda;
+
+         #calculo de intereses
+         // $SALDO_CAPITAL = number_format( $credito->saldo_capital);
+         $SALDO_CAPITAL = sprintf("%.2f", $credito->saldo_capital);
+
+         // $TASA = $credito->tasa / 100;
+         $TASA = $configuracion->interes_moratorio / 100;
+
+         // $DIAS_TRASCURRIDOS = $this->diasEntreFechas($ultima_proxima_fecha_pago, $proxima_fecha_pago);
+         $DIAS_TRASCURRIDOS = $this->diasEntreFechas($ultima_proxima_fecha_pago, $proxima_fecha_pago);
+         if ($DIAS_TRASCURRIDOS < 0) {
+            $DIAS_TRASCURRIDOS = 0;
+         }
+
+         $INTERESES = ($SALDO_CAPITAL * $TASA * $DIAS_TRASCURRIDOS) / 365;
+         $INTERESES = sprintf("%.2f", $INTERESES);
+         $INTERESES_30_DIAS = ($SALDO_CAPITAL * $TASA * 30) / 365;
+         $INTERESES_30_DIAS == sprintf("%.2f", $INTERESES_30_DIAS);
+
+
+         if ($CUOTA > $SALDO_CAPITAL) { //Si la cuota es mayor al saldo capital se le asigna el saldo capital
+            $CUOTA = $SALDO_CAPITAL;
+         }
+
+         $CAPITAL = $CUOTA - $INTERESES;
+         if ($CAPITAL < 0) {
+            $CAPITAL = 0.0;
+         }
+         $DIAS_MORA = 0;
+         if ($DIAS_TRASCURRIDOS > 33) {
+            $TASA_MORA = $credito->interes_mora / 100;
+            $CAPITAL_VENCIDO = $CUOTA - $INTERESES_30_DIAS;
+            $DIAS_MORA = $DIAS_TRASCURRIDOS - 30;
+            $MORA = ($CAPITAL_VENCIDO * $TASA_MORA * $DIAS_MORA) / 365;
+         }
+
+         $TOTAL_PAGAR = sprintf("%.2f", $CAPITAL + $MORA + $APORTACION + $SEGURO_DEUDA + $INTERESES);
+
+
+         
+
+         $data[] = [
+            'codigo_credito' => $credito->codigo_credito,
+            'nombre' => $credito->cliente->nombre??'',
+            'dui' => $credito->cliente->dui_cliente??'',
+            'fecha_desembolso' => $credito->fecha_desembolso,
+            'fecha_pago' => $credito->fecha_pago,
+            'ultima_fecha_pago' => $credito->ultima_fecha_pago,
+            'cuota' => $credito->cuota,
+            'total_pagar' => $TOTAL_PAGAR,
+
+            'saldo_capital' => $credito->saldo_capital,
+            'dias_mora' => $this->diasEntreFechas($credito->ultima_fecha_pago, Carbon::now()->format('Y-m-d')),
+         ];
+      }
+      //  dd($data);
+      return view('creditos.reportes.cartera_mora', compact('creditos', 'data'));
    }
    public function cartera_mora_rep()
    {
 
-
       $configuracion = Configuracion::first();
       $days = $configuracion->dias_gracia + 30;
+      session()->put("estadoMenuminimizado", "1");
 
-      $creditos = Credito::whereRaw("DATEDIFF('" . Carbon::now()->format('Y-m-d') . "', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital>0")->get();
+      $creditos = Credito::whereRaw("DATEDIFF('" . Carbon::now()->format('Y-m-d') . "', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital<>0")->get();
 
+      $data = [];
+      foreach ($creditos as $credito) {
+
+
+         $id = $credito->id_credito;
+         $credito = Credito::where('id_credito', $id)->first();
+         $configuracion = Configuracion::first();
+
+
+
+         $MORA = 0.000 * 0;
+
+         $proxima_fecha_pago = date("Y-m-d");
+         $ultima_proxima_fecha_pago = $credito->ultima_fecha_pago;
+
+         $CUOTA = number_format($credito->cuota, 2, '.', '');
+         $APORTACION = $credito->aportaciones;
+         $SEGURO_DEUDA = $credito->seguro_deuda;
+
+         #calculo de intereses
+         // $SALDO_CAPITAL = number_format( $credito->saldo_capital);
+         $SALDO_CAPITAL = sprintf("%.2f", $credito->saldo_capital);
+
+         // $TASA = $credito->tasa / 100;
+         $TASA = $configuracion->interes_moratorio / 100;
+
+         // $DIAS_TRASCURRIDOS = $this->diasEntreFechas($ultima_proxima_fecha_pago, $proxima_fecha_pago);
+         $DIAS_TRASCURRIDOS = $this->diasEntreFechas($ultima_proxima_fecha_pago, $proxima_fecha_pago);
+         if ($DIAS_TRASCURRIDOS < 0) {
+            $DIAS_TRASCURRIDOS = 0;
+         }
+
+         $INTERESES = ($SALDO_CAPITAL * $TASA * $DIAS_TRASCURRIDOS) / 365;
+         $INTERESES = sprintf("%.2f", $INTERESES);
+         $INTERESES_30_DIAS = ($SALDO_CAPITAL * $TASA * 30) / 365;
+         $INTERESES_30_DIAS == sprintf("%.2f", $INTERESES_30_DIAS);
+
+
+         if ($CUOTA > $SALDO_CAPITAL) { //Si la cuota es mayor al saldo capital se le asigna el saldo capital
+            $CUOTA = $SALDO_CAPITAL;
+         }
+
+         $CAPITAL = $CUOTA - $INTERESES;
+         if ($CAPITAL < 0) {
+            $CAPITAL = 0.0;
+         }
+         $DIAS_MORA = 0;
+         if ($DIAS_TRASCURRIDOS > 33) {
+            $TASA_MORA = $credito->interes_mora / 100;
+            $CAPITAL_VENCIDO = $CUOTA - $INTERESES_30_DIAS;
+            $DIAS_MORA = $DIAS_TRASCURRIDOS - 30;
+            $MORA = ($CAPITAL_VENCIDO * $TASA_MORA * $DIAS_MORA) / 365;
+         }
+
+         $TOTAL_PAGAR = sprintf("%.2f", $CAPITAL + $MORA + $APORTACION + $SEGURO_DEUDA + $INTERESES);
+
+
+
+
+         $data[] = [
+            'codigo_credito' => $credito->codigo_credito,
+            'nombre' => $credito->cliente->nombre ?? '',
+            'dui' => $credito->cliente->dui_cliente ?? '',
+            'fecha_desembolso' => $credito->fecha_desembolso,
+            'fecha_pago' => $credito->fecha_pago,
+            'ultima_fecha_pago' => $credito->ultima_fecha_pago,
+            'cuota' => $credito->cuota,
+            'total_pagar' => $TOTAL_PAGAR,
+
+            'saldo_capital' => $credito->saldo_capital,
+            'dias_mora' => $this->diasEntreFechas($credito->ultima_fecha_pago, Carbon::now()->format('Y-m-d')),
+         ];
+      }
       // return view('creditos.reportes.cartera_mora', compact('creditos'));
       $pdf = PDF::loadView("creditos.reportes.cartera_mora_rep", [
          'estilos' => $this->estilos,
          'stilosBundle' => $this->stilosBundle,
-         'creditos' => $creditos
+         'creditos' => $creditos,
+         'data' => $data
 
       ]);
 
