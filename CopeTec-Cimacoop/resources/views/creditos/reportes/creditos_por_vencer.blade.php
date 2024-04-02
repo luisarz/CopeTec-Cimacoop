@@ -13,8 +13,36 @@
             </div>
 
             <div class="card-toolbar">
+                <form action="/reportes/creditos/proximos-vencer" method="post" autocomplete="off">
+                    {!! csrf_field() !!}
+                    {{ method_field('POST') }}
+                    <!--begin::Input group-->
+                    <div class="row">
+                        <div class="form-group row ">
+
+                            <div class="form-floating col-lg-4">
+                                <input type="date" value="{{ $desde }}" name="desde" id="desde"
+                                    class="form-control">
+                                <label>Fecha Inicio:</label>
+                            </div>
+                            <div class="form-floating col-lg-4">
+                                <input type="date" value="{{ $hasta }}" name="hasta" id="hasta"
+                                    class="form-control">
+                                <label>Fecha Fin:</label>
+                            </div>
+                            <div class="form-floating col-lg-2">
+                                <button type="submit" class="btn btn-info my-1">
+                                    Buscar
+                                </button>
+                            </div>
+                            <div class="form-floating col-lg-2">
+                                {{-- <a href="javascript:generarReporte()" class="btn btn-primary my-1">Reporte</a> --}}
+                                <a href="javascript:generarReporte()" class="btn btn-primary my-1"> Reporte</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <div class="form-floating col-lg-2">
-                    <a href="javascript:generarReporte()" class="btn btn-primary my-1"> Imprimir</a>
                 </div>
             </div>
         </div>
@@ -28,29 +56,39 @@
                             <th class="min-w-20px">Código crédito</th>
                             <th class="min-w-80px">Cliente</th>
                             <th class="min-w-20px">Fecha Pago</th>
-                            <th class="min-w-20px">Ultimo Pago Recivido</th>
+                            <th class="min-w-20px">Ultimo Pago</th>
+                            <th class="min-w-20px">Hoy</th>
                             <th class="min-w-30px">Saldo</th>
                             <th class="min-w-30px">Monto</th>
                             <th class="min-w-30px">Cuota</th>
-                            <th class="min-w-30px">Días en mora</th>
+                            <th class="min-w-30px">Dias para vencer</th>
                         </tr>
                     </thead>
                     <tbody>
                     <tbody>
                         @if (count($creditos) > 0)
                             @foreach ($creditos as $cr)
-                                <tr class="fs-5 font-bold">
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $cr->codigo_credito }}</td>
-                                    <td>{{ $cr->cliente->nombre??'' }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($cr->fecha_pago)->format('d') }} c/mes</td>
-                                    <td>{{ \Carbon\Carbon::parse($cr->ultima_fecha_pago)->format('d/m/Y') }}</td>
-                                    <td>@money($cr->saldo_capital)</td>
-                                    <td>@money($cr->monto_solicitado)</td>
-                                    <td>@money($cr->cuota)</td>
-                                    <td>{{ \Carbon\Carbon::now()->diffInDays($cr->ultima_fecha_pago) }}
-                                    </td>
-                                </tr>
+                                @php
+                                    $diasParaVencimiento = \Carbon\Carbon::parse($cr->ultima_fecha_pago)->diffInDays($hasta);
+                                    if ($diasParaVencimiento > $days) {
+                                        $diasParaVencimiento = ($diasParaVencimiento + $days) * -1;
+                                    }
+                                @endphp
+                                @if ($diasParaVencimiento <= 1)
+                                    <tr class="fs-5 font-bold">
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $cr->codigo_credito }}</td>
+                                        <td>{{ $cr->cliente->nombre ?? '' }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($cr->fecha_pago)->format('d') }} c/mes</td>
+                                        <td>{{ \Carbon\Carbon::parse($cr->ultima_fecha_pago)->format('d/m/Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($hasta)->format('d/m/Y') }}</td>
+
+                                        <td>@money($cr->saldo_capital)</td>
+                                        <td>@money($cr->monto_solicitado)</td>
+                                        <td>@money($cr->cuota)</td>
+                                        <td> {{ $diasParaVencimiento }} </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         @else
                             <tr>

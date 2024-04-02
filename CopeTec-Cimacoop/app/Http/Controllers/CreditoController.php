@@ -470,6 +470,7 @@ class CreditoController extends Controller
    {
       $configuracion = Configuracion::first();
       $days = $configuracion->dias_gracia + 30;
+      session()->put("estadoMenuminimizado", "1");
 
       $creditos = Credito::whereRaw("DATEDIFF('" . Carbon::now()->format('Y-m-d') . "', creditos.ultima_fecha_pago) >= " . $days . " AND creditos.saldo_capital<>0")->get();
       return view('creditos.reportes.cartera_mora', compact('creditos'));
@@ -491,7 +492,7 @@ class CreditoController extends Controller
 
       ]);
 
-      return $pdf->setOrientation('portrait')->inline();
+      return $pdf->setOrientation('landscape')->inline();
    }
 
    public function cartera_activa()
@@ -577,15 +578,36 @@ class CreditoController extends Controller
       return $pdf->setOrientation('portrait')->inline();
    }
    // creditos por vencer
-    public function prox_vencer()
-    {
-       $configuracion = Configuracion::first();
-       $days = $configuracion->dias_gracia + 30;
- 
-       $creditos = Credito::whereRaw("creditos.cuota >= creditos.saldo_capital*2")->get();
-       return view('creditos.reportes.creditos_por_vencer', compact('creditos'));
-    }
-    public function prox_vencer_rep()
+   public function prox_vencer(Request $request)
+   {
+      $desde = $request->desde;
+      $hasta = $request->hasta;
+
+      // Si no se proporcionan fechas, establecerlas como el primer y último día del mes actual
+      if (!isset($desde, $hasta)) {
+         $desde = Carbon::now()->startOfMonth()->toDateString();
+         $hasta = Carbon::now()->endOfMonth()->toDateString();
+      }
+
+      // Obtener la configuración de la base de datos
+      $configuracion = Configuracion::first();
+
+      // Calcular la cantidad de días antes de que se consideren vencidos los créditos
+      $dias_gracia = $configuracion->dias_gracia;
+      $days = $dias_gracia + 30;
+
+      // Obtener todos los créditos que están vencidos o próximos a vencer en el rango de fechas especificado
+      $creditos = Credito::where('ultima_fecha_pago', '<=', $hasta)
+         // ->orWhere(function ($query) use ($days) {
+         //    $query->whereRaw('DATEDIFF(ultima_fecha_pago, CURDATE()) <= ?', [$days])
+         //       ->where('estado', '!=', 'pagado');
+         // })
+         ->get();
+
+      return view('creditos.reportes.creditos_por_vencer', compact('creditos', 'hasta', 'desde', 'days'));
+   }
+
+   public function prox_vencer_rep()
     {
  
  

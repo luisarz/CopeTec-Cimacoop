@@ -120,25 +120,23 @@
                                                     <a href="/creditos/solicitud/{{ $solicitud->id_solicitud }}" target="_blank"
                                                         class="menu-link px-3">
                                                         <i class="ki-outline ki-printer   fs-3"></i>
-                                                        Imprimir Solicitud  <span class="badge badge-light-success">(Aprobada)</span>
+                                                        Imprimir Solicitud <span class="badge badge-light-success">(Aprobada)</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Menu item-->
                                             @break
-                                              @case(4)
+
+                                            @case(4)
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
                                                     <a href="/creditos/solicitud/{{ $solicitud->id_solicitud }}" target="_blank"
                                                         class="menu-link px-3">
                                                         <i class="ki-outline ki-printer   fs-3"></i>
-                                                        Imprimir Solicitud  <span class="badge badge-light-info">(Comite)</span>
+                                                        Imprimir Solicitud <span class="badge badge-light-info">(Comite)</span>
                                                     </a>
                                                 </div>
                                                 <!--end::Menu item-->
                                             @break
-
-
-                                        
 
                                             @default
                                         @endswitch
@@ -199,8 +197,6 @@
 
 @section('scripts')
     <script>
-      
-
         function alertDelete(id) {
             Swal.fire({
                 text: "Deseas Eliminar este registro",
