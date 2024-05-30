@@ -60,7 +60,10 @@
                                 @endif
 
                             </td>
-                            <td>{{ $asociado->nombre }}</td>
+                            <td>
+                                <span class="badge badge-info fs-5">{{ str_pad($asociado->numero_asociado ,10,'0',STR_PAD_LEFT)}}</span>
+                                {{strtoupper( $asociado->nombre) }}
+                            </td>
                             <td>
                                 @if ($asociado->estado_solicitud == '1')
                                     <span class="badge badge-warning">Presentada</span>
