@@ -81,7 +81,7 @@
                                         <td>{{ $cr->cliente->nombre ?? '' }}</td>
                                         <td>{{ \Carbon\Carbon::parse($cr->fecha_pago)->format('d') }} c/mes</td>
                                         <td>{{ \Carbon\Carbon::parse($cr->ultima_fecha_pago)->format('d/m/Y') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($hasta)->format('d/m/Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($cr->proxima_fecha_pago)->format('d/m/Y') }}</td>
 
                                         <td>@money($cr->saldo_capital)</td>
                                         <td>@money($cr->monto_solicitado)</td>

@@ -28,7 +28,7 @@ class ConfiguracionController extends Controller
      */
     public function update(Request $request)
     {
-
+// dd($request->all());
 
         $configuracion = Configuracion::find(1);
         $configuracion->nombre_empresa = $request->nombre_empresa;
@@ -56,6 +56,7 @@ class ConfiguracionController extends Controller
 
         $configuracion->porcentaje_capitalizacion = $request->porcentaje_capitalizacion;
         $configuracion->cuenta_capitalizacion=$request->cuenta_capitalizacion;
+        $configuracion->socio_automatico = $request->socio_automatico ??0;
 
         $configuracion->save();
         return redirect('/configuracion');

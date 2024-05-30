@@ -37,6 +37,13 @@
                             Caja
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-active-info d-flex align-items-center" data-bs-toggle="tab"
+                            href="#tabSocios">
+                            <i class="ki-solid ki-user fs-2 me-2"></i>
+                            Socios
+                        </a>
+                    </li>
 
                 </ul>
             </div>
@@ -103,24 +110,27 @@
                                     aria-describedby="basic-addon1" />
                                 <label for="floatingPassword">E-mail</label>
                             </div>
+                            
 
 
                         </div>
                     </div>
 
                     <div class="tab-pane fade" id="tabCredito" role="tabpanel">
-                          <div class="form-group row mb-5 ">
+                        <div class="form-group row mb-5 ">
                             <span class="badge badge-light-success fs-4">Capitalizacion de Aportaciones</span>
                             <hr>
                             <div class="form-floating col-lg-4">
-                                <input type="number" step="any" min="0" required value="{{ $configuracion->porcentaje_capitalizacion }}"
-                                    class="form-control text-info" name="porcentaje_capitalizacion" id="porcentaje_capitalizacion"
-                                    placeholder="Interes Moratorio" aria-label="saldo" aria-describedby="basic-addon1" />
+                                <input type="number" step="any" min="0" required
+                                    value="{{ $configuracion->porcentaje_capitalizacion }}"
+                                    class="form-control text-info" name="porcentaje_capitalizacion"
+                                    id="porcentaje_capitalizacion" placeholder="Interes Moratorio" aria-label="saldo"
+                                    aria-describedby="basic-addon1" />
                                 <label for="floatingPassword">Porcentaje Capitalizacion %</label>
                             </div>
-                             <div class="form-floating col-lg-6">
-                                <select name="cuenta_capitalizacion" id="cuenta_capitalizacion" class="form-select form-select-solid form-select-dark"
-                                    data-control="select2">
+                            <div class="form-floating col-lg-6">
+                                <select name="cuenta_capitalizacion" id="cuenta_capitalizacion"
+                                    class="form-select form-select-solid form-select-dark" data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
                                             <optgroup label="{{ $cuenta->descripcion }}">
@@ -139,7 +149,7 @@
                                 </select>
                                 <label for="floatingPassword">Cuenta Capitalizacion</label>
                             </div>
-                       
+
 
                         </div>
                         <!--begin::row group-->
@@ -174,8 +184,8 @@
 
                             <hr>
                             <div class="form-floating col-lg-6">
-                                <select name="monto_deposito_credito" id="monto_deposito_credito" class="form-select form-select-solid form-select-dark"
-                                    data-control="select2">
+                                <select name="monto_deposito_credito" id="monto_deposito_credito"
+                                    class="form-select form-select-solid form-select-dark" data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
                                             <optgroup label="{{ $cuenta->descripcion }}">
@@ -195,8 +205,8 @@
                                 <label for="floatingPassword">Cuenta Deposito</label>
                             </div>
                             <div class="form-floating col-lg-6">
-                                <select name="cuenta_tipo_credito" id="cuenta_tipo_credito" class="form-select form-select-solid form-select-dark"
-                                     data-control="select2">
+                                <select name="cuenta_tipo_credito" id="cuenta_tipo_credito"
+                                    class="form-select form-select-solid form-select-dark" data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
                                             <optgroup label="{{ $cuenta->descripcion }}">
@@ -215,12 +225,12 @@
                                 </select>
                                 <label for="floatingPassword">Cuenta Crédito</label>
                             </div>
-                            
+
                         </div>
                         <div class="form-group row mb-5 ">
                             <div class="form-floating col-lg-6">
-                                <select name="cuenta_aportacion" id="cuenta_aportacion" class="form-select form-select-solid form-select-dark"
-                                   data-control="select2">
+                                <select name="cuenta_aportacion" id="cuenta_aportacion"
+                                    class="form-select form-select-solid form-select-dark" data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
                                             <optgroup label="{{ $cuenta->descripcion }}">
@@ -242,9 +252,9 @@
 
 
                             <div class="form-floating col-lg-6">
-                                <select name="cuenta_interes_credito" id="cuenta_interes_credito" class="form-select form-select-solid form-select-dark"
-                                   data-control="select2">
-                                   @foreach ($catalogo as $cuenta)
+                                <select name="cuenta_interes_credito" id="cuenta_interes_credito"
+                                    class="form-select form-select-solid form-select-dark" data-control="select2">
+                                    @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
                                             <optgroup label="{{ $cuenta->descripcion }}">
                                         @endif
@@ -267,8 +277,8 @@
                         </div>
                         <div class="form-group row mb-5 ">
                             <div class="form-floating col-lg-6">
-                                <select name="cuenta_interes_credito_moratorio" id="cuenta_interes_credito_moratorio" class="form-select form-select-solid form-select-dark"
-                                   data-control="select2">
+                                <select name="cuenta_interes_credito_moratorio" id="cuenta_interes_credito_moratorio"
+                                    class="form-select form-select-solid form-select-dark" data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
                                             <optgroup label="{{ $cuenta->descripcion }}">
@@ -295,8 +305,8 @@
                             <span class="badge badge-light-success fs-4 mb-5">Parametros Depositos</span>
 
                             <div class="form-floating col-lg-6">
-                                <select name="deposito_cuenta_debe" id="deposito_cuenta_debe" class="form-select form-select-solid form-select-dark"
-                                    data-control="select2">
+                                <select name="deposito_cuenta_debe" id="deposito_cuenta_debe"
+                                    class="form-select form-select-solid form-select-dark" data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
                                             <optgroup label="{{ $cuenta->descripcion }}">
@@ -316,8 +326,8 @@
                                 <label for="floatingPassword">Cuenta DEBE Depositos</label>
                             </div>
                             <div class="form-floating col-lg-6">
-                                <select name="deposito_cuenta_haber" id="deposito_cuenta_haber" class="form-select form-select-solid form-select-dark"
-                                     data-control="select2">
+                                <select name="deposito_cuenta_haber" id="deposito_cuenta_haber"
+                                    class="form-select form-select-solid form-select-dark" data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
                                             <optgroup label="{{ $cuenta->descripcion }}">
@@ -337,14 +347,14 @@
                                 <label for="floatingPassword">Cuenta HABER Depositos</label>
 
                             </div>
-                            
+
                         </div>
-                         <div class="form-group row mb-5 ">
+                        <div class="form-group row mb-5 ">
                             <span class="badge badge-light-danger fs-4 mb-5">Parametros Retiros</span>
 
                             <div class="form-floating col-lg-6">
-                                <select name="retiro_cuenta_debe" id="retiro_cuenta_debe" class="form-select form-select-solid form-select-dark"
-                                    data-control="select2">
+                                <select name="retiro_cuenta_debe" id="retiro_cuenta_debe"
+                                    class="form-select form-select-solid form-select-dark" data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
                                             <optgroup label="{{ $cuenta->descripcion }}">
@@ -364,8 +374,8 @@
                                 <label for="floatingPassword">Cuenta DEBE Depositos</label>
                             </div>
                             <div class="form-floating col-lg-6">
-                                <select name="retiro_cuenta_haber" id="retiro_cuenta_haber" class="form-select form-select-solid form-select-dark"
-                                     data-control="select2">
+                                <select name="retiro_cuenta_haber" id="retiro_cuenta_haber"
+                                    class="form-select form-select-solid form-select-dark" data-control="select2">
                                     @foreach ($catalogo as $cuenta)
                                         @if ($cuenta->movimiento == 0)
                                             <optgroup label="{{ $cuenta->descripcion }}">
@@ -385,10 +395,27 @@
                                 <label for="floatingPassword">Cuenta HABER Depositos</label>
 
                             </div>
-                            
+
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="tabSocios" role="tabpanel">
+                        <div class="form-group row mb-5 ">
+                            <span class="badge badge-light-success fs-4 mb-5">Parametros Depositos</span>
+                            <div class="form-floating col-lg-4">
+                                <div class="form-check form-switch form-check-custom form-check-solid me-10"
+                                    style="margin:4px">
+                                    <input class="check-permiso form-check-input h-30px w-50px border-2" type="checkbox"
+                                        {{ $configuracion->socio_automatico == 1 ? 'checked' : '' }} id="socio_automatico"
+                                        name="socio_automatico"
+                                        value="{{ $configuracion->socio_automatico == 1 ? '1' : '0' }}" />
 
+                                    <label class="form-check-label" for="socio_automatico">
+                                        Numero Socio Automatico
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -405,4 +432,13 @@
             </div>
         </div>
     </form>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#socio_automatico').change(function() {
+                $(this).val(this.checked ? '1' : '0');
+            });
+        });
+    </script>
 @endsection

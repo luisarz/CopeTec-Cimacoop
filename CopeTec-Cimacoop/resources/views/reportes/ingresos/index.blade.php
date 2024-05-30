@@ -82,7 +82,7 @@
                                                 ];
                                             @endphp
 
-                                            {{ $operationBadges[$movimiento->tipo_operacion]['label'] }}
+{{ $operationBadges[$transaction->tipo_operacion]['label'] ?? 'Operación Desconocida' }}
 
 
                                         </td>

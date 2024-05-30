@@ -730,6 +730,9 @@ class CreditoController extends Controller
    public function prox_vencer(Request $request)
    {
       $desde = $request->desde;
+      //agrega 30 diias a la fecha actual
+
+
       $hasta = $request->hasta;
 
       // Si no se proporcionan fechas, establecerlas como el primer y último día del mes actual
@@ -745,15 +748,11 @@ class CreditoController extends Controller
       $dias_gracia = $configuracion->dias_gracia;
       $days = $dias_gracia + 30;
 
-      // Obtener todos los créditos que están vencidos o próximos a vencer en el rango de fechas especificado
-      $creditos = Credito::where('ultima_fecha_pago', '<=', $hasta)
-         // ->orWhere(function ($query) use ($days) {
-         //    $query->whereRaw('DATEDIFF(ultima_fecha_pago, CURDATE()) <= ?', [$days])
-         //       ->where('estado', '!=', 'pagado');
-         // })
-         ->get();
+      // Obtener todos los créditos que están  próximos a vencer en el rango de fechas especificado
+      $creditos = Credito::whereBetween('proxima_fecha_pago', [$desde, $hasta])->get();
 
-      return view('creditos.reportes.creditos_por_vencer', compact('creditos', 'hasta', 'desde', 'days'));
+      return view('creditos.reportes.creditos_por_vencer',
+       compact('creditos', 'hasta', 'desde', 'days'));
    }
 
    public function prox_vencer_rep()
