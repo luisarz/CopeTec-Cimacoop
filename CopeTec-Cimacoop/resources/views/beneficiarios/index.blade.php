@@ -14,7 +14,7 @@
             <!--begin::Details-->
             <div class="d-flex flex-wrap flex-sm-nowrap">
                 <!--begin: Pic-->
-            
+
                 <!--end::Pic-->
 
                 <!--begin::Info-->
@@ -32,17 +32,17 @@
 
                             <!--begin::Info-->
                             <div class=" flex-wrap fw-semibold fs-6 mb-4 pe-2">
-                                   
+
                                     <i class="ki-outline ki-profile-circle fs-4 me-1"></i>
                                     {{ $asociado->profesion }}
                               <br>
-                                
-                                    <i class="ki-outline ki-geolocation fs-4 me-1"></i> 
+
+                                    <i class="ki-outline ki-geolocation fs-4 me-1"></i>
                                         {{ $asociado->direccion_personal }}
                                 <br>
                                     <i class="ki-outline ki-sms fs-4 me-1"></i>
                                      {{ $asociado->telefono }}
-                               
+
                             </div>
 
                             <!--end::Info-->
@@ -83,7 +83,7 @@
                             <!--end::Label-->
                         </div>
                         <!--end::Stat-->
-                        <!--begin::Stat-->
+                        {{-- <!--begin::Stat-->
                         <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                             <!--begin::Number-->
                             <div class="d-flex align-items-center">
@@ -99,7 +99,7 @@
                             <div class="fw-semibold fs-6 text-gray-400"> Prestamos</div>
                             <!--end::Label-->
                         </div>
-                        <!--end::Stat-->
+                        <!--end::Stat--> --}}
                         <!--begin::Stat-->
                         <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                             <!--begin::Number-->
@@ -130,7 +130,7 @@
             <a href="/asociados" class="btn btn-info btn-sm"><i class="fa-solid fa-arrow-left"></i> Ir a Asociados</a>
 
             <a href="/beneficiarios/add/{{$asociado->id_asociado}}" class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i> Agregar Beneficiario</a>
-            
+
 
         </div>
     </div>
@@ -139,8 +139,9 @@
         <table id="table_asociados" class="table table-hover table-row-dashed fs-6 gy-1  dataTable  gy-1 gs-1">
             <thead class="thead-dark">
                 <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                    <th class="min-w-90px">Acciones</th>
-                    <th class="min-w-200px">Asociado</th>
+                    <th class="min-w-150px">Acciones</th>
+                    <th class="min-w-200px">Beneficiario</th>
+                    <th class="min-w-200px">Producto Asignado</th>
                     <th class="min-w-100px">parentesco</th>
                     <th class="min-w-200px">porcentaje</th>
                     <th class="min-w-200px">Direccion</th>
@@ -164,6 +165,16 @@
 
                             </td>
                             <td>{{ $beneficiario->nombre }}</td>
+                            <td>
+                                <span class="badge badge-info fs-5">
+                                    {{ str_pad($beneficiario->cuenta->numero_cuenta, 10, '0', STR_PAD_LEFT) }}
+                                    -
+                                    <span class="badge badge-light-info fs-5">
+                                        {{ $beneficiario->cuenta->tipo_cuenta->descripcion_cuenta??'' }}
+                                    </span>
+                                </span>
+                            </td>
+
                             <td>{{ $beneficiario->parentesco }}</td>
                             <td>{{ $beneficiario->porcentaje }}%</td>
                             <td>{{ $beneficiario->direccion }}</td>

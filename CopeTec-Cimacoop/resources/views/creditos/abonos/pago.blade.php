@@ -19,8 +19,7 @@
                 @if ($credito->saldo_capital <= 0)
                     <span class="badge badge-success fs-2">Credito Cancelado</span>
                 @else
-
-                &nbsp;<span class="badge badge-success fs-2">Credito Activo</span>
+                    &nbsp;<span class="badge badge-success fs-2">Credito Activo</span>
                 @endif
                 <h3>
             </div>
@@ -31,7 +30,11 @@
             </div>
         </div>
         <div class="card-body">
+             <form action="/creditos/payment" autocomplete="off" target="_blank" method="post" id="kt_new_abono_form">
+                {!! csrf_field() !!}
+                {{ method_field('POST') }}
             <div class="form-group row mb-5">
+
                 <div class="form-floating  col-lg-6">
                     <span class="form-control">{{ $credito->nombre }}</span>
                     <label>Cliente:</label>
@@ -82,9 +85,7 @@
                     <label>Ultimo Pago:</label>
                 </div>
                 <div class="form-floating  col-lg-2">
-                    <span class="form-control text-danger fw-bold">
-                        {{ $DIAS_MORA }}
-                    </span>
+                    <input type="number" name="DIAS_MORA" id="DIAS_MORA" class="form-control" value="{{ $DIAS_MORA }}">
                     <label>Dias en Mora:</label>
                 </div>
 
@@ -93,23 +94,31 @@
 
             <div class="form-group row mb-5">
                 <div class="form-floating  col-lg-2">
-                    <span class="form-control">{{ number_format($INTERESES, 2) }}</span>
+                    <input type="number" name="INTERESES" id="INTERESES" class="form-control"
+                        value="{{ number_format($INTERESES, 2) }}">
                     <label>Intereses:</label>
                 </div>
                 <div class="form-floating  col-lg-2">
-                    <span class="form-control">{{ number_format($CAPITAL, 2) }}</span>
+                    <input type="number" name="CAPITAL" id="CAPITAL" class="form-control"
+                        value="{{ number_format($CAPITAL, 2) }}">
+
                     <label>Capital:</label>
                 </div>
                 <div class="form-floating  col-lg-2">
-                    <span class="form-control">{{ number_format($credito->aportaciones, 2) }}</span>
+                    <input type="number" name="APORTACIONES" id="APORTACIONES" class="form-control"
+                        value="{{ number_format($credito->aportaciones, 2) }}">
                     <label>Aportaciones:</label>
                 </div>
                 <div class="form-floating  col-lg-2">
-                    <span class="form-control">{{ number_format($credito->seguro_deuda, 2) }}</span>
+                    <input type="number" name="SEGURO_DEUDA" id="SEGURO_DEUDA" class="form-control"
+                        value="{{ number_format($credito->seguro_deuda, 2) }}">
+
                     <label>Seguro de Deuda:</label>
                 </div>
                 <div class="form-floating  col-lg-2">
-                    <span class="form-control">{{ number_format($MORA, 2) }}</span>
+                    <input type="number" name="MORA" id="MORA" class="form-control"
+                        value="{{ number_format($MORA, 2) }}">
+
                     <label>Monto Mora:</label>
                 </div>
             </div>
@@ -133,10 +142,9 @@
                     <div class="d-flex align-items-start justify-content-center mb-7">
                         <span class="fw-bold fs-4 mt-1 me-2">$</span>
                         @if ($credito->saldo_capital <= 0)
-                            <span class="fw-bold fs-3x" id="kt_modal_create_campaign_budget_label">0.00</span>
+                            <span class="fw-bold fs-3x" id="TOTAL_PAGAR_LABEL">0.00</span>
                         @else
-                            <span class="fw-bold fs-3x"
-                                id="kt_modal_create_campaign_budget_label">{{ number_format($TOTAL_PAGAR, 2) }}</span>
+                            <span class="fw-bold fs-3x" id="TOTAL_PAGAR_LABEL">{{ number_format($TOTAL_PAGAR, 2) }}</span>
                         @endif
                     </div>
                     <div id="kt_modal_create_campaign_budget_slider" class="noUi-sm"></div>
@@ -144,23 +152,28 @@
                 <!--end::Slider-->
             </div>
             <!--end::Input wrapper-->
-            <form action="/creditos/payment" autocomplete="off" target="_blank" method="post" id="kt_new_abono_form">
-                {!! csrf_field() !!}
-                {{ method_field('POST') }}
+
                 <input type="hidden" name="id_credito" id="id_credito" value="{{ $credito->id_credito }}">
                 <input type="hidden" name="id_caja" id="id_caja" value="{{ $cajaAperturada->id_caja }}">
 
-                <input type="hidden" name="cuota" value="{{ $credito->id_credito }}">
-                <input type="hidden" name="id_caja" value="{{ $cajaAperturada->id_caja }}">
-                <input type="hidden" name="saldo_capital" id="saldo_capital" value="{{  sprintf("%.2f", $credito->saldo_capital)}}">
-                <input type="hidden" name="aportacion_deposito" id="aportacion_deposito" value="{{ sprintf("%.2f",$credito->aportaciones) }}">
+                {{-- <input type="hidden" name="cuota" id="cuota" value="{{ $credito->id_credito }}"> --}}
+                {{-- <input type="hidden" name="id_caja" value="{{ $cajaAperturada->id_caja }}"> --}}
+                <input type="hidden" name="saldo_capital" id="saldo_capital"
+                    value="{{ sprintf('%.2f', $credito->saldo_capital) }}">
+                <input type="hidden" name="aportacion_deposito" id="aportacion_deposito"
+                    value="{{ sprintf('%.2f', $credito->aportaciones) }}">
                 <input type="hidden" step="any" min="{{ $TOTAL_PAGAR }}" value="{{ $TOTAL_PAGAR }}"
-                name="min_payment" id="min_payment">
-
+                    name="min_payment" id="min_payment">
+{{-- Parametros para cuotas pagadas con anticipacion --}}
                 <input type="hidden" name="cuota_to_val" id="cuota_to_val" value="{{ $param[0]->cuotas }}">
                 <input type="hidden" name="monto_to_val" id="monto_to_val" value="{{ $param[0]->monto }}">
 
                 <div class="form-group row mb-5">
+                    <div class="form-floating fv-row col-lg-2">
+                        <input type="date" name="fecha_pago" id="fecha_pago" class="form-control"
+                            placeholder="Monto Abonar" value="{{ date('Y-m-d') }}">
+                        <label>Fecha Pago:</label>
+                    </div>
                     <div class="form-floating fv-row col-lg-4">
                         <input type="text" name="cliente_operacion" id="cliente_operacion" class="form-control"
                             placeholder="Monto Abonar">
@@ -171,13 +184,13 @@
                             placeholder="Monto Abonar">
                         <label>DUI:</label>
                     </div>
-                    <div class="form-floating fv-row col-lg-4">
+                    <div class="form-floating fv-row col-lg-2">
                         @if ($credito->saldo_capital <= 0)
                             <input type="text" name="monto_abonar" id="monto_abonar" class="form-control"
                                 placeholder="Monto Abonar" disabled>
                         @else
                             <input type="number" step="any" min="{{ $TOTAL_PAGAR }}" value="{{ $TOTAL_PAGAR }}"
-                                name="monto_saldo" id="monto_saldo" class="form-control fw-bold text-info"
+                                name="MONTO_PAGO_MENSUAL" id="MONTO_PAGO_MENSUAL" class="form-control fw-bold text-info"
                                 placeholder="Monto Abonar">
                         @endif
                         <label>Monto Abonar:</label>
@@ -230,6 +243,10 @@
                                         class="btn btn-outline btn-info btn-sm w-30">
                                         <i class="ki-outline ki-printer   fs-5"></i>
                                     </a>
+                                    <a href="javascript:eliminarPago('{{ $pago->id_pago_credito }}')"
+                                        class="btn btn-outline btn-danger btn-sm w-30">
+                                        <i class="ki-outline ki-trash fs-5"></i>
+                                    </a>
 
                                 </td>
                                 <td>{{ $loop->iteration }}</td>
@@ -256,7 +273,7 @@
                                 <td>${{ number_format($pago->aportacion, 2) }}</td>
                                 <td>${{ number_format($pago->seguro_deuda, 2) }}</td>
                                 <td>${{ number_format($pago->total_pago, 2) }}</td>
-                                <td>{{ date('m-d-Y h:s:i a', strtotime($pago->fecha_pago)) }}</td>
+                                <td>{{ date('d-m-Y', strtotime($pago->fecha_pago)) }}</td>
                                 <td>
 
 
@@ -297,6 +314,107 @@
             window.imprimirBoleta = function(id_pago_credito) {
                 window.open('/reportes/comprobanteAbono/' + id_pago_credito, '_blank');
             }
+
+            function getDetalles() {
+                let id_credito = $("#id_credito").val();
+                let fecha_pago = $("#fecha_pago").val();
+
+                $.ajax({
+                    url: '/creditos/getDetalles/' + id_credito + '/' + fecha_pago,
+                    type: 'get',
+                    // data: {
+                    //     id_credito: id_credito,
+                    //     fecha_pago: fecha_pago
+                    // },
+                    success: function(response) {
+                        // console.log(response);
+                        $("#monto_abonar").val(response.total_pagar);
+                        $("#MONTO_PAGO_MENSUAL").val(response.TOTAL_PAGAR);
+                        $("#INTERESES").val(response.INTERESES);
+                        $("#CAPITAL").val(response.CAPITAL);
+                        $("#MORA").val(response.MORA);
+                        $("#APORTACIONES").val(response.APORTACION);
+                        $("#SEGURO_DEUDA").val(response.SEGURO_DEUDA);
+                        // $("#monto_saldo").val(response.TOTAL_PAGAR);
+                        $("#min_payment").val(response.TOTAL_PAGAR);
+                        $("#TOTAL_PAGAR_LABEL").text(response.TOTAL_PAGAR);
+                        $("#DIAS_MORA").val(response.DIAS_MORA);
+                    }
+                });
+
+
+
+            }
+
+            getDetalles();
+
+            $("#fecha_pago").change(function() {
+                getDetalles();
+                sumarTotales();
+            });
+
+            function sumarTotales() {
+                let intereses = $("#INTERESES").val() || 0.0;
+                let capital = $("#CAPITAL").val() || 0.0;
+                let aportaciones = $("#APORTACIONES").val() || 0.0;
+                let seguro_deuda = $("#SEGURO_DEUDA").val() || 0.0;
+                let mora = $("#MORA").val() || 0.0;
+
+                let total = parseFloat(intereses) + parseFloat(capital) + parseFloat(aportaciones) + parseFloat(
+                    seguro_deuda) + parseFloat(mora);
+
+                $("#MONTO_PAGO_MENSUAL").val(total);
+                $("#min_payment").val(total);
+                $("#TOTAL_PAGAR_LABEL").text(total);
+            }
+
+            $("#INTERESES").on('keyup', function() {
+                sumarTotales();
+            });
+
+            $("#CAPITAL").on('keyup', function() {
+                sumarTotales();
+            });
+            $("#APORTACIONES").on('keyup', function() {
+                sumarTotales();
+            });
+            $("#SEGURO_DEUDA").on('keyup', function() {
+                sumarTotales();
+            });
+            $("#MORA").on('keyup', function() {
+                sumarTotales();
+            });
+
+
+            window.eliminarPago=function(id_pago){
+                Swal.fire({
+                    title: '¿Estas seguro de eliminar este pago?',
+                    text: "No podras revertir esta acción!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, Eliminar!',
+                    cancelButtonText: 'No, Cancelar!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/creditos/abono/eliminarpago/' + id_pago,
+                            type: 'get',
+                            success: function(response) {
+                                Swal.fire(
+                                    'Eliminado!',
+                                    'El pago ha sido eliminado.',
+                                    'success'
+                                );
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+
+
+
         })
     </script>
 @endsection

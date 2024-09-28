@@ -34,37 +34,34 @@ class MovimientosController extends Controller
     {
         $id_empleado_usuario = session()->get('id_empleado_usuario');
         $cajaAperturada = Cajas::join('apertura_caja', 'apertura_caja.id_caja', '=', 'cajas.id_caja')
-            ->where("estado_caja", '=', '1')
+        ->where("estado_caja", '=', '1')
             ->where('id_usuario_asignado', '=', $id_empleado_usuario)
             ->select('cajas.id_caja', 'cajas.saldo', 'cajas.numero_caja', 'cajas.id_usuario_asignado', 'apertura_caja.monto_apertura', 'apertura_caja.fecha_apertura')
             ->first();
         if (is_null($cajaAperturada)) {
             return redirect("/apertura")->withErrors('No tienes caja aperturada, te redirigimos aqui, para que puedas aperturala y poder realizar movimientos.');
-
         }
         $idCajaAperturada = $cajaAperturada->id_caja;
         $saldo = $cajaAperturada->saldo;
 
-        $movimientos = Movimientos::join('cuentas', 'cuentas.id_cuenta', '=', 'movimientos.id_cuenta')
-            ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
-            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
-            ->join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
-            ->whereDate('movimientos.fecha_operacion', '>=', now()->subDays(5))
+
+
+        $movimientos = Movimientos::with('cuenta', 'cuenta.asociado', 'cuenta.asociado.cliente', 'cuenta.tipo_cuenta')
+        ->whereDate('movimientos.fecha_operacion', '>=', today())
             ->where('movimientos.id_caja', '=', $idCajaAperturada)
             ->where('movimientos.monto', '>', 0)
-            ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
+            // ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente')
             ->orderby('movimientos.id_movimiento', 'desc')
             ->paginate(10);
 
 
-
         $totalMovimientos = Movimientos::selectRaw(
             'SUM(CASE WHEN tipo_operacion = 1 AND estado = 1 THEN monto ELSE 0 END) AS totalDepositos,
-             SUM(CASE WHEN tipo_operacion = 2 AND estado = 1 THEN monto ELSE 0 END) AS totalRetiros, 
-             SUM(CASE WHEN tipo_operacion = 7 AND estado = 1 THEN monto ELSE 0 END) AS totalAbonosCreditos, 
+             SUM(CASE WHEN tipo_operacion = 2 AND estado = 1 THEN monto ELSE 0 END) AS totalRetiros,
+             SUM(CASE WHEN tipo_operacion = 7 AND estado = 1 THEN monto ELSE 0 END) AS totalAbonosCreditos,
              SUM(CASE WHEN estado = 0 THEN monto ELSE 0 END) AS totalAnuladas'
         )
-            ->whereDate('fecha_operacion', '>=', now()->subDays(5))
+            ->whereDate('fecha_operacion', '>=', today())
             ->where('id_caja', '=', $cajaAperturada->id_caja)
             ->first();
 
@@ -224,7 +221,7 @@ class MovimientosController extends Controller
         $caja->saldo = $caja->saldo + $request->monto;
         $caja->save();
 
-        //Generar la partida contable 
+        //Generar la partida contable
         $configuracion = Configuracion::first();
         $id_partida = Str::uuid()->toString();
         $partidaContable = new PartidaContable;
@@ -341,7 +338,7 @@ class MovimientosController extends Controller
         $caja->save();
 
 
-        //Generar la partida contable 
+        //Generar la partida contable
         $configuracion = Configuracion::first();
         $id_partida = Str::uuid()->toString();
         $partidaContable = new PartidaContable;

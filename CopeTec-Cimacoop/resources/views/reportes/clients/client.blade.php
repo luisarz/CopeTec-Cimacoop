@@ -74,44 +74,53 @@
                                 </h5>
                             </div>
                             <div class="col-12">
-                                @if (count($client->asociado->cuentas) > 0)
-                                    <table class="data-table-coop table table-bordered  fs-5     gy-2 gs-5">
-                                        <thead>
-                                            <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
-                                                <th class="min-w-200px"># Cuenta</th>
-                                                <th class="min-w-90px">tipo cuenta</th>
-                                                <th class="min-w-90px">saldo</th>
-                                                <th class="min-w-200px">Monto apertura</th>
-                                                <th class="min-w-100px">Estado</th>
-                                                <th class="min-w-100px">Fecha Apertura</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($client->asociado->cuentas as $cuenta)
-                                                <tr>
-                                                    <td class="text-left">
-                                                        {{ str_pad($cuenta->numero_cuenta, 10, '0', STR_PAD_LEFT) }}
-                                                    </td>
-                                                    <td class="text-left">
-                                                        {{ $cuenta->tipo_cuenta->descripcion_cuenta }}</td>
-                                                    <td class="text-left">{{ $cuenta->saldo_cuenta }}</td>
-                                                    <td class="text-left">{{ $cuenta->monto_apertura }}</td>
-                                                    <td class="text-left">
-                                                        {{ $cuenta->estado == 1 ? 'ACTIVA' : 'INACTIVA' }}
-                                                    </td>
-                                                    <td class="text-left">
-                                                        {{ \Carbon\Carbon::parse($cuenta->created_at)->format('d/m/Y H:i:s A') }}
-                                                    </td>
-
+                                @if (isset($client->asociado->cuentas))
+                                    @if (count($client->asociado->cuentas) > 0)
+                                        <table class="data-table-coop table table-bordered  fs-5     gy-2 gs-5">
+                                            <thead>
+                                                <tr
+                                                    class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
+                                                    <th class="min-w-200px"># Cuenta</th>
+                                                    <th class="min-w-90px">tipo cuenta</th>
+                                                    <th class="min-w-90px">saldo</th>
+                                                    <th class="min-w-200px">Monto apertura</th>
+                                                    <th class="min-w-100px">Estado</th>
+                                                    <th class="min-w-100px">Fecha Apertura</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                @else
+                                            </thead>
+                                            <tbody>
+                                                @if (isset($client->asociado->cuentas))
+                                                    @foreach ($client->asociado->cuentas as $cuenta)
+                                                        <tr>
+                                                            <td class="text-left">
+                                                                {{ str_pad($cuenta->numero_cuenta, 10, '0', STR_PAD_LEFT) }}
+                                                            </td>
+                                                            <td class="text-left">
+                                                                {{ $cuenta->tipo_cuenta->descripcion_cuenta }}</td>
+                                                            <td class="text-left">{{ $cuenta->saldo_cuenta }}</td>
+                                                            <td class="text-left">{{ $cuenta->monto_apertura }}</td>
+                                                            <td class="text-left">
+                                                                {{ $cuenta->estado == 1 ? 'ACTIVA' : 'INACTIVA' }}
+                                                            </td>
+                                                            <td class="text-left">
+                                                                {{ \Carbon\Carbon::parse($cuenta->created_at)->format('d/m/Y H:i:s A') }}
+                                                            </td>
+
+                                                        </tr>
+                                                    @endforeach
+
+                                                @endif
+
+                                            </tbody>
+                                        </table>
+                                    @endif
+                                    @else
                                     <div class="text-center">
                                         NO POSEE CUENTAS
                                     </div>
                                 @endif
+
+
                             </div>
                             <div class="col-12">
                                 <h5 class="my-4 text-center text-light py-2"

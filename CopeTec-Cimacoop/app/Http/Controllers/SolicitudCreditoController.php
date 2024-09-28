@@ -77,8 +77,7 @@ class SolicitudCreditoController extends Controller
 
         $tiposGarantia = TipoGarantia::all();
 
-        return view(
-            'creditos.solicitudes.add',
+        return view('creditos.solicitudes.add',
             compact(
                 'clientes',
                 'beneficiarios',
@@ -452,7 +451,7 @@ class SolicitudCreditoController extends Controller
         $saldAportacionCuenta->save();
 
 
-        //Generar la partida contable 
+        //Generar la partida contable
         $id_partida = Str::uuid()->toString();
         $partidaContable = new PartidaContable;
         $id_cliente = $cuentaDestinoDatos->id_cliente;

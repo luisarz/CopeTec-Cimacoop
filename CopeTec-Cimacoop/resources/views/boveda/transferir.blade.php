@@ -3,7 +3,7 @@
     Editar Cliente
 @endsection
 @section('content')
-    <form action="/boveda/realizarTraslado" id="traslado" method="post" target='_blank' autocomplete="off">
+    <form action="/boveda/realizarTraslado" id="traslado" method="post"  autocomplete="off">
         {!! csrf_field() !!}
         {{ method_field('POST') }}
         <input type="hidden" name="id_bobeda" value="{{ $bobeda->id_bobeda }}">
@@ -107,12 +107,13 @@
     </form>
 @endsection
 @section('scripts')
-    <script>
+    {{-- <script>
         document.getElementById("traslado").addEventListener("submit", function(event) {
+            event.preventDefault();
             this.submit();
             setTimeout(function() {
                 window.location.href = "/boveda";
-            }, 1000);
+            }, 2500);
         });
-    </script>
+    </script> --}}
 @endsection

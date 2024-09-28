@@ -40,7 +40,7 @@
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#tabBienes">Bienes</a>
                         </li>
-                       
+
 
                     </ul>
                 </div>
@@ -602,94 +602,128 @@
 
 
 
-            $("#monto_solicitado").on('keyup', function() {
-                calcularPago();
-            });
-            $("#plazo").on('keyup', function() {
-                calcularPago();
-            });
-            $("#tasa").on('keyup', function() {
-                calcularPago();
-            });
-            $("#cuota").on('keyup', function() {
-                calcularPago();
-            });
-            $("#seguro_deuda").on('keyup', function() {
-                calcularPago();
-            });
+                    $("#monto_solicitado").on('keyup', function() {
+                        calcularPago();
+                    });
+                    $("#plazo").on('keyup', function() {
+                        calcularPago();
+                    });
+                    $("#tasa").on('keyup', function() {
+                        calcularPago();
+                    });
+                    $("#cuota").on('keyup', function() {
+                        calcularPago();
+                    });
+                    $("#seguro_deuda").on('keyup', function() {
+                        calcularPago();
+                    });
 
 
 
 
 
-            function calcularPago() {
-                let tasa = $("#tasa").val() / 100;
-                let periodos = $("#plazo").val();
-                let monto = $("#monto_solicitado").val();
-                let valorFuturo = 0;
-                let tipo = 0;
-                var fecha_solicitud = $("#fecha_solicitud").val() === "" ? new Date() : new Date($(
-                    "#fecha_solicitud").val());
+                    function calcularPago() {
+                        let tasa = $("#tasa").val() / 100;
+                        let periodos = $("#plazo").val();
+                        let monto = $("#monto_solicitado").val();
+                        let valorFuturo = 0;
+                        let tipo = 0;
+                        var fecha_solicitud = $("#fecha_solicitud").val() === "" ? new Date() : new Date($(
+                            "#fecha_solicitud").val());
 
-                if (isNaN(fecha_solicitud.getTime())) {
-                    fecha_solicitud = new Date(); // Si el valor no es una fecha válida, utilizar la fecha actual
-                } else {
-                    fecha_solicitud.setMonth(fecha_solicitud.getMonth() + 1);
-                }
-
-
-
-
-                let tasaPeriodo = tasa / 12
-                let pago;
-                if (tasaPeriodo === 0) {
-                    pago = (monto + valorFuturo) / periodos;
-                } else {
-                    let denominador = Math.pow(1 + tasaPeriodo, periodos) - 1;
-                    pago = (monto * tasaPeriodo * Math.pow(1 + tasaPeriodo, periodos)) / denominador +
-                        (valorFuturo * tasaPeriodo) / denominador;
-                }
-
-                $("#cuota").val(pago.toFixed(2));
-
-                // Generar la tabla de amortización
-                let tablaAmortizacion = $("#tablaAmortizacion");
-                tablaAmortizacion.empty();
-                let saldoPendiente = monto;
-
-                for (let i = 1; i <= periodos; i++) {
-                    fecha_solicitud.setMonth(fecha_solicitud.getMonth() + 1);
-                    var options = {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric'
-                    };
-                    var fecha_formateada = fecha_solicitud.toLocaleDateString('es-ES', options);
-
-                    let interes = saldoPendiente * tasaPeriodo;
-                    let principal = pago - interes;
-                    saldoPendiente -= principal;
-
-                    let fila = $("<tr>").append(
-                        $("<td>").text(i),
-                        $("<td>").text(fecha_formateada),
-                        $("<td>").text(pago.toFixed(2)),
-                        $("<td>").text(interes.toFixed(2)),
-                        $("<td>").text(principal.toFixed(2)),
-                        $("<td>").text(saldoPendiente.toFixed(2))
-
-                    );
-
-                    tablaAmortizacion.append(fila);
-                }
-
-            }
+                        if (isNaN(fecha_solicitud.getTime())) {
+                            fecha_solicitud = new Date(); // Si el valor no es una fecha válida, utilizar la fecha actual
+                        } else {
+                            fecha_solicitud.setMonth(fecha_solicitud.getMonth() + 1);
+                        }
 
 
 
 
+                        let tasaPeriodo = tasa / 12
+                        let pago;
+                        if (tasaPeriodo === 0) {
+                            pago = (monto + valorFuturo) / periodos;
+                        } else {
+                            let denominador = Math.pow(1 + tasaPeriodo, periodos) - 1;
+                            pago = (monto * tasaPeriodo * Math.pow(1 + tasaPeriodo, periodos)) / denominador +
+                                (valorFuturo * tasaPeriodo) / denominador;
+                        }
+
+                        $("#cuota").val(pago.toFixed(2));
+
+                        // Generar la tabla de amortización
+                        let tablaAmortizacion = $("#tablaAmortizacion");
+                        tablaAmortizacion.empty();
+                        let saldoPendiente = monto;
+
+                        for (let i = 1; i <= periodos; i++) {
+                            fecha_solicitud.setMonth(fecha_solicitud.getMonth() + 1);
+                            var options = {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric'
+                            };
+                            var fecha_formateada = fecha_solicitud.toLocaleDateString('es-ES', options);
+
+                            let interes = saldoPendiente * tasaPeriodo;
+                            let principal = pago - interes;
+                            saldoPendiente -= principal;
+
+                            let fila = $("<tr>").append(
+                                $("<td>").text(i),
+                                $("<td>").text(fecha_formateada),
+                                $("<td>").text(pago.toFixed(2)),
+                                $("<td>").text(interes.toFixed(2)),
+                                $("<td>").text(principal.toFixed(2)),
+                                $("<td>").text(saldoPendiente.toFixed(2))
+
+                            );
+
+                            tablaAmortizacion.append(fila);
+                        }
+
+                    }
+
+                    function calcularIngresos() {
+                        let sueldo_solicitante = ($("#sueldo_solicitante").val() === "") ? 0 : parseFloat($(
+                            "#sueldo_solicitante").val());
+                        let comisiones = ($("#comisiones").val() === "") ? 0 : parseFloat($("#comisiones")
+                            .val());
+                        let negocio_propio = ($("#negocio_propio").val() === "") ? 0 : parseFloat($("#negocio_propio")
+                            .val());
+                        let otros_ingresos  = ($("#otros_ingresos").val() === "") ? 0 : parseFloat($("#otros_ingresos ")
+                                .val());
+                            let ingresos = sueldo_solicitante + comisiones + negocio_propio + otros_ingresos;
+                            $("#total_ingresos").val(ingresos);
+                        }
+
+                        $('#sueldo_solicitante, #comisiones, #negocio_propio, #otros_ingresos').on(
+                            'keyup',
+                            function() {
+                                calcularIngresos();
+                            });
 
 
-        });
+                    function calcularEgresos() {
+                        let gastos_vida = ($("#gastos_vida").val() === "") ? 0 : parseFloat($(
+                            "#gastos_vida").val());
+                        let pagos_obligaciones = ($("#pagos_obligaciones").val() === "") ? 0 : parseFloat($("#pagos_obligaciones")
+                            .val());
+                        let gastos_negocios = ($("#gastos_negocios").val() === "") ? 0 : parseFloat($("#gastos_negocios")
+                            .val());
+                        let otros_gastos  = ($("#otros_gastos").val() === "") ? 0 : parseFloat($("#otros_gastos ")
+                                .val());
+                            let egresos = gastos_vida + pagos_obligaciones + gastos_negocios + otros_gastos;
+                            $("#total_gasto").val(egresos);
+                        }
+
+                        $('#gastos_vida, #pagos_obligaciones, #gastos_negocios, #otros_gastos').on(
+                            'keyup',
+                            function() {
+                                calcularEgresos();
+                            });
+
+                    });
     </script>
 @endsection

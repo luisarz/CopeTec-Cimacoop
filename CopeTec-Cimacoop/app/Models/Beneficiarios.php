@@ -10,4 +10,7 @@ class Beneficiarios extends Model
     protected $table = "beneficiarios";
     protected $primaryKey = "id_beneficiario";
     use HasFactory;
+    public function cuenta(){
+        return $this->belongsTo(Cuentas::class,'id_cuenta');
+    }
 }

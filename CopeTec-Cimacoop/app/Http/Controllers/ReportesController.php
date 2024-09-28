@@ -80,7 +80,7 @@ class ReportesController extends Controller
             ->sum('monto');
 
 
-        
+
 
 
         $pdf = PDF::loadView('reportes.movimientosBobeda', [
@@ -113,7 +113,7 @@ class ReportesController extends Controller
 
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimiento->monto, 2, 'DoLARES');
-        
+
         $pdf = PDF::loadView('reportes.caja.comprobante', [
             'movimiento' => $movimiento,
             'estilos' => $this->estilos,
@@ -132,14 +132,14 @@ class ReportesController extends Controller
             ->orderBy('bobeda_movimientos.id_bobeda_movimiento', 'desc')
             ->select('bobeda_movimientos.*', 'cajas.*', 'empleados.nombre_empleado as nombre_empleado')
             ->first();
-          
+
             if(!$movimientoBobeda){
                 return redirect("/boveda")->withErrors('El movimiento no existe 😵‍💫');
             }
 
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimientoBobeda->monto, 2, 'DoLARES');
-        
+
         $pdf = PDF::loadView('reportes.bobeda.comprobante', [
             'movimiento' => $movimientoBobeda,
             'estilos' => $this->estilos,
@@ -168,7 +168,7 @@ class ReportesController extends Controller
 
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimientosCuenta[0]->saldo_cuenta, 2, 'DOLARES');
-        
+
         $pdf = PDF::loadView('reportes.cuentas.estadoCuenta', [
             'movimientos' => $movimientosCuenta,
             'estilos' => $this->estilos,
@@ -198,7 +198,7 @@ class ReportesController extends Controller
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_apertura, 2, 'DoLARES');
 
-        
+
         $pdf = PDF::loadView('reportes.cuentas.contrato', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
@@ -230,7 +230,7 @@ class ReportesController extends Controller
         $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_deposito, 2, 'DLARES');
         $img = public_path('assets/media/logos/certificado_fondo.jpg');
 
-        
+
         $pdf = PDF::loadView('reportes.depositoplazo.certificado', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
@@ -274,7 +274,7 @@ class ReportesController extends Controller
             $edadConyugue = $edadConyugue->y;
         }
 
-        
+
         $pdf = PDF::loadView('reportes.creditos.solicitud', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
@@ -310,7 +310,7 @@ class ReportesController extends Controller
 
 
 
-        
+
         $pdf = PDF::loadView('reportes.creditos.pagare', [
             'estilos' => $this->estilos,
             'solicitud' => $solicitud,
@@ -374,7 +374,7 @@ class ReportesController extends Controller
 
 
 
-        
+
         $pdf = PDF::loadView('reportes.creditos.liquidacion', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
@@ -397,19 +397,26 @@ class ReportesController extends Controller
     {
 
         $abonoCredito = PagosCredito::join('creditos', 'creditos.id_credito', '=', 'pagos_credito.id_credito')
-            ->join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
-            ->where('pagos_credito.id_pago_credito', '=', $id_pago_credito)
+        ->join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
+        ->where('pagos_credito.id_pago_credito', '=', $id_pago_credito)
             ->first();
+
+            // dd($abonoCredito);
+
+
+
         $formatter = new NumeroALetras();
         $TOTALPAGOENLETRAS = $formatter->toInvoice($abonoCredito->total_pago, 2, 'DÓLARES');
 
+        $configuracion = Configuracion::first();
+        $empresa = $configuracion->nombre_empresa;
 
-        
         $pdf = PDF::loadView('reportes.creditos.abonocomprobante', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
             'abonoCredito' => $abonoCredito,
-            'numeroEnLetras' => $TOTALPAGOENLETRAS
+            'numeroEnLetras' => $TOTALPAGOENLETRAS,
+            'empresa' => $empresa
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
@@ -474,7 +481,7 @@ class ReportesController extends Controller
         // $TOTALPAGOENLETRAS = $formatter->toInvoice($abonoCredito->total_pago, 2, 'DÓLARES');
 
 
-        
+
         $pdf = PDF::loadView('reportes.contabilidad.partidas.partida', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,

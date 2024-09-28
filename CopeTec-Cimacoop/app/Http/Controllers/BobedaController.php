@@ -90,7 +90,7 @@ class BobedaController extends Controller
         return redirect("/boveda");
     }
 
-    
+
     public function realizarAperturaBobeda(Request $requet)
     {
         $movimientoBobeda = new BobedaMovimientos();
@@ -137,8 +137,9 @@ class BobedaController extends Controller
             $bobeda->saldo_bobeda = $bobeda->saldo_bobeda - $request->monto;
             $bobeda->save();
 
-            // return redirect("/reportes/movimientosBobeda/$request->id_bobeda");
-        return redirect("/reportes/comprobanteMovimientoBobeda/$bobedaMovimiento->id_bobeda_movimiento");
+        return redirect("/boveda");
+            // return redirect("/reportes/comprobanteMovimientoBobeda/$bobedaMovimiento->id_bobeda_movimiento");
+
 
         }
         return redirect("/boveda/transferir/$request->id_bobeda")->withInput()->withErrors(['Monto' => 'El monto que intentas enviar sobrepasa el limite']);
@@ -161,8 +162,8 @@ class BobedaController extends Controller
         $corteZ->hora_aceptado = Carbon::now()->format('H:i:s');
         $corteZ->save();
         // actualizar la caja para que se cierre
-   
-        
+
+
            return redirect('/boveda');
     }
 

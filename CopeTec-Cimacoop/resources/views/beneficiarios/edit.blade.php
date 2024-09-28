@@ -22,10 +22,25 @@
                     <label>Nombre Beneficiario:</label>
                     <input type="text" value="{{$beneficiario->nombre}}" required class="form-control" placeholder="Nombre" name="nombre" />
                 </div>
-                <div class="col-lg-4">
-                    <label>Parentesco:</label>
-                    <input type="text"  value="{{$beneficiario->parentesco}}" required class="form-control" placeholder="Parentesco" name="parentesco" />
-                </div>
+                <div class="form-floating col-lg-4 mb-5">
+                                <select name="parentesco" required required class="form-select " data-control="select2">
+                                    <option value="">Seleccione el parentesco</option>
+                                    @foreach ($parentescos as $parentesco)
+                                        @if ($beneficiario->parentesco == $parentesco->id_parentesco)
+                                            <option value="{{ $parentesco->id_parentesco }}" selected>
+                                                {{ $parentesco->parentesco }}
+
+                                            </option>
+                                        @else
+                                            <option value="{{ $parentesco->id_parentesco }}">
+                                                {{ $parentesco->parentesco }}
+
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label for="floatingPassword">Parentesco</label>
+                            </div>
 
 
             </div>

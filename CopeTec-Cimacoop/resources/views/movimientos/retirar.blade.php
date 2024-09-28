@@ -126,6 +126,7 @@
         $(document).ready(function() {
 
             $("#trasladoform").on("submit", function(event) {
+event.preventDefault();
                 this.submit();
                 setTimeout(function() {
                     window.location.href = "/movimientos";

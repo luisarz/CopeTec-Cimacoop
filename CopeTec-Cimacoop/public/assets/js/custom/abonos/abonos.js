@@ -80,15 +80,15 @@ var KTAuthNewPassword = (function () {
                         // document.querySelector("#kt_new_abono_form").submit();
 
                         monto_saldo =
-                            document.querySelector("#monto_saldo").value;
-                           let monto_to_val =
+                            document.querySelector("#MONTO_PAGO_MENSUAL").value;
+                        let monto_to_val =
                             document.querySelector("#monto_to_val").value;
-                            let cuotas_to_val =
+                        let cuotas_to_val =
                             document.querySelector("#cuota_to_val").value;
                         let qty_cuotas = monto_saldo / payment;
                         console.log(qty_cuotas);
                         console.log(qty_cuotas > parseInt(cuotas_to_val) ||
-                        parseFloat(monto_saldo) > parseFloat(monto_to_val));
+                            parseFloat(monto_saldo) > parseFloat(monto_to_val));
                         if (
                             qty_cuotas >= parseInt(cuotas_to_val) ||
                             parseFloat(monto_saldo) > parseFloat(monto_to_val)
@@ -130,7 +130,7 @@ var KTAuthNewPassword = (function () {
                                     justificante: result.value.justificante,
                                     comprobante: result.value.comprobante,
                                 };
-console.log(data);
+                                console.log(data);
                                 $.ajax({
                                     type: "POST",
                                     url: "/alerts/new",
@@ -143,9 +143,9 @@ console.log(data);
                                     success: function (response) {
                                         console.log(response);
 
-                                document
-                                .querySelector("#kt_new_abono_form")
-                                .submit();
+                                        document
+                                            .querySelector("#kt_new_abono_form")
+                                            .submit();
                                     },
                                     error: function (xhr, status, error) {
                                         swal.close();
@@ -169,8 +169,8 @@ console.log(data);
                             });
                         } else {
                             document
-                            .querySelector("#kt_new_abono_form")
-                            .submit();
+                                .querySelector("#kt_new_abono_form")
+                                .submit();
                             Swal.fire({
                                 text: "El abono se ha registrado correctamente",
                                 icon: "success",
