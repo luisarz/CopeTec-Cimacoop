@@ -16,15 +16,26 @@ class Cuentas extends Model
     ];
     use HasFactory;
 
-    public function asociado()
+    public function asociado(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Asociados::class,'id_asociado');
     }
-    public function tipo_cuenta()
+    public function tipo_cuenta(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(TipoCuenta::class,'id_tipo_cuenta');
     }
-    public function libreta(){
+    public function libreta(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
         return $this->hasOne( LibretasModel::class,'id_cuenta');
+    }
+    public function beneficiarios(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Beneficiarios::class,'id_cuenta');
+
+    }
+    public  function interes(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(InteresesTipoCuenta::class,'id_interes');
+
     }
 }

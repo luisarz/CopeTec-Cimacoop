@@ -3,17 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asociados;
+use App\Models\Beneficiarios;
 use App\Models\Clientes;
+use App\Models\Configuracion;
 use Illuminate\Http\Request;
+use \PDF;
 
 class AsociadosController extends Controller
 {
+    private $estilos;
+    private $stilosBundle;
+
+    public function __construct()
+    {
+        $this->estilos = file_get_contents(public_path('assets/css/css.css'));
+        $this->stilosBundle = file_get_contents(public_path('assets/css/style.bundle.css'));
+    }
+
     public function index()
     {
+      session()->put("estadoMenuminimizado", "1");
+
         $asociados = Asociados::join('clientes', 'asociados.id_cliente', '=', 'clientes.id_cliente')
         ->whereNotIn('clientes.estado',[0,7])
         ->paginate(10);
-   
+
         return view("asociados.index", compact("asociados"));
     }
 
@@ -78,5 +92,29 @@ class AsociadosController extends Controller
         $asociado->estado_solicitud = $request->estado_solicitud;
         $asociado->save();
         return redirect("/asociados");
+    }
+    public function solicitudIngreso($id)
+    {
+        $configuracion=Configuracion::first();
+        $reporteName = 'SOLICITUD DE INGRESO';
+        $asociado = Asociados::with('cliente')->findOrFail($id);
+
+        $asociadoReferencia1=Asociados::with('cliente')->where('id_asociado',$asociado->referencia_asociado_uno)->first();
+        $asociadoReferencia2=Asociados::with('cliente')->where('id_asociado',$asociado->referencia_asociado_dos)->first();
+
+        $beneficiarios = Beneficiarios::with('cuenta', 'cuenta.tipo_cuenta')->where('id_asociado', '=', $id)
+            ->join('parentesco', 'id_parentesco', '=', 'beneficiarios.parentesco')->get();
+
+        $pdf = PDF::loadView('asociados.solicitud', [
+            'estilos' => $this->estilos,
+            'stilosBundle' => $this->stilosBundle,
+            'asociado' => $asociado,
+            'configuracion' => $configuracion,
+            'reporteName' => $reporteName,
+            'asociadoReferencia1' => $asociadoReferencia1,
+            'asociadoReferencia2' => $asociadoReferencia2,
+            'beneficiarios' => $beneficiarios
+        ]);
+        return $pdf->setOrientation('portrait')->inline();
     }
 }

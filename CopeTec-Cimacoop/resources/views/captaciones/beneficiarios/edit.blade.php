@@ -29,7 +29,7 @@
                 <div class="card shadow-lg">
                     <div class="card-header ribbon ribbon-end ribbon-clip">
                         <div class="card-toolbar">
-                            <a href="/captaciones/depositosplazo/{{ $beneficiario->id_deposito }}/beneficiarios" cla>
+                            <a href="/captaciones/depositosplazo/{{ $beneficiario->id_deposito }}/beneficiarios">
 
                                 <button type="button"
                                     class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
@@ -88,7 +88,7 @@
 
 
                             <div class="form-floating col-lg-4">
-                                <input type="number" atep="any" max="{{ $disponible }}"
+                                <input type="number" step="any" max="{{ $disponible }}"
                                     value="{{ $beneficiario->porcentaje }}" class="form-control" placeholder="porcentaje %"
                                     name="porcentaje" />
                                 <label class="floatingPassword">porcenta:</label>
@@ -117,6 +117,6 @@
                     </div>
                 </div>
             </div>
-
+        </div>
     </form>
 @endsection

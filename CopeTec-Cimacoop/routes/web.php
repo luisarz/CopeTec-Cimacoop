@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AperturaCajaController;
+use App\Http\Controllers\{AperturaCajaController, ProfesionController, ClientesController, ReferenciasController, AsociadosController, BeneficiariosController, InteresesTipoCuentaController, CuentasController, CajasController, MovimientosController, ReportesController, ModuloController, PermisosController, CreditoController, DepositosInteresController, MoneylaunderingController, ParameterController, FacturasController, LibretasController};
 use App\Http\Controllers\BeneficiarosDepositosController;
 use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\BobedaController;
@@ -34,25 +34,19 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\TipoCuentaController;
 use App\Http\Controllers\EmpleadoController;
-use App\Http\Controllers\ClientesController;
-use App\Http\Controllers\ReferenciasController;
-use App\Http\Controllers\AsociadosController;
-use App\Http\Controllers\BeneficiariosController;
-use App\Http\Controllers\InteresesTipoCuentaController;
-use App\Http\Controllers\CuentasController;
-use App\Http\Controllers\CajasController;
-use App\Http\Controllers\MovimientosController;
-use App\Http\Controllers\ReportesController;
-use App\Http\Controllers\ModuloController;
-use App\Http\Controllers\PermisosController;
-use App\Http\Controllers\CreditoController;
+// use App\Http\Controllers\CajasController;
+// use App\Http\Controllers\MovimientosController;
+// use App\Http\Controllers\ReportesController;
+// use App\Http\Controllers\ModuloController;
+// use App\Http\Controllers\PermisosController;
+// use App\Http\Controllers\CreditoController;
+// use App\Http\Controllers\DeclaracionJuradaController;
+// use App\Http\Controllers\DepositosInteresController;
+// use App\Http\Controllers\MoneylaunderingController;
+// use App\Http\Controllers\ParameterController;
+// use App\Http\Controllers\FacturasController;
+// use App\Http\Controllers\LibretasController;
 use App\Http\Controllers\DeclaracionJuradaController;
-use App\Http\Controllers\DepositosInteresController;
-use App\Http\Controllers\MoneylaunderingController;
-use App\Http\Controllers\ParameterController;
-use App\Http\Controllers\FacturasController;
-use App\Http\Controllers\LibretasController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -132,6 +126,7 @@ Route::get('/clientes/add', [ClientesController::class, 'add'])->middleware(['au
 Route::post('/clientes/add', [ClientesController::class, 'post'])->middleware(['auth', 'bitacora']);
 Route::delete('/clientes/delete', [ClientesController::class, 'delete'])->middleware(['auth', 'bitacora']);
 Route::get('/clientes/{id}', [ClientesController::class, 'edit'])->middleware(['auth', 'bitacora']);
+//Route::get('/clientes/solcitud-ingreso/{id}', [ClientesController::class, 'solicitudIngreso'])->middleware(['auth', 'bitacora']);
 Route::get('/clientes/getClienteData/{id}', [ClientesController::class, 'getClienteData'])->middleware(['auth', 'bitacora']);
 Route::put('/clientes/put', [ClientesController::class, 'put'])->middleware(['auth', 'bitacora']);
 
@@ -155,6 +150,8 @@ Route::post('/asociados/add', [AsociadosController::class, 'post'])->middleware(
 Route::delete('/asociados/delete', [AsociadosController::class, 'delete'])->middleware(['auth', 'bitacora']);
 Route::get('/asociados/{id}', [AsociadosController::class, 'edit'])->middleware(['auth', 'bitacora']);
 Route::put('/asociados/put', [AsociadosController::class, 'put'])->middleware(['auth', 'bitacora']);
+Route::get('/asociados/solicitud/{id}', [AsociadosController::class, 'solicitudIngreso'])->middleware(['auth', 'bitacora']);
+
 
 /*
 Beneficiarios Route
@@ -183,6 +180,14 @@ Route::get('intereses/getIntereses/{id}', [InteresesTipoCuentaController::class,
 /*
 Cuentas Route
  */
+Route::middleware(['auth','bitacora'])->prefix('profesiones')->group(function () {
+    Route::get('/', [ProfesionController::class, 'index']);
+    Route::get('/add', [ProfesionController::class, 'add']);
+    Route::post('/add', [ProfesionController::class, 'post']);
+    Route::delete('/delete', [ProfesionController::class, 'delete']);
+    Route::get('/{id}', [ProfesionController::class, 'edit']);
+    Route::put('/put', [ProfesionController::class, 'put']);
+});
 
 Route::middleware(['auth', 'bitacora'])->prefix('cuentas')->group(function () {
     Route::get('/', [CuentasController::class, 'index']);
@@ -303,7 +308,7 @@ Reportes Movimientos
 Route::get('/reportes/comprobanteMovimiento/{id}', [ReportesController::class, 'ComprobanteMovimiento'])->middleware(['auth', 'bitacora']);
 // Route::get('/reportes/comprobanteMovimiento/{id}', [ReportesController::class, 'ComprobanteMovimiento'])->middleware(['auth', 'bitacora']);
 Route::get('/reportes/RepEstadoCuenta/{id}', [ReportesController::class, 'RepEstadoCuenta'])->middleware(['auth', 'bitacora']);
-Route::get('/reportes/contrato/{id}', [ReportesController::class, 'contrato'])->middleware(['auth', 'bitacora']);
+Route::get('/reportes/contrato/{idCuenta}', [ReportesController::class, 'contrato'])->middleware(['auth', 'bitacora']);
 Route::get('/reportes/depositoplazo/{id}', [ReportesController::class, 'certificadoDeposito'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/solicitud/{id}', [ReportesController::class, 'solicitudCredito'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/pagare/{id}', [ReportesController::class, 'pagareCredito'])->middleware(['auth', 'bitacora']);

@@ -29,6 +29,7 @@ use Luecano\NumeroALetras\NumeroALetras;
 use \PDF;
 use App\Exports\CreditScoreExport;
 use Maatwebsite\Excel\Facades\Excel;
+use function MongoDB\BSON\toJSON;
 
 
 class ReportesController extends Controller
@@ -178,23 +179,45 @@ class ReportesController extends Controller
         return $pdf->setOrientation('portrait')->inline();
     }
 
+    /**
+     * @throws \DateMalformedStringException
+     */
     public function contrato($id)
     {
         $idCuenta = $id;
+        $configuracion=Configuracion::first();
+        $reporteName = 'CONTRATO DE CUENTA DE AHORRO';
 
-        $datosContrato = Cuentas::join('tipos_cuentas', 'tipos_cuentas.id_tipo_cuenta', '=', 'cuentas.id_tipo_cuenta')
-            ->join('asociados', 'asociados.id_asociado', '=', 'cuentas.id_asociado')
-            ->join('clientes', 'clientes.id_cliente', '=', 'asociados.id_cliente')
-            ->join('intereses_tipo_cuenta', 'intereses_tipo_cuenta.id_tipo_cuenta', '=', 'tipos_cuentas.id_tipo_cuenta')
-            ->select('cuentas.*', 'clientes.*', 'tipos_cuentas.descripcion_cuenta as tipo_cuenta', 'intereses_tipo_cuenta.interes', 'asociados.fecha_ingreso')
-            ->where('cuentas.id_cuenta', '=', $idCuenta)
-            ->first();
+        $datosContrato = Cuentas::select('id_cuenta','id_asociado','id_tipo_cuenta','numero_cuenta','monto_apertura','fecha_apertura','id_interes')->with([
+            'asociado' => function($query) {
+                $query->select('id_asociado','id_cliente', 'numero_asociado', 'couta_ingreso','monto_aportacion','fecha_ingreso'); // Select specific fields from 'asociado'
+            },
+            'asociado.cliente' => function($query) {
+                $query->select('id_cliente','profesion_id', 'genero', 'nombre','dui_cliente'); // Select specific fields from 'cliente'
+            },
+            'asociado.cliente.profesion'=> function($query) {
+                $query->select('id', 'name'); // Select specific fields from 'profesion'
+            },
+            'tipo_cuenta' => function($query) {
+                $query->select('id_tipo_cuenta', 'descripcion_cuenta'); // Select specific fields from 'tipo_cuenta'
+            },
+            'interes' => function($query) {
+                $query->select('id_intereses_tipo_cuenta', 'interes'); // Select specific fields from 'interes'
+            },
+            'beneficiarios' => function($query) {
+                $query->select('id_beneficiario', 'id_cuenta', 'nombre','parentesco','porcentaje'); // Select specific fields from 'beneficiarios'
+            },
+            'beneficiarios.parentesco_cliente'=> function($query) {
+                $query->select('id_parentesco', 'parentesco'); // Select specific fields from 'beneficiarios'
+            }
+        ])->find($idCuenta)->first();
 
-        $fechaNacimiento = new DateTime($datosContrato->fecha_nacimiento);
+        $fechaNacimiento = new DateTime($datosContrato->asociado->cliente->fecha_nacimiento);
+//        dd($fechaNacimiento);
         $fechaActual = new DateTime();
         $edad = $fechaNacimiento->diff($fechaActual)->y;
-        $beneficiarios = Cuentas::join('beneficiarios', 'beneficiarios.id_cuenta', '=', 'cuentas.id_cuenta')
-        ->where('cuentas.id_cuenta',$id)->get();
+//        $beneficiarios = Cuentas::join('beneficiarios', 'beneficiarios.id_cuenta', '=', 'cuentas.id_cuenta')
+//        ->where('cuentas.id_cuenta',$id)->get();
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($datosContrato->monto_apertura, 2, 'DoLARES');
 
@@ -203,9 +226,10 @@ class ReportesController extends Controller
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
             'datosContrato' => $datosContrato,
-            'beneficiarios' => $beneficiarios,
             'edad' => $edad,
-            'numeroEnLetras' => $numeroEnLetras
+            'numeroEnLetras' => $numeroEnLetras,
+            'configuracion'=>$configuracion,
+            'reporteName'=>$reporteName
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }

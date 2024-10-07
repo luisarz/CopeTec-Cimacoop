@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Asociados;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Profesion;
 
 class Clientes extends Model
 {
@@ -30,5 +31,9 @@ class Clientes extends Model
     public function score()
     {
         return $this->hasOne(ClientCreditScore::class,'id_cliente');
+    }
+    public function profesion()
+    {
+        return $this->belongsTo(Profesion::class,'profesion_id');
     }
 }

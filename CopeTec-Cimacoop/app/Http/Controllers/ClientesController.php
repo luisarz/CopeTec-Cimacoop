@@ -6,12 +6,15 @@ use App\Models\Clientes;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use DataTables;
+use App\Models\Profesion;
 
 class ClientesController extends Controller
 {
     public function index()
     {
-        return view("clientes.index");
+        $clientes = Clientes::where('nombre', '!=', 'Bobeda General')
+        ->latest()->get();
+        return view("clientes.index",compact("clientes"));
     }
 
     public function getClientes(Request $request)
@@ -24,7 +27,7 @@ class ClientesController extends Controller
                 ->addColumn('action', function ($row) {
                     $actionBtn = '<a href="javascript:void(0);" onclick="alertDelete(' . $row->id_cliente . ',' . $row->estado . ')"
                     class="btn btn-sm btn-danger">
-                    <i class="ki-outline ki-lock-3 fs-1 text-white"></i>
+                    <i class="ki-outline ki-lock-3  text-white"></i>
                 </a>
                 <a href="/clientes/' . $row->id_cliente . '" class="btn btn-sm btn-info"><i
                         class="fa-solid fa-pencil text-white"></i>
@@ -40,7 +43,7 @@ class ClientesController extends Controller
                 ->addColumn('estado_row', function ($row) {
                     return $row->estado == 1 ? '<span class="badge badge-success">Activo</span>' : '<span class="badge badge-danger">Inactivo</span>';
                 }
-                
+
                 )
 
                 ->rawColumns(['action', 'genero_row', 'estado_row'])
@@ -50,13 +53,16 @@ class ClientesController extends Controller
 
     public function add()
     {
-        return view("clientes.add");
+        $profesiones = Profesion::all();
+        return view("clientes.add",compact("profesiones"));
     }
 
     public function edit($id)
     {
         $cliente = Clientes::findOrFail($id);
-        return view("clientes.edit", compact("cliente"));
+        $profesiones = Profesion::all();
+        // dd($profesiones);
+        return view("clientes.edit", compact("cliente","profesiones"));
     }
 
 
@@ -81,7 +87,9 @@ class ClientesController extends Controller
             $cliente->nombre_negocio = $request->nombre_negocio;
             $cliente->tipo_vivienda = $request->tipo_vivienda;
             $cliente->observaciones = $request->observaciones;
+            $cliente->profesion_id = $request->profesion_id;
             $cliente->estado = 1;
+            $cliente->conyugue = $request->conyugue;
             $cliente->id_empleado = auth()->user()->id_empleado_usuario;
             $cliente->save();
             return redirect("/clientes");
@@ -136,10 +144,19 @@ class ClientesController extends Controller
             $cliente->direccion_negocio = $request->direccion_negocio;
             $cliente->nombre_negocio = $request->nombre_negocio;
             $cliente->tipo_vivienda = $request->tipo_vivienda;
+            $cliente->profesion_id = $request->profesion_id;
             $cliente->observaciones = $request->observaciones;
             $cliente->estado = 1;
+            $cliente->conyugue = $request->conyugue;
+            
             $cliente->save();
             return redirect("/clientes");
         }
+    }
+
+    public function solicitudIngreso($id)
+    {
+        $cliente = Clientes::findOrFail($id);
+        return view("clientes.solicitud", compact("cliente"));
     }
 }

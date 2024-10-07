@@ -38,31 +38,76 @@
                     @foreach ($asociados as $asociado)
                         <tr>
                             <td>
-                                <a href="javascript:void(0);" onclick="alertDelete({{ $asociado->id_asociado }})"
-                                    class="btn w-10 btn-danger btn-sm ">
-                                    <i class="fa-solid fa-trash text-white"></i>
-                                </a>
-                                <a href="/asociados/{{ $asociado->id_asociado }}" class="btn w-10 btn-info btn-sm">
-                                    <i class="fa-solid fa-pencil text-white"></i>
-                                </a>
 
-                                @if ($asociado->estado_solicitud != '3')
-                                    <a href="/beneficiarios/{{ $asociado->id_asociado }}"
-                                        class="btn w-10 btn-success btn-sm fs-8">
-                                        <i class="fa-solid fa-user-plus text-white"></i>
-                                        &nbsp; Beneficiarios
-                                    </a>
-                                @else
-                                    <a class="btn btn-success w-10 btn-sm"
-                                        style="pointer-events: none; text-decoration: line-through "><i
-                                            class="fa-solid fa-user-plus text-white"></i> &nbsp; Beneficiarios
-                                    </a>
-                                @endif
+                                <a href="#" class="btn btn-sm btn-info btn-flex btn-center "
+                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start">
+                                    Acciones
+                                    <i class="ki-outline ki-dots-vertical fs-5 ms-1"></i></a>
+                                <!--begin::Menu-->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded  menu-state-bg-light-primary fw-semibold fs-7 w-250px py-3"
+                                    data-kt-menu="true" style="">
+                                    <div class="menu-item px-2">
+                                        <a href="javascript:void(0);" onclick="alertDelete({{ $asociado->id_asociado }})"
+                                            class="menu-link px-3">
+                                            <i class="ki-outline ki-trash fs-3">
+                                            </i>
+                                            <span class="px-2"> Eliminar</span>
+                                        </a>
+                                    </div>
+                                    <div class="menu-item px-2">
+
+                                        <a href="/asociados/{{ $asociado->id_asociado }}"  class="menu-link px-3">
+                                            <i class="ki-outline ki-pencil fs-3">
+                                            </i>
+                                            <span class="px-2"> Modificar</span>
+                                        </a>
+                                    </div>
+                                    @if ($asociado->estado_solicitud != '3')
+                                        <div class="menu-item px-2">
+
+                                            <a href="/beneficiarios/{{ $asociado->id_asociado }}"
+                                                class="menu-link px-3">
+                                                <i class="ki-outline ki-user-tick fs-3">
+                                                </i>
+                                                <span class="px-2"> Beneficiarios</span>
+                                            </a>
+                                        </div>
+                                    @else
+                                        <div class="menu-item px-2">
+
+                                            <a class="btn btn-success w-10 btn-sm"
+                                                style="pointer-events: none; text-decoration: line-through " class="menu-link px-3">
+                                                <i class="ki-outline ki-user-tick fs-3">
+                                                </i>
+                                                <span class="px-2"> Beneficiarios</span>
+                                            </a>
+                                        </div>
+                                    @endif
+                                    <div class="menu-item px-2">
+
+                                        <a href="/asociados/solicitud/{{ $asociado->id_asociado }}"  class="menu-link px-3">
+                                            <i class="ki-outline ki-printer fs-3">
+                                            </i>
+                                            <span class="px-2"> Solicitud de Ingreso</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--end::Menu-->
+
+
+
+
+
+
+
+
+
 
                             </td>
                             <td>
-                                <span class="badge badge-info fs-5">{{ str_pad($asociado->numero_asociado ,10,'0',STR_PAD_LEFT)}}</span>
-                                {{strtoupper( $asociado->nombre) }}
+                                <span
+                                    class="badge badge-info fs-5">{{ str_pad($asociado->numero_asociado, 10, '0', STR_PAD_LEFT) }}</span>
+                                {{ strtoupper($asociado->nombre) }}
                             </td>
                             <td>
                                 @if ($asociado->estado_solicitud == '1')

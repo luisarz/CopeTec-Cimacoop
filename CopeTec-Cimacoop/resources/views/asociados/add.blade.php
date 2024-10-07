@@ -34,7 +34,7 @@
                 <div class="col-lg-3">
                     <label class="text-danger fw-bold"># Asociado:</label>
                     <input type="text" class="text-info fw-bold form-control form-control-solid-bg"
-                        name="numero_asociado" id="numero_asociado" placeholder="Numero asociado" 
+                        name="numero_asociado" id="numero_asociado" placeholder="Numero asociado"
                         value="{{ $nuevoAsociadoNumero }}" />
                 </div>
             </div> --}}
@@ -69,12 +69,12 @@
                 <div class="form-group row mb-5">
                     <div class="col-lg-4">
                         <label>Sueldo Quincenal:</label>
-                        <input type="number" required class="form-control" placeholder="Sueldo quincena"
+                        <input type="number" step="any" required class="form-control" placeholder="Sueldo quincena"
                             name="sueldo_quincenal" />
                     </div>
                     <div class="col-lg-4">
                         <label>Sueldo mensual:</label>
-                        <input type="number" required class="form-control" placeholder="Sueldo mensual"
+                        <input type="number" step="any"  required class="form-control" placeholder="Sueldo mensual"
                             name="sueldo_mensual" />
                     </div>
                     <div class="col-lg-4">

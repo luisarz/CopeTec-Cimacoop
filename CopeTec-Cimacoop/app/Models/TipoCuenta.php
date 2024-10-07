@@ -12,4 +12,9 @@ class TipoCuenta extends Model
    
 
     use HasFactory;
+    public  function interes(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(InteresesTipoCuenta::class,'id_tipo_cuenta');
+
+    }
 }

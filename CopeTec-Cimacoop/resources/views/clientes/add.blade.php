@@ -103,22 +103,42 @@
 
                     </div>
                 </div>
+                <div class="form-group row mb-5">
+                    <div class="form-floating col-lg-12">
+                        <input type="text"  value="{{ old('conyugue') }}" class="form-control" name="conyugue"
+                               placeholder="telefono" aria-label="dui" aria-describedby="basic-addon1" />
+                        <label>Conyugue:</label>
+                    </div>
+                </div>
                 <!--begin::row group-->
                 <div class="form-group row mb-5">
-
-                    <div class="form-floating col-lg-3">
-                        <input type="text"required value="{{ old('direccion_personal') }}" class="form-control"
+                    <div class="form-floating  col-lg-4">
+                        <select name="profesion_id" data-control="select2" class="form-select">
+                            @foreach ($profesiones as $profesion)
+                                    <option value="{{ $profesion->id }}">{{ $profesion->name }}</option>
+                            @endforeach
+                        </select>
+                        <label>Profesión:</label>
+                    </div>
+                    <div class="form-floating  col-lg-8">
+                        <input type="text" required value="{{ old('direccion_personal') }}" class="form-control"
                             name="direccion_personal" placeholder="Direccion" aria-label="dui"
                             aria-describedby="basic-addon1" />
                         <label>Direccion Personal:</label>
                     </div>
-                    <div class="form-floating  col-lg-5">
+
+                </div>
+
+                <div class="form-group row mb-5">
+
+
+                    <div class="form-floating  col-lg-4">
                         <input type="text" value="{{ old('nombre_negocio') }}" class="form-control"
                             name="nombre_negocio" placeholder="Nombre negocio " aria-label="nombre_negocio"
                             aria-describedby="basic-addon1" />
                         <label>Nombre del negocio:</label>
                     </div>
-                    <div class="form-floating  col-lg-4">
+                    <div class="form-floating  col-lg-8">
                         <input type="text" value="{{ old('direccion_negocio') }}" class="form-control"
                             name="direccion_negocio" placeholder="Direccion negocio del cliente"
                             aria-label="direccion_negocio" aria-describedby="basic-addon1" />
