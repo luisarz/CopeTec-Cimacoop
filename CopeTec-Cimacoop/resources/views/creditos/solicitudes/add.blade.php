@@ -225,7 +225,7 @@
                                         <label>Seguro de Deuda:</label>
                                     </div>
                                     <div class="form-floating col-lg-6">
-                                        <input type="number" name="aportaciones" id="aportaciones" class="form-control"
+                                        <input type="number" step="any" min="0" value="0" name="aportaciones" id="aportaciones" class="form-control"
                                             placeholder="Aportaciones">
                                         <label>Aportaciones:</label>
 
@@ -295,9 +295,10 @@
                                                         class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
                                                         <th>Periodo</th>
                                                         <th>fecha</th>
-                                                        <th>Cuota</th>
                                                         <th>Interes</th>
                                                         <th>Capital</th>
+                                                        <th>Aportación</th>
+                                                        <th>Cuota</th>
                                                         <th>Saldo</th>
                                                     </tr>
                                                 </thead>
@@ -321,9 +322,8 @@
 
                                     @foreach ($referencias as $referencia)
                                         <option value="{{ $cliente->id_referencia }}">
-                                            {{ $referencia->nombre }}
-                                            ->{{ $referencia->dui }}
-                                            ->{{ $referencia->parentesco }}
+                                            {{ $referencia->nombre }}->
+                                            DUI ({{ $referencia->dui??'S/N' }})
                                         </option>
                                     @endforeach
                                 </select>
@@ -446,7 +446,7 @@
                     <div class="tab-pane fade show" id="tabReferencias" role="tabpanel">
                         <!--begin::row group-->
                         <div class="form-group row mb-5">
-                            <div class="form-floating col-lg-10">
+                            <div class="form-floating col-lg-5">
                                 <select name="id_referencia" id="id_referencia" class="form-select"
                                     data-control="select2">
                                     <option value="">Seleccione</option>
@@ -460,6 +460,19 @@
                                     @endforeach
                                 </select>
                                 <label>Referencia:</label>
+                            </div>
+                            <div class="form-floating col-lg-5">
+                                <select name="parentesco_id" id="parentesco_id" class="form-select"
+                                        data-control="select2">
+                                    <option value="">Seleccione</option>
+
+                                    @foreach ($parentescos as $parentesco)
+                                        <option value="{{ $parentesco->id_parentesco }}">
+                                            {{ $parentesco->parentesco }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <label>Parentesco:</label>
                             </div>
                             <div class="form-floating col-lg-2">
                                 <button type="button" class="btn btn-danger" id="btnAddReferencia"
@@ -479,6 +492,7 @@
                                     <thead class="th-dark">
                                         <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
                                             <th class="min-w-230px">Acciones</th>
+                                            <th>#</th>
                                             <th>Nombre</th>
                                             <th>Dui</th>
                                             <th>Parentesco</th>
@@ -602,90 +616,83 @@
 
 
 
-                    $("#monto_solicitado").on('keyup', function() {
-                        calcularPago();
-                    });
-                    $("#plazo").on('keyup', function() {
-                        calcularPago();
-                    });
-                    $("#tasa").on('keyup', function() {
-                        calcularPago();
-                    });
-                    $("#cuota").on('keyup', function() {
-                        calcularPago();
-                    });
-                    $("#seguro_deuda").on('keyup', function() {
-                        calcularPago();
-                    });
+            // Agrupar todos los selectores en un solo evento
+            $("#monto_solicitado, #plazo, #tasa, #cuota, #seguro_deuda").on('keyup', function() {
+                calcularPago();
+            });
 
 
 
 
 
-                    function calcularPago() {
-                        let tasa = $("#tasa").val() / 100;
-                        let periodos = $("#plazo").val();
-                        let monto = $("#monto_solicitado").val();
-                        let valorFuturo = 0;
-                        let tipo = 0;
-                        var fecha_solicitud = $("#fecha_solicitud").val() === "" ? new Date() : new Date($(
-                            "#fecha_solicitud").val());
 
-                        if (isNaN(fecha_solicitud.getTime())) {
-                            fecha_solicitud = new Date(); // Si el valor no es una fecha válida, utilizar la fecha actual
-                        } else {
-                            fecha_solicitud.setMonth(fecha_solicitud.getMonth() + 1);
-                        }
+            function calcularPago() {
+                // Obtener valores y realizar conversiones necesarias
+                const tasa = parseFloat($("#tasa").val()) / 100 || 0;
+                const periodos = parseInt($("#plazo").val()) || 0;
+                const monto = parseFloat($("#monto_solicitado").val()) || 0;
+                const aportaciones = 0;// parseFloat($("#aportaciones").val()) || 0;
+                const valorFuturo = 0; // Puedes ajustar si cambia en el futuro
+                const tipo = 0; // No parece estar siendo usado en este caso
+
+                let fecha_solicitud = new Date($("#fecha_solicitud").val()) || new Date();
+                if (isNaN(fecha_solicitud.getTime())) {
+                    fecha_solicitud = new Date(); // Si la fecha no es válida, usar fecha actual
+                } else {
+                    fecha_solicitud.setMonth(fecha_solicitud.getMonth() + 1); // Mover al siguiente mes
+                }
+
+                // Calcular tasa por periodo mensual
+                const tasaPeriodo = tasa / 12;
+                let pago = 0;
+
+                // Calcular pago mensual
+                if (tasaPeriodo === 0) {
+                    pago = (monto + valorFuturo) / periodos;
+                } else {
+                    const factorPotencia = Math.pow(1 + tasaPeriodo, periodos);
+                    const denominador = factorPotencia - 1;
+                    pago = (monto * tasaPeriodo * factorPotencia) / denominador + (valorFuturo * tasaPeriodo) / denominador;
+                    pago += aportaciones;
+                }
+
+                // Actualizar el valor de la cuota en el input
+                $("#cuota").val(pago.toFixed(2));
+
+                // Generar la tabla de amortización
+                const tablaAmortizacion = $("#tablaAmortizacion");
+                tablaAmortizacion.empty();
+
+                let saldoPendiente = monto;
+
+                // Formato de fecha
+                const optionsFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
+
+                for (let i = 1; i <= periodos; i++) {
+                    fecha_solicitud.setMonth(fecha_solicitud.getMonth() + 1);
+                    const fecha_formateada = fecha_solicitud.toLocaleDateString('es-ES', optionsFecha);
+
+                    const interes = saldoPendiente * tasaPeriodo;
+                    const principal = pago - interes - aportaciones;
+                    saldoPendiente -= principal;
+
+                    // Crear la fila de la tabla de amortización
+                    const fila = $("<tr>").append(
+                        $("<td>").text(i),
+                        $("<td>").text(fecha_formateada),
+                        $("<td>").text(interes.toFixed(2)),
+                        $("<td>").text(principal.toFixed(2)),
+                        $("<td>").text(aportaciones.toFixed(2)),
+                        $("<td>").text(pago.toFixed(2)),
+                        $("<td>").text(saldoPendiente.toFixed(2))
+                    );
+
+                    tablaAmortizacion.append(fila);
+                }
+            }
 
 
-
-
-                        let tasaPeriodo = tasa / 12
-                        let pago;
-                        if (tasaPeriodo === 0) {
-                            pago = (monto + valorFuturo) / periodos;
-                        } else {
-                            let denominador = Math.pow(1 + tasaPeriodo, periodos) - 1;
-                            pago = (monto * tasaPeriodo * Math.pow(1 + tasaPeriodo, periodos)) / denominador +
-                                (valorFuturo * tasaPeriodo) / denominador;
-                        }
-
-                        $("#cuota").val(pago.toFixed(2));
-
-                        // Generar la tabla de amortización
-                        let tablaAmortizacion = $("#tablaAmortizacion");
-                        tablaAmortizacion.empty();
-                        let saldoPendiente = monto;
-
-                        for (let i = 1; i <= periodos; i++) {
-                            fecha_solicitud.setMonth(fecha_solicitud.getMonth() + 1);
-                            var options = {
-                                day: '2-digit',
-                                month: '2-digit',
-                                year: 'numeric'
-                            };
-                            var fecha_formateada = fecha_solicitud.toLocaleDateString('es-ES', options);
-
-                            let interes = saldoPendiente * tasaPeriodo;
-                            let principal = pago - interes;
-                            saldoPendiente -= principal;
-
-                            let fila = $("<tr>").append(
-                                $("<td>").text(i),
-                                $("<td>").text(fecha_formateada),
-                                $("<td>").text(pago.toFixed(2)),
-                                $("<td>").text(interes.toFixed(2)),
-                                $("<td>").text(principal.toFixed(2)),
-                                $("<td>").text(saldoPendiente.toFixed(2))
-
-                            );
-
-                            tablaAmortizacion.append(fila);
-                        }
-
-                    }
-
-                    function calcularIngresos() {
+            function calcularIngresos() {
                         let sueldo_solicitante = ($("#sueldo_solicitante").val() === "") ? 0 : parseFloat($(
                             "#sueldo_solicitante").val());
                         let comisiones = ($("#comisiones").val() === "") ? 0 : parseFloat($("#comisiones")

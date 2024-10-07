@@ -9,6 +9,7 @@ use App\Models\Clientes;
 use App\Models\Cuentas;
 use App\Models\LiquidacionModel;
 use App\Models\Movimientos;
+use App\Models\Parentesco;
 use App\Models\PartidaContable;
 use App\Models\PartidaContableDetalleModel;
 use App\Models\Referencias;
@@ -63,14 +64,8 @@ class SolicitudCreditoController extends Controller
         $clientes = Clientes::whereNotIn('estado', [0, 7])->get();
         $beneficiarios = Beneficiarios::all();
         $idSolicitud = Str::uuid()->toString();
-        $referencias = Referencias::select(
-            'id_referencia',
-            'nombre',
-            'parentesco',
-            'dui',
-            'lugar_trabajo'
-        )->get();
-
+        $referencias = Referencias::select('id_referencia','nombre', 'parentesco', 'dui', 'lugar_trabajo')->get();
+        $parentescos=Parentesco::all();
         $destinoCredito = Catalogo::where('tipo_catalogo', '=', 1)
             ->where('descripcion', 'like', '%prestamo%')
             ->get();
@@ -84,7 +79,8 @@ class SolicitudCreditoController extends Controller
                 'idSolicitud',
                 'referencias',
                 'destinoCredito',
-                'tiposGarantia'
+                'tiposGarantia',
+                'parentescos'
             )
         );
     }

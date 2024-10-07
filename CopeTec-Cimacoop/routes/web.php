@@ -404,7 +404,7 @@ Route::put('/creditos/solicitudes/rechazar', [SolicitudCreditoController::class,
 Referencias Solicitud Creditos
 
 */
-Route::get('/creditos/solicitudes/referencias/add/{id_referencia}/{id_solicitud}', [ReferenciaSolicitudController::class, 'addReferencia'])->middleware(['auth', 'bitacora']);
+Route::get('/creditos/solicitudes/referencias/add/{id_referencia}/{id_solicitud}/{parentesco_id}', [ReferenciaSolicitudController::class, 'addReferencia'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/solicitudes/referencias/quitar/{id}', [ReferenciaSolicitudController::class, 'quitar'])->middleware(['auth', 'bitacora']);
 Route::get('/creditos/solicitudes/referencias/getReferencias/{id}', [ReferenciaSolicitudController::class, 'getReferencias'])->middleware(['auth', 'bitacora']);
 

@@ -16,4 +16,13 @@ class ReferenciaSolicitud extends Model
     ];
     
     use HasFactory;
+    public function referencias()
+    {
+        return $this->belongsTo(Referencias::class, 'id_referencia', 'id_referencia');
+
+    }
+    public function parentesco()
+    {
+        return $this->hasOne(Parentesco::class, 'id_parentesco', 'parentesco_id');
+    }
 }

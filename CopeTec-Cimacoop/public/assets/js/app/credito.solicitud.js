@@ -36,6 +36,7 @@ $("#id_cliente").on('change', function () {
 $("#btnAddReferencia").on('click', function (ev) {
     let idReferencia = $("#id_referencia").val();
     let idSolicitud = $("#id_solicitud").val();
+    let parentesco_id = $("#parentesco_id").val();
 
     if (idReferencia == "") {
         Swal.fire({
@@ -43,9 +44,16 @@ $("#btnAddReferencia").on('click', function (ev) {
             title: 'Error',
             text: 'Debe seleccionar una referencia',
         });
+    }else if(parentesco_id == ""){
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Debe seleccionar un parentesco',
+        });
+
     } else {
         swalProcessing();
-        $.get('/creditos/solicitudes/referencias/add/' + idReferencia + '/' + idSolicitud, function (data) {
+        $.get('/creditos/solicitudes/referencias/add/' + idReferencia + '/' + idSolicitud+'/'+parentesco_id, function (data) {
             Swal.close();
             cargarReferencias();
         });
@@ -58,18 +66,21 @@ cargarReferencias = function () {
         let tableReferencias = $("#tableReferencias");
         tableReferencias.empty();
         let numero = 0;
-        $.each(data.referencias, function (index, element) {
+        // console.log(data);
+        $.each(data, function (index, element) {
             numero = index + 1;
+            console.log(element);
             let idReferencia = element.id_referencia_solicitud;
             let row = $("<tr>");
             row.append($("<td>").html(
                 `<a href="javascript:void(0);" onclick="quitarReferencia(${idReferencia})"><span class=' btn btn-sm btn-danger'>Quitar</span></a>`
             ));
             row.append($("<td>").text(numero));
-            row.append($("<td>").text(element.nombre));
-            row.append($("<td>").text(element.dui));
-            row.append($("<td>").text(element.parentesco));
-            row.append($("<td>").text(element.telefono));
+            row.append($("<td>").text(element.referencias.nombre));
+            row.append($("<td>").text(element.referencias.dui||'S/N'));
+
+            row.append($("<td>").text(element.parentesco.parentesco||'S/N'));
+            row.append($("<td>").text(element.referencias.telefono||'S/N'));
 
             tableReferencias.append(row);
         });
