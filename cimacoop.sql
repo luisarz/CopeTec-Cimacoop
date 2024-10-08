@@ -11,11 +11,32 @@
  Target Server Version : 100428 (10.4.28-MariaDB)
  File Encoding         : 65001
 
- Date: 29/09/2024 10:26:50
+ Date: 07/10/2024 22:29:03
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for amortizacion_credito
+-- ----------------------------
+DROP TABLE IF EXISTS `amortizacion_credito`;
+CREATE TABLE `amortizacion_credito`  (
+  `id` int NOT NULL,
+  `id_solicitud` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `fecha` date NULL DEFAULT NULL,
+  `interes` decimal(10, 2) NULL DEFAULT NULL,
+  `capital` decimal(10, 2) NULL DEFAULT NULL,
+  `aportacion` decimal(10, 2) NULL DEFAULT NULL,
+  `seguro` decimal(10, 2) NULL DEFAULT NULL,
+  `cuota` decimal(10, 2) NULL DEFAULT NULL,
+  `saldo` decimal(10, 2) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of amortizacion_credito
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for apertura_caja
@@ -34,11 +55,12 @@ CREATE TABLE `apertura_caja`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_apertura_caja`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of apertura_caja
 -- ----------------------------
+INSERT INTO `apertura_caja` VALUES (1, 1, 500.00, NULL, 11, '2024-10-06 13:12:18', NULL, NULL, 1, '2024-10-06 13:12:18', '2024-10-06 13:12:18');
 
 -- ----------------------------
 -- Table structure for asociados
@@ -61,12 +83,13 @@ CREATE TABLE `asociados`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_asociado`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of asociados
 -- ----------------------------
 INSERT INTO `asociados` VALUES (1, 1, '1', 150.00, 300.00, 0.00, 4, NULL, NULL, 10.00, 5.00, 1, '2024-09-25', '2024-09-25 12:08:48', '2024-09-25 12:08:48');
+INSERT INTO `asociados` VALUES (3, 2, '2', 448.50, 897.00, 0.00, 0, 1, NULL, 10.00, 10.00, 2, '2024-10-04', '2024-10-04 18:55:56', '2024-10-05 11:00:59');
 
 -- ----------------------------
 -- Table structure for beneficiarios
@@ -84,11 +107,13 @@ CREATE TABLE `beneficiarios`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_beneficiario`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of beneficiarios
 -- ----------------------------
+INSERT INTO `beneficiarios` VALUES (1, 3, 2, 'MARHA ALICIA JANDRES URRUTIA', '14', 50.00, 'SM', '0000000', '2024-10-06 13:21:12', '2024-10-06 17:07:29');
+INSERT INTO `beneficiarios` VALUES (2, 3, 2, 'Juan Jose', '1', 50.00, 'SM', '0000-0000', '2024-10-06 17:07:47', '2024-10-06 17:07:47');
 
 -- ----------------------------
 -- Table structure for beneficiarios_depositos
@@ -126,7 +151,7 @@ CREATE TABLE `bitacora`  (
   `email` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `fecha` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_bitacora`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1537 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2695 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bitacora
@@ -1667,6 +1692,1164 @@ INSERT INTO `bitacora` VALUES (1533, '/dashboard', '[]', 'GET', 11, 'Norman Park
 INSERT INTO `bitacora` VALUES (1534, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:24:49');
 INSERT INTO `bitacora` VALUES (1535, '/rol', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:24:54');
 INSERT INTO `bitacora` VALUES (1536, '/rol/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:24:57');
+INSERT INTO `bitacora` VALUES (1537, '/rol', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:29:33');
+INSERT INTO `bitacora` VALUES (1538, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:29:37');
+INSERT INTO `bitacora` VALUES (1539, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:30:19');
+INSERT INTO `bitacora` VALUES (1540, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:31:34');
+INSERT INTO `bitacora` VALUES (1541, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:32:54');
+INSERT INTO `bitacora` VALUES (1542, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:33:09');
+INSERT INTO `bitacora` VALUES (1543, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:33:15');
+INSERT INTO `bitacora` VALUES (1544, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:33:34');
+INSERT INTO `bitacora` VALUES (1545, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:33:44');
+INSERT INTO `bitacora` VALUES (1546, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:34:11');
+INSERT INTO `bitacora` VALUES (1547, '/rol/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:34:14');
+INSERT INTO `bitacora` VALUES (1548, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:36:21');
+INSERT INTO `bitacora` VALUES (1549, '/rol/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:36:23');
+INSERT INTO `bitacora` VALUES (1550, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 10:36:41');
+INSERT INTO `bitacora` VALUES (1551, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:24:44');
+INSERT INTO `bitacora` VALUES (1552, '/profesiones/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:24:45');
+INSERT INTO `bitacora` VALUES (1553, '/profesiones/add', '{\"_token\":\"hB1HNNVUwG1iGs1rv7uKHWqLykTuDwdh5nIsS4dC\",\"name\":\"Ama de casa\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:24:49');
+INSERT INTO `bitacora` VALUES (1554, '/rol', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:24:49');
+INSERT INTO `bitacora` VALUES (1555, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:24:55');
+INSERT INTO `bitacora` VALUES (1556, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:25:26');
+INSERT INTO `bitacora` VALUES (1557, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:25:41');
+INSERT INTO `bitacora` VALUES (1558, '/profesiones/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:25:42');
+INSERT INTO `bitacora` VALUES (1559, '/profesiones/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:25:52');
+INSERT INTO `bitacora` VALUES (1560, '/profesiones/put', '{\"_token\":\"hB1HNNVUwG1iGs1rv7uKHWqLykTuDwdh5nIsS4dC\",\"_method\":\"PUT\",\"id\":\"1\",\"name\":\"Ama de casa s\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:25:54');
+INSERT INTO `bitacora` VALUES (1561, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:25:55');
+INSERT INTO `bitacora` VALUES (1562, '/profesiones/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:26:00');
+INSERT INTO `bitacora` VALUES (1563, '/profesiones/add', '{\"_token\":\"hB1HNNVUwG1iGs1rv7uKHWqLykTuDwdh5nIsS4dC\",\"name\":\"Ing. Informatica\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:26:10');
+INSERT INTO `bitacora` VALUES (1564, '/profesiones/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:26:31');
+INSERT INTO `bitacora` VALUES (1565, '/profesiones/add', '{\"_token\":\"hB1HNNVUwG1iGs1rv7uKHWqLykTuDwdh5nIsS4dC\",\"name\":\"error_log\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:26:41');
+INSERT INTO `bitacora` VALUES (1566, '/profesiones/add', '{\"_token\":\"hB1HNNVUwG1iGs1rv7uKHWqLykTuDwdh5nIsS4dC\",\"name\":\"error_log\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:26:43');
+INSERT INTO `bitacora` VALUES (1567, '/profesiones/add', '{\"_token\":\"hB1HNNVUwG1iGs1rv7uKHWqLykTuDwdh5nIsS4dC\",\"name\":\"error_log\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:26:43');
+INSERT INTO `bitacora` VALUES (1568, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:26:43');
+INSERT INTO `bitacora` VALUES (1569, '/profesiones/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:26:53');
+INSERT INTO `bitacora` VALUES (1570, '/profesiones/put', '{\"_token\":\"hB1HNNVUwG1iGs1rv7uKHWqLykTuDwdh5nIsS4dC\",\"_method\":\"PUT\",\"id\":\"3\",\"name\":\"error_log ss\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:26:56');
+INSERT INTO `bitacora` VALUES (1571, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:26:56');
+INSERT INTO `bitacora` VALUES (1572, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:27:49');
+INSERT INTO `bitacora` VALUES (1573, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:27:52');
+INSERT INTO `bitacora` VALUES (1574, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:30:27');
+INSERT INTO `bitacora` VALUES (1575, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:30:52');
+INSERT INTO `bitacora` VALUES (1576, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:34:13');
+INSERT INTO `bitacora` VALUES (1577, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:34:26');
+INSERT INTO `bitacora` VALUES (1578, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:34:32');
+INSERT INTO `bitacora` VALUES (1579, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:35:11');
+INSERT INTO `bitacora` VALUES (1580, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:36:23');
+INSERT INTO `bitacora` VALUES (1581, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:36:47');
+INSERT INTO `bitacora` VALUES (1582, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:37:29');
+INSERT INTO `bitacora` VALUES (1583, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:38:02');
+INSERT INTO `bitacora` VALUES (1584, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:38:25');
+INSERT INTO `bitacora` VALUES (1585, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:38:40');
+INSERT INTO `bitacora` VALUES (1586, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:38:46');
+INSERT INTO `bitacora` VALUES (1587, '/clientes/put', '{\"_token\":\"hB1HNNVUwG1iGs1rv7uKHWqLykTuDwdh5nIsS4dC\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo Marquez\",\"genero\":\"1\",\"fecha_nacimiento\":\"1987-05-12\",\"dui_cliente\":\"03731671-8\",\"dui_extendido\":\"San Francisco Gotera\",\"fecha_expedicion\":\"2020-05-12\",\"telefono\":\"2654-1561\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"estado_civil\":\"Soltero\",\"profesion_id\":\"2\",\"direccion_personal\":\"San Miguel\",\"nombre_negocio\":\"CompuTec\",\"direccion_negocio\":\"San Francisco Gotera\",\"tipo_vivienda\":\"0\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:39:16');
+INSERT INTO `bitacora` VALUES (1588, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:39:16');
+INSERT INTO `bitacora` VALUES (1589, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:41:44');
+INSERT INTO `bitacora` VALUES (1590, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:41:47');
+INSERT INTO `bitacora` VALUES (1591, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:42:02');
+INSERT INTO `bitacora` VALUES (1592, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:42:06');
+INSERT INTO `bitacora` VALUES (1593, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:42:08');
+INSERT INTO `bitacora` VALUES (1594, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:42:18');
+INSERT INTO `bitacora` VALUES (1595, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:42:19');
+INSERT INTO `bitacora` VALUES (1596, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:42:45');
+INSERT INTO `bitacora` VALUES (1597, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:42:49');
+INSERT INTO `bitacora` VALUES (1598, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:42:51');
+INSERT INTO `bitacora` VALUES (1599, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:43:10');
+INSERT INTO `bitacora` VALUES (1600, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:43:14');
+INSERT INTO `bitacora` VALUES (1601, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:43:16');
+INSERT INTO `bitacora` VALUES (1602, '/clientes/put', '{\"_token\":\"hB1HNNVUwG1iGs1rv7uKHWqLykTuDwdh5nIsS4dC\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo Marquez\",\"genero\":\"1\",\"fecha_nacimiento\":\"1987-05-12\",\"dui_cliente\":\"03731671-8\",\"dui_extendido\":\"San Francisco Gotera\",\"fecha_expedicion\":\"2020-05-12\",\"telefono\":\"2654-1561\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"estado_civil\":\"Soltero\",\"profesion_id\":\"4\",\"direccion_personal\":\"San Miguel\",\"nombre_negocio\":\"CompuTec\",\"direccion_negocio\":\"San Francisco Gotera\",\"tipo_vivienda\":\"0\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:43:22');
+INSERT INTO `bitacora` VALUES (1603, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:43:22');
+INSERT INTO `bitacora` VALUES (1604, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:43:25');
+INSERT INTO `bitacora` VALUES (1605, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:45:08');
+INSERT INTO `bitacora` VALUES (1606, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:45:09');
+INSERT INTO `bitacora` VALUES (1607, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:45:28');
+INSERT INTO `bitacora` VALUES (1608, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:45:54');
+INSERT INTO `bitacora` VALUES (1609, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 11:46:44');
+INSERT INTO `bitacora` VALUES (1610, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:20:45');
+INSERT INTO `bitacora` VALUES (1611, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:20:50');
+INSERT INTO `bitacora` VALUES (1612, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:20:52');
+INSERT INTO `bitacora` VALUES (1613, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:21:22');
+INSERT INTO `bitacora` VALUES (1614, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:21:31');
+INSERT INTO `bitacora` VALUES (1615, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:21:34');
+INSERT INTO `bitacora` VALUES (1616, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:22:29');
+INSERT INTO `bitacora` VALUES (1617, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:22:46');
+INSERT INTO `bitacora` VALUES (1618, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:23:37');
+INSERT INTO `bitacora` VALUES (1619, '/clientes/put', '{\"_token\":\"VKRenCLw1xSGYW7rN1PBLkL3llG4talhPnsjqJhu\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo Marquez\",\"genero\":\"1\",\"fecha_nacimiento\":\"1987-05-12\",\"dui_cliente\":\"03731671-8\",\"dui_extendido\":\"San Francisco Gotera\",\"fecha_expedicion\":\"2020-05-12\",\"telefono\":\"2654-1561\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"estado_civil\":\"Soltero\",\"profesion_id\":\"1\",\"direccion_personal\":\"San Miguel\",\"nombre_negocio\":\"CompuTec\",\"direccion_negocio\":\"San Francisco Gotera\",\"tipo_vivienda\":\"0\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:23:43');
+INSERT INTO `bitacora` VALUES (1620, '/clientes/put', '{\"_token\":\"VKRenCLw1xSGYW7rN1PBLkL3llG4talhPnsjqJhu\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo Marquez\",\"genero\":\"1\",\"fecha_nacimiento\":\"1987-05-12\",\"dui_cliente\":\"03731671-8\",\"dui_extendido\":\"San Francisco Gotera\",\"fecha_expedicion\":\"2020-05-12\",\"telefono\":\"2654-1561\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"estado_civil\":\"Soltero\",\"profesion_id\":\"1\",\"direccion_personal\":\"San Miguel\",\"nombre_negocio\":\"CompuTec\",\"direccion_negocio\":\"San Francisco Gotera\",\"tipo_vivienda\":\"0\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:24:51');
+INSERT INTO `bitacora` VALUES (1621, '/clientes/put', '{\"_token\":\"VKRenCLw1xSGYW7rN1PBLkL3llG4talhPnsjqJhu\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo Marquez\",\"genero\":\"1\",\"fecha_nacimiento\":\"1987-05-12\",\"dui_cliente\":\"03731671-8\",\"dui_extendido\":\"San Francisco Gotera\",\"fecha_expedicion\":\"2020-05-12\",\"telefono\":\"2654-1561\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"estado_civil\":\"Soltero\",\"profesion_id\":\"1\",\"direccion_personal\":\"San Miguel\",\"nombre_negocio\":\"CompuTec\",\"direccion_negocio\":\"San Francisco Gotera\",\"tipo_vivienda\":\"0\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:25:12');
+INSERT INTO `bitacora` VALUES (1622, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:25:12');
+INSERT INTO `bitacora` VALUES (1623, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:25:15');
+INSERT INTO `bitacora` VALUES (1624, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:25:56');
+INSERT INTO `bitacora` VALUES (1625, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:59:50');
+INSERT INTO `bitacora` VALUES (1626, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 15:59:58');
+INSERT INTO `bitacora` VALUES (1627, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-09-29 16:00:02');
+INSERT INTO `bitacora` VALUES (1628, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 14:13:33');
+INSERT INTO `bitacora` VALUES (1629, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 14:13:37');
+INSERT INTO `bitacora` VALUES (1630, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 14:13:42');
+INSERT INTO `bitacora` VALUES (1631, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 14:14:38');
+INSERT INTO `bitacora` VALUES (1632, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 14:15:15');
+INSERT INTO `bitacora` VALUES (1633, '/clientes/put', '{\"_token\":\"d4C6EE4kIxBJ3ka6RA6tgZ8AJljp9OPFbhWcERkA\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo Marquez\",\"genero\":\"1\",\"fecha_nacimiento\":\"1987-05-12\",\"dui_cliente\":\"03731671-8\",\"dui_extendido\":\"San Francisco Gotera\",\"fecha_expedicion\":\"2020-05-12\",\"telefono\":\"2654-1561\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"estado_civil\":\"Soltero\",\"profesion_id\":\"2\",\"direccion_personal\":\"San Miguel\",\"nombre_negocio\":\"CompuTec\",\"direccion_negocio\":\"San Francisco Gotera\",\"tipo_vivienda\":\"0\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 15:19:01');
+INSERT INTO `bitacora` VALUES (1634, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 15:19:01');
+INSERT INTO `bitacora` VALUES (1635, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 15:19:03');
+INSERT INTO `bitacora` VALUES (1636, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:45:50');
+INSERT INTO `bitacora` VALUES (1637, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:45:53');
+INSERT INTO `bitacora` VALUES (1638, '/alerts/client/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:45:55');
+INSERT INTO `bitacora` VALUES (1639, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:46:05');
+INSERT INTO `bitacora` VALUES (1640, '/asociados/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:46:08');
+INSERT INTO `bitacora` VALUES (1641, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:46:10');
+INSERT INTO `bitacora` VALUES (1642, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:49:36');
+INSERT INTO `bitacora` VALUES (1643, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:49:38');
+INSERT INTO `bitacora` VALUES (1644, '/clientes/put', '{\"_token\":\"C0PxoMqGS8h26i8qECxMGi3deuVJuJhUlPVMuBev\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo Marquez\",\"genero\":\"1\",\"fecha_nacimiento\":\"1987-05-12\",\"dui_cliente\":\"03731671-8\",\"dui_extendido\":\"San Francisco Gotera\",\"fecha_expedicion\":\"2020-05-12\",\"telefono\":\"2654-1561\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"estado_civil\":\"Soltero\",\"profesion_id\":\"5\",\"direccion_personal\":\"San Miguel\",\"nombre_negocio\":\"CompuTec\",\"direccion_negocio\":\"San Francisco Gotera\",\"tipo_vivienda\":\"0\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:49:44');
+INSERT INTO `bitacora` VALUES (1645, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:49:44');
+INSERT INTO `bitacora` VALUES (1646, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:50:20');
+INSERT INTO `bitacora` VALUES (1647, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:50:36');
+INSERT INTO `bitacora` VALUES (1648, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 17:50:37');
+INSERT INTO `bitacora` VALUES (1649, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:06:33');
+INSERT INTO `bitacora` VALUES (1650, '/clientes/put', '{\"_token\":\"C0PxoMqGS8h26i8qECxMGi3deuVJuJhUlPVMuBev\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo Marquez\",\"genero\":\"1\",\"fecha_nacimiento\":\"1987-05-12\",\"dui_cliente\":\"03731671-8\",\"dui_extendido\":\"San Francisco Gotera\",\"fecha_expedicion\":\"2020-05-12\",\"telefono\":\"2654-1561\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"estado_civil\":\"Soltero\",\"profesion_id\":\"2\",\"direccion_personal\":\"San Miguel\",\"nombre_negocio\":\"CompuTec\",\"direccion_negocio\":\"San Francisco Gotera\",\"tipo_vivienda\":\"0\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:06:39');
+INSERT INTO `bitacora` VALUES (1651, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:06:39');
+INSERT INTO `bitacora` VALUES (1652, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:06:41');
+INSERT INTO `bitacora` VALUES (1653, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:06:57');
+INSERT INTO `bitacora` VALUES (1654, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:07:09');
+INSERT INTO `bitacora` VALUES (1655, '/clientes/put', '{\"_token\":\"C0PxoMqGS8h26i8qECxMGi3deuVJuJhUlPVMuBev\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo Marquez\",\"genero\":\"1\",\"fecha_nacimiento\":\"1987-05-12\",\"dui_cliente\":\"03731671-8\",\"dui_extendido\":\"San Francisco Gotera\",\"fecha_expedicion\":\"2020-05-12\",\"telefono\":\"2654-1561\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"estado_civil\":\"Soltero\",\"profesion_id\":\"2\",\"direccion_personal\":\"San Miguel\",\"nombre_negocio\":\"CompuTec\",\"direccion_negocio\":\"San Francisco Gotera\",\"tipo_vivienda\":\"0\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:07:11');
+INSERT INTO `bitacora` VALUES (1656, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:07:11');
+INSERT INTO `bitacora` VALUES (1657, '/clientes/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:07:29');
+INSERT INTO `bitacora` VALUES (1658, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:08:35');
+INSERT INTO `bitacora` VALUES (1659, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:08:37');
+INSERT INTO `bitacora` VALUES (1660, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:08:39');
+INSERT INTO `bitacora` VALUES (1661, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:24:28');
+INSERT INTO `bitacora` VALUES (1662, '/clientes/delete', '{\"_token\":\"C0PxoMqGS8h26i8qECxMGi3deuVJuJhUlPVMuBev\",\"_method\":\"DELETE\",\"id\":\"1\"}', 'DELETE', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:24:38');
+INSERT INTO `bitacora` VALUES (1663, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:24:38');
+INSERT INTO `bitacora` VALUES (1664, '/clientes/delete', '{\"_token\":\"C0PxoMqGS8h26i8qECxMGi3deuVJuJhUlPVMuBev\",\"_method\":\"DELETE\",\"id\":\"1\"}', 'DELETE', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:24:42');
+INSERT INTO `bitacora` VALUES (1665, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:24:42');
+INSERT INTO `bitacora` VALUES (1666, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:24:46');
+INSERT INTO `bitacora` VALUES (1667, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:25:13');
+INSERT INTO `bitacora` VALUES (1668, '/asociados/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:25:24');
+INSERT INTO `bitacora` VALUES (1669, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:26:59');
+INSERT INTO `bitacora` VALUES (1670, '/libretas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:27:02');
+INSERT INTO `bitacora` VALUES (1671, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:27:03');
+INSERT INTO `bitacora` VALUES (1672, '/reportes/contrato/148', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:27:08');
+INSERT INTO `bitacora` VALUES (1673, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:27:30');
+INSERT INTO `bitacora` VALUES (1674, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:27:31');
+INSERT INTO `bitacora` VALUES (1675, '/clientes/add', '{\"_token\":\"C0PxoMqGS8h26i8qECxMGi3deuVJuJhUlPVMuBev\",\"nombre\":\"LORENA YAMILETH CHAVARRIA URRUTUIA\",\"genero\":\"0\",\"fecha_nacimiento\":\"1985-02-07\",\"dui_cliente\":\"037457783\",\"dui_extendido\":\"San Miguel\",\"fecha_expedicion\":\"2020-02-12\",\"telefono\":\"78944554\",\"nacionalidad\":\"SALVADORE\\u00d1A\",\"estado_civil\":\"SOLTERA\",\"profesion_id\":\"1\",\"direccion_personal\":\"BARRIO CONCEPCION, 23 CALLE OTE PSE MERLIOT, SAN MIGUEL\",\"nombre_negocio\":\"VENTA DE FRUTAS Y VERDURA\",\"direccion_negocio\":null,\"tipo_vivienda\":\"0\",\"observaciones\":null}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:31:00');
+INSERT INTO `bitacora` VALUES (1676, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:31:00');
+INSERT INTO `bitacora` VALUES (1677, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:31:03');
+INSERT INTO `bitacora` VALUES (1678, '/asociados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:31:04');
+INSERT INTO `bitacora` VALUES (1679, '/asociados/add', '{\"_token\":\"C0PxoMqGS8h26i8qECxMGi3deuVJuJhUlPVMuBev\",\"numero_asociado\":\"0000000002\",\"id_cliente\":\"2\",\"fecha_ingreso\":\"2024-05-12\",\"sueldo_quincenal\":\"448\",\"sueldo_mensual\":\"897\",\"otros_ingresos\":\"0\",\"dependientes_economicamente\":\"0\",\"couta_ingreso\":\"10\",\"monto_aportacion\":\"10\",\"referencia_asociado_uno\":\"1\",\"referencia_asociado_dos\":null}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:32:32');
+INSERT INTO `bitacora` VALUES (1680, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:32:32');
+INSERT INTO `bitacora` VALUES (1681, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:33:03');
+INSERT INTO `bitacora` VALUES (1682, '/reportes/RepEstadoCuenta/143', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:33:15');
+INSERT INTO `bitacora` VALUES (1683, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:33:15');
+INSERT INTO `bitacora` VALUES (1684, '/cuentas/listarMovimientosSinImprirmir/147', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:36:41');
+INSERT INTO `bitacora` VALUES (1685, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:55:18');
+INSERT INTO `bitacora` VALUES (1686, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:55:26');
+INSERT INTO `bitacora` VALUES (1687, '/asociados/delete', '{\"_token\":\"C0PxoMqGS8h26i8qECxMGi3deuVJuJhUlPVMuBev\",\"_method\":\"DELETE\",\"id\":\"2\"}', 'DELETE', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:55:32');
+INSERT INTO `bitacora` VALUES (1688, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:55:33');
+INSERT INTO `bitacora` VALUES (1689, '/asociados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:55:34');
+INSERT INTO `bitacora` VALUES (1690, '/asociados/add', '{\"_token\":\"C0PxoMqGS8h26i8qECxMGi3deuVJuJhUlPVMuBev\",\"numero_asociado\":\"0000000002\",\"id_cliente\":\"2\",\"fecha_ingreso\":\"2024-10-04\",\"sueldo_quincenal\":\"448.5\",\"sueldo_mensual\":\"897\",\"otros_ingresos\":\"0\",\"dependientes_economicamente\":\"0\",\"couta_ingreso\":\"10\",\"monto_aportacion\":\"10\",\"referencia_asociado_uno\":\"1\",\"referencia_asociado_dos\":null}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:55:56');
+INSERT INTO `bitacora` VALUES (1691, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:55:56');
+INSERT INTO `bitacora` VALUES (1692, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:55:59');
+INSERT INTO `bitacora` VALUES (1693, '/libretas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:56:03');
+INSERT INTO `bitacora` VALUES (1694, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:56:04');
+INSERT INTO `bitacora` VALUES (1695, '/beneficiarios/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:56:08');
+INSERT INTO `bitacora` VALUES (1696, '/beneficiarios/add/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:56:10');
+INSERT INTO `bitacora` VALUES (1697, '/movimientos', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:56:13');
+INSERT INTO `bitacora` VALUES (1698, '/apertura', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 18:56:14');
+INSERT INTO `bitacora` VALUES (1699, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:00:11');
+INSERT INTO `bitacora` VALUES (1700, '/asociados/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:00:16');
+INSERT INTO `bitacora` VALUES (1701, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:00:18');
+INSERT INTO `bitacora` VALUES (1702, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:19:32');
+INSERT INTO `bitacora` VALUES (1703, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:19:34');
+INSERT INTO `bitacora` VALUES (1704, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:22:18');
+INSERT INTO `bitacora` VALUES (1705, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:23:28');
+INSERT INTO `bitacora` VALUES (1706, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:23:30');
+INSERT INTO `bitacora` VALUES (1707, '/asociados/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:23:38');
+INSERT INTO `bitacora` VALUES (1708, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:25:11');
+INSERT INTO `bitacora` VALUES (1709, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:25:13');
+INSERT INTO `bitacora` VALUES (1710, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:25:36');
+INSERT INTO `bitacora` VALUES (1711, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:25:59');
+INSERT INTO `bitacora` VALUES (1712, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:30:11');
+INSERT INTO `bitacora` VALUES (1713, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:30:26');
+INSERT INTO `bitacora` VALUES (1714, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:31:03');
+INSERT INTO `bitacora` VALUES (1715, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:38:18');
+INSERT INTO `bitacora` VALUES (1716, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:38:37');
+INSERT INTO `bitacora` VALUES (1717, '/clientes/solcitud-ingreso/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:40:24');
+INSERT INTO `bitacora` VALUES (1718, '/clientes/solcitud-ingreso/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:42:58');
+INSERT INTO `bitacora` VALUES (1719, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:43:04');
+INSERT INTO `bitacora` VALUES (1720, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:43:19');
+INSERT INTO `bitacora` VALUES (1721, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:43:28');
+INSERT INTO `bitacora` VALUES (1722, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:43:53');
+INSERT INTO `bitacora` VALUES (1723, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:44:02');
+INSERT INTO `bitacora` VALUES (1724, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:48:33');
+INSERT INTO `bitacora` VALUES (1725, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:51:31');
+INSERT INTO `bitacora` VALUES (1726, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:51:55');
+INSERT INTO `bitacora` VALUES (1727, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:52:06');
+INSERT INTO `bitacora` VALUES (1728, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:52:23');
+INSERT INTO `bitacora` VALUES (1729, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:52:58');
+INSERT INTO `bitacora` VALUES (1730, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:53:08');
+INSERT INTO `bitacora` VALUES (1731, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:53:35');
+INSERT INTO `bitacora` VALUES (1732, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 19:53:44');
+INSERT INTO `bitacora` VALUES (1733, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:18:27');
+INSERT INTO `bitacora` VALUES (1734, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:18:49');
+INSERT INTO `bitacora` VALUES (1735, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:18:57');
+INSERT INTO `bitacora` VALUES (1736, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:19:06');
+INSERT INTO `bitacora` VALUES (1737, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:20:30');
+INSERT INTO `bitacora` VALUES (1738, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:20:50');
+INSERT INTO `bitacora` VALUES (1739, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:21:25');
+INSERT INTO `bitacora` VALUES (1740, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:21:29');
+INSERT INTO `bitacora` VALUES (1741, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:22:15');
+INSERT INTO `bitacora` VALUES (1742, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:22:35');
+INSERT INTO `bitacora` VALUES (1743, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:30:22');
+INSERT INTO `bitacora` VALUES (1744, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:30:30');
+INSERT INTO `bitacora` VALUES (1745, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:31:11');
+INSERT INTO `bitacora` VALUES (1746, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:34:22');
+INSERT INTO `bitacora` VALUES (1747, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:35:02');
+INSERT INTO `bitacora` VALUES (1748, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:35:31');
+INSERT INTO `bitacora` VALUES (1749, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:35:55');
+INSERT INTO `bitacora` VALUES (1750, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:36:13');
+INSERT INTO `bitacora` VALUES (1751, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:36:30');
+INSERT INTO `bitacora` VALUES (1752, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:37:21');
+INSERT INTO `bitacora` VALUES (1753, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:38:00');
+INSERT INTO `bitacora` VALUES (1754, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:38:13');
+INSERT INTO `bitacora` VALUES (1755, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:39:39');
+INSERT INTO `bitacora` VALUES (1756, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:39:59');
+INSERT INTO `bitacora` VALUES (1757, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:40:20');
+INSERT INTO `bitacora` VALUES (1758, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:42:14');
+INSERT INTO `bitacora` VALUES (1759, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:44:46');
+INSERT INTO `bitacora` VALUES (1760, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:45:26');
+INSERT INTO `bitacora` VALUES (1761, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:45:32');
+INSERT INTO `bitacora` VALUES (1762, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:46:23');
+INSERT INTO `bitacora` VALUES (1763, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:47:16');
+INSERT INTO `bitacora` VALUES (1764, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:47:56');
+INSERT INTO `bitacora` VALUES (1765, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:49:40');
+INSERT INTO `bitacora` VALUES (1766, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:49:57');
+INSERT INTO `bitacora` VALUES (1767, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:50:27');
+INSERT INTO `bitacora` VALUES (1768, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:50:50');
+INSERT INTO `bitacora` VALUES (1769, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:51:27');
+INSERT INTO `bitacora` VALUES (1770, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:52:36');
+INSERT INTO `bitacora` VALUES (1771, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:52:47');
+INSERT INTO `bitacora` VALUES (1772, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:53:04');
+INSERT INTO `bitacora` VALUES (1773, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:53:13');
+INSERT INTO `bitacora` VALUES (1774, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:53:29');
+INSERT INTO `bitacora` VALUES (1775, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:54:17');
+INSERT INTO `bitacora` VALUES (1776, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:54:49');
+INSERT INTO `bitacora` VALUES (1777, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:55:29');
+INSERT INTO `bitacora` VALUES (1778, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:55:33');
+INSERT INTO `bitacora` VALUES (1779, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:56:52');
+INSERT INTO `bitacora` VALUES (1780, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:57:48');
+INSERT INTO `bitacora` VALUES (1781, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:58:29');
+INSERT INTO `bitacora` VALUES (1782, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:59:10');
+INSERT INTO `bitacora` VALUES (1783, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 20:59:30');
+INSERT INTO `bitacora` VALUES (1784, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:00:07');
+INSERT INTO `bitacora` VALUES (1785, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:00:57');
+INSERT INTO `bitacora` VALUES (1786, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:01:56');
+INSERT INTO `bitacora` VALUES (1787, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:02:40');
+INSERT INTO `bitacora` VALUES (1788, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:04:24');
+INSERT INTO `bitacora` VALUES (1789, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:06:01');
+INSERT INTO `bitacora` VALUES (1790, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:06:28');
+INSERT INTO `bitacora` VALUES (1791, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:06:44');
+INSERT INTO `bitacora` VALUES (1792, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:07:25');
+INSERT INTO `bitacora` VALUES (1793, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:08:04');
+INSERT INTO `bitacora` VALUES (1794, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:09:16');
+INSERT INTO `bitacora` VALUES (1795, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:09:32');
+INSERT INTO `bitacora` VALUES (1796, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:09:48');
+INSERT INTO `bitacora` VALUES (1797, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:10:32');
+INSERT INTO `bitacora` VALUES (1798, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:11:25');
+INSERT INTO `bitacora` VALUES (1799, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:11:36');
+INSERT INTO `bitacora` VALUES (1800, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-04 21:13:14');
+INSERT INTO `bitacora` VALUES (1801, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:43:08');
+INSERT INTO `bitacora` VALUES (1802, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:43:10');
+INSERT INTO `bitacora` VALUES (1803, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:43:28');
+INSERT INTO `bitacora` VALUES (1804, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:44:16');
+INSERT INTO `bitacora` VALUES (1805, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:44:32');
+INSERT INTO `bitacora` VALUES (1806, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:45:44');
+INSERT INTO `bitacora` VALUES (1807, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:48:21');
+INSERT INTO `bitacora` VALUES (1808, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:48:55');
+INSERT INTO `bitacora` VALUES (1809, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:49:14');
+INSERT INTO `bitacora` VALUES (1810, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:50:32');
+INSERT INTO `bitacora` VALUES (1811, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:51:49');
+INSERT INTO `bitacora` VALUES (1812, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:52:52');
+INSERT INTO `bitacora` VALUES (1813, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:53:50');
+INSERT INTO `bitacora` VALUES (1814, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:54:15');
+INSERT INTO `bitacora` VALUES (1815, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:54:33');
+INSERT INTO `bitacora` VALUES (1816, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:54:43');
+INSERT INTO `bitacora` VALUES (1817, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:55:17');
+INSERT INTO `bitacora` VALUES (1818, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:56:04');
+INSERT INTO `bitacora` VALUES (1819, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:56:27');
+INSERT INTO `bitacora` VALUES (1820, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:56:38');
+INSERT INTO `bitacora` VALUES (1821, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:57:11');
+INSERT INTO `bitacora` VALUES (1822, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:57:38');
+INSERT INTO `bitacora` VALUES (1823, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:57:50');
+INSERT INTO `bitacora` VALUES (1824, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 07:58:55');
+INSERT INTO `bitacora` VALUES (1825, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:04:15');
+INSERT INTO `bitacora` VALUES (1826, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:04:29');
+INSERT INTO `bitacora` VALUES (1827, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:04:43');
+INSERT INTO `bitacora` VALUES (1828, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:04:54');
+INSERT INTO `bitacora` VALUES (1829, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:05:05');
+INSERT INTO `bitacora` VALUES (1830, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:05:14');
+INSERT INTO `bitacora` VALUES (1831, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:05:26');
+INSERT INTO `bitacora` VALUES (1832, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:05:36');
+INSERT INTO `bitacora` VALUES (1833, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:05:49');
+INSERT INTO `bitacora` VALUES (1834, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:06:00');
+INSERT INTO `bitacora` VALUES (1835, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:06:19');
+INSERT INTO `bitacora` VALUES (1836, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:06:29');
+INSERT INTO `bitacora` VALUES (1837, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:06:38');
+INSERT INTO `bitacora` VALUES (1838, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:06:46');
+INSERT INTO `bitacora` VALUES (1839, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:07:14');
+INSERT INTO `bitacora` VALUES (1840, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:07:26');
+INSERT INTO `bitacora` VALUES (1841, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:07:37');
+INSERT INTO `bitacora` VALUES (1842, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:07:48');
+INSERT INTO `bitacora` VALUES (1843, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:08:12');
+INSERT INTO `bitacora` VALUES (1844, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:08:26');
+INSERT INTO `bitacora` VALUES (1845, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:08:39');
+INSERT INTO `bitacora` VALUES (1846, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:08:48');
+INSERT INTO `bitacora` VALUES (1847, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:09:13');
+INSERT INTO `bitacora` VALUES (1848, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:09:48');
+INSERT INTO `bitacora` VALUES (1849, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:10:13');
+INSERT INTO `bitacora` VALUES (1850, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:10:39');
+INSERT INTO `bitacora` VALUES (1851, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:11:22');
+INSERT INTO `bitacora` VALUES (1852, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:11:42');
+INSERT INTO `bitacora` VALUES (1853, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:12:18');
+INSERT INTO `bitacora` VALUES (1854, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:12:31');
+INSERT INTO `bitacora` VALUES (1855, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:12:58');
+INSERT INTO `bitacora` VALUES (1856, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:55:37');
+INSERT INTO `bitacora` VALUES (1857, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:55:48');
+INSERT INTO `bitacora` VALUES (1858, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:56:21');
+INSERT INTO `bitacora` VALUES (1859, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:57:35');
+INSERT INTO `bitacora` VALUES (1860, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:58:00');
+INSERT INTO `bitacora` VALUES (1861, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:58:37');
+INSERT INTO `bitacora` VALUES (1862, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:58:51');
+INSERT INTO `bitacora` VALUES (1863, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:59:04');
+INSERT INTO `bitacora` VALUES (1864, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:59:28');
+INSERT INTO `bitacora` VALUES (1865, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:59:40');
+INSERT INTO `bitacora` VALUES (1866, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 08:59:56');
+INSERT INTO `bitacora` VALUES (1867, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 09:00:05');
+INSERT INTO `bitacora` VALUES (1868, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 09:00:17');
+INSERT INTO `bitacora` VALUES (1869, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 09:00:31');
+INSERT INTO `bitacora` VALUES (1870, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:34:49');
+INSERT INTO `bitacora` VALUES (1871, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:35:36');
+INSERT INTO `bitacora` VALUES (1872, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:40:03');
+INSERT INTO `bitacora` VALUES (1873, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:40:25');
+INSERT INTO `bitacora` VALUES (1874, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:41:13');
+INSERT INTO `bitacora` VALUES (1875, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:41:27');
+INSERT INTO `bitacora` VALUES (1876, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:42:04');
+INSERT INTO `bitacora` VALUES (1877, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:42:10');
+INSERT INTO `bitacora` VALUES (1878, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:42:36');
+INSERT INTO `bitacora` VALUES (1879, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:43:30');
+INSERT INTO `bitacora` VALUES (1880, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:43:51');
+INSERT INTO `bitacora` VALUES (1881, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:44:27');
+INSERT INTO `bitacora` VALUES (1882, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:44:40');
+INSERT INTO `bitacora` VALUES (1883, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:45:54');
+INSERT INTO `bitacora` VALUES (1884, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:46:22');
+INSERT INTO `bitacora` VALUES (1885, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:46:58');
+INSERT INTO `bitacora` VALUES (1886, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:47:18');
+INSERT INTO `bitacora` VALUES (1887, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:47:55');
+INSERT INTO `bitacora` VALUES (1888, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:48:25');
+INSERT INTO `bitacora` VALUES (1889, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:48:48');
+INSERT INTO `bitacora` VALUES (1890, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:49:03');
+INSERT INTO `bitacora` VALUES (1891, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:49:29');
+INSERT INTO `bitacora` VALUES (1892, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:49:55');
+INSERT INTO `bitacora` VALUES (1893, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:50:11');
+INSERT INTO `bitacora` VALUES (1894, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:50:29');
+INSERT INTO `bitacora` VALUES (1895, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:51:38');
+INSERT INTO `bitacora` VALUES (1896, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:54:44');
+INSERT INTO `bitacora` VALUES (1897, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:54:58');
+INSERT INTO `bitacora` VALUES (1898, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:55:14');
+INSERT INTO `bitacora` VALUES (1899, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:55:26');
+INSERT INTO `bitacora` VALUES (1900, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:55:40');
+INSERT INTO `bitacora` VALUES (1901, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:55:44');
+INSERT INTO `bitacora` VALUES (1902, '/clientes/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:55:47');
+INSERT INTO `bitacora` VALUES (1903, '/clientes/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:57:12');
+INSERT INTO `bitacora` VALUES (1904, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:57:18');
+INSERT INTO `bitacora` VALUES (1905, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:57:19');
+INSERT INTO `bitacora` VALUES (1906, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:57:37');
+INSERT INTO `bitacora` VALUES (1907, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:58:06');
+INSERT INTO `bitacora` VALUES (1908, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:58:18');
+INSERT INTO `bitacora` VALUES (1909, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:58:43');
+INSERT INTO `bitacora` VALUES (1910, '/clientes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 10:59:03');
+INSERT INTO `bitacora` VALUES (1911, '/clientes/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 11:00:28');
+INSERT INTO `bitacora` VALUES (1912, '/clientes/put', '{\"_token\":\"Wh5xEQyhFI1BiWG3WSZhfKK2k70pNCkIqh2pVZdt\",\"_method\":\"PUT\",\"id\":\"2\",\"nombre\":\"LORENA YAMILETH CHAVARRIA URRUTUIA\",\"genero\":\"0\",\"fecha_nacimiento\":\"1985-02-07\",\"dui_cliente\":\"037457783\",\"dui_extendido\":\"San Miguel\",\"fecha_expedicion\":\"2020-02-12\",\"telefono\":\"78944554\",\"nacionalidad\":\"SALVADORE\\u00d1A\",\"estado_civil\":\"SOLTERA\",\"conyugue\":\"Luis marquez\",\"profesion_id\":\"1\",\"direccion_personal\":\"BARRIO CONCEPCION, 23 CALLE OTE PSE MERLIOT, SAN MIGUEL\",\"nombre_negocio\":\"VENTA DE FRUTAS Y VERDURA\",\"direccion_negocio\":\"San Francisco Gotera\",\"tipo_vivienda\":\"0\",\"observaciones\":null}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 11:00:33');
+INSERT INTO `bitacora` VALUES (1913, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 11:00:33');
+INSERT INTO `bitacora` VALUES (1914, '/alerts/client/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 11:00:35');
+INSERT INTO `bitacora` VALUES (1915, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 11:00:39');
+INSERT INTO `bitacora` VALUES (1916, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 11:00:42');
+INSERT INTO `bitacora` VALUES (1917, '/asociados/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 11:00:56');
+INSERT INTO `bitacora` VALUES (1918, '/asociados/put', '{\"_token\":\"Wh5xEQyhFI1BiWG3WSZhfKK2k70pNCkIqh2pVZdt\",\"_method\":\"PUT\",\"id\":\"3\",\"id_cliente\":\"2\",\"fecha_ingreso\":\"2024-10-04\",\"sueldo_quincenal\":\"448.50\",\"sueldo_mensual\":\"897.00\",\"otros_ingresos\":\"0.00\",\"dependientes_economicamente\":\"0\",\"couta_ingreso\":\"10.00\",\"monto_aportacion\":\"10.00\",\"referencia_asociado_uno\":\"1\",\"referencia_asociado_dos\":null,\"estado_solicitud\":\"2\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 11:00:59');
+INSERT INTO `bitacora` VALUES (1919, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 11:00:59');
+INSERT INTO `bitacora` VALUES (1920, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-05 11:01:02');
+INSERT INTO `bitacora` VALUES (1921, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 08:06:07');
+INSERT INTO `bitacora` VALUES (1922, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 10:59:24');
+INSERT INTO `bitacora` VALUES (1923, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 10:59:27');
+INSERT INTO `bitacora` VALUES (1924, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 10:59:30');
+INSERT INTO `bitacora` VALUES (1925, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 11:00:10');
+INSERT INTO `bitacora` VALUES (1926, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 12:25:53');
+INSERT INTO `bitacora` VALUES (1927, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 12:25:57');
+INSERT INTO `bitacora` VALUES (1928, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 12:27:05');
+INSERT INTO `bitacora` VALUES (1929, '/clientes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 12:27:13');
+INSERT INTO `bitacora` VALUES (1930, '/clientes/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 12:27:15');
+INSERT INTO `bitacora` VALUES (1931, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:03:40');
+INSERT INTO `bitacora` VALUES (1932, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:04:02');
+INSERT INTO `bitacora` VALUES (1933, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:04:46');
+INSERT INTO `bitacora` VALUES (1934, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:08:03');
+INSERT INTO `bitacora` VALUES (1935, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:08:21');
+INSERT INTO `bitacora` VALUES (1936, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:09:24');
+INSERT INTO `bitacora` VALUES (1937, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:10:08');
+INSERT INTO `bitacora` VALUES (1938, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:10:31');
+INSERT INTO `bitacora` VALUES (1939, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:10:53');
+INSERT INTO `bitacora` VALUES (1940, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:05');
+INSERT INTO `bitacora` VALUES (1941, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:11');
+INSERT INTO `bitacora` VALUES (1942, '/cuentas/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:12');
+INSERT INTO `bitacora` VALUES (1943, '/apertura', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:12');
+INSERT INTO `bitacora` VALUES (1944, '/apertura/aperturarcaja', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:14');
+INSERT INTO `bitacora` VALUES (1945, '/apertura/gettraslado/1', '{\"id\":\"1\"}', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:17');
+INSERT INTO `bitacora` VALUES (1946, '/boveda', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:32');
+INSERT INTO `bitacora` VALUES (1947, '/boveda/aperturar/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:33');
+INSERT INTO `bitacora` VALUES (1948, '/boveda/realizarAperturaBobeda', '{\"_token\":\"rraTKeI6ZYffBcRlcz6BUQlK2OzcHf2tTXmlQPaP\",\"id_bobeda\":\"2\",\"monto\":\"50135.00\",\"id_empleado\":\"9\",\"observacion\":\"inicio de oepraciones\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:42');
+INSERT INTO `bitacora` VALUES (1949, '/boveda', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:42');
+INSERT INTO `bitacora` VALUES (1950, '/apertura', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:45');
+INSERT INTO `bitacora` VALUES (1951, '/apertura/aperturarcaja', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:46');
+INSERT INTO `bitacora` VALUES (1952, '/apertura/gettraslado/1', '{\"id\":\"1\"}', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:47');
+INSERT INTO `bitacora` VALUES (1953, '/apertura/aperturarcaja', '{\"_token\":\"rraTKeI6ZYffBcRlcz6BUQlK2OzcHf2tTXmlQPaP\",\"id_bobeda_movimiento\":null,\"id_caja\":\"1\",\"monto_apertura\":null,\"id_empleado\":\"9\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:51');
+INSERT INTO `bitacora` VALUES (1954, '/apertura/aperturarcaja', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:52');
+INSERT INTO `bitacora` VALUES (1955, '/boveda', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:57');
+INSERT INTO `bitacora` VALUES (1956, '/boveda/transferir/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:11:59');
+INSERT INTO `bitacora` VALUES (1957, '/boveda/realizarTraslado', '{\"_token\":\"rraTKeI6ZYffBcRlcz6BUQlK2OzcHf2tTXmlQPaP\",\"_method\":\"POST\",\"id_bobeda\":\"2\",\"tipo_operacion\":\"1\",\"id_caja\":\"1\",\"monto\":\"500\",\"id_empleado\":\"9\",\"observacion\":\"Inico de oepraciones\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:09');
+INSERT INTO `bitacora` VALUES (1958, '/boveda', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:10');
+INSERT INTO `bitacora` VALUES (1959, '/apertura', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:14');
+INSERT INTO `bitacora` VALUES (1960, '/apertura/aperturarcaja', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:15');
+INSERT INTO `bitacora` VALUES (1961, '/apertura/gettraslado/1', '{\"id\":\"1\"}', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:17');
+INSERT INTO `bitacora` VALUES (1962, '/apertura/aperturarcaja', '{\"_token\":\"rraTKeI6ZYffBcRlcz6BUQlK2OzcHf2tTXmlQPaP\",\"id_bobeda_movimiento\":\"2\",\"id_caja\":\"1\",\"monto_apertura\":\"500.00\",\"id_empleado\":\"9\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:18');
+INSERT INTO `bitacora` VALUES (1963, '/apertura', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:18');
+INSERT INTO `bitacora` VALUES (1964, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:23');
+INSERT INTO `bitacora` VALUES (1965, '/cuentas/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:24');
+INSERT INTO `bitacora` VALUES (1966, '/intereses/getIntereses/1', '{\"opcion_seleccionada\":\"1\"}', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:34');
+INSERT INTO `bitacora` VALUES (1967, '/cuentas/add', '{\"_token\":\"rraTKeI6ZYffBcRlcz6BUQlK2OzcHf2tTXmlQPaP\",\"id_caja\":\"1\",\"id_asociado\":\"3\",\"fecha_apertura\":\"2024-10-06\",\"id_tipo_cuenta\":\"1\",\"id_interes_tipo_cuenta\":\"14\",\"numero_cuenta\":\"0000000001\",\"monto_apertura\":\"10\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:41');
+INSERT INTO `bitacora` VALUES (1968, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:12:42');
+INSERT INTO `bitacora` VALUES (1969, '/declare/1/new', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:13:10');
+INSERT INTO `bitacora` VALUES (1970, '/declare/add', '{\"_token\":\"rraTKeI6ZYffBcRlcz6BUQlK2OzcHf2tTXmlQPaP\",\"_method\":\"POST\",\"id_cuenta\":\"1\",\"id_cliente\":\"2\",\"declaracion_id\":null,\"n_depositos\":\"10\",\"val_prom_depositos\":\"10\",\"depo_tipo\":\"Ambos\\r\\n                                        (Cheque\\r\\n                                        y\\/o Efectivo)\",\"n_retiros\":\"0\",\"val_prom_retiros\":\"0\",\"ret_tipo\":\"Ambos\\r\\n                                        (Cheque\\r\\n                                        y\\/o Efectivo)\",\"origen_fondos\":\"Salarios\",\"otro_origen_fondos\":null,\"comprobante_procedencia_fondo\":\"Constancia de Salarios\",\"otro_comprobante_fondos\":null}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:13:17');
+INSERT INTO `bitacora` VALUES (1971, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:13:17');
+INSERT INTO `bitacora` VALUES (1972, '/declare/1/pdf', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:13:19');
+INSERT INTO `bitacora` VALUES (1973, '/reportes/contrato/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:14:37');
+INSERT INTO `bitacora` VALUES (1974, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:16:49');
+INSERT INTO `bitacora` VALUES (1975, '/asociados/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:16:53');
+INSERT INTO `bitacora` VALUES (1976, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:16:55');
+INSERT INTO `bitacora` VALUES (1977, '/beneficiarios/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:16:57');
+INSERT INTO `bitacora` VALUES (1978, '/beneficiarios/add/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:16:59');
+INSERT INTO `bitacora` VALUES (1979, '/movimientos', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:17:10');
+INSERT INTO `bitacora` VALUES (1980, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:17:42');
+INSERT INTO `bitacora` VALUES (1981, '/cuentas/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:17:43');
+INSERT INTO `bitacora` VALUES (1982, '/intereses/getIntereses/1', '{\"opcion_seleccionada\":\"1\"}', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:18:32');
+INSERT INTO `bitacora` VALUES (1983, '/cuentas/add', '{\"_token\":\"rraTKeI6ZYffBcRlcz6BUQlK2OzcHf2tTXmlQPaP\",\"id_caja\":\"1\",\"id_asociado\":\"3\",\"fecha_apertura\":\"2023-10-19\",\"id_tipo_cuenta\":\"1\",\"id_interes_tipo_cuenta\":\"14\",\"numero_cuenta\":\"000000000114\",\"monto_apertura\":\"5\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:18:45');
+INSERT INTO `bitacora` VALUES (1984, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:18:45');
+INSERT INTO `bitacora` VALUES (1985, '/declare/2/new', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:18:48');
+INSERT INTO `bitacora` VALUES (1986, '/declare/add', '{\"_token\":\"rraTKeI6ZYffBcRlcz6BUQlK2OzcHf2tTXmlQPaP\",\"_method\":\"POST\",\"id_cuenta\":\"2\",\"id_cliente\":\"2\",\"declaracion_id\":null,\"n_depositos\":\"0\",\"val_prom_depositos\":\"0\",\"depo_tipo\":\"Ambos\\r\\n                                        (Cheque\\r\\n                                        y\\/o Efectivo)\",\"n_retiros\":\"0\",\"val_prom_retiros\":\"0\",\"ret_tipo\":\"Ambos\\r\\n                                        (Cheque\\r\\n                                        y\\/o Efectivo)\",\"origen_fondos\":\"Salarios\",\"otro_origen_fondos\":null,\"comprobante_procedencia_fondo\":\"Constancia de Salarios\",\"otro_comprobante_fondos\":null}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:19:37');
+INSERT INTO `bitacora` VALUES (1987, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:19:37');
+INSERT INTO `bitacora` VALUES (1988, '/declare/2/pdf', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:19:39');
+INSERT INTO `bitacora` VALUES (1989, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:20:24');
+INSERT INTO `bitacora` VALUES (1990, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:20:31');
+INSERT INTO `bitacora` VALUES (1991, '/beneficiarios/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:20:35');
+INSERT INTO `bitacora` VALUES (1992, '/beneficiarios/add/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:20:37');
+INSERT INTO `bitacora` VALUES (1993, '/beneficiarios/add', '{\"_token\":\"rraTKeI6ZYffBcRlcz6BUQlK2OzcHf2tTXmlQPaP\",\"id_asociado\":\"3\",\"id_cuenta\":\"2\",\"parentesco\":\"14\",\"nombre\":\"MARHA ALICIA JANDRES URRUTIA\",\"porcentaje\":\"100\",\"direccion\":\"SM\",\"telefono\":\"0000000\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:21:12');
+INSERT INTO `bitacora` VALUES (1994, '/beneficiarios/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:21:12');
+INSERT INTO `bitacora` VALUES (1995, '/beneficiarios/add/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:21:15');
+INSERT INTO `bitacora` VALUES (1996, '/movimientos', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:21:22');
+INSERT INTO `bitacora` VALUES (1997, '/configuracion', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:21:32');
+INSERT INTO `bitacora` VALUES (1998, '/boveda', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:21:36');
+INSERT INTO `bitacora` VALUES (1999, '/temp/generateTempPassword', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:21:39');
+INSERT INTO `bitacora` VALUES (2000, '/movimientos', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:21:46');
+INSERT INTO `bitacora` VALUES (2001, '/temp/validatePassword/IySQO', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:21:49');
+INSERT INTO `bitacora` VALUES (2002, '/movimientos/anularmovimiento', '{\"_token\":\"rraTKeI6ZYffBcRlcz6BUQlK2OzcHf2tTXmlQPaP\",\"_method\":\"POST\",\"id\":\"2\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:21:49');
+INSERT INTO `bitacora` VALUES (2003, '/movimientos', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:21:57');
+INSERT INTO `bitacora` VALUES (2004, '/reportes/comprobanteMovimiento/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:22:06');
+INSERT INTO `bitacora` VALUES (2005, '/tipoCuenta', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:22:15');
+INSERT INTO `bitacora` VALUES (2006, '/cuentas', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:22:18');
+INSERT INTO `bitacora` VALUES (2007, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:22:21');
+INSERT INTO `bitacora` VALUES (2008, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:23:00');
+INSERT INTO `bitacora` VALUES (2009, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:32:22');
+INSERT INTO `bitacora` VALUES (2010, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:32:40');
+INSERT INTO `bitacora` VALUES (2011, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:33:21');
+INSERT INTO `bitacora` VALUES (2012, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:33:39');
+INSERT INTO `bitacora` VALUES (2013, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:34:20');
+INSERT INTO `bitacora` VALUES (2014, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:34:31');
+INSERT INTO `bitacora` VALUES (2015, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:34:44');
+INSERT INTO `bitacora` VALUES (2016, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:35:28');
+INSERT INTO `bitacora` VALUES (2017, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:35:54');
+INSERT INTO `bitacora` VALUES (2018, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:36:03');
+INSERT INTO `bitacora` VALUES (2019, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:38:03');
+INSERT INTO `bitacora` VALUES (2020, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:38:39');
+INSERT INTO `bitacora` VALUES (2021, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:38:55');
+INSERT INTO `bitacora` VALUES (2022, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:39:25');
+INSERT INTO `bitacora` VALUES (2023, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:40:02');
+INSERT INTO `bitacora` VALUES (2024, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:40:46');
+INSERT INTO `bitacora` VALUES (2025, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:41:09');
+INSERT INTO `bitacora` VALUES (2026, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:41:38');
+INSERT INTO `bitacora` VALUES (2027, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:42:19');
+INSERT INTO `bitacora` VALUES (2028, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:42:31');
+INSERT INTO `bitacora` VALUES (2029, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:47:21');
+INSERT INTO `bitacora` VALUES (2030, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:48:06');
+INSERT INTO `bitacora` VALUES (2031, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:49:10');
+INSERT INTO `bitacora` VALUES (2032, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:53:31');
+INSERT INTO `bitacora` VALUES (2033, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:55:10');
+INSERT INTO `bitacora` VALUES (2034, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:55:36');
+INSERT INTO `bitacora` VALUES (2035, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 13:56:45');
+INSERT INTO `bitacora` VALUES (2036, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 16:28:17');
+INSERT INTO `bitacora` VALUES (2037, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 16:53:41');
+INSERT INTO `bitacora` VALUES (2038, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 16:53:42');
+INSERT INTO `bitacora` VALUES (2039, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 16:53:47');
+INSERT INTO `bitacora` VALUES (2040, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 16:55:20');
+INSERT INTO `bitacora` VALUES (2041, '/asociados/solicitud/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 16:55:31');
+INSERT INTO `bitacora` VALUES (2042, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 16:55:35');
+INSERT INTO `bitacora` VALUES (2043, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 16:56:55');
+INSERT INTO `bitacora` VALUES (2044, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 16:58:54');
+INSERT INTO `bitacora` VALUES (2045, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 16:59:17');
+INSERT INTO `bitacora` VALUES (2046, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:02:44');
+INSERT INTO `bitacora` VALUES (2047, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:03:28');
+INSERT INTO `bitacora` VALUES (2048, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:04:02');
+INSERT INTO `bitacora` VALUES (2049, '/tipoCuenta', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:04:34');
+INSERT INTO `bitacora` VALUES (2050, '/intereses/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:04:40');
+INSERT INTO `bitacora` VALUES (2051, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:05:08');
+INSERT INTO `bitacora` VALUES (2052, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:05:54');
+INSERT INTO `bitacora` VALUES (2053, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:06:01');
+INSERT INTO `bitacora` VALUES (2054, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:06:07');
+INSERT INTO `bitacora` VALUES (2055, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:06:46');
+INSERT INTO `bitacora` VALUES (2056, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:06:48');
+INSERT INTO `bitacora` VALUES (2057, '/asociados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:07:18');
+INSERT INTO `bitacora` VALUES (2058, '/beneficiarios/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:07:22');
+INSERT INTO `bitacora` VALUES (2059, '/beneficiarios/edit/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:07:24');
+INSERT INTO `bitacora` VALUES (2060, '/beneficiarios/put', '{\"_token\":\"PSrmfgieaIHFdUpMsfWTmkElU4UilY4sJANKytxM\",\"_method\":\"PUT\",\"id\":\"1\",\"id_asociado\":\"3\",\"nombre\":\"MARHA ALICIA JANDRES URRUTIA\",\"parentesco\":\"14\",\"porcentaje\":\"50\",\"direccion\":\"SM\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:07:29');
+INSERT INTO `bitacora` VALUES (2061, '/beneficiarios/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:07:29');
+INSERT INTO `bitacora` VALUES (2062, '/beneficiarios/add/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:07:31');
+INSERT INTO `bitacora` VALUES (2063, '/beneficiarios/add', '{\"_token\":\"PSrmfgieaIHFdUpMsfWTmkElU4UilY4sJANKytxM\",\"id_asociado\":\"3\",\"id_cuenta\":\"2\",\"parentesco\":\"1\",\"nombre\":\"Juan Jose\",\"porcentaje\":\"50\",\"direccion\":\"SM\",\"telefono\":\"0000-0000\"}', 'POST', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:07:47');
+INSERT INTO `bitacora` VALUES (2064, '/beneficiarios/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:07:47');
+INSERT INTO `bitacora` VALUES (2065, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:07:50');
+INSERT INTO `bitacora` VALUES (2066, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:16:30');
+INSERT INTO `bitacora` VALUES (2067, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:19:07');
+INSERT INTO `bitacora` VALUES (2068, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:19:30');
+INSERT INTO `bitacora` VALUES (2069, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:19:42');
+INSERT INTO `bitacora` VALUES (2070, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:20:15');
+INSERT INTO `bitacora` VALUES (2071, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:20:46');
+INSERT INTO `bitacora` VALUES (2072, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:21:21');
+INSERT INTO `bitacora` VALUES (2073, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:42:47');
+INSERT INTO `bitacora` VALUES (2074, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:42:50');
+INSERT INTO `bitacora` VALUES (2075, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:43:29');
+INSERT INTO `bitacora` VALUES (2076, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:44:50');
+INSERT INTO `bitacora` VALUES (2077, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:44:52');
+INSERT INTO `bitacora` VALUES (2078, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:45:09');
+INSERT INTO `bitacora` VALUES (2079, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:49:14');
+INSERT INTO `bitacora` VALUES (2080, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:50:03');
+INSERT INTO `bitacora` VALUES (2081, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 17:50:23');
+INSERT INTO `bitacora` VALUES (2082, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:07:54');
+INSERT INTO `bitacora` VALUES (2083, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:07:55');
+INSERT INTO `bitacora` VALUES (2084, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:20:47');
+INSERT INTO `bitacora` VALUES (2085, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:21:55');
+INSERT INTO `bitacora` VALUES (2086, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:22:28');
+INSERT INTO `bitacora` VALUES (2087, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:25:29');
+INSERT INTO `bitacora` VALUES (2088, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:26:27');
+INSERT INTO `bitacora` VALUES (2089, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:27:38');
+INSERT INTO `bitacora` VALUES (2090, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:27:53');
+INSERT INTO `bitacora` VALUES (2091, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:29:38');
+INSERT INTO `bitacora` VALUES (2092, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:29:55');
+INSERT INTO `bitacora` VALUES (2093, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:29:56');
+INSERT INTO `bitacora` VALUES (2094, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:30:52');
+INSERT INTO `bitacora` VALUES (2095, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:30:53');
+INSERT INTO `bitacora` VALUES (2096, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:31:32');
+INSERT INTO `bitacora` VALUES (2097, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:31:53');
+INSERT INTO `bitacora` VALUES (2098, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:32:53');
+INSERT INTO `bitacora` VALUES (2099, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:33:12');
+INSERT INTO `bitacora` VALUES (2100, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:33:18');
+INSERT INTO `bitacora` VALUES (2101, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:33:19');
+INSERT INTO `bitacora` VALUES (2102, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 18:33:20');
+INSERT INTO `bitacora` VALUES (2103, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:31:05');
+INSERT INTO `bitacora` VALUES (2104, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:31:22');
+INSERT INTO `bitacora` VALUES (2105, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:31:53');
+INSERT INTO `bitacora` VALUES (2106, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:32:04');
+INSERT INTO `bitacora` VALUES (2107, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:32:51');
+INSERT INTO `bitacora` VALUES (2108, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:32:57');
+INSERT INTO `bitacora` VALUES (2109, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:33:31');
+INSERT INTO `bitacora` VALUES (2110, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:33:52');
+INSERT INTO `bitacora` VALUES (2111, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:34:07');
+INSERT INTO `bitacora` VALUES (2112, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:34:43');
+INSERT INTO `bitacora` VALUES (2113, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:34:54');
+INSERT INTO `bitacora` VALUES (2114, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:35:44');
+INSERT INTO `bitacora` VALUES (2115, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:35:59');
+INSERT INTO `bitacora` VALUES (2116, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:36:10');
+INSERT INTO `bitacora` VALUES (2117, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:36:17');
+INSERT INTO `bitacora` VALUES (2118, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:37:34');
+INSERT INTO `bitacora` VALUES (2119, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:37:53');
+INSERT INTO `bitacora` VALUES (2120, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:38:09');
+INSERT INTO `bitacora` VALUES (2121, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:38:30');
+INSERT INTO `bitacora` VALUES (2122, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:40:10');
+INSERT INTO `bitacora` VALUES (2123, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:40:30');
+INSERT INTO `bitacora` VALUES (2124, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:41:01');
+INSERT INTO `bitacora` VALUES (2125, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:41:14');
+INSERT INTO `bitacora` VALUES (2126, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:42:27');
+INSERT INTO `bitacora` VALUES (2127, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:43:21');
+INSERT INTO `bitacora` VALUES (2128, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:43:56');
+INSERT INTO `bitacora` VALUES (2129, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:43:57');
+INSERT INTO `bitacora` VALUES (2130, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:43:58');
+INSERT INTO `bitacora` VALUES (2131, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:44:17');
+INSERT INTO `bitacora` VALUES (2132, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:44:30');
+INSERT INTO `bitacora` VALUES (2133, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:44:36');
+INSERT INTO `bitacora` VALUES (2134, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:44:43');
+INSERT INTO `bitacora` VALUES (2135, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:45:17');
+INSERT INTO `bitacora` VALUES (2136, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:46:48');
+INSERT INTO `bitacora` VALUES (2137, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:46:58');
+INSERT INTO `bitacora` VALUES (2138, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:48:22');
+INSERT INTO `bitacora` VALUES (2139, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:50:47');
+INSERT INTO `bitacora` VALUES (2140, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:50:58');
+INSERT INTO `bitacora` VALUES (2141, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:51:26');
+INSERT INTO `bitacora` VALUES (2142, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:53:28');
+INSERT INTO `bitacora` VALUES (2143, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:53:46');
+INSERT INTO `bitacora` VALUES (2144, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:54:11');
+INSERT INTO `bitacora` VALUES (2145, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:59:12');
+INSERT INTO `bitacora` VALUES (2146, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 19:59:43');
+INSERT INTO `bitacora` VALUES (2147, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:00:01');
+INSERT INTO `bitacora` VALUES (2148, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:00:36');
+INSERT INTO `bitacora` VALUES (2149, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:01:23');
+INSERT INTO `bitacora` VALUES (2150, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:01:34');
+INSERT INTO `bitacora` VALUES (2151, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:01:49');
+INSERT INTO `bitacora` VALUES (2152, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:02:39');
+INSERT INTO `bitacora` VALUES (2153, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:03:51');
+INSERT INTO `bitacora` VALUES (2154, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:04:04');
+INSERT INTO `bitacora` VALUES (2155, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:05:13');
+INSERT INTO `bitacora` VALUES (2156, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:05:34');
+INSERT INTO `bitacora` VALUES (2157, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:05:58');
+INSERT INTO `bitacora` VALUES (2158, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:06:32');
+INSERT INTO `bitacora` VALUES (2159, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:07:08');
+INSERT INTO `bitacora` VALUES (2160, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:07:36');
+INSERT INTO `bitacora` VALUES (2161, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:07:46');
+INSERT INTO `bitacora` VALUES (2162, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:09:07');
+INSERT INTO `bitacora` VALUES (2163, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:09:25');
+INSERT INTO `bitacora` VALUES (2164, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:09:35');
+INSERT INTO `bitacora` VALUES (2165, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:10:06');
+INSERT INTO `bitacora` VALUES (2166, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:10:25');
+INSERT INTO `bitacora` VALUES (2167, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:10:36');
+INSERT INTO `bitacora` VALUES (2168, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:10:48');
+INSERT INTO `bitacora` VALUES (2169, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:11:43');
+INSERT INTO `bitacora` VALUES (2170, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:12:37');
+INSERT INTO `bitacora` VALUES (2171, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:17:31');
+INSERT INTO `bitacora` VALUES (2172, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:18:56');
+INSERT INTO `bitacora` VALUES (2173, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:19:07');
+INSERT INTO `bitacora` VALUES (2174, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:19:48');
+INSERT INTO `bitacora` VALUES (2175, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:20:26');
+INSERT INTO `bitacora` VALUES (2176, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:20:38');
+INSERT INTO `bitacora` VALUES (2177, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:21:02');
+INSERT INTO `bitacora` VALUES (2178, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:21:21');
+INSERT INTO `bitacora` VALUES (2179, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:21:35');
+INSERT INTO `bitacora` VALUES (2180, '/reportes/contrato/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:21:47');
+INSERT INTO `bitacora` VALUES (2181, '/creditos/solicitudes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:23:51');
+INSERT INTO `bitacora` VALUES (2182, '/creditos/solicitudes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:23:55');
+INSERT INTO `bitacora` VALUES (2183, '/creditos/solicitudes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:23:57');
+INSERT INTO `bitacora` VALUES (2184, '/creditos/solicitudes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:24:37');
+INSERT INTO `bitacora` VALUES (2185, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:24:39');
+INSERT INTO `bitacora` VALUES (2186, '/clientes/getClienteData/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 20:24:43');
+INSERT INTO `bitacora` VALUES (2187, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:08:19');
+INSERT INTO `bitacora` VALUES (2188, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:09:01');
+INSERT INTO `bitacora` VALUES (2189, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:11:58');
+INSERT INTO `bitacora` VALUES (2190, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:13:29');
+INSERT INTO `bitacora` VALUES (2191, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:15:12');
+INSERT INTO `bitacora` VALUES (2192, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:20:46');
+INSERT INTO `bitacora` VALUES (2193, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:21:19');
+INSERT INTO `bitacora` VALUES (2194, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:22:30');
+INSERT INTO `bitacora` VALUES (2195, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:23:04');
+INSERT INTO `bitacora` VALUES (2196, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:23:08');
+INSERT INTO `bitacora` VALUES (2197, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:25:41');
+INSERT INTO `bitacora` VALUES (2198, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:25:47');
+INSERT INTO `bitacora` VALUES (2199, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:26:44');
+INSERT INTO `bitacora` VALUES (2200, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-06 21:32:17');
+INSERT INTO `bitacora` VALUES (2201, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:18:09');
+INSERT INTO `bitacora` VALUES (2202, '/creditos/solicitudes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:18:13');
+INSERT INTO `bitacora` VALUES (2203, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:18:15');
+INSERT INTO `bitacora` VALUES (2204, '/clientes/getClienteData/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:24:31');
+INSERT INTO `bitacora` VALUES (2205, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:37:10');
+INSERT INTO `bitacora` VALUES (2206, '/clientes/getClienteData/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:37:15');
+INSERT INTO `bitacora` VALUES (2207, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:39:47');
+INSERT INTO `bitacora` VALUES (2208, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:39:50');
+INSERT INTO `bitacora` VALUES (2209, '/referencias/put', '{\"_token\":\"BHs51Y6o2lqsCvsY9CVR0vPC7XHi4T2KlAQ4GVIo\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"parentesco\":\"Hermano\",\"telefono\":\"26541561\",\"direccion\":\"San Miguel\",\"lugar_trabajo\":\"Computec\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:39:57');
+INSERT INTO `bitacora` VALUES (2210, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:39:57');
+INSERT INTO `bitacora` VALUES (2211, '/creditos/solicitudes', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:40:18');
+INSERT INTO `bitacora` VALUES (2212, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:40:20');
+INSERT INTO `bitacora` VALUES (2213, '/creditos/solicitudes/referencias/add/1/c6474248-dc72-477d-b563-cb9dcff9cb89', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:40:27');
+INSERT INTO `bitacora` VALUES (2214, '/creditos/solicitudes/referencias/getReferencias/c6474248-dc72-477d-b563-cb9dcff9cb89', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:40:28');
+INSERT INTO `bitacora` VALUES (2215, '/clientes/getClienteData/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:41:02');
+INSERT INTO `bitacora` VALUES (2216, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:46:25');
+INSERT INTO `bitacora` VALUES (2217, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:46:50');
+INSERT INTO `bitacora` VALUES (2218, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:46:59');
+INSERT INTO `bitacora` VALUES (2219, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:49:10');
+INSERT INTO `bitacora` VALUES (2220, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:50:23');
+INSERT INTO `bitacora` VALUES (2221, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:51:01');
+INSERT INTO `bitacora` VALUES (2222, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:55:36');
+INSERT INTO `bitacora` VALUES (2223, '/creditos/solicitudes/referencias/add/1/37b6bdc7-7a90-4818-ab48-333992ce3705/21', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:55:46');
+INSERT INTO `bitacora` VALUES (2224, '/creditos/solicitudes/referencias/getReferencias/37b6bdc7-7a90-4818-ab48-333992ce3705', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:55:46');
+INSERT INTO `bitacora` VALUES (2225, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:56:34');
+INSERT INTO `bitacora` VALUES (2226, '/creditos/solicitudes/referencias/add/1/11e5020d-1ee7-46db-b4b9-da2c6abf02e3/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:56:42');
+INSERT INTO `bitacora` VALUES (2227, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:56:43');
+INSERT INTO `bitacora` VALUES (2228, '/creditos/solicitudes/referencias/add/1/11e5020d-1ee7-46db-b4b9-da2c6abf02e3/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:57:00');
+INSERT INTO `bitacora` VALUES (2229, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:57:01');
+INSERT INTO `bitacora` VALUES (2230, '/creditos/solicitudes/referencias/add/1/11e5020d-1ee7-46db-b4b9-da2c6abf02e3/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:57:25');
+INSERT INTO `bitacora` VALUES (2231, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:57:25');
+INSERT INTO `bitacora` VALUES (2232, '/creditos/solicitudes/referencias/add/1/11e5020d-1ee7-46db-b4b9-da2c6abf02e3/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:59:55');
+INSERT INTO `bitacora` VALUES (2233, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 10:59:55');
+INSERT INTO `bitacora` VALUES (2234, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:01:04');
+INSERT INTO `bitacora` VALUES (2235, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:01:04');
+INSERT INTO `bitacora` VALUES (2236, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:01:48');
+INSERT INTO `bitacora` VALUES (2237, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:02:39');
+INSERT INTO `bitacora` VALUES (2238, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:03:03');
+INSERT INTO `bitacora` VALUES (2239, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:03:19');
+INSERT INTO `bitacora` VALUES (2240, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:03:25');
+INSERT INTO `bitacora` VALUES (2241, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:03:37');
+INSERT INTO `bitacora` VALUES (2242, '/creditos/solicitudes/referencias/add/1/11e5020d-1ee7-46db-b4b9-da2c6abf02e3/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:03:54');
+INSERT INTO `bitacora` VALUES (2243, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:03:54');
+INSERT INTO `bitacora` VALUES (2244, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:04:47');
+INSERT INTO `bitacora` VALUES (2245, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:04:51');
+INSERT INTO `bitacora` VALUES (2246, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:05:27');
+INSERT INTO `bitacora` VALUES (2247, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:06:05');
+INSERT INTO `bitacora` VALUES (2248, '/creditos/solicitudes/referencias/quitar/4', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:06:18');
+INSERT INTO `bitacora` VALUES (2249, '/creditos/solicitudes/referencias/quitar/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:06:33');
+INSERT INTO `bitacora` VALUES (2250, '/creditos/solicitudes/referencias/quitar/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:07:05');
+INSERT INTO `bitacora` VALUES (2251, '/creditos/solicitudes/referencias/quitar/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:16:27');
+INSERT INTO `bitacora` VALUES (2252, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:16:27');
+INSERT INTO `bitacora` VALUES (2253, '/creditos/solicitudes/referencias/add/1/11e5020d-1ee7-46db-b4b9-da2c6abf02e3/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:16:34');
+INSERT INTO `bitacora` VALUES (2254, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:16:34');
+INSERT INTO `bitacora` VALUES (2255, '/creditos/solicitudes/referencias/add/1/11e5020d-1ee7-46db-b4b9-da2c6abf02e3/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:18:58');
+INSERT INTO `bitacora` VALUES (2256, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:18:58');
+INSERT INTO `bitacora` VALUES (2257, '/creditos/solicitudes/referencias/add/1/11e5020d-1ee7-46db-b4b9-da2c6abf02e3/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:19:15');
+INSERT INTO `bitacora` VALUES (2258, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:19:21');
+INSERT INTO `bitacora` VALUES (2259, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:19:58');
+INSERT INTO `bitacora` VALUES (2260, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:20:39');
+INSERT INTO `bitacora` VALUES (2261, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:21:00');
+INSERT INTO `bitacora` VALUES (2262, '/creditos/solicitudes/referencias/getReferencias/11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:24:08');
+INSERT INTO `bitacora` VALUES (2263, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:24:21');
+INSERT INTO `bitacora` VALUES (2264, '/creditos/solicitudes/referencias/add/1/ce095f3f-a79d-4236-b176-f36f616ba567/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:24:28');
+INSERT INTO `bitacora` VALUES (2265, '/creditos/solicitudes/referencias/getReferencias/ce095f3f-a79d-4236-b176-f36f616ba567', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:24:28');
+INSERT INTO `bitacora` VALUES (2266, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:00');
+INSERT INTO `bitacora` VALUES (2267, '/creditos/solicitudes/referencias/add/1/2c92e268-f71e-4853-9a62-cb2bd7bd2d6f/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:07');
+INSERT INTO `bitacora` VALUES (2268, '/creditos/solicitudes/referencias/getReferencias/2c92e268-f71e-4853-9a62-cb2bd7bd2d6f', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:07');
+INSERT INTO `bitacora` VALUES (2269, '/creditos/solicitudes/referencias/add/1/2c92e268-f71e-4853-9a62-cb2bd7bd2d6f/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:14');
+INSERT INTO `bitacora` VALUES (2270, '/creditos/solicitudes/referencias/getReferencias/2c92e268-f71e-4853-9a62-cb2bd7bd2d6f', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:14');
+INSERT INTO `bitacora` VALUES (2271, '/creditos/solicitudes/referencias/add/1/2c92e268-f71e-4853-9a62-cb2bd7bd2d6f/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:32');
+INSERT INTO `bitacora` VALUES (2272, '/creditos/solicitudes/referencias/getReferencias/2c92e268-f71e-4853-9a62-cb2bd7bd2d6f', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:32');
+INSERT INTO `bitacora` VALUES (2273, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:34');
+INSERT INTO `bitacora` VALUES (2274, '/creditos/solicitudes/referencias/add/1/09ba4433-4c87-4c2e-b4cb-8125941af33d/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:40');
+INSERT INTO `bitacora` VALUES (2275, '/creditos/solicitudes/referencias/getReferencias/09ba4433-4c87-4c2e-b4cb-8125941af33d', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:41');
+INSERT INTO `bitacora` VALUES (2276, '/creditos/solicitudes/referencias/add/1/09ba4433-4c87-4c2e-b4cb-8125941af33d/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:48');
+INSERT INTO `bitacora` VALUES (2277, '/creditos/solicitudes/referencias/getReferencias/09ba4433-4c87-4c2e-b4cb-8125941af33d', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:26:48');
+INSERT INTO `bitacora` VALUES (2278, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:27:04');
+INSERT INTO `bitacora` VALUES (2279, '/creditos/solicitudes/referencias/add/1/6545bdb9-7d71-4e85-82e0-b6db4d591774/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:27:10');
+INSERT INTO `bitacora` VALUES (2280, '/creditos/solicitudes/referencias/getReferencias/6545bdb9-7d71-4e85-82e0-b6db4d591774', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:27:11');
+INSERT INTO `bitacora` VALUES (2281, '/creditos/solicitudes/referencias/add/1/6545bdb9-7d71-4e85-82e0-b6db4d591774/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:27:20');
+INSERT INTO `bitacora` VALUES (2282, '/creditos/solicitudes/referencias/getReferencias/6545bdb9-7d71-4e85-82e0-b6db4d591774', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:27:20');
+INSERT INTO `bitacora` VALUES (2283, '/creditos/solicitudes/referencias/add/1/6545bdb9-7d71-4e85-82e0-b6db4d591774/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:27:23');
+INSERT INTO `bitacora` VALUES (2284, '/creditos/solicitudes/referencias/getReferencias/6545bdb9-7d71-4e85-82e0-b6db4d591774', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:27:23');
+INSERT INTO `bitacora` VALUES (2285, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:28:09');
+INSERT INTO `bitacora` VALUES (2286, '/creditos/solicitudes/referencias/add/1/0ef8c992-1462-4f4c-980e-84aef2147312/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:28:14');
+INSERT INTO `bitacora` VALUES (2287, '/creditos/solicitudes/referencias/getReferencias/0ef8c992-1462-4f4c-980e-84aef2147312', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:28:14');
+INSERT INTO `bitacora` VALUES (2288, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:29:36');
+INSERT INTO `bitacora` VALUES (2289, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:29:50');
+INSERT INTO `bitacora` VALUES (2290, '/creditos/solicitudes/referencias/add/1/4db7cf85-f205-4648-8cc6-605c641ceffd/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:29:55');
+INSERT INTO `bitacora` VALUES (2291, '/creditos/solicitudes/referencias/getReferencias/4db7cf85-f205-4648-8cc6-605c641ceffd', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:29:55');
+INSERT INTO `bitacora` VALUES (2292, '/creditos/solicitudes/referencias/quitar/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:30:03');
+INSERT INTO `bitacora` VALUES (2293, '/creditos/solicitudes/referencias/getReferencias/4db7cf85-f205-4648-8cc6-605c641ceffd', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:30:04');
+INSERT INTO `bitacora` VALUES (2294, '/creditos/solicitudes/referencias/quitar/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:30:13');
+INSERT INTO `bitacora` VALUES (2295, '/creditos/solicitudes/referencias/getReferencias/4db7cf85-f205-4648-8cc6-605c641ceffd', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:30:13');
+INSERT INTO `bitacora` VALUES (2296, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:30:33');
+INSERT INTO `bitacora` VALUES (2297, '/creditos/solicitudes/referencias/add/1/efde1aaa-9721-4963-82c4-006350899c9f/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:30:39');
+INSERT INTO `bitacora` VALUES (2298, '/creditos/solicitudes/referencias/getReferencias/efde1aaa-9721-4963-82c4-006350899c9f', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:30:39');
+INSERT INTO `bitacora` VALUES (2299, '/creditos/solicitudes/referencias/quitar/21', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:30:41');
+INSERT INTO `bitacora` VALUES (2300, '/creditos/solicitudes/referencias/getReferencias/efde1aaa-9721-4963-82c4-006350899c9f', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:30:42');
+INSERT INTO `bitacora` VALUES (2301, '/creditos/solicitudes/referencias/add/1/efde1aaa-9721-4963-82c4-006350899c9f/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:30:46');
+INSERT INTO `bitacora` VALUES (2302, '/creditos/solicitudes/referencias/getReferencias/efde1aaa-9721-4963-82c4-006350899c9f', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:30:47');
+INSERT INTO `bitacora` VALUES (2303, '/creditos/solicitudes/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:31:21');
+INSERT INTO `bitacora` VALUES (2304, '/creditos/solicitudes/referencias/add/1/eab76a82-8dbe-4b37-87b8-510175e2e53c/2', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:31:27');
+INSERT INTO `bitacora` VALUES (2305, '/creditos/solicitudes/referencias/getReferencias/eab76a82-8dbe-4b37-87b8-510175e2e53c', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:31:27');
+INSERT INTO `bitacora` VALUES (2306, '/creditos/solicitudes/referencias/add/1/eab76a82-8dbe-4b37-87b8-510175e2e53c/3', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:31:30');
+INSERT INTO `bitacora` VALUES (2307, '/creditos/solicitudes/referencias/getReferencias/eab76a82-8dbe-4b37-87b8-510175e2e53c', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:31:30');
+INSERT INTO `bitacora` VALUES (2308, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:31:52');
+INSERT INTO `bitacora` VALUES (2309, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 11:31:55');
+INSERT INTO `bitacora` VALUES (2310, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:08:55');
+INSERT INTO `bitacora` VALUES (2311, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:08:55');
+INSERT INTO `bitacora` VALUES (2312, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:11:53');
+INSERT INTO `bitacora` VALUES (2313, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:12:44');
+INSERT INTO `bitacora` VALUES (2314, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:13:00');
+INSERT INTO `bitacora` VALUES (2315, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:13:58');
+INSERT INTO `bitacora` VALUES (2316, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:20:48');
+INSERT INTO `bitacora` VALUES (2317, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:21:15');
+INSERT INTO `bitacora` VALUES (2318, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:21:39');
+INSERT INTO `bitacora` VALUES (2319, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:22:28');
+INSERT INTO `bitacora` VALUES (2320, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:23:02');
+INSERT INTO `bitacora` VALUES (2321, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:23:13');
+INSERT INTO `bitacora` VALUES (2322, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:23:22');
+INSERT INTO `bitacora` VALUES (2323, '/dashboard', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:24:52');
+INSERT INTO `bitacora` VALUES (2324, '/referencias/put', '{\"_token\":\"XUHdYHKHqHPWhuABLrFkUtjTBrHaNjPzxkJowfn0\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"parentesco\":\"Hermano\",\"telefono\":\"26541561\",\"direccion\":\"San Miguel\",\"lugar_trabajo\":\"Computec\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:24:56');
+INSERT INTO `bitacora` VALUES (2325, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:24:57');
+INSERT INTO `bitacora` VALUES (2326, '/referencias/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:24:58');
+INSERT INTO `bitacora` VALUES (2327, '/referencias/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:25:57');
+INSERT INTO `bitacora` VALUES (2328, '/referencias/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:26:06');
+INSERT INTO `bitacora` VALUES (2329, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:28:42');
+INSERT INTO `bitacora` VALUES (2330, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:28:45');
+INSERT INTO `bitacora` VALUES (2331, '/referencias/put', '{\"_token\":\"XUHdYHKHqHPWhuABLrFkUtjTBrHaNjPzxkJowfn0\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"parentesco\":\"Hermano\",\"telefono\":\"26541561\",\"direccion\":\"San Miguel\",\"lugar_trabajo\":\"Computec\",\"observaciones\":\"ninguna\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:28:48');
+INSERT INTO `bitacora` VALUES (2332, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:28:49');
+INSERT INTO `bitacora` VALUES (2333, '/referencias/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:28:50');
+INSERT INTO `bitacora` VALUES (2334, '/referencias/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:29:15');
+INSERT INTO `bitacora` VALUES (2335, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:29:19');
+INSERT INTO `bitacora` VALUES (2336, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:29:21');
+INSERT INTO `bitacora` VALUES (2337, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:29:51');
+INSERT INTO `bitacora` VALUES (2338, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:29:53');
+INSERT INTO `bitacora` VALUES (2339, '/referencias/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:29:55');
+INSERT INTO `bitacora` VALUES (2340, '/referencias/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:30:18');
+INSERT INTO `bitacora` VALUES (2341, '/referencias/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:31:08');
+INSERT INTO `bitacora` VALUES (2342, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:31:11');
+INSERT INTO `bitacora` VALUES (2343, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:31:31');
+INSERT INTO `bitacora` VALUES (2344, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:31:50');
+INSERT INTO `bitacora` VALUES (2345, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:31:52');
+INSERT INTO `bitacora` VALUES (2346, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:31:59');
+INSERT INTO `bitacora` VALUES (2347, '/referencias/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:32:01');
+INSERT INTO `bitacora` VALUES (2348, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:32:04');
+INSERT INTO `bitacora` VALUES (2349, '/referencias/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:32:30');
+INSERT INTO `bitacora` VALUES (2350, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:32:31');
+INSERT INTO `bitacora` VALUES (2351, '/referencias/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:32:32');
+INSERT INTO `bitacora` VALUES (2352, '/referencias', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:32:35');
+INSERT INTO `bitacora` VALUES (2353, '/empleados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:35:44');
+INSERT INTO `bitacora` VALUES (2354, '/empleados/delete', '{\"_token\":\"XUHdYHKHqHPWhuABLrFkUtjTBrHaNjPzxkJowfn0\",\"_method\":\"DELETE\",\"id\":\"13\"}', 'DELETE', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:35:48');
+INSERT INTO `bitacora` VALUES (2355, '/empleados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:35:49');
+INSERT INTO `bitacora` VALUES (2356, '/empleados/delete', '{\"_token\":\"XUHdYHKHqHPWhuABLrFkUtjTBrHaNjPzxkJowfn0\",\"_method\":\"DELETE\",\"id\":\"29\"}', 'DELETE', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:35:53');
+INSERT INTO `bitacora` VALUES (2357, '/empleados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:35:53');
+INSERT INTO `bitacora` VALUES (2358, '/empleados/delete', '{\"_token\":\"XUHdYHKHqHPWhuABLrFkUtjTBrHaNjPzxkJowfn0\",\"_method\":\"DELETE\",\"id\":\"6\"}', 'DELETE', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:35:56');
+INSERT INTO `bitacora` VALUES (2359, '/empleados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:35:56');
+INSERT INTO `bitacora` VALUES (2360, '/empleados/delete', '{\"_token\":\"XUHdYHKHqHPWhuABLrFkUtjTBrHaNjPzxkJowfn0\",\"_method\":\"DELETE\",\"id\":\"8\"}', 'DELETE', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:35:59');
+INSERT INTO `bitacora` VALUES (2361, '/empleados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:35:59');
+INSERT INTO `bitacora` VALUES (2362, '/empleados/delete', '{\"_token\":\"XUHdYHKHqHPWhuABLrFkUtjTBrHaNjPzxkJowfn0\",\"_method\":\"DELETE\",\"id\":\"11\"}', 'DELETE', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:36:01');
+INSERT INTO `bitacora` VALUES (2363, '/empleados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:36:01');
+INSERT INTO `bitacora` VALUES (2364, '/empleados/delete', '{\"_token\":\"XUHdYHKHqHPWhuABLrFkUtjTBrHaNjPzxkJowfn0\",\"_method\":\"DELETE\",\"id\":\"9\"}', 'DELETE', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:36:03');
+INSERT INTO `bitacora` VALUES (2365, '/empleados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:36:03');
+INSERT INTO `bitacora` VALUES (2366, '/empleados/delete', '{\"_token\":\"XUHdYHKHqHPWhuABLrFkUtjTBrHaNjPzxkJowfn0\",\"_method\":\"DELETE\",\"id\":\"10\"}', 'DELETE', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:36:05');
+INSERT INTO `bitacora` VALUES (2367, '/empleados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:36:05');
+INSERT INTO `bitacora` VALUES (2368, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:36:36');
+INSERT INTO `bitacora` VALUES (2369, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:37:42');
+INSERT INTO `bitacora` VALUES (2370, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:38:25');
+INSERT INTO `bitacora` VALUES (2371, '/profesiones/1', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:38:28');
+INSERT INTO `bitacora` VALUES (2372, '/profesiones/put', '{\"_token\":\"XUHdYHKHqHPWhuABLrFkUtjTBrHaNjPzxkJowfn0\",\"_method\":\"PUT\",\"id\":\"1\",\"name\":\"Ama de Casa\"}', 'PUT', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:38:33');
+INSERT INTO `bitacora` VALUES (2373, '/profesiones', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:38:33');
+INSERT INTO `bitacora` VALUES (2374, '/empleados', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:45:13');
+INSERT INTO `bitacora` VALUES (2375, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:45:14');
+INSERT INTO `bitacora` VALUES (2376, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:45:37');
+INSERT INTO `bitacora` VALUES (2377, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:45:53');
+INSERT INTO `bitacora` VALUES (2378, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:46:10');
+INSERT INTO `bitacora` VALUES (2379, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:46:34');
+INSERT INTO `bitacora` VALUES (2380, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:48:35');
+INSERT INTO `bitacora` VALUES (2381, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:49:10');
+INSERT INTO `bitacora` VALUES (2382, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:49:17');
+INSERT INTO `bitacora` VALUES (2383, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:49:47');
+INSERT INTO `bitacora` VALUES (2384, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:55:48');
+INSERT INTO `bitacora` VALUES (2385, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:56:12');
+INSERT INTO `bitacora` VALUES (2386, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:56:34');
+INSERT INTO `bitacora` VALUES (2387, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:57:10');
+INSERT INTO `bitacora` VALUES (2388, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:57:23');
+INSERT INTO `bitacora` VALUES (2389, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:58:37');
+INSERT INTO `bitacora` VALUES (2390, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 15:58:55');
+INSERT INTO `bitacora` VALUES (2391, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 16:00:31');
+INSERT INTO `bitacora` VALUES (2392, '/empleados/add', '[]', 'GET', 11, 'Norman Parker', 'habbott@example.com', '2024-10-07 16:00:49');
+INSERT INTO `bitacora` VALUES (2393, '/dashboard', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:14:57');
+INSERT INTO `bitacora` VALUES (2394, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:15:08');
+INSERT INTO `bitacora` VALUES (2395, '/empleados/1', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:15:10');
+INSERT INTO `bitacora` VALUES (2396, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:15:13');
+INSERT INTO `bitacora` VALUES (2397, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:15:51');
+INSERT INTO `bitacora` VALUES (2398, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:17:01');
+INSERT INTO `bitacora` VALUES (2399, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:17:14');
+INSERT INTO `bitacora` VALUES (2400, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:17:24');
+INSERT INTO `bitacora` VALUES (2401, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:18:43');
+INSERT INTO `bitacora` VALUES (2402, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:19:04');
+INSERT INTO `bitacora` VALUES (2403, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:20:50');
+INSERT INTO `bitacora` VALUES (2404, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:21:11');
+INSERT INTO `bitacora` VALUES (2405, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:21:25');
+INSERT INTO `bitacora` VALUES (2406, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:22:19');
+INSERT INTO `bitacora` VALUES (2407, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:22:27');
+INSERT INTO `bitacora` VALUES (2408, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:23:07');
+INSERT INTO `bitacora` VALUES (2409, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:23:17');
+INSERT INTO `bitacora` VALUES (2410, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:23:19');
+INSERT INTO `bitacora` VALUES (2411, '/empleados/add', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"nombre_empleado\":\"GERENCIA\",\"genero_empleado\":\"M\",\"estado_familiar\":\"SOLTERO\",\"profesion_id\":\"4\",\"domicilio_departamento\":\"San Miguel\",\"direccion\":\"San miguel\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"dui\":\"12345678-9\",\"expedicion_dui\":\"San Miguel\",\"nit\":\"1214-120588-101-5\",\"telefono\":\"2654-1561\",\"otros_datos\":\"Ninguno\"}', 'POST', 11, NULL, 'habbott@example.com', '2024-10-07 18:24:26');
+INSERT INTO `bitacora` VALUES (2412, '/empleados/add', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"nombre_empleado\":\"GERENCIA\",\"genero_empleado\":\"M\",\"estado_familiar\":\"SOLTERO\",\"profesion_id\":\"4\",\"domicilio_departamento\":\"San Miguel\",\"direccion\":\"San miguel\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"dui\":\"12345678-9\",\"expedicion_dui\":\"San Miguel\",\"nit\":\"1214-120588-101-5\",\"telefono\":\"2654-1561\",\"otros_datos\":\"Ninguno\"}', 'POST', 11, NULL, 'habbott@example.com', '2024-10-07 18:24:50');
+INSERT INTO `bitacora` VALUES (2413, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:24:50');
+INSERT INTO `bitacora` VALUES (2414, '/cajas', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:24:56');
+INSERT INTO `bitacora` VALUES (2415, '/cajas/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:24:58');
+INSERT INTO `bitacora` VALUES (2416, '/user', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:25:00');
+INSERT INTO `bitacora` VALUES (2417, '/user', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:25:25');
+INSERT INTO `bitacora` VALUES (2418, '/user/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:25:26');
+INSERT INTO `bitacora` VALUES (2419, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:27:30');
+INSERT INTO `bitacora` VALUES (2420, '/empleados/1', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:27:32');
+INSERT INTO `bitacora` VALUES (2421, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:27:36');
+INSERT INTO `bitacora` VALUES (2422, '/empleados/1', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:27:37');
+INSERT INTO `bitacora` VALUES (2423, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:29:41');
+INSERT INTO `bitacora` VALUES (2424, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:29:43');
+INSERT INTO `bitacora` VALUES (2425, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:30:54');
+INSERT INTO `bitacora` VALUES (2426, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:30:55');
+INSERT INTO `bitacora` VALUES (2427, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:31:16');
+INSERT INTO `bitacora` VALUES (2428, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:31:25');
+INSERT INTO `bitacora` VALUES (2429, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:31:27');
+INSERT INTO `bitacora` VALUES (2430, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:32:29');
+INSERT INTO `bitacora` VALUES (2431, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:32:31');
+INSERT INTO `bitacora` VALUES (2432, '/empleados/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:32:34');
+INSERT INTO `bitacora` VALUES (2433, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:32:38');
+INSERT INTO `bitacora` VALUES (2434, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:32:39');
+INSERT INTO `bitacora` VALUES (2435, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:32:57');
+INSERT INTO `bitacora` VALUES (2436, '/empleados/put', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"PUT\",\"id\":\"2\",\"nombre_empleado\":\"Jk9vdZYpSp\",\"genero_empleado\":\"M\",\"estado_familiar\":\"VPpBzpEPOB\",\"profesion_id\":\"1\",\"domicilio_departamento\":\"4DeQB107Ux\",\"direccion\":\"uONIHzd8zj\",\"nacionalidad\":\"0WTkwiL9PR\",\"dui\":\"RUk3e7pbEx\",\"expedicion_dui\":\"zI5t0f1384\",\"nit\":\"Y8cbLU5I9A\",\"telefono\":\"nNl4NT9V7x\",\"otros_datos\":\"DsXHaC06K1\"}', 'PUT', 11, NULL, 'habbott@example.com', '2024-10-07 18:36:03');
+INSERT INTO `bitacora` VALUES (2437, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:36:03');
+INSERT INTO `bitacora` VALUES (2438, '/empleados/1', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:36:07');
+INSERT INTO `bitacora` VALUES (2439, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:36:12');
+INSERT INTO `bitacora` VALUES (2440, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:36:14');
+INSERT INTO `bitacora` VALUES (2441, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:37:33');
+INSERT INTO `bitacora` VALUES (2442, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:39:11');
+INSERT INTO `bitacora` VALUES (2443, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:48:22');
+INSERT INTO `bitacora` VALUES (2444, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:48:23');
+INSERT INTO `bitacora` VALUES (2445, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:48:24');
+INSERT INTO `bitacora` VALUES (2446, '/empleados/1', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:48:26');
+INSERT INTO `bitacora` VALUES (2447, '/empleados/1', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:48:56');
+INSERT INTO `bitacora` VALUES (2448, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:49:05');
+INSERT INTO `bitacora` VALUES (2449, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:52:46');
+INSERT INTO `bitacora` VALUES (2450, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:52:51');
+INSERT INTO `bitacora` VALUES (2451, '/empleados/1', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:52:52');
+INSERT INTO `bitacora` VALUES (2452, '/profesiones', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:53:07');
+INSERT INTO `bitacora` VALUES (2453, '/profesiones/3', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:53:11');
+INSERT INTO `bitacora` VALUES (2454, '/profesiones/put', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"PUT\",\"id\":\"3\",\"name\":\"Lic. Administraci\\u00f3n de empresas\"}', 'PUT', 11, NULL, 'habbott@example.com', '2024-10-07 18:53:29');
+INSERT INTO `bitacora` VALUES (2455, '/profesiones', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:53:30');
+INSERT INTO `bitacora` VALUES (2456, '/profesiones/4', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:53:32');
+INSERT INTO `bitacora` VALUES (2457, '/profesiones/put', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"PUT\",\"id\":\"4\",\"name\":\"Lic. Mercadeo\"}', 'PUT', 11, NULL, 'habbott@example.com', '2024-10-07 18:53:42');
+INSERT INTO `bitacora` VALUES (2458, '/profesiones', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:53:42');
+INSERT INTO `bitacora` VALUES (2459, '/profesiones/5', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:53:44');
+INSERT INTO `bitacora` VALUES (2460, '/profesiones/put', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"PUT\",\"id\":\"5\",\"name\":\"Alba\\u00f1il\"}', 'PUT', 11, NULL, 'habbott@example.com', '2024-10-07 18:54:03');
+INSERT INTO `bitacora` VALUES (2461, '/profesiones', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:54:03');
+INSERT INTO `bitacora` VALUES (2462, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:54:07');
+INSERT INTO `bitacora` VALUES (2463, '/empleados/1', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:54:08');
+INSERT INTO `bitacora` VALUES (2464, '/empleados/put', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre_empleado\":\"Caja 01\",\"genero_empleado\":\"F\",\"estado_familiar\":\"S\\/N\",\"profesion_id\":\"3\",\"domicilio_departamento\":\"San Miguel\",\"direccion\":\"San Miguel\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"dui\":\"03731671**\",\"expedicion_dui\":\"San Miguel\",\"nit\":\"1314-120587-101-5\",\"telefono\":\"2654-1561\",\"otros_datos\":null}', 'PUT', 11, NULL, 'habbott@example.com', '2024-10-07 18:54:56');
+INSERT INTO `bitacora` VALUES (2465, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:54:57');
+INSERT INTO `bitacora` VALUES (2466, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:55:35');
+INSERT INTO `bitacora` VALUES (2467, '/empleados/put', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"PUT\",\"id\":\"2\",\"nombre_empleado\":\"Colector 01\",\"genero_empleado\":\"M\",\"estado_familiar\":\"Soltero\",\"profesion_id\":\"4\",\"domicilio_departamento\":\"san Miguel\",\"direccion\":\"San Miguel\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"dui\":\"03731671*8\",\"expedicion_dui\":\"SAN MIGUEL\",\"nit\":\"1314-120587-101-8\",\"telefono\":\"2654156\",\"otros_datos\":null}', 'PUT', 11, NULL, 'habbott@example.com', '2024-10-07 18:56:22');
+INSERT INTO `bitacora` VALUES (2468, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:56:22');
+INSERT INTO `bitacora` VALUES (2469, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 18:57:23');
+INSERT INTO `bitacora` VALUES (2470, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:01:43');
+INSERT INTO `bitacora` VALUES (2471, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:01:49');
+INSERT INTO `bitacora` VALUES (2472, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:02:25');
+INSERT INTO `bitacora` VALUES (2473, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:03:20');
+INSERT INTO `bitacora` VALUES (2474, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:04:14');
+INSERT INTO `bitacora` VALUES (2475, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:04:30');
+INSERT INTO `bitacora` VALUES (2476, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:04:39');
+INSERT INTO `bitacora` VALUES (2477, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:05:16');
+INSERT INTO `bitacora` VALUES (2478, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:05:38');
+INSERT INTO `bitacora` VALUES (2479, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:05:51');
+INSERT INTO `bitacora` VALUES (2480, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:06:15');
+INSERT INTO `bitacora` VALUES (2481, '/empleados/1', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:06:19');
+INSERT INTO `bitacora` VALUES (2482, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:06:22');
+INSERT INTO `bitacora` VALUES (2483, '/empleados/2', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:06:24');
+INSERT INTO `bitacora` VALUES (2484, '/empleados/put', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"PUT\",\"id\":\"2\",\"nombre_empleado\":\"Colector 01\",\"genero_empleado\":\"M\",\"estado_familiar\":\"Soltero\",\"profesion_id\":\"3\",\"domicilio_departamento\":\"san Miguel\",\"direccion\":\"San Miguel\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"dui\":\"03731671*8\",\"expedicion_dui\":\"SAN MIGUEL\",\"nit\":\"1314-120587-101-8\",\"telefono\":null,\"otros_datos\":null}', 'PUT', 11, NULL, 'habbott@example.com', '2024-10-07 19:06:31');
+INSERT INTO `bitacora` VALUES (2485, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:06:32');
+INSERT INTO `bitacora` VALUES (2486, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:07:37');
+INSERT INTO `bitacora` VALUES (2487, '/empleados/1', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:07:39');
+INSERT INTO `bitacora` VALUES (2488, '/empleados/put', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre_empleado\":\"Caja 01\",\"genero_empleado\":\"F\",\"estado_familiar\":\"S\\/N\",\"profesion_id\":\"3\",\"domicilio_departamento\":\"San Miguel\",\"direccion\":\"San Miguel\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"dui\":\"03731671**\",\"expedicion_dui\":\"San Miguel\",\"nit\":\"1314-120587-101-5\",\"telefono\":null,\"otros_datos\":null}', 'PUT', 11, NULL, 'habbott@example.com', '2024-10-07 19:07:43');
+INSERT INTO `bitacora` VALUES (2489, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:07:44');
+INSERT INTO `bitacora` VALUES (2490, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:08:58');
+INSERT INTO `bitacora` VALUES (2491, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:09:24');
+INSERT INTO `bitacora` VALUES (2492, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:11:08');
+INSERT INTO `bitacora` VALUES (2493, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:11:50');
+INSERT INTO `bitacora` VALUES (2494, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:11:53');
+INSERT INTO `bitacora` VALUES (2495, '/empleados', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:54:01');
+INSERT INTO `bitacora` VALUES (2496, '/user', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:54:10');
+INSERT INTO `bitacora` VALUES (2497, '/user/add', '[]', 'GET', 11, NULL, 'habbott@example.com', '2024-10-07 19:54:12');
+INSERT INTO `bitacora` VALUES (2498, '/user/delete', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"DELETE\",\"id\":\"11\"}', 'DELETE', 11, NULL, 'habbott@example.com', '2024-10-07 19:54:21');
+INSERT INTO `bitacora` VALUES (2499, '/set-new-password', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 19:57:32');
+INSERT INTO `bitacora` VALUES (2500, '/set-new-password', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"password\":\"P@ssword7\",\"confirm-password\":\"P@ssword7\",\"toc\":\"1\"}', 'POST', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 19:58:29');
+INSERT INTO `bitacora` VALUES (2501, '/dashboard', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 19:58:29');
+INSERT INTO `bitacora` VALUES (2502, '/user', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 19:58:48');
+INSERT INTO `bitacora` VALUES (2503, '/user/add', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 19:58:54');
+INSERT INTO `bitacora` VALUES (2504, '/empleados', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 19:59:07');
+INSERT INTO `bitacora` VALUES (2505, '/empleados/add', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 19:59:13');
+INSERT INTO `bitacora` VALUES (2506, '/empleados/add', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"nombre_empleado\":\"Gerencia\",\"genero_empleado\":\"M\",\"estado_familiar\":\"SN\",\"profesion_id\":\"3\",\"domicilio_departamento\":\"San Miguel\",\"direccion\":\"San Miguel\",\"nacionalidad\":\"Salvadore\\u00f1o\",\"dui\":\"00000000-0\",\"expedicion_dui\":\"San Miguel\",\"nit\":\"0000-000000-000+0\",\"telefono\":\"0000-0000\",\"otros_datos\":\"000\"}', 'POST', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:00:03');
+INSERT INTO `bitacora` VALUES (2507, '/empleados', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:00:03');
+INSERT INTO `bitacora` VALUES (2508, '/user', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:00:05');
+INSERT INTO `bitacora` VALUES (2509, '/user/add', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:00:06');
+INSERT INTO `bitacora` VALUES (2510, '/user/add', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"id_empleado_usuario\":\"3\",\"id_rol\":\"1\",\"email\":\"gerencia_cimacoop@gmail.com\",\"password\":\"gerencia\",\"rep_password\":\"gerencia\"}', 'POST', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:00:20');
+INSERT INTO `bitacora` VALUES (2511, '/user', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:00:20');
+INSERT INTO `bitacora` VALUES (2512, '/user', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:00:53');
+INSERT INTO `bitacora` VALUES (2513, '/empleados', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:00:54');
+INSERT INTO `bitacora` VALUES (2514, '/user', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:01:00');
+INSERT INTO `bitacora` VALUES (2515, '/user/add', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:01:04');
+INSERT INTO `bitacora` VALUES (2516, '/user/add', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"id_empleado_usuario\":\"2\",\"id_rol\":\"2\",\"email\":\"cimacoop_colector@gmail.com\",\"password\":\"colector01\",\"rep_password\":\"colector01\"}', 'POST', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:01:31');
+INSERT INTO `bitacora` VALUES (2517, '/user', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:01:32');
+INSERT INTO `bitacora` VALUES (2518, '/rol', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:01:34');
+INSERT INTO `bitacora` VALUES (2519, '/rol/add', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:01:36');
+INSERT INTO `bitacora` VALUES (2520, '/rol/add', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"name\":\"Colector\"}', 'POST', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:01:46');
+INSERT INTO `bitacora` VALUES (2521, '/rol', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:01:46');
+INSERT INTO `bitacora` VALUES (2522, '/user', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:01:50');
+INSERT INTO `bitacora` VALUES (2523, '/user/23', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:01:52');
+INSERT INTO `bitacora` VALUES (2524, '/user/put', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"PUT\",\"id\":\"23\",\"id_empleado_usuario\":\"2\",\"id_rol\":\"13\",\"email\":\"cimacoop_colector@gmail.com\",\"password\":\"colector01\"}', 'PUT', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:02:09');
+INSERT INTO `bitacora` VALUES (2525, '/user', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:02:09');
+INSERT INTO `bitacora` VALUES (2526, '/user/1', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:02:18');
+INSERT INTO `bitacora` VALUES (2527, '/user/put', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"PUT\",\"id\":\"1\",\"id_empleado_usuario\":\"1\",\"id_rol\":\"2\",\"email\":\"caja_cimacoop@gmail.com\",\"password\":\"caja01\"}', 'PUT', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:02:32');
+INSERT INTO `bitacora` VALUES (2528, '/user', '[]', 'GET', 1, 'Caja 01', 'nulfito@hotmail.com', '2024-10-07 20:02:32');
+INSERT INTO `bitacora` VALUES (2529, '/dashboard', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:02:49');
+INSERT INTO `bitacora` VALUES (2530, '/clientes', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:02:54');
+INSERT INTO `bitacora` VALUES (2531, '/dashboard', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:09:57');
+INSERT INTO `bitacora` VALUES (2532, '/asociados', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:10:00');
+INSERT INTO `bitacora` VALUES (2533, '/asociados/solicitud/3', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:10:04');
+INSERT INTO `bitacora` VALUES (2534, '/asociados/solicitud/3', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:10:07');
+INSERT INTO `bitacora` VALUES (2535, '/tipoCuenta', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:10:25');
+INSERT INTO `bitacora` VALUES (2536, '/creditos/solicitudes', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:10:31');
+INSERT INTO `bitacora` VALUES (2537, '/creditos/solicitudes/add', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:10:33');
+INSERT INTO `bitacora` VALUES (2538, '/clientes/getClienteData/2', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:10:36');
+INSERT INTO `bitacora` VALUES (2539, '/referencias', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:10:45');
+INSERT INTO `bitacora` VALUES (2540, '/referencias/add', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:11:06');
+INSERT INTO `bitacora` VALUES (2541, '/referencias/add', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"nombre\":\"Marta Alicia Jandres\",\"parentesco\":null,\"telefono\":\"76227690\",\"direccion\":\"B. Concepcion\",\"lugar_trabajo\":\"Comerciante\",\"observaciones\":null}', 'POST', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:11:53');
+INSERT INTO `bitacora` VALUES (2542, '/referencias', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:11:54');
+INSERT INTO `bitacora` VALUES (2543, '/referencias/add', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:11:55');
+INSERT INTO `bitacora` VALUES (2544, '/referencias/add', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"nombre\":\"Lorena Urrutia\",\"parentesco\":null,\"telefono\":\"6048-9756\",\"direccion\":\"B. Concepcion\",\"lugar_trabajo\":\"Estudiante\",\"observaciones\":null}', 'POST', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:12:27');
+INSERT INTO `bitacora` VALUES (2545, '/referencias', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:12:28');
+INSERT INTO `bitacora` VALUES (2546, '/referencias/add', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:12:30');
+INSERT INTO `bitacora` VALUES (2547, '/referencias/add', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"nombre\":\"Yesenia Carolina\",\"parentesco\":null,\"telefono\":\"7868-6209\",\"direccion\":\"B. Concepcion\",\"lugar_trabajo\":\"Comerciante\",\"observaciones\":null}', 'POST', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:12:57');
+INSERT INTO `bitacora` VALUES (2548, '/referencias', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:12:57');
+INSERT INTO `bitacora` VALUES (2549, '/referencias/add', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:12:58');
+INSERT INTO `bitacora` VALUES (2550, '/referencias/add', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"nombre\":\"Katherine Garc\\u00eda\",\"parentesco\":null,\"telefono\":\"7748-0638\",\"direccion\":\"Col. Espa\\u00f1a\",\"lugar_trabajo\":\"Comerciante\",\"observaciones\":null}', 'POST', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:13:28');
+INSERT INTO `bitacora` VALUES (2551, '/referencias', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:13:29');
+INSERT INTO `bitacora` VALUES (2552, '/referencias/1', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:13:39');
+INSERT INTO `bitacora` VALUES (2553, '/referencias/put', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"PUT\",\"id\":\"1\",\"nombre\":\"Luis Arnulfo M\\u00e1rquez Argueta\",\"parentesco\":null,\"telefono\":\"26541561\",\"direccion\":\"San Miguel\",\"lugar_trabajo\":\"Computec\",\"observaciones\":\"ninguna\"}', 'PUT', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:13:43');
+INSERT INTO `bitacora` VALUES (2554, '/referencias', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:13:43');
+INSERT INTO `bitacora` VALUES (2555, '/referencias', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:14:04');
+INSERT INTO `bitacora` VALUES (2556, '/referencias', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:14:24');
+INSERT INTO `bitacora` VALUES (2557, '/referencias', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:14:50');
+INSERT INTO `bitacora` VALUES (2558, '/referencias', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:14:55');
+INSERT INTO `bitacora` VALUES (2559, '/creditos/solicitudes', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:15:12');
+INSERT INTO `bitacora` VALUES (2560, '/creditos/solicitudes/add', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:15:13');
+INSERT INTO `bitacora` VALUES (2561, '/creditos/solicitudes/add', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:20:57');
+INSERT INTO `bitacora` VALUES (2562, '/creditos/solicitudes/add', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:21:15');
+INSERT INTO `bitacora` VALUES (2563, '/clientes/getClienteData/2', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:26:44');
+INSERT INTO `bitacora` VALUES (2564, '/creditos/solicitudes/referencias/add/2/42ca4b90-6882-463b-84fd-8130e3433f5d/14', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:27:32');
+INSERT INTO `bitacora` VALUES (2565, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:27:32');
+INSERT INTO `bitacora` VALUES (2566, '/creditos/solicitudes/referencias/add/3/42ca4b90-6882-463b-84fd-8130e3433f5d/8', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:27:42');
+INSERT INTO `bitacora` VALUES (2567, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:27:42');
+INSERT INTO `bitacora` VALUES (2568, '/creditos/solicitudes/referencias/add/4/42ca4b90-6882-463b-84fd-8130e3433f5d/32', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:28:33');
+INSERT INTO `bitacora` VALUES (2569, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:28:33');
+INSERT INTO `bitacora` VALUES (2570, '/creditos/solicitudes/referencias/add/5/42ca4b90-6882-463b-84fd-8130e3433f5d/31', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:28:48');
+INSERT INTO `bitacora` VALUES (2571, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:28:48');
+INSERT INTO `bitacora` VALUES (2572, '/creditos/solicitudes/add', '{\"_token\":\"ivaW8cSoNsPj2ZA8sA2BFu4KClHKjuXuzu6oMyLB\",\"_method\":\"POST\",\"id_solicitud\":\"42ca4b90-6882-463b-84fd-8130e3433f5d\",\"tasa_interes_deposito\":null,\"fecha_solicitud\":\"2024-08-08\",\"id_cliente\":\"2\",\"fecha_nacimiento\":\"1985-02-07\",\"genero\":\"0\",\"dui_cliente\":\"037457783\",\"fecha_expedicion\":\"2020-02-12\",\"telefono\":\"78944554\",\"nacionalidad\":\"SALVADORE\\u00d1A\",\"estado_civil\":\"SOLTERA\",\"direccion_personal\":\"BARRIO CONCEPCION, 23 CALLE OTE PSE MERLIOT, SAN MIGUEL\",\"nombre_negocio\":\"VENTA DE FRUTAS Y VERDURA\",\"direccion_negocio\":\"San Francisco Gotera\",\"tipo_vivienda\":\"0\",\"observaciones\":null,\"id_empleado\":\"2\",\"monto_solicitado\":\"500\",\"plazo\":\"12\",\"tasa\":\"42\",\"cuota\":\"51.74\",\"seguro_deuda\":\"0\",\"aportaciones\":\"10\",\"destino\":\"69\",\"tipo_garantia\":\"7\",\"garantia\":null,\"id_conyugue\":null,\"empresa_labora\":null,\"cargo\":null,\"sueldo_conyugue\":null,\"tiempo_laborando\":null,\"telefono_trabajo\":null,\"sueldo_solicitante\":\"0\",\"comisiones\":\"0\",\"negocio_propio\":\"1008\",\"otros_ingresos\":\"100\",\"total_ingresos\":\"1108\",\"gastos_vida\":\"400\",\"pagos_obligaciones\":\"250\",\"gastos_negocios\":\"250\",\"otros_gastos\":\"0\",\"total_gasto\":\"900\",\"id_referencia\":\"5\",\"parentesco_id\":\"31\",\"clase_propiedad\":null,\"direccion_bien\":null,\"valor_bien\":null,\"hipotecado_bien\":\"0\"}', 'POST', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:28:56');
+INSERT INTO `bitacora` VALUES (2573, '/creditos/solicitudes', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:28:56');
+INSERT INTO `bitacora` VALUES (2574, '/creditos/solicitudes/edit/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:29:02');
+INSERT INTO `bitacora` VALUES (2575, '/creditos/solicitudes/bienes/getBienes/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:29:02');
+INSERT INTO `bitacora` VALUES (2576, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:29:02');
+INSERT INTO `bitacora` VALUES (2577, '/creditos/solicitudes/edit/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:34:10');
+INSERT INTO `bitacora` VALUES (2578, '/creditos/solicitudes/edit/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:34:46');
+INSERT INTO `bitacora` VALUES (2579, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:34:47');
+INSERT INTO `bitacora` VALUES (2580, '/creditos/solicitudes/bienes/getBienes/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:34:47');
+INSERT INTO `bitacora` VALUES (2581, '/creditos/solicitudes/edit/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:36:08');
+INSERT INTO `bitacora` VALUES (2582, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:36:08');
+INSERT INTO `bitacora` VALUES (2583, '/creditos/solicitudes/bienes/getBienes/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:36:09');
+INSERT INTO `bitacora` VALUES (2584, '/creditos/solicitudes/edit/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:39:27');
+INSERT INTO `bitacora` VALUES (2585, '/creditos/solicitudes/edit/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:40:31');
+INSERT INTO `bitacora` VALUES (2586, '/creditos/solicitudes/edit/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:41:29');
+INSERT INTO `bitacora` VALUES (2587, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:41:29');
+INSERT INTO `bitacora` VALUES (2588, '/creditos/solicitudes/bienes/getBienes/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:41:29');
+INSERT INTO `bitacora` VALUES (2589, '/creditos/solicitudes/referencias/add/1/42ca4b90-6882-463b-84fd-8130e3433f5d/3', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:41:37');
+INSERT INTO `bitacora` VALUES (2590, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:41:37');
+INSERT INTO `bitacora` VALUES (2591, '/creditos/solicitudes/edit/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:42:41');
+INSERT INTO `bitacora` VALUES (2592, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:42:42');
+INSERT INTO `bitacora` VALUES (2593, '/creditos/solicitudes/bienes/getBienes/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:42:42');
+INSERT INTO `bitacora` VALUES (2594, '/creditos/solicitudes', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:43:07');
+INSERT INTO `bitacora` VALUES (2595, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:43:11');
+INSERT INTO `bitacora` VALUES (2596, '/creditos/solicitudes', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:43:53');
+INSERT INTO `bitacora` VALUES (2597, '/creditos/solicitudes/edit/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:43:56');
+INSERT INTO `bitacora` VALUES (2598, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:43:57');
+INSERT INTO `bitacora` VALUES (2599, '/creditos/solicitudes/bienes/getBienes/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:43:57');
+INSERT INTO `bitacora` VALUES (2600, '/creditos/solicitudes/referencias/quitar/29', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:44:00');
+INSERT INTO `bitacora` VALUES (2601, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:44:00');
+INSERT INTO `bitacora` VALUES (2602, '/creditos/solicitudes/referencias/quitar/28', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:44:03');
+INSERT INTO `bitacora` VALUES (2603, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:44:03');
+INSERT INTO `bitacora` VALUES (2604, '/creditos/solicitudes/referencias/quitar/27', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:44:06');
+INSERT INTO `bitacora` VALUES (2605, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:44:07');
+INSERT INTO `bitacora` VALUES (2606, '/creditos/solicitudes/referencias/add/4/42ca4b90-6882-463b-84fd-8130e3433f5d/34', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:44:19');
+INSERT INTO `bitacora` VALUES (2607, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:44:19');
+INSERT INTO `bitacora` VALUES (2608, '/creditos/solicitudes/referencias/add/5/42ca4b90-6882-463b-84fd-8130e3433f5d/34', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:44:25');
+INSERT INTO `bitacora` VALUES (2609, '/creditos/solicitudes/referencias/getReferencias/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:44:25');
+INSERT INTO `bitacora` VALUES (2610, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:44:32');
+INSERT INTO `bitacora` VALUES (2611, '/clientes', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:53:26');
+INSERT INTO `bitacora` VALUES (2612, '/clientes/2', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:53:28');
+INSERT INTO `bitacora` VALUES (2613, '/clientes/2', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:54:32');
+INSERT INTO `bitacora` VALUES (2614, '/clientes/2', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 20:55:41');
+INSERT INTO `bitacora` VALUES (2615, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:00:38');
+INSERT INTO `bitacora` VALUES (2616, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:01:45');
+INSERT INTO `bitacora` VALUES (2617, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:02:07');
+INSERT INTO `bitacora` VALUES (2618, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:02:38');
+INSERT INTO `bitacora` VALUES (2619, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:03:36');
+INSERT INTO `bitacora` VALUES (2620, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:06:19');
+INSERT INTO `bitacora` VALUES (2621, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:09:08');
+INSERT INTO `bitacora` VALUES (2622, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:10:32');
+INSERT INTO `bitacora` VALUES (2623, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:10:58');
+INSERT INTO `bitacora` VALUES (2624, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:11:43');
+INSERT INTO `bitacora` VALUES (2625, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:12:23');
+INSERT INTO `bitacora` VALUES (2626, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:13:57');
+INSERT INTO `bitacora` VALUES (2627, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:14:05');
+INSERT INTO `bitacora` VALUES (2628, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:14:33');
+INSERT INTO `bitacora` VALUES (2629, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:15:27');
+INSERT INTO `bitacora` VALUES (2630, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:15:52');
+INSERT INTO `bitacora` VALUES (2631, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:16:05');
+INSERT INTO `bitacora` VALUES (2632, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:16:06');
+INSERT INTO `bitacora` VALUES (2633, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:16:09');
+INSERT INTO `bitacora` VALUES (2634, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:21:19');
+INSERT INTO `bitacora` VALUES (2635, '/creditos/solicitudes', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:27:09');
+INSERT INTO `bitacora` VALUES (2636, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:27:12');
+INSERT INTO `bitacora` VALUES (2637, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:27:47');
+INSERT INTO `bitacora` VALUES (2638, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:41:37');
+INSERT INTO `bitacora` VALUES (2639, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:42:15');
+INSERT INTO `bitacora` VALUES (2640, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:44:08');
+INSERT INTO `bitacora` VALUES (2641, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:44:21');
+INSERT INTO `bitacora` VALUES (2642, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:44:54');
+INSERT INTO `bitacora` VALUES (2643, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:45:09');
+INSERT INTO `bitacora` VALUES (2644, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:46:34');
+INSERT INTO `bitacora` VALUES (2645, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:47:18');
+INSERT INTO `bitacora` VALUES (2646, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:47:37');
+INSERT INTO `bitacora` VALUES (2647, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:48:06');
+INSERT INTO `bitacora` VALUES (2648, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:48:22');
+INSERT INTO `bitacora` VALUES (2649, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:48:41');
+INSERT INTO `bitacora` VALUES (2650, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:50:48');
+INSERT INTO `bitacora` VALUES (2651, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:51:30');
+INSERT INTO `bitacora` VALUES (2652, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:51:48');
+INSERT INTO `bitacora` VALUES (2653, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:52:26');
+INSERT INTO `bitacora` VALUES (2654, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:52:48');
+INSERT INTO `bitacora` VALUES (2655, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:53:01');
+INSERT INTO `bitacora` VALUES (2656, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:58:55');
+INSERT INTO `bitacora` VALUES (2657, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 21:59:23');
+INSERT INTO `bitacora` VALUES (2658, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:00:03');
+INSERT INTO `bitacora` VALUES (2659, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:00:31');
+INSERT INTO `bitacora` VALUES (2660, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:01:15');
+INSERT INTO `bitacora` VALUES (2661, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:01:36');
+INSERT INTO `bitacora` VALUES (2662, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:02:00');
+INSERT INTO `bitacora` VALUES (2663, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:02:28');
+INSERT INTO `bitacora` VALUES (2664, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:02:49');
+INSERT INTO `bitacora` VALUES (2665, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:03:04');
+INSERT INTO `bitacora` VALUES (2666, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:03:21');
+INSERT INTO `bitacora` VALUES (2667, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:03:38');
+INSERT INTO `bitacora` VALUES (2668, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:03:46');
+INSERT INTO `bitacora` VALUES (2669, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:04:16');
+INSERT INTO `bitacora` VALUES (2670, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:04:37');
+INSERT INTO `bitacora` VALUES (2671, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:05:10');
+INSERT INTO `bitacora` VALUES (2672, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:05:19');
+INSERT INTO `bitacora` VALUES (2673, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:05:33');
+INSERT INTO `bitacora` VALUES (2674, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:05:45');
+INSERT INTO `bitacora` VALUES (2675, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:06:05');
+INSERT INTO `bitacora` VALUES (2676, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:06:31');
+INSERT INTO `bitacora` VALUES (2677, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:07:13');
+INSERT INTO `bitacora` VALUES (2678, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:07:41');
+INSERT INTO `bitacora` VALUES (2679, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:08:32');
+INSERT INTO `bitacora` VALUES (2680, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:08:51');
+INSERT INTO `bitacora` VALUES (2681, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:09:02');
+INSERT INTO `bitacora` VALUES (2682, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:09:29');
+INSERT INTO `bitacora` VALUES (2683, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:09:37');
+INSERT INTO `bitacora` VALUES (2684, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:09:55');
+INSERT INTO `bitacora` VALUES (2685, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:10:16');
+INSERT INTO `bitacora` VALUES (2686, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:10:50');
+INSERT INTO `bitacora` VALUES (2687, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:18:23');
+INSERT INTO `bitacora` VALUES (2688, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:18:32');
+INSERT INTO `bitacora` VALUES (2689, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:18:45');
+INSERT INTO `bitacora` VALUES (2690, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:19:35');
+INSERT INTO `bitacora` VALUES (2691, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:19:46');
+INSERT INTO `bitacora` VALUES (2692, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:20:08');
+INSERT INTO `bitacora` VALUES (2693, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:20:33');
+INSERT INTO `bitacora` VALUES (2694, '/creditos/solicitud/42ca4b90-6882-463b-84fd-8130e3433f5d', '[]', 'GET', 22, 'Gerencia', 'gerencia_cimacoop@gmail.com', '2024-10-07 22:20:53');
 
 -- ----------------------------
 -- Table structure for bobeda
@@ -1685,7 +2868,7 @@ CREATE TABLE `bobeda`  (
 -- ----------------------------
 -- Records of bobeda
 -- ----------------------------
-INSERT INTO `bobeda` VALUES (2, 'Bovéda General', 50135.00, 0, '0023-07-15 00:00:00', '2024-09-25 12:19:38');
+INSERT INTO `bobeda` VALUES (2, 'Bovéda General', 49635.00, 1, '0023-07-15 00:00:00', '2024-10-06 13:12:09');
 
 -- ----------------------------
 -- Table structure for bobeda_movimientos
@@ -1705,11 +2888,13 @@ CREATE TABLE `bobeda_movimientos`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_bobeda_movimiento`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bobeda_movimientos
 -- ----------------------------
+INSERT INTO `bobeda_movimientos` VALUES (1, 2, 0, 3, 50135.00, NULL, 2, 'inicio de oepraciones', 9, '2024-10-06 13:11:42', '2024-10-06 13:11:42', '2024-10-06 13:11:42');
+INSERT INTO `bobeda_movimientos` VALUES (2, 2, 1, 1, 500.00, NULL, 2, 'Inico de oepraciones', 9, '2024-10-06 13:12:09', '2024-10-06 13:12:09', '2024-10-06 13:12:18');
 
 -- ----------------------------
 -- Table structure for cajas
@@ -1730,7 +2915,7 @@ CREATE TABLE `cajas`  (
 -- Records of cajas
 -- ----------------------------
 INSERT INTO `cajas` VALUES (0, '0', 0, 4, 0.00, '2023-06-16 12:25:03', '2023-06-16 12:25:03');
-INSERT INTO `cajas` VALUES (1, 'Caja # 01', 0, 9, 0.00, '2023-06-14 16:47:11', '2024-09-25 12:19:09');
+INSERT INTO `cajas` VALUES (1, 'Caja # 01', 1, 9, 500.00, '2023-06-14 16:47:11', '2024-10-06 13:12:18');
 INSERT INTO `cajas` VALUES (2, 'Caja # 02', 0, 20, 0.00, '2023-06-14 16:50:02', '2023-09-13 10:50:19');
 
 -- ----------------------------
@@ -2973,23 +4158,25 @@ CREATE TABLE `clientes`  (
   `telefono` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `nacionalidad` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `estado_civil` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
-  `direccion_personal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
-  `direccion_negocio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `direccion_personal` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL,
+  `direccion_negocio` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL,
   `nombre_negocio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `tipo_vivienda` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
-  `observaciones` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
-  `profesion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `conyugue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `observaciones` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL,
+  `profesion_id` bigint NULL DEFAULT NULL,
   `estado` int NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   `id_empleado` int NOT NULL,
   PRIMARY KEY (`id_cliente`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of clientes
 -- ----------------------------
-INSERT INTO `clientes` VALUES (1, 'Luis Arnulfo Marquez', '1', '1987-05-12', '03731671-8', 'San Francisco Gotera', '2020-05-12', '2654-1561', 'Salvadoreño', 'Soltero', 'San Miguel', 'San Francisco Gotera', 'CompuTec', '0', 'ninguna', NULL, 1, '2024-09-25 12:08:07', '2024-09-25 12:08:07', 9);
+INSERT INTO `clientes` VALUES (1, 'Luis Arnulfo Marquez', '1', '1987-05-12', '03731671-8', 'San Francisco Gotera', '2020-05-12', '2654-1561', 'Salvadoreño', 'Soltero', 'San Miguel', 'San Francisco Gotera', 'CompuTec', '0', NULL, 'ninguna', 2, 1, '2024-09-25 12:08:07', '2024-10-04 18:24:42', 9);
+INSERT INTO `clientes` VALUES (2, 'LORENA YAMILETH CHAVARRIA URRUTUIA', '0', '1985-02-07', '037457783', 'San Miguel', '2020-02-12', '78944554', 'SALVADOREÑA', 'SOLTERA', 'BARRIO CONCEPCION, 23 CALLE OTE PSE MERLIOT, SAN MIGUEL', 'San Francisco Gotera', 'VENTA DE FRUTAS Y VERDURA', '0', 'Luis marquez', NULL, 1, 1, '2024-10-04 18:31:00', '2024-10-05 11:00:33', 9);
 
 -- ----------------------------
 -- Table structure for compras
@@ -3078,7 +4265,7 @@ CREATE TABLE `configuracion`  (
 -- ----------------------------
 -- Records of configuracion
 -- ----------------------------
-INSERT INTO `configuracion` VALUES (1, 'Cimacoop', 'Cimacoop de RL', 'Prestamos de dinero', '232345-0', '13141205871014', '2654-1561', '2a Calle Poniente barrio la soledad', 'svcomputec@gmail.com', 3, 3.60, 2.00, 2023, 1, 5, 2, 460, 490, 492, 5, 288, 288, 1.50, 460, 5, 1, NULL, '2024-05-29 18:34:13');
+INSERT INTO `configuracion` VALUES (1, 'CIMACOOP, DE RL', 'Asociacion cooperativa de ahorrto y credito \"La Cima\" de responsabilidad limitada', 'Prestamos de dinero', '232345-0', '13141205871014', '2654-1561', '2a Calle Poniente barrio la soledad', 'svcomputec@gmail.com', 3, 3.60, 2.00, 2023, 1, 5, 2, 460, 490, 492, 5, 288, 288, 1.50, 460, 5, 1, NULL, '2024-05-29 18:34:13');
 
 -- ----------------------------
 -- Table structure for correlativos
@@ -3178,21 +4365,12 @@ CREATE TABLE `cuentas`  (
   `updated_at` datetime NULL DEFAULT NULL,
   `declarado` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_cuenta`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 151 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of cuentas
 -- ----------------------------
-INSERT INTO `cuentas` VALUES (0, 0, 0, 1, 0, 800.00, NULL, 135.00, NULL, 1, NULL, '2023-06-19 13:02:34', 0);
-INSERT INTO `cuentas` VALUES (142, 2, NULL, 1, 1, 50.00, '2023-10-23', 9829.02, 10, 0, '2023-10-29 09:19:43', '2024-08-15 14:41:11', 1);
-INSERT INTO `cuentas` VALUES (143, 2, NULL, 1, 2, 50.00, '2023-10-24', 60.00, 10, 1, '2023-10-29 10:12:00', '2023-10-29 11:00:01', 0);
-INSERT INTO `cuentas` VALUES (144, 2, NULL, 2, 1, 12.00, '2023-10-17', 576.00, 6, 1, '2023-10-29 10:16:55', '2024-04-01 21:09:43', 0);
-INSERT INTO `cuentas` VALUES (145, 3, NULL, 1, 3, 50.00, '2024-06-26', 618.34, 13, 1, '2024-06-26 09:11:14', '2024-06-26 09:41:09', 0);
-INSERT INTO `cuentas` VALUES (146, 3, NULL, 9, 1, 10.00, '2024-06-26', 10.00, 11, 1, '2024-06-26 09:34:53', '2024-06-26 09:41:09', 0);
-INSERT INTO `cuentas` VALUES (147, 2, NULL, 9, 2, 0.00, '2024-08-15', 0.00, 11, 1, '2024-08-15 09:12:15', '2024-08-15 14:41:11', 0);
-INSERT INTO `cuentas` VALUES (148, 1, NULL, 1, 4, 100.00, '2024-08-15', 100.00, 10, 1, '2024-08-15 10:42:35', '2024-08-15 10:42:35', 0);
-INSERT INTO `cuentas` VALUES (149, 2, NULL, 1, 222, 5.00, '2024-06-14', 5.00, 10, 1, '2024-08-15 13:50:24', '2024-08-15 13:51:20', 1);
-INSERT INTO `cuentas` VALUES (150, 1, NULL, 2, 2, 250.00, '2024-09-25', 385.00, 7, 1, '2024-09-25 12:11:25', '2024-09-25 12:18:47', 1);
+INSERT INTO `cuentas` VALUES (2, 3, NULL, 1, 114, 5.00, '2023-10-19', 5.00, 14, 1, '2024-10-06 13:18:45', '2024-10-06 13:19:37', 1);
 
 -- ----------------------------
 -- Table structure for declaracion_juradas
@@ -3221,12 +4399,14 @@ CREATE TABLE `declaracion_juradas`  (
   INDEX `declaracion_juradas_id_cliente_foreign`(`id_cliente` ASC) USING BTREE,
   CONSTRAINT `declaracion_juradas_id_cliente_foreign` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `declaracion_juradas_id_cuenta_foreign` FOREIGN KEY (`id_cuenta`) REFERENCES `cuentas` (`id_cuenta`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of declaracion_juradas
 -- ----------------------------
 INSERT INTO `declaracion_juradas` VALUES (1, 'San Miguel', '2024-09-25', 2, 5, 250.00, 25.00, 'Negocio Propio', 'Carné o constancia de pensión', 1, 150, '2024-09-25 12:13:41', '2024-09-25 12:13:41', NULL, NULL, 'Ambos\r\n                                        (Cheque\r\n                                        y/o Efectivo)', 'Ambos\r\n                                        (Cheque\r\n                                        y/o Efectivo)');
+INSERT INTO `declaracion_juradas` VALUES (2, 'San Miguel', '2024-10-06', 10, 0, 10.00, 0.00, 'Salarios', 'Constancia de Salarios', 2, 1, '2024-10-06 13:13:17', '2024-10-06 13:13:17', NULL, NULL, 'Ambos\r\n                                        (Cheque\r\n                                        y/o Efectivo)', 'Ambos\r\n                                        (Cheque\r\n                                        y/o Efectivo)');
+INSERT INTO `declaracion_juradas` VALUES (3, 'San Miguel', '2024-10-06', 0, 0, 0.00, 0.00, 'Salarios', 'Constancia de Salarios', 2, 2, '2024-10-06 13:19:37', '2024-10-06 13:19:37', NULL, NULL, 'Ambos\r\n                                        (Cheque\r\n                                        y/o Efectivo)', 'Ambos\r\n                                        (Cheque\r\n                                        y/o Efectivo)');
 
 -- ----------------------------
 -- Table structure for departamentos_territorio
@@ -3290,7 +4470,6 @@ CREATE TABLE `empleados`  (
   `nombre_empleado` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `genero_empleado` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `estado_familiar` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
-  `profesion` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `domicilio_departamento` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `direccion` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `nacionalidad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
@@ -3298,41 +4477,20 @@ CREATE TABLE `empleados`  (
   `expedicion_dui` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `nit` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `otros_datos` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `telefono` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `estado` int NULL DEFAULT NULL,
+  `profesion_id` bigint NULL DEFAULT NULL,
   `created_at` date NULL DEFAULT NULL,
   `updated_at` date NULL DEFAULT NULL,
   PRIMARY KEY (`id_empleado`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of empleados
 -- ----------------------------
-INSERT INTO `empleados` VALUES (4, 'Davo', 'asd', 'asd', 'asd', 'asd', 'asd', 'asd', 'as', 'asd', 'as', 'asd', 1, '2023-06-06', '2023-06-06');
-INSERT INTO `empleados` VALUES (5, 'Randy Ramirez', 'M', 'Single', 'Sales manager', 'Custom Service Support', '980 S Broadway', 'United States', '52301799-4', 'Custom Service Support', '6186-045036-155-4', 'L', 0, '2006-01-03', '2007-05-24');
-INSERT INTO `empleados` VALUES (6, 'Raymond Bennett', 'M', 'Married', 'Veterinarian', 'Public Relations', '387 North Michigan Ave', 'United States', '35971275-0', 'Public Relations', '7303-779395-794-6', 'XS', 0, '2001-12-30', '2019-10-23');
-INSERT INTO `empleados` VALUES (7, 'Louis Ruiz', 'M', 'Married', 'Insurance sales agent', 'Purchasing', '652 Diplomacy Drive', 'United States', '33942230-2', 'Purchasing', '0594-848996-669-3', 'M', 1, '2019-02-01', '2003-08-19');
-INSERT INTO `empleados` VALUES (8, 'Louise Owens', 'F', 'Single', 'Insurance sales agent', 'Export', '923 East Cooke Road', 'United States', '94479364-5', 'Export', '5820-802431-767-0', 'L', 0, '2009-05-30', '2009-10-02');
-INSERT INTO `empleados` VALUES (9, 'Norman Parker', 'M', 'Married', 'Software developer', 'Sales', '748 East Cooke Road', 'United States', '38931116-2', 'Sales', '6747-465676-273-7', 'L', 1, '2004-12-21', '2006-04-01');
-INSERT INTO `empleados` VALUES (10, 'Florence Jimenez', 'F', 'Married', 'Marketing director', 'Sales', '420 Fern Street', 'United States', '54774306-9', 'Sales', '4281-415348-712-7', 'XXL', 1, '2006-06-06', '2011-04-02');
-INSERT INTO `empleados` VALUES (11, 'Walter Holmes', 'M', 'Single', 'Actor', 'Engineering', '102 Sky Way', 'United States', '39763242-3', 'Engineering', '8796-550687-328-5', 'L', 1, '2017-12-10', '2012-12-17');
-INSERT INTO `empleados` VALUES (12, 'Wayne Gonzales', 'M', 'Single', 'Graphic designer', 'Product Quality', '298 Flatbush Ave', 'United States', '20690636-8', 'Product Quality', '0395-601398-449-9', 'S', 0, '2013-01-13', '2005-02-06');
-INSERT INTO `empleados` VALUES (13, 'Paul Martin', 'M', 'Single', 'Office clerk', 'Marketing', '770 Central Avenue', 'United States', '08356982-8', 'Marketing', '3428-861478-188-0', 'L', 0, '2007-09-19', '2004-04-23');
-INSERT INTO `empleados` VALUES (14, 'Don Cooper', 'M', 'Married', 'Project manager', 'Production', '622 Riverview Road', 'United States', '98852089-8', 'Production', '7870-307662-889-5', 'S', 0, '2011-04-25', '2012-04-22');
-INSERT INTO `empleados` VALUES (15, 'Katherine Gardner', 'F', 'Married', 'Groomer', 'Purchasing', '342 Figueroa Street', 'United States', '39581328-2', 'Purchasing', '1406-926941-655-8', 'L', 1, '2020-07-01', '2023-03-16');
-INSERT INTO `empleados` VALUES (16, 'Dawn Soto', 'F', 'Single', 'Multimedia animator', 'Product Quality', '57 Rush Street', 'United States', '64967883-1', 'Product Quality', '4680-611732-021-2', 'S', 1, '2002-02-27', '2010-03-13');
-INSERT INTO `empleados` VALUES (17, 'Russell Stevens', 'M', 'Married', 'Engineer', 'Product Quality', '677 East Cooke Road', 'United States', '86078771-6', 'Product Quality', '9904-688816-479-6', 'S', 1, '2009-02-15', '2006-05-06');
-INSERT INTO `empleados` VALUES (18, 'Peter Lewis', 'M', 'Married', 'Librarian', 'Production', '432 Tremont Road', 'United States', '77077823-9', 'Production', '5535-235623-349-8', 'XL', 1, '2023-01-31', '2017-11-12');
-INSERT INTO `empleados` VALUES (19, 'Stanley Thomas', 'M', 'Married', 'Sales manager', 'Legal Department', '502 Canal Street', 'United States', '24634159-1', 'Legal Department', '4150-844316-601-9', 'XL', 1, '2022-09-11', '2018-10-12');
-INSERT INTO `empleados` VALUES (20, 'Carlos Dunn', 'M', 'Married', 'UX/UI designer', 'Accounting & Finance', '566 Ridgewood Road', 'United States', '21271353-9', 'Accounting & Finance', '6026-239266-059-3', 'XS', 0, '2023-05-11', '2015-06-05');
-INSERT INTO `empleados` VALUES (21, 'Roger Gonzales', 'M', 'Married', 'Veterinarian', 'Research & Development', '28 Lark Street', 'United States', '37431069-4', 'Research & Development', '1533-160618-172-8', 'S', 1, '2019-01-17', '2009-09-25');
-INSERT INTO `empleados` VALUES (22, 'Albert Soto', 'M', 'Single', 'Retail sales associate', 'Human resource', '909 East Alley', 'United States', '82666183-9', 'Human resource', '2904-955476-179-2', 'S', 1, '2012-10-31', '2001-03-15');
-INSERT INTO `empleados` VALUES (23, 'Karen Diaz', 'F', 'Single', 'Librarian', 'Export', '364 Diplomacy Drive', 'United States', '84386069-8', 'Export', '1752-988843-167-6', 'L', 1, '2004-02-21', '2022-01-17');
-INSERT INTO `empleados` VALUES (24, 'Jesse Hernandez', 'M', 'Single', 'Retail sales associate', 'Research & Development', '458 Wall Street', 'United States', '39350930-2', 'Research & Development', '2049-041726-749-1', 'XL', 0, '2002-12-22', '2009-10-19');
-INSERT INTO `empleados` VALUES (25, 'Catherine Price', 'F', 'Married', 'Logistics coordinator', 'Sales', '640 Wicklow Road', 'United States', '96632515-7', 'Sales', '5424-355211-622-6', 'M', 1, '2002-07-17', '2021-05-06');
-INSERT INTO `empleados` VALUES (26, 'Ashley Morris', 'F', 'Married', 'Veterinary assistant', 'Sales', '934 Wall Street', 'United States', '77686380-0', 'Sales', '6432-580868-069-0', 'XXL', 1, '2003-03-19', '2002-06-03');
-INSERT INTO `empleados` VALUES (27, 'Keith Kim', 'M', 'Single', 'Professor', 'Accounting & Finance', '403 Nostrand Ave', 'United States', '42089066-6', 'Accounting & Finance', '0281-425359-710-9', 'L', 0, '2008-06-09', '2022-06-04');
-INSERT INTO `empleados` VALUES (28, 'Manuel Robinson', 'M', 'Divorced', 'Office clerk', 'Logistics', '798 Bergen St', 'United States', '66886108-2', 'Logistics', '7643-148581-539-7', 'S', 0, '2008-02-19', '2015-02-28');
-INSERT INTO `empleados` VALUES (29, 'Chris Wilson', 'M', 'Single', 'Technical support', 'Purchasing', '558 Central Avenue', 'United States', '94900485-9', 'Purchasing', '9160-372345-846-5', 'L', 0, '2003-04-18', '2003-05-23');
+INSERT INTO `empleados` VALUES (1, 'Caja 01', 'F', 'S/N', 'San Miguel', 'San Miguel', 'Salvadoreño', '03731671**', 'San Miguel', '1314-120587-101-5', NULL, NULL, 1, 3, NULL, '2024-10-07');
+INSERT INTO `empleados` VALUES (2, 'Colector 01', 'M', 'Soltero', 'san Miguel', 'San Miguel', 'Salvadoreño', '03731671*8', 'SAN MIGUEL', '1314-120587-101-8', NULL, NULL, 1, 5, '2024-10-07', '2024-10-07');
+INSERT INTO `empleados` VALUES (3, 'Gerencia', 'M', 'SN', 'San Miguel', 'San Miguel', 'Salvadoreño', '00000000-0', 'San Miguel', '0000-000000-000+0', '000', NULL, 1, 3, '2024-10-07', '2024-10-07');
 
 -- ----------------------------
 -- Table structure for facturas
@@ -3444,7 +4602,7 @@ CREATE TABLE `libretas`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_libreta`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of libretas
@@ -3455,6 +4613,8 @@ INSERT INTO `libretas` VALUES (3, 3, NULL, '147', '2024-08-15 09:12:15', 1, NULL
 INSERT INTO `libretas` VALUES (4, 4, NULL, '148', '2024-08-15 10:42:35', 1, NULL, '2024-08-15 10:42:35', '2024-08-15 10:42:35');
 INSERT INTO `libretas` VALUES (5, 5, NULL, '149', '2024-08-15 13:50:24', 1, NULL, '2024-08-15 13:50:24', '2024-08-15 13:50:24');
 INSERT INTO `libretas` VALUES (6, 6, NULL, '150', '2024-09-25 12:11:25', 1, NULL, '2024-09-25 12:11:25', '2024-09-25 12:11:25');
+INSERT INTO `libretas` VALUES (7, 7, NULL, '1', '2024-10-06 13:12:42', 1, NULL, '2024-10-06 13:12:42', '2024-10-06 13:12:42');
+INSERT INTO `libretas` VALUES (8, 8, NULL, '2', '2024-10-06 13:18:45', 1, NULL, '2024-10-06 13:18:45', '2024-10-06 13:18:45');
 
 -- ----------------------------
 -- Table structure for libro_mayor
@@ -3534,7 +4694,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of migrations
@@ -3551,6 +4711,7 @@ INSERT INTO `migrations` VALUES (16, '2023_08_08_211556_create_notifications_tab
 INSERT INTO `migrations` VALUES (17, '2023_08_12_151756_create_parameters_table', 7);
 INSERT INTO `migrations` VALUES (18, '2023_08_16_212038_add_id_empleado_to_client_table', 8);
 INSERT INTO `migrations` VALUES (19, '2023_09_29_184057_create_client_credit_scores_table', 9);
+INSERT INTO `migrations` VALUES (20, '2024_09_29_102204_create_profesions_table', 10);
 
 -- ----------------------------
 -- Table structure for modulo
@@ -3767,11 +4928,14 @@ CREATE TABLE `movimientos`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_movimiento`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of movimientos
 -- ----------------------------
+INSERT INTO `movimientos` VALUES (1, 0, NULL, 3, 500.00, NULL, 1, NULL, NULL, '9', '2024-10-06 13:12:18', 9, 1, NULL, NULL, NULL, NULL, '2024-10-06 13:12:18', '2024-10-06 13:12:18');
+INSERT INTO `movimientos` VALUES (2, 1, NULL, 1, 10.00, 10.00, 0, 'Deposito por apertura de cuenta', '037457783', 'LORENA YAMILETH CHAVARRIA URRUTUIA', '2024-10-06 13:12:42', 9, 1, NULL, 0, 7, 1, '2024-10-06 13:12:42', '2024-10-06 13:21:49');
+INSERT INTO `movimientos` VALUES (3, 2, NULL, 1, 5.00, 5.00, 1, 'Deposito por apertura de cuenta', '037457783', 'LORENA YAMILETH CHAVARRIA URRUTUIA', '2024-10-06 13:18:45', 9, 1, NULL, 0, 8, 1, '2024-10-06 13:18:45', '2024-10-06 13:18:45');
 
 -- ----------------------------
 -- Table structure for notifications
@@ -3851,7 +5015,7 @@ CREATE TABLE `parentesco`  (
   `parentesco` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `estado` int NULL DEFAULT NULL,
   PRIMARY KEY (`id_parentesco`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of parentesco
@@ -3889,6 +5053,8 @@ INSERT INTO `parentesco` VALUES (30, ' Hijastro', 1);
 INSERT INTO `parentesco` VALUES (31, ' Hijastra', 1);
 INSERT INTO `parentesco` VALUES (32, ' Hermanastro', 1);
 INSERT INTO `parentesco` VALUES (33, ' Hermanastra', 1);
+INSERT INTO `parentesco` VALUES (34, 'Amiga', 1);
+INSERT INTO `parentesco` VALUES (35, 'Amigo', 1);
 
 -- ----------------------------
 -- Table structure for partida_contables_detalle
@@ -4061,6 +5227,28 @@ CREATE TABLE `productos`  (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for profesions
+-- ----------------------------
+DROP TABLE IF EXISTS `profesions`;
+CREATE TABLE `profesions`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of profesions
+-- ----------------------------
+INSERT INTO `profesions` VALUES (1, 'Ama de Casa', 1, '2024-09-29 11:24:49', '2024-10-07 15:38:33');
+INSERT INTO `profesions` VALUES (2, 'Ing. Informatica', 1, '2024-09-29 11:26:10', '2024-09-29 11:26:10');
+INSERT INTO `profesions` VALUES (3, 'Lic. Administración de empresas', 1, '2024-09-29 11:26:41', '2024-10-07 18:53:29');
+INSERT INTO `profesions` VALUES (4, 'Lic. Mercadeo', 1, '2024-09-29 11:26:43', '2024-10-07 18:53:42');
+INSERT INTO `profesions` VALUES (5, 'Albañil', 1, '2024-09-29 11:26:43', '2024-10-07 18:54:03');
+
+-- ----------------------------
 -- Table structure for proveedores
 -- ----------------------------
 DROP TABLE IF EXISTS `proveedores`;
@@ -4090,17 +5278,39 @@ CREATE TABLE `referencia_solicitud`  (
   `id_referencia_solicitud` int NOT NULL AUTO_INCREMENT,
   `id_solicitud` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `id_referencia` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
+  `parentesco_id` int NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_referencia_solicitud`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of referencia_solicitud
 -- ----------------------------
-INSERT INTO `referencia_solicitud` VALUES (1, '93f2cb5a-02d3-4e3c-9c42-7f2c557710a8', '1', '2024-06-26 09:27:40', '2024-06-26 09:27:40');
-INSERT INTO `referencia_solicitud` VALUES (2, 'bdf2d975-5b44-4591-9da9-6df1954d1243', '1', '2024-08-15 09:04:56', '2024-08-15 09:04:56');
-INSERT INTO `referencia_solicitud` VALUES (3, 'bd81d341-1265-4ddd-ac73-a9ca5fb376f1', '1', '2024-08-15 14:03:59', '2024-08-15 14:03:59');
+INSERT INTO `referencia_solicitud` VALUES (3, '11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '1', 2, '2024-10-07 10:57:00', '2024-10-07 10:57:00');
+INSERT INTO `referencia_solicitud` VALUES (5, '11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '1', 2, '2024-10-07 10:59:55', '2024-10-07 10:59:55');
+INSERT INTO `referencia_solicitud` VALUES (6, '11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '1', 2, '2024-10-07 11:03:54', '2024-10-07 11:03:54');
+INSERT INTO `referencia_solicitud` VALUES (7, '11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '1', 2, '2024-10-07 11:16:34', '2024-10-07 11:16:34');
+INSERT INTO `referencia_solicitud` VALUES (8, '11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '1', 2, '2024-10-07 11:18:58', '2024-10-07 11:18:58');
+INSERT INTO `referencia_solicitud` VALUES (9, '11e5020d-1ee7-46db-b4b9-da2c6abf02e3', '1', 2, '2024-10-07 11:19:15', '2024-10-07 11:19:15');
+INSERT INTO `referencia_solicitud` VALUES (10, 'ce095f3f-a79d-4236-b176-f36f616ba567', '1', 2, '2024-10-07 11:24:28', '2024-10-07 11:24:28');
+INSERT INTO `referencia_solicitud` VALUES (11, '2c92e268-f71e-4853-9a62-cb2bd7bd2d6f', '1', 1, '2024-10-07 11:26:07', '2024-10-07 11:26:07');
+INSERT INTO `referencia_solicitud` VALUES (12, '2c92e268-f71e-4853-9a62-cb2bd7bd2d6f', '1', 1, '2024-10-07 11:26:14', '2024-10-07 11:26:14');
+INSERT INTO `referencia_solicitud` VALUES (13, '2c92e268-f71e-4853-9a62-cb2bd7bd2d6f', '1', 1, '2024-10-07 11:26:32', '2024-10-07 11:26:32');
+INSERT INTO `referencia_solicitud` VALUES (14, '09ba4433-4c87-4c2e-b4cb-8125941af33d', '1', 3, '2024-10-07 11:26:40', '2024-10-07 11:26:40');
+INSERT INTO `referencia_solicitud` VALUES (15, '09ba4433-4c87-4c2e-b4cb-8125941af33d', '1', 3, '2024-10-07 11:26:48', '2024-10-07 11:26:48');
+INSERT INTO `referencia_solicitud` VALUES (16, '6545bdb9-7d71-4e85-82e0-b6db4d591774', '1', 1, '2024-10-07 11:27:10', '2024-10-07 11:27:10');
+INSERT INTO `referencia_solicitud` VALUES (17, '6545bdb9-7d71-4e85-82e0-b6db4d591774', '1', 1, '2024-10-07 11:27:20', '2024-10-07 11:27:20');
+INSERT INTO `referencia_solicitud` VALUES (18, '6545bdb9-7d71-4e85-82e0-b6db4d591774', '1', 1, '2024-10-07 11:27:23', '2024-10-07 11:27:23');
+INSERT INTO `referencia_solicitud` VALUES (19, '0ef8c992-1462-4f4c-980e-84aef2147312', '1', 2, '2024-10-07 11:28:14', '2024-10-07 11:28:14');
+INSERT INTO `referencia_solicitud` VALUES (20, '4db7cf85-f205-4648-8cc6-605c641ceffd', '1', 3, '2024-10-07 11:29:55', '2024-10-07 11:29:55');
+INSERT INTO `referencia_solicitud` VALUES (22, 'efde1aaa-9721-4963-82c4-006350899c9f', '1', 1, '2024-10-07 11:30:46', '2024-10-07 11:30:46');
+INSERT INTO `referencia_solicitud` VALUES (23, 'eab76a82-8dbe-4b37-87b8-510175e2e53c', '1', 2, '2024-10-07 11:31:27', '2024-10-07 11:31:27');
+INSERT INTO `referencia_solicitud` VALUES (24, 'eab76a82-8dbe-4b37-87b8-510175e2e53c', '1', 3, '2024-10-07 11:31:30', '2024-10-07 11:31:30');
+INSERT INTO `referencia_solicitud` VALUES (25, '42ca4b90-6882-463b-84fd-8130e3433f5d', '2', 14, '2024-10-07 20:27:32', '2024-10-07 20:27:32');
+INSERT INTO `referencia_solicitud` VALUES (26, '42ca4b90-6882-463b-84fd-8130e3433f5d', '3', 8, '2024-10-07 20:27:42', '2024-10-07 20:27:42');
+INSERT INTO `referencia_solicitud` VALUES (30, '42ca4b90-6882-463b-84fd-8130e3433f5d', '4', 34, '2024-10-07 20:44:19', '2024-10-07 20:44:19');
+INSERT INTO `referencia_solicitud` VALUES (31, '42ca4b90-6882-463b-84fd-8130e3433f5d', '5', 34, '2024-10-07 20:44:25', '2024-10-07 20:44:25');
 
 -- ----------------------------
 -- Table structure for referencias
@@ -4119,12 +5329,16 @@ CREATE TABLE `referencias`  (
   `created_at` date NULL DEFAULT NULL,
   `updated_at` date NULL DEFAULT NULL,
   PRIMARY KEY (`id_referencia`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of referencias
 -- ----------------------------
-INSERT INTO `referencias` VALUES (1, NULL, 'Luis Arnulfo Márquez Argueta', 'Her,amp', '26541561', 'San Miguel', 'Computec', 'ninguna', 1, '2024-06-26', '2024-06-26');
+INSERT INTO `referencias` VALUES (1, NULL, 'Luis Arnulfo Márquez Argueta', NULL, '26541561', 'San Miguel', 'Computec', 'ninguna', 1, '2024-06-26', '2024-10-07');
+INSERT INTO `referencias` VALUES (2, NULL, 'Marta Alicia Jandres', NULL, '76227690', 'B. Concepcion', 'Comerciante', NULL, 1, '2024-10-07', '2024-10-07');
+INSERT INTO `referencias` VALUES (3, NULL, 'Lorena Urrutia', NULL, '6048-9756', 'B. Concepcion', 'Estudiante', NULL, 1, '2024-10-07', '2024-10-07');
+INSERT INTO `referencias` VALUES (4, NULL, 'Yesenia Carolina', NULL, '7868-6209', 'B. Concepcion', 'Comerciante', NULL, 1, '2024-10-07', '2024-10-07');
+INSERT INTO `referencias` VALUES (5, NULL, 'Katherine García', NULL, '7748-0638', 'Col. España', 'Comerciante', NULL, 1, '2024-10-07', '2024-10-07');
 
 -- ----------------------------
 -- Table structure for roles
@@ -4136,7 +5350,7 @@ CREATE TABLE `roles`  (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of roles
@@ -4151,6 +5365,7 @@ INSERT INTO `roles` VALUES (7, 'Ordenanza', '2023-06-08 23:41:04', '2023-06-08 2
 INSERT INTO `roles` VALUES (10, 'asdasd', '2023-06-08 23:50:17', '2023-06-08 23:50:17');
 INSERT INTO `roles` VALUES (11, 'asd 8781 a', '2023-06-08 23:50:21', '2023-06-09 14:43:52');
 INSERT INTO `roles` VALUES (12, 'asd', '2023-06-09 14:42:46', '2023-06-09 14:42:46');
+INSERT INTO `roles` VALUES (13, 'Colector', '2024-10-07 20:01:46', '2024-10-07 20:01:46');
 
 -- ----------------------------
 -- Table structure for solicitud_credito
@@ -4159,6 +5374,7 @@ DROP TABLE IF EXISTS `solicitud_credito`;
 CREATE TABLE `solicitud_credito`  (
   `id_solicitud` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `numero_solicitud` int NULL DEFAULT NULL,
+  `id_empleado` bigint NULL DEFAULT NULL,
   `id_cliente` int NULL DEFAULT NULL,
   `id_socio` int NULL DEFAULT NULL,
   `monto_solicitado` decimal(10, 2) NULL DEFAULT NULL,
@@ -4169,7 +5385,7 @@ CREATE TABLE `solicitud_credito`  (
   `aportaciones` decimal(10, 2) NULL DEFAULT NULL,
   `seguro_deuda` decimal(10, 2) NULL DEFAULT NULL,
   `destino` int NULL DEFAULT NULL,
-  `tipo_garantia` int NULL DEFAULT NULL,
+  `tipo_garantia` bigint NULL DEFAULT NULL,
   `garantia` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
   `id_conyugue` int NULL DEFAULT NULL,
   `empresa_labora` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NULL DEFAULT NULL,
@@ -4197,8 +5413,7 @@ CREATE TABLE `solicitud_credito`  (
 -- ----------------------------
 -- Records of solicitud_credito
 -- ----------------------------
-INSERT INTO `solicitud_credito` VALUES ('bd81d341-1265-4ddd-ac73-a9ca5fb376f1', 1, 2, NULL, 3000.00, '2024-04-10', 18, 42.00, 227.45, 10.00, 2.00, 61, 4, 'VEHICULO NISSAN SENTRA P913391', NULL, 'COMPUTEC', 500.00, '1 AÑO', NULL, 'PROPIETARIO', NULL, 4200.00, 0.00, 0.00, '0', 4200.00, 500.00, 529.00, 400.00, 2000.00, 3429.00, 2, '2024-08-15 14:05:04', '2024-08-15 14:07:24');
-INSERT INTO `solicitud_credito` VALUES ('fc52c365-e66b-4740-bd97-53fc85d31b93', 2, 1, NULL, 50.00, '2024-09-29', 50, 2.00, 1.04, NULL, NULL, 68, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 150.00, 0.00, 0.00, '25', 175.00, 500.00, 2.00, NULL, NULL, 502.00, 1, '2024-09-29 09:10:59', '2024-09-29 09:10:59');
+INSERT INTO `solicitud_credito` VALUES ('42ca4b90-6882-463b-84fd-8130e3433f5d', 1, 2, 2, NULL, 500.00, '2024-08-08', 12, 42.00, 51.74, 10.00, 0.00, 69, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 1008.00, '100', 1108.00, 400.00, 250.00, 250.00, 0.00, 900.00, 1, '2024-10-07 20:28:56', '2024-10-07 20:28:56');
 
 -- ----------------------------
 -- Table structure for solicitud_credito_bienes
@@ -4214,12 +5429,11 @@ CREATE TABLE `solicitud_credito_bienes`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_propiedad`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of solicitud_credito_bienes
 -- ----------------------------
-INSERT INTO `solicitud_credito_bienes` VALUES (1, 'bd81d341-1265-4ddd-ac73-a9ca5fb376f1', 'CASA DE HABITACION', 'CIUDAD PACIFICA, SENDA LOS LAURELES, POL D #53', '45000', '0', '2024-08-15 14:05:01', '2024-08-15 14:05:01');
 
 -- ----------------------------
 -- Table structure for temp_password
@@ -4234,13 +5448,14 @@ CREATE TABLE `temp_password`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_temp_password`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of temp_password
 -- ----------------------------
 INSERT INTO `temp_password` VALUES (1, '$2y$10$64v2WU6CjMGJM0eJuWR4yOl9Yp2l8MO0EbsgeZwct1fhh7BxUaDq2', '41Hmu', 1, '2024-06-26 09:35:55', '2024-06-26 09:20:55', '2024-06-26 09:21:44');
 INSERT INTO `temp_password` VALUES (2, '$2y$10$RlUttlZEqgXLqT1kQPruhucWamIWGoyUmwK0VRhTeVdD3K/3.K926', 'M24vO', 1, '2024-08-15 09:16:21', '2024-08-15 09:01:21', '2024-08-15 09:01:35');
+INSERT INTO `temp_password` VALUES (3, '$2y$10$FhRQ8S.YrpK6eBdJcPmPsufxfJwgK8UDAmD0ltX2FMKu/rpNowhdu', 'IySQO', 1, '2024-10-06 13:36:39', '2024-10-06 13:21:39', '2024-10-06 13:21:49');
 
 -- ----------------------------
 -- Table structure for tipo_garantia
@@ -4253,7 +5468,7 @@ CREATE TABLE `tipo_garantia`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id_tipo_garantia`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_spanish2_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tipo_garantia
@@ -4264,6 +5479,7 @@ INSERT INTO `tipo_garantia` VALUES (3, 'Fiduciaria', 1, NULL, NULL);
 INSERT INTO `tipo_garantia` VALUES (4, 'Prendaria', 1, NULL, NULL);
 INSERT INTO `tipo_garantia` VALUES (5, 'Orden de Descuento', 1, NULL, NULL);
 INSERT INTO `tipo_garantia` VALUES (6, 'Sin Garantía', 1, NULL, NULL);
+INSERT INTO `tipo_garantia` VALUES (7, 'Pagaré', 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tipos_cuentas
@@ -4330,22 +5546,14 @@ CREATE TABLE `users`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `users_email_unique`(`email` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (7, 3, NULL, 'a@a.com', NULL, '$2y$10$ytnD4zsQdUe8jL5b2/5/7eYZBb6iLbszeoPteZDrZq6iFeMSvEMR2', '', '9d7GNOv9h2p3J4hIY0E5G9ELF8QadPPgCUq40bWkRLra83vY9ZXg9z6g074j', NULL, '2023-06-08 03:50:20', '2023-06-08 04:24:41');
-INSERT INTO `users` VALUES (8, 4, NULL, 'will.jermey@example.org', NULL, '$2y$10$iz1G77sYfAj6kNTFnfCdw.rfsKgmPI0XhbF9TtKeAbHb.TRAB6llm', '', NULL, NULL, '2023-06-08 04:08:49', '2023-06-08 04:08:49');
-INSERT INTO `users` VALUES (11, 9, 1, 'habbott@example.com', NULL, '$2y$10$ojiCL1OdHlNmqlcsGrGQhOyqc5wezp4DzviyMRfS/Io0kl/WrSyH6', '', 'S4P1RUYFxbzvGHxPWzhvYJYxH6OHyA2BC712uX9IyI1C9XuHmNXXc2aPvV1r', b'0', '2023-06-09 14:38:13', '2023-06-15 17:47:43');
-INSERT INTO `users` VALUES (12, 20, NULL, '13@123.com', NULL, '$2y$10$xJv8G0rCR.RswchD5ivYbOPgjZXzjUBAKVv/pwHEDusw9as41/2Gu', '', NULL, NULL, '2023-06-10 15:25:43', '2023-06-10 15:25:43');
-INSERT INTO `users` VALUES (13, 2, NULL, 'peter@123.com', NULL, '$2y$10$WfNthdT9EkPG9D0kF8DDJegKTseu9uUMeU7C.WWpsyCg9u10c5.qC', '', NULL, NULL, '2023-06-10 16:21:10', '2023-06-10 16:21:10');
-INSERT INTO `users` VALUES (14, 4, NULL, 'dao_castro@hotmail.comss', NULL, '$2y$10$jNYqxONKv4gAN1HyO/IW0eqO/4Y76LJHUFsCQudiovazBxaopF70a', '', NULL, NULL, '2023-06-10 16:22:26', '2023-06-10 16:22:26');
-INSERT INTO `users` VALUES (17, 20, 1, 'dao_castro@hotmail.com', NULL, '$2y$10$cCW2xH/Ttq1UpJFynhkvjOsqxBoZAVFlJuI4e29ew/2UQIXfeAcJe', '', 'dca7ZI4t4IDqYydt5S44tnLfz7Ci1ei7PsxBTzzhr5CgM6O4nHpy73PZEkd7', b'0', '2023-06-14 19:01:27', '2023-07-26 21:15:37');
-INSERT INTO `users` VALUES (18, 12, 1, 'svcomputec@gmail.com', NULL, '$2y$10$vGBYz.wshk0iky98duUR/eYkAMVjfIGl.4Gy4Kgmj7j1QTHcI3GA.', '$2y$10$bpOvgqGuZTIyEujuNKdrA.rGJotbLIoNN1Se186BjpPyv6VaV9Qm.', NULL, b'1', '2023-06-15 17:53:03', '2023-08-12 06:54:03');
-INSERT INTO `users` VALUES (19, 23, 2, 'nulfito@hotmail.com', NULL, '$2y$10$C1b70yw3diWqsv8/niLQye4pqLq54AeMxHFKSH4IoXc/c5g3NO8T.', '', 'R8PQdDah3bn1ujxtF0L8JZAR6c5246C43Tu0gBDJdKsdASSuACfZ1ucQWiA8', b'0', '2023-06-15 18:06:18', '2023-07-09 13:57:28');
-INSERT INTO `users` VALUES (20, 5, 1, 'habbott@example.com1', NULL, '$2y$10$KUEfTrHQoRE/3elP1P5twOo9y3E8.SPpoCjXFBJOy4yZOhVgciGi6', '', NULL, NULL, '2023-06-15 21:47:37', '2023-06-15 21:47:37');
-INSERT INTO `users` VALUES (21, 28, 3, 'gerente@admin.com', NULL, '$2y$10$M4ljGp.qDht.xx9ZZA1fv.kExQF/lWN/pVNgNrSD8YSHlm19gl5py', '', '6fZy2ParFHNbSBD41FxpHk98MbtM8y6O1ABikhE6z60dLAH8Nn0GCF0bV2wG', b'0', '2023-10-23 11:25:08', '2023-10-23 11:25:22');
+INSERT INTO `users` VALUES (1, 1, 2, 'caja_cimacoop@gmail.com', NULL, '$2y$10$Ydn9oDBKaXLibdiTwJtiLudnZANPb2A3lMVVoVxZAEKMn.ZtEKpW2', '', 'yUBUZXAAIm4UrvhH8ciHxs2qPgNnJcVXfvVN0i7rdcpoeakclq4ZgUWK6SZv', b'0', NULL, '2024-10-07 20:02:32');
+INSERT INTO `users` VALUES (22, 3, 1, 'gerencia_cimacoop@gmail.com', NULL, '$2y$10$uUQ3P8GQoXKw5akGvoLcN./kph.S9yMzw..DSUdCSqRYdsdXRagim', '', 'YTvziMEEmh3ZLVy44HVsj8qcEjWG0PXNW4ncm0yStKAOOzXGrhoKgnuKZ7jX', b'0', '2024-10-07 20:00:20', '2024-10-07 20:02:49');
+INSERT INTO `users` VALUES (23, 2, 13, 'cimacoop_colector@gmail.com', NULL, '$2y$10$TqH7IJ0NT2ZB5BoosYO.uO2H3tluS5wLKov9ki6GjqHP8SClnRM4O', '', NULL, NULL, '2024-10-07 20:01:31', '2024-10-07 20:02:09');
 
 -- ----------------------------
 -- View structure for cierre_mensual_detalle

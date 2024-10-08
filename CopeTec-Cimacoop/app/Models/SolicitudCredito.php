@@ -31,4 +31,5 @@ class SolicitudCredito extends Model
         return $this->belongsTo(TipoGarantia::class, 'tipo_garantia', 'id_tipo_garantia');
     }
 
+
 }

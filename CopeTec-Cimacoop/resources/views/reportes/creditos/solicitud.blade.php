@@ -8,7 +8,8 @@
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-        {{ $estilos }} {{ $stilosBundle }}
+        {{ $estilos }}
+        {{ $stilosBundle }}
     </style>
 
 </head>
@@ -32,45 +33,39 @@
 <div style="text-align: right; font-size: 16px; font-weight: bold;">
     Fecha: {{ date('d-m-Y',strtotime($solicitud->fecha_solicitud )) }}
 </div>
-    <div class="row" style="font-size:20px; ">
-
-
+    <div class="row" style="font-size:12px; ">
         <ul style=" list-style-type: none;">
-
             <li class="items_li"><span class="item-solicitud">1- DATOS GENERALES DEL SOLICITANTE:</span>
-                <div class="datos_solicitante">
-                    Nombre según DUI: <b>{{ $solicitud->nombre }}</b> edad: <b>{{ $edadCliente }} </b> años
+                <div class="datos_solicitante" style="font-size: 16px; line-height: 1.5">
+                    Nombre según DUI: <b>{{ $solicitud->cliente->nombre }}</b> edad: <b>{{ $edadCliente }} </b> años
                     <br>
-                    Profesión u oficio: <b>{{ $solicitud->profesion }}</b>, DUI: <b> {{ $solicitud->dui_cliente }}</b>,
+                    Profesión u oficio: <b>{{ $solicitud->cliente->profesion->name }}</b>, DUI: <b> {{ $solicitud->cliente->dui_cliente }}</b>,
                     Extendido en:
-                    <b>{{ $solicitud->dui_extendido }}</b>
+                    <b>{{ $solicitud->cliente->dui_extendido }}</b>
                     <br>
-                    Fecha de expedicion: <b>{{ $solicitud->fecha_expedicion }}</b>, fecha de nacimiento.
-                    <b>{{ $solicitud->fecha_nacimiento }}</b>
+                    Fecha de expedicion: <b>{{ date('d-m-Y',strtotime($solicitud->cliente->fecha_expedicion)) }}</b>, fecha de nacimiento.
+                    <b>{{ date('d-m-Y',strtotime($solicitud->cliente->fecha_nacimiento )) }}</b>
+                    Nacionalidad: <b>{{ $solicitud->cliente->nacionalidad }}</b>, <br> estado Civi:
+                    <b>{{ $solicitud->cliente->estado_civil }}</b>,
+                    Telefono: <b> {{ $solicitud->cliente->telefono }}</b> <br>
+                    Dirección personal: <b> {{ $solicitud->cliente->direccion_personal }}</b> <br>
+                    Dirección del negocio: <b> {{ $solicitud->cliente->direccion_negocio }} </b>
                     <br>
-                    Nacionalidad: <b>{{ $solicitud->nacionalidad }}</b>, estado Civi:
-                    <b>{{ $solicitud->estado_civil }}</b>,
-                    Telefono: <b> {{ $solicitud->telefono }}</b>
-                    <br>
-                    Dirección personal: <b> {{ $solicitud->direccion_personal }}</b>
-                    <br>
-                    Dirección del negocio: <b> {{ $solicitud->direccion_negocio }} </b>
-                    <br>
-                    Nombre del negocio: <b> {{ $solicitud->nombre_negocio }}</b>, Casa: <b>
+                    Nombre del negocio: <b> {{ $solicitud->cliente->nombre_negocio }}</b>, Casa: <b>
                         @php
                             $casaOptions = [
                                 1 => 'Propia',
                                 0 => 'Alquilada',
                                 2 => 'Familiar',
                             ];
-
-                            $casaString = $casaOptions[$solicitud->tipo_vivienda] ?? '';
+                            $casaString = $casaOptions[$solicitud->cliente->tipo_vivienda] ?? '';
                         @endphp
 
                         {{ $casaString }}</b>
                 </div>
+                <br>
             <li><span class="item-solicitud">2- DATOS DEL CRÉDITO SOLICITADO:</span>
-                <div class="datos_solicitante">
+                <div class="datos_solicitante" style="font-size: 16px; line-height: 1.5">
                     Cantidad Solicitada: <b>${{ number_format($solicitud->monto_solicitado, 2, '.', ',') }}</b>
                     ({{ $montoSolicitadoEnLetras }}), plazo: &nbsp;&nbsp; <b>&nbsp;{{ $solicitud->plazo }}</b>
                     (meses),
@@ -86,57 +81,59 @@
 
 
                 </div>
+                <br>
             <li><span class="item-solicitud">3- DATOS PERSONALES DEL CONYUGUE:</span>
-                <div class="datos_solicitante">
+                <div class="datos_solicitante" style="font-size: 16px; line-height: 1.5">
 
                     Nombre según DUI:
-                    <b>{{ $conyugue->nombre != null ? $conyugue->nombre : '_______________________________________' }}</b>
+                    <b>{{ $conyugue->nombre != null ? $conyugue->nombre : '___________________________________________________________' }}</b>
                     edad:
                     <b>{{ $edadConyugue != null ? $edadConyugue : '______________________________________________' }}
                     </b>
-                    años
+
                     <br>
                     Profesión u oficio:
-                    <b>{{ $conyugue->profesion != null ? $conyugue->profesion : '________________' }}</b>, DUI:
+                    <b>{{ $conyugue->profesion != null ? $conyugue->profesion->name : '___________________________________' }}</b>, DUI:
                     <b>
-                        {{ $conyugue->dui_cliente != null ? $conyugue->dui_cliente : '_____________________________________' }}</b>,
+                        {{ $conyugue->dui_cliente != null ? $conyugue->dui_cliente : '_________________________________' }}</b>,
                     Extendido en:
-                    <b>{{ $conyugue->dui_extendido != null ? $conyugue->dui_extendido : '_________________________' }}</b>
+                    <b>{{ $conyugue->dui_extendido != null ? $conyugue->dui_extendido : '_______________________' }}</b>
                     <br>
                     Fecha de expedicion:
-                    <b>{{ $conyugue->fecha_expedicion != null ? $conyugue->fecha_expedicion : '______________________________________' }}</b>,
+                    <b>{{ $conyugue->fecha_expedicion != null ? date('d-m-Y',strtotime($conyugue->fecha_expedicion)) : '_____________________________________________' }}</b>,
                     fecha de nacimiento.
-                    <b>{{ $conyugue->fecha_nacimiento != null ? $conyugue->fecha_nacimiento : '____________________________________' }}</b>
+                    <b>{{ $conyugue->fecha_nacimiento != null ? date('d-m-Y',strtotime($conyugue->fecha_nacimiento)) : '_________________________________________' }}</b>
                     <br>
                     Nacionalidad:
-                    <b>{{ $conyugue->nacionalidad != null ? $conyugue->nacionalidad : '__________________________' }}</b>,
+                    <b>{{ $conyugue->nacionalidad != null ? $conyugue->nacionalidad : '_____________________________' }}</b>,
                     estado Civi:
-                    <b>{{ $conyugue->estado_civil != null ? $conyugue->estado_civil : '__________________________' }}</b>,
+                    <b>{{ $conyugue->estado_civil != null ? $conyugue->estado_civil : '_____________________________' }}</b>,
                     Telefono: <b>
-                        {{ $conyugue->telefono != null ? $conyugue->telefono : '____________________________' }}</b>
+                        {{ $conyugue->telefono != null ? $conyugue->telefono : '__________________________________' }}</b>
                     <br>
                     Dirección personal: <b>
-                        {{ $conyugue->direccion_personal != null ? $conyugue->direccion_personal : '_____________________________________________________________________________________________________' }}</b>
+                        {{ $conyugue->direccion_personal != null ? $conyugue->direccion_personal : '___________________________________________________________________________________________________________________' }}</b>
                     <br>
                     Lugar de trabajo: <b>
-                        {{ $conyugue->direccion_negocio != '' ? $conyugue->direccion_negocio : '________________________________________________________________________________________________________' }}
+                        {{ $conyugue->direccion_negocio != '' ? $conyugue->direccion_negocio : '____________________________________________________________________________________________________________' }}
                     </b>
                     <br>
                     Nombre del negocio: <b>
-                        {{ $solicitud->empresa_labora != null ? $solicitud->empresa_labora : '____________________________________________________' }}</b>,
+                        {{ $solicitud->empresa_labora != null ? $solicitud->empresa_labora : '__________________________________________________' }}</b>,
                     Tiempo laborando: <b>
                         {{ $solicitud->tiempo_laborando != null ? $solicitud->tiempo_laborando : '_______________________________________' }}</b>
                     <br>
                     Cargo que desempeña: <b>
-                        {{ $solicitud->cargo != null ? $solicitud->cargo : '____________________________________________________' }}</b>,
+                        {{ $solicitud->cargo != null ? $solicitud->cargo : '______________________________' }}</b>,
                     Salario: <b>
-                        {{ $solicitud->sueldo_conyugue != null ? $solicitud->sueldo_conyugue : '_______________________________________' }}</b>,
-                    Telefono trabajo: {{ $solicitud->telefono_trabajo }}
+                        {{ $solicitud->sueldo_conyugue != null ? $solicitud->sueldo_conyugue : '___________________________' }}</b>,
+                    Telefono trabajo: {{ $solicitud->telefono_trabajo!=null?$solicitud->telefono_trabajo:'_______________________' }}
                 </div>
+                <br>
             <li><span class="item-solicitud">4- INGRESOS Y EGRESOS MENSUALES DEL SOLICITANTE:</span>
-                <div class="datos_solicitante">
-                    <table class="table w-50%" style="border: 1px solid white;">
-                        <thead style="text-align: center; font-size:18px;">
+                <div class="datos_solicitante" style="font-size: 16px; line-height: 1">
+                    <table class="table w-50%" style="border: 1px solid white; height: 10px;">
+                        <thead style="text-align: center; font-size:15px;">
                             <tr>
                                 <th class="min-w-400px"> INGRESOS</th>
                                 <th class="min-w-250"></th>
@@ -148,18 +145,15 @@
                         </thead>
                         <tr>
                             <td class="min-w-400px">Sueldo</td>
-                            <td class="min-w-100">{{ number_format($solicitud->sueldo_solicitante, 2, '.', ',') }}
-                            </td>
+                            <td class="min-w-100">{{ number_format($solicitud->sueldo_solicitante, 2, '.', ',') }}</td>
                             <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
                             <td class="min-w-400px">Gastos de vida</td>
                             <td class="min-w-100">{{ $solicitud->gastos_vida }}</td>
-
                         </tr>
                         <tr>
                             <td class="min-w-400px">Comisiones</td>
                             <td class="min-w-100">{{ $solicitud->comisiones }}</td>
                             <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
-
                             <td class="min-w-400px">Pago de obligaciones</td>
                             <td class="min-w-100">{{ $solicitud->pagos_obligaciones }}</td>
 
@@ -185,13 +179,9 @@
                             <td class="min-w-400px">TOTAL </td>
                             <td class="min-w-100"> {{ number_format($solicitud->total_ingresos,2) }}</td>
                             <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
-
                             <td class="min-w-400px">TOTAL </td>
                             <td class="min-w-100">{{ number_format($solicitud->total_gasto ,2)}}</td>
-
                         </tr>
-
-
                         <tbody class=" fs-1 text-black-800">
                         </tbody>
                         <tfoot>
@@ -203,8 +193,8 @@
                 </div>
 
             <li><span class="item-solicitud">5- REFERENCIAS PERSONALES Y FAMILIARES:</span>
-                <div class="datos_solicitante">
-                    <table class="table table-bordered">
+                <div class="datos_solicitante" style="font-size: 16px; line-height: 1">
+                    <table class="table table-bordered" >
                         <thead style="text-align: center; font-size:18px;">
                             <tr>
                                 <th width="5%">#</th>
@@ -233,7 +223,7 @@
 
                 </div>
             <li><span class="item-solicitud">6- DETALLES DE BIENES:</span>
-                <div class="datos_solicitante">
+                <div class="datos_solicitante" style="font-size: 16px; line-height: 1">
                     <table class="table table-bordered">
                         <thead style="text-align: center; font-size:18px;">
                             <tr>

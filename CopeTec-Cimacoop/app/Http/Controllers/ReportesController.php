@@ -264,7 +264,8 @@ class ReportesController extends Controller
     public function solicitudCredito($idSolicitud)
     {
 
-        $solicitud = SolicitudCredito::with('destinoCredito','tipoGarantia')->join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
+        $solicitud = SolicitudCredito::with('destinoCredito','tipoGarantia','cliente','cliente.profesion')
+//            ->join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
             ->orderBy('solicitud_credito.fecha_solicitud')
             ->where('solicitud_credito.id_solicitud', '=', $idSolicitud)->first();
 
@@ -282,7 +283,7 @@ class ReportesController extends Controller
         $cuotaEnLetras = $formatter->toInvoice($solicitud->cuota + $solicitud->aportaciones ?? 0, 2, 'DÓLARES');
         $montoSolicitadoEnLetras = $formatter->toInvoice($solicitud->monto_solicitado, 2, 'DÓLARES');
         $hoy = new DateTime();
-        $nacimiento = new DateTime($solicitud->fecha_nacimiento);
+        $nacimiento = new DateTime($solicitud->cliente->fecha_nacimiento);
         $edad = $hoy->diff($nacimiento);
         $edadCliente = $edad->y;
 
