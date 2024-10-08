@@ -46,11 +46,10 @@
                 </div>
                 <div class="ribbon-label fs-3">
                     <i class="ki-duotone ki-calendar text-white fs-3x"><span class="path1"></span><span
-                            class="path2"></span><span class="path3"></span></i> &nbsp;
+                                class="path2"></span><span class="path3"></span></i> &nbsp;
                     Aperturar Deposito a Plazo
                     <span class="ribbon-inner bg-info"></span>
                 </div>
-
 
 
             </div>
@@ -62,13 +61,13 @@
 
                             <div class="form-floating col-lg-2">
                                 <input type="date" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" required
-                                    class="form-control text-success" name="fecha_solicitud" id="fecha_solicitud" />
+                                       class="form-control text-success" name="fecha_solicitud" id="fecha_solicitud"/>
                                 <label>Fecha Solicitud:</label>
                             </div>
 
                             <div class="form-floating col-lg-10">
                                 <select name="id_cliente" id="id_cliente" class="form-select" data-control="select2"
-                                    data-placeholder="Seleccione un Cliente" required>
+                                        data-placeholder="Seleccione un Cliente" required>
                                     <option value=""></option>
                                     @foreach ($clientes as $cliente)
                                         <option value="{{ $cliente->id_cliente }}">{{ $cliente->nombre }} ->
@@ -84,7 +83,7 @@
                         <div class="form-group row mb-5">
                             <div class="form-floating  col-lg-2">
                                 <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento"
-                                    placeholder="fecha_nacimiento" />
+                                       placeholder="fecha_nacimiento"/>
                                 <label>Fecha Nacimiento:</label>
                             </div>
                             <div class="form-floating  col-lg-3">
@@ -104,13 +103,14 @@
 
                             <div class="form-floating  col-lg-3">
                                 <input type="text" required class="form-control" placeholder="Dui Cliente"
-                                    name="dui_cliente" id="dui_cliente" />
+                                       name="dui_cliente" id="dui_cliente"/>
                                 <label>Dui:</label>
                             </div>
 
                             <div class="form-floating  col-lg-4">
-                                <input type="date" max="{{ date('Y-m-d') }}" class="form-control" name="fecha_expedicion"
-                                    id="fecha_expedicion" />
+                                <input type="date" max="{{ date('Y-m-d') }}" class="form-control"
+                                       name="fecha_expedicion"
+                                       id="fecha_expedicion"/>
                                 <label>Fecha Expedicion dui:</label>
                             </div>
                         </div>
@@ -119,18 +119,18 @@
 
                             <div class="form-floating  col-lg-3">
                                 <input type="text" class="form-control" name="telefono" placeholder="telefono"
-                                    id="telefono" aria-label="dui" aria-describedby="basic-addon1" />
+                                       id="telefono" aria-label="dui" aria-describedby="basic-addon1"/>
                                 <label>Telefono:</label>
                             </div>
                             <div class="form-floating  col-lg-5">
                                 <input type="text" class="form-control" name="nacionalidad" id="nacionalidad"
-                                    placeholder="Nacionalidad del cliente" aria-label="nacionalidad"
-                                    aria-describedby="basic-addon1" />
+                                       placeholder="Nacionalidad del cliente" aria-label="nacionalidad"
+                                       aria-describedby="basic-addon1"/>
                                 <label>Nacionalidad:</label>
                             </div>
                             <div class="form-floating  col-lg-4">
                                 <input type="text" class="form-control" name="estado_civil" id="estado_civil"
-                                    placeholder="Estado Civil" />
+                                       placeholder="Estado Civil"/>
                                 <label>Estado civil:</label>
 
                             </div>
@@ -140,17 +140,17 @@
 
                             <div class="form-floating  col-lg-3">
                                 <input type="text" class="form-control" placeholder="Direccion cliente"
-                                    name="direccion_personal" id="direccion_personal" />
+                                       name="direccion_personal" id="direccion_personal"/>
                                 <label>Direccion Personal:</label>
                             </div>
                             <div class="form-floating  col-lg-5">
                                 <input type="text" class="form-control" placeholder="Nombre negocio "
-                                    name="nombre_negocio" id="nombre_negocio" />
+                                       name="nombre_negocio" id="nombre_negocio"/>
                                 <label>Nombre del negocio:</label>
                             </div>
                             <div class="form-floating  col-lg-4">
                                 <input type="text" class="form-control" placeholder="Direccion del negocio"
-                                    name="direccion_negocio"id="direccion_negocio" />
+                                       name="direccion_negocio" id="direccion_negocio"/>
                                 <label>Direccion del negocio:</label>
                             </div>
 
@@ -173,7 +173,7 @@
                             </div>
                             <div class="form-floating  col-lg-9">
                                 <input type="text" class="form-control" name="observaciones"
-                                    placeholder="Observaciones" />
+                                       placeholder="Observaciones"/>
                                 <label>Observaciones:</label>
 
                             </div>
@@ -192,15 +192,30 @@
                                 </div>
                                 <!--begin::row group-->
                                 <div class="form-group row mb-5">
+                                    <div class="form-floating">
+                                        <select name="id_empleado" id="id_empleado" class="form-select"
+                                                data-control="select2">
+                                            <option value="">Seleccione</option>
+                                            @foreach ($empleados as $empleado)
+                                                <option value="{{ $empleado->id_empleado }}">
+                                                    {{ $empleado->nombre_empleado }}->
+                                                    {{ $empleado->dui }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--begin::row group-->
+                                <div class="form-group row mb-5">
 
                                     <div class="form-floating col-lg-6">
                                         <input type="number" step="any" name="monto_solicitado"
-                                            id="monto_solicitado" class="form-control" placeholder="numero_cheque" />
+                                               id="monto_solicitado" class="form-control" placeholder="numero_cheque"/>
                                         <label>Monto Solicitado:</label>
                                     </div>
                                     <div class="form-floating col-lg-6">
                                         <input type="number" step="any" name="plazo" id="plazo"
-                                            class="form-control" placeholder="numero_cheque" />
+                                               class="form-control" placeholder="numero_cheque"/>
                                         <label>Plazo </label>
                                     </div>
                                 </div>
@@ -208,12 +223,12 @@
                                 <div class="form-group row mb-5">
                                     <div class="form-floating col-lg-6">
                                         <input type="number" step="any" required class="form-control"
-                                            placeholder="Monto a solicitar" id="tasa" name="tasa">
+                                               placeholder="Monto a solicitar" id="tasa" name="tasa">
                                         <label>Tasa :</label>
                                     </div>
                                     <div class="form-floating col-lg-6">
                                         <input type="number" readonly required class="form-control" placeholder="Cuota"
-                                            id="cuota" name="cuota" />
+                                               id="cuota" name="cuota"/>
                                         <label>Cuota :</label>
                                     </div>
                                 </div>
@@ -221,12 +236,13 @@
                                 <div class="form-group row mb-5">
                                     <div class="form-floating col-lg-6">
                                         <input type="number" step="any" name="seguro_deuda" id="seguro_deuda"
-                                            class="form-control" placeholder="Seguro de deuda" />
+                                               class="form-control" placeholder="Seguro de deuda"/>
                                         <label>Seguro de Deuda:</label>
                                     </div>
                                     <div class="form-floating col-lg-6">
-                                        <input type="number" step="any" min="0" value="0" name="aportaciones" id="aportaciones" class="form-control"
-                                            placeholder="Aportaciones">
+                                        <input type="number" step="any" min="0" value="0" name="aportaciones"
+                                               id="aportaciones" class="form-control"
+                                               placeholder="Aportaciones">
                                         <label>Aportaciones:</label>
 
                                     </div>
@@ -235,18 +251,18 @@
                                 <div class="form-group row mb-5">
                                     <div class="form-floating col-lg-12">
                                         <select name="destino" id="destino" class="form-select"
-                                            data-control="select2">
+                                                data-control="select2">
 
                                             @foreach ($destinoCredito as $destino)
                                                 @if ($destino->movimiento == 0)
                                                     <optgroup label="{{ $destino->descripcion }}">
-                                                @endif
-                                                <option value="{{ $destino->id_cuenta }}">
-                                                    {{ $destino->numero }}->
-                                                    {{ $destino->descripcion }}
+                                                        @endif
+                                                        <option value="{{ $destino->id_cuenta }}">
+                                                            {{ $destino->numero }}->
+                                                            {{ $destino->descripcion }}
 
-                                                </option>
-                                                @if ($destino->movimiento == 0)
+                                                        </option>
+                                                        @if ($destino->movimiento == 0)
                                                     </optgroup>
                                                 @endif
                                             @endforeach
@@ -258,7 +274,7 @@
                                 <div class="form-group row mb-5">
                                     <div class="form-floating col-lg-12">
                                         <select name="tipo_garantia" id="tipo_garantia" class="form-select"
-                                            data-control="select2">
+                                                data-control="select2">
                                             @foreach ($tiposGarantia as $tipogarantia)
                                                 <option value="{{ $tipogarantia->id_tipo_garantia }}">
                                                     {{ $tipogarantia->descripcion }}
@@ -272,8 +288,9 @@
                                 <div class="form-group row mb-5">
                                     <div class="form-group row mb-5">
                                         <div class="form-floating col-lg-12">
-                                            <textarea name="garantia" placeholder="Garantia" id="garantia" rows="10" class="form-control" readonline
-                                                data-kt-autosize="true"></textarea>
+                                            <textarea name="garantia" placeholder="Garantia" id="garantia" rows="10"
+                                                      class="form-control" readonline
+                                                      data-kt-autosize="true"></textarea>
                                             <label>Garantia:</label>
                                         </div>
                                     </div>
@@ -289,18 +306,18 @@
                                     <div class="form-floating col-lg-12">
                                         <div class="table-responsive">
                                             <table id="kt_datatable_vertical_scroll"
-                                                class="table table-striped table-row-bordered gy-5 gs-7">
+                                                   class="table table-striped table-row-bordered gy-5 gs-7">
                                                 <thead class="th-dark">
-                                                    <tr
+                                                <tr
                                                         class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
-                                                        <th>Periodo</th>
-                                                        <th>fecha</th>
-                                                        <th>Interes</th>
-                                                        <th>Capital</th>
-                                                        <th>Aportación</th>
-                                                        <th>Cuota</th>
-                                                        <th>Saldo</th>
-                                                    </tr>
+                                                    <th>Periodo</th>
+                                                    <th>fecha</th>
+                                                    <th>Interes</th>
+                                                    <th>Capital</th>
+                                                    <th>Aportación</th>
+                                                    <th>Cuota</th>
+                                                    <th>Saldo</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody id="tablaAmortizacion">
 
@@ -335,13 +352,13 @@
                         <div class="form-group row mb-5">
                             <div class="form-floating col-lg-8">
                                 <input type="text" name="empresa_labora" class="form-control"
-                                    placeholder="Nombre conyugue" />
+                                       placeholder="Nombre conyugue"/>
                                 <label>Empresa Labora:</label>
                             </div>
 
                             <div class="form-floating col-lg-4">
                                 <input type="text" name="cargo" class="form-control"
-                                    placeholder="Ingresos conyugue" />
+                                       placeholder="Ingresos conyugue"/>
                                 <label>Cargo :</label>
                             </div>
                         </div>
@@ -349,18 +366,18 @@
                         <div class="form-group row mb-5">
                             <div class="form-floating col-lg-4">
                                 <input type="number" step="any" name="sueldo_conyugue" class="form-control"
-                                    placeholder="Ingresos conyugue" />
+                                       placeholder="Ingresos conyugue"/>
                                 <label>Sueldo :</label>
                             </div>
                             <div class="form-floating col-lg-4">
                                 <input type="text" name="tiempo_laborando" class="form-control"
-                                    placeholder="Ingresos conyugue" />
+                                       placeholder="Ingresos conyugue"/>
                                 <label>Tiempo Laborando :</label>
 
                             </div>
                             <div class="form-floating col-lg-4">
                                 <input type="text" name="telefono_trabajo" class="form-control"
-                                    placeholder="Telefono Trabajo" />
+                                       placeholder="Telefono Trabajo"/>
                                 <label>Telefono trabajo:</label>
                             </div>
                         </div>
@@ -371,34 +388,34 @@
                         <div class="row">
 
                             <div class="col-lg-6 border-active-success pl-10"
-                                style="border: 1px dashed rgb(129, 209, 76); border-radius: 8px;">
+                                 style="border: 1px dashed rgb(129, 209, 76); border-radius: 8px;">
                                 <span class="badge badge-success fs-3">Ingresos</span>
 
                                 <div class="form-group row mb-5">
                                     <div class="form-floating">
                                         <input type="number" placeholder="Sueldo" id="sueldo_solicitante"
-                                            class="form-control col-lg-12 mb-5" name="sueldo_solicitante">
+                                               class="form-control col-lg-12 mb-5" name="sueldo_solicitante">
                                         <label>Sueldo</label>
                                     </div>
                                     <div class="form-floating">
                                         <input type="number" placeholder="Comisiones" class="form-control  mb-5"
-                                            name="comisiones" id="comisiones">
+                                               name="comisiones" id="comisiones">
                                         <label>Comisiones</label>
                                     </div>
                                     <div class="form-floating">
-                                        <input type="number"placeholder="Negocio Propio" class="form-control  mb-5"
-                                            name="negocio_propio" id="negocio_propio">
+                                        <input type="number" placeholder="Negocio Propio" class="form-control  mb-5"
+                                               name="negocio_propio" id="negocio_propio">
                                         <label>Negocio Propio</label>
                                     </div>
                                     <div class="form-floating">
                                         <input type="number" placeholder="Otros ingresos" class="form-control  mb-5"
-                                            name="otros_ingresos" id="otros_ingresos">
+                                               name="otros_ingresos" id="otros_ingresos">
                                         <label>Otros Ingresos</label>
                                     </div>
                                     <hr>
                                     <div class="form-floating">
                                         <input type="number" placeholder="Total Ingresos" class="form-control  mb-5"
-                                            name="total_ingresos" id="total_ingresos">
+                                               name="total_ingresos" id="total_ingresos">
                                         <label>Total Ingresos</label>
                                     </div>
 
@@ -406,34 +423,34 @@
                             </div>
 
                             <div class="col-lg-6 border-active-danger"
-                                style="border: 1px dashed rgb(240, 124, 30); border-radius: 8px;">
+                                 style="border: 1px dashed rgb(240, 124, 30); border-radius: 8px;">
                                 <span class="badge badge-danger fs-3">Egresos</span>
                                 <div class="form-group row mb-5">
                                     <div class="form-floating">
                                         <input type="number" class="form-control col-lg-12 mb-5" name="gastos_vida"
-                                            id="gastos_vida" placeholder="gastos de Vida">
+                                               id="gastos_vida" placeholder="gastos de Vida">
                                         <label>Gastos Para Vivir</label>
                                     </div>
                                     <div class="form-floating">
                                         <input type="number" class="form-control  mb-5"
-                                            placeholder="Pagos y obligaciones" name="pagos_obligaciones"
-                                            id="pagos_obligaciones">
+                                               placeholder="Pagos y obligaciones" name="pagos_obligaciones"
+                                               id="pagos_obligaciones">
                                         <label>Pagos Obligaciones</label>
                                     </div>
                                     <div class="form-floating">
                                         <input type="number" class="form-control  mb-5" placeholder="Gastos del Negocio"
-                                            name="gastos_negocios" id="gastos_negocios">
+                                               name="gastos_negocios" id="gastos_negocios">
                                         <label>Gastos Negocios</label>
                                     </div>
                                     <div class="form-floating">
                                         <input type="number" class="form-control  mb-5" name="otros_gastos"
-                                            id="otros_gastos" placeholder="Otros gastos">
+                                               id="otros_gastos" placeholder="Otros gastos">
                                         <label>Otros Ingresos</label>
                                     </div>
                                     <hr>
                                     <div class="form-floating">
                                         <input type="number" class="form-control  mb-5" name="total_gasto"
-                                            id="total_gasto" placeholder="Total gastos">
+                                               id="total_gasto" placeholder="Total gastos">
                                         <label>Total Ingresos</label>
                                     </div>
 
@@ -448,7 +465,7 @@
                         <div class="form-group row mb-5">
                             <div class="form-floating col-lg-5">
                                 <select name="id_referencia" id="id_referencia" class="form-select"
-                                    data-control="select2">
+                                        data-control="select2">
                                     <option value="">Seleccione</option>
 
                                     @foreach ($referencias as $referencia)
@@ -476,7 +493,7 @@
                             </div>
                             <div class="form-floating col-lg-2">
                                 <button type="button" class="btn btn-danger" id="btnAddReferencia"
-                                    name="btnAddReferencia">
+                                        name="btnAddReferencia">
                                     <span class="fa fa-download"></span>
                                     Registrar
                                 </button>
@@ -490,14 +507,14 @@
                             <div class="table-responsive">
                                 <table class="table table-hover table-row-dashed fs-5     gy-2 gs-5">
                                     <thead class="th-dark">
-                                        <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
-                                            <th class="min-w-230px">Acciones</th>
-                                            <th>#</th>
-                                            <th>Nombre</th>
-                                            <th>Dui</th>
-                                            <th>Parentesco</th>
-                                            <th>Telefono</th>
-                                        </tr>
+                                    <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
+                                        <th class="min-w-230px">Acciones</th>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Dui</th>
+                                        <th>Parentesco</th>
+                                        <th>Telefono</th>
+                                    </tr>
                                     </thead>
                                     <tbody id="tableReferencias">
 
@@ -513,12 +530,12 @@
                         <div class="form-group row mb-5">
                             <div class="form-floating col-lg-4">
                                 <input type="text" class="form-control" name="clase_propiedad" id="clase_propiedad"
-                                    placeholder="Tipo de bien">
+                                       placeholder="Tipo de bien">
                                 <label>Clase de bien:</label>
                             </div>
                             <div class="form-floating col-lg-8">
                                 <input type="text" class="form-control" name="direccion_bien" id="direccion_bien"
-                                    placeholder="Tipo de bien">
+                                       placeholder="Tipo de bien">
                                 <label>Direccion del bien:</label>
                             </div>
                         </div>
@@ -526,7 +543,7 @@
                         <div class="form-group row mb-3">
                             <div class="form-floating col-lg-4">
                                 <input type="number" step="any" class="form-control" name="valor_bien"
-                                    id="valor_bien" placeholder="Tipo de bien">
+                                       id="valor_bien" placeholder="Tipo de bien">
                                 <label>Valor:</label>
                             </div>
                             <div class="form-floating col-lg-4">
@@ -547,20 +564,19 @@
                         </div>
 
 
-
                         {{-- begin rows group-- --}}
                         <div class="form-group row mb-5 pl-10">
 
                             <div class="table-responsive">
                                 <table class="table table-hover table-row-dashed fs-5     gy-2 gs-5">
                                     <thead class="th-dark">
-                                        <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
-                                            <th class="min-w-230px">Acciones</th>
-                                            <th>Tipo Propiedad</th>
-                                            <th>Direccion</th>
-                                            <th>Valor</th>
-                                            <th>Hipotecada</th>
-                                        </tr>
+                                    <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
+                                        <th class="min-w-230px">Acciones</th>
+                                        <th>Tipo Propiedad</th>
+                                        <th>Direccion</th>
+                                        <th>Valor</th>
+                                        <th>Hipotecada</th>
+                                    </tr>
                                     </thead>
                                     <tbody id="tableBienes">
 
@@ -579,7 +595,7 @@
                     <a href="/creditos/solicitudes">
 
                         <button type="button"
-                            class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
+                                class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger">
                             <i class="ki-duotone ki-black-left-line  text-dark   fs-2x">
                                 <i class="path1"></i>
                                 <i class="path2"></i>
@@ -597,33 +613,20 @@
         <div class="input-group mb-5"></div>
 
 
-
-
     </form>
 @endsection
 @section('scripts')
-    <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href=" {{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/app/credito.solicitud.js') }}"></script>
     <script>
-        $(document).ready(function() {
-
-
-
-
-
-
-
+        $(document).ready(function () {
 
 
             // Agrupar todos los selectores en un solo evento
-            $("#monto_solicitado, #plazo, #tasa, #cuota, #seguro_deuda").on('keyup', function() {
+            $("#monto_solicitado, #plazo, #tasa, #cuota, #seguro_deuda").on('keyup', function () {
                 calcularPago();
             });
-
-
-
-
 
 
             function calcularPago() {
@@ -666,7 +669,7 @@
                 let saldoPendiente = monto;
 
                 // Formato de fecha
-                const optionsFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                const optionsFecha = {day: '2-digit', month: '2-digit', year: 'numeric'};
 
                 for (let i = 1; i <= periodos; i++) {
                     fecha_solicitud.setMonth(fecha_solicitud.getMonth() + 1);
@@ -693,44 +696,44 @@
 
 
             function calcularIngresos() {
-                        let sueldo_solicitante = ($("#sueldo_solicitante").val() === "") ? 0 : parseFloat($(
-                            "#sueldo_solicitante").val());
-                        let comisiones = ($("#comisiones").val() === "") ? 0 : parseFloat($("#comisiones")
-                            .val());
-                        let negocio_propio = ($("#negocio_propio").val() === "") ? 0 : parseFloat($("#negocio_propio")
-                            .val());
-                        let otros_ingresos  = ($("#otros_ingresos").val() === "") ? 0 : parseFloat($("#otros_ingresos ")
-                                .val());
-                            let ingresos = sueldo_solicitante + comisiones + negocio_propio + otros_ingresos;
-                            $("#total_ingresos").val(ingresos);
-                        }
+                let sueldo_solicitante = ($("#sueldo_solicitante").val() === "") ? 0 : parseFloat($(
+                    "#sueldo_solicitante").val());
+                let comisiones = ($("#comisiones").val() === "") ? 0 : parseFloat($("#comisiones")
+                    .val());
+                let negocio_propio = ($("#negocio_propio").val() === "") ? 0 : parseFloat($("#negocio_propio")
+                    .val());
+                let otros_ingresos = ($("#otros_ingresos").val() === "") ? 0 : parseFloat($("#otros_ingresos ")
+                    .val());
+                let ingresos = sueldo_solicitante + comisiones + negocio_propio + otros_ingresos;
+                $("#total_ingresos").val(ingresos);
+            }
 
-                        $('#sueldo_solicitante, #comisiones, #negocio_propio, #otros_ingresos').on(
-                            'keyup',
-                            function() {
-                                calcularIngresos();
-                            });
+            $('#sueldo_solicitante, #comisiones, #negocio_propio, #otros_ingresos').on(
+                'keyup',
+                function () {
+                    calcularIngresos();
+                });
 
 
-                    function calcularEgresos() {
-                        let gastos_vida = ($("#gastos_vida").val() === "") ? 0 : parseFloat($(
-                            "#gastos_vida").val());
-                        let pagos_obligaciones = ($("#pagos_obligaciones").val() === "") ? 0 : parseFloat($("#pagos_obligaciones")
-                            .val());
-                        let gastos_negocios = ($("#gastos_negocios").val() === "") ? 0 : parseFloat($("#gastos_negocios")
-                            .val());
-                        let otros_gastos  = ($("#otros_gastos").val() === "") ? 0 : parseFloat($("#otros_gastos ")
-                                .val());
-                            let egresos = gastos_vida + pagos_obligaciones + gastos_negocios + otros_gastos;
-                            $("#total_gasto").val(egresos);
-                        }
+            function calcularEgresos() {
+                let gastos_vida = ($("#gastos_vida").val() === "") ? 0 : parseFloat($(
+                    "#gastos_vida").val());
+                let pagos_obligaciones = ($("#pagos_obligaciones").val() === "") ? 0 : parseFloat($("#pagos_obligaciones")
+                    .val());
+                let gastos_negocios = ($("#gastos_negocios").val() === "") ? 0 : parseFloat($("#gastos_negocios")
+                    .val());
+                let otros_gastos = ($("#otros_gastos").val() === "") ? 0 : parseFloat($("#otros_gastos ")
+                    .val());
+                let egresos = gastos_vida + pagos_obligaciones + gastos_negocios + otros_gastos;
+                $("#total_gasto").val(egresos);
+            }
 
-                        $('#gastos_vida, #pagos_obligaciones, #gastos_negocios, #otros_gastos').on(
-                            'keyup',
-                            function() {
-                                calcularEgresos();
-                            });
+            $('#gastos_vida, #pagos_obligaciones, #gastos_negocios, #otros_gastos').on(
+                'keyup',
+                function () {
+                    calcularEgresos();
+                });
 
-                    });
+        });
     </script>
 @endsection

@@ -15,11 +15,26 @@
 
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
 
+<div style="display: table; width: 100%;">
+    <div style="display: table-cell; width: 100px; vertical-align: middle;">
+        <img src="{{ public_path('assets/media/logos/cimacoop.png') }}" alt="logo" style="width: 100px; height: 100px;">
+    </div>
+    <div style="display: table-cell; text-align: center; vertical-align: middle;">
+        <h3 style="font-size: 16px; font-family: 'verdana', serif; font-weight: bold; border-bottom: solid 1px #000000; margin-top: 35px;">
+            {{ strtoupper($configuracion->nombre_comercial) }}
+            <br>
+            <span style="font-size: 16px;">{{ strtoupper($configuracion->nombre_empresa) }}</span>
+            <br>
+            <span style="font-size: 16px;"> SOLICITUD DE CRÉDITO # {{ str_pad($solicitud->numero_solicitud, 10, '0', STR_PAD_LEFT) }}  EJECUTIVO:</span>
+        </h3>
+    </div>
+</div>
+<div style="text-align: right; font-size: 16px; font-weight: bold;">
+    Fecha: {{ date('d-m-Y',strtotime($solicitud->fecha_solicitud )) }}
+</div>
     <div class="row" style="font-size:20px; ">
-        <center>
-            SOLICITUD DE CRÉDITO # {{ str_pad($solicitud->numero_solicitud, 10, '0', STR_PAD_LEFT) }}
-        </center>
-        {{ $solicitud->fecha_solicitud }}
+
+
         <ul style=" list-style-type: none;">
 
             <li class="items_li"><span class="item-solicitud">1- DATOS GENERALES DEL SOLICITANTE:</span>
@@ -42,7 +57,17 @@
                     Dirección del negocio: <b> {{ $solicitud->direccion_negocio }} </b>
                     <br>
                     Nombre del negocio: <b> {{ $solicitud->nombre_negocio }}</b>, Casa: <b>
-                        {{ $solicitud->tipo_vivienda }}</b>
+                        @php
+                            $casaOptions = [
+                                1 => 'Propia',
+                                0 => 'Alquilada',
+                                2 => 'Familiar',
+                            ];
+
+                            $casaString = $casaOptions[$solicitud->tipo_vivienda] ?? '';
+                        @endphp
+
+                        {{ $casaString }}</b>
                 </div>
             <li><span class="item-solicitud">2- DATOS DEL CRÉDITO SOLICITADO:</span>
                 <div class="datos_solicitante">
@@ -50,14 +75,14 @@
                     ({{ $montoSolicitadoEnLetras }}), plazo: &nbsp;&nbsp; <b>&nbsp;{{ $solicitud->plazo }}</b>
                     (meses),
                     Tasa de interes: <b> {{ $solicitud->tasa }}%</b>, cuota: <b>
-                        ${{ number_format($solicitud->cuota, 2, '.', ',') }}</b>
+                        ${{ number_format($solicitud->cuota +$solicitud->aportaciones??0, 2, '.', ',') }}</b>
                     ({{ $cuotaEnLetras }})
                     <br>
                     Seguro de deuda: <b>{{ $solicitud->seguro_deuda }}</b>, Destino del préstamo: <b>
-                        {{ $solicitud->destino }}</b>
+                        {{ $solicitud->destinoCredito->descripcion }} ({{ $solicitud->destinoCredito->numero??'S/N' }})</b>
                     <br>
                     garantías:
-                    <b>{{ $solicitud->garantia }}</b>
+                    <b>{{ $solicitud->tipoGarantia->descripcion }}</b>
 
 
                 </div>
@@ -114,16 +139,16 @@
                         <thead style="text-align: center; font-size:18px;">
                             <tr>
                                 <th class="min-w-400px"> INGRESOS</th>
-                                <th class="min-w-200"></th>
+                                <th class="min-w-250"></th>
                                 <th class="min-w-100"></th>
                                 <th class="min-w-400px">EGRESOS</th>
-                                <th class="min-w-200"></th>
+                                <th class="min-w-250"></th>
 
                             </tr>
                         </thead>
                         <tr>
                             <td class="min-w-400px">Sueldo</td>
-                            <td class="min-w-100">${{ number_format($solicitud->sueldo_solicitante, 2, '.', ',') }}
+                            <td class="min-w-100">{{ number_format($solicitud->sueldo_solicitante, 2, '.', ',') }}
                             </td>
                             <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
                             <td class="min-w-400px">Gastos de vida</td>
@@ -157,18 +182,23 @@
 
                         </tr>
                         <tr style="border-top: 3px solid rgb(0, 0, 0);">
-                            <td class="min-w-400px">TOTAL</td>
-                            <td class="min-w-100">{{ $solicitud->total_ingresos }}</td>
+                            <td class="min-w-400px">TOTAL </td>
+                            <td class="min-w-100"> {{ number_format($solicitud->total_ingresos,2) }}</td>
                             <td class="min-w-100" style="border-left: 3px solid rgb(0, 0, 0);">&nbsp;</td>
 
-                            <td class="min-w-400px">TOTAL</td>
-                            <td class="min-w-100">{{ $solicitud->total_gasto }}</td>
+                            <td class="min-w-400px">TOTAL </td>
+                            <td class="min-w-100">{{ number_format($solicitud->total_gasto ,2)}}</td>
 
                         </tr>
 
 
                         <tbody class=" fs-1 text-black-800">
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" style="border-top: 1px solid rgb(0, 0, 0); text-align: center;">DIFERENCIA ${{number_format(($solicitud->total_ingresos )- $solicitud->total_gasto,2)}}</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
 
@@ -178,8 +208,9 @@
                         <thead style="text-align: center; font-size:18px;">
                             <tr>
                                 <th width="5%">#</th>
-                                <th width="30%"> Nombre</th>
+                                <th width="20%"> Nombre</th>
                                 <th width="10%">Parentesco</th>
+                                <th width="15%">Telefono</th>
                                 <th width="30%">Direccion</th>
                                 <th width="30%">Lugar de trabajo</th>
                             </tr>
@@ -187,11 +218,13 @@
                         <tbody>
                             @foreach ($referencias as $referencia)
                                 <tr>
+{{--                                    {{$referencia}}--}}
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $referencia->nombre }}</td>
-                                    <td>{{ $referencia->parentesco }}</td>
-                                    <td>{{ $referencia->direccion }}</td>
-                                    <td>{{ $referencia->lugar_trabajo }}</td>
+                                    <td>{{ $referencia->referencias->nombre??''}}</td>
+                                    <td>{{ $referencia->parentesco->parentesco??'' }}</td>
+                                    <td>{{ $referencia->referencias->telefono }}</td>
+                                    <td>{{ $referencia->referencias->direccion??'' }}</td>
+                                    <td>{{ $referencia->referencias->lugar_trabajo??'' }}</td>
                                 </tr>
                             @endforeach
 

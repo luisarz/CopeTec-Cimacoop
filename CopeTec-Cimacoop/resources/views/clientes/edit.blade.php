@@ -157,9 +157,13 @@
                             @if ($cliente->tipo_vivienda == 1)
                                 <option selected value="1">Propia</option>
                                 <option value="0">Alquilada</option>
+                                <option value="2">Familiar</option>
+
                             @else
                                 <option value="1">Propia</option>
                                 <option selected value="0">Alquilada</option>
+                                <option value="2">Familiar</option>
+
                             @endif
                         </select>
                         <label>Tipo de vivienda:</label>

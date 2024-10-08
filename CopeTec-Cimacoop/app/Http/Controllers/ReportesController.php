@@ -44,8 +44,6 @@ class ReportesController extends Controller
     }
 
 
-
-
     public function RepMovimientosBobeda($id)
     {
 
@@ -66,8 +64,6 @@ class ReportesController extends Controller
             ->first();
 
 
-
-
         $trasladoACaja = BobedaMovimientos::where('tipo_operacion', '1')
             ->where('fecha_operacion', '>=', today())
             ->sum('monto');
@@ -79,9 +75,6 @@ class ReportesController extends Controller
             ->where('estado', '=', '3')
             ->where('fecha_operacion', '>=', today())
             ->sum('monto');
-
-
-
 
 
         $pdf = PDF::loadView('reportes.movimientosBobeda', [
@@ -96,6 +89,7 @@ class ReportesController extends Controller
 
         return $pdf->setOrientation('portrait')->inline();
     }
+
     public function ComprobanteMovimiento($id)
     {
         $idMovimiento = $id;
@@ -109,7 +103,7 @@ class ReportesController extends Controller
             ->where('movimientos.id_movimiento', '=', $idMovimiento)
             ->select('movimientos.*', 'clientes.nombre', 'tipos_cuentas.descripcion_cuenta', 'cuentas.numero_cuenta', 'clientes.dui_cliente', 'clientes.direccion_personal', 'empleados.nombre_empleado')
             ->first();
-            // dd($movimiento);
+        // dd($movimiento);
 
 
         $formatter = new NumeroALetras();
@@ -118,11 +112,12 @@ class ReportesController extends Controller
         $pdf = PDF::loadView('reportes.caja.comprobante', [
             'movimiento' => $movimiento,
             'estilos' => $this->estilos,
-            'stilosBundle'=> $this->stilosBundle,
+            'stilosBundle' => $this->stilosBundle,
             'numeroEnLetras' => $numeroEnLetras
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
+
     public function comprobanteBobeda($id)
     {
         $idMovimiento = $id;
@@ -134,9 +129,9 @@ class ReportesController extends Controller
             ->select('bobeda_movimientos.*', 'cajas.*', 'empleados.nombre_empleado as nombre_empleado')
             ->first();
 
-            if(!$movimientoBobeda){
-                return redirect("/boveda")->withErrors('El movimiento no existe 😵‍💫');
-            }
+        if (!$movimientoBobeda) {
+            return redirect("/boveda")->withErrors('El movimiento no existe 😵‍💫');
+        }
 
         $formatter = new NumeroALetras();
         $numeroEnLetras = $formatter->toInvoice($movimientoBobeda->monto, 2, 'DoLARES');
@@ -144,7 +139,7 @@ class ReportesController extends Controller
         $pdf = PDF::loadView('reportes.bobeda.comprobante', [
             'movimiento' => $movimientoBobeda,
             'estilos' => $this->estilos,
-            'stilosBundle'=> $this->stilosBundle,
+            'stilosBundle' => $this->stilosBundle,
             'numeroEnLetras' => $numeroEnLetras,
             'bobeda_empleado' => $movimientoBobeda->nombre_empleado
         ]);
@@ -185,29 +180,29 @@ class ReportesController extends Controller
     public function contrato($id)
     {
         $idCuenta = $id;
-        $configuracion=Configuracion::first();
+        $configuracion = Configuracion::first();
         $reporteName = 'CONTRATO DE CUENTA DE AHORRO';
 
-        $datosContrato = Cuentas::select('id_cuenta','id_asociado','id_tipo_cuenta','numero_cuenta','monto_apertura','fecha_apertura','id_interes')->with([
-            'asociado' => function($query) {
-                $query->select('id_asociado','id_cliente', 'numero_asociado', 'couta_ingreso','monto_aportacion','fecha_ingreso'); // Select specific fields from 'asociado'
+        $datosContrato = Cuentas::select('id_cuenta', 'id_asociado', 'id_tipo_cuenta', 'numero_cuenta', 'monto_apertura', 'fecha_apertura', 'id_interes')->with([
+            'asociado' => function ($query) {
+                $query->select('id_asociado', 'id_cliente', 'numero_asociado', 'couta_ingreso', 'monto_aportacion', 'fecha_ingreso'); // Select specific fields from 'asociado'
             },
-            'asociado.cliente' => function($query) {
-                $query->select('id_cliente','profesion_id', 'genero', 'nombre','dui_cliente'); // Select specific fields from 'cliente'
+            'asociado.cliente' => function ($query) {
+                $query->select('id_cliente', 'profesion_id', 'genero', 'nombre', 'dui_cliente'); // Select specific fields from 'cliente'
             },
-            'asociado.cliente.profesion'=> function($query) {
+            'asociado.cliente.profesion' => function ($query) {
                 $query->select('id', 'name'); // Select specific fields from 'profesion'
             },
-            'tipo_cuenta' => function($query) {
+            'tipo_cuenta' => function ($query) {
                 $query->select('id_tipo_cuenta', 'descripcion_cuenta'); // Select specific fields from 'tipo_cuenta'
             },
-            'interes' => function($query) {
+            'interes' => function ($query) {
                 $query->select('id_intereses_tipo_cuenta', 'interes'); // Select specific fields from 'interes'
             },
-            'beneficiarios' => function($query) {
-                $query->select('id_beneficiario', 'id_cuenta', 'nombre','parentesco','porcentaje'); // Select specific fields from 'beneficiarios'
+            'beneficiarios' => function ($query) {
+                $query->select('id_beneficiario', 'id_cuenta', 'nombre', 'parentesco', 'porcentaje'); // Select specific fields from 'beneficiarios'
             },
-            'beneficiarios.parentesco_cliente'=> function($query) {
+            'beneficiarios.parentesco_cliente' => function ($query) {
                 $query->select('id_parentesco', 'parentesco'); // Select specific fields from 'beneficiarios'
             }
         ])->find($idCuenta)->first();
@@ -228,8 +223,8 @@ class ReportesController extends Controller
             'datosContrato' => $datosContrato,
             'edad' => $edad,
             'numeroEnLetras' => $numeroEnLetras,
-            'configuracion'=>$configuracion,
-            'reporteName'=>$reporteName
+            'configuracion' => $configuracion,
+            'reporteName' => $reporteName
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
@@ -269,20 +264,22 @@ class ReportesController extends Controller
     public function solicitudCredito($idSolicitud)
     {
 
-        $solicitud = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
+        $solicitud = SolicitudCredito::with('destinoCredito','tipoGarantia')->join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
             ->orderBy('solicitud_credito.fecha_solicitud')
             ->where('solicitud_credito.id_solicitud', '=', $idSolicitud)->first();
 
+//        dd($solicitud);
+
         $conyugue = Clientes::where('id_cliente', '=', $solicitud->id_conyugue)->first();
 
-        $referencias = ReferenciaSolicitud::join('referencias', 'referencias.id_referencia', '=', 'referencia_solicitud.id_referencia')
-            ->where('referencia_solicitud.id_solicitud', '=', $idSolicitud)->get();
+//        $referencias = ReferenciaSolicitud::join('referencias', 'referencias.id_referencia', '=', 'referencia_solicitud.id_referencia')
+//            ->where('referencia_solicitud.id_solicitud', '=', $idSolicitud)->get();
+        $referencias=ReferenciaSolicitud::with('referencias','parentesco')->where('id_solicitud',$idSolicitud)->get();
 
         $bienes = SolicitudCreditoBienes::where('id_solicitud', '=', $idSolicitud)->get();
 
-
         $formatter = new NumeroALetras();
-        $cuotaEnLetras = $formatter->toInvoice($solicitud->cuota, 2, 'DÓLARES');
+        $cuotaEnLetras = $formatter->toInvoice($solicitud->cuota + $solicitud->aportaciones ?? 0, 2, 'DÓLARES');
         $montoSolicitadoEnLetras = $formatter->toInvoice($solicitud->monto_solicitado, 2, 'DÓLARES');
         $hoy = new DateTime();
         $nacimiento = new DateTime($solicitud->fecha_nacimiento);
@@ -297,6 +294,7 @@ class ReportesController extends Controller
             $edadConyugue = $hoy->diff($nacimientoConyugue);
             $edadConyugue = $edadConyugue->y;
         }
+        $configuracion = Configuracion::first();
 
 
         $pdf = PDF::loadView('reportes.creditos.solicitud', [
@@ -309,17 +307,18 @@ class ReportesController extends Controller
             'conyugue' => $conyugue,
             'cuotaEnLetras' => $cuotaEnLetras,
             'edadConyugue' => $edadConyugue,
-            'montoSolicitadoEnLetras' => $montoSolicitadoEnLetras
+            'montoSolicitadoEnLetras' => $montoSolicitadoEnLetras,
+            'configuracion' => $configuracion
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
+
     public function pagareCredito($idSolicitud)
     {
 
         $solicitud = SolicitudCredito::join('clientes', 'clientes.id_cliente', '=', 'solicitud_credito.id_cliente')
             ->orderBy('solicitud_credito.fecha_solicitud')
             ->where('solicitud_credito.id_solicitud', '=', $idSolicitud)->first();
-
 
 
         $formatter = new NumeroALetras();
@@ -333,8 +332,6 @@ class ReportesController extends Controller
         $edadCliente = $edad->y;
 
 
-
-
         $pdf = PDF::loadView('reportes.creditos.pagare', [
             'estilos' => $this->estilos,
             'solicitud' => $solicitud,
@@ -346,6 +343,7 @@ class ReportesController extends Controller
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
+
     public function liquidacionPrint($idCredito)
     {
 
@@ -397,8 +395,6 @@ class ReportesController extends Controller
         }
 
 
-
-
         $pdf = PDF::loadView('reportes.creditos.liquidacion', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
@@ -417,16 +413,16 @@ class ReportesController extends Controller
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
+
     public function comprobanteAbono($id_pago_credito)
     {
 
         $abonoCredito = PagosCredito::join('creditos', 'creditos.id_credito', '=', 'pagos_credito.id_credito')
-        ->join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
-        ->where('pagos_credito.id_pago_credito', '=', $id_pago_credito)
+            ->join('clientes', 'clientes.id_cliente', '=', 'creditos.id_cliente')
+            ->where('pagos_credito.id_pago_credito', '=', $id_pago_credito)
             ->first();
 
-            // dd($abonoCredito);
-
+        // dd($abonoCredito);
 
 
         $formatter = new NumeroALetras();
@@ -444,6 +440,7 @@ class ReportesController extends Controller
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
+
     public function partidaContable($id_partida)
     {
         $partida = PartidasContablesModel::join('tipos_partidas_contables', 'tipos_partidas_contables.id_tipo_partida', '=', 'partidas_contables.tipo_partida')
@@ -505,7 +502,6 @@ class ReportesController extends Controller
         // $TOTALPAGOENLETRAS = $formatter->toInvoice($abonoCredito->total_pago, 2, 'DÓLARES');
 
 
-
         $pdf = PDF::loadView('reportes.contabilidad.partidas.partida', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
@@ -516,6 +512,7 @@ class ReportesController extends Controller
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
+
     public function catalogoCuentas()
     {
 
@@ -526,8 +523,6 @@ class ReportesController extends Controller
             ->get();
 
 
-
-
         $pdf = PDF::loadView('reportes.contabilidad.catalogo.catalogo', [
             'estilos' => $this->estilos,
             'stilosBundle' => $this->stilosBundle,
@@ -535,15 +530,18 @@ class ReportesController extends Controller
         ]);
         return $pdf->setOrientation('portrait')->inline();
     }
+
     public function infored()
     {
         $creditos = Credito::all();
         return view('contabilidad.reportes.infored', compact('creditos'));
     }
+
     public function inforedExport()
     {
         return Excel::download(new CreditScoreExport, 'creditos.xlsx');
     }
+
     public function generate_score()
     {
         $configuracion = Configuracion::first();

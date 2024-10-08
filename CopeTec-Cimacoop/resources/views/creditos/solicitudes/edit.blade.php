@@ -198,6 +198,21 @@
                                 </div>
                                 <!--begin::row group-->
                                 <div class="form-group row mb-5">
+                                    <div class="form-floating">
+                                        <select name="id_empleado" id="id_empleado" class="form-select"
+                                                data-control="select2">
+                                            <option value="">Seleccione</option>
+                                            @foreach ($empleados as $empleado)
+                                                <option value="{{ $empleado->id_empleado }}" {{($empleado->id_empleado==$solicitud->id_empleado)?'selected':''}}>
+                                                    {{ $empleado->nombre_empleado }}->
+                                                    {{ $empleado->dui }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--begin::row group-->
+                                <div class="form-group row mb-5">
 
                                     <div class="form-floating col-lg-6">
                                         <input type="number" step="any" name="monto_solicitado"
@@ -488,9 +503,9 @@
                     <div class="tab-pane fade show" id="tabReferencias" role="tabpanel">
                         <!--begin::row group-->
                         <div class="form-group row mb-5">
-                            <div class="form-floating col-lg-10">
+                            <div class="form-floating col-lg-5">
                                 <select name="id_referencia" id="id_referencia" class="form-select"
-                                    data-control="select2">
+                                        data-control="select2">
                                     <option value="">Seleccione</option>
 
                                     @foreach ($referencias as $referencia)
@@ -502,6 +517,19 @@
                                     @endforeach
                                 </select>
                                 <label>Referencia:</label>
+                            </div>
+                            <div class="form-floating col-lg-5">
+                                <select name="parentesco_id" id="parentesco_id" class="form-select"
+                                        data-control="select2">
+                                    <option value="">Seleccione</option>
+
+                                    @foreach ($parentescos as $parentesco)
+                                        <option value="{{ $parentesco->id_parentesco }}">
+                                            {{ $parentesco->parentesco }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <label>Parentesco:</label>
                             </div>
                             <div class="form-floating col-lg-2">
                                 <button type="button" class="btn btn-danger" id="btnAddReferencia"
@@ -521,6 +549,7 @@
                                     <thead class="th-dark">
                                         <tr class="fw-semibold fs-5 text-gray-800 border-bottom-2 border-gray-200">
                                             <th class="min-w-230px">Acciones</th>
+                                            <th>#</th>
                                             <th>Nombre</th>
                                             <th>Dui</th>
                                             <th>Parentesco</th>

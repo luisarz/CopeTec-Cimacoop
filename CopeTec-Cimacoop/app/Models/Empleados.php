@@ -19,4 +19,8 @@ class Empleados extends Model
     {
         return $this->hasMany(Clientes::class, 'id_empleado');
     }
+    public function profesionEmpleado()
+    {
+        return $this->belongsTo(Profesion::class, 'profesion_id','id');
+    }
 }

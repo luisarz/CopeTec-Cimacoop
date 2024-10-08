@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Empleados;
+use App\Models\Profesion;
 use Illuminate\Http\Request;
 
 class EmpleadoController extends Controller
@@ -9,19 +10,22 @@ class EmpleadoController extends Controller
     //
     public function index()
     {
-        $empleados = Empleados::all();
+        $empleados = Empleados::with('profesionEmpleado')->paginate(10);
+//        dd($empleados);
         return view("empleados.index", compact("empleados"));
     }
 
     public function add()
     {
-        return view("empleados.add");
+        $profesiones=Profesion::all();
+        return view("empleados.add",compact("profesiones"));
     }
 
     public function edit($id)
     {
         $empleado = Empleados::findOrFail($id);
-        return view("empleados.edit", compact("empleado"));
+        $profesiones=Profesion::all();
+        return view("empleados.edit", compact("empleado","profesiones"));
     }
 
 
@@ -31,7 +35,7 @@ class EmpleadoController extends Controller
         $empleado->nombre_empleado = $request->nombre_empleado;
         $empleado->genero_empleado = $request->genero_empleado;
         $empleado->estado_familiar = $request->estado_familiar;
-        $empleado->profesion = $request->profesion;
+        $empleado->profesion_id = $request->profesion_id;
         $empleado->domicilio_departamento = $request->domicilio_departamento;
         $empleado->direccion = $request->direccion;
         $empleado->nacionalidad = $request->nacionalidad;
@@ -56,7 +60,7 @@ class EmpleadoController extends Controller
         $empleado->nombre_empleado = $request->nombre_empleado;
         $empleado->genero_empleado = $request->genero_empleado;
         $empleado->estado_familiar = $request->estado_familiar;
-        $empleado->profesion = $request->profesion;
+        $empleado->profesion_id = $request->profesion_id;
         $empleado->domicilio_departamento = $request->domicilio_departamento;
         $empleado->direccion = $request->direccion;
         $empleado->nacionalidad = $request->nacionalidad;

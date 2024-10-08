@@ -46,7 +46,7 @@
                             <td>{{ $empleado->genero_empleado }}</td>
                             <td>{{ $empleado->dui }}</td>
                             <td>{{ $empleado->domicilio_departamento }}</td>
-                            <td>{{ $empleado->profesion }}</td>
+                            <td>{{ $empleado->profesionEmpleado->name??'S/N' }}</td>
 
                         </tr>
                     @endforeach

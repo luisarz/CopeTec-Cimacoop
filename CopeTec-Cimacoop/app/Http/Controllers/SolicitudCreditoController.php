@@ -7,6 +7,7 @@ use App\Models\Cajas;
 use App\Models\Catalogo;
 use App\Models\Clientes;
 use App\Models\Cuentas;
+use App\Models\Empleados;
 use App\Models\LiquidacionModel;
 use App\Models\Movimientos;
 use App\Models\Parentesco;
@@ -66,6 +67,7 @@ class SolicitudCreditoController extends Controller
         $idSolicitud = Str::uuid()->toString();
         $referencias = Referencias::select('id_referencia','nombre', 'parentesco', 'dui', 'lugar_trabajo')->get();
         $parentescos=Parentesco::all();
+        $empleados = Empleados::all();
         $destinoCredito = Catalogo::where('tipo_catalogo', '=', 1)
             ->where('descripcion', 'like', '%prestamo%')
             ->get();
@@ -80,7 +82,8 @@ class SolicitudCreditoController extends Controller
                 'referencias',
                 'destinoCredito',
                 'tiposGarantia',
-                'parentescos'
+                'parentescos',
+                'empleados'
             )
         );
     }
@@ -89,18 +92,12 @@ class SolicitudCreditoController extends Controller
         $solicitud = SolicitudCredito::where('id_solicitud', $id)->first();
         $clientes = Clientes::whereNotIn('estado', [0, 7])->get();
         $cliente = Clientes::where('id_cliente', $solicitud->id_cliente)->first();
-        $referencias = Referencias::select(
-            'id_referencia',
-            'nombre',
-            'parentesco',
-            'dui',
-            'lugar_trabajo'
-        )->get();
-        $destinoCredito = Catalogo::select('id_cuenta', 'descripcion', 'numero')->where('descripcion', 'like', '%prestamo%')
-            ->get();
 
+        $referencias = Referencias::select('id_referencia', 'nombre', 'dui', 'lugar_trabajo')->get();
+        $destinoCredito = Catalogo::select('id_cuenta', 'descripcion', 'numero')->where('descripcion', 'like', '%prestamo%')->get();
         $tiposGarantia = TipoGarantia::all();
-
+        $parentescos=Parentesco::all();
+        $empleados = Empleados::all();
         // dd($destinoCredito);
 
 
@@ -112,7 +109,9 @@ class SolicitudCreditoController extends Controller
                 "referencias",
                 "cliente",
                 'destinoCredito',
-                'tiposGarantia'
+                'tiposGarantia',
+                'empleados',
+                'parentescos'
             )
         );
     }
@@ -126,7 +125,7 @@ class SolicitudCreditoController extends Controller
         $solicitud = new SolicitudCredito();
         $solicitud->id_solicitud = $request->id_solicitud;
         $numeroSolicitud = SolicitudCredito::max('numero_solicitud');
-
+        $solicitud->id_empleado= $request->id_empleado;
         $solicitud->numero_solicitud = $numeroSolicitud + 1;
         $solicitud->id_cliente = $request->id_cliente;
         $solicitud->id_socio = null;

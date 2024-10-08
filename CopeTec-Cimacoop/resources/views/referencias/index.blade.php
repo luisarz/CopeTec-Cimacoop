@@ -22,7 +22,7 @@
                     <tr class="fw-semibold fs-3 text-gray-800 border-bottom-2 border-gray-200">
                         <th >Acciones</th>
                         <th >Nombre</th>
-                        <th >Parentesco</th>
+                        <th >DUI</th>
                         <th >Telefono</th>
                         <th >Direccion</th>
                         <th >Trabajo</th>
@@ -32,9 +32,10 @@
                     @foreach ($referencias as $referencia)
                         <tr>
                             <td><a href="javascript:void(0);" onclick="alertDelete({{ $referencia->id_referencia }})"
-                                    class="badge badge-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
-                                    Eliminar</a> <a href="/referencias/{{ $referencia->id_referencia }}"
-                                    class="badge badge-primary"><i class="fa-solid fa-pencil text-white"></i> &nbsp;
+                                    class="btn-sm btn btn-danger"><i class="fa-solid fa-trash text-white"></i> &nbsp;
+                                    Eliminar</a>
+                                <a href="/referencias/{{ $referencia->id_referencia }}"
+                                    class="btn-sm btn btn-info"><i class="fa-solid fa-pencil text-white"></i> &nbsp;
                                     Modificar</a></td>
                             <td>{{ $referencia->nombre }}</td>
                             <td>{{ $referencia->parentesco }}</td>
